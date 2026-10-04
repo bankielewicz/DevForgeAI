@@ -1,4 +1,4 @@
-// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v9).
+// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v10).
 //
 // It records each run of a tracked skill as SPEC-012's event log, runs SPEC-012's evaluator on a timer, and shows
 // the run in the status line, a two-row band above the prompt and toasts. In enforce mode it refuses the write
@@ -14,11 +14,12 @@ import type { EngineInterface, Register } from 'claude-code'
 import type { ProgressMode, ProgressModeSource, ProgressRun, ProgressSummary } from '../types'
 import {
   adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
-  hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, keptContent, markedStep, newFlagToasts, questionRefusal,
-  questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, runId, skillName, statusText, stepLabel,
+  hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, isWaiverQuestion, keptContent, markedStep, newFlagToasts,
+  questionRefusal, questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, reviewItems, reviewQuestion,
+  runId, skillName, statusText, stepLabel, waiverAnswer,
   stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
 } from './progress-core'
-import type { Fields, ProgressState, ToolOutcome } from './progress-core'
+import type { Fields, ProgressState, Refused, ToolOutcome } from './progress-core'
 
 type E = EngineInterface
 
@@ -36,6 +37,8 @@ const TODOS = atom({ plugin: 'devforgeai', key: 'todos' } as const, {} as Record
 const HINTED = atom({ plugin: 'devforgeai', key: 'hinted' } as const, false)
 const ADHERED = atom({ plugin: 'devforgeai', key: 'adhered' } as const, null as string | null)
 const REFUSALS = atom({ plugin: 'devforgeai', key: 'refusals' } as const, {} as Record<string, number>)
+const REFUSED = atom({ plugin: 'devforgeai', key: 'refused' } as const, [] as Refused[])
+const REVIEWED = atom({ plugin: 'devforgeai', key: 'reviewed' } as const, null as string | null)
 
 const EVALUATOR_TIMEOUT = 5000
 const START_TIMEOUT = 3000
@@ -595,6 +598,7 @@ async function openRun($: E, r: string, skill: string, checklist: string): Promi
   await update($, TASKS, () => ({}))
   await update($, TODOS, () => ({}))
   await update($, REFUSALS, () => ({}))  // the stuck notice counts per run (BEH-25)
+  await update($, REFUSED, () => [])  // and the review lists this run's refusals (BEH-26)
   if ((await read($, OFF)) === LOG_FULL) await update($, OFF, () => null)
   pendingReport = null
   // A skill that follows the convention, in a session with no task tools, is placed by guessing: say so once (BEH-23).
@@ -667,6 +671,9 @@ async function noteRefusal($: E, state: ProgressState, seq: number): Promise<voi
     const cause = refusalCause(state, seq)
     const run = await read($, RUN)
     if (cause === null || run === null) return
+    // Every refusal is kept for the run's review: a refused question leaves no event (BEH-25, BEH-26).
+    const gate = state.gate.kind ?? 'write'
+    await update($, REFUSED, r => [...r, { gate, seq, step: cause.step, type: cause.type, message: cause.message }])
     let count = 0
     await update($, REFUSALS, r => {
       count = (r[cause.key] ?? 0) + 1
@@ -680,6 +687,59 @@ async function noteRefusal($: E, state: ProgressState, seq: number): Promise<voi
     // The notice is the user's; failing to give it never lets a refused call through (review N1).
     await recover($, 'tool.call', err)
   }
+}
+
+/** The end-of-run review (BEH-26, ERR-15): once every step of the open run is reached, once per run, in a session
+ *  where something draws, each item (one per cause) is asked in Claude Code's own dialog, Accept or Challenge, and the
+ *  answers go to the run's review.jsonl and adapter.log. Nothing is sent to Claude. */
+async function review($: E): Promise<void> {
+  const run = await read($, RUN)
+  const summary = await read($, SUMMARY)
+  if (run === null || summary === null || summary.current !== null || summary.ended !== null) return
+  if ((await read($, REVIEWED)) === run.id || !(await hasSurface($))) return
+  let flags: ProgressState['flags'] = []
+  try {
+    flags = (JSON.parse(await $.fs.read(`${run.dir}/state.json`)) as ProgressState).flags ?? []
+  } catch {
+    flags = []
+  }
+  const items = reviewItems(await read($, REFUSED), flags)
+  if (items.length === 0) return
+  await update($, REVIEWED, () => run.id)
+  const lines: string[] = []
+  let dismissed: string | null = null
+  let said = false
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i]
+    let answer = 'dismissed'
+    let reason: string | null = null
+    if (dismissed === null) {
+      try {
+        const got = await $.ui.ask(reviewQuestion(run.skill, i + 1, items.length, item),
+          { options: ['Accept', 'Challenge'], header: 'Review' })
+        if (got === 'Accept') answer = 'accept'
+        else {
+          answer = 'challenge'
+          reason = got === 'Challenge' ? null : got
+        }
+      } catch (err) {
+        dismissed = firstLine(message(err)) || 'dismissed'
+      }
+    }
+    const now = new Date(await $.clock.now()).toISOString().replace(/\.\d{3}Z$/, 'Z')
+    lines.push(JSON.stringify({ time: now, run: run.id, item: i + 1, gate: item.gate, seq: item.seq, step: item.step,
+      type: item.type, message: item.message, refused: item.count, answer, reason }))
+    try {
+      await $.fs.write(`${run.dir}/review.jsonl`, lines.join('\n') + '\n')
+    } catch {
+      // the review's record can't be kept; the answers still go to adapter.log
+    }
+    // ERR-15: the item the dialog was dismissed on names why; the ones after it were never asked.
+    const why = dismissed !== null && !said ? ` (${dismissed})` : ''
+    if (why) said = true
+    await adapterLog($, 'review', `${i + 1}/${items.length} ${answer}: ${item.step} ${item.type}${why}`)
+  }
+  await notify($, `${run.skill}: your review is in devforgeai/progress/runs/${run.id}/review.jsonl`)
 }
 
 /** Enforce mode's write-gate check (BEH-08): the refusal text, or null to let the call go on. */
@@ -819,7 +879,8 @@ export const register: Register = (on, options) => {
       if (!(await recording($, input.agentId))) return next(e)
       if (tool === 'AskUserQuestion') {
         // Claude Code's own question only: a mod's $.ui.ask arrives here too (BEH-04, BEH-21).
-        if (isEngine(next.origin) && (await read($, MODE)) === 'enforce' && python) {
+        // The waiver question is never a question gate, so it isn't checked (BEH-21, version 10).
+        if (isEngine(next.origin) && (await read($, MODE)) === 'enforce' && python && !isWaiverQuestion(input)) {
           let refusal: string | null = null
           try {
             refusal = await questionCheck($, input)
@@ -838,7 +899,10 @@ export const register: Register = (on, options) => {
         try {
           // A mod's $.ui.ask arrives here too; only Claude Code's own question is the user's answer (BEH-04).
           if (isEngine(next.origin)) {
-            await record($, 'answer', { answered: isAnswered(result as unknown as ToolOutcome), ...questionTag(input) })
+            const outcome = result as unknown as ToolOutcome
+            await record($, 'answer', isWaiverQuestion(input)
+              ? { answered: isAnswered(outcome), waiver: waiverAnswer(input, outcome) }
+              : { answered: isAnswered(outcome), ...questionTag(input) })
           }
         } catch (err) {
           await recover($, 'tool.call', err)
@@ -929,11 +993,20 @@ export const register: Register = (on, options) => {
   })
 
   on('turn.complete', async ($, e, next) => {
-    if (await recording($, e.agentId)) {
+    const main = await recording($, e.agentId)
+    if (main) {
       turnOpen = false
       await record($, 'turn', { phase: 'end' }, false)
     }
-    return next(e)
+    const result = await next(e)
+    if (main) {
+      try {
+        await review($)
+      } catch (err) {
+        await recover($, 'turn.complete', err)
+      }
+    }
+    return result
   }).catch(async ($, e, next) => {
     if (!next.called) await recover($, 'turn.complete', next.error)
     return next(e)

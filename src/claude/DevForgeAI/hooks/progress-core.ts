@@ -17,7 +17,7 @@ export const FORMAT = 'devforgeai-events/1'
 const ORDER: Record<string, readonly string[]> = {
   'skill-loaded': ['format', 'skill', 'checklist', 'host', 'taskList', 'mode', 'modeSource'],
   tool: ['tool', 'path', 'command', 'exit', 'error', 'content'],
-  answer: ['answered', 'step', 'outside'],
+  answer: ['answered', 'step', 'outside', 'waiver'],
   prompt: [],
   reply: ['text'],
   turn: ['phase'],
@@ -423,11 +423,36 @@ export function questionRefusal(state: ProgressState, seq: number, marked: numbe
   return QUESTION_REFUSAL + (tagged ? '' : QUESTION_TAG)
 }
 
-/** A question's step tag from its input's metadata.source (DM-01, version 8): `step` for devforgeai_step:N, `outside`
- *  for a source naming something else, nothing for no source or a malformed tag. */
-export function questionTag(input: Fields): { step?: number; outside?: true } {
+/** The waiver question's own tag (DM-01, version 10). */
+export const WAIVER_TAG = 'devforgeai_waiver'
+const WAIVER_LABELS: Record<string, 'proceed' | 'ask'> = { 'Proceed without questions': 'proceed', 'Ask me as usual': 'ask' }
+
+function sourceOf(input: Fields): unknown {
   const meta = input.metadata
-  const source = meta !== null && typeof meta === 'object' ? (meta as Fields).source : undefined
+  return meta !== null && typeof meta === 'object' ? (meta as Fields).source : undefined
+}
+
+/** The waiver question (DM-01, version 10): source exactly devforgeai_waiver, in a call that asks exactly one
+ *  question. Never checked at the question gate (BEH-21). */
+export function isWaiverQuestion(input: Fields): boolean {
+  return sourceOf(input) === WAIVER_TAG && Array.isArray(input.questions) && input.questions.length === 1
+}
+
+/** Which fixed label a waiver question's answer picked: proceed, ask, or other for anything typed, any other text and
+ *  a dismissal; a typed answer equal to a label is that label, since the result can't tell them apart (DM-01). */
+export function waiverAnswer(input: Fields, outcome: ToolOutcome): 'proceed' | 'ask' | 'other' {
+  if (!isAnswered(outcome)) return 'other'
+  const question = (input.questions as Fields[])[0]?.question
+  const answers = (outcome.result as { answers?: Record<string, unknown> }).answers ?? {}
+  const answer = typeof question === 'string' ? answers[question] : undefined
+  return typeof answer === 'string' && answer in WAIVER_LABELS ? WAIVER_LABELS[answer] : 'other'
+}
+
+/** A question's step tag from its input's metadata.source (DM-01, version 8): `step` for devforgeai_step:N, `outside`
+ *  for a source naming something else, nothing for no source or a malformed tag. The waiver source with more than one
+ *  question is `outside` too, so its questions can't take the waiver's exemption (version 10). */
+export function questionTag(input: Fields): { step?: number; outside?: true } {
+  const source = sourceOf(input)
   if (typeof source !== 'string') return {}
   const m = /^devforgeai_step:([1-9][0-9]*)$/.exec(source)
   if (m) return { step: Number(m[1]) }
@@ -546,6 +571,46 @@ export function refusalCause(state: ProgressState, seq: number):
   const userOwned = state.steps.some(s => s.n === flag.step && s.userOwned === true)
   return { key: `${state.gate.kind}:${flag.type}:${flag.step}`, step: flag.step, message: flag.message, type: flag.type,
     userOwned }
+}
+
+/** One refusal kept for the run's review (BEH-25, BEH-26; version 10). */
+export type Refused = { gate: string; seq: number; step: number; type: string; message: string }
+
+/** One review item: a cause (the gate's kind, the flag's type and step) with its first message and its number of
+ *  refusals, 0 for a flag no refusal has (BEH-26). */
+export type ReviewItem = { gate: string; seq: number; step: number; type: string; message: string; count: number }
+
+/** The run's review items, one per cause: the refusals' causes in the order of their first refusal, then the flags'
+ *  causes no refusal has, in the order of their first flag (BEH-26). */
+export function reviewItems(refused: readonly Refused[], flags: readonly StateFlag[]): ReviewItem[] {
+  const items: ReviewItem[] = []
+  const byKey = new Map<string, ReviewItem>()
+  const key = (x: { gate: string; type: string; step: number }) => `${x.gate}:${x.type}:${x.step}`
+  for (const r of refused) {
+    const k = key(r)
+    const item = byKey.get(k)
+    if (item) item.count += 1
+    else {
+      const fresh = { gate: r.gate, seq: r.seq, step: r.step, type: r.type, message: r.message, count: 1 }
+      byKey.set(k, fresh)
+      items.push(fresh)
+    }
+  }
+  for (const f of [...flags].sort((a, b) => a.seq - b.seq)) {
+    const k = key(f)
+    if (byKey.has(k)) continue
+    const fresh = { gate: f.gate, seq: f.seq, step: f.step, type: f.type, message: f.message, count: 0 }
+    byKey.set(k, fresh)
+    items.push(fresh)
+  }
+  return items
+}
+
+/** A review item's question (BEH-26). */
+export function reviewQuestion(skill: string, i: number, n: number, item: ReviewItem): string {
+  const what = item.count > 0 ? `refused ${item.count} time(s)` : 'flagged'
+  return `${skill} run, item ${i} of ${n}: ${what} at step ${item.step} (${item.gate} gate): ${item.message}. `
+    + 'Accept it, or challenge it?'
 }
 
 /** The question gate's flag types (SPEC-012 BEH-08), whose stuck notice keeps the task-list advice. */
