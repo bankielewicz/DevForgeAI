@@ -1211,6 +1211,9 @@ Decided by Bryan on 2026-10-04, for version 11 (the waiver follow-ups):
   (`command.run` can answer a slash command without running it; Ctrl+C, Ctrl+D and closing the terminal can't be
   caught), and noted that the legacy DevForgeAI framework's spec-driven-dev skill called a skill within a skill and
   returned to the first where it left off ("light qa"); he can give its path. Not specified until that cycle.
+- Recorded for the same next cycle (Bryan, 2026-10-04), on a note that SPEC-003 version 11's Write nothing leaves
+  steps 9 to 11 pending, so the tracker sees the run as unfinished (no end-of-run review; the planned /clear
+  confirmation would ask after it): "yes - a deliberate write nothing should count as finished or ended session.  a solution is that when the skill is ran a subsequent time, it could pickup the session json file (or whatever is used to track progress) to understand its progress and resume if necessary or ignore and start fresh". Until then a Write nothing run stays open and unreviewed.
 
 Decided by Bryan on 2026-10-02:
 - The adapter lives in the plugin (`src/claude/DevForgeAI/hooks/`).
@@ -1341,3 +1344,4 @@ Notes:
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 (the waiver follow-ups): the end-of-run review only at a turn that ended with an answer, never right after an Esc, a refusal or an error (BEH-26, new VER-37); a challenge stays a record; a run that ends before every step is reached recorded for the next cycle, in his words; status in-review | frontmatter, §1, BEH-26, VER-37, §10, §11, §13 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: §1 states the answered-turn condition; a turn.complete with no reason asks nothing; VER-37 confirms the field live first | §1, BEH-26, VER-37 |
 | 11 | 2026-10-04 | Bryan | Approved | status |
+| 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's decision for the next cycle that a deliberate Write nothing counts as a finished run, and his resume idea | §13 |

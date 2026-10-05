@@ -833,6 +833,8 @@ follows the same contract.
 - Resolved (Bryan, 2026-10-04, version 11: "Two answers for reuse"): found by the skill review of SKL-003 v9, a
   reuse had nothing 'Write it with the outcome open' could write (reuse's review record sets outcome: reuse), so
   step 8 offers only Confirm reuse and Write nothing for it.
+- Recorded for the next cycle (Bryan, 2026-10-04): a deliberate Write nothing should count as a finished run (or an
+  ended session), not one stopped partway; with SPEC-013's next-cycle item, which has his words and his resume idea.
 - Resolved (Bryan, 2026-10-03, with SPEC-012 version 5): tracked skills keep their checklist in the task list,
   and a question asked with no step in progress is refused in enforce mode; a skill whose runs don't keep the
   list is fixed through its spec (SPEC-012 §4).
@@ -887,3 +889,4 @@ follows the same contract.
 | 10 | 2026-10-04 | Bryan | Approved | status |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Found by the skill review of SKL-003 v9: for reuse, step 8 offers only 'Confirm reuse' and 'Write nothing' (BEH-08) | §1, BEH-08, §13 |
 | 11 | 2026-10-04 | Bryan | Approved ('Two answers for reuse') | status |
+| 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's decision for the next cycle that Write nothing counts as a finished run | §13 |
