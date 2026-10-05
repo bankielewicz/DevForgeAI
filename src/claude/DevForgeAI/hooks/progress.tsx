@@ -61,6 +61,8 @@ const skillsLoading = new Map<string, number>()
 /** Skills whose load inside a Skill call opened a new run: that call's own dispatch still sees the old run, so it
  *  records nothing when it returns (it would write the old run's log and $.state back over the new one). */
 const switchedIn = new Set<string>()
+/** The run opened last, as a module value every dispatch sees (a $.state read sees its own dispatch's moment). */
+let openedId: string | null = null
 let disabled = false
 let modeSession: string | null = null
 // The root the mode was resolved for: the local preference file is per checkout (BEH-16).
@@ -559,8 +561,9 @@ async function evaluateMarked($: E): Promise<void> {
       await ensureIgnore($, rootOf(run)).catch(() => undefined)
       const got = await evaluate($, rootOf(run), `${run.dir}/events.jsonl`, `${run.dir}/state.json`, EVALUATOR_TIMEOUT)
       const open = await read($, RUN)
-      // A run that opened while the evaluator ran keeps its own summary and flags.
-      if (open === null || open.id !== run.id) return
+      // A run that opened while the evaluator ran keeps its own summary and flags; this dispatch's $.state may not show
+      // it yet (a nested load opens it mid-turn), so the module's id is checked too.
+      if (open === null || open.id !== run.id || (openedId !== null && openedId !== run.id)) return
       if (typeof got === 'string') await failOpen($, got)
       else await absorb($, run, got)
     } finally {
@@ -611,6 +614,7 @@ async function openRun($: E, r: string, skill: string, checklist: string): Promi
   const run: ProgressRun = { id, skill, seq: 1, dir, root: r }
   if (!(await writeLog($, run, [line]))) return
   await update($, RUN, () => run)
+  openedId = run.id
   await update($, LAST, () => now)
   await update($, MARKED, () => true)
   await update($, SUMMARY, () => null)
@@ -739,7 +743,7 @@ async function nest($: E, name: string): Promise<string | null> {
   if (!skillsLoading.has(name)) {
     if (trail.length) {
       await update($, TRAIL, () => [])
-      await adapterLog($, 'trail', 'empty (a load the user typed)')
+      await adapterLog($, 'trail', 'empty (a load with no Skill call of the main loop in flight)')
     }
     return null
   }
@@ -748,22 +752,22 @@ async function nest($: E, name: string): Promise<string | null> {
   if (run === null || (summary !== null && summary.ended !== null) || Object.keys(tasks).length === 0) return null
   if (run.skill === name) return null
   await recordChain
-  let step: number | null = markedStep(await linesOf($, run))
+  const lines = await linesOf($, run)
+  if (lines.some(l => l.includes('"kind":"run-end"'))) return null  // stopped, its run-end not yet evaluated
+  let steps: ProgressState['steps'] | null = null
+  try {
+    steps = (JSON.parse(await $.fs.read(`${run.dir}/state.json`)) as ProgressState).steps ?? null
+  } catch {
+    // no evaluation yet: the marked step stands as the task list gives it
+  }
+  let step: number | null = markedStep(lines, Infinity, steps)
   if (step === null) step = summary?.current ?? null
   if (step === null) return null
-  let kept = trail
   const at = trail.findIndex(t => t.skill === name)
-  if (at >= 0) {
-    kept = trail.slice(0, at)
-    await adapterLog($, 'trail', `drop ${name} and ${trail.length - at - 1} above (already on the trail)`)
-  }
-  const next = [...kept.filter(t => t.skill !== run.skill), { skill: run.skill, step, tasks: { ...tasks } }]
-  try {
-    await update($, TRAIL, () => next)
-  } catch (err) {
-    await recover($, 'skill.prompt', err)
-    return null
-  }
+  const kept = at >= 0 ? trail.slice(0, at) : trail
+  const next = [...kept, { skill: run.skill, step, tasks: { ...tasks } }]
+  await update($, TRAIL, () => next)
+  if (at >= 0) await adapterLog($, 'trail', `drop ${name} and ${trail.length - at - 1} above (already on the trail)`)
   await adapterLog($, 'trail', `push ${run.skill} at step ${step} (${next.length} on the trail)`)
   return returnLine(run.skill, step)
 }
@@ -980,10 +984,15 @@ export const register: Register = (on, options) => {
       if (!(await tracked($, r, name))) return out
       ensureTimer($)
       // The trail of return points (BEH-29): taken before BEH-03 ends the open run.
-      const line = await nest($, name)
+      let line: string | null = null
+      try {
+        line = await nest($, name)
+      } catch (err) {
+        await recover($, 'skill.prompt', err)  // the trail never stops BEH-03's switch
+      }
+      if (skillsLoading.has(name)) switchedIn.add(name)  // before the switch, so the Skill call records nothing after it
       if ((await read($, RUN)) !== null) await endRun($, 'another-skill', EVALUATOR_TIMEOUT)
       await openRun($, r, name, out.text)
-      if (skillsLoading.has(name)) switchedIn.add(name)
       if (line !== null) return { ...out, text: `${out.text}\n\n${line}` }
     } catch (err) {
       // After next, a failure is the adapter's own: tell the user, keep the skill's text (BEH-14).
@@ -1073,7 +1082,10 @@ export const register: Register = (on, options) => {
       if (loading !== null) {
         const n = (skillsLoading.get(loading) ?? 1) - 1
         if (n > 0) skillsLoading.set(loading, n)
-        else skillsLoading.delete(loading)
+        else {
+          skillsLoading.delete(loading)
+          switchedIn.delete(loading)
+        }
       }
     }
   }).catch(async ($, e, next) => {
@@ -1101,7 +1113,10 @@ export const register: Register = (on, options) => {
   })
 
   on('turn.start', async ($, e, next) => {
-    if ((e as unknown as Fields).agentId === undefined) skillsLoading.clear()
+    if ((e as unknown as Fields).agentId === undefined) {
+      skillsLoading.clear()
+      switchedIn.clear()
+    }
     if (await recording($, (e as unknown as Fields).agentId)) {
       turnOpen = true
       await record($, 'turn', { phase: 'start' }, false)

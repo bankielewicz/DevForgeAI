@@ -3,7 +3,7 @@ import {
   adherenceText, bandRows, editResult, eventLine, finalTimeout, exitOf, fit, followsTaskList, hasTaskList, isAnswered,
   isEngine, isFailed, isPersonPrompt, isTracked, keptContent, newFlagToasts, questionRefusal, refusalText, relPath,
   refusalCause, replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf, stuckAdvice,
-  stuckText, summaryOf, taskIdOf,
+  stuckText, summaryOf, taskIdOf, returnLine, trailNote, returnedTo,
   todoSteps, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT, QUESTION_REFUSAL, QUESTION_TAG,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
@@ -289,4 +289,17 @@ test('VER-38: a stopped run reads stopped at step n in the status line and the b
   expect(bandRows(summary, 'observe').row1.endsWith('  stopped at step 8')).toBe(true)
   const ended = summaryOf({ ...state, ended: 'clear' })
   expect(statusText(ended, 'observe', false, null)).toBe('architecture ended')
+})
+
+// VER-41 (SPEC-013 v13): the trail's texts and its pop rule.
+test('VER-41: the return line, the trail note, and which TaskUpdate shows Claude back', () => {
+  expect(returnLine('architecture', 7)).toBe("This skill was loaded by architecture at step 7. When this skill's work is done, continue architecture at step 7.")
+  const trail = [{ skill: 'brainstorm', step: 4, tasks: { '1': 1, '4': 4 } }, { skill: 'architecture', step: 7, tasks: { '7': 7, '8': 8 } }]
+  expect(trailNote('spec-lookup', trail)).toBe('Return points (from the progress tracker): when spec-lookup is done, continue architecture at step 7; then brainstorm at step 4.')
+  expect(returnedTo(trail, '7', 'in_progress')).toBe(-1)
+  expect(returnedTo(trail, '7', 'completed')).toBe(1)
+  expect(returnedTo(trail, '8', 'in_progress')).toBe(1)
+  expect(returnedTo(trail, '1', 'in_progress')).toBe(0)
+  expect(returnedTo(trail, '99', 'completed')).toBe(-1)
+  expect(returnedTo(trail, 7, 'completed')).toBe(-1)
 })
