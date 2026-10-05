@@ -35,7 +35,8 @@ worktree: the folder follows the work's branch, so each keeps its own handoff. W
 
 **3. Decisions.** Under `### Decided`, each decision with who decided, the date and their words in double quotes:
 `- CSV only, no Excel: Dana, 2026-10-04, "CSV is enough for now"`. With nothing decided, the line `None.` without a
-dash. Under `### Open`, each question still the user's, with the options as the user saw them. Never move an open
+dash. A fact or a learning the user states is no decision: it goes to section 2 (marked how it was checked) or 6.
+Under `### Open`, each question still the user's, with the options as the user saw them. Never move an open
 question to Decided because it seems settled, and never write a decision to fill the section: only the user's words
 decide.
 

@@ -32,6 +32,9 @@ Don't save:
 3. Add or update its index line.
 4. Name each saved or updated memory in the report.
 
+A log, notes or papercuts file that the session's instructions ask to keep isn't a memory system: this skill
+doesn't write it. Name it in the report, so the user can copy the learning there.
+
 ## When there is none, or a write is refused
 
 When the session's instructions describe no memory system, or a memory write is refused (a read-only folder, a

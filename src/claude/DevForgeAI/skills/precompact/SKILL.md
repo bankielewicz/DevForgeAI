@@ -32,7 +32,8 @@ This skill runs on its own, never between other skills, and hands off to none: i
 - **Bash**: small read-only state checks and the checker script, each a command of its own.
 - **Read**: the handoff folder's earlier files, and this skill's templates and references when a step names them.
 - **Write** and **Edit**: the handoff files, `devforgeai/handoff/.gitignore`, the session's plan or task file, and
-  memory files. Change no other file.
+  memory files. Change no other file, even one that another instruction asks to keep up to date (a log, a notes or
+  papercuts file, a changelog): name it in the report as a place the user may want a learning copied.
 
 Ask the user nothing. What can't be established goes into START-HERE section 3, under `### Open`.
 
@@ -111,8 +112,9 @@ and searching the repository and memory before asking.
 ### 5. Save learnings to memory
 
 When the session's instructions describe a memory system, save the new, durable learnings in its format, updating an
-existing memory rather than adding a duplicate; see [references/memory.md](references/memory.md). With no memory
-system, or when a write is refused, the learnings stay in START-HERE section 6 and the report says why.
+existing memory rather than adding a duplicate; see [references/memory.md](references/memory.md). Memory is that
+system only (its memory folder and index), never a log or notes file another instruction names. With no memory
+system, or when a write is refused, the learnings stay in START-HERE section 6, and the report says why.
 
 ### 6. Check
 
@@ -137,7 +139,8 @@ fence longer than any fence inside it, so the user can paste it after `/compact`
 
 ## Decisions that belong to the user
 
-Never turn outstanding work into a decision. A choice the user hasn't made goes under `### Open` with the options as
+Never turn outstanding work into a decision, and never file a fact or a learning the user states as one: a decision
+is a choice between options, made by the user. A choice the user hasn't made goes under `### Open` with the options as
 the user saw them; the handoff records no choice the user didn't make, and section 5 says what waits for the user.
 
 ## Errors
