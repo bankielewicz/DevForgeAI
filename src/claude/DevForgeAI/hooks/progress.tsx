@@ -392,9 +392,10 @@ async function writeLog($: E, run: ProgressRun, lines: string[], open = true): P
 
 /** One item of the record chain: events, and every change of which run is open (a push, an unwind, a switch, a stop,
  *  session.end's run-ends), happen one at a time, so an event never lands in a run's log after its switch (version 14).
- *  Inside an item, call only what never waits on the chain: recordNow, appendEvent, linesOf, writeLog, putMany, putFor,
- *  adapterLog, prepareRun, afterOpen, unwindNow, claudeLoadNow, stopTracking. Never record, endOpen, settle,
- *  pendingState or review, which wait on the chain and would wait on the item itself. */
+ *  Inside an item, call only what never waits on the chain: recordNow, appendEvent, endOpenNow, linesOf, writeLog,
+ *  putMany, putFor, adapterLog, prepareRun, afterOpen, returnStepNow, unwindNow, claudeLoadNow, taskStepsNow,
+ *  stopTracking. Never record, settle, pendingState, review, switchRun, finishSwitch, finalEvaluation, stopIfAsked or
+ *  turnEndUnwind, which wait on the chain and would wait on the item itself. */
 function chained<T>(work: () => Promise<T>): Promise<T> {
   const step = recordChain.then(work)
   recordChain = step.catch(() => undefined)

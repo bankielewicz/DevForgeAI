@@ -2425,7 +2425,7 @@ test('VER-44: session.end with a trail of two ends every run, bottom first', asy
   await sk.load($, 'devforgeai:architecture')
   await taskList($, 11, 7, 9)
   await sk.load($, 'devforgeai:spec-lookup')
-  await $.session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } } as Any)
+  await $.session.end({ reason: 'resume', sessionId: 's1', resume: { id: 's1' } } as Any)
   for (const s of ['brainstorm', 'architecture', 'spec-lookup']) {
     expect(logOf(w, s).slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'session-end' })
   }
@@ -2560,8 +2560,10 @@ test('VER-43: with three runs the band names the run just beneath and counts the
   await start($)
   await load($, 'devforgeai:brainstorm', TAGGED)
   await taskList($, 8, 4)
+  await x.w.clock.advance(600)
   await x.load($, 'devforgeai:architecture')
   await taskList($, 11, 7, 9)
+  await x.w.clock.advance(600)
   await x.load($, 'devforgeai:spec-lookup')
   await x.w.clock.advance(600)
   expect(x.w.statuses[x.w.statuses.length - 1]).toBe('spec-lookup 2/5 · in architecture 7/11 · 1 more')
@@ -2648,6 +2650,7 @@ test('VER-43: a run with no known return step pauses nothing, and leaves the run
   await start($)
   await load($, 'devforgeai:brainstorm', TAGGED)
   await taskList($, 8, 4)
+  await w.clock.advance(600)
   await x.load($, 'devforgeai:architecture')         // brainstorm paused at step 4
   await $.tool.call({ tool: 'TaskCreate', subject: '1. Step 1', description: 'd', metadata: { devforgeai_step: 1 } } as Any)
   await w.clock.advance(600)                         // architecture: task IDs, but no step marked and none current
@@ -2942,7 +2945,7 @@ test('VER-44: /clear with a trail ends the paused runs and the open run with cle
 test('VER-44: /clear while nested names the runs beneath, says done or has just started, and keeps with the nested text', async ($, on) => {
   const asked: string[] = []
   const ran: string[] = []
-  let inner: Any = skState('spec-lookup', 5, 2)
+  let inner: Any = undefined  // the evaluator gives the new run no state yet
   const x = xWorld(on, { brainstorm: () => skState('brainstorm', 8, 4), architecture: () => archState(7), 'spec-lookup': () => inner },
     e => (e.questions?.[0]?.header === 'Progress' ? confirming('Keep working', asked)(e) : undefined))
   const { w } = x
@@ -2956,6 +2959,8 @@ test('VER-44: /clear while nested names the runs beneath, says done or has just 
   await x.load($, 'devforgeai:spec-lookup')           // no state for the new run yet
   const kept = (await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)) as Any
   expect(kept.text).toBe('Kept working: the spec-lookup run goes on, and architecture is still paused at step 7.')
+  inner = skState('spec-lookup', 5, 2)
+  await $.tool.call(READ('c.md'))
   await w.clock.advance(600)
   await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)
   inner = skState('spec-lookup', 5, null)
