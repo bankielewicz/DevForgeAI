@@ -56,12 +56,14 @@ def checklist_hash(text):
 class Log:
     """Builds one run's events with fixed run ID, seq and times."""
 
-    def __init__(self, skill, checklist=None, run_suffix="0000abcd", task_list=None):
+    def __init__(self, skill, checklist=None, run_suffix="0000abcd", task_list=None, resumes=None, carried=None,
+                 answered=None):
         self.run = "20261002T120000Z-%s-%s" % (skill, run_suffix)
         self.events = []
         self.add("skill-loaded", format="devforgeai-events/1", skill=skill,
                  checklist=checklist if checklist is not None else checklist_block(skill),
-                 host="claude-code 2.1.287", taskList=task_list)
+                 host="claude-code 2.1.287", taskList=task_list, resumes=resumes, carried=carried,
+                 answered=answered)
 
     def add(self, kind, **fields):
         seq = len(self.events) + 1
@@ -852,6 +854,80 @@ def _():
 @case("waiver-brainstorm-windows")  # VER-39: no task list; the waiver isn't placed in step 5's window
 def _():
     return brn_start(Log("brainstorm")).answer(waiver="proceed").write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+# ---- version 14: carried steps (VER-43) --------------------------------------------------------------
+
+EARLIER_RUN = "20261001T090000Z-%s-1111aaaa"
+
+
+def carrying(skill, carried, answered=None, follow=True):
+    """A run that continues an earlier run (BEH-20): its skill-loaded event names the earlier run in resumes, the carried
+    steps and, for a user-owned step the earlier run's state counted an answer for once its document was written, answered."""
+    checklist = tasked(skill) if follow else checklist_block(skill)
+    return Log(skill, checklist=checklist, task_list=True if follow else None, resumes=EARLIER_RUN % skill,
+               carried=carried, answered=answered)
+
+
+def edit(log, path, content):
+    return log.tool("Edit", path=path, content=content)
+
+
+@case("arch-carried")  # VER-43: steps 1 to 7 carried and marked done again, step 8 answered, then the ARCH write
+def _():
+    log = carrying("architecture", [1, 2, 3, 4, 5, 6, 7])
+    for n in range(1, 8):
+        log.done(n)
+    log.started(8).answer(step=8).done(8).started(9)
+    return log.write(ARCH_PATH, arch("create")), plugin_only(), {}
+
+
+@case("brainstorm-carried-owned")  # VER-43: step 5 carried, no answer in this run: the promoted dispositions are flagged
+def _():
+    log = carrying("brainstorm", [1, 2, 3, 4, 5]).started(6)
+    return log.write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("brainstorm-carried-confirmed")  # VER-43: the same with step 5 marked again and answered before step 6 starts
+def _():
+    log = carrying("brainstorm", [1, 2, 3, 4, 5]).started(5).answer(step=5).done(5).started(6)
+    return log.write(BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("brainstorm-carried-written")  # VER-43: the earlier run's record shows step 5 answered and its BRN written
+def _():
+    log = carrying("brainstorm", [1, 2, 3, 4, 5, 6], answered=[5])
+    return edit(log, BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("brainstorm-carried-written-open")  # VER-43: the BRN was written under Proceed, answered empty: still flagged
+def _():
+    log = carrying("brainstorm", [1, 2, 3, 4, 5, 6], answered=[])
+    return edit(log, BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("carried-answered-unknown")  # VER-43, ERR-10: answered [3] names a step that isn't user-owned: ignored
+def _():
+    log = carrying("brainstorm", [1, 2, 3, 4, 5, 6], answered=[3])
+    return edit(log, BRN_PATH, brn(PROMOTED)), plugin_only(), {}
+
+
+@case("carried-windows")  # VER-43: no step events; the carried steps open no window, so the answer is step 7's
+def _():
+    log = carrying("architecture", [1, 2, 3, 4, 5, 6, 7], follow=False).answer()
+    return log.write(ARCH_PATH, arch()), plugin_only(), {}
+
+
+@case("carried-unknown")  # VER-43, ERR-10: carried [1, 99] carries step 1 and ignores 99
+def _():
+    log = carrying("architecture", [1, 99]).started(2).glob("docs/specs/prd/PRD-*.md")
+    return log, plugin_only(), {}
+
+
+@case("carried-then-evidence")  # VER-43: a carried step that then gets a read of its own is done
+def _():
+    log = carrying("architecture", [1, 2]).started(2).read("docs/specs/prd/PRD-001.md")
+    return log, plugin_only(), {}
 
 
 # ---- writing ------------------------------------------------------------------------------------

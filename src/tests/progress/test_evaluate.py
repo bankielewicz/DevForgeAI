@@ -857,6 +857,132 @@ class SpecRules(Base):
             self.assertEqual((self.step(state, n)["state"], self.step(state, n)["note"]), ("pending", "not reached"))
         self.assertEqual(state["counts"]["afterEnd"], 1)
 
+    # VER-43 (version 14): a run that continues an earlier one carries its steps (BEH-20, ERR-10).
+    @staticmethod
+    def carried_evidence(skill, seq=1):
+        return {"type": "carried", "strength": "strong", "seq": seq,
+                "detail": "carried from the earlier run " + mc.EARLIER_RUN % skill}
+
+    def types(self, state, n):
+        return sorted(e["type"] for e in self.step(state, n)["evidence"])
+
+    def flag_pairs(self, state):
+        return sorted((f["step"], f["type"]) for f in state["flags"])
+
+    def test_ver43_schemas(self):
+        events_v, progress_v = schema_validator("events"), schema_validator("progress")
+        run = "20261002T120000Z-architecture-0000abcd"
+        base = {"run": run, "seq": 1, "time": "2026-10-02T12:00:01Z", "kind": "skill-loaded",
+                "format": "devforgeai-events/1", "skill": "architecture", "checklist": "- [ ] 1. A"}
+        earlier = mc.EARLIER_RUN % "architecture"
+        self.assertEqual(list(events_v.iter_errors(dict(base, resumes=earlier, carried=[1, 2], answered=[5]))), [])
+        self.assertEqual(list(events_v.iter_errors(dict(base, resumes=earlier, carried=[], answered=[]))), [])
+        for bad in ({"resumes": "not-a-run"}, {"carried": [0]}, {"carried": [1, 1]}, {"answered": ["5"]}):
+            self.assertNotEqual(list(events_v.iter_errors(dict(base, **bad))), [], bad)
+        # The state takes the carried state and carried evidence (DM-03), and the new cases' states validate.
+        state, _, _, _ = self.run_case("arch-carried")
+        self.assertEqual([e.message for e in progress_v.iter_errors(state)], [])
+        mutated = json.loads(json.dumps(state))
+        mutated["steps"][0]["state"] = "carried"
+        mutated["steps"][0]["evidence"] = [self.carried_evidence("architecture")]
+        self.assertEqual([e.message for e in progress_v.iter_errors(mutated)], [])
+        for name in ("brainstorm-carried-owned", "brainstorm-carried-confirmed", "carried-windows"):
+            with self.subTest(name):
+                other, _, _, _ = self.run_case(name)
+                self.assertEqual([e.message for e in progress_v.iter_errors(other)], [])
+
+    def test_ver43_arch_carried(self):
+        state, _, _, _ = self.run_case("arch-carried")
+        carried_event = self.events_of("arch-carried", "skill-loaded")[0]
+        self.assertEqual((carried_event["seq"], carried_event["carried"]), (1, [1, 2, 3, 4, 5, 6, 7]))
+        for n in range(1, 8):  # each carried step stays carried although a step event claimed it done again
+            with self.subTest(step=n):
+                s = self.step(state, n)
+                self.assertEqual(s["state"], "carried")
+                self.assertEqual(s["evidence"], [self.carried_evidence("architecture")])
+        self.assertEqual(state["flags"], [])  # a claim on a carried step raises no claimed-not-evidenced flag
+        self.assertEqual(self.step(state, 8)["state"], "done")
+        self.assertEqual(self.types(state, 8), ["answer"])
+        self.assertEqual(self.step(state, 9)["state"], "done")
+        self.assertEqual((state["gate"]["kind"], state["gate"]["refuse"]), ("write", False))
+        self.assertEqual(state["current"], 9)
+
+    def test_ver43_user_owned_step_needs_an_answer_in_this_run(self):
+        owned, _, _, _ = self.run_case("brainstorm-carried-owned")
+        for n in (1, 2, 3, 4):
+            self.assertEqual(self.step(owned, n)["state"], "carried")
+        self.assertIn(self.carried_evidence("brainstorm"), self.step(owned, 5)["evidence"])
+        self.assertEqual(self.step(owned, 5)["state"], "skipped")
+        self.assertEqual(self.step(owned, 6)["state"], "rule-broken")
+        self.assertEqual(self.flag_pairs(owned), [(5, "skipped"), (6, "rule-broken")])
+        self.assertTrue(owned["gate"]["refuse"])
+        confirmed, _, _, _ = self.run_case("brainstorm-carried-confirmed")
+        self.assertEqual(confirmed["flags"], [])
+        self.assertEqual(self.step(confirmed, 5)["state"], "done")
+        self.assertEqual(self.types(confirmed, 5), ["answer", "carried"])
+        for n in (1, 2, 3, 4):
+            self.assertEqual(self.step(confirmed, n)["state"], "carried")
+        self.assertEqual(self.step(confirmed, 6)["state"], "done")
+
+    def test_ver43_written_document_answered_only_when_the_record_shows_it(self):
+        written, _, _, _ = self.run_case("brainstorm-carried-written")
+        self.assertEqual(written["flags"], [])
+        self.assertEqual(self.step(written, 5)["state"], "carried")  # counts as answered, but no evidence of its own
+        self.assertIn(self.carried_evidence("brainstorm"), self.step(written, 5)["evidence"])
+        self.assertEqual(self.step(written, 6)["state"], "done")
+        self.assertEqual(written["current"], 7)
+        for name in ("brainstorm-carried-written-open", "carried-answered-unknown"):
+            with self.subTest(name):  # answered empty, or naming step 3 (not user-owned): step 5 has no answer
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(self.flag_pairs(state), [(5, "skipped"), (6, "rule-broken")])
+                self.assertEqual(self.step(state, 5)["state"], "skipped")
+                self.assertEqual(self.step(state, 6)["state"], "rule-broken")
+        ignored, _, _, _ = self.run_case("carried-answered-unknown")
+        self.assertEqual(self.step(ignored, 3)["state"], "carried")
+        self.assertEqual(self.step(ignored, 3)["evidence"], [self.carried_evidence("brainstorm")])
+
+    def test_ver43_carried_steps_open_no_answer_window(self):
+        state, _, _, _ = self.run_case("carried-windows")
+        self.assertEqual([e for e in self.events_of("carried-windows") if e["kind"] == "step"], [])
+        answer_seq = self.events_of("carried-windows", "answer")[0]["seq"]
+        self.assertEqual(state["flags"], [])
+        for n in (1, 2, 3, 4, 5, 6):
+            with self.subTest(step=n):
+                self.assertEqual(self.step(state, n)["state"], "carried")
+                self.assertEqual(self.step(state, n)["evidence"], [self.carried_evidence("architecture")])
+        s7 = self.step(state, 7)
+        self.assertEqual((s7["state"], self.types(state, 7)), ("done", ["answer", "carried"]))
+        self.assertEqual(self.answer_seqs(s7), [answer_seq])
+        self.assertEqual(self.answer_seqs(self.step(state, 8)), [])
+        self.assertEqual(self.step(state, 8)["state"], "not-applicable")
+        self.assertEqual(state["current"], 10)
+
+    def test_ver43_unknown_carried_step_is_ignored(self):
+        state, _, _, _ = self.run_case("carried-unknown")  # run_case checks the exit code is 0
+        self.assertEqual([s["n"] for s in state["steps"]], list(range(1, 12)))
+        self.assertEqual(self.step(state, 1)["state"], "carried")
+        self.assertEqual(self.step(state, 1)["evidence"], [self.carried_evidence("architecture")])
+        self.assertEqual(state["flags"], [])
+
+    def test_ver43_carried_then_evidence_is_done(self):
+        state, _, _, _ = self.run_case("carried-then-evidence")
+        self.assertEqual(self.step(state, 1)["state"], "carried")
+        s2 = self.step(state, 2)
+        self.assertEqual((s2["state"], self.types(state, 2)), ("done", ["carried", "read"]))
+        self.assertIn(self.carried_evidence("architecture"), s2["evidence"])
+
+    def test_ver43_earlier_cases_carry_nothing(self):
+        new = {"arch-carried", "brainstorm-carried-owned", "brainstorm-carried-confirmed", "brainstorm-carried-written",
+               "brainstorm-carried-written-open", "carried-answered-unknown", "carried-windows", "carried-unknown",
+               "carried-then-evidence"}
+        for name in mc.CASE_BUILDERS:
+            if name not in new and name != "messy-log":
+                with self.subTest(name):
+                    state, _, _, _ = self.run_case(name)
+                    self.assertNotIn("carried", [s["state"] for s in state["steps"]])
+                    self.assertNotIn("carried", [e["type"] for s in state["steps"] for e in s["evidence"]])
+
+
 class SpecRulesUnderS(SpecRules):
     """Every SpecRules test with the evaluator under python3 -S (VER-18, QR-01)."""
     INTERPRETER = (sys.executable, "-S", "-B")

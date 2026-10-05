@@ -237,7 +237,8 @@
             "skipped-with-reason",
             "not-applicable",
             "skipped",
-            "rule-broken"
+            "rule-broken",
+            "carried"
           ]
         },
         "evidence": {
@@ -261,7 +262,8 @@
                   "answer",
                   "write",
                   "read",
-                  "waiver"
+                  "waiver",
+                  "carried"
                 ]
               },
               "strength": {

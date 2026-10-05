@@ -68,6 +68,29 @@
           "taskList": {
             "type": "boolean",
             "description": "the host offers a task list the skill can keep its steps in (version 5)"
+          },
+          "resumes": {
+            "type": "string",
+            "pattern": "^[0-9]{8}T[0-9]{6}Z-[a-z][a-z0-9-]*-[0-9a-f]{8}$",
+            "description": "the earlier run this run continues (version 14, BEH-20)"
+          },
+          "carried": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "uniqueItems": true,
+            "description": "the steps carried from the earlier run: every step before the one this run continues at (version 14, BEH-20)"
+          },
+          "answered": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "uniqueItems": true,
+            "description": "the carried user-owned steps whose answer counted in the earlier run, once its document was written (version 14, BEH-20)"
           }
         }
       }

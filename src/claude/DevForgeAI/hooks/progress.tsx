@@ -18,8 +18,8 @@ import {
   adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
   hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, isWaiverQuestion, keptContent, markedStep, newFlagToasts,
   questionRefusal, questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, reviewItems, reviewQuestion,
-  runId, skillName, statusText, stepLabel, waiverAnswer, returnLine, pausedWith, keptTrail, endReason, hasRoom, trailNote, TRAIL_NOTE_START, stopsRun,
-  exitQuestion, keptText, nestedExitQuestion, nestedKeptText, isDismissal, CONFIRMED,
+  runId, runName, skillName, statusText, stepLabel, waiverAnswer, returnLine, pausedWith, keptTrail, endReason, hasRoom, trailNote, TRAIL_NOTE_START, stopsRun,
+  exitQuestion, keptText, nestedExitQuestion, nestedKeptText, isDismissal, CONFIRMED, resumePlan, resumeQuestion, resumeLine,
   stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
 } from './progress-core'
 import type { Fields, ProgressState, Refused, ReviewItem, ToolOutcome } from './progress-core'
@@ -162,6 +162,9 @@ const switchedIn = new Set<string>()
 /** Bumped at each change of the open run (open, push, unwind): a hook that began under an older value began before
  *  the open run opened (BEH-30 (a), version 14). */
 let tenure = 0
+/** The skill name the person's command.run is running, until its next(e) settles: a typed skill's skill.prompt fires
+ *  inside it (BEH-31, version 16; probe 2026-10-05). */
+let typedName: string | null = null
 /** The open run has recorded the event of a tool call or an answer whose hook began after it opened (BEH-30 (a)). */
 let worked = false
 let disabled = false
@@ -762,7 +765,7 @@ type Opening = { run: ProgressRun; line: string; now: number; session: string; r
 
 /** Write a new run's skill-loaded line in its own folder, in the root read as it loaded (BEH-03); null when nothing can be
  *  opened (ERR-03 has stopped tracking). Opening it is the caller's change, made with no await (version 14). */
-async function prepareRun($: E, r: string, skill: string, checklist: string): Promise<Opening | null> {
+async function prepareRun($: E, r: string, skill: string, checklist: string, extra: Fields = {}): Promise<Opening | null> {
   if (!(await ensureDir($, r))) return null
   const session = await $.session.id()
   // The mode is resolved here, after the folder exists, so a new root's mode line lands in that root's log (BEH-16).
@@ -774,7 +777,7 @@ async function prepareRun($: E, r: string, skill: string, checklist: string): Pr
   const { taskList, read: listed } = await taskListOf($)
   const line = eventLine(id, 1, now, 'skill-loaded', {
     format: FORMAT, skill, checklist, host: `claude-code ${version.version}`, taskList,
-    mode: await read($, MODE), modeSource: await read($, SOURCE),
+    mode: await read($, MODE), modeSource: await read($, SOURCE), ...extra,
   })
   const run: ProgressRun = { id, skill, seq: 1, dir, root: r }
   if (!(await writeLog($, run, [line], false))) return null
@@ -814,7 +817,7 @@ async function endOpenNow($: E, reason: string): Promise<ProgressRun | null> {
 /** A load that doesn't nest (BEH-03, BEH-29): the open run ends with another-skill (a load that isn't Claude's ends every
  *  paused run too, bottom first, and empties the trail), is evaluated once more, and the new run opens. Two chain items
  *  with the evaluation between them, so no item holds an evaluation. */
-async function switchRun($: E, r: string, name: string, checklist: string, endPaused: boolean): Promise<void> {
+async function switchRun($: E, r: string, name: string, checklist: string, endPaused: boolean, extra: Fields = {}): Promise<void> {
   const ended = await chained(async () => {
     const l = await hydrate($)
     if (endPaused && l.trail.length) {
@@ -824,15 +827,16 @@ async function switchRun($: E, r: string, name: string, checklist: string, endPa
     }
     return endOpenNow($, 'another-skill')
   })
-  await finishSwitch($, r, name, checklist, ended, endPaused)
+  await finishSwitch($, r, name, checklist, ended, endPaused, extra)
 }
 
 /** The rest of a switch: the ended run's last evaluation, then the new run, as one chain item. */
-async function finishSwitch($: E, r: string, name: string, checklist: string, ended: ProgressRun | null, emptyTrail: boolean): Promise<void> {
+async function finishSwitch($: E, r: string, name: string, checklist: string, ended: ProgressRun | null, emptyTrail: boolean,
+  extra: Fields = {}): Promise<void> {
   if (ended !== null) await finalEvaluation($, ended, EVALUATOR_TIMEOUT)
   await chained(async () => {
     await endOpenNow($, 'another-skill')  // a run an unwind resumed meanwhile ends too; the ended one is skipped
-    const o = await prepareRun($, r, name, checklist)
+    const o = await prepareRun($, r, name, checklist, extra)
     if (o === null) return
     await putMany($, () => {
       onSwitch()
@@ -1062,6 +1066,79 @@ async function turnEndUnwind($: E): Promise<void> {
   if (!resumed) return
   await record($, 'turn', { phase: 'end' }, false)
   await refreshStatus($)
+}
+
+/** The number of the skill's step with the write gate, from its manifests in the evaluator's order (IF-03), or null. */
+async function writeGateOf($: E, r: string, skill: string): Promise<number | null> {
+  const found: number[] = []
+  for (const path of [`${$.plugin.root}/progress/manifests/${skill}.json`, `${r}/devforgeai/manifests/organization/${skill}.json`,
+    `${r}/devforgeai/manifests/${skill}.json`]) {
+    try {
+      if (!(await $.fs.exists(path))) continue
+      const steps = (JSON.parse(await $.fs.read(path)) as { steps?: Record<string, { gate?: string }> }).steps ?? {}
+      for (const [n, step] of Object.entries(steps)) if (step.gate === 'write') found.push(Number(n))
+    } catch {
+      // an unreadable layer adds no gate; the evaluator reports it on its own (ERR-09)
+    }
+  }
+  return found.length ? Math.min(...found) : null
+}
+
+/** The offer to continue an earlier run (BEH-31, version 16), at the person's typed load of a tracked skill, before its
+ *  run opens: the skill-loaded fields and the line to add on Continue, or null for a run that opens as before. */
+async function resumeOffer($: E, r: string, name: string): Promise<{ extra: Fields; line: string } | null> {
+  let surfaces: readonly unknown[] = []
+  try {
+    surfaces = await $.session.surfaces()
+  } catch {
+    return null
+  }
+  if (surfaces.length === 0) return null
+  const runs = `${progressDir(r)}/runs`
+  let latest: string | undefined
+  try {
+    if (!(await $.fs.exists(runs))) return null
+    const named = new RegExp(`^[0-9]{8}T[0-9]{6}Z-${runName(name)}-[0-9a-f]{8}$`)  // the name run IDs give it (review S3)
+    latest = (await $.fs.list(runs)).filter(x => x.kind === 'dir' && named.test(x.name)).map(x => x.name).sort().pop()
+  } catch (err) {
+    await adapterLog($, 'resume', `no offer: ${firstLine(message(err))}`)  // ERR-17
+    return null
+  }
+  if (latest === undefined) return null
+  const l = await hydrate($)
+  const dir = `${runs}/${latest}`
+  // The run open in this session while it hasn't ended is BEH-03's restart, and a paused run is the trail's.
+  if (l.trail.some(t => t.run?.id === latest)) return null
+  let lines: string[]
+  try {
+    lines = (await $.fs.read(`${dir}/events.jsonl`)).split('\n').filter(Boolean)
+  } catch (err) {
+    await adapterLog($, 'resume', `no offer: ${latest}: ${firstLine(message(err))}`)  // ERR-17
+    return null
+  }
+  if (l.run?.id === latest && !lines.some(x => x.includes('"kind":"run-end"'))) return null
+  const got = await evaluate($, r, `${dir}/events.jsonl`, `${dir}/state.json`, EVALUATOR_TIMEOUT)
+  if (typeof got === 'string') {
+    await adapterLog($, 'resume', `no offer: ${latest}: ${got}`)  // ERR-17
+    return null
+  }
+  const plan = resumePlan(latest, got.state, lines, await writeGateOf($, r, name), await $.clock.now())
+  if (plan === null) return null
+  await adapterLog($, 'resume', `offered ${latest} at step ${plan.step}`)
+  let answer: string
+  try {
+    answer = await $.ui.ask(resumeQuestion(name, plan), { options: [`Continue from step ${plan.step}`, 'Start fresh'], header: 'Progress' })
+  } catch (err) {
+    // Esc is Start fresh; a dialog that can't be shown is too, and says why (ERR-17).
+    await adapterLog($, 'resume', `fresh (${isDismissal(err) ? 'dismissed' : `the dialog failed: ${firstLine(message(err))}`})`)
+    return null
+  }
+  if (answer !== `Continue from step ${plan.step}`) {
+    await adapterLog($, 'resume', `fresh (${answer})`)
+    return null
+  }
+  await adapterLog($, 'resume', `continued ${latest} at step ${plan.step}, carried ${plan.carried.join(', ')}`)
+  return { extra: { resumes: latest, carried: plan.carried, answered: plan.answered }, line: resumeLine(name, plan) }
 }
 
 /** The compaction's last message names the trail while it isn't empty and a run is open (BEH-29); an earlier one goes. */
@@ -1305,17 +1382,41 @@ export const register: Register = (on, options) => {
       ensureTimer($)
       // A load that isn't Claude's (typed, or a subagent's) ends the open run and every paused run (BEH-03, BEH-29).
       if (!skillsLoading.has(name)) {
-        await switchRun($, r, name, out.text, true)
-        return out
+        // The person's typed load may continue an earlier run (BEH-31, version 16).
+        let offer: { extra: Fields; line: string } | null = null
+        if (typedName === name) {
+          try {
+            offer = await resumeOffer($, r, name)
+          } catch (err) {
+            await recover($, 'skill.prompt', err)  // the offer never stops the load (ERR-17)
+          }
+        }
+        await switchRun($, r, name, out.text, true, offer?.extra ?? {})
+        return offer === null ? out : { ...out, text: `${out.text}\n\n${offer.line}` }
+      }
+      // Claude's load with no unfinished run open and none paused is offered as a typed load is (BEH-31, version 17):
+      // it nests nothing, and a fresh run would bury the unfinished one.
+      let offer: { extra: Fields; line: string } | null = null
+      const now = await hydrate($)
+      const open = now.run
+      const ended = open !== null && ((now.summary?.ended ?? null) !== null
+        || (await linesOf($, open)).some(x => x.includes('"kind":"run-end"')))
+      if (now.trail.length === 0 && (open === null || ended)) {
+        try {
+          offer = await resumeOffer($, r, name)
+        } catch (err) {
+          await recover($, 'skill.prompt', err)  // the offer never stops the load (ERR-17)
+        }
       }
       // Claude's load (BEH-29): task-tool calls under way first, so a TaskUpdate of the same batch sets the return step.
       if (taskWork.size > 0) await Promise.race([Promise.allSettled([...taskWork]), $.clock.sleep(TASK_WAIT_MS)])
       const got = await chained(() => claudeLoadNow($, r, name, out.text))
       // The Skill call records nothing in either run once the open run changed (before skill.prompt returns).
       if (got.kind !== 'own') switchedIn.add(name)
-      if (got.kind === 'cannot') await finishSwitch($, r, name, out.text, got.ended, false)
+      if (got.kind === 'cannot') await finishSwitch($, r, name, out.text, got.ended, false, offer?.extra ?? {})
       await refreshStatus($)
       if (got.kind === 'pushed') return { ...out, text: `${out.text}\n\n${got.line}` }
+      if (got.kind === 'cannot' && offer !== null) return { ...out, text: `${out.text}\n\n${offer.line}` }
     } catch (err) {
       // After next, a failure is the adapter's own: tell the user, keep the skill's text (BEH-14).
       await recover($, 'skill.prompt', err)
@@ -1337,7 +1438,9 @@ export const register: Register = (on, options) => {
     const loading = tool === 'Skill' && input.agentId === undefined && typeof input.skill === 'string' ? skillName(input.skill) : null
     if (loading !== null) skillsLoading.set(loading, (skillsLoading.get(loading) ?? 0) + 1)
     try {
-      if (!(await recording($, input.agentId))) return next(e)
+      // Awaited, so the finally below runs after the call: a Skill call stays in flight while its skill.prompt fires,
+      // with no run open too (version 17; returning next(e)'s promise unawaited ran the finally at once).
+      if (!(await recording($, input.agentId))) return await next(e)
       if (tool === 'AskUserQuestion') {
         // Claude Code's own question only: a mod's $.ui.ask arrives here too (BEH-04, BEH-21).
         // The waiver question is never a question gate, so it isn't checked (BEH-21, version 10).
@@ -1506,6 +1609,16 @@ export const register: Register = (on, options) => {
   // first, in Claude Code's own dialog. A confirmation, not a gate: it refuses nothing Claude does (ADR-006 D1 v2).
   on('command.run', async ($, e, next) => {
     const verb = CONFIRMED[e.command]
+    if (verb === undefined && interactive === true && !disabled && isPersonPrompt(e.origin)) {
+      // The person's command, kept while it runs: a typed skill's skill.prompt fires inside next(e) (BEH-31).
+      const name = skillName(e.command)
+      typedName = name
+      try {
+        return await next(e)
+      } finally {
+        if (typedName === name) typedName = null
+      }
+    }
     if (verb === undefined || interactive !== true || disabled || !isPersonPrompt(e.origin)) return next(e)
     // The run as it stands: events still being written and not yet evaluated come first, as for the review.
     await settle($)
@@ -1601,6 +1714,7 @@ export const register: Register = (on, options) => {
       lastStatus = undefined
       turnOpen = false
       live = emptyLive()
+      typedName = null
       // A new session ID follows /clear, /resume and /branch: its lines wait for its first run (DM-02).
       logRoot = null
     }

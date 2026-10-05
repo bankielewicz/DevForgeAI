@@ -15,7 +15,7 @@ export const FORMAT = 'devforgeai-events/1'
 // Each kind's fields in SPEC-012 DM-02's order, after run, seq, time and kind. The order is fixed here so an
 // event line is the same bytes whichever code built it (VER-04 compares lines byte for byte).
 const ORDER: Record<string, readonly string[]> = {
-  'skill-loaded': ['format', 'skill', 'checklist', 'host', 'taskList', 'mode', 'modeSource'],
+  'skill-loaded': ['format', 'skill', 'checklist', 'host', 'taskList', 'mode', 'modeSource', 'resumes', 'carried', 'answered'],
   tool: ['tool', 'path', 'command', 'exit', 'error', 'content'],
   answer: ['answered', 'step', 'outside', 'waiver'],
   prompt: [],
@@ -38,9 +38,15 @@ export function eventLine(run: string, seq: number, ms: number, kind: string, fi
 }
 
 /** The run ID: UTC time as yyyymmddThhmmssZ, the skill, 8 hex digits (SPEC-012 §4; BEH-03). */
+/** A skill's name as its run IDs carry it (DM-02's pattern): lower case, other characters as '-', from its first
+ *  letter. The offer looks for earlier runs under the same name (BEH-31). */
+export function runName(skill: string): string {
+  return skill.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^[^a-z]+/, '') || 'skill'
+}
+
 export function runId(ms: number, skill: string, random: Uint8Array): string {
   const t = isoTime(ms).replace(/[-:]/g, '')
-  const name = skill.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^[^a-z]+/, '') || 'skill'
+  const name = runName(skill)
   const hex = Array.from(random.slice(0, 4), b => b.toString(16).padStart(2, '0')).join('')
   return `${t}-${name}-${hex.padEnd(8, '0')}`
 }
@@ -156,7 +162,8 @@ export function isEngine(origin: unknown): boolean {
 }
 
 // The parts of SPEC-012's progress state (DM-03) the adapter reads.
-export type StateStep = { n: number; title: string; state: string; userOwned?: boolean; kind?: string | null; stoppable?: boolean }
+export type StateStep = { n: number; title: string; state: string; userOwned?: boolean; kind?: string | null; stoppable?: boolean
+  evidence?: { type: string }[]; claim?: { state: string } | null }
 export type StateFlag = { gate: string; seq: number; step: number; type: string; message: string }
 export type ProgressState = {
   run?: string
@@ -274,7 +281,7 @@ export function statusText(summary: ProgressSummary | null, mode: ProgressMode, 
 
 const GLYPH: Record<string, string> = {
   done: '●', current: '◆', 'your-turn': '?', pending: '○', claimed: '◐', unconfirmed: '·',
-  'skipped-with-reason': '⊘', 'not-applicable': '–', skipped: '✗', 'rule-broken': '✗',
+  'skipped-with-reason': '⊘', 'not-applicable': '–', skipped: '✗', 'rule-broken': '✗', carried: '◉',
 }
 
 /** Cut a row to width characters. */
@@ -783,4 +790,116 @@ export function endReason(lines: readonly string[]): string | null {
     }
   }
   return null
+}
+
+// ---- the offer to continue an earlier run (SPEC-013 BEH-31, version 16) ----
+
+/** What a run-end's reason reads as in the offer (BEH-31). */
+const WHY: Record<string, string> = {
+  'session-end': 'session end', clear: '/clear', stopped: 'stopped', 'another-skill': 'another skill loaded',
+  returned: 'returned to the skill beneath',
+}
+
+/** An earlier run's offer: the step to continue at, the steps carried, the user's decisions that stand (answered) and
+ *  those to confirm again (owned), the files it wrote, and how it ended (`when`). */
+export type ResumePlan = {
+  run: string; step: number; steps: number; carried: number[]; answered: number[]; owned: number[]; files: string[]
+  when: string
+}
+
+/** A step is reached when it has evidence other than waiver evidence, or a done claim (BEH-31; SPEC-012 BEH-07). */
+function reachedStep(s: StateStep): boolean {
+  return (s.evidence ?? []).some(x => x.type !== 'waiver') || s.claim?.state === 'done'
+}
+
+/** An age as the offer says it: minutes, hours or days. */
+export function ageText(ms: number): string {
+  if (!Number.isFinite(ms)) return 'an unknown time'
+  const minutes = Math.max(0, Math.floor(ms / 60000))
+  if (minutes < 60) return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`
+  const hours = Math.floor(minutes / 60)
+  if (hours < 48) return `${hours} ${hours === 1 ? 'hour' : 'hours'}`
+  const days = Math.floor(hours / 24)
+  return `${days} ${days === 1 ? 'day' : 'days'}`
+}
+
+/** Steps as the offer names them: '1, 2, 3'. */
+export function stepList(ns: readonly number[]): string {
+  return ns.join(', ')
+}
+
+/** The offer for an earlier run, from its state evaluated once more and its log, or null when it isn't offered: its
+ *  manifest isn't matched, its last step is reached (unless it ended stopped), or nothing would be carried (BEH-31).
+ *  `writeGate` is the number of the step with the write gate, `now` the time in ms. */
+export function resumePlan(run: string, state: ProgressState, lines: readonly string[], writeGate: number | null,
+  now: number): ResumePlan | null {
+  if (state.manifest?.state !== 'matched') return null
+  const steps = state.steps
+  if (!steps.length) return null
+  if (reachedStep(steps[steps.length - 1]) && state.ended !== 'stopped') return null
+  const reached = steps.filter(reachedStep).map(s => s.n)
+  const highest = reached.length ? Math.max(...reached) : null
+  let step = markedStep(lines, Infinity, steps)
+    ?? (highest === null ? steps[0].n : (steps.find(s => s.n > highest)?.n ?? steps[steps.length - 1].n))
+  // Never past the first step with the write gate that has no write evidence: its document was never written. A write
+  // step carried from a run before counts as written there (review S1).
+  const gate = writeGate === null ? undefined : steps.find(s => s.n === writeGate)
+  const wrote = gate !== undefined && (gate.evidence ?? []).some(x => x.type === 'write' || x.type === 'carried')
+  if (gate !== undefined && gate.n < step && !wrote) step = gate.n
+  const carried = steps.filter(s => s.n < step).map(s => s.n)
+  if (!carried.length) return null
+  // The decisions that stand: written under the write gate (not a rule-broken write), each answered and not skipped
+  // there, in this run or, carried, in the run it continued (review S1, S2).
+  const written = gate !== undefined && carried.includes(gate.n) && gate.state !== 'rule-broken'
+  let before: number[] = []
+  try {
+    const first = JSON.parse(lines[0] ?? '{}') as Fields
+    if (Array.isArray(first.answered)) before = first.answered.filter((n): n is number => typeof n === 'number')
+  } catch {
+    // no earlier answers
+  }
+  const owned = steps.filter(s => s.n < step && s.userOwned === true)
+  const answered = written
+    ? owned.filter(s => s.state !== 'skipped' && ((s.evidence ?? []).some(x => x.type === 'answer') || before.includes(s.n))).map(s => s.n)
+    : []
+  const files: string[] = []
+  let ended: string | null = null
+  let lastTime: string | null = null
+  for (const line of lines) {
+    let e: Fields
+    try {
+      e = JSON.parse(line) as Fields
+    } catch {
+      continue
+    }
+    if (typeof e.time === 'string') lastTime = e.time
+    if (e.kind === 'run-end' && typeof e.reason === 'string' && ended === null) ended = e.reason
+    // A path is shown in the dialog and Claude's text: one line of it (review note).
+    const path = typeof e.path === 'string' ? e.path.replace(/[\u0000-\u001f\u007f]+/g, ' ') : null
+    if (e.kind === 'tool' && (e.tool === 'Write' || e.tool === 'Edit') && e.error !== true && path !== null
+      && !files.includes(path)) files.push(path)
+  }
+  const of = `step ${step} of ${steps.length}`
+  const when = ended !== null
+    ? `ended at ${of} on ${(lastTime ?? '').slice(0, 10)} (${WHY[ended] ?? ended})`
+    : `was at ${of} with no end recorded, its last event ${ageText(now - Date.parse(lastTime ?? ''))} ago (it may still be open in another session)`
+  return { run, step, steps: steps.length, carried, answered, owned: owned.map(s => s.n).filter(n => !answered.includes(n)),
+    files, when }
+}
+
+/** BEH-31's question. */
+export function resumeQuestion(skill: string, plan: ResumePlan): string {
+  return `${skill}: an earlier run ${plan.when}. It wrote ${plan.files.length ? plan.files.join(', ') : 'nothing'}. Continue it?`
+}
+
+/** BEH-31's line at the end of the text Claude reads. */
+export function resumeLine(skill: string, plan: ResumePlan): string {
+  const owned = plan.owned.length
+    ? ` Steps ${stepList(plan.owned)} were the user's decisions, which the record doesn't keep: before any document records them, confirm each with the user again, in order, marking its step in progress and tagging the question with it.`
+    : ''
+  return `This run continues the earlier ${skill} run ${plan.run}, which ${plan.when}. Steps ${stepList(plan.carried)} are `
+    + `carried over: the tracker counts them reached. Create the task list with those steps' tasks completed, mark step `
+    + `${plan.step} in progress, and continue at step ${plan.step}.${owned} Files it wrote: `
+    + `${plan.files.length ? plan.files.join(', ') : 'nothing'}. Its replies are in devforgeai/progress/runs/${plan.run}/`
+    + `events.jsonl, the events of kind reply: use them to show the user what was proposed, never as a decision.`
 }

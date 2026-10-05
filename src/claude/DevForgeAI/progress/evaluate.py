@@ -30,6 +30,7 @@ from pathlib import PurePosixPath
 CHECKLIST_LINE = re.compile(r"^\s*- \[ \] (\d+)\. (.+?)\s*$")
 DONE_TICK = re.compile(r"^\s*[-*]\s*\[[xX]\]\s*(\d+)\.")
 SKIP_TICK = re.compile(r"^\s*[-*]\s*\[[ xX]\]\s*(\d+)\..*\(skipped:\s*(.+?)\)\s*$")
+RUN_ID = re.compile(r"^[0-9]{8}T[0-9]{6}Z-[a-z][a-z0-9-]*-[0-9a-f]{8}$")  # DM-02's run ID (resumes, version 14)
 
 STEP_KINDS = ("read", "think", "ask", "forge", "inspect", "report")
 NEEDS = ("required", "conditional", "text-only")
@@ -344,14 +345,17 @@ class Step:
         self.sticky = None      # a gate result later evidence can't undo: skipped, rule-broken
         self.unverifiable = False
         self.note = ""
+        self.carried_answer = False  # version 14: the earlier run's answer stands for this carried step (BEH-20)
 
     def claim_before(self, upto):
         claims = [c for c in self.claims if c["seq"] < upto]
         return claims[-1] if claims else None
 
     def signals(self):
-        """Seqs of this step's tool evidence and claims (answers excluded: they don't move windows)."""
-        return [x["seq"] for x in self.evidence if x["type"] not in ("answer", "waiver")] + [c["seq"] for c in self.claims]
+        """Seqs of this step's tool evidence and claims (answers excluded: they don't move windows; nor does carried
+        evidence, BEH-20)."""
+        return ([x["seq"] for x in self.evidence if x["type"] not in ("answer", "waiver", "carried")]
+                + [c["seq"] for c in self.claims])
 
     def first_signal(self):
         # The waiver's stamp is no signal: it gives no 'seen late' note (BEH-19).
@@ -362,12 +366,14 @@ class Step:
         return any(x["seq"] < upto for x in self.evidence) or any(c["seq"] < upto for c in self.claims)
 
     def answered(self, upto=INFINITY):
-        return any(x["type"] == "answer" and x["seq"] < upto for x in self.evidence)
+        return self.carried_answer or any(x["type"] == "answer" and x["seq"] < upto for x in self.evidence)
 
     def base_state(self, upto=INFINITY):
-        """BEH-07's state from the evidence and claims before `upto`."""
-        if any(x["seq"] < upto for x in self.evidence):
-            return "done"
+        """BEH-07's state from the evidence and claims before `upto`; carried while carried evidence is its only
+        evidence, whatever claims it gets (BEH-20, version 14)."""
+        evidence = [x for x in self.evidence if x["seq"] < upto]
+        if evidence:
+            return "carried" if all(x["type"] == "carried" for x in evidence) else "done"
         claim = self.claim_before(upto)
         if claim is None:
             return "pending"
@@ -571,7 +577,28 @@ class Run:
             step.claims.append({"seq": e["seq"], "state": "done", "reason": None})
             step.event_claims.add(e["seq"])
 
+    def take_carried(self):
+        """The steps an earlier run carried into this one (BEH-20, version 14): strong evidence of type carried at the
+        skill-loaded event's seq; answered names the carried user-owned steps whose answer stands. A number the
+        checklist doesn't have, or an answered one that isn't a carried user-owned step, is ignored (ERR-10)."""
+        loaded = self.events[0]
+        carried = loaded.get("carried") if isinstance(loaded.get("carried"), list) else []
+        answered = loaded.get("answered") if isinstance(loaded.get("answered"), list) else []
+        resumes = loaded.get("resumes")
+        named = isinstance(resumes, str) and RUN_ID.match(resumes) is not None  # DM-02's run ID pattern
+        detail = "carried from the earlier run %s" % resumes if named else "carried from an earlier run"
+        taken = set()
+        for n in carried:
+            if isinstance(n, bool) or not isinstance(n, int) or n not in self.by_n or n in taken:
+                continue
+            taken.add(n)
+            self.by_n[n].evidence.append({"seq": loaded["seq"], "type": "carried", "strength": "strong", "detail": detail})
+        for n in answered:
+            if not isinstance(n, bool) and isinstance(n, int) and n in taken and self.by_n[n].user_owned:
+                self.by_n[n].carried_answer = True
+
     def collect(self):
+        self.take_carried()
         for e in self.events:
             if e["kind"] == "tool":
                 self.take_tool(e)
@@ -636,7 +663,7 @@ class Run:
         for s in self.steps:
             if s.n >= step.n or (s.need == "conditional" and not s.user_owned):
                 continue
-            evidence = [x["seq"] for x in s.evidence if x["type"] not in ("answer", "waiver") and x["seq"] < hard]
+            evidence = [x["seq"] for x in s.evidence if x["type"] not in ("answer", "waiver", "carried") and x["seq"] < hard]
             claims = [c["seq"] for c in s.claims if c["seq"] < hard]
             firsts = ([min(evidence)] if evidence else []) + ([min(claims)] if claims else [])
             if firsts:
@@ -905,7 +932,7 @@ class Run:
         base = step.base_state()
         if base == "claimed" and step.gate_state == "not-applicable":
             return "not-applicable"
-        if base in ("done", "claimed", "skipped-with-reason"):
+        if base in ("done", "claimed", "skipped-with-reason", "carried"):
             return base
         return step.gate_state or "pending"
 
