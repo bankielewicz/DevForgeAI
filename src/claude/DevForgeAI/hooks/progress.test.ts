@@ -3278,6 +3278,12 @@ function rWorld($top: Any, on: Any, cfg: RCfg = {}) {
       return sk.tool(e)
     },
     evaluate: (argv: readonly string[]) => {
+      // The plugin's manifests, where the adapter reads the step with the write gate (BEH-31): brainstorm's 6,
+      // architecture's 9, under the plugin root the evaluator's own path gives (the offer evaluates first).
+      const pluginRoot = String(argv[1]).replace(/\/progress\/evaluate\.py$/, '')
+      for (const [skill, gate] of [['brainstorm', 6], ['architecture', 9]] as const) {
+        r.w?.files.set(`${pluginRoot}/progress/manifests/${skill}.json`, JSON.stringify({ skill, steps: { [gate]: { gate: 'write' } } }))
+      }
       const ev = argv[argv.indexOf('--events') + 1]
       const skill = ev.match(/runs\/[0-9]{8}T[0-9]{6}Z-([a-z][a-z0-9-]*)-[0-9a-f]{8}\//)?.[1] ?? 'brainstorm'
       const fix = fixtures.find(f => ev.includes(`/${rIdOf(f)}/`))
@@ -3312,7 +3318,10 @@ const rType = ($: Any, skill = 'brainstorm') => $.command.run({ command: `devfor
 async function rControl($: Any, r: RW) {
   await rType($, 'prd')
   expect(r.controlAsked).toEqual(['prd: an earlier run ended at step 3 of 5 on 2026-09-30 (session end). It wrote nothing. Continue it?'])
+  rControlLines.set(r.w, rLog(r.w).length)  // its 'fresh (Start fresh)' line names no run: skip the control's lines by count
 }
+
+const rControlLines = new WeakMap<World, number>()
 
 /** adapter.log's lines of kind resume. */
 function rLog(w: World): string[] {
@@ -3320,7 +3329,7 @@ function rLog(w: World): string[] {
 }
 
 /** adapter.log's resume lines, less the control's. */
-const rLogOf = (r: RW): string[] => rLog(r.w).filter(l => !l.includes('-prd-0f0f0f0f'))
+const rLogOf = (r: RW): string[] => rLog(r.w).slice(rControlLines.get(r.w) ?? 0).filter(l => !l.includes('-prd-0f0f0f0f'))
 
 const rNew = (r: RW, skill = 'brainstorm', i = 0): Any => logOf(r.w, skill, i)[0]
 
