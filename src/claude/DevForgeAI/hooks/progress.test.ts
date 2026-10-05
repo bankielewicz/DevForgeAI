@@ -2679,7 +2679,7 @@ test('VER-43: a second session.start keeps the trail and the open run, and the u
   expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
 })
 
-test('VER-43: a load whose new run\'s log can\'t be written leaves the open run and the trail as they were', async ($, on) => {
+test('VER-43: a load whose new run\'s log can\'t be written stops tracking (ERR-03): no push, no run-end, the trail emptied', async ($, on) => {
   const x = xWorld(on, xStates(), undefined, { failWrite: p => p.includes('-spec-lookup-') })
   const { w } = x
   await start($)
@@ -3018,6 +3018,49 @@ test('VER-43/44: in observe mode the return line is added, nothing is refused, a
   expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
   await w.clock.advance(600)
   expect(w.statuses[w.statuses.length - 1]).toBe('architecture 7/11')
+})
+
+// ---- after the build's adversarial review (2026-10-05) ----
+
+test('VER-44: a paused run whose log can no longer be read: session.end still ends the open run and empties the module', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await xNested($, x)
+  w.files.delete(runFiles(w, 'events.jsonl').find(p => p.includes('-architecture-'))!)   // its folder cleaned mid-session
+  await $.session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } } as Any)
+  expect(logOf(w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'clear' })
+  await $.tool.call(READ('after-clear.md'))
+  expect(logOf(w, 'spec-lookup').some(e => e.path === 'docs/after-clear.md')).toBe(false)
+})
+
+test('VER-43: a typed load while a paused run\'s log can\'t be read still ends the open run and opens the new one', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await xNested($, x)
+  w.files.delete(runFiles(w, 'events.jsonl').find(p => p.includes('-architecture-'))!)
+  await $.skill.prompt({ skill: 'devforgeai:prd', text: TAGGED })
+  expect(runsOf(w, 'prd').length).toBe(1)
+  expect(logOf(w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(trailLog(w).slice(-1)[0]).toBe('empty (a load with no Skill call of the main loop in flight)')
+})
+
+test('VER-44: a TaskUpdate whose hook began before the load resumes nothing, even after the nested run has worked', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 6)
+  await w.clock.advance(600)
+  let upd: Any
+  await x.load($, 'devforgeai:spec-lookup', {
+    before: async () => { upd = $.tool.call(xTaskUpdate('7', 'in_progress', { activeForm: 'HOLD-A' })); await xSettle() },
+    mid: async () => { await w.clock.advance(2000) },   // the TaskUpdate outlasts the load's wait
+  })
+  await $.tool.call(READ('later.md'))                    // began after the load: spec-lookup has worked
+  x.release('HOLD-A')
+  await upd
+  expect(trailLog(w).some(l => l.startsWith('unwind'))).toBe(false)
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)
 })
 
 // ---- the module's values (version 14, DM-03): a hook that awaits across a run switch acts on the run open now ----

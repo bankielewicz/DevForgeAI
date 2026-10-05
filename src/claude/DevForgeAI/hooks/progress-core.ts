@@ -1,7 +1,7 @@
 // Pure helpers of the progress tracker adapter (SPEC-013 v7). No `$` here: claude plugin validate lets `$` reach
 // only top-level functions of hooks/progress.tsx, so this file turns plain data into plain data, and its tests
 // (core.test.ts) call it directly.
-import type { ProgressMode, ProgressPaused, ProgressSummary } from '../types'
+import type { ProgressMode, ProgressPaused, ProgressRefused, ProgressSummary } from '../types'
 
 export type Fields = Record<string, unknown>
 
@@ -661,7 +661,7 @@ export function refusalCause(state: ProgressState, seq: number):
 }
 
 /** One refusal kept for the run's review (BEH-25, BEH-26; version 10). */
-export type Refused = { gate: string; seq: number; step: number; type: string; message: string }
+export type Refused = ProgressRefused
 
 /** One review item: a cause (the gate's kind, the flag's type and step) with its first message and its number of
  *  refusals, 0 for a flag no refusal has (BEH-26). */

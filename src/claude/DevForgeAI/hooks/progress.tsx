@@ -65,13 +65,15 @@ function emptyLive(): Live {
 /** The module's values, read once from $.state after a load or a reload (BEH-17). */
 async function hydrate($: E): Promise<Live> {
   if (live !== null) return live
+  const run = await read($, RUN)
   const got: Live = {
-    run: await read($, RUN), summary: await read($, SUMMARY), lastEventAt: await read($, LAST),
+    run, summary: await read($, SUMMARY), lastEventAt: await read($, LAST),
     marked: await read($, MARKED), shown: await read($, SHOWN), contextSent: await read($, SENT),
     tasks: await read($, TASKS), todos: await read($, TODOS), adhered: await read($, ADHERED),
     refusals: await read($, REFUSALS), refused: await read($, REFUSED), reviewed: await read($, REVIEWED),
     // An entry without its run, version 13's shape, is dropped (BEH-30); the mirror catches up at the next change.
-    trail: keptTrail(await read($, TRAIL)), returned: await read($, RETURNED),
+    // A reload between the mirror's writes of a push can leave the open run on the trail too: it is dropped.
+    trail: keptTrail(await read($, TRAIL)).filter(t => t.run!.id !== run?.id), returned: await read($, RETURNED),
   }
   if (live === null) live = got
   return live
@@ -431,6 +433,17 @@ async function appendEvent($: E, run: ProgressRun, kind: string, fields: Fields,
   const next: ProgressRun = { ...run, seq }
   if (!(await writeLog($, next, [...lines, eventLine(run.id, seq, now, kind, fields)], open))) return null
   return { run: next, now }
+}
+
+/** A paused run's run-end, written while it isn't the open run; a log that can't be read gets none, and the switch,
+ *  unwind or session end goes on (BEH-05, ERR-03). The run as it ended, or null. */
+async function endPausedNow($: E, run: ProgressRun, reason: string): Promise<ProgressRun | null> {
+  try {
+    return (await appendEvent($, run, 'run-end', { reason }, false))?.run ?? null
+  } catch (err) {
+    await adapterLog($, 'error', `run-end of ${run.id}: ${firstLine(message(err))}`)
+    return null
+  }
 }
 
 /** Record into the open run, inside a chain item; the ID of the run it recorded into, or null. */
@@ -805,7 +818,7 @@ async function switchRun($: E, r: string, name: string, checklist: string, endPa
   const ended = await chained(async () => {
     const l = await hydrate($)
     if (endPaused && l.trail.length) {
-      for (const p of l.trail) if (p.run !== null) await appendEvent($, p.run, 'run-end', { reason: 'another-skill' }, false)
+      for (const p of l.trail) if (p.run !== null) await endPausedNow($, p.run, 'another-skill')
       await putMany($, () => ({ trail: [] }))
       await adapterLog($, 'trail', 'empty (a load with no Skill call of the main loop in flight)')
     }
@@ -1001,8 +1014,8 @@ async function unwindNow($: E, target: string): Promise<boolean> {
   for (let i = above.length - 1; i >= 0; i--) {
     const p = above[i]
     if (p.run === null) continue
-    const got = await appendEvent($, p.run, 'run-end', { reason: 'returned' }, false)
-    if (p.reviewed !== p.run.id) back.push({ run: got?.run ?? p.run, refused: p.refused, reason: 'returned' })
+    const got = await endPausedNow($, p.run, 'returned')
+    if (p.reviewed !== p.run.id) back.push({ run: got ?? p.run, refused: p.refused, reason: 'returned' })
   }
   const now = await $.clock.now()
   const t = l.trail[at]
@@ -1369,7 +1382,8 @@ export const register: Register = (on, options) => {
         // One chain item: the unwind a TaskUpdate shows (BEH-30 (a)), before its own events, then its tool event, step
         // events and task map, all in the run open when they land.
         await chained(async () => {
-          if (tool === 'TaskUpdate' && !isFailed(outcome) && worked) {
+          // The open run has worked, and this TaskUpdate began after it opened: the "mark and load" batch unwinds nothing.
+          if (tool === 'TaskUpdate' && !isFailed(outcome) && worked && began === tenure) {
             const trail = (await hydrate($)).trail
             const at = pausedWith(trail, input.taskId)
             if (at >= 0 && trail[at].run !== null) resumed = await unwindNow($, trail[at].run!.id)
@@ -1404,7 +1418,8 @@ export const register: Register = (on, options) => {
     // arrives here after skill.prompt has opened the run (VER-15's dogfood run found it counted for step 5).
     if (isPersonPrompt(e.origin) && isEngine(next.origin) && !e.text.trimStart().startsWith('/')) await record($, 'prompt', {})
     const report = pendingReport
-    if (report !== null && (await read($, MODE)) === 'enforce' && !e.text.trimStart().startsWith('/')) {
+    if (report !== null && report.run === (await get($, 'run'))?.id && (await read($, MODE)) === 'enforce'
+      && !e.text.trimStart().startsWith('/')) {
       pendingReport = null
       await putFor($, report.run, l => ({ contextSent: [...l.contextSent, report.seq] }))
       await adapterLog($, 'context', `report gate at seq ${report.seq}`)
@@ -1548,27 +1563,32 @@ export const register: Register = (on, options) => {
   // All session.end hooks share 1.5 seconds: run-end first, the last evaluation only if there is room (BEH-05). With
   // paused runs, each one's run-end, bottom first, then the open run's, while the budget has room (version 14).
   on('session.end', async ($, e, next) => {
-    if (await recording($, undefined)) {
-      const reason = e.reason === 'clear' ? 'clear' : 'session-end'
-      const all = await chained(async () => {
-        const trail = (await hydrate($)).trail
-        for (const p of trail) {
-          if (!hasRoom(next.budget.remainingMs)) return false
-          if (p.run !== null) await appendEvent($, p.run, 'run-end', { reason }, false)
-        }
-        if (trail.length && !hasRoom(next.budget.remainingMs)) return false
-        await endOpenNow($, reason)
-        return true
-      })
-      const run = await get($, 'run')
-      if (all && run !== null) await finalEvaluation($, run, finalTimeout(next.budget.remainingMs))
+    try {
+      if (await recording($, undefined)) {
+        const reason = e.reason === 'clear' ? 'clear' : 'session-end'
+        const all = await chained(async () => {
+          const trail = (await hydrate($)).trail
+          for (const p of trail) {
+            if (!hasRoom(next.budget.remainingMs)) return false
+            if (p.run !== null) await endPausedNow($, p.run, reason)
+          }
+          if (trail.length && hasRoom(next.budget.remainingMs)) await adapterLog($, 'trail', `empty (${reason})`)
+          if (trail.length && !hasRoom(next.budget.remainingMs)) return false
+          await endOpenNow($, reason)
+          return true
+        })
+        const run = await get($, 'run')
+        if (all && run !== null) await finalEvaluation($, run, finalTimeout(next.budget.remainingMs))
+      }
+    } finally {
+      // The session's values go whatever happened above: /clear, /resume and /branch start a new one (DM-03).
+      pendingReport = null
+      lastStatus = undefined
+      turnOpen = false
+      live = emptyLive()
+      // A new session ID follows /clear, /resume and /branch: its lines wait for its first run (DM-02).
+      logRoot = null
     }
-    pendingReport = null
-    lastStatus = undefined
-    turnOpen = false
-    live = emptyLive()
-    // A new session ID follows /clear, /resume and /branch: its lines wait for its first run (DM-02).
-    logRoot = null
     return next(e)
   }).catch(async ($, e, next) => {
     return next(e)
@@ -1589,7 +1609,7 @@ export const register: Register = (on, options) => {
       if (interactive !== true || disabled || summary === null || (await read($, RUN)) === null || props.hasSurvey || rows < 1) {
         return next(e)
       }
-      const band = bandRows(summary, await read($, MODE), await read($, TRAIL))
+      const band = bandRows(summary, await read($, MODE), keptTrail(await read($, TRAIL)))
       const width = Math.max(10, props.bodyColumns ?? 80)
       const { Box, Text, Button } = await $.ui.resolve(e)
       const rest = await next(e)

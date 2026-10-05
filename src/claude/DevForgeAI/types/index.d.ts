@@ -29,6 +29,9 @@ export type ProgressSummary = {
   stoppedAt?: number | null  // version 12: the step a deliberate stop's answer was tagged with (SPEC-013 BEH-10, BEH-27)
 }
 
+/** One enforce refusal with its gate's kind, seq and first flag, kept for the run's review (BEH-25, BEH-26). */
+export type ProgressRefused = { gate: string; seq: number; step: number; type: string; message: string }
+
 /** A run paused on the trail (BEH-29, version 14; version 13 held skill, step and tasks only): its return step, its
  *  task IDs, and the values it had while open, which it gets back when the trail unwinds to it (BEH-30). */
 export type ProgressPaused = {
@@ -43,14 +46,14 @@ export type ProgressPaused = {
   todos: Record<string, string>
   adhered: string | null
   refusals: Record<string, number>
-  refused: { gate: string; seq: number; step: number; type: string; message: string }[]
+  refused: ProgressRefused[]
   reviewed: string | null
 }
 
 /** A run that ended returned or stopped while nested, kept for the turn's review (BEH-26, BEH-30; version 14). */
 export type ProgressReturned = {
   run: ProgressRun | null
-  refused: { gate: string; seq: number; step: number; type: string; message: string }[]
+  refused: ProgressRefused[]
   reason: 'returned' | 'stopped'
 }
 
@@ -81,7 +84,7 @@ declare module 'claude-code' {
       /** The open run's enforce refusals by cause, '<gate kind>:<flag type>:<step>' (BEH-25); a new run starts empty. */
       refusals: Record<string, number>
       /** The open run's refusals, each with its gate's kind, seq and first flag, for the review (BEH-25, BEH-26). */
-      refused: { gate: string; seq: number; step: number; type: string; message: string }[]
+      refused: ProgressRefused[]
       /** The run whose review was asked (BEH-26), so a reload doesn't repeat it. */
       reviewed: string | null
       /** The paused runs, bottom first (BEH-29; version 13, the full values from version 14). */
