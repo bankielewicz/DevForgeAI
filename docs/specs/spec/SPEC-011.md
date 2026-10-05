@@ -27,7 +27,7 @@ upstream:
   - {id: PRD-001, item: FR-019, relation: informed_by, version: 11, hash: null, note: "the requirement this skill implements; built on a spec branch, as no story exists (§11)"}
   - {id: PRD-001, item: FR-020, relation: informed_by, version: 11, hash: null, note: "testing policy: this skill resolves the six keys (ADR-005 D5)"}
   - {id: SPEC-002, relation: informed_by, version: 5, hash: null, note: "the shared policy files and script (§5), which this skill ships byte-identical"}
-  - {id: SPEC-003, relation: informed_by, version: 9, hash: null, note: "reads the ARCH: components and their kinds (§4), DEC items; reuses the inspection rule (BEH-05)"}
+  - {id: SPEC-003, relation: informed_by, version: 10, hash: null, note: "reads the ARCH: components and their kinds (§4), DEC items; reuses the inspection rule (BEH-05)"}
   - {id: SPEC-009, relation: informed_by, version: 2, hash: null, note: "the story skill reads these documents (BEH-04, BEH-06, BEH-11, BEH-12, BEH-13, ERR-04)"}
 supersedes: []
 superseded_by: null

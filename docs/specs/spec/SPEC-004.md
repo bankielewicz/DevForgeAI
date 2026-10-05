@@ -23,7 +23,7 @@ upstream:
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: epics come after the Architecture Definition step"}
   - {id: ADR-003, relation: informed_by, version: 2, hash: null, note: "A5: policy links carry the policy version, and the resolution line records each applied mandated platform (§4, bounded check)"}
-  - {id: SPEC-003, relation: informed_by, version: 9, hash: null, note: "consumes the readiness rule (§4: a changed mandated platform reopens its question; the older-format record), which the bounded policy check tightens, and the downstream contract (§5). SPEC-003 v5 is approved but not yet on main: SKL-004 v4 is implemented only after it merges"}
+  - {id: SPEC-003, relation: informed_by, version: 10, hash: null, note: "consumes the readiness rule (§4: a changed mandated platform reopens its question; the older-format record), which the bounded policy check tightens, and the downstream contract (§5). SPEC-003 v5 is approved but not yet on main: SKL-004 v4 is implemented only after it merges"}
   - {id: SPEC-002, relation: informed_by, version: 5, hash: null, note: "priority and release semantics, where null is undecided, and a later requirement's null priority (§5, BEH-05); re-read for version 2"}
 supersedes: []
 superseded_by: null

@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review    # draft | in-review | approved | superseded | deprecated
+status: approved    # draft | in-review | approved | superseded | deprecated
 version: 11
 created: 2026-10-02
 updated: 2026-10-04
@@ -1340,3 +1340,4 @@ Notes:
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #77's merge (`8eb431a`) and the deploy of plugin 0.20.0 | §9 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 (the waiver follow-ups): the end-of-run review only at a turn that ended with an answer, never right after an Esc, a refusal or an error (BEH-26, new VER-37); a challenge stays a record; a run that ends before every step is reached recorded for the next cycle, in his words; status in-review | frontmatter, §1, BEH-26, VER-37, §10, §11, §13 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: §1 states the answered-turn condition; a turn.complete with no reason asks nothing; VER-37 confirms the field live first | §1, BEH-26, VER-37 |
+| 11 | 2026-10-04 | Bryan | Approved | status |

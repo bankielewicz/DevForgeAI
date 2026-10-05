@@ -2,7 +2,7 @@
 id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
-status: in-review
+status: approved
 version: 15
 created: 2026-09-22
 updated: 2026-10-04
@@ -407,6 +407,8 @@ verifications:
       - BEH-06
       - BEH-13
       - ERR-01
+    upstream:
+      - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -535,3 +537,4 @@ lines don't change, so the brainstorm manifest stays matched; the questions keep
 | 14 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #77's merge (`8eb431a`) and the deploy of plugin 0.20.0 | §9 |
 | 15 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 (the waiver follow-ups): Proceed's description names the topic and extend-or-new questions still asked when open (BEH-13); step 5's proposals inside the question form, in each option's preview, with a convergence question in the same form (BEH-06); a dismissed or typed waiver answer stays Ask me as usual; new VER-15 (live); status in-review | frontmatter, §1, BEH-06, BEH-13, VER-15, §10, §11, §13 |
 | 15 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: BEH-01's 'ask none' names the topic exception; BEH-06 says what each answer writes and how a long table is shown; VER-15 checks extend-or-new and the Step 5 header | BEH-01, BEH-06, VER-15 |
+| 15 | 2026-10-04 | Bryan | Approved | status |

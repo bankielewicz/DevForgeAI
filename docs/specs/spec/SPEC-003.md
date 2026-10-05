@@ -2,7 +2,7 @@
 id: SPEC-003
 type: spec
 title: "Architecture Definition skill (MVP)"
-status: in-review
+status: approved
 version: 10
 created: 2026-09-23
 updated: 2026-10-04
@@ -688,6 +688,8 @@ verifications:
     covers:
       - BEH-08
       - BEH-18
+    upstream:
+      - {id: STORY-003, item: AC-04, relation: verifies, version: 3, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -876,3 +878,4 @@ follows the same contract.
 | 9 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #77's merge (`8eb431a`) and the deploy of plugin 0.20.0 | §9 |
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 (the waiver follow-ups): step 8 offers Confirm, Write it with the outcome open and Write nothing, which writes no file and stops (BEH-08); the waiver question doesn't count against interview.max_calls (BEH-18); a dismissed or typed waiver answer stays Ask me as usual; new VER-32 (live); status in-review | frontmatter, §1, BEH-08, BEH-18, VER-32, §10, §11, §13 |
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: step 8's typed answer and dismissal follow the existing rules, not new readings (BEH-08); steps 9 to 11 stay pending after Write nothing (BEH-17); VER-32's second run chooses amend and checks state.json | BEH-08, BEH-17, VER-32 |
+| 10 | 2026-10-04 | Bryan | Approved | status |
