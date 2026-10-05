@@ -3,9 +3,10 @@
 set -euo pipefail
 export GIT_AUTHOR_NAME="Dana Reyes" GIT_AUTHOR_EMAIL="dana@example.com"
 export GIT_COMMITTER_NAME="Dana Reyes" GIT_COMMITTER_EMAIL="dana@example.com"
-commit() { # commit <ISO date> <message>
-  git -c core.autocrlf=false add -A
-  GIT_AUTHOR_DATE="$1" GIT_COMMITTER_DATE="$1" git -c commit.gpgsign=false commit -q -m "$2"
+commit() { # commit <ISO date> <message> <file>...: only the files named, so whatever else the workspace holds stays out
+  local when="$1" message="$2"; shift 2
+  git -c core.autocrlf=false add -- "$@"
+  GIT_AUTHOR_DATE="$when" GIT_COMMITTER_DATE="$when" git -c commit.gpgsign=false commit -q -m "$message"
 }
 mkdir -p src tests docs
 git init -q -b feat/export
@@ -28,7 +29,7 @@ The exporter writes report rows as CSV. Checkpoints, in order:
 - [ ] 3. Delimiter option (a parameter and a command-line flag)
 - [ ] 4. Release notes
 PRECOMPACTFIXTURE
-commit "2026-10-01T10:00:00Z" "Add the exporter skeleton"
+commit "2026-10-01T10:00:00Z" "Add the exporter skeleton" src/export.py docs/plan.md
 cat > src/export.py <<'PRECOMPACTFIXTURE'
 """Export report rows as CSV."""
 import csv
@@ -39,7 +40,7 @@ def export(rows, path):
         writer = csv.writer(f)
         writer.writerows(rows)
 PRECOMPACTFIXTURE
-commit "2026-10-02T10:00:00Z" "Write rows as CSV"
+commit "2026-10-02T10:00:00Z" "Write rows as CSV" src/export.py
 cat > src/export.py <<'PRECOMPACTFIXTURE'
 """Export report rows as CSV."""
 import csv
@@ -60,7 +61,7 @@ from export import HEADER
 def test_header():
     assert HEADER == ["date", "region", "total"]
 PRECOMPACTFIXTURE
-commit "2026-10-03T10:00:00Z" "Add the header row"
+commit "2026-10-03T10:00:00Z" "Add the header row" src/export.py tests/test_export.py
 cat > src/export.py <<'PRECOMPACTFIXTURE'
 """Export report rows as CSV."""
 import csv

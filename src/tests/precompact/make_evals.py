@@ -41,9 +41,10 @@ KEY = "sk-test-51Hq9ZexampleKEY7Q2"
 GIT_ENV = """\
 export GIT_AUTHOR_NAME="Dana Reyes" GIT_AUTHOR_EMAIL="dana@example.com"
 export GIT_COMMITTER_NAME="Dana Reyes" GIT_COMMITTER_EMAIL="dana@example.com"
-commit() { # commit <ISO date> <message>
-  git -c core.autocrlf=false add -A
-  GIT_AUTHOR_DATE="$1" GIT_COMMITTER_DATE="$1" git -c commit.gpgsign=false commit -q -m "$2"
+commit() { # commit <ISO date> <message> <file>...: only the files named, so whatever else the workspace holds stays out
+  local when="$1" message="$2"; shift 2
+  git -c core.autocrlf=false add -- "$@"
+  GIT_AUTHOR_DATE="$when" GIT_COMMITTER_DATE="$when" git -c commit.gpgsign=false commit -q -m "$message"
 }
 """
 
@@ -121,11 +122,11 @@ def project(git=True):
             + heredoc("tests/test_export.py", TEST)
     lines += ["git init -q -b feat/export"]
     lines += heredoc("src/export.py", EXPORT_1) + heredoc("docs/plan.md", PLAN)
-    lines += ['commit "2026-10-01T10:00:00Z" "Add the exporter skeleton"']
+    lines += ['commit "2026-10-01T10:00:00Z" "Add the exporter skeleton" src/export.py docs/plan.md']
     lines += heredoc("src/export.py", EXPORT_2)
-    lines += ['commit "2026-10-02T10:00:00Z" "Write rows as CSV"']
+    lines += ['commit "2026-10-02T10:00:00Z" "Write rows as CSV" src/export.py']
     lines += heredoc("src/export.py", EXPORT_3) + heredoc("tests/test_export.py", TEST)
-    lines += ['commit "2026-10-03T10:00:00Z" "Add the header row"']
+    lines += ['commit "2026-10-03T10:00:00Z" "Add the header row" src/export.py tests/test_export.py']
     lines += heredoc("src/export.py", EXPORT_WIP)
     return lines
 
@@ -447,7 +448,10 @@ def check_premise(c):
             if Path(top).resolve() != parent.resolve():
                 sys.exit(f"{c['name']}: git's top level is {top!r}, not the parent repository")
             return None
+        (Path(tmp) / "STRAY.md").write_text("a file the workspace held before the scaffold ran\n")
         build(c, tmp)
+        if "STRAY.md" in run(["git", "ls-files"], tmp).stdout:
+            sys.exit(f"{c['name']}: a file the scaffold didn't write was committed")
         branch = run(["git", "branch", "--show-current"], tmp).stdout.strip()
         log = run(["git", "log", "--format=%s"], tmp).stdout.split("\n")
         status = run(["git", "status", "--porcelain"], tmp).stdout
