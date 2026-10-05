@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review    # draft | in-review | approved | superseded | deprecated
+status: approved    # draft | in-review | approved | superseded | deprecated
 version: 13
 created: 2026-10-02
 updated: 2026-10-05
@@ -1470,3 +1470,4 @@ Notes:
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #85's merge (`4daa7c4`) and the deploy of plugin 0.22.0 | §9 |
 | 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05: the trail of return points for skills Claude loads mid-run, LIFO with no depth limit and each skill once, the return line and the compaction note (new BEH-29; BEH-03, BEH-07; DM-03 trail, and stoppedAt as accepted at version 12; DM-02 log kind trail); new VER-41, VER-42; run tracking unchanged; status in-review | frontmatter, §1, DM-02, DM-03, BEH-03, BEH-07, BEH-29, VER-41, VER-42, §10, §11, §13 |
 | 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the third drafts review's fixes: the skill name and the main loop's turn.start (BEH-29); push only for a run with task IDs; a pop needs Claude back in the skill, not the step re-marked; the compaction note independent of BEH-24's; /clear's emptying as part of $.state; §2's skill-text sentence; VER-41 and VER-42 sharpened; §13 limits | §2, BEH-29, VER-41, VER-42, §13 |
+| 13 | 2026-10-05 | Bryan | Approved | status |
