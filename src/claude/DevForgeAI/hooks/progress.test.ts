@@ -3675,7 +3675,7 @@ test('VER-48: a dialog that fails is taken as Start fresh: the run opens with ne
   expect(log.filter(l => l.startsWith('continued'))).toEqual([])
 })
 
-test('VER-48: a load by Claude\'s Skill tool offers nothing', async ($, on) => {
+test('VER-48: a load by Claude\'s Skill tool while a run is open and unfinished (the control\'s) offers nothing', async ($, on) => {
   const r = rWorld($, on, { earlier: [rBrn(4)] })
   await start($)
   await rControl($, r)
@@ -3715,4 +3715,27 @@ test('VER-48: a command.run that loads no skill asks nothing, and a later typed 
   expect(r.asked).toEqual([])
   expect(out.text).toBe(TAGGED)
   expect(rNew(r).resumes).toBeUndefined()
+})
+
+// ---- version 17 (Bryan, 2026-10-05: "Fix now as v17"): Claude's load with no unfinished run open is offered too ----
+
+test('VER-48 (version 17): a load by Claude\'s Skill tool with no run open is offered, and Continue carries as a typed load does', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)] })
+  await start($)
+  const text = await r.sk.load($, 'devforgeai:brainstorm')
+  expect(r.asked.map(a => a.options)).toEqual([['Continue from step 4', 'Start fresh']])
+  expect(rNew(r)).toMatchObject({ resumes: r.ids[0], carried: [1, 2, 3] })
+  expect(text).toContain('This run continues the earlier brainstorm run ' + r.ids[0])
+  expect(rLogOf(r).filter(l => l.startsWith('continued '))).toEqual([`continued ${r.ids[0]} at step 4, carried 1, 2, 3`])
+})
+
+test('VER-48 (version 17): a load by Claude\'s Skill tool while a run is paused on the trail offers nothing', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)] })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await r.w.clock.advance(600)
+  await r.sk.load($, 'devforgeai:spec-lookup')    // architecture paused on the trail
+  await r.sk.load($, 'devforgeai:brainstorm')
+  expect(r.asked).toEqual([])
 })
