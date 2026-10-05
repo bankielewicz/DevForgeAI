@@ -267,13 +267,19 @@ TASKS_WRITE = write_of(r"/TASKS\.md")
 START_WRITE = write_of(r"/START-HERE\.md")
 
 
-def handoff_basics(ver, folder):
+def handoff_basics(ver, folder, earlier=False):
+    """The graders every handoff case shares. A file the scaffold already wrote fails file_exists, which counts only
+    files the run created (seen in the first suite, 2026-10-05): with an earlier handoff, the case's regex graders read
+    the files instead."""
     p = ver.lower().replace("-", "")
-    return [
-        tool_used(f"{p}-skill-fired", "Skill", SKILL_MATCH, minimum=1),
+    exists = [] if earlier else [
         file_exists(f"{p}-start-here", f"{folder}/START-HERE.md"),
         file_exists(f"{p}-tasks", f"{folder}/TASKS.md"),
         file_exists(f"{p}-resume-prompt", f"{folder}/RESUME-PROMPT.md"),
+    ]
+    return [
+        tool_used(f"{p}-skill-fired", "Skill", SKILL_MATCH, minimum=1),
+        *exists,
         regex(f"{p}-gitignore-star", r"^\*\s*$", target="devforgeai/handoff/.gitignore", flags="m"),
         tool_used(f"{p}-ran-checker", "Bash", CHECK_MATCH, minimum=1),
         # Not after a backtick: the script's own docstring quotes `handoff: clean`, should the run read the script.
@@ -325,7 +331,7 @@ FAIL if the reply doesn't account for the learning, or claims it was saved somew
                            "done entries with their evidence and gains the session's work; the earlier decision stays "
                            "quoted.",
             "prompt": STORY + " Prepare for /compact: update the handoff for the next session.",
-            "graders": handoff_basics("VER-03", HANDOFF) + [
+            "graders": handoff_basics("VER-03", HANDOFF, earlier=True) + [
                 regex("ver03-kept-done-1", r"- \[x\] Exporter skeleton[^\n]*PR #4", target=f"{HANDOFF}/TASKS.md"),
                 regex("ver03-kept-done-2", r"- \[x\] Rows written as CSV[^\n]*PR #5", target=f"{HANDOFF}/TASKS.md"),
                 regex("ver03-added-header-row", r"- \[x\][^\n]*[Hh]eader row", target=f"{HANDOFF}/TASKS.md"),
