@@ -82,6 +82,15 @@
             },
             "uniqueItems": true,
             "description": "the steps carried from the earlier run: every step before the one this run continues at (version 14, BEH-20)"
+          },
+          "answered": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "uniqueItems": true,
+            "description": "the carried user-owned steps whose answer counted in the earlier run, once its document was written (version 14, BEH-20)"
           }
         }
       }
