@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review   # draft | in-review | approved | superseded | deprecated
+status: approved   # draft | in-review | approved | superseded | deprecated
 version: 18
 created: 2026-10-02
 updated: 2026-10-05
@@ -1720,3 +1720,4 @@ Drafter's choices in version 18, for Bryan to accept or challenge:
 | 17 | 2026-10-05 | Bryan | Approved ('Fix now as v17', with the version 17 text shown in its preview) | status |
 | 18 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-05 for the precompact skill (SPEC-015): a plugin skill whose SKILL.md metadata has devforgeai-tracked "false" isn't tracked: its load opens no run and changes nothing of the open one (BEH-02); VER-50 kit tests; status in-review | frontmatter, BEH-02, VER-50, §13 |
 | 18 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, after the drafts review and Bryan's answers of 2026-10-05 ('Key in SKILL.md; unreadable = tracked', 'Record nothing after the load'): BEH-02 says where and how the key is read (the plugin's own skills only, at each load, the metadata block, quotes, CRLF), what leaves a skill tracked, and that tool calls begun after an untracked load in that turn are recorded in no run; one term, untracked skill; an unreadable SKILL.md is new ERR-18 with the adapter.log kind skill-read (DM-02); the mark outlives turn.start; BEH-03, BEH-05 and BEH-29 say tracked where an untracked load would otherwise end or pause a run; VER-50 gains the typed and Claude paths, the marked turn, the reading cases and what still works after; §13 splits his decisions from the drafter's choices | BEH-02, BEH-03, BEH-05, BEH-29, ERR-18, DM-02, VER-50, §13 |
+| 18 | 2026-10-05 | Bryan | Approved ('Approve both (Recommended)', with the summary and the drafter's choices shown in its preview, the run at 70-80% flagged as a departure from his 80-90%) | status |
