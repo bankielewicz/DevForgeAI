@@ -56,17 +56,21 @@ before step 2.
 ### 1. Check the state
 
 - Find the project root: the folder the session started in (not one a later `cd` moved to), or a folder holding it
-  that the user names as the project. The handoff folder is `devforgeai/handoff/<branch>/` under the root, the
-  branch name with each run of characters other than letters, digits, `.`, `_` and `-` replaced by `-`;
-  `detached-<short hash>` on a detached HEAD; `no-git` when git can't be used.
+  that the user names as the project. The handoff folder is `devforgeai/handoff/<folder>/` under the root,
+  `<folder>` being the branch name with each run of characters other than letters, digits, `.`, `_` and `-`
+  replaced by `-` (`feat/csv-export` becomes `feat-csv-export`); `detached-<short hash>` on a detached HEAD;
+  `no-git` when git can't be used.
 - Don't re-read what the session holds (its CLAUDE.md files and memory index are in context). Read only the handoff
-  folder's earlier files.
-- Keep each command's output small: `GIT_OPTIONAL_LOCKS=0 git status --porcelain=v2 -b`, `git log -n 5 --oneline`,
-  `git diff --stat`, `git diff --stat --cached`, and `gh pr list --limit 10` where `gh` works.
+  folder's earlier files and, when it exists, the progress tracker's
+  `devforgeai/progress/sessions/${CLAUDE_SESSION_ID}/current.json` (the open run's skill and step). This session's
+  ID is ${CLAUDE_SESSION_ID}.
+- Keep each command's output small: `date -u '+%Y-%m-%d %H:%M'`, `GIT_OPTIONAL_LOCKS=0 git status --porcelain=v2 -b`,
+  `git log -n 5 --oneline`, `git diff --stat`, `git diff --stat --cached`, and `gh pr list --limit 10` where `gh`
+  works.
 - Run no test or build command: cite the last result the session saw, with its date, marked `(unverified)`, unless
   the user's note asks for a run.
 - When git or `gh` can't be used, or git's top level is a parent of the project root (a repository that isn't the
-  project's), skip those checks, say in section 2 what couldn't be checked, and mark what depends on it
+  project's, such as a home folder kept in git), skip those checks, say in section 2 what couldn't be checked, and mark what depends on it
   `(unverified)`.
 
 ### 2. Write START-HERE.md
@@ -107,14 +111,15 @@ system, or when a write is refused, the learnings stay in START-HERE section 6 a
 Run the checker as a command of its own:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root <project root> devforgeai/handoff/<branch>
+python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root <project root> devforgeai/handoff/<folder>
 ```
 
 - Exit 0: clean, or warnings only. Exit 1: fix each problem it lists in the file and line it names, and run it
-  again, at most three runs in all; never change a correct reference only to satisfy it. Exit 2: the folder wasn't
-  written; write the files and run it again.
+  again, at most three runs in all; never change a correct reference only to satisfy it. Exit 2: no such folder;
+  check the root and the folder name from step 1, write the files if they are missing, and run it again.
 - Without `python3`, say so and read the files back against the whole self-check.
-- Then read the files back against the self-check's other items (references/handoff-rules.md, "The self-check").
+- Then review what was written against the self-check's other items (references/handoff-rules.md, "The
+  self-check", items 4 to 9). The text is in context: don't read the files again.
 
 ### 7. Report
 
@@ -132,15 +137,15 @@ the user saw them; the handoff records no choice the user didn't make, and secti
 - **The handoff folder can't be written:** say so, quoting the error, and give the files' content in the reply
   instead, so the user can save them.
 - **The folder holds a handoff of other work** (another topic on this branch): keep its TASKS.md entries under a `##`
-  heading naming that work, write START-HERE for the current work, and name the earlier work in section 5 as not
+  heading naming that work after the required ones, write START-HERE for the current work, and name the earlier work in section 5 as not
   continued here.
 - **Cut off before the end:** START-HERE.md is written first, so it exists; the next session, given its path,
   finishes by running this skill again.
 
 ## References
 
-- [references/handoff-rules.md](references/handoff-rules.md): where the files go, the order, each START-HERE
-  section with examples, carrying over an earlier handoff, TASKS.md and the plan file, the checker, the self-check.
+- [references/handoff-rules.md](references/handoff-rules.md): the folder and its markers, each START-HERE section
+  with examples, carrying over an earlier handoff, TASKS.md, the checker's warnings, the self-check.
 - [references/memory.md](references/memory.md): what is worth saving to memory, and how.
 - [assets/start-here.md](assets/start-here.md), [assets/tasks.md](assets/tasks.md),
   [assets/resume-prompt.md](assets/resume-prompt.md): the templates.
