@@ -1,4 +1,4 @@
-// The progress tracker adapter's $.state contract (SPEC-013 v6 DM-03). $.state survives a reload of the module
+// The progress tracker adapter's $.state contract (SPEC-013 v14 DM-03). $.state survives a reload of the module
 // and empties on /clear, /resume and /branch; whether the session is interactive and the evaluation timer are
 // module variables instead (BEH-01, BEH-06).
 
@@ -27,6 +27,31 @@ export type ProgressSummary = {
   currentTitle: string | null
   lastFlag: string | null
   stoppedAt?: number | null  // version 12: the step a deliberate stop's answer was tagged with (SPEC-013 BEH-10, BEH-27)
+}
+
+/** A run paused on the trail (BEH-29, version 14; version 13 held skill, step and tasks only): its return step, its
+ *  task IDs, and the values it had while open, which it gets back when the trail unwinds to it (BEH-30). */
+export type ProgressPaused = {
+  skill: string
+  step: number
+  tasks: Record<string, number>
+  run: ProgressRun | null
+  summary: ProgressSummary | null
+  marked: boolean
+  shown: string[]
+  contextSent: number[]
+  todos: Record<string, string>
+  adhered: string | null
+  refusals: Record<string, number>
+  refused: { gate: string; seq: number; step: number; type: string; message: string }[]
+  reviewed: string | null
+}
+
+/** A run that ended returned or stopped while nested, kept for the turn's review (BEH-26, BEH-30; version 14). */
+export type ProgressReturned = {
+  run: ProgressRun | null
+  refused: { gate: string; seq: number; step: number; type: string; message: string }[]
+  reason: 'returned' | 'stopped'
 }
 
 export type ProgressMode = 'observe' | 'enforce'
@@ -59,8 +84,10 @@ declare module 'claude-code' {
       refused: { gate: string; seq: number; step: number; type: string; message: string }[]
       /** The run whose review was asked (BEH-26), so a reload doesn't repeat it. */
       reviewed: string | null
-      /** The trail of return points, bottom first (BEH-29, version 13). */
-      trail: { skill: string; step: number; tasks: Record<string, number> }[]
+      /** The paused runs, bottom first (BEH-29; version 13, the full values from version 14). */
+      trail: ProgressPaused[]
+      /** Runs that ended returned or stopped while nested, for the turn's review (BEH-30; version 14). */
+      returned: ProgressReturned[]
     }
   }
 }

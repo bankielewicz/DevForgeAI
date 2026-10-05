@@ -1,7 +1,7 @@
 // Pure helpers of the progress tracker adapter (SPEC-013 v7). No `$` here: claude plugin validate lets `$` reach
 // only top-level functions of hooks/progress.tsx, so this file turns plain data into plain data, and its tests
 // (core.test.ts) call it directly.
-import type { ProgressMode, ProgressSummary } from '../types'
+import type { ProgressMode, ProgressPaused, ProgressSummary } from '../types'
 
 export type Fields = Record<string, unknown>
 
@@ -224,14 +224,33 @@ export function keptText(skill: string, current: number): string {
   return `Kept working: the ${skill} run is still at step ${current}.`
 }
 
+/** BEH-28's question while runs are paused beneath the open one (version 14): a paused run is unfinished, so it asks
+ *  whatever the open run's state, naming the run just beneath. `s` is the open run's summary, null with no state yet. */
+export function nestedExitQuestion(open: string, s: { current: number | null; steps: number; ended: string | null } | null,
+  b: { skill: string; step: number }, more: number, verb: string): string {
+  const where = s === null ? 'has just started'
+    : s.current === null || s.ended !== null ? 'is done' : `is at step ${s.current} of ${s.steps} and unfinished`
+  return `${open} run ${where} (${b.skill} paused at step ${b.step}${more > 0 ? `, ${more} more paused` : ''}). ${verb} anyway?`
+}
+
+/** BEH-28's text when the command is kept while runs are paused (version 14). */
+export function nestedKeptText(open: string, b: { skill: string; step: number }): string {
+  return `Kept working: the ${open} run goes on, and ${b.skill} is still paused at step ${b.step}.`
+}
+
 /** Whether a rejected $.ui.ask was the user's dismissal (Esc), as opposed to a dialog that couldn't be shown (ERR-16). */
 export function isDismissal(err: unknown): boolean {
   const text = err instanceof Error ? err.message : String(err)
   return /doesn't want to proceed/.test(text)
 }
 
-/** The status line's text (BEH-10), or undefined when there is nothing to show. */
-export function statusText(summary: ProgressSummary | null, mode: ProgressMode, idle: boolean, off: string | null): string | undefined {
+/** A paused run as the status line and the band name it (BEH-10, BEH-11; version 14): its skill, its return step, and
+ *  the number of steps of its saved summary, if it had one. */
+export type Beneath = { skill: string; step: number; summary: { steps: number } | null }
+
+/** The status line's text (BEH-10), or undefined when there is nothing to show; `trail`, the paused runs, bottom first. */
+export function statusText(summary: ProgressSummary | null, mode: ProgressMode, idle: boolean, off: string | null,
+  trail: readonly Beneath[] = []): string | undefined {
   if (off !== null) return `progress: off (${off})`
   if (summary === null) return undefined
   const stoppedAt = stopStep(summary)
@@ -240,6 +259,11 @@ export function statusText(summary: ProgressSummary | null, mode: ProgressMode, 
     : summary.ended !== null
     ? `${summary.skill} ended`
     : summary.current === null ? `${summary.skill} done` : `${summary.skill} ${summary.current}/${summary.steps}`
+  const b = trail[trail.length - 1]
+  if (b !== undefined) {
+    text += ` · in ${b.skill} ${b.step}${b.summary !== null ? `/${b.summary.steps}` : ''}`
+    if (trail.length > 1) text += ` · ${trail.length - 1} more`
+  }
   if (summary.yourTurn && summary.ended === null) text += ' · your turn'
   if (summary.flags > 0) text += ` · ${summary.flags} ${summary.flags === 1 ? 'flag' : 'flags'}`
   if (summary.manifest === 'stale' || summary.manifest === 'none') text += ' · ticks only'
@@ -260,8 +284,9 @@ export function fit(text: string, width: number): string {
   return width <= 1 ? chars.slice(0, Math.max(0, width)).join('') : chars.slice(0, width - 1).join('') + '…'
 }
 
-/** The band's two rows of text (BEH-11); the button sits on row 2 between the mode and the flag. */
-export function bandRows(summary: ProgressSummary, mode: ProgressMode) {
+/** The band's two rows of text (BEH-11); the button sits on row 2 between the mode and the flag. Row 1 names the run
+ *  paused just beneath, if any (version 14). */
+export function bandRows(summary: ProgressSummary, mode: ProgressMode, trail: readonly Beneath[] = []) {
   const glyphs = summary.states.map(s => GLYPH[s] ?? '○').join('')
   const stoppedAt = stopStep(summary)
   const where = stoppedAt !== null
@@ -272,11 +297,16 @@ export function bandRows(summary: ProgressSummary, mode: ProgressMode) {
       ? `all ${summary.steps} steps reached`
       : `step ${summary.current} of ${summary.steps}: ${summary.currentTitle ?? ''}`
   return {
-    row1: `${summary.skill}  ${glyphs}  ${where}`,
+    row1: `${summary.skill}  ${glyphs}  ${where}${pausedPart(trail)}`,
     mode: mode === 'enforce' ? 'enforce mode' : 'observe mode',
     button: mode === 'enforce' ? 'Switch to observe' : 'Switch to enforce',
     flag: summary.lastFlag ?? 'no flags',
   }
+}
+
+function pausedPart(trail: readonly Beneath[]): string {
+  const b = trail[trail.length - 1]
+  return b === undefined ? '' : ` (paused: ${b.skill} at step ${b.step}${trail.length > 1 ? `, ${trail.length - 1} more` : ''})`
 }
 
 /** A flag's identity, so each is shown once (BEH-12). */
@@ -340,8 +370,16 @@ export function reportContext(state: ProgressState): { seq: number; text: string
 /** The final evaluation's timeout at session end, from what the shared 1.5-second budget leaves, or null when
  *  there is no room for it (BEH-05): the run-end line is written first, and the log alone reproduces the state. */
 export function finalTimeout(remainingMs: number): number | null {
-  const timeout = Math.floor(remainingMs) - 300
+  const timeout = Math.floor(remainingMs) - END_RESERVE_MS
   return timeout >= 200 ? timeout : null
+}
+
+/** What session.end keeps for Claude Code's own work after the adapter's (BEH-05). */
+export const END_RESERVE_MS = 300
+
+/** Whether the session.end budget left has room for one more run-end (BEH-05, version 14). */
+export function hasRoom(remainingMs: number): boolean {
+  return remainingMs >= END_RESERVE_MS
 }
 
 /** The retention period in days from the retentionDays setting (DM-06): 7 to 3650, else 30. Claude Code already
@@ -699,13 +737,14 @@ export function compactTexts(skill: string, label: string | null): { instruction
   }
 }
 
-// ---- version 13: the trail of return points (SPEC-013 BEH-29) ----
+// ---- the trail of paused runs (SPEC-013 BEH-29, BEH-30; version 13, paused and resumed from version 14) ----
 
-export type TrailEntry = { skill: string; step: number; tasks: Record<string, number> }
+/** A trail entry as the compaction note names it. */
+export type TrailEntry = { skill: string; step: number }
 
-/** The line added to a skill Claude loads mid-run (BEH-29). */
+/** The line added to a skill Claude loads mid-run (BEH-29, version 14). */
 export function returnLine(skill: string, step: number): string {
-  return `This skill was loaded by ${skill} at step ${step}. When this skill's work is done, continue ${skill} at step ${step}.`
+  return `This skill was loaded by ${skill} at step ${step}. When this skill's work is done, mark ${skill}'s step ${step} task in progress again and continue ${skill} at step ${step}.`
 }
 
 export const TRAIL_NOTE_START = 'Return points (from the progress tracker):'
@@ -716,14 +755,32 @@ export function trailNote(open: string, trail: readonly TrailEntry[]): string {
   return `${TRAIL_NOTE_START} when ${open} is done, ${parts.join('; ')}.`
 }
 
-/** The index of the entry a TaskUpdate shows Claude back in, or -1 (BEH-29): it completes the return step's task, or
- *  changes another of the entry's tasks; re-marking the return step's task in progress isn't a return. */
-export function returnedTo(trail: readonly TrailEntry[], taskId: unknown, status: unknown): number {
+/** The index of the topmost paused run whose task IDs hold a TaskUpdate's task ID, or -1 (BEH-30 (a), version 14):
+ *  whatever the update's status, Claude has gone back to that skill. */
+export function pausedWith(trail: readonly { tasks: Record<string, number> }[], taskId: unknown): number {
   if (typeof taskId !== 'string') return -1
-  for (let i = trail.length - 1; i >= 0; i--) {
-    const step = trail[i].tasks[taskId]
-    if (step === undefined) continue
-    return step !== trail[i].step || status === 'completed' ? i : -1
-  }
+  for (let i = trail.length - 1; i >= 0; i--) if (Object.hasOwn(trail[i].tasks, taskId)) return i
   return -1
+}
+
+/** The trail as $.state gives it back after a load (BEH-30): an entry without its run (version 13's shape) is dropped. */
+export function keptTrail(raw: unknown): ProgressPaused[] {
+  if (!Array.isArray(raw)) return []
+  return raw.filter((t): t is ProgressPaused => t !== null && typeof t === 'object' && typeof t.skill === 'string'
+    && typeof t.step === 'number' && t.tasks !== null && typeof t.tasks === 'object'
+    && t.run !== null && typeof t.run === 'object' && typeof t.run.id === 'string' && typeof t.run.dir === 'string')
+}
+
+/** The reason of a run's run-end in its log, or null when it hasn't ended (BEH-05). */
+export function endReason(lines: readonly string[]): string | null {
+  for (const line of lines) {
+    if (!line.includes('"kind":"run-end"')) continue
+    try {
+      const reason = (JSON.parse(line) as Fields).reason
+      return typeof reason === 'string' ? reason : null
+    } catch {
+      return null
+    }
+  }
+  return null
 }

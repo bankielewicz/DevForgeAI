@@ -3,7 +3,7 @@ import {
   adherenceText, bandRows, editResult, eventLine, finalTimeout, exitOf, fit, followsTaskList, hasTaskList, isAnswered,
   isEngine, isFailed, isPersonPrompt, isTracked, keptContent, newFlagToasts, questionRefusal, refusalText, relPath,
   refusalCause, replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf, stuckAdvice,
-  stuckText, summaryOf, taskIdOf, returnLine, trailNote, returnedTo,
+  stuckText, summaryOf, taskIdOf, returnLine, trailNote, pausedWith, keptTrail, endReason, hasRoom, nestedExitQuestion, nestedKeptText,
   todoSteps, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT, QUESTION_REFUSAL, QUESTION_TAG,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
@@ -291,15 +291,61 @@ test('VER-38: a stopped run reads stopped at step n in the status line and the b
   expect(statusText(ended, 'observe', false, null)).toBe('architecture ended')
 })
 
-// VER-41 (SPEC-013 v13): the trail's texts and its pop rule.
-test('VER-41: the return line, the trail note, and which TaskUpdate shows Claude back', () => {
-  expect(returnLine('architecture', 7)).toBe("This skill was loaded by architecture at step 7. When this skill's work is done, continue architecture at step 7.")
+// VER-43 and VER-44 (SPEC-013 v14; version 13's VER-41 replaced): the trail's texts, which paused run a TaskUpdate
+// names, the trail kept at a load, a log's run-end reason, the nested display and exit texts.
+test('VER-43: the return line asks to re-mark the step; the trail note names the whole trail, top first', () => {
+  expect(returnLine('architecture', 7)).toBe("This skill was loaded by architecture at step 7. When this skill's work is done, mark architecture's step 7 task in progress again and continue architecture at step 7.")
   const trail = [{ skill: 'brainstorm', step: 4, tasks: { '1': 1, '4': 4 } }, { skill: 'architecture', step: 7, tasks: { '7': 7, '8': 8 } }]
   expect(trailNote('spec-lookup', trail)).toBe('Return points (from the progress tracker): when spec-lookup is done, continue architecture at step 7; then brainstorm at step 4.')
-  expect(returnedTo(trail, '7', 'in_progress')).toBe(-1)
-  expect(returnedTo(trail, '7', 'completed')).toBe(1)
-  expect(returnedTo(trail, '8', 'in_progress')).toBe(1)
-  expect(returnedTo(trail, '1', 'in_progress')).toBe(0)
-  expect(returnedTo(trail, '99', 'completed')).toBe(-1)
-  expect(returnedTo(trail, 7, 'completed')).toBe(-1)
+})
+
+test('VER-44: a TaskUpdate names the topmost paused run holding its task ID, whatever its status', () => {
+  const trail = [{ skill: 'brainstorm', step: 4, tasks: { '1': 1, '4': 4, '7': 7 } }, { skill: 'architecture', step: 7, tasks: { '7': 7, '8': 8 } }]
+  expect(pausedWith(trail, '7')).toBe(1)
+  expect(pausedWith(trail, '8')).toBe(1)
+  expect(pausedWith(trail, '1')).toBe(0)
+  expect(pausedWith(trail, '99')).toBe(-1)
+  expect(pausedWith(trail, 7)).toBe(-1)
+  expect(pausedWith([], '7')).toBe(-1)
+})
+
+test('VER-43: a trail read back after a load keeps only entries with their run (version 13 entries are dropped)', () => {
+  const run = { id: 'r1', skill: 'architecture', seq: 9, dir: '/d', root: '/w' }
+  const full = { skill: 'architecture', step: 7, tasks: { '7': 7 }, run, summary: null, marked: false, shown: [], contextSent: [],
+    todos: {}, adhered: null, refusals: {}, refused: [], reviewed: null }
+  expect(keptTrail([{ skill: 'brainstorm', step: 4, tasks: {} }, full])).toEqual([full])
+  expect(keptTrail(null)).toEqual([])
+  expect(keptTrail([{ ...full, step: '7' }, { ...full, run: null }])).toEqual([])
+})
+
+test('VER-44: a log\'s run-end reason; a session end\'s room for one more run-end', () => {
+  const line = (kind: string, fields = {}) => JSON.stringify({ kind, ...fields })
+  expect(endReason([line('skill-loaded'), line('tool'), line('run-end', { reason: 'stopped' }), line('turn')])).toBe('stopped')
+  expect(endReason([line('skill-loaded')])).toBe(null)
+  expect(hasRoom(1500)).toBe(true)
+  expect(hasRoom(299)).toBe(false)
+})
+
+test('VER-43: the status line and the band name the run just beneath, and count the rest', () => {
+  const steps = Array.from({ length: 5 }, (_, i) => ({ n: i + 1, title: `Step ${i + 1}`, state: i < 1 ? 'done' : i === 1 ? 'current' : 'pending' }))
+  const s = summaryOf({ skill: 'spec-lookup', current: 2, ended: null, steps, flags: [],
+    gate: { kind: null, seq: null, refuse: false, reason: null }, manifest: { state: 'matched' as const } })
+  const arch = { skill: 'architecture', step: 7, summary: { steps: 11 } }
+  const brn = { skill: 'brainstorm', step: 4, summary: null }
+  expect(statusText(s, 'observe', false, null, [arch])).toBe('spec-lookup 2/5 · in architecture 7/11')
+  expect(statusText(s, 'enforce', false, null, [brn, arch])).toBe('spec-lookup 2/5 · in architecture 7/11 · 1 more · enforce')
+  expect(statusText(s, 'observe', false, null, [brn])).toBe('spec-lookup 2/5 · in brainstorm 4')
+  expect(statusText(s, 'observe', false, null, [])).toBe('spec-lookup 2/5')
+  expect(bandRows(s, 'observe', [arch]).row1.endsWith(' (paused: architecture at step 7)')).toBe(true)
+  expect(bandRows(s, 'observe', [brn, arch]).row1.endsWith(' (paused: architecture at step 7, 1 more)')).toBe(true)
+  expect(bandRows(s, 'observe').row1.endsWith('step 2 of 5: Step 2')).toBe(true)
+})
+
+test('VER-44: the exit question and the kept text while a run is paused beneath the open one', () => {
+  const b = { skill: 'architecture', step: 7 }
+  const at = { current: 2, steps: 5, ended: null }
+  expect(nestedExitQuestion('spec-lookup', at, b, 0, 'Clear')).toBe('spec-lookup run is at step 2 of 5 and unfinished (architecture paused at step 7). Clear anyway?')
+  expect(nestedExitQuestion('spec-lookup', { ...at, current: null }, b, 1, 'Exit')).toBe('spec-lookup run is done (architecture paused at step 7, 1 more paused). Exit anyway?')
+  expect(nestedExitQuestion('spec-lookup', null, b, 0, 'Resume')).toBe('spec-lookup run has just started (architecture paused at step 7). Resume anyway?')
+  expect(nestedKeptText('spec-lookup', b)).toBe('Kept working: the spec-lookup run goes on, and architecture is still paused at step 7.')
 })
