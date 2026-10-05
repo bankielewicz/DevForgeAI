@@ -33,8 +33,10 @@ Claude Code loads, plus a provenance sidecar that ties it into the planning chai
 ## Why provenance lives in a sidecar
 
 The Agent Skills spec defines `metadata` as a map of **strings to strings**, so link records
-(lists of objects) can't live in `SKILL.md` portably. `SKILL.md` carries only two metadata keys,
-`devforgeai-id` and `devforgeai-version`, always quoted. `provenance.yaml` holds the full
+(lists of objects) can't live in `SKILL.md` portably. `SKILL.md` carries two metadata keys,
+`devforgeai-id` and `devforgeai-version`, always quoted, and an untracked skill a third,
+`devforgeai-tracked: "false"`, which the progress tracker reads (SPEC-013 v18 BEH-02; precompact is the
+first). `provenance.yaml` holds the full
 record, uses the common frontmatter keys from [../README.md](../README.md) §2.2, and is
 validated against `src/schemas/skill.schema.json`.
 
