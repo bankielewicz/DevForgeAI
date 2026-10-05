@@ -55,18 +55,19 @@ before step 2.
 
 ### 1. Check the state
 
-- Find the project root: the working directory, or the git top level when that is a parent of it. The handoff
-  folder is `devforgeai/handoff/<branch>/` under the root, the branch name with each run of characters other than
-  letters, digits, `.`, `_` and `-` replaced by `-`; `detached-<short hash>` on a detached HEAD; `no-git` when git
-  can't be used.
+- Find the project root: the folder the session started in (not one a later `cd` moved to), or a folder holding it
+  that the user names as the project. The handoff folder is `devforgeai/handoff/<branch>/` under the root, the
+  branch name with each run of characters other than letters, digits, `.`, `_` and `-` replaced by `-`;
+  `detached-<short hash>` on a detached HEAD; `no-git` when git can't be used.
 - Don't re-read what the session holds (its CLAUDE.md files and memory index are in context). Read only the handoff
   folder's earlier files.
 - Keep each command's output small: `GIT_OPTIONAL_LOCKS=0 git status --porcelain=v2 -b`, `git log -n 5 --oneline`,
   `git diff --stat`, `git diff --stat --cached`, and `gh pr list --limit 10` where `gh` works.
 - Run no test or build command: cite the last result the session saw, with its date, marked `(unverified)`, unless
   the user's note asks for a run.
-- When git or `gh` can't be used, or git's top level is a parent of the project folder, skip those checks, say in
-  section 2 what couldn't be checked, and mark what depends on it `(unverified)`.
+- When git or `gh` can't be used, or git's top level is a parent of the project root (a repository that isn't the
+  project's), skip those checks, say in section 2 what couldn't be checked, and mark what depends on it
+  `(unverified)`.
 
 ### 2. Write START-HERE.md
 

@@ -32,7 +32,8 @@ components: ["src/claude/DevForgeAI/skills/precompact", "src/tests/precompact", 
 # SPEC-015 — Pre-compaction handoff skill: save what the session learned and write a full-fidelity handoff before /compact
 
 > **Status:** version 2 in review: version 1 was approved by Bryan on 2026-10-05; version 2 fixes §5's description,
-> which the build found holding `<branch>`, refused by the frontmatter schema. The drafting plan and its checkpoints
+> which the build found holding `<branch>`, refused by the frontmatter schema, and §4's project root, which
+> contradicted ERR-01. The drafting plan and its checkpoints
 > are in `tmp/plans/2026-10-05-precompact.md` (local); the review is `tmp/plans/precompact/review-drafts.md` (local).
 
 ## 1. Overview
@@ -134,9 +135,11 @@ flowchart LR
 
 ## 4. Data model
 
-**The project root** is the session's working directory when the skill starts; when that folder is inside a git
-repository whose top level is a parent of it, the top level. START-HERE §1 states it, and every path the skill writes
-or checks is under it unless written absolute.
+**The project root** is the folder the session started in (its working directory then, not a folder a later `cd`
+moved the shell to), or a folder holding it that the user names as the project. When git's top level for it is
+another folder, a parent repository that isn't the project's (such as a home folder kept in git), git isn't used for
+it (ERR-01). START-HERE §1 states the root, and every path the skill writes or checks is under it unless written
+absolute.
 
 **The handoff folder** is `<root>/devforgeai/handoff/<branch>/`, `<branch>` being the current branch's name with each
 run of characters other than letters, digits, `.`, `_` and `-` replaced by `-` (`docs/precompact` becomes
@@ -467,4 +470,4 @@ named in BEH-06.
 | 1 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Drafted from Bryan's decisions of 2026-10-05 (`/plugin-dev:skill-development`, "Full cycle, 1-run evals", the purpose and content in his words, the tracker ignores it, devforgeai/handoff/, three files); status in-review | all |
 | 1 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes (2 critical: the checker's rules narrowed so valid handoffs pass and the fix loop ends; ERR-01 decided by git's top level, VER-05's premise in a parent repository) and Bryan's answers (one folder per branch; typed or asked, run at 70 to 80 percent, START-HERE written first, memory last; the session's plan file ticked; line shapes and the self-check in the spec; the resume prompt's absolute path and branch check; no tests run; no secrets; ERR-06) | §1 to §13 |
 | 1 | 2026-10-05 | Bryan | Approved ('Approve both (Recommended)', with the summary and the drafter's choices shown in its preview, the run at 70-80% flagged as a departure from his 80-90%) | status |
-| 2 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | The build's structure test found that §5's description holds `<branch>`, which skill-frontmatter.schema.json refuses (a description holds no < or >; PRD-001 NFR-002, §2): it now says 'in devforgeai/handoff/, one folder per branch'; status in-review | §5 |
+| 2 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | The build's structure test found that §5's description holds `<branch>`, which skill-frontmatter.schema.json refuses (a description holds no < or >; PRD-001 NFR-002, §2): it now says 'in devforgeai/handoff/, one folder per branch'. Writing the no-git eval case (VER-05) found §4's project root (the git top level when a parent of the working directory) contradicting ERR-01 (a parent repository the user didn't name means git isn't used): the root is now the folder the session started in, or a folder holding it that the user names; status in-review | §4, §5 |

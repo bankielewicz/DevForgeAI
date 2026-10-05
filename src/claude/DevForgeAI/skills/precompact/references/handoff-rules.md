@@ -6,9 +6,9 @@ anything this session knew: full fidelity, zero ambiguity, and pointers instead 
 
 ## Where the files go
 
-- **Project root:** the session's working directory when the skill starts; when that folder is inside a git
-  repository whose top level is a parent of it, the top level (`git rev-parse --show-toplevel`). START-HERE section 1
-  states it. Every path written or checked is under it unless written absolute.
+- **Project root:** the folder the session started in (its working directory then, not a folder a later `cd` moved
+  the shell to), or a folder holding it that the user names as the project. START-HERE section 1 states it. Every
+  path written or checked is under it unless written absolute.
 - **Handoff folder:** `devforgeai/handoff/<branch>/` under the root, one folder per branch, so sessions on different
   branches of one checkout don't overwrite each other. The folder name is the branch name with each run of
   characters other than letters, digits, `.`, `_` and `-` replaced by `-` (`feat/csv-export` becomes
@@ -43,8 +43,9 @@ gh pr list --limit 10
 
 - Run no test or build command. Cite the last result the session saw, with its date and `(unverified)`, unless the
   user's note asks for a run.
-- When git reports an error for the project folder, isn't installed, or finds a repository whose top level is a
-  parent of the project folder (not the folder itself, nor a folder holding it that the user named), skip the git
+- When git reports an error for the project folder, isn't installed, or finds a repository whose top level
+  (`git rev-parse --show-toplevel`) is a parent of the project root (a repository that isn't the project's, such as a
+  home folder kept in git, unless the user named that folder as the project), skip the git
   checks, use the folder `no-git` when there is no usable branch, say in section 2 what couldn't be checked, and mark
   what depends on it `(unverified)`. The same when `gh` is missing or fails: skip it and say so.
 - When the session's progress tracker has an open run, name it and its step in section 1 (the tracker's
