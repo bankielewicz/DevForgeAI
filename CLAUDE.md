@@ -28,6 +28,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | `documents-updater` | SKL-005 v1, draft | SPEC-006 v1, approved | 1 run, 8 of 8 at 1.00 | PR #1 (0.2.0) |
 | `git` | SKL-006 v3, in-review | SPEC-007 v3, in-review | v3: not run. v2 (approved): 3 runs, 19 of 19 at ≥ 0.8 | PR #56 (0.10.1) |
 | `spec-lookup` | SKL-011 v1, approved | SPEC-014 v3, approved | 3 runs, 4 of 4 at 1.00 | PR #75 (0.19.0) |
+| `precompact` | SKL-012 v1, draft | SPEC-015 v2, in-review (v1 approved) | not run yet; 1 run per case, 3-run qualification waived by Bryan | — |
 | `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
 | `story` | SKL-008, reserved | SPEC-009 v2, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |

@@ -2,8 +2,8 @@
 id: SPEC-015
 type: spec
 title: "Pre-compaction handoff skill: save what the session learned and write a full-fidelity handoff before /compact"
-status: approved      # draft | in-review | approved | superseded | deprecated
-version: 1
+status: in-review      # draft | in-review | approved | superseded | deprecated
+version: 2
 created: 2026-10-05
 updated: 2026-10-05
 owner: "Bryan"
@@ -31,9 +31,9 @@ components: ["src/claude/DevForgeAI/skills/precompact", "src/tests/precompact", 
 
 # SPEC-015 — Pre-compaction handoff skill: save what the session learned and write a full-fidelity handoff before /compact
 
-> **Status:** version 1 in review (drafted 2026-10-05; the drafts review's fixes and Bryan's answers applied the same
-> day). The drafting plan and its checkpoints are in `tmp/plans/2026-10-05-precompact.md` (local); the review is
-> `tmp/plans/precompact/review-drafts.md` (local).
+> **Status:** version 2 in review: version 1 was approved by Bryan on 2026-10-05; version 2 fixes §5's description,
+> which the build found holding `<branch>`, refused by the frontmatter schema. The drafting plan and its checkpoints
+> are in `tmp/plans/2026-10-05-precompact.md` (local); the review is `tmp/plans/precompact/review-drafts.md` (local).
 
 ## 1. Overview
 
@@ -192,7 +192,7 @@ the rest:
 ```yaml
 # Proposed SKILL.md frontmatter (validated by src/schemas/skill-frontmatter.schema.json)
 name: precompact
-description: Prepares a Claude Code session for /compact, so the next session can continue with nothing pasted by hand. It writes a full-fidelity handoff in devforgeai/handoff/<branch>/ (START-HERE.md with the verified state, decisions and who made them, files to read first and the work outstanding; TASKS.md; a short RESUME-PROMPT.md to paste after compacting), ticks the session's plan file, and saves the session's new learnings to memory. Use before running /compact, ideally at 70 to 80 percent of the context window, or when asked to save learnings and write a handoff, start-here document or resume prompt for the next session after compacting. Not for project documentation, release notes, commit messages or a backlog.
+description: Prepares a Claude Code session for /compact, so the next session can continue with nothing pasted by hand. It writes a full-fidelity handoff in devforgeai/handoff/, one folder per branch (START-HERE.md with the verified state, decisions and who made them, files to read first and the work outstanding; TASKS.md; a short RESUME-PROMPT.md to paste after compacting), ticks the session's plan file, and saves the session's new learnings to memory. Use before running /compact, ideally at 70 to 80 percent of the context window, or when asked to save learnings and write a handoff, start-here document or resume prompt for the next session after compacting. Not for project documentation, release notes, commit messages or a backlog.
 argument-hint: "[note for the next session]"
 metadata:
   devforgeai-id: "SKL-012"
@@ -467,3 +467,4 @@ named in BEH-06.
 | 1 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Drafted from Bryan's decisions of 2026-10-05 (`/plugin-dev:skill-development`, "Full cycle, 1-run evals", the purpose and content in his words, the tracker ignores it, devforgeai/handoff/, three files); status in-review | all |
 | 1 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes (2 critical: the checker's rules narrowed so valid handoffs pass and the fix loop ends; ERR-01 decided by git's top level, VER-05's premise in a parent repository) and Bryan's answers (one folder per branch; typed or asked, run at 70 to 80 percent, START-HERE written first, memory last; the session's plan file ticked; line shapes and the self-check in the spec; the resume prompt's absolute path and branch check; no tests run; no secrets; ERR-06) | §1 to §13 |
 | 1 | 2026-10-05 | Bryan | Approved ('Approve both (Recommended)', with the summary and the drafter's choices shown in its preview, the run at 70-80% flagged as a departure from his 80-90%) | status |
+| 2 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | The build's structure test found that §5's description holds `<branch>`, which skill-frontmatter.schema.json refuses (a description holds no < or >; PRD-001 NFR-002, §2): it now says 'in devforgeai/handoff/, one folder per branch'; status in-review | §5 |
