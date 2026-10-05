@@ -4,7 +4,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "8"
+  devforgeai-version: "9"
 ---
 
 # Architecture
@@ -75,7 +75,7 @@ without asking.
 each, with the recommended option first and marked "(Recommended)", each form tagged with its step
 (Workflow, item 4). Otherwise ask in plain text and end your turn. Use at most `interview.max_calls`
 calls (step 1; default 8) unless the user asks for more; questions left when the budget runs out
-stay open. When step 8 will ask, keep one call for its question; a gate still comes first. Write
+stay open. The waiver question doesn't count against `interview.max_calls`. When step 8 will ask, keep one call for its question; a gate still comes first. Write
 nothing that a pending answer affects until the answer arrives.
 
 **"Proceed without questions."** When the request says to proceed without questions (or "don't ask
@@ -133,7 +133,7 @@ question form, its tag names that step:
    when an earlier run's tasks are still in the list: those don't count for this run.
 2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a
    time; a step with nothing to do is completed too (step 5 with no scope, step 7 with no open
-   question). Mark step 11 completed just before writing the final reply.
+   question). After step 8's *Write nothing*, leave steps 9 to 11 pending: the run stops there. Mark step 11 completed just before writing the final reply.
 3. Before asking any question, mark the step it belongs to in_progress: the waiver → step 1; which PRD →
    step 2; reuse,
    amend or create → step 4; reading outside the inspection scope → step 5; every decision question
@@ -330,6 +330,13 @@ picks the direction.
   accepted or superseded, the new version, and an approved ARCH's return to in-review.
 - **Create:** name the new ARCH's ID and what it records.
 
+Offer three options, in this order: `Confirm <outcome>` (e.g. `Confirm amend`, "(Recommended)"), which
+writes the outcome; `Write it with the outcome open`, which writes the change with `outcome: null`;
+and `Write nothing`: write and edit no file, mark step 8 completed, leave steps 9 to 11 pending (a
+completed step 9 without a write claims work not done), reply with each question asked in this run
+and its answer, say nothing was written so a later run can reuse them, and stop. Read typed text as
+any typed answer; a dismissal leaves the question unanswered, so write nothing it affects.
+
 Write `outcome` only when it is confirmed at step 8, or the request named it and said to proceed
 without questions; otherwise it stays `null`. Confirming the outcome accepts no decision. When
 proposing reuse, and in the report when it is confirmed, name each active requirement no active
@@ -427,8 +434,8 @@ is, run `/devforgeai:epic PRD-001` for the ready requirements; FR-001 waits for 
 
 Never start epic work, and never write an epic.
 
-When the skill stops without writing (a gate is open, the outcome question is pending at step 8, no
-PRD exists, ERR-01, ERR-02, ERR-04), the reply says why and what the user can do, and leaves out the
+When the skill stops without writing (a gate is open, the outcome question is pending at step 8, the
+user picked *Write nothing* at step 8, no PRD exists, ERR-01, ERR-02, ERR-04), the reply says why and what the user can do, and leaves out the
 report block.
 
 **After ERR-05**, a validation-failure report replaces both the block and the next step. It gives
