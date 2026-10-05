@@ -430,6 +430,10 @@ worktree (ADR-001):
 
 ## 13. Open questions
 
+- Recorded (Bryan, 2026-10-05, "Record now, change later"): from SPEC-013 version 14 a plugin skill Claude loads with the
+  Skill tool during another skill's run pauses that run instead of ending it, so BEH-09's reason for the agent route
+  (loading the skill ends the run) holds only for a skill the user types. The agent route stays (it is cheaper and out
+  of band); revisit BEH-09 and the SPEC-013 link at this spec's next version.
 For Bryan, in order. None of these is a requirement until he decides it.
 
 1. **Resolved (Bryan, 2026-10-04): the tracker conflict.** He chose "Use subagents for the workflow/skill usage that's
@@ -484,3 +488,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records SKL-011 v1's build and evaluation: the unit and structural tests, the reviews, the cheap pass, the live prototype, the one-run suite, the qualification (QR-03 met), the trigger cases and the manual VER-08 (pass) | §9, blockquote |
 | 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 item 7 records the build's open notes, as Bryan decided in the end-of-workflow review | §13 |
 | 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: SKL-011 v1 approved by Bryan, merged in PR #75 (`fae4f64`) and deployed as plugin 0.19.0 on 2026-10-04 (§9, blockquote) | §9, blockquote |
+| 3 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records that SPEC-013 version 14 pauses a run on a Skill-tool load, for this spec's next version | §13 |
