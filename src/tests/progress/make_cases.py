@@ -798,6 +798,14 @@ def _():
     return arch_waived("proceed", step8_answer=True)
 
 
+@case("arch-stopped")  # VER-41 (version 12): Write nothing at step 8 ends the run as stopped
+def _():
+    log = following("architecture").started(1).bash(POLICY).reply("Proceeding.").done(1).started(2)
+    log.glob("docs/specs/prd/PRD-*.md").done(2).started(3).read("docs/specs/prd/PRD-001.md").done(3)
+    log.started(4).glob("docs/specs/arch/ARCH-*.md").done(4).worked(5, 6, 7).started(8).answer(step=8)
+    return log.end("stopped").done(8).reply("Nothing was written."), plugin_only(), {}
+
+
 @case("waiver-adr")  # VER-39: step 7 isn't waivable, so an accepted ADR with no answer is flagged
 def _():
     return arch_waived("proceed", adr_status="accepted")

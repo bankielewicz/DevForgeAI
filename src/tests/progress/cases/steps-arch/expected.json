@@ -208,6 +208,7 @@
       "need": "required",
       "note": "",
       "state": "done",
+      "stoppable": true,
       "title": "Propose and confirm the outcome",
       "userOwned": true
     },
