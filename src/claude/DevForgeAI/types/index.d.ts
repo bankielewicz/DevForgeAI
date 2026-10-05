@@ -59,6 +59,8 @@ declare module 'claude-code' {
       refused: { gate: string; seq: number; step: number; type: string; message: string }[]
       /** The run whose review was asked (BEH-26), so a reload doesn't repeat it. */
       reviewed: string | null
+      /** The trail of return points, bottom first (BEH-29, version 13). */
+      trail: { skill: string; step: number; tasks: Record<string, number> }[]
     }
   }
 }

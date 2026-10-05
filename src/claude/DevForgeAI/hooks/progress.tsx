@@ -16,10 +16,10 @@ import {
   adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
   hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, isWaiverQuestion, keptContent, markedStep, newFlagToasts,
   questionRefusal, questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, reviewItems, reviewQuestion,
-  runId, skillName, statusText, stepLabel, waiverAnswer, stopsRun, exitQuestion, keptText, isDismissal, CONFIRMED,
+  runId, skillName, statusText, stepLabel, waiverAnswer, returnLine, returnedTo, trailNote, TRAIL_NOTE_START, stopsRun, exitQuestion, keptText, isDismissal, CONFIRMED,
   stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
 } from './progress-core'
-import type { Fields, ProgressState, Refused, ToolOutcome } from './progress-core'
+import type { Fields, ProgressState, Refused, ToolOutcome, TrailEntry } from './progress-core'
 
 type E = EngineInterface
 
@@ -39,6 +39,7 @@ const ADHERED = atom({ plugin: 'devforgeai', key: 'adhered' } as const, null as 
 const REFUSALS = atom({ plugin: 'devforgeai', key: 'refusals' } as const, {} as Record<string, number>)
 const REFUSED = atom({ plugin: 'devforgeai', key: 'refused' } as const, [] as Refused[])
 const REVIEWED = atom({ plugin: 'devforgeai', key: 'reviewed' } as const, null as string | null)
+const TRAIL = atom({ plugin: 'devforgeai', key: 'trail' } as const, [] as TrailEntry[])
 
 const EVALUATOR_TIMEOUT = 5000
 const START_TIMEOUT = 3000
@@ -55,6 +56,13 @@ let evaluating = false
 // The timer's evaluation in flight, which the review waits for (BEH-26).
 let inFlight: Promise<void> | null = null
 let turnOpen = false
+/** The skills the main loop's Skill tool calls in flight are loading, by name (BEH-29); emptied at each main-loop turn. */
+const skillsLoading = new Map<string, number>()
+/** Skills whose load inside a Skill call opened a new run: that call's own dispatch still sees the old run, so it
+ *  records nothing when it returns (it would write the old run's log and $.state back over the new one). */
+const switchedIn = new Set<string>()
+/** The run opened last, as a module value every dispatch sees (a $.state read sees its own dispatch's moment). */
+let openedId: string | null = null
 let disabled = false
 let modeSession: string | null = null
 // The root the mode was resolved for: the local preference file is per checkout (BEH-16).
@@ -553,8 +561,9 @@ async function evaluateMarked($: E): Promise<void> {
       await ensureIgnore($, rootOf(run)).catch(() => undefined)
       const got = await evaluate($, rootOf(run), `${run.dir}/events.jsonl`, `${run.dir}/state.json`, EVALUATOR_TIMEOUT)
       const open = await read($, RUN)
-      // A run that opened while the evaluator ran keeps its own summary and flags.
-      if (open === null || open.id !== run.id) return
+      // A run that opened while the evaluator ran keeps its own summary and flags; this dispatch's $.state may not show
+      // it yet (a nested load opens it mid-turn), so the module's id is checked too.
+      if (open === null || open.id !== run.id || (openedId !== null && openedId !== run.id)) return
       if (typeof got === 'string') await failOpen($, got)
       else await absorb($, run, got)
     } finally {
@@ -605,6 +614,7 @@ async function openRun($: E, r: string, skill: string, checklist: string): Promi
   const run: ProgressRun = { id, skill, seq: 1, dir, root: r }
   if (!(await writeLog($, run, [line]))) return
   await update($, RUN, () => run)
+  openedId = run.id
   await update($, LAST, () => now)
   await update($, MARKED, () => true)
   await update($, SUMMARY, () => null)
@@ -722,6 +732,68 @@ async function stopIfAsked($: E, input: Fields, outcome: ToolOutcome): Promise<v
   await endRun($, 'stopped', null)
   const n = questionTag(input).step ?? null
   await update($, SUMMARY, s => (s === null ? s : { ...s, stoppedAt: n }))
+}
+
+/** The trail of return points (BEH-29, version 13): for a load the main loop's Skill call is making while a run that
+ *  follows the task list is open, push the open run's return point and give the line to add; a load the user typed
+ *  empties the trail. Called before BEH-03 ends the open run. */
+async function nest($: E, name: string): Promise<string | null> {
+  const trail = await read($, TRAIL)
+  const run = await read($, RUN)
+  if (!skillsLoading.has(name)) {
+    if (trail.length) {
+      await update($, TRAIL, () => [])
+      await adapterLog($, 'trail', 'empty (a load with no Skill call of the main loop in flight)')
+    }
+    return null
+  }
+  const summary = await read($, SUMMARY)
+  const tasks = await read($, TASKS)
+  if (run === null || (summary !== null && summary.ended !== null) || Object.keys(tasks).length === 0) return null
+  if (run.skill === name) return null
+  await recordChain
+  const lines = await linesOf($, run)
+  if (lines.some(l => l.includes('"kind":"run-end"'))) return null  // stopped, its run-end not yet evaluated
+  let steps: ProgressState['steps'] | null = null
+  try {
+    steps = (JSON.parse(await $.fs.read(`${run.dir}/state.json`)) as ProgressState).steps ?? null
+  } catch {
+    // no evaluation yet: the marked step stands as the task list gives it
+  }
+  let step: number | null = markedStep(lines, Infinity, steps)
+  if (step === null) step = summary?.current ?? null
+  if (step === null) return null
+  const at = trail.findIndex(t => t.skill === name)
+  const kept = at >= 0 ? trail.slice(0, at) : trail
+  const next = [...kept, { skill: run.skill, step, tasks: { ...tasks } }]
+  await update($, TRAIL, () => next)
+  if (at >= 0) await adapterLog($, 'trail', `drop ${name} and ${trail.length - at - 1} above (already on the trail)`)
+  await adapterLog($, 'trail', `push ${run.skill} at step ${step} (${next.length} on the trail)`)
+  return returnLine(run.skill, step)
+}
+
+/** A TaskUpdate that shows Claude back in a skill on the trail pops its entry and those above (BEH-29). */
+async function popTrail($: E, input: Fields): Promise<void> {
+  const trail = await read($, TRAIL)
+  if (!trail.length) return
+  const at = returnedTo(trail, input.taskId, input.status)
+  if (at < 0) return
+  await update($, TRAIL, () => trail.slice(0, at))
+  await adapterLog($, 'trail', `pop ${trail[at].skill} (${at} on the trail)`)
+}
+
+/** The compaction's last message names the trail while it isn't empty and a run is open (BEH-29); an earlier one goes. */
+async function withTrailNote<T>($: E, run: ProgressRun, out: T): Promise<T> {
+  try {
+    const trail = await read($, TRAIL)
+    const o = out as unknown as { messages?: { role: string; text?: unknown; toolUses: unknown[] }[] }
+    if (!trail.length || !Array.isArray(o.messages)) return out
+    const kept = o.messages.filter(m => !(typeof m.text === 'string' && m.text.startsWith(TRAIL_NOTE_START)))
+    return { ...o, messages: [...kept, { role: 'user' as const, text: trailNote(run.skill, trail), toolUses: [] }] } as unknown as T
+  } catch (err) {
+    await recover($, 'session.compact', err)
+    return out
+  }
 }
 
 /** The end-of-run review (BEH-26, ERR-15): once every step of the open run is reached, once per run, in a session
@@ -911,8 +983,17 @@ export const register: Register = (on, options) => {
       const r = await $.session.root()
       if (!(await tracked($, r, name))) return out
       ensureTimer($)
+      // The trail of return points (BEH-29): taken before BEH-03 ends the open run.
+      let line: string | null = null
+      try {
+        line = await nest($, name)
+      } catch (err) {
+        await recover($, 'skill.prompt', err)  // the trail never stops BEH-03's switch
+      }
+      if (skillsLoading.has(name)) switchedIn.add(name)  // before the switch, so the Skill call records nothing after it
       if ((await read($, RUN)) !== null) await endRun($, 'another-skill', EVALUATOR_TIMEOUT)
       await openRun($, r, name, out.text)
+      if (line !== null) return { ...out, text: `${out.text}\n\n${line}` }
     } catch (err) {
       // After next, a failure is the adapter's own: tell the user, keep the skill's text (BEH-14).
       await recover($, 'skill.prompt', err)
@@ -928,6 +1009,9 @@ export const register: Register = (on, options) => {
     const tool = String(input.tool)
     // Registered before any await, so a question in the same batch finds it (BEH-21).
     const finish = TASK_TOOLS.includes(tool) ? startTaskWork() : null
+    // The skills the main loop's Skill calls in flight are loading (BEH-29): skill.prompt fires inside the call.
+    const loading = tool === 'Skill' && input.agentId === undefined && typeof input.skill === 'string' ? skillName(input.skill) : null
+    if (loading !== null) skillsLoading.set(loading, (skillsLoading.get(loading) ?? 0) + 1)
     try {
       if (!(await recording($, input.agentId))) return next(e)
       if (tool === 'AskUserQuestion') {
@@ -981,18 +1065,28 @@ export const register: Register = (on, options) => {
         }
       }
       const result = await next(e)
+      if (loading !== null && switchedIn.delete(loading)) return result
       try {
         const outcome = result as unknown as ToolOutcome
         await record($, 'tool', {
           ...fields, exit: exitOf(outcome), error: isFailed(outcome), content: keptContent(content, await logBytes($)),
         })
         if (TASK_TOOLS.includes(tool)) await taskSteps($, tool, input, outcome)
+        if (tool === 'TaskUpdate' && !isFailed(outcome)) await popTrail($, input)
       } catch (err) {
         await recover($, 'tool.call', err)
       }
       return result
     } finally {
       finish?.()
+      if (loading !== null) {
+        const n = (skillsLoading.get(loading) ?? 1) - 1
+        if (n > 0) skillsLoading.set(loading, n)
+        else {
+          skillsLoading.delete(loading)
+          switchedIn.delete(loading)
+        }
+      }
     }
   }).catch(async ($, e, next) => {
     if (!next.called) await recover($, 'tool.call', next.error)
@@ -1019,6 +1113,10 @@ export const register: Register = (on, options) => {
   })
 
   on('turn.start', async ($, e, next) => {
+    if ((e as unknown as Fields).agentId === undefined) {
+      skillsLoading.clear()
+      switchedIn.clear()
+    }
     if (await recording($, (e as unknown as Fields).agentId)) {
       turnOpen = true
       await record($, 'turn', { phase: 'start' }, false)
@@ -1112,7 +1210,10 @@ export const register: Register = (on, options) => {
   // Claude to bring the list in step (BEH-24). Anything after next(e) is caught here, so the compaction stands.
   on('session.compact', async ($, e, next) => {
     const run = await read($, RUN)
-    if (interactive !== true || disabled || run === null || e.agentId !== undefined || !(await follows($, run))) return next(e)
+    if (interactive === true && !disabled && run !== null && e.agentId === undefined && !(await follows($, run))) {
+      return withTrailNote($, run, await next(e))
+    }
+    if (interactive !== true || disabled || run === null || e.agentId !== undefined) return next(e)
     const keep = await compactNotes($, run)
     const out = await next({ ...e, instructions: e.instructions ? `${e.instructions}\n\n${keep.instruction}` : keep.instruction })
     try {
@@ -1121,8 +1222,8 @@ export const register: Register = (on, options) => {
         + (keep.reached ? ', every step reached: no note' : ''))
       // An earlier note, as a summary made ahead of time or a second compaction carries, goes: never two (version 8).
       const kept = out.messages.filter(m => !(typeof m.text === 'string' && m.text.startsWith(NOTE_START)))
-      if (keep.reached) return kept.length ? { ...out, messages: kept } : out
-      return { ...out, messages: [...kept, { role: 'user' as const, text: keep.note, toolUses: [] }] }
+      if (keep.reached) return withTrailNote($, run, kept.length ? { ...out, messages: kept } : out)
+      return withTrailNote($, run, { ...out, messages: [...kept, { role: 'user' as const, text: keep.note, toolUses: [] }] })
     } catch (err) {
       await recover($, 'session.compact', err)
       return out

@@ -3,7 +3,7 @@ id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
 status: approved    # draft | in-review | approved | superseded | deprecated
-version: 12
+version: 13
 created: 2026-10-02
 updated: 2026-10-05
 owner: "Bryan"
@@ -107,6 +107,13 @@ while a tracked run is unfinished, `/clear`, `/exit` and `/resume` first ask, in
 to go ahead; "Keep working" or Esc leaves the command unrun (BEH-27, BEH-28). Ctrl+C, Ctrl+D and closing the
 terminal can't be caught by a mod.
 
+**Version 13** (2026-10-05) sends Claude its way back when one skill loads another (Bryan, 2026-10-05). When Claude,
+in the middle of a tracked skill's run, loads another of the plugin's skills with the Skill tool, the adapter notes
+where the first skill was, on a last-in-first-out trail, and adds one line to the second skill's text: where to
+continue when it is done. After a compaction a note lists the whole trail. When Claude goes back (it touches one of
+the first run's tasks), that point leaves the trail. Run tracking itself is unchanged: loading the second skill still
+ends the first skill's run, as before (BEH-03); keeping both runs is for a later version (§13) (BEH-29).
+
 **Version 9** (2026-10-03) words the stuck notice (BEH-25) by its cause. Version 8's notice always told you to
 help Claude bring its task list in step. That is the wrong advice when Claude was refused for a step the tracker
 hasn't seen done, such as a script run it didn't see, or for a decision written without your answer: a live
@@ -145,7 +152,7 @@ writes.
   sharing one checkout would overwrite one copy. SPEC-012 §4's file list follows in its next version; nothing
   reads `current.json` yet.
 - **Decisions are the user's** (PRD-001 FR-003; the mods proposal's rule 5). The adapter writes no document and
-  changes no skill text. No button sends a prompt. The mode changes only when the user presses its button.
+  changes no skill text, except BEH-29's return line (version 13). No button sends a prompt. The mode changes only when the user presses its button.
 - **Evals stay the proof** (the mods proposal's rule 1). A headless session, which includes every child run of
   `claude plugin eval`, is left untouched (BEH-01).
 - **The mod API is early access.** Every API claim here was read in Claude Code 2.1.287's declarations and the
@@ -278,7 +285,7 @@ for `current.json`, §2). `<session>` is `$.session.id()` when the file is writt
 | `runs/<run>/pending.jsonl`, `pending.json` | during an enforce check (BEH-08) | the run's events plus the pending one, and the provisional state; overwritten at the next check, since `$.fs` can't delete |
 | `runs/<run>/review.jsonl` | as each review answer arrives (BEH-26) | one JSON object per line: `time`, `run`, `item` (the item's number in the review, from 1), `gate`, `seq`, `step`, `type`, `message`, `refused` (the cause's number of refusals, 0 for a flag), `answer` (`accept`, `challenge` or `dismissed`) and `reason` (the typed text, or null); rewritten whole from the review's lines, as `events.jsonl` is (version 10) |
 | `sessions/<session>/current.json` | after each evaluation | a copy of the session's open run's `state.json`, for renderers; the last run's stays after it ends, and shows it ended when the final evaluation ran (BEH-05). A renderer treats a session folder with no recent write as a session that has gone |
-| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23), `compact` (BEH-24), `stuck` (BEH-25), `review` (BEH-26, version 10), `exit` (BEH-28, version 12); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
+| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23), `compact` (BEH-24), `stuck` (BEH-25), `review` (BEH-26, version 10), `exit` (BEH-28, version 12), `trail` (BEH-29, version 13); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
 
 `prune.py` (IF-04) deletes `runs/<run>/` and `sessions/<session>/` folders whose files are all older than the
 retention period (BEH-19), and nothing else.
@@ -301,7 +308,8 @@ interface ProgressState {
   modeSource: 'framework-default' | 'local'
   summary: { skill: string; current: number | null; steps: number; flags: number; yourTurn: boolean;
              ended: string | null; manifest: 'matched' | 'stale' | 'none' | 'unverified';
-             states: string[]; currentTitle: string | null; lastFlag: string | null } | null
+             states: string[]; currentTitle: string | null; lastFlag: string | null;
+             stoppedAt?: number | null } | null  // stoppedAt: the step a deliberate stop's answer was tagged with (BEH-10, version 12)
   lastEventAt: number          // ms since the epoch, for the idle display
   marked: boolean              // the run has events the evaluator hasn't seen
   shown: string[]              // flags already toasted, as "<step>:<type>:<seq>"
@@ -314,6 +322,7 @@ interface ProgressState {
   refusals: Record<string, number> // the open run's enforce refusals by cause, '<gate kind>:<flag type>:<step>' (BEH-25)
   refused: { gate: string; seq: number; step: number; type: string; message: string }[] // the open run's refusals, each with its first flag (BEH-25, BEH-26; version 10)
   reviewed: string | null       // the run whose review was asked (BEH-26), so a reload doesn't repeat it (version 10)
+  trail: { skill: string; step: number; tasks: Record<string, number> }[] // return points, bottom first (BEH-29; version 13)
 }
 ```
 
@@ -366,7 +375,7 @@ behaviors:
     rule: "A skill is tracked when it is one of the plugin's own skills (a folder under <plugin root>/skills/) or a <name>.json exists in <root>/devforgeai/manifests/ or <root>/devforgeai/manifests/organization/ (a project's own skill, ADR-006 D4). Its name is skill.prompt's skill without a '<plugin>:' prefix. Loading any other skill neither starts nor ends a run."
   - id: BEH-03
     status: active
-    rule: "When skill.prompt fires for a tracked skill, the adapter calls next(e) first and never changes the text. It ends any open run with run-end another-skill, the same skill loading again included. It then opens a run: an ID of the UTC time from $.clock.now() as yyyymmddThhmmssZ, the skill's name and 8 hex digits from crypto.getRandomValues (SPEC-012 §4), and a skill-loaded event as the run's first (DM-01). The run takes the session's root, $.session.root(), as it opens and keeps it; that one read serves every decision made as the run opens (BEH-02's tracked check, BEH-15's folder and .gitignore, BEH-16's mode), and no root is kept for the session: its folder, the paths in its events, its manifests and IF-03's --root all use that root, so a worktree move or /cd during the run shows in its paths, and the next run opens under the new root. The run's folder, devforgeai/progress/runs/<run>/, is created when its events are first written (BEH-15). Every skill of the plugin opens a run, git and documents-updater included: having no manifest, they are tracked by ticks only (SPEC-012 BEH-04's none), and the status line says so (BEH-10)."
+    rule: "When skill.prompt fires for a tracked skill, the adapter calls next(e) first and never changes the text. It ends any open run with run-end another-skill, the same skill loading again included. It then opens a run: an ID of the UTC time from $.clock.now() as yyyymmddThhmmssZ, the skill's name and 8 hex digits from crypto.getRandomValues (SPEC-012 §4), and a skill-loaded event as the run's first (DM-01). The run takes the session's root, $.session.root(), as it opens and keeps it; that one read serves every decision made as the run opens (BEH-02's tracked check, BEH-15's folder and .gitignore, BEH-16's mode), and no root is kept for the session: its folder, the paths in its events, its manifests and IF-03's --root all use that root, so a worktree move or /cd during the run shows in its paths, and the next run opens under the new root. The run's folder, devforgeai/progress/runs/<run>/, is created when its events are first written (BEH-15). Every skill of the plugin opens a run, git and documents-updater included: having no manifest, they are tracked by ticks only (SPEC-012 BEH-04's none), and the status line says so (BEH-10). When BEH-29 adds a return line, the text Claude reads ends with it, and the skill-loaded event's checklist is the text before it (version 13)."
   - id: BEH-04
     status: active
     rule: "While a run is open, the adapter turns each main-loop host event of DM-01 into its event, with the next seq, the UTC time from $.clock.now() and the run's ID, adds it to the run's lines (DM-03) and rewrites events.jsonl from them. Events while no run is open, and events that carry an agentId, are not recorded. An answer counts only when Claude Code fired the AskUserQuestion call (next.origin.plugin is 'engine'), and a prompt only when the person sent it (e.origin.kind composer or bridge), since a mod can ask through $.ui.ask, submit a prompt as the user's, and a background task's notification arrives as a prompt (§9, P11). A prompt that starts with '/' runs a command or loads a skill and is no answer, so it isn't recorded: a slash command's skill.prompt settles before its prompt.submit, so its text would land in the run it opened (§9, VER-15). Every event goes on unchanged: auto mode denies a tool call whose input a hook changed."
@@ -378,7 +387,7 @@ behaviors:
     rule: "After a tool, answer, prompt, reply or run-end event, the run is marked. A timer runs IF-03 every half second when the run is marked and no timer-driven evaluation is running; it clears the mark as it starts. The timer starts at session.start, at classic.SessionStart with source clear, resume or fork (no session.start follows /clear, /resume or /branch), and at a skill.prompt when none is running. So at most one timer-driven evaluation runs at a time (an enforce check, BEH-08, runs apart from it on its own files), and a burst of events gives at most two evaluations. The timer's callback catches its own errors (ERR-10). After exit 0 the adapter copies state.json to the session's current.json (DM-02), updates the summary in $.state, which redraws the band, and calls $.ui.status when the status text has changed (BEH-10). In observe mode no tool call waits for an evaluation."
   - id: BEH-07
     status: active
-    rule: "In observe mode the adapter never refuses a call and never adds text the model reads. Flags reach the user only: the status line, the band and toasts (BEH-10 to BEH-12)."
+    rule: "In observe mode the adapter never refuses a call and never adds text the model reads. Flags reach the user only: the status line, the band and toasts (BEH-10 to BEH-12). The return line and the return note of BEH-29 are the exception, in both modes: the user decided the tracker sends Claude the return point (Bryan, 2026-10-05: 'the tracker needs to send it to Claude'; version 13)."
   - id: BEH-08
     status: active
     rule: "In enforce mode, for each main-loop Write or Edit while a run is open, the adapter checks before calling next(e). It writes the run's lines plus the pending tool event, with its content, to runs/<run>/pending.jsonl and runs IF-03 on it with --out runs/<run>/pending.json. When that state's gate has kind write, seq equal to the pending event's seq and refuse true, the adapter answers { deny } without calling next(e). The text says that DevForgeAI's progress tracker refused the write at the write gate (enforce mode) and lists the messages of the flags raised at that seq. It then says what clears them: for a step's flag, doing the step with a tool call the run's log can see, or ticking it as '- [x] N.' in reply text (a tick only in thinking doesn't count); for a decision (a rule-broken flag, or a user-owned step's), asking the user or leaving those fields open. It names the run's folder. In a run that follows the task list (SPEC-012 BEH-18), when the flags at that seq include a skipped flag for a user-owned step M (the first such flag; the decision's step, read from the flags' step and the state's userOwned, never from message text) and the task list doesn't mark step M in progress (the marked step read as BEH-24 does), the text also says: 'Step M (<title>) is the user's decision: an answer counts for it only while step M is marked in progress, and an answer to a question only when the question is also tagged devforgeai_step:M. Mark step M in_progress, ask the user with the question tagged devforgeai_step:M, and mark step M completed.' When the task list marks another step N, and the run's lines hold a prompt after step N's latest started event, that line is preceded by: 'Your task list marks step N (<title>) in progress, so what the user typed since then counted for step N.' With no such flag, or with step M marked, both lines are left out (version 8, replacing version 7's line, which named only an earlier mark and so left the loop open when Claude had marked a later step). Where nothing draws, the same text also goes to $.ui.log. The call is recorded as a tool event with error true, which is never evidence (SPEC-012 BEH-06), so the write gate is checked again when the write is retried. Otherwise the adapter calls next(e) and records the event as in observe mode. $.fs can't delete a file, so the two pending files are overwritten at the next check."
@@ -442,6 +451,9 @@ behaviors:
   - id: BEH-28
     status: active
     rule: "Confirming an exit (version 12; Bryan, 2026-10-05: '/clear, /exit, /resume'). On command.run for clear, exit or resume typed by the person (origin kind composer or bridge, as BEH-04 counts a prompt), while a run is open and unfinished (it hasn't ended and its latest state's current isn't null; with no state yet, nothing is asked), in an interactive session where something draws, in either mode, the adapter calls $.ui.ask before next(e) with the question '<skill> run is at step <current> of <steps> and unfinished. <Verb> anyway?', Verb being Clear, Exit or Resume, the options '<Verb> anyway' and 'Keep working', under the header 'Progress'. On '<Verb> anyway' (or typed text equal to it) it calls next(e), and the command runs as before (BEH-05 ends the run). On 'Keep working' or any other typed text it returns { text: 'Kept working: the <skill> run is still at step <current>.' } without next(e), so the command doesn't run. A dismissal or a failure to ask is ERR-16. Each outcome writes one adapter.log line of kind exit. This is a confirmation, not a gate: it refuses nothing Claude does (ADR-006 D1, version 2). Any other command (compact and branch included; branch wasn't probed), a run every step of which is reached, an ended run, no open run, a plugin's $.command.run, and a headless session pass through untouched. Ctrl+C, Ctrl+D and closing the terminal fire no command and can't be asked about."
+  - id: BEH-29
+    status: active
+    rule: "The trail of return points (version 13; Bryan, 2026-10-05: 'Model's loads', a LIFO 'cookie trail', 'No limit', 'Unwind to it', 'Line + compaction note', 'Return point now'). The adapter keeps the names of the skills that the main loop's Skill tool calls in flight are loading: the call's skill input without its '<plugin>:' prefix (skillName, BEH-02), added before next(e) of a tool.call for Skill with no agentId and removed when it returns or fails; the set is emptied at each turn.start of the main loop. A load is nested when skill.prompt fires for a tracked skill (BEH-02) whose name is in that set, while a run is open, hasn't ended and follows the task list (it has task IDs, BEH-20). For a nested load the adapter, before BEH-03 ends the open run, takes its return step (the step its task list marks in progress, BEH-24's marked step, else its summary's current step; with neither, nothing is added) and its task IDs. A nested load of the open run's own skill adds nothing. When the loaded skill is already on the trail, its entry and every entry above it leave the trail first, so the trail holds each skill at most once and a skill calling itself, or A, B and A again, can't grow it (A's own earlier return point goes with its entry); nothing is refused. Then the adapter pushes onto $.state's trail an entry with the open run's skill, the return step and its task IDs, BEH-03 runs as before, and the text Claude reads gains one line at its end: 'This skill was loaded by <skill> at step <step>. When this skill's work is done, continue <skill> at step <step>.' The trail has no depth limit. An entry leaves the trail, with every entry above it, when a TaskUpdate that didn't fail shows Claude back in that skill: it marks the return step's task completed, or changes another of the entry's tasks; marking the return step's task in progress again, as a skill may just before loading another, pops nothing. A load that isn't nested (a skill the user types arrives through command.run with no Skill call in flight) empties the trail; /clear, /resume and /branch empty it with the rest of $.state. While the trail isn't empty and a run is open, a compaction of the main conversation ends with one more user message, whatever BEH-24 adds and whether or not the run follows the task list, an earlier such message going first: 'Return points (from the progress tracker): when <open skill> is done, continue <top skill> at step <step>' followed by '; then <skill> at step <step>' for each entry beneath, ending with '.'. Each push, pop and emptying writes one adapter.log line of kind trail. A $.state write that fails leaves the trail as it was and adds no line (BEH-14)."
 ```
 
 ## 7. Errors and edge cases
@@ -564,6 +576,7 @@ quality_responses:
 
 | Kind | Status |
 | --- | --- |
+| Version 13 | Built on branch `docs/nested-runs` (PR #87) through `/plugin-dev:create-plugin` with the built-in `plugin-authoring` skill: VER-41's kit tests first, seen failing (7 of 163), then BEH-29 (`c44b61c`); plugin-validator PASS, its 8 warnings fixed (`1c99e52`). `claude plugin test` 167 pass, `claude plugin validate` passes. Found and fixed while testing, two defects on `main` since version 3, both from each hook dispatch seeing $.state at its own moment: (1) a tracked skill Claude loads with the Skill tool lost its new run, because the Skill call's own dispatch recorded into the old run's log after its run-end and set the old run back as open; the call now records nothing when its load switched runs (departure: that Skill call's tool event is in neither run's log); (2) a timer evaluation of an old run that finished after a new run opened could absorb over the new run's summary; the adapter now also checks the run it opened last, kept outside $.state. No live check had ever loaded a tracked skill with the Skill tool mid-run. Not unit-tested: a failed $.state write, two Skill calls in one batch. Live VER-42 in Bryan's worker1 tab on 2026-10-05, Claude Code 2.1.289, enforce mode, `claude --plugin-dir` on a copy of `1c99e52` (`scratchpad/v42-setup.sh`): a brainstorm run (task list kept) had Claude load devforgeai:spec-lookup with the Skill tool at step 2; adapter.log 'trail: push brainstorm at step 2 (1 on the trail)'; the brainstorm log ends with run-end another-skill and holds no later event, and the spec-lookup run is the open one (fix 1 live); the transcript holds 'This skill was loaded by brainstorm at step 2. When this skill's work is done, continue brainstorm at step 2.' once; a /compact while in spec-lookup ended with one user message 'Return points (from the progress tracker): when spec-lookup is done, continue brainstorm at step 2.'; on 'Go on with the brainstorm' Claude marked the brainstorm's task 2 completed and 3 in progress, and adapter.log has 'trail: pop brainstorm (0 on the trail)'. VER-42 met. Pass |
 | Version 12 | Merged in PR #85 (`4daa7c4`, 2026-10-05) and deployed as plugin 0.22.0 on 2026-10-05 (the deployed copy matches the source; `diff -rq` exit 0). Built on branch `docs/run-end-confirm` (PR #85) through `/plugin-dev:create-plugin` with the built-in `plugin-authoring` skill: VER-38's and VER-39's kit tests first, seen failing (4 of 152), then BEH-27, BEH-28 and ERR-16 (`6bc58b3`); plugin-validator PASS, its 4 warnings fixed (`00bbdfa`): the stop writes run-end and the timer evaluates it, so no tool call waits (BEH-06); n is kept as the summary's `stoppedAt` (the types contract gains it; DM-03's summary list doesn't name it: a departure for Bryan); the no-second-run-end check runs inside the record chain; the exit hook reads the run after pending events are evaluated. `claude plugin test` 156 pass, `claude plugin validate` passes. Departure: VER-38's review at the stop is tested with a flag, not a refusal. Live in Bryan's worker1 tab on 2026-10-05, Claude Code 2.1.289, enforce mode, `claude --plugin-dir` on a deploy-style copy of `00bbdfa` (`scratchpad/v40-setup.sh`): (a) `ws-a`, VER-28's request: 'Write nothing' at step 8 wrote the answer (seq 56) then run-end stopped (seq 57); band row 1 'architecture  ●●●●–●–●○○○  stopped at step 8', status line 'architecture stopped at step 8 · enforce'; /clear afterwards asked nothing and the log keeps one run-end; (b) `ws-b`, a run left at step 7 ('Chat about this'): /clear asked 'architecture run is at step 7 of 11 and unfinished. Clear anyway?' with 'Clear anyway' and 'Keep working' under 'Progress'; Keep working kept the run and showed 'Kept working: the architecture run is still at step 7.' (adapter.log 'exit: kept /clear'); /clear then Esc kept it too ('exit: kept /clear: dismissed', so the real dismissal text matches isDismissal); /exit, 'Exit anyway' exited ('exit: ran /exit', run-end session-end). The kept text is a local_command entry in the transcript, the form a command's output takes, which reaches the model with the next prompt. VER-40 met. Pass |
 | Version 11 | Merged in PR #83 (`ab8301c`, 2026-10-04) and deployed as plugin 0.21.0 on 2026-10-04 (the deployed copy matches the source; `diff -rq` exit 0). Built on branch `docs/waiver-follow-ups` (draft PR #83) through `/plugin-dev:create-plugin` with the built-in `plugin-authoring` skill: VER-37's kit test first, seen failing (144 pass, 1 fail), then BEH-26's check of `e.reason === 'answer'` (`16f114c`); `claude plugin test` 145 pass, `claude plugin validate` passes; plugin-validator PASS (its notes fixed, `0e12260`). Live in Bryan's worker1 tab on 2026-10-04, Claude Code 2.1.289, enforce mode, `claude --plugin-dir` on a deploy-style copy of the build plus a probe mod that logged each turn.complete's reason: the probe logged `answer` for an answered turn and `aborted` (`isAborted: true`) for an Esc; an architecture run in `ws-arch-max` with one refused untagged question (adapter.log `refused`) reached all 11 steps, the user pressed Esc during the final reply, and no review was asked and no review.jsonl written; the next answered turn ('Thanks') asked 'architecture run, item 1 of 1: refused 1 time(s) at step 7 (question gate)', and Accept went to review.jsonl. VER-37 met. Pass |
 | Version 10 | Merged in PR #77 (`8eb431a`, 2026-10-04 18:15 UTC) and deployed as plugin 0.20.0 on 2026-10-04 (the deployed copy matches the source; `diff -rq` exit 0). Built on branch `docs/waiver-menu-specs` (PR #77): kit tests first (`75f8ed1`: VER-34 and VER-35, 6 failing), the build (`3597d95`), and the plugin-validator's fixes (`505a4ba`: the review evaluates the state the turn ended in; `Object.hasOwn` for labels; no review when surfaces can't be read). `claude plugin test` 144 pass, `claude plugin validate` passes. VER-36 live, in Bryan's worker1 tab on 2026-10-04, enforce mode, `claude --plugin-dir` on a copy of `505a4ba`: (a) Proceed recorded as waiver proceed, the ARCH writes not refused; (b) Ask me as usual asked step 7 and step 8 as usual; (c) a requested untagged question was refused, and after the last turn the Review dialog asked 'item 1 of 1: refused 1 time(s) at step 7 (question gate)'; Accept went to review.jsonl and adapter.log, and the review question is not in the session's transcript. Pass |
@@ -1033,6 +1046,20 @@ verifications:
     covers:
       - BEH-27
       - BEH-28
+  - id: VER-41
+    status: active
+    obligation: "Kit tests of the trail (version 13), in observe and in enforce mode: with an architecture run whose task list marks step 7 (tasks 1 to 11), a main-loop Skill tool call loading devforgeai:spec-lookup pushes {architecture, 7, its task IDs}, and the text returned ends with 'This skill was loaded by architecture at step 7. When this skill's work is done, continue architecture at step 7.', while the skill-loaded checklist doesn't; the architecture run ends with another-skill as before; a TaskUpdate marking architecture's task 7 in progress again pops nothing, while one marking it completed, or one changing task 8, pops the entry, and a TaskUpdate that failed pops nothing; three nested loads of different skills give a trail of three; a nested load of a skill already on the trail drops its entry and those above before pushing, and one of the open run's own skill adds nothing; a load typed by the user (no Skill call in flight), a subagent's Skill call, a skill that isn't tracked, a run that doesn't follow the task list, and a run with no marked or current step add no entry and no line, and a typed load empties the trail; two Skill calls in one batch push one entry; a compaction with a trail of two ends with 'Return points (from the progress tracker): when spec-lookup is done, continue architecture at step 7; then brainstorm at step 4.' once, also after a second compaction and for a run that doesn't follow the task list, and with no run open adds nothing; a subagent's turn.start doesn't empty the in-flight set; a failed $.state write adds no line."
+    level: integration
+    covers:
+      - BEH-29
+      - BEH-03
+      - BEH-07
+  - id: VER-42
+    status: active
+    obligation: "Live, in Bryan's worker1 tab with --plugin-dir on the build: a brainstorm run whose request has Claude load devforgeai:spec-lookup with the Skill tool partway through (on purpose: SPEC-014 steers lookups to its agent, which loads no skill); the transcript holds the return line in spec-lookup's text; a /compact before Claude goes back ends with the return note; Claude goes back to the brainstorm's step, and adapter.log has the trail lines (push, then pop on the brainstorm's TaskUpdate). Recorded in §9."
+    level: manual
+    covers:
+      - BEH-29
 
 ```
 
@@ -1083,6 +1110,8 @@ verifications:
   plugin version (0.20.0); this spec's SPEC-012 link moves to version 11 when that is approved. Until a skill asks the
   waiver, no answer carries `devforgeai_waiver`, and nothing new is refused: the waiver question is never checked,
   and the review only asks. The review is new in both modes, on flagged runs only.
+- **Version 13.** Built after approval, in one plugin version. Only text Claude reads is added and the trail is kept;
+  runs, events and gates don't change (SPEC-012 untouched). Rolling back is returning to version 12.
 - **Version 12.** Built after approval with SPEC-012 version 12, in one plugin version. New: the run-end stopped and
   the exit confirmation; nothing new is refused.
 - **Version 11.** Built after approval with SPEC-001 version 15 and SPEC-003 version 10, in one plugin version. The
@@ -1162,6 +1191,11 @@ docs: (1) the kit tests of VER-34 and VER-35, seen failing; (2) the waiver on th
 waiver question (DM-01, BEH-21), refused and reviewed in the types contract (DM-03), the review (BEH-26, ERR-15) with
 its file and log kind (DM-02); (3) `claude plugin validate`, `claude plugin test`, plugin-validator and every test;
 (4) VER-36 live, and §9.
+
+Version 13's build, through `/plugin-dev:create-plugin` with the built-in `plugin-authoring` skill: (1) VER-41's kit
+tests, seen failing; (2) BEH-29 in `hooks/progress.tsx`, its texts in `progress-core.ts`, the trail in the types
+contract; (3) `claude plugin validate`, `claude plugin test`, plugin-validator and every test; (4) VER-42 live in
+worker1, and §9.
 
 Version 12's build, through `/plugin-dev:create-plugin` with the built-in `plugin-authoring` skill: (1) VER-38's
 and VER-39's kit tests, seen failing; (2) BEH-27 and BEH-28 in `hooks/progress.tsx` (pure parts in
@@ -1249,6 +1283,25 @@ Decided by Bryan on 2026-10-04, for version 10: the waiver menu (his "Next cycle
 only when the request says to proceed without questions, recorded here as one of two fixed labels; and the end-of-run
 summary he asked for on 2026-10-04, as the tracker's own dialog, one item at a time, Accept or Challenge, recorded in
 the run's folder and never sent to Claude, in both modes, on flagged runs only, once every step is reached.
+
+Decided by Bryan on 2026-10-05, for version 13: the trail of return points ("Return point now (Recommended)"), from
+his nesting decisions: a skill Claude loads mid-run ("Model's loads"; a probe showed skill.prompt firing inside the
+Skill tool call, while a typed skill arrives through command.run), a last-in-first-out trail (his "cookie trail ... via
+a queue stack type of system such as LIFO") with no depth limit ("No limit"), each skill at most once ("Unwind to it",
+against "an 'endless loop' where a skill calls itself"), and the return line and compaction note ("Line + compaction
+note"; "the tracker needs to send it to Claude"). Two drafts that also kept both runs (the outer paused and resumed)
+didn't converge in review (`tmp/plans/nested-runs/review-drafts*.md`), so he chose to ship the return points first.
+Deferred to a later cycle, with his decisions kept: pausing and resuming the outer run instead of ending it; a run that
+hands back ending 'returned' ("New reason 'returned'", SPEC-012); the status line naming the paused run ("Inner,
+with outer named"); each nested run reviewed at its own end, at the turn's end ("Each run at its own end", "At the
+turn's end"). Then resuming a run from its record. Accepted at version 12 and done here: DM-03's summary names
+stoppedAt. Limits of version 13, for Bryan's accept or challenge: a run without task IDs (one kept with TodoWrite, or
+a skill tracked by ticks only) gets no return point, since nothing could tell when Claude goes back to it; A, B and A
+again keeps no return point for A's own caller. Drafter's choices: the in-flight set emptied at each main-loop
+turn.start, and the adapter.log kind trail. Accepted at the end of version 13's build (Bryan, 2026-10-05, "Accept
+all"): these limits and choices; a subagent's load of a tracked skill empties the trail (skill.prompt carries no
+agentId); the two defects fixed in the build (§9) and its departure, the switching Skill call's own event in neither
+run's log; a failed $.state write and two Skill calls in one batch not unit-tested.
 
 Decided by Bryan on 2026-10-05, for version 12: the deliberate stop and the exit confirmation, from the next-cycle
 items below ("A + B now, nesting next"). A 'Write nothing' run ends as stopped and is reviewed at the stop ("Yes,
@@ -1419,3 +1472,8 @@ Notes:
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records version 12's build and VER-40 | §9 |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's acceptance of the end-of-workflow notes | §13 |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #85's merge (`4daa7c4`) and the deploy of plugin 0.22.0 | §9 |
+| 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05: the trail of return points for skills Claude loads mid-run, LIFO with no depth limit and each skill once, the return line and the compaction note (new BEH-29; BEH-03, BEH-07; DM-03 trail, and stoppedAt as accepted at version 12; DM-02 log kind trail); new VER-41, VER-42; run tracking unchanged; status in-review | frontmatter, §1, DM-02, DM-03, BEH-03, BEH-07, BEH-29, VER-41, VER-42, §10, §11, §13 |
+| 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the third drafts review's fixes: the skill name and the main loop's turn.start (BEH-29); push only for a run with task IDs; a pop needs Claude back in the skill, not the step re-marked; the compaction note independent of BEH-24's; /clear's emptying as part of $.state; §2's skill-text sentence; VER-41 and VER-42 sharpened; §13 limits | §2, BEH-29, VER-41, VER-42, §13 |
+| 13 | 2026-10-05 | Bryan | Approved | status |
+| 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records version 13's build, the two defects fixed, and VER-42 | §9 |
+| 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's acceptance of the end-of-workflow notes | §13 |
