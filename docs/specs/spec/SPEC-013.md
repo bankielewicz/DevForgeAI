@@ -1298,7 +1298,10 @@ turn's end"). Then resuming a run from its record. Accepted at version 12 and do
 stoppedAt. Limits of version 13, for Bryan's accept or challenge: a run without task IDs (one kept with TodoWrite, or
 a skill tracked by ticks only) gets no return point, since nothing could tell when Claude goes back to it; A, B and A
 again keeps no return point for A's own caller. Drafter's choices: the in-flight set emptied at each main-loop
-turn.start, and the adapter.log kind trail.
+turn.start, and the adapter.log kind trail. Accepted at the end of version 13's build (Bryan, 2026-10-05, "Accept
+all"): these limits and choices; a subagent's load of a tracked skill empties the trail (skill.prompt carries no
+agentId); the two defects fixed in the build (§9) and its departure, the switching Skill call's own event in neither
+run's log; a failed $.state write and two Skill calls in one batch not unit-tested.
 
 Decided by Bryan on 2026-10-05, for version 12: the deliberate stop and the exit confirmation, from the next-cycle
 items below ("A + B now, nesting next"). A 'Write nothing' run ends as stopped and is reviewed at the stop ("Yes,
@@ -1473,3 +1476,4 @@ Notes:
 | 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the third drafts review's fixes: the skill name and the main loop's turn.start (BEH-29); push only for a run with task IDs; a pop needs Claude back in the skill, not the step re-marked; the compaction note independent of BEH-24's; /clear's emptying as part of $.state; §2's skill-text sentence; VER-41 and VER-42 sharpened; §13 limits | §2, BEH-29, VER-41, VER-42, §13 |
 | 13 | 2026-10-05 | Bryan | Approved | status |
 | 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records version 13's build, the two defects fixed, and VER-42 | §9 |
+| 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's acceptance of the end-of-workflow notes | §13 |
