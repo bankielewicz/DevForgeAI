@@ -16,7 +16,7 @@ import {
   adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
   hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, isWaiverQuestion, keptContent, markedStep, newFlagToasts,
   questionRefusal, questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, reviewItems, reviewQuestion,
-  runId, skillName, statusText, stepLabel, waiverAnswer,
+  runId, skillName, statusText, stepLabel, waiverAnswer, stopsRun, exitQuestion, keptText, isDismissal, CONFIRMED,
   stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
 } from './progress-core'
 import type { Fields, ProgressState, Refused, ToolOutcome } from './progress-core'
@@ -646,6 +646,14 @@ async function startPrune($: E, r: string, session: string, keepRun: string): Pr
 
 /** End the open run, and evaluate it once more when there is time (BEH-05). */
 async function endRun($: E, reason: string, timeoutMs: number | null): Promise<void> {
+  // A run already ended (a deliberate stop, BEH-27) gets no second run-end (BEH-05, version 12).
+  const open = await read($, RUN)
+  if (open !== null) {
+    await recordChain
+    const lines = await linesOf($, open)
+    // Events after the stop (the turn's end) may follow it, so any run-end in the log counts.
+    if (lines.some(l => (JSON.parse(l) as Fields).kind === 'run-end')) return
+  }
   await record($, 'run-end', { reason })
   pendingReport = null
   const run = await read($, RUN)
@@ -702,6 +710,22 @@ async function noteRefusal($: E, state: ProgressState, seq: number): Promise<voi
   }
 }
 
+/** The deliberate stop (BEH-27, version 12): an answer of 'Write nothing' to one question tagged with a step the latest
+ *  state marks stoppable ends the run with run-end stopped. A state that can't be read stops nothing. */
+async function stopIfAsked($: E, input: Fields, outcome: ToolOutcome): Promise<void> {
+  const run = await read($, RUN)
+  if (run === null) return
+  let state: ProgressState
+  try {
+    state = JSON.parse(await $.fs.read(`${run.dir}/state.json`)) as ProgressState
+  } catch {
+    return
+  }
+  if (!stopsRun(input, outcome, state.steps ?? [])) return
+  await endRun($, 'stopped', python ? EVALUATOR_TIMEOUT : null)
+  await refreshStatus($)
+}
+
 /** The end-of-run review (BEH-26, ERR-15): once every step of the open run is reached, once per run, in a session
  *  where something draws, each item (one per cause) is asked in Claude Code's own dialog, Accept or Challenge, and the
  *  answers go to the run's review.jsonl and adapter.log. Nothing is sent to Claude. */
@@ -716,7 +740,9 @@ async function review($: E): Promise<void> {
   }
   const run = await read($, RUN)
   const summary = await read($, SUMMARY)
-  if (run === null || summary === null || summary.current !== null || summary.ended !== null) return
+  if (run === null || summary === null) return
+  // Every step reached with the run open, or a run the user stopped (BEH-27; version 12).
+  if (summary.ended !== 'stopped' && (summary.current !== null || summary.ended !== null)) return
   if ((await read($, REVIEWED)) === run.id) return
   // Where nothing draws, or the surfaces can't be read, no dialog can be answered: no review (BEH-26).
   let surfaces: readonly unknown[] = []
@@ -932,6 +958,7 @@ export const register: Register = (on, options) => {
             await record($, 'answer', isWaiverQuestion(input)
               ? { answered: isAnswered(outcome), waiver: waiverAnswer(input, outcome) }
               : { answered: isAnswered(outcome), ...questionTag(input) })
+            if (!isWaiverQuestion(input)) await stopIfAsked($, input, outcome)
           }
         } catch (err) {
           await recover($, 'tool.call', err)
@@ -1044,6 +1071,40 @@ export const register: Register = (on, options) => {
 
   // A compaction of a run that follows the task list keeps its marked step in the summary and ends with a note asking
   // Claude to bring the list in step (BEH-24). Anything after next(e) is caught here, so the compaction stands.
+  // Confirming an exit (BEH-28, ERR-16; version 12): /clear, /exit and /resume typed while a run is unfinished ask
+  // first, in Claude Code's own dialog. A confirmation, not a gate: it refuses nothing Claude does (ADR-006 D1 v2).
+  on('command.run', async ($, e, next) => {
+    const verb = CONFIRMED[e.command]
+    if (verb === undefined || interactive !== true || disabled || !isPersonPrompt(e.origin)) return next(e)
+    const run = await read($, RUN)
+    const summary = await read($, SUMMARY)
+    if (run === null || summary === null || summary.ended !== null || summary.current === null) return next(e)
+    if (!(await hasSurface($))) return next(e)
+    const kept = keptText(summary.skill, summary.current)
+    let got: string
+    try {
+      got = await $.ui.ask(exitQuestion(summary.skill, summary.current, summary.steps, verb),
+        { options: [`${verb} anyway`, 'Keep working'], header: 'Progress' })
+    } catch (err) {
+      if (isDismissal(err)) {
+        await adapterLog($, 'exit', `kept /${e.command}: dismissed`)
+        return { text: kept }
+      }
+      // A dialog that can't be shown lets the command run: the confirmation fails open (ERR-16).
+      await adapterLog($, 'exit', `ran /${e.command}: the dialog failed: ${firstLine(message(err))}`)
+      return next(e)
+    }
+    if (got === `${verb} anyway`) {
+      await adapterLog($, 'exit', `ran /${e.command}`)
+      return next(e)
+    }
+    await adapterLog($, 'exit', `kept /${e.command}`)
+    return { text: kept }
+  }).catch(async ($, e, next) => {
+    if (!next.called) await recover($, 'command.run', next.error)
+    return next(e)
+  })
+
   on('session.compact', async ($, e, next) => {
     const run = await read($, RUN)
     if (interactive !== true || disabled || run === null || e.agentId !== undefined || !(await follows($, run))) return next(e)

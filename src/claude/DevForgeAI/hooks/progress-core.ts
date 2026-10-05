@@ -156,7 +156,7 @@ export function isEngine(origin: unknown): boolean {
 }
 
 // The parts of SPEC-012's progress state (DM-03) the adapter reads.
-export type StateStep = { n: number; title: string; state: string; userOwned?: boolean; kind?: string | null }
+export type StateStep = { n: number; title: string; state: string; userOwned?: boolean; kind?: string | null; stoppable?: boolean }
 export type StateFlag = { gate: string; seq: number; step: number; type: string; message: string }
 export type ProgressState = {
   run?: string
@@ -187,11 +187,56 @@ export function summaryOf(state: ProgressState): ProgressSummary {
   }
 }
 
+/** The step a stopped run stopped at (BEH-10, version 12): the last step past pending, since the evaluator ignores
+ *  everything after the run-end and the stopping answer is that step's last evidence; null for any other run. */
+export function stopStep(summary: ProgressSummary): number | null {
+  if (summary.ended !== 'stopped') return null
+  let n = 0
+  summary.states.forEach((s, i) => { if (s !== 'pending') n = i + 1 })
+  return n > 0 ? n : null
+}
+
+/** The label that stops a run (SPEC-013 BEH-27, version 12), as SPEC-003 BEH-08 offers it at architecture's step 8. */
+export const STOP_LABEL = 'Write nothing'
+
+/** Whether an engine-fired question's answer stops the run (BEH-27): one question, tagged with a step that the latest
+ *  state marks stoppable, answered with the stop label (a typed answer equal to it can't be told apart). */
+export function stopsRun(input: Fields, outcome: ToolOutcome, steps: readonly StateStep[]): boolean {
+  if (!isAnswered(outcome) || !Array.isArray(input.questions) || input.questions.length !== 1) return false
+  const step = questionTag(input).step
+  if (step === undefined || steps.find(s => s.n === step)?.stoppable !== true) return false
+  const question = (input.questions as Fields[])[0]?.question
+  const answers = (outcome.result as { answers?: Record<string, unknown> }).answers ?? {}
+  return typeof question === 'string' && Object.hasOwn(answers, question) && answers[question] === STOP_LABEL
+}
+
+/** The commands BEH-28 confirms while a run is unfinished, with the verb its dialog uses (version 12). */
+export const CONFIRMED: Record<string, string> = { clear: 'Clear', exit: 'Exit', resume: 'Resume' }
+
+/** BEH-28's question for an unfinished run. */
+export function exitQuestion(skill: string, current: number, steps: number, verb: string): string {
+  return `${skill} run is at step ${current} of ${steps} and unfinished. ${verb} anyway?`
+}
+
+/** BEH-28's text when the command is kept. */
+export function keptText(skill: string, current: number): string {
+  return `Kept working: the ${skill} run is still at step ${current}.`
+}
+
+/** Whether a rejected $.ui.ask was the user's dismissal (Esc), as opposed to a dialog that couldn't be shown (ERR-16). */
+export function isDismissal(err: unknown): boolean {
+  const text = err instanceof Error ? err.message : String(err)
+  return /doesn't want to proceed/.test(text)
+}
+
 /** The status line's text (BEH-10), or undefined when there is nothing to show. */
 export function statusText(summary: ProgressSummary | null, mode: ProgressMode, idle: boolean, off: string | null): string | undefined {
   if (off !== null) return `progress: off (${off})`
   if (summary === null) return undefined
-  let text = summary.ended !== null
+  const stoppedAt = stopStep(summary)
+  let text = stoppedAt !== null
+    ? `${summary.skill} stopped at step ${stoppedAt}`
+    : summary.ended !== null
     ? `${summary.skill} ended`
     : summary.current === null ? `${summary.skill} done` : `${summary.skill} ${summary.current}/${summary.steps}`
   if (summary.yourTurn && summary.ended === null) text += ' · your turn'
@@ -217,7 +262,10 @@ export function fit(text: string, width: number): string {
 /** The band's two rows of text (BEH-11); the button sits on row 2 between the mode and the flag. */
 export function bandRows(summary: ProgressSummary, mode: ProgressMode) {
   const glyphs = summary.states.map(s => GLYPH[s] ?? '○').join('')
-  const where = summary.ended !== null
+  const stoppedAt = stopStep(summary)
+  const where = stoppedAt !== null
+    ? `stopped at step ${stoppedAt}`
+    : summary.ended !== null
     ? `ended (${summary.ended})`
     : summary.current === null
       ? `all ${summary.steps} steps reached`
