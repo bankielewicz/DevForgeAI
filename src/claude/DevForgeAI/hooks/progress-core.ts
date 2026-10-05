@@ -698,3 +698,32 @@ export function compactTexts(skill: string, label: string | null): { instruction
       + "finished step done and the step you're on in_progress.",
   }
 }
+
+// ---- version 13: the trail of return points (SPEC-013 BEH-29) ----
+
+export type TrailEntry = { skill: string; step: number; tasks: Record<string, number> }
+
+/** The line added to a skill Claude loads mid-run (BEH-29). */
+export function returnLine(skill: string, step: number): string {
+  return `This skill was loaded by ${skill} at step ${step}. When this skill's work is done, continue ${skill} at step ${step}.`
+}
+
+export const TRAIL_NOTE_START = 'Return points (from the progress tracker):'
+
+/** The compaction note naming the whole trail, top first (BEH-29). */
+export function trailNote(open: string, trail: readonly TrailEntry[]): string {
+  const parts = [...trail].reverse().map((t, i) => `${i === 0 ? 'continue' : 'then'} ${t.skill} at step ${t.step}`)
+  return `${TRAIL_NOTE_START} when ${open} is done, ${parts.join('; ')}.`
+}
+
+/** The index of the entry a TaskUpdate shows Claude back in, or -1 (BEH-29): it completes the return step's task, or
+ *  changes another of the entry's tasks; re-marking the return step's task in progress isn't a return. */
+export function returnedTo(trail: readonly TrailEntry[], taskId: unknown, status: unknown): number {
+  if (typeof taskId !== 'string') return -1
+  for (let i = trail.length - 1; i >= 0; i--) {
+    const step = trail[i].tasks[taskId]
+    if (step === undefined) continue
+    return step !== trail[i].step || status === 'completed' ? i : -1
+  }
+  return -1
+}
