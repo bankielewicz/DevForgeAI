@@ -2,8 +2,8 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: approved       # draft | in-review | approved | superseded | deprecated
-version: 11
+status: in-review      # draft | in-review | approved | superseded | deprecated
+version: 12
 created: 2026-10-02
 updated: 2026-10-04
 owner: "Bryan"
@@ -122,6 +122,12 @@ logged (§13). The waiver answer is the user's choice made visible. A manifest m
 "Proceed without questions" answer, step 8 counts as answered and the outcome may be written (BEH-19). Every other
 user-owned decision still needs an answer. The evaluator can't tell whether the request really named the outcome:
 the skill's own rule (SPEC-003 BEH-08) is the only check of that, a trade-off Bryan accepted.
+
+**Version 12** (2026-10-05) adds a run-end reason, `stopped`: the user ended the run on purpose, as with
+architecture's "Write nothing" at step 8 (SPEC-003 BEH-08), which the adapter records (SPEC-013 version 12). A
+stopped run closes like any ended run: the steps after the last one reached stay pending and are never flagged
+(BEH-12). Before, such a run stayed open with steps 9 to 11 pending (Bryan, 2026-10-05: "a deliberate write
+nothing should count as finished").
 
 ## 2. Constraints
 
@@ -271,7 +277,7 @@ flowchart LR
     {"if": {"properties": {"kind": {"const": "turn"}}},
      "then": {"required": ["phase"], "properties": {"phase": {"enum": ["start", "end"]}}}},
     {"if": {"properties": {"kind": {"const": "run-end"}}},
-     "then": {"required": ["reason"], "properties": {"reason": {"enum": ["another-skill", "session-end", "clear", "idle"]}}}}
+     "then": {"required": ["reason"], "properties": {"reason": {"enum": ["another-skill", "session-end", "clear", "idle", "stopped"]}}}}
   ]
 }
 ```
@@ -478,7 +484,7 @@ behaviors:
     rule: "gate holds the most recent gate check: its kind, its event's seq, refuse (true when that check raised any flag) and reason (the first such flag's message). Before any gate, kind and seq are null and refuse is false. An adapter in enforce mode refuses the tool call at that seq when refuse is true; the evaluator never refuses anything itself. The question gate (BEH-18) refuses whenever it raises its flag, so an adapter in enforce mode refuses a question asked while no step is in progress."
   - id: BEH-12
     status: active
-    rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged."
+    rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged. The reason stopped (version 12) is the user's deliberate stop of the run (SPEC-013 BEH-27) and closes it the same way."
   - id: BEH-13
     status: active
     rule: "When the report step is done or the run has ended, next names the chain's following skill in the order brainstorm, prd, architecture, context, epic, story (ADR-002; ADR-004 D5 places context). The story skill isn't built, so its next has available false and the note 'the story skill isn't built yet (SPEC-009)'. Otherwise next is null."
@@ -948,6 +954,12 @@ verifications:
     level: performance
     covers:
       - QR-03
+  - id: VER-41
+    status: active
+    obligation: "Version 12: events.schema.json takes a run-end with reason stopped. Case arch-stopped: an architecture run that follows the task list reaches step 8 with an answer tagged 8, then run-end stopped, then a TaskUpdate of step 8 completed and a reply: ended is stopped, step 8 done by the answer, steps 9 to 11 pending with the note 'not reached', no flag, counts.afterEnd 2, and next names the chain's following skill as for any ended run (BEH-13)."
+    level: unit
+    covers:
+      - BEH-12
 ```
 
 ## 10. Rollout, migration and rollback
@@ -966,6 +978,8 @@ verifications:
   expected state moves: all 41 cases gave byte-identical states under version 4's BEH-09, checked on a copy. Over
   6,000 generated logs (the review's), version 4 credits every answer version 2 credits and nothing version 3
   doesn't. SPEC-013's upstream link moves to version 4 when it is approved.
+- **Version 12.** Built after approval with SPEC-013 version 12 (the adapter that records the stop), in one plugin
+  version. Additive: no earlier case has a run-end stopped, so no expected state moves.
 - **Version 11.** Built after approval with SPEC-013 version 10 (the adapter that records the waiver), SPEC-001
   version 14 and SPEC-003 version 9 (the skills that ask it), in one plugin version (0.20.0). Every existing expected
   state gains `waiver: null` and nothing else moves: no earlier case has a waiver answer. Until a skill asks the
@@ -1054,6 +1068,9 @@ that no other expected state moves, run every test, and record it in §9.
 Version 10's build, on version 9's branch before its merge: the case steps-after-done, seen failing; the rule in
 `evaluate.py`; no earlier expected state may move; §9.
 
+Version 12's build, with SPEC-013 version 12: VER-41's case and test, seen failing; DM-02's enum in
+events.schema.json; §9.
+
 Version 11's build, with SPEC-013 version 10: VER-39's and VER-40's cases and tests, seen failing; the schemas from
 DM-01 to DM-03; `waivable` on architecture's step 8; `evaluate.py` (BEH-19, and BEH-10, BEH-17 and BEH-18's
 additions); every earlier expected state regenerated, with only `waiver: null` added; §9.
@@ -1087,6 +1104,11 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 - **Validating with jsonschema at run time.** Thorough, but not in the standard library. The tests validate against the schemas instead (VER-02).
 
 ## 13. Open questions
+
+Decided by Bryan on 2026-10-05, for version 12: a deliberate stop (architecture's Write nothing) ends the run as
+finished, with the reason stopped ("Yes, review at the stop"; the review is SPEC-013's). Nested skill runs (a run
+paused while another skill's run is open, with a return point the adapter sends to Claude) and resuming a run from
+its record are the next cycles' ("A + B now, nesting next"; "the tracker needs to send it to Claude").
 
 Decided by Bryan on 2026-10-02:
 - PRD-001 v11 adds FR-021 (progress tracking) and NFR-004 to NFR-007, should/current; this spec links them.
@@ -1235,3 +1257,4 @@ Still open, or notes:
 | 11 | 2026-10-04 | Bryan | Approved, with a Proceed waiver counting for architecture's step 8 only | status |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build, the tests, the evals and the live checks of version 11 | §9 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #77's merge (`8eb431a`) and the deploy of plugin 0.20.0 | §9 |
+| 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05: the run-end reason stopped for a deliberate stop (DM-02, BEH-12, new VER-41); status in-review | frontmatter, §1, DM-02, BEH-12, VER-41, §10, §11, §13 |

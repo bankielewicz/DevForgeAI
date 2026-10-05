@@ -234,7 +234,8 @@
               "another-skill",
               "session-end",
               "clear",
-              "idle"
+              "idle",
+              "stopped"
             ]
           }
         }

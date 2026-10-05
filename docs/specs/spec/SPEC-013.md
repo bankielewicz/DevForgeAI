@@ -2,8 +2,8 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: approved    # draft | in-review | approved | superseded | deprecated
-version: 11
+status: in-review    # draft | in-review | approved | superseded | deprecated
+version: 12
 created: 2026-10-02
 updated: 2026-10-04
 owner: "Bryan"
@@ -18,7 +18,7 @@ approved_on: 2026-10-04
 upstream:
   - {id: ADR-006, relation: constrains, version: 1, hash: null, note: "D1 (a hook blocks only at a gate, only in enforce mode; the tracker fails open), D3 (progress.mode, resolved at session start, and the button that switches it) and D6 (the local preference file); its follow-up gives D1, D3 and D6 to this spec"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "A3's local preference format, in which progress.mode is one entry; an entry that can't be used is ignored and reported, never fatal"}
-  - {id: SPEC-012, relation: constrains, version: 11, hash: null, note: "the event log (DM-02) this adapter writes, the state (DM-03) it reads, IF-01's command line, the gate and refuse (BEH-11), run-end (BEH-12), the operational files and the run ID (§4)"}
+  - {id: SPEC-012, relation: constrains, version: 12, hash: null, note: "the event log (DM-02) this adapter writes, the state (DM-03) it reads, IF-01's command line, the gate and refuse (BEH-11), run-end (BEH-12), the operational files and the run ID (§4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "progress tracking by evidence; this spec brings the core of SPEC-012 into Claude Code sessions"}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "decisions are the user's: enforce mode refuses a write that records a user-owned decision without the user's answer, and no button sends a prompt"}
 supersedes: []
@@ -99,6 +99,13 @@ go to the run's `review.jsonl` and `adapter.log`; nothing is sent to Claude (BEH
 answer"). Claude Code says why each turn ended: an answer, your Esc, a refusal or an API error. The review now waits
 for a turn that ended with an answer, so pressing Esc no longer opens it at once; the next answered turn asks it. When
 every step is reached and Claude's turn ends with an answer, the review of version 10 runs as before.
+
+**Version 12** (2026-10-05) makes two exits deliberate (Bryan, 2026-10-05). When you pick "Write nothing" at
+architecture's step 8, the adapter ends the run as stopped (SPEC-012 version 12): the status line says
+'architecture stopped at step 8', and the end-of-run review asks at that turn's end when the run has an item. And
+while a tracked run is unfinished, `/clear`, `/exit` and `/resume` first ask, in the tracker's own dialog, whether
+to go ahead; "Keep working" or Esc leaves the command unrun (BEH-27, BEH-28). Ctrl+C, Ctrl+D and closing the
+terminal can't be caught by a mod.
 
 **Version 9** (2026-10-03) words the stuck notice (BEH-25) by its cause. Version 8's notice always told you to
 help Claude bring its task list in step. That is the wrong advice when Claude was refused for a step the tracker
@@ -243,6 +250,7 @@ DevForgeAI skill uses subagents today).
 | `turn.complete` | | `turn` with `phase` `end` |
 | `session.end` | | `run-end`, `reason` `clear` when the session ends by `/clear`, otherwise `session-end` |
 | a tracked skill loading while a run is open | before the new run's `skill-loaded` | `run-end` with `reason` `another-skill`, in the old run |
+| an answer whose one question is tagged with a step and answered with the label `Write nothing` (version 12) | right after that `answer` | `run-end` with `reason` `stopped` (BEH-27) |
 
 The fields of a `tool` event:
 - **`path`**, relative to the run's root (BEH-03) with `/` separators: Read, Write and Edit's `file_path`; Glob's
@@ -269,7 +277,7 @@ for `current.json`, §2). `<session>` is `$.session.id()` when the file is writt
 | `runs/<run>/pending.jsonl`, `pending.json` | during an enforce check (BEH-08) | the run's events plus the pending one, and the provisional state; overwritten at the next check, since `$.fs` can't delete |
 | `runs/<run>/review.jsonl` | as each review answer arrives (BEH-26) | one JSON object per line: `time`, `run`, `item` (the item's number in the review, from 1), `gate`, `seq`, `step`, `type`, `message`, `refused` (the cause's number of refusals, 0 for a flag), `answer` (`accept`, `challenge` or `dismissed`) and `reason` (the typed text, or null); rewritten whole from the review's lines, as `events.jsonl` is (version 10) |
 | `sessions/<session>/current.json` | after each evaluation | a copy of the session's open run's `state.json`, for renderers; the last run's stays after it ends, and shows it ended when the final evaluation ran (BEH-05). A renderer treats a session folder with no recent write as a session that has gone |
-| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23), `compact` (BEH-24), `stuck` (BEH-25), `review` (BEH-26, version 10); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
+| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23), `compact` (BEH-24), `stuck` (BEH-25), `review` (BEH-26, version 10), `exit` (BEH-28, version 12); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
 
 `prune.py` (IF-04) deletes `runs/<run>/` and `sessions/<session>/` folders whose files are all older than the
 retention period (BEH-19), and nothing else.
@@ -363,7 +371,7 @@ behaviors:
     rule: "While a run is open, the adapter turns each main-loop host event of DM-01 into its event, with the next seq, the UTC time from $.clock.now() and the run's ID, adds it to the run's lines (DM-03) and rewrites events.jsonl from them. Events while no run is open, and events that carry an agentId, are not recorded. An answer counts only when Claude Code fired the AskUserQuestion call (next.origin.plugin is 'engine'), and a prompt only when the person sent it (e.origin.kind composer or bridge), since a mod can ask through $.ui.ask, submit a prompt as the user's, and a background task's notification arrives as a prompt (§9, P11). A prompt that starts with '/' runs a command or loads a skill and is no answer, so it isn't recorded: a slash command's skill.prompt settles before its prompt.submit, so its text would land in the run it opened (§9, VER-15). Every event goes on unchanged: auto mode denies a tool call whose input a hook changed."
   - id: BEH-05
     status: active
-    rule: "A run ends with run-end another-skill when a tracked skill loads; clear on session.end with reason clear; and session-end on session.end with any other reason (exit, /resume and /branch, which report resume, logout, the end of a -p run, a signal). Nothing else ends a run; there is no idle limit (Bryan, 2026-10-02). All session.end hooks share 1.5 seconds, so the run-end line is written first, and the final evaluation runs only when next.budget.remainingMs leaves room for it, with its timeoutMs taken from what is left: the log alone reproduces the state. So a session's current.json shows its run ended only when that evaluation ran (DM-02)."
+    rule: "A run ends with run-end another-skill when a tracked skill loads; clear on session.end with reason clear; and session-end on session.end with any other reason (exit, /resume and /branch, which report resume, logout, the end of a -p run, a signal). From version 12 a run also ends with stopped on the user's deliberate stop (BEH-27). Nothing else ends a run; there is no idle limit (Bryan, 2026-10-02). All session.end hooks share 1.5 seconds, so the run-end line is written first, and the final evaluation runs only when next.budget.remainingMs leaves room for it, with its timeoutMs taken from what is left: the log alone reproduces the state. So a session's current.json shows its run ended only when that evaluation ran (DM-02)."
   - id: BEH-06
     status: active
     rule: "After a tool, answer, prompt, reply or run-end event, the run is marked. A timer runs IF-03 every half second when the run is marked and no timer-driven evaluation is running; it clears the mark as it starts. The timer starts at session.start, at classic.SessionStart with source clear, resume or fork (no session.start follows /clear, /resume or /branch), and at a skill.prompt when none is running. So at most one timer-driven evaluation runs at a time (an enforce check, BEH-08, runs apart from it on its own files), and a burst of events gives at most two evaluations. The timer's callback catches its own errors (ERR-10). After exit 0 the adapter copies state.json to the session's current.json (DM-02), updates the summary in $.state, which redraws the band, and calls $.ui.status when the status text has changed (BEH-10). In observe mode no tool call waits for an evaluation."
@@ -378,7 +386,7 @@ behaviors:
     rule: "In enforce mode, when an evaluation's gate has kind report and refuse true, the adapter adds the messages of the flags raised at that gate, once per gate seq, to the context of the user's next prompt.submit, so the model reads them with that prompt. It doesn't add them to a prompt that starts with '/', which usually loads the next skill, and drops them once the run has ended: the user has moved on. A run-end gate's flags reach the user only, since the conversation that would read them has ended. Neither gate has a tool call to refuse."
   - id: BEH-10
     status: active
-    rule: "While a run is open, and after it ends until another run opens, the status line shows the summary: '<skill> <current>/<steps>' while a step is current; '<skill> done' when every step is reached; '<skill> ended' after run-end. Then, in this order and only when they apply: ' · your turn' when the current step shows your-turn; ' · <n> flag' or ' · <n> flags'; ' · ticks only' when the manifest is stale or none; ' · idle' when 30 minutes have passed with no event and no turn running; ' · enforce' in enforce mode. While tracking is off for the session (BEH-14, ERR-03), it shows 'progress: off (<reason>)' instead. The adapter sets it with $.ui.status(text), called only when the text changes, and Claude Code draws it as '⚠ devforgeai: <text>' (use-the-mods-API, $.ui.status)."
+    rule: "While a run is open, and after it ends until another run opens, the status line shows the summary: '<skill> <current>/<steps>' while a step is current; '<skill> done' when every step is reached; '<skill> ended' after run-end, and '<skill> stopped at step <n>' after run-end stopped, n being the state's highest step reached (version 12). Then, in this order and only when they apply: ' · your turn' when the current step shows your-turn; ' · <n> flag' or ' · <n> flags'; ' · ticks only' when the manifest is stale or none; ' · idle' when 30 minutes have passed with no event and no turn running; ' · enforce' in enforce mode. While tracking is off for the session (BEH-14, ERR-03), it shows 'progress: off (<reason>)' instead. The adapter sets it with $.ui.status(text), called only when the text changes, and Claude Code draws it as '⚠ devforgeai: <text>' (use-the-mods-API, $.ui.status)."
   - id: BEH-11
     status: active
     rule: "While a run is open, a ui.render hook on AbovePrompt draws two rows of text. Row 1: the skill, one glyph per step in order (done ●, current ◆, your-turn ?, pending ○, claimed ◐, unconfirmed ·, skipped-with-reason ⊘, not-applicable –, skipped ✗, rule-broken ✗) and 'step <current> of <steps>: <title>'. Row 2: 'observe mode' or 'enforce mode', a button 'Switch to enforce' or 'Switch to observe' (BEH-13), and the newest flag's message, or 'no flags'. The hook draws a Box holding its rows and then what await next(e) resolves to, so the mods after it still draw; it draws at most e.props.maxRows of its own rows (row 2 goes first) and cuts each to e.props.bodyColumns. It returns next(e), drawing nothing of its own, while e.props.hasSurvey is true, and when no run is open. Each draw waits for the one before it to finish, since after a reload the band can be asked for twice at once. The button has the key 'progress-mode' and no hotkey: a digit hotkey on a band button also fires when the user types that digit alone into an empty prompt."
@@ -426,7 +434,13 @@ behaviors:
     rule: "In enforce mode the adapter counts its refusals in the open run by cause: the gate's kind and the type and step of the first flag raised at the refused seq ('<kind>:<type>:<step>'), in $.state's refusals (DM-03), which a new run empties. When a cause's count reaches 2, it shows the user one toast, '<skill>: the progress tracker refused Claude twice at step <step> for the same reason: <that flag's message>. <advice>', writes the same to adapter.log as kind stuck, and, where nothing draws, to $.ui.log; a third refusal for the cause shows nothing more. The advice is chosen by that flag's type and by whether its step is user-owned in the state's steps, never by message text (version 9): for unmarked-question, untagged-question or mismatched-question, 'Help Claude bring its task list in step, or switch to observe mode with the band's button.'; for skipped or claimed-not-evidenced on a step that isn't user-owned (a step the state doesn't list counts as not user-owned), 'Claude hasn't done that step in a way the tracker can see: ask Claude to do it as the message says, or switch to observe mode with the band's button.'; for skipped on a user-owned step, or rule-broken, 'The refused write records a decision that needs your answer: answer Claude's question about it, or ask Claude to leave it open, or switch to observe mode with the band's button.' The refusals themselves are unchanged: the notice is for the user, who can see what Claude can't (version 8; Bryan, 2026-10-03). Each refusal, a write's or a question's, is also kept in $.state's refused with its gate's kind, its seq and its first flag's step, type and message, which a new run empties, for the run's review (BEH-26; version 10): a refused question leaves no event, so the evaluator's state never shows it."
   - id: BEH-26
     status: active
-    rule: "The end-of-run review (version 10; Bryan, 2026-10-04: 'Tracker's own dialog'). At a turn.complete of the main loop whose reason is answer (version 11; Bryan, 2026-10-04: 'Only after an answer'), when the run is open, every step of it is reached (the state's current is null and its run hasn't ended), $.state's reviewed isn't this run, and the run has at least one item, the adapter sets reviewed to the run and asks about each item in turn, in either mode. The items are one per cause, the cause being the gate's kind and the flag's type and step, as BEH-25 counts it: each cause of the refusals in refused (BEH-25), in the order of its first refusal, then each cause of the latest state.json's flags that no refusal has, in the order of its first flag; a refusal and a later flag for the same cause are one item. For each, it calls $.ui.ask with the question '<skill> run, item <i> of <n>: <what> at step <step> (<gate> gate): <message>. Accept it, or challenge it?', <what> being 'refused <k> time(s)' for a cause with k refusals and 'flagged' for a flag, <message> the cause's first message, and the options Accept and Challenge, under the header 'Review'. Accept records accept; Challenge records challenge with reason null; anything typed under Other records challenge with that text as its reason; a dismissal records dismissed for that item and every item after it, which are not asked. Each answer is written to runs/<run>/review.jsonl (DM-02) and to adapter.log as kind review, '<i>/<n> <answer>: <step> <type>'. When the review ends, one toast says '<skill>: your review is in devforgeai/progress/runs/<run>/review.jsonl'. Nothing is sent to Claude: no prompt, no context and no reply (§2), so the review never steers the conversation, and observe mode still adds no text the model reads (BEH-07). A typed answer that equals a label exactly counts as that label, since $.ui.ask resolves to either. A run with no item, a run that ends before every step is reached, a session where nothing draws (BEH-01: no surface would show the dialog; untested), and a headless session get no review, and flags raised after the review in the same run are not reviewed. $.state empties only on /clear, /resume and /branch, which end the run first (BEH-05, BEH-17), so a review is never asked twice for one run. A turn.complete whose reason is aborted (the user's Esc), refusal or error, or has no reason, asks nothing and leaves reviewed unchanged, so the next turn.complete whose reason is answer asks (version 11). A $.ui.ask that rejects is ERR-15."
+    rule: "The end-of-run review (version 10; Bryan, 2026-10-04: 'Tracker's own dialog'). At a turn.complete of the main loop whose reason is answer (version 11; Bryan, 2026-10-04: 'Only after an answer'), when the run is open and every step of it is reached (the state's current is null and its run hasn't ended), or when the run was stopped in this turn (run-end stopped, BEH-27; version 12), $.state's reviewed isn't this run, and the run has at least one item, the adapter sets reviewed to the run and asks about each item in turn, in either mode. The items are one per cause, the cause being the gate's kind and the flag's type and step, as BEH-25 counts it: each cause of the refusals in refused (BEH-25), in the order of its first refusal, then each cause of the latest state.json's flags that no refusal has, in the order of its first flag; a refusal and a later flag for the same cause are one item. For each, it calls $.ui.ask with the question '<skill> run, item <i> of <n>: <what> at step <step> (<gate> gate): <message>. Accept it, or challenge it?', <what> being 'refused <k> time(s)' for a cause with k refusals and 'flagged' for a flag, <message> the cause's first message, and the options Accept and Challenge, under the header 'Review'. Accept records accept; Challenge records challenge with reason null; anything typed under Other records challenge with that text as its reason; a dismissal records dismissed for that item and every item after it, which are not asked. Each answer is written to runs/<run>/review.jsonl (DM-02) and to adapter.log as kind review, '<i>/<n> <answer>: <step> <type>'. When the review ends, one toast says '<skill>: your review is in devforgeai/progress/runs/<run>/review.jsonl'. Nothing is sent to Claude: no prompt, no context and no reply (§2), so the review never steers the conversation, and observe mode still adds no text the model reads (BEH-07). A typed answer that equals a label exactly counts as that label, since $.ui.ask resolves to either. A run with no item, a run that ends before every step is reached other than by a stop, a session where nothing draws (BEH-01: no surface would show the dialog; untested), and a headless session get no review, and flags raised after the review in the same run are not reviewed. $.state empties only on /clear, /resume and /branch, which end the run first (BEH-05, BEH-17), so a review is never asked twice for one run. A turn.complete whose reason is aborted (the user's Esc), refusal or error, or has no reason, asks nothing and leaves reviewed unchanged, so the next turn.complete whose reason is answer asks (version 11). A $.ui.ask that rejects is ERR-15."
+  - id: BEH-27
+    status: active
+    rule: "The deliberate stop (version 12; Bryan, 2026-10-05: 'Yes, review at the stop'). When Claude Code fires an AskUserQuestion whose call holds one question, tagged with a step (metadata source devforgeai_step:<n>, BEH-21), and its result's answers give that question the label 'Write nothing' exactly, the adapter records the answer event as usual, then writes run-end with reason stopped in the open run. Any other answer, a call of several questions, an untagged or waiver question, a typed text other than that label, and a dismissal end nothing. Only architecture's step 8 offers that label (SPEC-003 BEH-08). After the stop the run is ended (BEH-05): later events are ignored by the evaluator (SPEC-012 BEH-12), the status line and band say '<skill> stopped at step <n>' (BEH-10), the review asks at that turn's end when the run has an item (BEH-26), and BEH-28 no longer asks for the run."
+  - id: BEH-28
+    status: active
+    rule: "Confirming an exit (version 12; Bryan, 2026-10-05: '/clear, /exit, /resume'). On command.run for clear, exit or resume, from the person (origin composer), while a run is open and unfinished (its state's current isn't null and it hasn't ended), in an interactive session where something draws, in either mode, the adapter calls $.ui.ask before next(e) with the question '<skill> run is at step <current> of <steps> and unfinished. <Verb> anyway?', Verb being Clear, Exit or Resume, the options '<Verb> anyway' and 'Keep working', under the header 'Progress'. On '<Verb> anyway' it calls next(e), and the command runs as before (BEH-05 ends the run). On 'Keep working', anything typed, or a rejected ask (ERR-16), it returns { text: 'Kept working: the <skill> run is still at step <current>.' } without next(e), so the command doesn't run, and writes one adapter.log line of kind exit. Any other command, a run every step of which is reached, an ended run, no open run, a plugin's $.command.run, and a headless session pass through untouched. Ctrl+C, Ctrl+D and closing the terminal fire no command and can't be asked about."
 ```
 
 ## 7. Errors and edge cases
@@ -507,6 +521,10 @@ errors:
     status: active
     condition: "A review's $.ui.ask rejects: the dialog was dismissed, or it can't be shown (BEH-26)."
     handling: "Record dismissed for that item and every item after it, ask nothing more in this run (reviewed already holds it), and write one adapter.log line of kind review with the reason; any other error during the review is BEH-14's."
+  - id: ERR-16
+    status: active
+    condition: "BEH-28's $.ui.ask rejects: the dialog was dismissed (Esc), or it can't be shown."
+    handling: "Keep working: return BEH-28's text without next(e), so the command doesn't run, and write one adapter.log line of kind exit with the reason. A person who wants the command can run it again and answer."
     user_result: "The review stops; review.jsonl shows what was answered and what was dismissed."
 ```
 
@@ -991,6 +1009,28 @@ verifications:
     level: integration
     covers:
       - BEH-26
+  - id: VER-38
+    status: active
+    obligation: "Kit tests of the stop (version 12): an engine-fired AskUserQuestion of one question tagged devforgeai_step:8 answered 'Write nothing' gives the answer event then run-end stopped; the status line reads 'architecture stopped at step 8'; with one refusal earlier in the run, the turn.complete (reason answer) of that turn asks item 1 of 1; the same label in a call of two questions, an untagged question, the waiver question, typed text 'write nothing' and a dismissal end nothing."
+    level: integration
+    covers:
+      - BEH-27
+      - BEH-10
+  - id: VER-39
+    status: active
+    obligation: "Kit tests of the exit confirmation (version 12): with an open run at step 3 of 11, command.run clear from the composer asks 'architecture run is at step 3 of 11 and unfinished. Clear anyway?' with 'Clear anyway' and 'Keep working' under 'Progress'; 'Keep working' returns the kept text without calling next and logs kind exit; 'Clear anyway' calls next; a rejected ask keeps (ERR-16); exit and resume ask with Exit and Resume; compact, a plugin's command.run, an ended run (another-skill or stopped), a run every step of which is reached, no open run, and a headless session ask nothing and call next."
+    level: integration
+    covers:
+      - BEH-28
+      - ERR-16
+  - id: VER-40
+    status: active
+    obligation: "Live, in Bryan's worker1 tab with --plugin-dir on the build, enforce mode: (a) an architecture run answered 'Write nothing' at step 8 shows 'architecture stopped at step 8', its runs/<run>/events.jsonl ends the run with run-end stopped, and /clear afterwards asks nothing; (b) a run left at step 7 asks before /clear, 'Keep working' keeps the conversation and the run, then /exit asks, and 'Exit anyway' exits with run-end session-end. Recorded in §9."
+    level: manual
+    covers:
+      - BEH-27
+      - BEH-28
+
 ```
 
 ## 10. Rollout, migration and rollback
@@ -1040,6 +1080,8 @@ verifications:
   plugin version (0.20.0); this spec's SPEC-012 link moves to version 11 when that is approved. Until a skill asks the
   waiver, no answer carries `devforgeai_waiver`, and nothing new is refused: the waiver question is never checked,
   and the review only asks. The review is new in both modes, on flagged runs only.
+- **Version 12.** Built after approval with SPEC-012 version 12, in one plugin version. New: the run-end stopped and
+  the exit confirmation; nothing new is refused.
 - **Version 11.** Built after approval with SPEC-001 version 15 and SPEC-003 version 10, in one plugin version. The
   review asks less often than in version 10, never more; nothing new is refused.
 - **Version 9.** Built after approval on the branch of SKL-001 v6 and SKL-003 v7, in their plugin version
@@ -1117,6 +1159,11 @@ docs: (1) the kit tests of VER-34 and VER-35, seen failing; (2) the waiver on th
 waiver question (DM-01, BEH-21), refused and reviewed in the types contract (DM-03), the review (BEH-26, ERR-15) with
 its file and log kind (DM-02); (3) `claude plugin validate`, `claude plugin test`, plugin-validator and every test;
 (4) VER-36 live, and §9.
+
+Version 12's build, through `/plugin-dev:create-plugin` with the built-in `plugin-authoring` skill: (1) VER-38's
+and VER-39's kit tests, seen failing; (2) BEH-27 and BEH-28 in `hooks/progress.tsx` (pure parts in
+`progress-core.ts`); (3) `claude plugin validate`, `claude plugin test`, plugin-validator and every test; (4) VER-40
+live in worker1, and §9.
 
 Version 11's build, through `/plugin-dev:create-plugin` with the built-in `plugin-authoring` skill: (1) VER-37's kit
 tests, seen failing; (2) BEH-26's check of the turn's reason in `hooks/progress.tsx`; (3) `claude plugin validate`,
@@ -1199,6 +1246,16 @@ Decided by Bryan on 2026-10-04, for version 10: the waiver menu (his "Next cycle
 only when the request says to proceed without questions, recorded here as one of two fixed labels; and the end-of-run
 summary he asked for on 2026-10-04, as the tracker's own dialog, one item at a time, Accept or Challenge, recorded in
 the run's folder and never sent to Claude, in both modes, on flagged runs only, once every step is reached.
+
+Decided by Bryan on 2026-10-05, for version 12: the deliberate stop and the exit confirmation, from the next-cycle
+items below ("A + B now, nesting next"). A 'Write nothing' run ends as stopped and is reviewed at the stop ("Yes,
+review at the stop", BEH-27); /clear, /exit and /resume ask first while a run is unfinished ("/clear, /exit,
+/resume", BEH-28), verified by a probe on 2026-10-05: command.run fires for all three, $.ui.ask works inside it,
+and returning { text } without next(e) stops the command. For the nesting cycle (Bryan, 2026-10-05): a prototype
+showed Claude continues the outer skill after an inner one, through a question and a /compact, because the
+summary happened to keep it; an anchor mod that adds a return line to the inner skill's prompt and a note at
+compaction made the return point deterministic, and he decided "the tracker needs to send it to Claude" and that
+"the mod enhancement is the winner". Resuming a run from its record follows nesting.
 
 Decided by Bryan on 2026-10-04, for version 11 (the waiver follow-ups):
 - Resolved, "Only after an answer": turn.complete fires for an aborted turn (Esc) too, so version 10's review could
@@ -1348,3 +1405,4 @@ Notes:
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's decision for the next cycle that a deliberate Write nothing counts as a finished run, and his resume idea | §13 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records version 11's build and live check | §9 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #83's merge (`ab8301c`) and the deploy of plugin 0.21.0 | §9 |
+| 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05: a 'Write nothing' answer ends the run as stopped, shown and reviewed (new BEH-27; BEH-05, BEH-10, BEH-26, DM-01); /clear, /exit and /resume ask first while a run is unfinished (new BEH-28, ERR-16, DM-02's log kind exit); new VER-38 to VER-40; §13 records the nesting decisions; status in-review | frontmatter, §1, DM-01, DM-02, BEH-05, BEH-10, BEH-26, BEH-27, BEH-28, ERR-16, VER-38, VER-39, VER-40, §10, §11, §13 |
