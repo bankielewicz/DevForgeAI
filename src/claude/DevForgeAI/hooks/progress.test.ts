@@ -3137,3 +3137,573 @@ test('DM-03 (version 14): a tool call that started before a run switch records a
   const look = eventsOf(w, 'spec-lookup').map(l => JSON.parse(l))
   expect(look[look.length - 1]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/after.md' })  // still the open run
 })
+
+// ---- version 16: the offer to continue an earlier run (VER-46 to VER-48) ----
+// Helpers are prefixed r so they can't clash with the drafted file's.
+//
+// The kit's command.run is answered by a stub BELOW the mod (rWorld's on('command.run')): for a typed
+// 'devforgeai:<skill>' it awaits $.skill.prompt({ skill, text }) before returning, so the skill.prompt fires inside the
+// mod's next(e), as Claude Code does (probe, 2026-10-05). The stub records the order in r.order; the first test proves it.
+// Earlier runs are files in the world's map (events.jsonl, a stale state.json); the evaluate stub answers by the
+// --events path. Every dialog under header 'Progress' goes through world()'s over.tool (r.asked), never a second
+// on('tool.call'). A control (a prd run offered and started fresh) gives each negative test a first assertion that
+// fails while no offer is ever asked.
+
+type RRows = { kinds: string[]; owned: number[] }
+const R_ROWS: Record<string, RRows> = {
+  brainstorm: { kinds: ['read', 'think', 'think', 'think', 'ask', 'forge', 'inspect', 'report'], owned: [5] },
+  architecture: { kinds: ['read', 'read', 'read', 'read', 'read', 'think', 'ask', 'ask', 'forge', 'inspect', 'report'], owned: [7, 8] },
+  prd: { kinds: ['read', 'think', 'ask', 'forge', 'report'], owned: [3] },
+}
+
+type RStateOpts = { evidence?: Record<number, string[]>; claims?: number[]; states?: Record<number, string>; ended?: string | null; manifest?: string }
+
+/** A state of a skill with evidence and claims per step; a step is reached with evidence other than a waiver's, or a done claim. */
+function rState(skill: string, o: RStateOpts = {}): Any {
+  const rows = R_ROWS[skill]
+  const reached = (n: number) => (o.evidence?.[n] ?? []).some(t => t !== 'waiver') || (o.claims ?? []).includes(n)
+  let high = 0
+  rows.kinds.forEach((_, i) => { if (reached(i + 1)) high = i + 1 })
+  const current = high + 1 > rows.kinds.length ? null : high + 1
+  const steps = rows.kinds.map((kind, i) => {
+    const n = i + 1
+    const evidence = (o.evidence?.[n] ?? []).map((type, j) => ({ seq: 10 + n * 2 + j, type, strength: 'strong', detail: 'x' }))
+    return { n, title: `Step ${n}`, kind, need: 'required', userOwned: rows.owned.includes(n), ...(skill === 'architecture' && n === 8 ? { stoppable: true } : {}),
+      state: o.states?.[n] ?? (reached(n) ? 'done' : n === current ? 'current' : 'pending'), evidence,
+      claim: (o.claims ?? []).includes(n) ? { seq: 50 + n, state: 'done', reason: null } : null, note: '' }
+  })
+  return { ...STATE, run: 'r', skill, current, ended: o.ended ?? null, steps, flags: [],
+    manifest: { ...STATE.manifest, state: o.manifest ?? 'matched' }, waiver: null }
+}
+
+/** A state with the steps `reached` done the usual way: read, answer, write and script evidence by kind, a done claim for think and report steps. */
+function rReach(skill: string, reached: number[], o: RStateOpts & { waiver?: number[]; claimOnly?: number[]; none?: number[] } = {}): Any {
+  const evidence: Record<number, string[]> = {}
+  const claims: number[] = [...(o.claims ?? [])]
+  const states: Record<number, string> = { ...(o.states ?? {}) }
+  for (const n of reached) {
+    const kind = R_ROWS[skill].kinds[n - 1]
+    if (o.none?.includes(n)) continue
+    if (o.waiver?.includes(n)) { evidence[n] = ['waiver']; states[n] = 'done'; continue }
+    if (o.claimOnly?.includes(n) || kind === 'think' || kind === 'report') { claims.push(n); continue }
+    evidence[n] = [kind === 'ask' ? 'answer' : kind === 'forge' ? 'write' : kind === 'inspect' ? 'script' : 'read']
+  }
+  return rState(skill, { ...o, evidence: { ...evidence, ...(o.evidence ?? {}) }, claims, states })
+}
+
+/** What the evaluator gives a run nobody set up: nothing reached yet. */
+function rFresh(skill: string): Any {
+  return R_ROWS[skill] ? rState(skill) : skState(skill, 5, 2)
+}
+
+type RFix = {
+  skill: string; stamp?: string; hex?: string; last?: string; end?: string | null; marked?: number | null
+  writes?: Array<string | { path: string; failed?: boolean; tool?: string }>; state?: Any; evalFail?: boolean; noLog?: boolean
+}
+
+const rIdOf = (f: RFix) => `${f.stamp ?? '20260930T090000Z'}-${f.skill}-${f.hex ?? '1a2b3c4d'}`
+const rIso = (stamp: string) => `${stamp.slice(0, 4)}-${stamp.slice(4, 6)}-${stamp.slice(6, 8)}T${stamp.slice(9, 11)}:${stamp.slice(11, 13)}:${stamp.slice(13, 15)}Z`
+
+/** An earlier run's events.jsonl: skill-loaded, its Write/Edit events, the step the task list marked, run-end. */
+function rLines(f: RFix): string {
+  const run = rIdOf(f)
+  const start = rIso(f.stamp ?? '20260930T090000Z')
+  const last = f.last ?? '2026-09-30T10:00:00Z'
+  const out: Any[] = [{ kind: 'skill-loaded', format: 'devforgeai-events/1', skill: f.skill, checklist: TAGGED, host: 'claude-code 2.1.287',
+    taskList: true, mode: 'observe', modeSource: 'framework-default', time: start }]
+  for (const w of f.writes ?? []) {
+    const x = typeof w === 'string' ? { path: w } : w
+    out.push({ kind: 'tool', tool: (x as Any).tool ?? 'Write', path: x.path, exit: (x as Any).failed ? null : 0, error: !!(x as Any).failed, content: 'x', time: last })
+  }
+  if (f.marked) out.push({ kind: 'step', step: f.marked, state: 'started', time: last })
+  if (f.end) out.push({ kind: 'run-end', reason: f.end, time: last })
+  return out.map((e, i) => JSON.stringify({ run, seq: i + 1, ...{ time: e.time, ...e } })).join('\n') + '\n'
+}
+
+/** A brainstorm run that ended at `marked`, with steps 1 to marked-1 reached; override per test. */
+function rBrn(marked: number, o: Partial<RFix> = {}, reached?: number[], so: Parameters<typeof rReach>[2] = {}): RFix {
+  const upto = reached ?? Array.from({ length: marked - 1 }, (_, i) => i + 1)
+  return { skill: 'brainstorm', end: 'session-end', marked, state: rReach('brainstorm', upto, so), ...o }
+}
+
+type RCfg = {
+  earlier?: RFix[]
+  answer?: string | null | 'FAIL' | ((q: Any) => string)
+  mode?: string
+  surfaces?: string[]
+  noLoad?: string[]
+  stateOf?: (skill: string, ev: string) => Any | undefined
+  control?: boolean
+}
+
+const R_CONTINUE = (q: Any): string => q.options[0].label
+const R_DISMISS = { result: "Error: The user doesn't want to proceed with this tool use.", isError: true, text: "The user doesn't want to proceed with this tool use." }
+
+/** The world for the offer: earlier runs as files, the Progress dialog answered, a command.run stub whose skill.prompt fires inside next(e). */
+function rWorld($top: Any, on: Any, cfg: RCfg = {}) {
+  const files: Record<string, string> = {}
+  const fixtures: RFix[] = [...(cfg.earlier ?? [])]
+  const control: RFix = { skill: 'prd', stamp: '20260929T090000Z', hex: '0f0f0f0f', end: 'session-end', marked: 3, state: rReach('prd', [1, 2]) }
+  if (cfg.control !== false) fixtures.push(control)
+  for (const f of fixtures) {
+    const dir = `${PROGRESS}/runs/${rIdOf(f)}`
+    if (!f.noLog) files[`${dir}/events.jsonl`] = rLines(f)
+    files[`${dir}/state.json`] = '{}'
+  }
+  const sk = skillCalls()
+  const r = {
+    asked: [] as Array<{ header: string; question: string; options: string[] }>,
+    controlAsked: [] as string[], order: [] as string[], texts: [] as string[], ran: [] as string[], atAsk: [] as number[],
+    ids: (cfg.earlier ?? []).map(rIdOf), sk, cfg, over: {} as Over, w: null as unknown as World,
+  }
+  const over: Over = {
+    files, surfaces: cfg.surfaces, mode: cfg.mode,
+    tool: (e: Any): Any => {
+      const q = e.questions?.[0]
+      if (e.tool === 'AskUserQuestion' && q?.header === 'Progress' && String(q.question).startsWith('prd: ')) {
+        r.controlAsked.push(q.question)
+        return { result: { questions: e.questions, answers: { [q.question]: 'Start fresh' }, annotations: {} } }
+      }
+      if (e.tool === 'AskUserQuestion' && q?.header === 'Progress' && String(q.question).includes('Continue it?')) {
+        r.asked.push({ header: q.header, question: q.question, options: q.options.map((o: Any) => o.label) })
+        r.order.push('dialog')
+        r.atAsk.push(r.w ? runsOf(r.w, 'brainstorm').length : -1)
+        const a = cfg.answer === undefined ? R_CONTINUE : cfg.answer
+        if (a === 'FAIL') return { deny: 'the dialog could not be shown' }
+        if (a === null) return R_DISMISS
+        const label = typeof a === 'function' ? a(q) : a
+        return { result: { questions: e.questions, answers: { [q.question]: label }, annotations: {} } }
+      }
+      if (e.tool === 'AskUserQuestion' && q?.question === 'Outcome?') return answering({ 'Outcome?': 'Write nothing' })(e)
+      return sk.tool(e)
+    },
+    evaluate: (argv: readonly string[]) => {
+      const ev = argv[argv.indexOf('--events') + 1]
+      const skill = ev.match(/runs\/[0-9]{8}T[0-9]{6}Z-([a-z][a-z0-9-]*)-[0-9a-f]{8}\//)?.[1] ?? 'brainstorm'
+      const fix = fixtures.find(f => ev.includes(`/${rIdOf(f)}/`))
+      if (fix?.evalFail) return { deny: 'evaluator unavailable' }
+      if (fix?.state) return { state: fix.state }
+      if (fix === control) return { state: control.state }
+      return { state: cfg.stateOf?.(skill, ev) ?? rFresh(skill) }
+    },
+  }
+  r.over = over
+  r.w = world(on, over)
+  on('command.run', async (_$: Any, e: Any) => {
+    r.order.push('command:enter')
+    r.ran.push(e.command)
+    if (!(cfg.noLoad ?? []).includes(e.command) && String(e.command).startsWith('devforgeai:')) {
+      r.order.push('skill.prompt')
+      const out = (await $top.skill.prompt({ skill: e.command, text: TAGGED })) as Any
+      r.texts.push(out.text)
+      r.order.push('skill.prompt done')
+    }
+    r.order.push('command:leave')
+    return { text: `ran ${e.command}` }
+  })
+  return r
+}
+
+type RW = ReturnType<typeof rWorld>
+
+const rType = ($: Any, skill = 'brainstorm') => $.command.run({ command: `devforgeai:${skill}`, args: '', origin: COMPOSER } as Any) as Promise<Any>
+
+/** The control: a prd run is offered and started fresh. Fails while no offer is asked, so the negatives below fail for the right reason. */
+async function rControl($: Any, r: RW) {
+  await rType($, 'prd')
+  expect(r.controlAsked).toEqual(['prd: an earlier run ended at step 3 of 5 on 2026-09-30 (session end). It wrote nothing. Continue it?'])
+}
+
+/** adapter.log's lines of kind resume. */
+function rLog(w: World): string[] {
+  return (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' resume: ')).map(l => l.split(' resume: ')[1])
+}
+
+/** adapter.log's resume lines, less the control's. */
+const rLogOf = (r: RW): string[] => rLog(r.w).filter(l => !l.includes('-prd-0f0f0f0f'))
+
+const rNew = (r: RW, skill = 'brainstorm', i = 0): Any => logOf(r.w, skill, i)[0]
+
+const rQuestion = (skill: string, when: string, files = 'nothing') => `${skill}: an earlier run ${when}. It wrote ${files}. Continue it?`
+const R_ENDED_4 = 'ended at step 4 of 8 on 2026-09-30 (session end)'
+
+/** BEH-31's line, from its template; lists are joined with ', ' (the template doesn't say how a list is written). */
+function rLineOf(o: { skill?: string; id: string; when: string; carried: number[]; step: number; owned?: number[]; files?: string[] }): string {
+  const skill = o.skill ?? 'brainstorm'
+  return `This run continues the earlier ${skill} run ${o.id}, which ${o.when}. Steps ${o.carried.join(', ')} are carried over: the tracker counts them reached. `
+    + `Create the task list with those steps' tasks completed, mark step ${o.step} in progress, and continue at step ${o.step}.`
+    + ((o.owned ?? []).length ? ` Steps ${o.owned!.join(', ')} were the user's decisions, which the record doesn't keep: before any document records them, confirm each with the user again, in order, marking its step in progress and tagging the question with it.` : '')
+    + ` Files it wrote: ${(o.files ?? []).length ? o.files!.join(', ') : 'nothing'}. Its replies are in devforgeai/progress/runs/${o.id}/events.jsonl, the events of kind reply: use them to show the user what was proposed, never as a decision.`
+}
+
+/** The text Claude read ends with the line, and nothing but the line was added to the checklist. */
+function rExpectLine(text: string, line: string) {
+  expect(text.startsWith(TAGGED)).toBe(true)
+  expect(text.slice(TAGGED.length).trim()).toBe(line)
+}
+
+const BRN = 'docs/specs/brainstorm/BRN-001.md'
+
+// -- VER-46: the offer and Continue --
+
+test('VER-46: a typed load asks the offer inside command.run\'s next(e), before the run opens (header Progress, the two options)', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)], answer: 'Start fresh' })
+  await start($)
+  await rType($)
+  expect(r.asked).toEqual([{ header: 'Progress', question: rQuestion('brainstorm', R_ENDED_4), options: ['Continue from step 4', 'Start fresh'] }])
+  // skill.prompt fired inside command.run's next(e), the dialog was asked in it, and no run existed yet
+  expect(r.order).toEqual(['command:enter', 'skill.prompt', 'dialog', 'skill.prompt done', 'command:leave'])
+  expect(r.atAsk).toEqual([0])
+})
+
+test('VER-46: the earlier run is evaluated once more from its own log before it is offered', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)] })
+  await start($)
+  await rType($)
+  const id = r.ids[0]
+  const evaluated = r.w.runs.filter(a => a[2] === 'evaluate' && a.some(x => x.includes(`/${id}/`)))
+  expect(evaluated.length).toBeGreaterThan(0)
+  expect(evaluated[0].some(x => x.endsWith(`/${id}/state.json`))).toBe(true)
+  expect(r.w.files.get(`${PROGRESS}/runs/${id}/state.json`)).not.toBe('{}')
+})
+
+test('VER-46: Continue opens the run with resumes and carried 1 to 3 on its skill-loaded event', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)] })
+  await start($)
+  await rType($)
+  const loaded = rNew(r)
+  expect(loaded).toMatchObject({ kind: 'skill-loaded', skill: 'brainstorm', resumes: r.ids[0], carried: [1, 2, 3] })
+  expect(loaded.answered ?? []).toEqual([])
+  expect(loaded.checklist).not.toContain('This run continues')
+  expect(loaded.checklist).toContain('1. Intake')
+})
+
+test('VER-46: Continue gives the text Claude reads BEH-31\'s line at its end, and the skill-loaded checklist doesn\'t have it', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)] })
+  await start($)
+  await rType($)
+  rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when: R_ENDED_4, carried: [1, 2, 3], step: 4 }))
+  expect(rNew(r).checklist.includes('This run continues')).toBe(false)
+})
+
+test('VER-46: adapter.log gets an offered line and a continued line', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)] })
+  await start($)
+  await rType($)
+  const log = rLog(r.w)
+  expect(log[0]).toBe(`offered ${r.ids[0]} at step 4`)
+  expect(log[1]).toBe(`continued ${r.ids[0]} at step 4, carried 1, 2, 3`)
+})
+
+test('VER-46: the band shows carried steps as ◉', async ($, on) => {
+  const carried = rState('brainstorm', { evidence: { 1: ['carried'], 2: ['carried'], 3: ['carried'] }, states: { 1: 'carried', 2: 'carried', 3: 'carried' } })
+  const w = world(on, { evaluate: () => ({ state: carried }) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await w.clock.advance(600)
+  const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal' })
+  const row = await ui.find({ type: 'Text', text: /brainstorm/ })
+  expect(row).toBeDefined()
+  expect(String(row.children.join(''))).toContain('◉◉◉◆○○○○')
+  await ui.unmount()
+})
+
+test('VER-46: a run marked at step 6 carries 1 to 5, and the line names step 5 to confirm again', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(6)] })
+  await start($)
+  await rType($)
+  expect(r.asked.map(a => a.options[0])).toEqual(['Continue from step 6'])
+  expect(rNew(r)).toMatchObject({ resumes: r.ids[0], carried: [1, 2, 3, 4, 5] })
+  expect(rNew(r).answered ?? []).toEqual([])
+  const when = 'ended at step 6 of 8 on 2026-09-30 (session end)'
+  rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when, carried: [1, 2, 3, 4, 5], step: 6, owned: [5] }))
+})
+
+test('VER-46: a run at step 7 whose BRN was written after the user answered step 5 carries 1 to 6 with answered [5] and leaves the sentence out', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(7, { writes: [BRN] }, [1, 2, 3, 4, 5, 6])] })
+  await start($)
+  await rType($)
+  expect(r.asked.map(a => a.options[0])).toEqual(['Continue from step 7'])
+  const loaded = rNew(r)
+  expect(loaded).toMatchObject({ resumes: r.ids[0], carried: [1, 2, 3, 4, 5, 6], answered: [5] })
+  const when = 'ended at step 7 of 8 on 2026-09-30 (session end)'
+  rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when, carried: [1, 2, 3, 4, 5, 6], step: 7, owned: [], files: [BRN] }))
+  expect(r.texts[0]).not.toContain("were the user's decisions")
+})
+
+test('VER-46: a BRN written under Proceed with step 5 unanswered gives answered empty, and the line names step 5 to confirm again', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(7, { writes: [BRN] }, [1, 2, 3, 4, 5, 6], { waiver: [5] })] })
+  await start($)
+  await rType($)
+  const loaded = rNew(r)
+  expect(loaded).toMatchObject({ resumes: r.ids[0], carried: [1, 2, 3, 4, 5, 6] })
+  expect(loaded.answered ?? []).toEqual([])
+  const when = 'ended at step 7 of 8 on 2026-09-30 (session end)'
+  rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when, carried: [1, 2, 3, 4, 5, 6], step: 7, owned: [5], files: [BRN] }))
+})
+
+test('VER-46: the dialog and the line name the files its writes that didn\'t fail wrote, each once, in order', async ($, on) => {
+  const writes = [BRN, { path: 'docs/failed.md', failed: true }, 'docs/notes.md', { path: BRN, tool: 'Edit' }, { path: 'docs/edit-failed.md', failed: true, tool: 'Edit' }]
+  const r = rWorld($, on, { earlier: [rBrn(7, { writes }, [1, 2, 3, 4, 5, 6])] })
+  await start($)
+  await rType($)
+  const files = `${BRN}, docs/notes.md`
+  expect(r.asked.map(a => a.question)).toEqual([rQuestion('brainstorm', 'ended at step 7 of 8 on 2026-09-30 (session end)', files)])
+  expect(r.texts[0]).toContain(`Files it wrote: ${files}. Its replies are in devforgeai/progress/runs/${r.ids[0]}/events.jsonl`)
+})
+
+for (const mode of ['observe framework-default', 'enforce local']) {
+  test(`VER-46: the offer and Continue are the same in ${mode.split(' ')[0]} mode`, async ($, on) => {
+    const r = rWorld($, on, { earlier: [rBrn(4)], mode })
+    await start($)
+    await rType($)
+    expect(r.asked.length).toBe(1)
+    expect(rNew(r)).toMatchObject({ mode: mode.split(' ')[0], resumes: r.ids[0], carried: [1, 2, 3] })
+    rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when: R_ENDED_4, carried: [1, 2, 3], step: 4 }))
+  })
+}
+
+for (const [reason, why] of [['clear', '/clear'], ['stopped', 'stopped'], ['another-skill', 'another skill loaded'], ['returned', 'returned to the skill beneath']]) {
+  test(`VER-46: a run that ended with run-end ${reason} is offered with (${why})`, async ($, on) => {
+    const r = rWorld($, on, { earlier: [rBrn(4, { end: reason })] })
+    await start($)
+    await rType($)
+    expect(r.asked.map(a => a.question)).toEqual([rQuestion('brainstorm', `ended at step 4 of 8 on 2026-09-30 (${why})`)])
+  })
+}
+
+// -- VER-47: which run is offered --
+
+test('VER-47: only the skill\'s latest run: an older unfinished run behind a newer finished one isn\'t offered', async ($, on) => {
+  const older = rBrn(4, { stamp: '20260929T090000Z', hex: 'aaaaaaaa' })
+  const newer = rBrn(8, { stamp: '20260930T090000Z', hex: 'bbbbbbbb' }, [1, 2, 3, 4, 5, 6, 7, 8])
+  const r = rWorld($, on, { earlier: [older, newer] })
+  await start($)
+  await rControl($, r)
+  await rType($)
+  expect(r.asked).toEqual([])
+  expect(rNew(r).resumes).toBeUndefined()
+})
+
+test('VER-47: a run whose last step is reached isn\'t offered', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(8, {}, [1, 2, 3, 4, 5, 6, 7, 8])] })
+  await start($)
+  await rControl($, r)
+  await rType($)
+  expect(r.asked).toEqual([])
+  expect(rLog(r.w).filter(l => l.startsWith('continued'))).toEqual([])
+})
+
+test('VER-47: a stopped architecture run is offered at its stop step, also when it is this session\'s open run', async ($, on) => {
+  let stopped = false
+  const r = rWorld($, on, { stateOf: skill => (skill === 'architecture' ? rReach('architecture', [1, 2, 3, 4, 5, 6, 7], stopped ? { ended: 'stopped' } : {}) : undefined) })
+  await start($)
+  await rType($, 'architecture')
+  await taskList($, 11, 8)
+  await r.w.clock.advance(600)
+  stopped = true
+  await $.tool.call(stepQuestion('Outcome?') as Any)
+  expect(runEnds(r.w)).toEqual(['stopped'])
+  await rType($, 'architecture')
+  expect(r.asked.map(a => [a.question, a.options])).toEqual([[
+    rQuestion('architecture', 'ended at step 8 of 11 on 2026-10-02 (stopped)'), ['Continue from step 8', 'Start fresh']]])
+  expect(logOf(r.w, 'architecture', 1)[0]).toMatchObject({ kind: 'skill-loaded', carried: [1, 2, 3, 4, 5, 6, 7] })
+  expect(logOf(r.w, 'architecture', 1)[0].resumes).toMatch(/^20261002T120000Z-architecture-[0-9a-f]{8}$/)
+})
+
+test('VER-47: this session\'s open run that hasn\'t ended isn\'t offered (a skill typed again mid-run is a restart)', async ($, on) => {
+  const r = rWorld($, on, { stateOf: skill => (skill === 'brainstorm' ? rReach('brainstorm', [1, 2, 3]) : undefined) })
+  await start($)
+  await rControl($, r)
+  await rType($)
+  await taskList($, 8, 4)
+  await r.w.clock.advance(600)
+  await rType($)
+  expect(r.asked).toEqual([])
+  expect(runsOf(r.w, 'brainstorm').length).toBe(2)
+  expect(logOf(r.w, 'brainstorm', 0).slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(logOf(r.w, 'brainstorm', 1)[0].resumes).toBeUndefined()
+})
+
+test('VER-47: a run paused on the trail isn\'t offered', async ($, on) => {
+  const r = rWorld($, on, { stateOf: skill => (skill === 'architecture' ? rReach('architecture', [1, 2, 3, 4, 5, 6]) : undefined) })
+  await start($)
+  await rControl($, r)
+  await rType($, 'architecture')
+  await taskList($, 11, 7)
+  await r.w.clock.advance(600)
+  await r.sk.load($, 'devforgeai:spec-lookup')
+  expect(trailLog(r.w)).toEqual(['push architecture at step 7 (1 on the trail)'])
+  await rType($, 'architecture')
+  expect(r.asked).toEqual([])
+  expect(runsOf(r.w, 'architecture').length).toBe(2)
+  expect(logOf(r.w, 'architecture', 1)[0].resumes).toBeUndefined()
+})
+
+for (const [last, age] of [['2026-10-02T11:55:00Z', '5 minutes'], ['2026-10-02T09:00:00Z', '3 hours'], ['2026-09-30T12:00:00Z', '2 days']]) {
+  test(`VER-47: a run with no run-end is offered at once, its last event ${age} ago`, async ($, on) => {
+    const r = rWorld($, on, { earlier: [rBrn(4, { end: null, last })] })
+    await start($)
+    await rType($)
+    const when = `was at step 4 of 8 with no end recorded, its last event ${age} ago (it may still be open in another session)`
+    expect(r.asked.map(a => a.question)).toEqual([rQuestion('brainstorm', when)])
+    expect(r.asked[0].options).toEqual(['Continue from step 4', 'Start fresh'])
+    rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when, carried: [1, 2, 3], step: 4 }))
+  })
+}
+
+for (const manifest of ['stale', 'none']) {
+  test(`VER-47: a run whose manifest state is ${manifest}, not matched, isn't offered`, async ($, on) => {
+    const r = rWorld($, on, { earlier: [rBrn(4, {}, undefined, { manifest })] })
+    await start($)
+    await rControl($, r)
+    await rType($)
+    expect(r.asked).toEqual([])
+    expect(rNew(r).resumes).toBeUndefined()
+  })
+}
+
+test('VER-47: a run with nothing to carry (at step 1) isn\'t offered', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(1, { marked: null }, [])] })
+  await start($)
+  await rControl($, r)
+  await rType($)
+  expect(r.asked).toEqual([])
+  expect(rNew(r).resumes).toBeUndefined()
+})
+
+test('VER-47: a run marked past a write-gate step with no write evidence continues at that step, also when it was only claimed done', async ($, on) => {
+  // step 6 (the BRN's write gate) was claimed done, never evidenced; the task list marked step 8
+  const r = rWorld($, on, { earlier: [rBrn(8, {}, [1, 2, 3, 4, 5, 6, 7], { claimOnly: [6] })] })
+  await start($)
+  await rType($)
+  expect(r.asked.map(a => a.options)).toEqual([['Continue from step 6', 'Start fresh']])
+  expect(rNew(r)).toMatchObject({ resumes: r.ids[0], carried: [1, 2, 3, 4, 5] })
+  expect(rNew(r).answered ?? []).toEqual([])
+  const when = r.asked[0].question.match(/an earlier run (ended at step \d of 8 on 2026-09-30 \(session end\))\./)![1]
+  rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when, carried: [1, 2, 3, 4, 5], step: 6, owned: [5] }))   // its decision before it stays to be confirmed again
+})
+
+test('VER-47: a run marked past a write-gate step nothing was claimed for continues at that step too', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(7, {}, [1, 2, 3, 4, 5], {})] })
+  await start($)
+  await rType($)
+  expect(r.asked.map(a => a.options)).toEqual([['Continue from step 6', 'Start fresh']])
+  expect(rNew(r)).toMatchObject({ carried: [1, 2, 3, 4, 5] })
+})
+
+// -- VER-48: declining and failing --
+
+/** A run opened without the offer: neither field, nothing after the checklist. */
+function rPlain(r: RW, t = 0) {
+  const loaded = rNew(r)
+  expect(loaded.kind).toBe('skill-loaded')
+  expect(loaded.resumes).toBeUndefined()
+  expect(loaded.carried).toBeUndefined()
+  expect(loaded.answered).toBeUndefined()
+  expect(r.texts[t]).toBe(TAGGED)
+}
+
+test('VER-48: Start fresh opens the run with neither field and no line, and adapter.log has fresh', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)], answer: 'Start fresh' })
+  await start($)
+  await rType($)
+  expect(r.asked.length).toBe(1)
+  rPlain(r)
+  const log = rLog(r.w)
+  expect(log[0]).toBe(`offered ${r.ids[0]} at step 4`)
+  expect(log[1]).toMatch(/^fresh \(.+\)$/)
+})
+
+test('VER-48: Esc (a dismissal) opens the run as before, and adapter.log has fresh', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)], answer: null })
+  await start($)
+  await rType($)
+  expect(r.asked.length).toBe(1)
+  rPlain(r)
+  expect(rLog(r.w)[1]).toMatch(/^fresh \(.+\)$/)
+})
+
+test('VER-48: nothing drawing offers nothing', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)] })
+  await start($)
+  await rControl($, r)
+  r.over.surfaces = []
+  await rType($)
+  expect(r.asked).toEqual([])
+  expect(rLogOf(r)).toEqual([])
+  rPlain(r, 1)
+})
+
+test('VER-48: an evaluator failure on the earlier run offers nothing, the run opens, one resume line says why', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4, { evalFail: true })] })
+  await start($)
+  await rControl($, r)
+  await rType($)
+  expect(r.asked).toEqual([])
+  rPlain(r, 1)
+  expect(rLogOf(r).length).toBe(1)
+})
+
+test('VER-48: an unreadable log (a run folder with no events.jsonl) offers nothing, the run opens, one resume line says why', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4, { noLog: true })] })
+  await start($)
+  await rControl($, r)
+  await rType($)
+  expect(r.asked).toEqual([])
+  rPlain(r, 1)
+  expect(rLogOf(r).length).toBe(1)
+})
+
+test('VER-48: a dialog that fails is taken as Start fresh: the run opens with neither field and no line (ERR-17)', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)], answer: 'FAIL' })
+  await start($)
+  await rType($)
+  expect(r.asked.length).toBe(1)
+  rPlain(r)
+  const log = rLog(r.w)
+  expect(log.length).toBeGreaterThan(0)
+  expect(log.filter(l => l.startsWith('continued'))).toEqual([])
+})
+
+test('VER-48: a load by Claude\'s Skill tool offers nothing', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)] })
+  await start($)
+  await rControl($, r)
+  const text = await r.sk.load($, 'devforgeai:brainstorm')
+  expect(r.asked).toEqual([])
+  expect(text).not.toContain('This run continues')
+  expect(rNew(r).resumes).toBeUndefined()
+})
+
+test('VER-48: a skill.prompt with no command.run around it offers nothing', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)] })
+  await start($)
+  await rControl($, r)
+  const out = (await $.skill.prompt({ skill: 'devforgeai:brainstorm', text: TAGGED })) as Any
+  expect(r.asked).toEqual([])
+  expect(out.text).toBe(TAGGED)
+  expect(rNew(r).resumes).toBeUndefined()
+})
+
+test('VER-48: a typed load while a Skill call of the main loop is in flight offers nothing', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)] })
+  await start($)
+  await rControl($, r)
+  await r.sk.load($, 'devforgeai:brainstorm', undefined, async () => { await rType($) })   // the Skill call is held open while command.run runs
+  expect(r.asked).toEqual([])
+  expect(rNew(r).resumes).toBeUndefined()
+})
+
+test('VER-48: a command.run that loads no skill asks nothing, and a later typed load isn\'t taken for it', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(4)], noLoad: ['devforgeai:brainstorm'] })
+  await start($)
+  await rControl($, r)
+  await $.command.run({ command: 'devforgeai:brainstorm', args: '', origin: COMPOSER } as Any)   // loads no skill here
+  await $.command.run({ command: 'help', args: '', origin: COMPOSER } as Any)
+  expect(r.asked).toEqual([])
+  const out = (await $.skill.prompt({ skill: 'devforgeai:brainstorm', text: TAGGED })) as Any   // not around a command.run
+  expect(r.asked).toEqual([])
+  expect(out.text).toBe(TAGGED)
+  expect(rNew(r).resumes).toBeUndefined()
+})
