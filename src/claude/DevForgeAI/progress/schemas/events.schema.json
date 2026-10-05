@@ -81,7 +81,7 @@
               "minimum": 1
             },
             "uniqueItems": true,
-            "description": "the steps the earlier run reached, carried into this run (version 14, BEH-20)"
+            "description": "the steps carried from the earlier run: every step before the one this run continues at (version 14, BEH-20)"
           }
         }
       }
