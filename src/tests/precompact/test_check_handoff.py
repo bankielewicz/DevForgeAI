@@ -225,6 +225,80 @@ class Clean(unittest.TestCase):
         self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout)
 
 
+class ValidFormsFromReview(unittest.TestCase):
+    """Shapes the build's adversarial review found refused although they are valid (2026-10-05)."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.h = Handoff(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def assertClean(self):
+        p = self.h.run()
+        self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
+    def test_a_nested_bullet_under_a_checked_fact(self):
+        self.h.edit("START-HERE.md", "[checked: git status --porcelain=v2 -b -> ahead 2]\n",
+                    "[checked: git status --porcelain=v2 -b -> ahead 2]\n  - both commits are on the exporter\n")
+        self.assertClean()
+
+    def test_a_marker_in_bold(self):
+        self.h.edit("START-HERE.md", "[checked: git status --porcelain=v2 -b -> ahead 2]",
+                    "**[checked: git status --porcelain=v2 -b -> ahead 2]**")
+        self.assertClean()
+
+    def test_session_only_on_a_wrapped_items_later_line(self):
+        self.h.edit("START-HERE.md", "When something you need", "3. `scratch/run.sh` - reproduces the bug when run with the staging\n"
+                    "   flag set; valid until the session ends (session-only).\n\nWhen something you need")
+        self.assertClean()
+
+    def test_the_archive_and_other_files_arent_checked(self):
+        write(self.h.dir / "TASKS-archive.md", "# Tasks archive\n\n- [x] Old step: [notes](docs/removed.md)\n")
+        write(self.h.dir / "notes.md", "[[fill: a scratch note]]\n")
+        self.assertClean()
+
+    def test_a_path_with_a_variable(self):
+        self.h.edit("START-HERE.md", "When something you need", "3. `${CLAUDE_SESSION_ID}/current.json` - the tracker's state.\n"
+                    "4. `$HOME/notes/export.md` - the user's notes.\n\nWhen something you need")
+        self.assertClean()
+
+    def test_none_under_decided_with_a_dash(self):
+        self.h.edit("START-HERE.md", '- CSV only, no Excel: Dana, 2026-10-04, "CSV is enough for now".', "- None.")
+        self.assertClean()
+
+    def test_a_date_with_a_time(self):
+        self.h.edit("START-HERE.md", "Dana, 2026-10-04, ", "Dana, 2026-10-04T14:00Z, ")
+        self.assertClean()
+
+    def test_nothing_outstanding_with_a_note_or_in_bold(self):
+        for line in ("Nothing outstanding (PR #12 merged).", "**Nothing outstanding.**"):
+            with self.subTest(line):
+                self.h.files["START-HERE.md"] = START_HERE.format(root=self.h.root).replace(
+                    "1. Add the header row. Next: edit `src/export.py:10`. Waits for: nothing.", line)
+                self.h.save()
+                self.assertClean()
+
+    def test_a_loose_item_with_a_blank_line_and_a_fence(self):
+        self.h.edit("START-HERE.md", "1. Add the header row. Next: edit `src/export.py:10`. Waits for: nothing.",
+                    "1. Add the header row. Next: edit `src/export.py:10`, like this:\n\n   ```python\n   HEADER = []\n"
+                    "   ```\n\n   Waits for: nothing.")
+        self.assertClean()
+
+    def test_an_indented_fence_hides_its_links(self):
+        self.h.edit("START-HERE.md", "- Never commit generated files.",
+                    "- Never commit generated files:\n\n    ```text\n    see [it](docs/nowhere.md)\n    ```")
+        self.assertClean()
+
+    def test_link_forms(self):
+        write(self.h.root / "docs/my plan.md", "# x\n")
+        self.h.edit("START-HERE.md", "- Never commit generated files.",
+                    "- Never commit generated files ([a](src/export.py:10:5), [b](docs/my%20plan.md), [c](/docs/plan.md)); "
+                    "call handlers[name](event) in prose.")
+        self.assertClean()
+
+
 class Problems(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -300,6 +374,11 @@ class Problems(unittest.TestCase):
         self.h.save()
         self.assertProblem("RESUME-PROMPT.md", 41, "40 lines")
 
+    def test_a_resume_prompt_naming_only_a_longer_path(self):
+        start = str(self.h.dir / "START-HERE.md")
+        self.h.edit("RESUME-PROMPT.md", start, start + ".bak")
+        self.assertProblem("RESUME-PROMPT.md", 0, "absolute path")
+
     def test_a_resume_prompt_without_the_absolute_path(self):
         self.h.edit("RESUME-PROMPT.md", str(self.h.dir / "START-HERE.md"), f"{HANDOFF}/START-HERE.md")
         self.assertProblem("RESUME-PROMPT.md", 0, "absolute path")
@@ -361,6 +440,16 @@ class Warnings(unittest.TestCase):
 
 
 class CantRun(unittest.TestCase):
+    def test_an_unreadable_handoff_folder_exits_2(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            h = Handoff(tmp)
+            h.dir.chmod(0)
+            try:
+                p = run_both(["--root", str(h.root), HANDOFF], cwd=h.home, home=h.home)
+            finally:
+                h.dir.chmod(0o755)
+            self.assertEqual(p.returncode, 2, p.stdout + p.stderr)
+
     def test_a_missing_handoff_folder_exits_2(self):
         with tempfile.TemporaryDirectory() as tmp:
             p = run_both(["--root", tmp, "devforgeai/handoff/none"], cwd=tmp, home=tmp)

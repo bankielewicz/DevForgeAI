@@ -41,14 +41,18 @@ Ask the user nothing. What can't be established goes into START-HERE section 3, 
 Copy it and work through it in order:
 
 ```text
-- [ ] 1. Check the state
-- [ ] 2. Write devforgeai/handoff/.gitignore, then START-HERE.md in one write
-- [ ] 3. Write RESUME-PROMPT.md
-- [ ] 4. Update TASKS.md; tick the session's plan file
-- [ ] 5. Save learnings to memory
-- [ ] 6. Run check_handoff.py (at most three runs); read back the rest of the self-check
-- [ ] 7. Report, with RESUME-PROMPT.md's text
+- [ ] Check the state
+- [ ] Write devforgeai/handoff/.gitignore, then START-HERE.md in one write
+- [ ] Write RESUME-PROMPT.md
+- [ ] Update TASKS.md; tick the session's plan file
+- [ ] Save learnings to memory
+- [ ] Run check_handoff.py (at most three runs); review the rest of the self-check
+- [ ] Report, with RESUME-PROMPT.md's text
 ```
+
+The checklist is unnumbered on purpose: a tracked skill run may be open in the session, and its tracker reads
+numbered checkbox lines in a reply (`- [x] 2. ...`) as that run's own steps. Write no numbered checkbox line in a
+reply during this skill.
 
 The rules for each file, with examples, are in [references/handoff-rules.md](references/handoff-rules.md); read it
 before step 2.
@@ -101,7 +105,8 @@ and searching the repository and memory before asking.
   evidence, what is next with its next action. Keep every done entry; past 20, move the oldest to TASKS-archive.md in
   the same folder.
 - When the session keeps a plan, task or checkpoint file of its own, tick its checkpoints with their evidence, and
-  list it in START-HERE section 4 as the source of truth for its steps.
+  list it in START-HERE section 4 as the source of truth for its steps; TASKS.md then holds only what that file
+  doesn't.
 
 ### 5. Save learnings to memory
 
@@ -140,8 +145,8 @@ the user saw them; the handoff records no choice the user didn't make, and secti
 - **The handoff folder can't be written:** say so, quoting the error, and give the files' content in the reply
   instead, so the user can save them.
 - **The folder holds a handoff of other work** (another topic on this branch): keep its TASKS.md entries under a `##`
-  heading naming that work after the required ones, write START-HERE for the current work, and name the earlier work in section 5 as not
-  continued here.
+  heading naming that work after the required ones, write START-HERE for the current work, and name the earlier work
+  in section 5 as not continued here, in a line before the numbered list.
 - **Cut off before the end:** START-HERE.md is written first, so it exists; the next session, given its path,
   finishes by running this skill again.
 

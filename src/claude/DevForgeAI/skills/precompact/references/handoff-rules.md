@@ -61,7 +61,7 @@ memory (`references/memory.md`).
 decisions, open questions, rules, traps and learnings, and its outstanding items not finished; drop what is done
 (TASKS.md keeps it). When the earlier handoff is about other work (another topic on the same branch), keep its
 TASKS.md entries under a `##` heading naming that work, after the required ones, write START-HERE for the current
-work, and name the earlier work in section 5 as not continued here.
+work, and name the earlier work in section 5 as not continued here, in a line before the numbered list.
 
 ## TASKS.md
 

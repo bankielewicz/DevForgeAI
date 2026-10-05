@@ -5,29 +5,33 @@ Usage:
     python3 check_handoff.py [--root DIR] HANDOFF_DIR
 
 HANDOFF_DIR is relative to DIR (the project root, `.` by default) unless absolute. The script reads and never
-writes. It checks:
+writes, and reads only the three files (not TASKS-archive.md or any other file in the folder). It checks:
 - the three files exist; START-HERE.md and TASKS.md have their `##` headings first and in order (more `##` headings
   may follow the last required one; `###` headings may appear anywhere);
 - RESUME-PROMPT.md has at most 40 lines and names START-HERE.md by its absolute path;
 - no `[[fill: ...]]` placeholder is left outside code (a code span or a fenced block quotes the form);
-- START-HERE section 2: each top-level bullet ends `[checked: <command> -> <result>]` or `(unverified...)`;
-  section 3, under `### Decided`: each bullet holds a YYYY-MM-DD date and a quote in double quotes;
-  section 5: each numbered item holds `Next:` and `Waits for:`, or the section says `Nothing outstanding.`;
+- START-HERE section 2: each top-level bullet's own text (before any nested list) ends
+  `[checked: <command> -> <result>]` or `(unverified...)`; section 3, under `### Decided`: each bullet holds a
+  YYYY-MM-DD date and a quote in double quotes, or is `- None.`; section 5: each numbered item holds `Next:` and
+  `Waits for:`, or a line of the section starts `Nothing outstanding`;
 - references exist: each Markdown link target that isn't a URL, an anchor or `mailto:`, and the first backticked
-  token of each START-HERE section 4 item, after removing a trailing `:LINE`, `:LINE-LINE` or `#Lnn` and expanding
-  `~/`; a relative one under DIR or beside the file that names it. A reference whose line or the line above says
-  `(not yet created)` or `(session-only)` isn't checked. No other backticked text is checked;
+  token of each START-HERE section 4 item, after removing a trailing `:LINE`, `:LINE-LINE`, `:LINE:COL` or `#Lnn` and
+  expanding `~/`; a relative one under DIR or beside the file that names it. A reference whose line or the line
+  above says `(not yet created)` or `(session-only)` isn't checked, nor a section 4 item that says so on any of its
+  lines, nor a path holding a variable that isn't set. No other backticked text is checked;
 - DIR/devforgeai/handoff/.gitignore holds the line `*`.
 
 Prints `<file>:<line>: <problem>` and `<file>:<line>: warning: <text>` (START-HERE over 250 lines; today,
 yesterday, tomorrow or recently outside quotes and code), then `handoff: clean`, or
 `handoff: <n> problems, <m> warnings`. Line 0 is the file as a whole. Exit 0 with no problem (warnings allowed),
-1 with problems, 2 when it can't run (HANDOFF_DIR missing). Standard library only: it runs under `python3 -S`.
+1 with problems, 2 when it can't run (HANDOFF_DIR missing or unreadable). Standard library only: it runs under
+`python3 -S`.
 """
 import argparse
 import os
 import re
 import sys
+from urllib.parse import unquote
 
 START_HEADINGS = [
     "## 1. What this is",
@@ -44,18 +48,20 @@ RESUME_MAX_LINES = 40
 START_WARN_LINES = 250
 MARKERS = ("(not yet created)", "(session-only)")
 
-FENCE = re.compile(r"^ {0,3}(`{3,}|~{3,})")
+FENCE = re.compile(r"^\s*(`{3,}|~{3,})")
 CODE_SPAN = re.compile(r"(`+)(.+?)\1")
 H2 = re.compile(r"^##(?!#)\s")
 H3 = re.compile(r"^###(?!#)\s+(.*?)\s*$")
 BULLET = re.compile(r"^[-*+]\s")
 ITEM = re.compile(r"^\d+[.)]\s")
-LINK = re.compile(r"!?\[[^\]]*\]\(\s*(<[^>]*>|[^)\s]+)(?:\s+[\"'][^)]*[\"'])?\s*\)")
-LINE_SUFFIX = re.compile(r"(:\d+(-\d+)?|#L\d+(-L?\d+)?)$")
+NESTED = re.compile(r"^\s+([-*+]|\d+[.)])\s")
+LINK = re.compile(r"(?<![\w\]])!?\[[^\]]*\]\(\s*(<[^>]*>|[^)\s]+)(?:\s+[\"'][^)]*[\"'])?\s*\)")
+LINE_SUFFIX = re.compile(r"(:\d+(-\d+)?(:\d+)?|#L\d+(-L?\d+)?)$")
 SCHEME = re.compile(r"^[A-Za-z][A-Za-z0-9+.-]+:")
-DATE = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
+DATE = re.compile(r"(?<!\d)\d{4}-\d{2}-\d{2}(?!\d)")
 QUOTE = re.compile(r"\"[^\"]+\"|“[^”]+”")
 RELATIVE_DATE = re.compile(r"\b(today|yesterday|tomorrow|recently)\b", re.I)
+EMPHASIS = "*_ "
 
 
 class Doc:
@@ -94,16 +100,34 @@ class Doc:
         return None
 
     def blocks(self, start, end, opener):
-        """List items (bullets or numbered) starting at column 0 in [start, end), with their continuation lines."""
-        out = []
-        for i, line in self.text_lines(start, end):
+        """List items (bullets or numbered) starting at column 0 in [start, end), each with the indexes of its lines:
+        indented lines, lazy continuation lines and fenced lines belong to it, across blank lines; a heading, another
+        item at column 0 or unindented text after a blank line ends it."""
+        out, current, blank = [], None, False
+        for i in range(start, end):
+            line = self.lines[i]
+            if self.fenced[i]:
+                if current is not None:
+                    current.append(i)
+                continue
             if opener.match(line):
-                out.append([i, [line]])
-            elif out and line.strip() and not H2.match(line) and not H3.match(line) \
-                    and not BULLET.match(line) and not ITEM.match(line) \
-                    and i == out[-1][0] + len(out[-1][1]):
-                out[-1][1].append(line)
-        return [(i, ls) for i, ls in out]
+                current, blank = [i], False
+                out.append(current)
+            elif current is None:
+                continue
+            elif not line.strip():
+                blank = True
+            elif H2.match(line) or H3.match(line) or BULLET.match(line) or ITEM.match(line):
+                current = None
+            elif line[0] in " \t" or not blank:
+                current.append(i)
+                blank = False
+            else:
+                current = None
+        return out
+
+    def joined(self, indexes):
+        return " ".join(self.lines[i].strip() for i in indexes if not self.fenced[i])
 
 
 def no_code(line):
@@ -131,13 +155,14 @@ class Checker:
         self.warnings += 1
         self.out.append((order, line, 1, f"{display(path, self.root)}:{line}: warning: {text}"))
 
-    def exists(self, target, holder):
+    def exists(self, target, holder, link):
         if os.path.isabs(target):
-            return os.path.exists(target)
+            # A link starting with / may be written from the project root.
+            return os.path.exists(target) or (link and os.path.exists(os.path.join(self.root, target.lstrip("/"))))
         return os.path.exists(os.path.join(self.root, target)) \
             or os.path.exists(os.path.join(os.path.dirname(holder), target))
 
-    def reference(self, order, doc, i, target):
+    def reference(self, order, doc, i, target, link):
         """Check one reference named on line i of doc."""
         above = doc.lines[i - 1] if i > 0 else ""
         if any(m in doc.lines[i] or m in above for m in MARKERS):
@@ -150,12 +175,17 @@ class Checker:
         if SCHEME.match(target) and not re.match(r"^[A-Za-z]:[\\/]", target):
             return
         target = LINE_SUFFIX.sub("", target)
-        bare = target.split("#", 1)[0].split("?", 1)[0]
+        bare = target.split("#", 1)[0].split("?", 1)[0] if link else target
+        if link:
+            bare = unquote(bare)
         if not bare:
             return
         if bare.startswith("~/") or bare == "~":
             bare = os.path.expanduser(bare)
-        if not self.exists(bare, doc.path):
+        bare = os.path.expandvars(bare)
+        if "$" in bare:
+            return  # a variable that isn't set here, such as one only the session substitutes
+        if not self.exists(bare, doc.path, link):
             self.problem(order, doc.path, i + 1, f"`{target}` doesn't exist (mark it (not yet created) or "
                                                  f"(session-only) if that is meant)")
 
@@ -166,7 +196,7 @@ class Checker:
             if "[[fill:" in plain:
                 self.problem(order, doc.path, i + 1, "a [[fill: ...]] placeholder is left: fill it or remove the line")
             for m in LINK.finditer(plain):
-                self.reference(order, doc, i, m.group(1))
+                self.reference(order, doc, i, m.group(1), link=True)
             words = RELATIVE_DATE.findall(QUOTE.sub("", plain))
             if words:
                 said = ", ".join(f'"{w}"' for w in words)
@@ -192,15 +222,17 @@ class Checker:
                          "pointing to files instead of copying them")
         s2 = doc.section(START_HEADINGS[1])
         if s2:
-            for i, ls in doc.blocks(s2[0] + 1, s2[1], BULLET):
-                text = " ".join(l.strip() for l in ls).rstrip()
-                text = text[:-1].rstrip() if text.endswith(".") else text
+            for block in doc.blocks(s2[0] + 1, s2[1], BULLET):
+                own = [block[0]] + [j for j in block[1:] if not doc.fenced[j]]
+                cut = next((k for k, j in enumerate(own) if k and NESTED.match(doc.lines[j])), len(own))
+                text = doc.joined(own[:cut]).rstrip().rstrip(EMPHASIS)
+                text = text[:-1].rstrip(EMPHASIS) if text.endswith(".") else text
                 checked = text.rfind("[checked:")
                 ok_checked = checked >= 0 and text.endswith("]") and (
                     "->" in text[checked:] or "→" in text[checked:])
                 ok_unverified = text.rfind("(unverified") >= 0 and text.endswith(")")
                 if not (ok_checked or ok_unverified):
-                    self.problem(order, doc.path, i + 1, "a verified-state bullet must end "
+                    self.problem(order, doc.path, block[0] + 1, "a verified-state bullet must end "
                                  "[checked: <command> -> <what it showed>] or (unverified: <where from>, <date>)")
         s3 = doc.section(START_HEADINGS[2])
         if s3:
@@ -209,31 +241,36 @@ class Checker:
                 if name != "Decided":
                     continue
                 end = subs[n + 1][0] if n + 1 < len(subs) else s3[1]
-                for k, ls in doc.blocks(i + 1, end, BULLET):
-                    text = " ".join(l.strip() for l in ls)
+                for block in doc.blocks(i + 1, end, BULLET):
+                    text = doc.joined(block)
+                    if re.fullmatch(r"[-*+]\s+None\.?", text):
+                        continue
                     if not DATE.search(text):
-                        self.problem(order, doc.path, k + 1, "a decision needs its date as YYYY-MM-DD")
+                        self.problem(order, doc.path, block[0] + 1, "a decision needs its date as YYYY-MM-DD")
                     if not QUOTE.search(text):
-                        self.problem(order, doc.path, k + 1,
+                        self.problem(order, doc.path, block[0] + 1,
                                      "a decision needs a quote of the decider's words, in double quotes")
         s4 = doc.section(START_HEADINGS[3])
         if s4:
-            for i, ls in doc.blocks(s4[0] + 1, s4[1], ITEM):
-                for k, line in enumerate(ls):
-                    m = CODE_SPAN.search(line)
+            for block in doc.blocks(s4[0] + 1, s4[1], ITEM):
+                above = doc.lines[block[0] - 1] if block[0] > 0 else ""
+                if any(m in doc.lines[j] or m in above for j in block for m in MARKERS):
+                    continue
+                for j in block:
+                    m = None if doc.fenced[j] else CODE_SPAN.search(doc.lines[j])
                     if m:
-                        self.reference(order, doc, i + k, m.group(2))
+                        self.reference(order, doc, j, m.group(2), link=False)
                         break
         s5 = doc.section(START_HEADINGS[4])
         if s5:
             items = doc.blocks(s5[0] + 1, s5[1], ITEM)
-            for i, ls in items:
-                text = " ".join(l.strip() for l in ls)
+            for block in items:
+                text = doc.joined(block)
                 for word in ("Next:", "Waits for:"):
                     if word not in text:
-                        self.problem(order, doc.path, i + 1, f"an outstanding item needs '{word}' "
+                        self.problem(order, doc.path, block[0] + 1, f"an outstanding item needs '{word}' "
                                      "(N. <what>. Next: <action>. Waits for: <what, or nothing>.)")
-            nothing = any(l.strip() in ("Nothing outstanding.", "Nothing outstanding")
+            nothing = any(l.strip().lstrip(EMPHASIS).startswith("Nothing outstanding")
                           for _, l in doc.text_lines(s5[0] + 1, s5[1]))
             if not items and not nothing:
                 self.problem(order, doc.path, s5[0] + 1, "section 5 needs at least one item "
@@ -247,14 +284,13 @@ class Checker:
         start = os.path.join(self.handoff, "START-HERE.md")
         forms = {os.path.abspath(start), os.path.realpath(start)}
         text = "\n".join(doc.lines)
-        if not any(f in text for f in forms):
+        # The path itself, not a longer one holding it (START-HERE.md.bak, /other/<path>); a full stop may follow.
+        if not any(re.search(r"(?<![\w./-])" + re.escape(f) + r"(?![\w/-]|\.\w)", text) for f in forms):
             self.problem(order, doc.path, 0, f"doesn't name START-HERE.md by its absolute path "
                          f"({os.path.abspath(start)})")
 
     def run(self):
-        names = FILES + sorted(n for n in os.listdir(self.handoff)
-                               if n.endswith(".md") and n not in FILES and os.path.isfile(os.path.join(self.handoff, n)))
-        for order, name in enumerate(names):
+        for order, name in enumerate(FILES):
             path = os.path.join(self.handoff, name)
             if not os.path.isfile(path):
                 self.problem(order, path, 0, "missing file")
@@ -273,7 +309,7 @@ class Checker:
                 self.resume(order, doc)
             self.common(order, doc)
         ignore = os.path.join(self.root, "devforgeai", "handoff", ".gitignore")
-        order = len(names)
+        order = len(FILES)
         try:
             with open(ignore, encoding="utf-8", errors="replace") as f:
                 if "*" not in [l.strip() for l in f.read().splitlines()]:
@@ -303,6 +339,12 @@ def main(argv):
         return 2
     if not os.path.isdir(handoff):
         print(f"check_handoff: no handoff folder {display(handoff, root)}: write the files first", file=sys.stderr)
+        return 2
+    try:
+        os.listdir(handoff)
+    except OSError as e:
+        print(f"check_handoff: can't read the handoff folder {display(handoff, root)}: {e.strerror or e}",
+              file=sys.stderr)
         return 2
     return Checker(root, handoff).run()
 
