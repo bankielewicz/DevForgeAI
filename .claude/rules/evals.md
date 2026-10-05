@@ -80,7 +80,8 @@ a scaffold that seeds the BRNs, PRDs, ADRs and policies the case reads.
   `--tag epic`, `--tag git`, `--tag context`, `--tag spec-lookup` or `--tag precompact`. Trigger cases carry
   other tags: context's 12 are tagged `trigger` and `ver-26`, spec-lookup's 5 `trigger`, `ver-06` and
   `spec-lookup-trigger`, precompact's 8 (`precompact-trigger-NN`) `trigger`, `ver-06` and `precompact-trigger`,
-  so `--tag trigger` selects all three suites' trigger cases. `ver-NN` tags repeat
+  so `--tag trigger` selects all three suites' trigger cases. `--tag precompact-trigger` found no cases on
+  2026-10-05 (2.1.290); select precompact's with `--case "precompact-trigger-*"`. `ver-NN` tags repeat
   across skills (brainstorm, prd, architecture and epic each have a `ver-08`), and so can case names
   (prd and architecture each have `policy-bad-date`), so pair `--case` with care. `--case` takes one name; loop for several. Use
   `--runs 1` for a quick pass.
