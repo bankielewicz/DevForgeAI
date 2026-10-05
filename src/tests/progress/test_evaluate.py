@@ -819,6 +819,31 @@ class SpecRules(Base):
                 self.assertEqual(proc.returncode, code, proc.stderr)
 
 
+    # VER-41 (version 12): stoppable on architecture's step 8 only; run-end stopped closes the run like any end.
+    def test_ver41_stopped(self):
+        manifest_v, events_v, progress_v = (schema_validator(n) for n in ("manifest", "events", "progress"))
+        arch = json.loads((PROGRESS / "manifests/architecture.json").read_text(encoding="utf-8"))
+        brn = json.loads((PROGRESS / "manifests/brainstorm.json").read_text(encoding="utf-8"))
+        self.assertEqual([n for n, s in arch["steps"].items() if s.get("stoppable")], ["8"])
+        self.assertEqual([n for n, s in brn["steps"].items() if s.get("stoppable")], [])
+        self.assertEqual([e.message for e in manifest_v.iter_errors(arch)], [])
+        base = {"run": "20261002T120000Z-architecture-0000abcd", "seq": 2, "time": "2026-10-02T12:00:02Z",
+                "kind": "run-end"}
+        self.assertEqual(list(events_v.iter_errors(dict(base, reason="stopped"))), [])
+        self.assertNotEqual(list(events_v.iter_errors(dict(base, reason="paused"))), [])
+        state, _, _, _ = self.run_case("arch-stopped")
+        self.assertEqual([e.message for e in progress_v.iter_errors(state)], [])
+        self.assertEqual(state["ended"], "stopped")
+        self.assertEqual(state["flags"], [])
+        s8 = self.step(state, 8)
+        self.assertEqual(s8["state"], "done")
+        self.assertEqual([e["type"] for e in s8["evidence"]], ["answer"])
+        self.assertEqual([s["n"] for s in state["steps"] if "stoppable" in s], [8])
+        self.assertIs(s8["stoppable"], True)
+        for n in (9, 10, 11):
+            self.assertEqual((self.step(state, n)["state"], self.step(state, n)["note"]), ("pending", "not reached"))
+        self.assertEqual(state["counts"]["afterEnd"], 2)
+
 class SpecRulesUnderS(SpecRules):
     """Every SpecRules test with the evaluator under python3 -S (VER-18, QR-01)."""
     INTERPRETER = (sys.executable, "-S", "-B")

@@ -222,6 +222,10 @@
         "userOwned": {
           "type": "boolean"
         },
+        "stoppable": {
+          "type": "boolean",
+          "description": "version 12: present, and true, when the manifest marks the step stoppable (BEH-12)"
+        },
         "state": {
           "enum": [
             "pending",

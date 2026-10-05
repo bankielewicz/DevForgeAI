@@ -329,9 +329,10 @@ def names_a(candidate, written):
 
 class Step:
     def __init__(self, n, title, kind=None, need="text-only", user_owned=False, gate=None, rules=(), when=None,
-                 waivable=False):
+                 waivable=False, stoppable=False):
         self.n, self.title, self.kind, self.need = n, title, kind, need
         self.waivable = waivable
+        self.stoppable = stoppable  # version 12: its 'Write nothing' answer may stop the run (SPEC-013 BEH-27)
         self.user_owned, self.gate, self.rules, self.when = user_owned, gate, list(rules), when
         self.strong = any(r["type"] in ("script", "answer") for r in self.rules)
         self.evidence = []      # dicts: seq, type, strength, detail
@@ -430,7 +431,8 @@ class Run:
         loaded = events[0]
         if self.tracked:
             self.steps = [Step(int(n), m["title"], m["kind"], m["need"], bool(m.get("userOwned")),
-                               m.get("gate"), m.get("evidence", []), m.get("when"), m.get("waivable") is True)
+                               m.get("gate"), m.get("evidence", []), m.get("when"), m.get("waivable") is True,
+                               m.get("stoppable") is True)
                           for n, m in sorted(manifest["steps"].items(), key=lambda kv: int(kv[0]))]
             self.content_rules = manifest.get("contentRules", [])
         else:
@@ -948,6 +950,8 @@ class Run:
                             "userOwned": step.user_owned, "state": state,
                             "evidence": sorted(step.evidence, key=lambda x: x["seq"]),
                             "claim": dict(claim) if claim else None, "note": step.note})
+            if step.stoppable:
+                records[-1]["stoppable"] = True  # version 12: only a stoppable step carries the field (DM-03)
         return records
 
 

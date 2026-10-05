@@ -26,6 +26,7 @@ export type ProgressSummary = {
   states: string[]
   currentTitle: string | null
   lastFlag: string | null
+  stoppedAt?: number | null  // version 12: the step a deliberate stop's answer was tagged with (SPEC-013 BEH-10, BEH-27)
 }
 
 export type ProgressMode = 'observe' | 'enforce'

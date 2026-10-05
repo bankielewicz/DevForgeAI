@@ -1,23 +1,23 @@
 {
   "counts": {
-    "afterEnd": 0,
+    "afterEnd": 2,
     "duplicates": 0,
-    "events": 18,
+    "events": 25,
     "malformed": 0,
     "outOfOrder": 0,
-    "stepEvents": 12,
+    "stepEvents": 15,
     "unknownClaims": 0,
     "unmarkedQuestions": 0
   },
-  "current": 7,
-  "ended": null,
+  "current": null,
+  "ended": "stopped",
   "flags": [],
   "format": "devforgeai-progress/1",
   "gate": {
-    "kind": null,
+    "kind": "end",
     "reason": null,
     "refuse": false,
-    "seq": null
+    "seq": 23
   },
   "manifest": {
     "checklistHash": "sha256:886414fe995ef8948b7c9f2a3a2b5036d669d0e77c3d39fe872c1fac789759c0",
@@ -27,14 +27,18 @@
     "manifestHash": "sha256:886414fe995ef8948b7c9f2a3a2b5036d669d0e77c3d39fe872c1fac789759c0",
     "state": "matched"
   },
-  "next": null,
+  "next": {
+    "available": true,
+    "note": "",
+    "skill": "context"
+  },
   "run": "20261002T120000Z-architecture-0000abcd",
   "skill": "architecture",
   "steps": [
     {
       "claim": {
         "reason": null,
-        "seq": 18,
+        "seq": 5,
         "state": "done"
       },
       "evidence": [
@@ -56,19 +60,19 @@
     {
       "claim": {
         "reason": null,
-        "seq": 18,
+        "seq": 8,
         "state": "done"
       },
       "evidence": [
         {
           "detail": "Glob docs/specs/prd/PRD-*.md",
-          "seq": 6,
+          "seq": 7,
           "strength": "medium",
           "type": "read"
         },
         {
           "detail": "Read docs/specs/prd/PRD-001.md",
-          "seq": 9,
+          "seq": 10,
           "strength": "medium",
           "type": "read"
         }
@@ -84,19 +88,19 @@
     {
       "claim": {
         "reason": null,
-        "seq": 18,
+        "seq": 11,
         "state": "done"
       },
       "evidence": [
         {
           "detail": "Glob docs/specs/prd/PRD-*.md",
-          "seq": 6,
+          "seq": 7,
           "strength": "medium",
           "type": "read"
         },
         {
           "detail": "Read docs/specs/prd/PRD-001.md",
-          "seq": 9,
+          "seq": 10,
           "strength": "medium",
           "type": "read"
         }
@@ -112,13 +116,13 @@
     {
       "claim": {
         "reason": null,
-        "seq": 18,
+        "seq": 14,
         "state": "done"
       },
       "evidence": [
         {
           "detail": "Glob docs/specs/arch/ARCH-*.md",
-          "seq": 12,
+          "seq": 13,
           "strength": "medium",
           "type": "read"
         }
@@ -134,7 +138,7 @@
     {
       "claim": {
         "reason": null,
-        "seq": 18,
+        "seq": 16,
         "state": "done"
       },
       "evidence": [],
@@ -162,24 +166,35 @@
       "userOwned": false
     },
     {
-      "claim": null,
+      "claim": {
+        "reason": null,
+        "seq": 20,
+        "state": "done"
+      },
       "evidence": [],
       "kind": "ask",
       "n": 7,
       "need": "conditional",
-      "note": "",
-      "state": "current",
+      "note": "a question isn't settled by mandated policy or an accepted ADR",
+      "state": "not-applicable",
       "title": "Resolve each question explicitly",
       "userOwned": true
     },
     {
       "claim": null,
-      "evidence": [],
+      "evidence": [
+        {
+          "detail": "answer",
+          "seq": 22,
+          "strength": "strong",
+          "type": "answer"
+        }
+      ],
       "kind": "ask",
       "n": 8,
       "need": "required",
       "note": "",
-      "state": "pending",
+      "state": "done",
       "stoppable": true,
       "title": "Propose and confirm the outcome",
       "userOwned": true
@@ -190,7 +205,7 @@
       "kind": "forge",
       "n": 9,
       "need": "required",
-      "note": "",
+      "note": "not reached",
       "state": "pending",
       "title": "Write the ARCH and ADRs",
       "userOwned": false
@@ -201,7 +216,7 @@
       "kind": "inspect",
       "n": 10,
       "need": "required",
-      "note": "",
+      "note": "not reached",
       "state": "pending",
       "title": "Validate every file written",
       "userOwned": false
@@ -212,12 +227,12 @@
       "kind": "report",
       "n": 11,
       "need": "required",
-      "note": "",
+      "note": "not reached",
       "state": "pending",
       "title": "Compute readiness, report and hand off",
       "userOwned": false
     }
   ],
-  "through": 18,
+  "through": 23,
   "waiver": null
 }

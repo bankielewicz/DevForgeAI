@@ -16,7 +16,7 @@ import {
   adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
   hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, isWaiverQuestion, keptContent, markedStep, newFlagToasts,
   questionRefusal, questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, reviewItems, reviewQuestion,
-  runId, skillName, statusText, stepLabel, waiverAnswer,
+  runId, skillName, statusText, stepLabel, waiverAnswer, stopsRun, exitQuestion, keptText, isDismissal, CONFIRMED,
   stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
 } from './progress-core'
 import type { Fields, ProgressState, Refused, ToolOutcome } from './progress-core'
@@ -289,6 +289,9 @@ async function recordNow($: E, kind: string, fields: Fields, mark: boolean): Pro
   // The seq comes from the run's own lines: a $.state read inside one dispatch sees that dispatch's moment, so
   // overlapping hooks would read the same seq from it.
   const held = await linesOf($, run)
+  // A run already ended (a deliberate stop, BEH-27) gets no second run-end, checked inside the chain (BEH-05, v12);
+  // events after the stop (the turn's end) may follow it, so any run-end in the log counts.
+  if (kind === 'run-end' && held.some(l => l.includes('"kind":"run-end"'))) return
   const seq = held.length + 1
   const lines = [...held, eventLine(run.id, seq, now, kind, fields)]
   const next: ProgressRun = { ...run, seq }
@@ -502,7 +505,8 @@ async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; te
   }
   const off = await read($, OFF)
   if (off !== null && off !== LOG_FULL && off !== NO_PYTHON && off !== NO_WRITE) await update($, OFF, () => null)
-  await update($, SUMMARY, () => summaryOf(got.state))
+  // The stopping answer's step stays with a stopped run's summary (BEH-10, version 12).
+  await update($, SUMMARY, prev => ({ ...summaryOf(got.state), stoppedAt: got.state.ended === 'stopped' ? prev?.stoppedAt ?? null : null }))
   const shown = await read($, SHOWN)
   const fresh = newFlagToasts(got.state, shown, await followingLines($, run))
   if (fresh.keys.length) await update($, SHOWN, () => [...shown, ...fresh.keys])
@@ -702,6 +706,24 @@ async function noteRefusal($: E, state: ProgressState, seq: number): Promise<voi
   }
 }
 
+/** The deliberate stop (BEH-27, version 12): an answer of 'Write nothing' to one question tagged with a step the latest
+ *  state marks stoppable ends the run with run-end stopped. A state that can't be read stops nothing. */
+async function stopIfAsked($: E, input: Fields, outcome: ToolOutcome): Promise<void> {
+  const run = await read($, RUN)
+  if (run === null) return
+  let state: ProgressState
+  try {
+    state = JSON.parse(await $.fs.read(`${run.dir}/state.json`)) as ProgressState
+  } catch {
+    return
+  }
+  if (!stopsRun(input, outcome, state.steps ?? [])) return
+  // The run-end marks the run and the timer evaluates it: no tool call waits for an evaluation (BEH-06).
+  await endRun($, 'stopped', null)
+  const n = questionTag(input).step ?? null
+  await update($, SUMMARY, s => (s === null ? s : { ...s, stoppedAt: n }))
+}
+
 /** The end-of-run review (BEH-26, ERR-15): once every step of the open run is reached, once per run, in a session
  *  where something draws, each item (one per cause) is asked in Claude Code's own dialog, Accept or Challenge, and the
  *  answers go to the run's review.jsonl and adapter.log. Nothing is sent to Claude. */
@@ -716,7 +738,9 @@ async function review($: E): Promise<void> {
   }
   const run = await read($, RUN)
   const summary = await read($, SUMMARY)
-  if (run === null || summary === null || summary.current !== null || summary.ended !== null) return
+  if (run === null || summary === null) return
+  // Every step reached with the run open, or a run the user stopped (BEH-27; version 12).
+  if (summary.ended !== 'stopped' && (summary.current !== null || summary.ended !== null)) return
   if ((await read($, REVIEWED)) === run.id) return
   // Where nothing draws, or the surfaces can't be read, no dialog can be answered: no review (BEH-26).
   let surfaces: readonly unknown[] = []
@@ -932,6 +956,7 @@ export const register: Register = (on, options) => {
             await record($, 'answer', isWaiverQuestion(input)
               ? { answered: isAnswered(outcome), waiver: waiverAnswer(input, outcome) }
               : { answered: isAnswered(outcome), ...questionTag(input) })
+            if (!isWaiverQuestion(input)) await stopIfAsked($, input, outcome)
           }
         } catch (err) {
           await recover($, 'tool.call', err)
@@ -1039,6 +1064,47 @@ export const register: Register = (on, options) => {
     return result
   }).catch(async ($, e, next) => {
     if (!next.called) await recover($, 'turn.complete', next.error)
+    return next(e)
+  })
+
+  // Confirming an exit (BEH-28, ERR-16; version 12): /clear, /exit and /resume typed while a run is unfinished ask
+  // first, in Claude Code's own dialog. A confirmation, not a gate: it refuses nothing Claude does (ADR-006 D1 v2).
+  on('command.run', async ($, e, next) => {
+    const verb = CONFIRMED[e.command]
+    if (verb === undefined || interactive !== true || disabled || !isPersonPrompt(e.origin)) return next(e)
+    // The run as it stands: events still being written and not yet evaluated come first, as for the review.
+    await recordChain
+    if (inFlight !== null) await inFlight
+    if (!evaluating && (await read($, MARKED))) {
+      inFlight = evaluateMarked($)
+      await inFlight
+    }
+    const run = await read($, RUN)
+    const summary = await read($, SUMMARY)
+    if (run === null || summary === null || summary.ended !== null || summary.current === null) return next(e)
+    if (!(await hasSurface($))) return next(e)
+    const kept = keptText(summary.skill, summary.current)
+    let got: string
+    try {
+      got = await $.ui.ask(exitQuestion(summary.skill, summary.current, summary.steps, verb),
+        { options: [`${verb} anyway`, 'Keep working'], header: 'Progress' })
+    } catch (err) {
+      if (isDismissal(err)) {
+        await adapterLog($, 'exit', `kept /${e.command}: dismissed`)
+        return { text: kept }
+      }
+      // A dialog that can't be shown lets the command run: the confirmation fails open (ERR-16).
+      await adapterLog($, 'exit', `ran /${e.command}: the dialog failed: ${firstLine(message(err))}`)
+      return next(e)
+    }
+    if (got === `${verb} anyway`) {
+      await adapterLog($, 'exit', `ran /${e.command}`)
+      return next(e)
+    }
+    await adapterLog($, 'exit', `kept /${e.command}`)
+    return { text: kept }
+  }).catch(async ($, e, next) => {
+    if (!next.called) await recover($, 'command.run', next.error)
     return next(e)
   })
 

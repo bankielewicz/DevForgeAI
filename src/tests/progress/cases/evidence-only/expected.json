@@ -179,6 +179,7 @@
       "need": "required",
       "note": "no answer; left open",
       "state": "not-applicable",
+      "stoppable": true,
       "title": "Propose and confirm the outcome",
       "userOwned": true
     },

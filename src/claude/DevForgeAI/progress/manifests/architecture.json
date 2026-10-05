@@ -49,6 +49,7 @@
       "need": "required",
       "userOwned": true,
       "waivable": true,
+      "stoppable": true,
       "evidence": [{"type": "answer"}]
     },
     "9": {

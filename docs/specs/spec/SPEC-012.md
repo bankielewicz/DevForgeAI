@@ -3,9 +3,9 @@ id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 11
+version: 12
 created: 2026-10-02
-updated: 2026-10-04
+updated: 2026-10-05
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -18,7 +18,7 @@ approved_on: 2026-10-04
 upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain's order, which the state's next step follows"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
-  - {id: ADR-006, relation: constrains, version: 1, hash: null, note: "each rule's class, manifest layers that only add rules, project skills' manifests as custom-workflow checks, and the tracker failing open"}
+  - {id: ADR-006, relation: constrains, version: 2, hash: null, note: "each rule's class, manifest layers that only add rules, project skills' manifests as custom-workflow checks, and the tracker failing open"}
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "D5 places the context step after Architecture Definition and before epics and stories"}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "skills leave decisions to the user; the content rules check that none was written without the user's answer"}
   - {id: PRD-001, item: FR-004, relation: informed_by, version: 11, hash: null, note: "each handoff names the next step; the state's next field reports the chain's next step"}
@@ -123,6 +123,13 @@ logged (§13). The waiver answer is the user's choice made visible. A manifest m
 user-owned decision still needs an answer. The evaluator can't tell whether the request really named the outcome:
 the skill's own rule (SPEC-003 BEH-08) is the only check of that, a trade-off Bryan accepted.
 
+**Version 12** (2026-10-05) adds a run-end reason, `stopped`: the user ended the run on purpose, as with
+architecture's "Write nothing" at step 8 (SPEC-003 BEH-08), which the adapter records (SPEC-013 version 12). A
+stopped run closes like any ended run: the steps after the last one reached stay pending and are never flagged
+(BEH-12). Before, such a run stayed open with steps 9 to 11 pending (Bryan, 2026-10-05: "a deliberate write
+nothing should count as finished"). A manifest marks the steps whose answer may stop the run (`stoppable`, DM-01);
+only architecture's step 8 is stoppable (Bryan, 2026-10-05: "Manifest flag, step 8 only").
+
 ## 2. Constraints
 
 - **The chain's order** (ADR-002, and ADR-004 D5 for the context step) fixes the state's `next` step (BEH-13).
@@ -199,6 +206,7 @@ flowchart LR
         "when": {"type": "string", "description": "for a conditional step: when it applies, shown as the note when it doesn't"},
         "userOwned": {"type": "boolean", "default": false},
         "waivable": {"type": "boolean", "default": false, "description": "version 11: a user-owned step that a recorded Proceed waiver answers (BEH-19)"},
+        "stoppable": {"type": "boolean", "default": false, "description": "version 12: a user-owned step whose answer 'Write nothing' ends the run as stopped (SPEC-013 BEH-27)"},
         "gate": {"enum": ["write", "report"]},
         "evidence": {"type": "array", "items": {"$ref": "#/$defs/rule"}}
       },
@@ -271,7 +279,7 @@ flowchart LR
     {"if": {"properties": {"kind": {"const": "turn"}}},
      "then": {"required": ["phase"], "properties": {"phase": {"enum": ["start", "end"]}}}},
     {"if": {"properties": {"kind": {"const": "run-end"}}},
-     "then": {"required": ["reason"], "properties": {"reason": {"enum": ["another-skill", "session-end", "clear", "idle"]}}}}
+     "then": {"required": ["reason"], "properties": {"reason": {"enum": ["another-skill", "session-end", "clear", "idle", "stopped"]}}}}
   ]
 }
 ```
@@ -326,6 +334,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
         "kind": {"enum": ["read", "think", "ask", "forge", "inspect", "report", null]},
         "need": {"enum": ["required", "conditional", "text-only"]},
         "userOwned": {"type": "boolean"},
+        "stoppable": {"type": "boolean", "description": "version 12: present, and true, when the manifest marks the step stoppable (BEH-12)"},
         "state": {"enum": ["pending", "current", "your-turn", "done", "claimed", "unconfirmed", "skipped-with-reason", "not-applicable", "skipped", "rule-broken"]},
         "evidence": {"type": "array", "items": {
           "type": "object", "additionalProperties": false, "required": ["seq", "type", "strength", "detail"],
@@ -367,7 +376,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
 | | 5 | read, conditional: "the user named paths to inspect" | read `*` except `docs/specs/`, `.claude/` and `devforgeai/` | |
 | | 6 | think, text-only | none | |
 | | 7 | ask, conditional: "a question isn't settled by mandated policy or an accepted ADR" | answer | user-owned |
-| | 8 | ask, required | answer | user-owned, waivable (version 11) |
+| | 8 | ask, required | answer | user-owned, waivable (version 11), stoppable (version 12) |
 | | 9 | forge, required | write `docs/specs/arch/ARCH-*.md` or `docs/specs/adr/ADR-*.md` | write gate |
 | | 10 | inspect, required | read, target written | |
 | | 11 | report, required | none | report gate |
@@ -478,7 +487,7 @@ behaviors:
     rule: "gate holds the most recent gate check: its kind, its event's seq, refuse (true when that check raised any flag) and reason (the first such flag's message). Before any gate, kind and seq are null and refuse is false. An adapter in enforce mode refuses the tool call at that seq when refuse is true; the evaluator never refuses anything itself. The question gate (BEH-18) refuses whenever it raises its flag, so an adapter in enforce mode refuses a question asked while no step is in progress."
   - id: BEH-12
     status: active
-    rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged."
+    rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged. The reason stopped (version 12) is the user's deliberate stop of the run (SPEC-013 BEH-27) and closes it the same way. A manifest step with stoppable true (DM-01) gives its state step stoppable true (DM-03); other steps carry no stoppable field."
   - id: BEH-13
     status: active
     rule: "When the report step is done or the run has ended, next names the chain's following skill in the order brainstorm, prd, architecture, context, epic, story (ADR-002; ADR-004 D5 places context). The story skill isn't built, so its next has available false and the note 'the story skill isn't built yet (SPEC-009)'. Otherwise next is null."
@@ -587,6 +596,7 @@ quality_responses:
 
 | Kind | Status |
 | --- | --- |
+| Version 12 | Built on branch `docs/run-end-confirm` (PR #85): VER-41's case `arch-stopped` and test first, seen failing, then `stoppable` on architecture's step 8 and carried into state steps (`ed3f7ac`). §10 said no expected state moves; in fact all 37 architecture goldens gain `"stoppable": true` on step 8 and nothing else (a one-line addition each). `pytest src/tests/progress` 175 passed. Not specified, so not built: a layer rule for `stoppable` like `waivable`'s (a project manifest may add it to another step). Live: SPEC-013's VER-40 showed run-end stopped closing the run. Pass |
 | Version 11 | Merged in PR #77 (`8eb431a`, 2026-10-04 18:15 UTC) and deployed as plugin 0.20.0 on 2026-10-04 (the deployed copy matches the source; `diff -rq` exit 0). Built on branch `docs/waiver-menu-specs` (PR #77): tests first (`2a2117f`: VER-39's 15 cases and VER-40, failing), then `evaluate.py` and architecture's step 8 waivable (`100ebe1`), and the plugin-validator's fixes (`505a4ba`: no 'seen late' from the waiver stamp; your-turn as without the waiver). VER-39 and VER-40 pass, normally and under `python3 -S`; every earlier expected state changed only by `waiver: null` (checked line by line); `src/tests/progress` 173 passed. Live, in Bryan's worker1 tab on 2026-10-04, enforce mode, `claude --plugin-dir` on a copy of `505a4ba`: a Proceed waiver let an amend outcome through with step 8 done by waiver evidence at the first ARCH edit (SPEC-013 VER-36) |
 | Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFR-004 to NFR-007; every BEH, ERR and QR item is covered by a VER item; DM-01 to DM-03 are valid JSON Schema 2020-12. v2 re-checked on 2026-10-02 with the same helpers: passes, 25 VER items cover every BEH, ERR and QR item, and the changed DM-01 is valid JSON Schema 2020-12; the architecture manifest with step 5's `exclude` rule validates against it, and a write rule carrying `exclude` fails |
 | Build (v2) | Built on branch `feat/spec-012-v2-build` (worktree), merged with versions 3 and 4 in PR #66 and deployed as plugin 0.14.0 (2026-10-02), through `/plugin-dev:create-plugin`, tests first: records `f4a7fd4`, the failing cases and tests `cac7331`, the evaluator, schema and manifest `69570f5`. Baseline at `f4a7fd4`: `src/tests/progress` 137 passed, 181 subtests. Results at `69570f5`: `src/tests/progress` 147 passed, 226 subtests (the new VER-22 to VER-24 tests, and a test that the three schemas equal DM-01 to DM-03); full `src/tests` 624 passed, 597 subtests; `make_cases.py --check` clean; `claude plugin validate` passed. Expected states moved only in the five brainstorm cases §10 names (step 1 gains the validator run); none of architecture's, since `manifestHash` is the manifest's `checklistHash` (§10 corrected). VER-19: 500 events in 60 ms (`-B`) and 61 ms (`-S -B`), against v1's 36 and 31 and the 200 ms target. Readings: VER-22's absolute root is a test of its own, since a generated case can't hold a machine's absolute path; `arch-inspect` fixes a Grep with path `.` as step 5's evidence, which no `exclude` pattern covers. plugin-validator (agent, read-only): the code matches the spec, but the spec's BEH-09 then refuses writes the user approved (reproduced: v1 accepts, v2 refuses), which version 3 changes; warnings: `./` tool paths (version 3), layers and `exclude`, Bash glob tokens (§13) |
@@ -948,6 +958,12 @@ verifications:
     level: performance
     covers:
       - QR-03
+  - id: VER-41
+    status: active
+    obligation: "Version 12: manifest.schema.json takes stoppable on a step and architecture.json has stoppable true on step 8 only, brainstorm.json on no step; events.schema.json takes a run-end with reason stopped and rejects an unknown reason; progress.schema.json takes a step with stoppable true. Case arch-stopped: an architecture run that follows the task list, with evidence for steps 1 to 7, reaches step 8 with an answer tagged 8, then run-end stopped, then a TaskUpdate of step 8 completed and a reply: ended is stopped, step 8 done by the answer, steps 9 to 11 pending with the note 'not reached', step 8 has stoppable true and no other step has the field, no flag, and counts.afterEnd counts every event after the run-end."
+    level: unit
+    covers:
+      - BEH-12
 ```
 
 ## 10. Rollout, migration and rollback
@@ -966,6 +982,8 @@ verifications:
   expected state moves: all 41 cases gave byte-identical states under version 4's BEH-09, checked on a copy. Over
   6,000 generated logs (the review's), version 4 credits every answer version 2 credits and nothing version 3
   doesn't. SPEC-013's upstream link moves to version 4 when it is approved.
+- **Version 12.** Built after approval with SPEC-013 version 12 (the adapter that records the stop), in one plugin
+  version. Additive: no earlier case has a run-end stopped, so no expected state moves.
 - **Version 11.** Built after approval with SPEC-013 version 10 (the adapter that records the waiver), SPEC-001
   version 14 and SPEC-003 version 9 (the skills that ask it), in one plugin version (0.20.0). Every existing expected
   state gains `waiver: null` and nothing else moves: no earlier case has a waiver answer. Until a skill asks the
@@ -1054,6 +1072,9 @@ that no other expected state moves, run every test, and record it in §9.
 Version 10's build, on version 9's branch before its merge: the case steps-after-done, seen failing; the rule in
 `evaluate.py`; no earlier expected state may move; §9.
 
+Version 12's build, with SPEC-013 version 12: VER-41's case and test, seen failing; DM-02's enum in
+events.schema.json; §9.
+
 Version 11's build, with SPEC-013 version 10: VER-39's and VER-40's cases and tests, seen failing; the schemas from
 DM-01 to DM-03; `waivable` on architecture's step 8; `evaluate.py` (BEH-19, and BEH-10, BEH-17 and BEH-18's
 additions); every earlier expected state regenerated, with only `waiver: null` added; §9.
@@ -1087,6 +1108,13 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 - **Validating with jsonschema at run time.** Thorough, but not in the standard library. The tests validate against the schemas instead (VER-02).
 
 ## 13. Open questions
+
+Decided by Bryan on 2026-10-05, for version 12: a deliberate stop (architecture's Write nothing) ends the run as
+finished, with the reason stopped ("Yes, review at the stop"; the review is SPEC-013's). Nested skill runs (a run
+paused while another skill's run is open, with a return point the adapter sends to Claude) and resuming a run from
+its record are the next cycles' ("A + B now, nesting next"; "the tracker needs to send it to Claude"). Open, for
+later (accepted by Bryan, 2026-10-05): a layer rule for `stoppable`, as `waivable` has (BEH-17), so a project manifest
+can't mark another step stoppable; version 12 doesn't specify one.
 
 Decided by Bryan on 2026-10-02:
 - PRD-001 v11 adds FR-021 (progress tracking) and NFR-004 to NFR-007, should/current; this spec links them.
@@ -1235,3 +1263,8 @@ Still open, or notes:
 | 11 | 2026-10-04 | Bryan | Approved, with a Proceed waiver counting for architecture's step 8 only | status |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build, the tests, the evals and the live checks of version 11 | §9 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #77's merge (`8eb431a`) and the deploy of plugin 0.20.0 | §9 |
+| 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05: the run-end reason stopped for a deliberate stop (DM-02, BEH-12, new VER-41); status in-review | frontmatter, §1, DM-02, BEH-12, VER-41, §10, §11, §13 |
+| 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes and Bryan's answers: stoppable on manifest and state steps, architecture's step 8 only (DM-01, DM-03, §4, BEH-12); VER-41 sharpened; ADR-006 link to version 2 | DM-01, DM-03, §1, §4, BEH-12, VER-41 |
+| 12 | 2026-10-05 | Bryan | Approved | status |
+| 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records version 12's build | §9 |
+| 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records the open layer rule for stoppable | §13 |

@@ -278,3 +278,15 @@ test("the stuck notice's advice follows the refused flag's type and whether its 
   expect(stuckText('brainstorm', 5, 'm5', DECISION_ADVICE))
     .toBe(`brainstorm: the progress tracker refused Claude twice at step 5 for the same reason: m5. ${DECISION_ADVICE}`)
 })
+
+// VER-38 (SPEC-013 v12): after run-end stopped, the status line and the band say where the run stopped.
+test('VER-38: a stopped run reads stopped at step n in the status line and the band', () => {
+  const steps = Array.from({ length: 11 }, (_, i) => ({ n: i + 1, title: `Step ${i + 1}`, state: i < 8 ? 'done' : 'pending' }))
+  const state = { skill: 'architecture', current: 8, ended: 'stopped', steps, flags: [],
+    gate: { kind: null, seq: null, refuse: false, reason: null }, manifest: { state: 'matched' as const } }
+  const summary = summaryOf(state)
+  expect(statusText(summary, 'enforce', false, null)).toBe('architecture stopped at step 8 · enforce')
+  expect(bandRows(summary, 'observe').row1.endsWith('  stopped at step 8')).toBe(true)
+  const ended = summaryOf({ ...state, ended: 'clear' })
+  expect(statusText(ended, 'observe', false, null)).toBe('architecture ended')
+})

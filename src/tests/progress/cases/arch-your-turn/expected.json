@@ -183,6 +183,7 @@
       "need": "required",
       "note": "",
       "state": "current",
+      "stoppable": true,
       "title": "Propose and confirm the outcome",
       "userOwned": true
     },

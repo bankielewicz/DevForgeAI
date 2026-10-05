@@ -36,8 +36,9 @@ Change Log holds the history. Read those, not this file, for any number or date.
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
 - `spec-lookup` also ships a plugin agent, `agents/spec-lookup.md` (`devforgeai:spec-lookup`), which
   runs the lookup script for another skill's workflow.
-- The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v11, the evaluator)
-  and `hooks/progress.tsx` (SPEC-013 v11, the Claude Code adapter; v11, the review only after an answered turn,
+- The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v12, the evaluator; v12, the run-end `stopped`, built in PR #85 (0.22.0), not merged)
+  and `hooks/progress.tsx` (SPEC-013 v12, the Claude Code adapter; v12, the deliberate stop and the /clear, /exit, /resume
+  confirmation, built in PR #85 (0.22.0), not merged; v11, the review only after an answered turn,
   merged in PR #83 (`ab8301c`), deployed 0.21.0). It records each tracked skill run
   (brainstorm and architecture have manifests) and shows its checklist steps in the status line and
   a band above the prompt. Its detail is in `.claude/rules/progress.md`.

@@ -203,6 +203,7 @@
       "need": "required",
       "note": "",
       "state": "skipped",
+      "stoppable": true,
       "title": "Propose and confirm the outcome",
       "userOwned": true
     },
