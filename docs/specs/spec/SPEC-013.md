@@ -2,8 +2,8 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: approved    # draft | in-review | approved | superseded | deprecated
-version: 17
+status: in-review   # draft | in-review | approved | superseded | deprecated
+version: 18
 created: 2026-10-02
 updated: 2026-10-05
 owner: "Bryan"
@@ -408,7 +408,7 @@ behaviors:
     rule: "The adapter acts only in an interactive session with the tracking setting on (DM-05). When session.start's isInteractive is false (claude -p, the Agent SDK, and every child run of claude plugin eval), or a prompt.compose's traits include print (§9, P8), the adapter records, writes, draws and refuses nothing for the rest of the process. It keeps that answer in a module variable, since $.state empties on /clear, /resume and /branch. It writes no file before session.start has said the session is interactive. Where nothing draws (the VS Code extension's chat panel, where $.session.surfaces() is empty), it records and enforces as elsewhere, and every notice that would be a toast or the status line also goes to the transcript as a dim $.ui.log line (Bryan, 2026-10-02). With tracking off it does nothing at all."
   - id: BEH-02
     status: active
-    rule: "A skill is tracked when it is one of the plugin's own skills (a folder under <plugin root>/skills/) or a <name>.json exists in <root>/devforgeai/manifests/ or <root>/devforgeai/manifests/organization/ (a project's own skill, ADR-006 D4). Its name is skill.prompt's skill without a '<plugin>:' prefix. Loading any other skill neither starts nor ends a run."
+    rule: "A skill is tracked when it is one of the plugin's own skills (a folder under <plugin root>/skills/) or a <name>.json exists in <root>/devforgeai/manifests/ or <root>/devforgeai/manifests/organization/ (a project's own skill, ADR-006 D4), unless its SKILL.md frontmatter's metadata has devforgeai-tracked: \"false\" (version 18; Bryan, 2026-10-05: 'Yes, the tracker ignores it', for the precompact skill, SPEC-015): such a utility skill's load, typed or Claude's, opens no run, ends, pauses or unwinds nothing, offers nothing (BEH-31) and changes no display, and the Skill tool call that loads it is recorded in the open run as any tool call is. Its name is skill.prompt's skill without a '<plugin>:' prefix. Loading any other skill neither starts nor ends a run."
   - id: BEH-03
     status: active
     rule: "When skill.prompt fires for a tracked skill, the adapter calls next(e) first and never changes the text. It ends any open run with run-end another-skill, the same skill loading again included. It then opens a run: an ID of the UTC time from $.clock.now() as yyyymmddThhmmssZ, the skill's name and 8 hex digits from crypto.getRandomValues (SPEC-012 §4), and a skill-loaded event as the run's first (DM-01). The run takes the session's root, $.session.root(), as it opens and keeps it; that one read serves every decision made as the run opens (BEH-02's tracked check, BEH-15's folder and .gitignore, BEH-16's mode), and no root is kept for the session: its folder, the paths in its events, its manifests and IF-03's --root all use that root, so a worktree move or /cd during the run shows in its paths, and the next run opens under the new root. The run's folder, devforgeai/progress/runs/<run>/, is created when its events are first written (BEH-15). Every skill of the plugin opens a run, git and documents-updater included: having no manifest, they are tracked by ticks only (SPEC-012 BEH-04's none), and the status line says so (BEH-10). When BEH-29 adds a return line, the text Claude reads ends with it, and the skill-loaded event's checklist is the text before it (version 13). From version 14, a nested load (BEH-29) pauses the open run instead of ending it."
@@ -1164,6 +1164,12 @@ verifications:
     level: manual
     covers:
       - BEH-31
+  - id: VER-50
+    status: active
+    obligation: "Kit tests of untracked skills (version 18): with a brainstorm run open at step 4 (its band and status line drawn), typing /devforgeai:precompact (a plugin skill whose SKILL.md metadata has devforgeai-tracked \"false\") opens no run, writes no run-end, leaves the brainstorm run open with its status line and band unchanged, offers nothing and appends nothing to the skill's text; a load of it by Claude's Skill tool does the same, and the Skill call's tool event lands in the brainstorm run; with a nested run on the trail, it pauses and unwinds nothing; a plugin skill without the key is tracked as before."
+    level: integration
+    covers:
+      - BEH-02
 ```
 
 ## 10. Rollout, migration and rollback
@@ -1600,6 +1606,10 @@ Notes:
 
 Decided by Bryan on 2026-10-05, at version 14's end of workflow: 'Fix now as v15', so a load of Claude's of the open run's own skill changes nothing only while that run is unfinished (version 14 left a finished run open to Claude's reload of its skill: the new work went into the old run, with no review; version 13 had started a new run), with version 15's wording of BEH-05 and VER-45's one `covers`; and 'Accept all; 0.24.0, ready': the builder's choices where the spec is silent (the adapter.log trail texts; the status line's '<return step>/<saved steps>'; the band's ', <n> more' inside its parenthesis; 'worked' counting any tool or answer event whose hook began after the open run opened, a refused Write's included, and starting again after a reload; session.end keeping 300 ms before each paused run's run-end; a typed load ending the paused runs bottom first, then the open run; the returned runs' review needing no open run, a dismissal ending only that run's review, its adapter.log line naming the run, and a run reviewed while open never asked again; the Skill call's own event left out of both logs for a push, an unwind and a load that can't nest, and recorded for an own-skill load), the build reviews' limits (an enforce refusal judged just before a switch records its error event in the run opened after it and leaves the judged run's review; during a switch's last evaluation, up to 5 seconds, the ended run still takes events, as in version 13; a compaction during a switch names the old run; no adapter.log line when a load drops version 13's trail entries) and the live check's caveats (the status line just after the unwind wasn't captured; /reload-plugins doesn't reload an unchanged module; the session.end budget check ran nowhere).
 
+Decided by Bryan on 2026-10-05, for version 18 (with SPEC-015, the precompact skill): "Yes, the tracker ignores it
+(Recommended)": a skill marked devforgeai-tracked "false" in its SKILL.md metadata isn't tracked (BEH-02), so the
+handoff can be written in the middle of a tracked run without ending it.
+
 ## Change Log
 
 | Version | Date | Author | Change | Items affected |
@@ -1676,3 +1686,4 @@ Decided by Bryan on 2026-10-05, at version 14's end of workflow: 'Fix now as v15
 | 16 | 2026-10-05 | Bryan | Approved | status |
 | 17 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's end-of-workflow decision of 2026-10-05 ('Fix now as v17'): a load of Claude's with no unfinished run open and none paused is offered as a typed load is (BEH-31, VER-48); §9 records versions 16 and 17's build and the live VER-49; §13 records his end-of-workflow answers | BEH-31, VER-48, §9, §13 |
 | 17 | 2026-10-05 | Bryan | Approved ('Fix now as v17', with the version 17 text shown in its preview) | status |
+| 18 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-05 for the precompact skill (SPEC-015): a plugin skill whose SKILL.md metadata has devforgeai-tracked "false" isn't tracked: its load opens no run and changes nothing of the open one (BEH-02); VER-50 kit tests; status in-review | frontmatter, BEH-02, VER-50, §13 |
