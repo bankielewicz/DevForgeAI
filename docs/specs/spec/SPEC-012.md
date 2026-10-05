@@ -2,8 +2,8 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: approved       # draft | in-review | approved | superseded | deprecated
-version: 13
+status: in-review      # draft | in-review | approved | superseded | deprecated
+version: 14
 created: 2026-10-02
 updated: 2026-10-05
 owner: "Bryan"
@@ -133,6 +133,11 @@ only architecture's step 8 is stoppable (Bryan, 2026-10-05: "Manifest flag, step
 **Version 13** (2026-10-05) adds the run-end reason `returned`: a skill Claude loaded in the middle of another skill's
 run handed back to it (SPEC-013 version 14, nested runs; Bryan, 2026-10-05: "New reason 'returned'"). A returned run
 closes like any ended run (BEH-12).
+
+**Version 14** (2026-10-05) lets a run carry on from an earlier one (SPEC-013 version 16; Bryan, 2026-10-05: "Carry
+them over"). A run's first event can name the earlier run it continues and the steps that run reached; those steps
+count as reached in the new run, shown as carried, so the new run's gates judge only the work from the step it goes on
+at (BEH-20). The earlier run's log is never changed: a run-end closed it (BEH-12).
 
 ## 2. Constraints
 
@@ -266,7 +271,9 @@ flowchart LR
               "properties": {"format": {"const": "devforgeai-events/1"}, "skill": {"type": "string"},
                              "checklist": {"type": "string", "description": "the skill's prompt as loaded, or at least its checklist block"},
                              "host": {"type": "string", "description": "for example claude-code 2.1.287"},
-                             "taskList": {"type": "boolean", "description": "the host offers a task list the skill can keep its steps in (version 5)"}}}},
+                             "taskList": {"type": "boolean", "description": "the host offers a task list the skill can keep its steps in (version 5)"},
+                             "resumes": {"type": "string", "pattern": "^[0-9]{8}T[0-9]{6}Z-[a-z][a-z0-9-]*-[0-9a-f]{8}$", "description": "the earlier run this run continues (version 14, BEH-20)"},
+                             "carried": {"type": "array", "items": {"type": "integer", "minimum": 1}, "uniqueItems": true, "description": "the steps the earlier run reached, carried into this run (version 14, BEH-20)"}}}},
     {"if": {"properties": {"kind": {"const": "tool"}}},
      "then": {"required": ["tool"],
               "properties": {"tool": {"type": "string"},
@@ -339,10 +346,10 @@ A `prompt` event records only that the user sent a prompt; its text is never log
         "need": {"enum": ["required", "conditional", "text-only"]},
         "userOwned": {"type": "boolean"},
         "stoppable": {"type": "boolean", "description": "version 12: present, and true, when the manifest marks the step stoppable (BEH-12)"},
-        "state": {"enum": ["pending", "current", "your-turn", "done", "claimed", "unconfirmed", "skipped-with-reason", "not-applicable", "skipped", "rule-broken"]},
+        "state": {"enum": ["pending", "current", "your-turn", "done", "claimed", "unconfirmed", "skipped-with-reason", "not-applicable", "skipped", "rule-broken", "carried"]},
         "evidence": {"type": "array", "items": {
           "type": "object", "additionalProperties": false, "required": ["seq", "type", "strength", "detail"],
-          "properties": {"seq": {"type": "integer"}, "type": {"enum": ["script", "answer", "write", "read", "waiver"]},
+          "properties": {"seq": {"type": "integer"}, "type": {"enum": ["script", "answer", "write", "read", "waiver", "carried"]},
                          "strength": {"enum": ["strong", "medium"]}, "detail": {"type": "string"}}}},
         "claim": {"type": ["object", "null"], "additionalProperties": false, "required": ["seq", "state", "reason"],
                   "properties": {"seq": {"type": "integer"}, "state": {"enum": ["done", "skipped"]}, "reason": {"type": ["string", "null"]}}},
@@ -515,6 +522,9 @@ behaviors:
     rule: "The waiver (version 11). An answer event with answered true and a waiver field (DM-02) is a waiver answer. Only the run's first waiver answer counts, since the skill asks once, at the start: a later one is ignored, and a dismissed one (answered false) is none. state.waiver holds the first waiver answer's value, or null. When it is proceed, each step with waivable true (DM-01) counts as answered at every gate and content-rule check after that answer (BEH-08, BEH-10): it gets evidence of type waiver, strong, with the detail 'your start-of-run answer: Proceed without questions', stamped with the seq of the first gate or checked write after the waiver answer, so it is done there and its content rules don't apply. The waiver evidence is neither tool evidence nor a claim: it doesn't make the step reached before then, doesn't move current, closes no step's answer window (BEH-09) and gives no 'seen late' note (BEH-08), so a run's display moves as it would without it. An answer counted for the step (BEH-09 or BEH-18) is kept as well, so an actual answer always stands; the waiver fills only what no answer did. ask, other or no waiver answer changes nothing: the step needs an answer as before. A waiver answers no step that isn't waivable, so a decision of another user-owned step, written after a waiver, is flagged as with no answer (BEH-10). The evaluator doesn't read the request, so it can't tell whether the request named the decision written for a waived step: the skill's own rule is the check (SPEC-003 BEH-08; Bryan, 2026-10-04)."
 ```
 
+  - id: BEH-20
+    status: active
+    rule: "Carried steps (version 14; Bryan, 2026-10-05: 'Carry them over'). A skill-loaded event may name, in resumes, an earlier run this run continues, and in carried the steps that run reached (DM-02); the adapter sets both (SPEC-013 BEH-31). Each carried step that the checklist has gets one piece of evidence of type carried, strong, with the detail 'reached in the earlier run <resumes>', stamped with the skill-loaded event's seq; a carried number the checklist doesn't have is ignored (ERR-10). Carried evidence makes the step reached from that seq (BEH-07), so it moves current as tool evidence does and no gate flags it (BEH-08); it closes no answer window (BEH-09). A carried step's state is carried while carried evidence is its only evidence, whatever claims it gets: a done claim, as a task the skill marks completed gives, leaves it carried and raises no claimed-not-evidenced flag; evidence of another type gives it the state BEH-07 gives. Carried evidence is no answer (Bryan, 2026-10-05: 'Carry, but re-confirm'; the record keeps that the user answered, never what): a user-owned carried step counts as answered only when an answer counts for it in this run (BEH-09, its window opening at the skill-loaded event; BEH-18), and until then its content rules apply (BEH-10), so a document records its decision only after the user confirms it again; a write that breaks its rule makes it skipped and the gate's step rule-broken, as BEH-10 says. resumes names the earlier run only; the evaluator reads nothing of that run. Without carried, a run is evaluated as before."
 ## 7. Errors and edge cases
 
 ```yaml items
@@ -564,6 +574,11 @@ errors:
     condition: "A later layer's manifest removes or relaxes a rule an earlier layer set, changes a step's title or kind, or carries another skill or checklistHash."
     handling: "Exit 2 and write no state, as ADR-003 A4 stops a disallowed override."
     user_result: "stderr: 'evaluate: <file>: <what it changes>, which an earlier layer set (<earlier file>)'."
+  - id: ERR-10
+    status: active
+    condition: "A skill-loaded event's carried names a step the checklist doesn't have, or isn't a list of positive integers."
+    handling: "The bad numbers are ignored and the rest carried (BEH-20); a carried that isn't a list carries nothing. The event is otherwise taken as it is."
+    user_result: "None: the steps named carry over and the run is evaluated."
 ```
 
 ## 8. Non-functional design
@@ -975,6 +990,13 @@ verifications:
     level: unit
     covers:
       - BEH-12
+  - id: VER-43
+    status: active
+    obligation: "Version 14: events.schema.json takes a skill-loaded event with resumes and carried. Case arch-carried: an architecture run that follows the task list, whose skill-loaded event carries steps 1 to 7 from an earlier run, then step events marking 1 to 7 done and 8 started, an answer tagged for step 8, and a write of an ARCH: steps 1 to 7 are carried with one piece of carried evidence each (seq 1) and no flag; step 8 is done by its answer; the write gate raises no skipped or claimed-not-evidenced flag; current is 9. Case brainstorm-carried-owned: a brainstorm run that follows the task list, carrying steps 1 to 5, then a write of a BRN with a disposition promoted: step 5 has no answer in this run, so it becomes skipped and step 6 rule-broken; case brainstorm-carried-confirmed: the same with step 5 marked in progress and an answer tagged for it before the write: no flag. Case carried-unknown: carried [1, 99] carries step 1 and ignores 99 (ERR-10). Case carried-then-evidence: a carried step that then gets a read of its own is done. Every earlier case's expected state is unchanged."
+    level: unit
+    covers:
+      - BEH-20
+      - ERR-10
 ```
 
 ## 10. Rollout, migration and rollback
@@ -1088,6 +1110,9 @@ Version 10's build, on version 9's branch before its merge: the case steps-after
 Version 13's build, with SPEC-013 version 14: VER-42's case and test, seen failing; DM-02's enum in
 events.schema.json; §9.
 
+Version 14's build, with SPEC-013 version 16: VER-43's cases and test, seen failing; DM-02's and DM-03's changes in
+events.schema.json and progress.schema.json; BEH-20 in `evaluate.py`; no earlier expected state may move; §9.
+
 Version 12's build, with SPEC-013 version 12: VER-41's case and test, seen failing; DM-02's enum in
 events.schema.json; §9.
 
@@ -1124,6 +1149,18 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 - **Validating with jsonschema at run time.** Thorough, but not in the standard library. The tests validate against the schemas instead (VER-02).
 
 ## 13. Open questions
+
+Decided by Bryan on 2026-10-05, for version 14 (SPEC-013 version 16, "Resume from record"): a later run of a skill
+can continue an earlier unfinished one, and the steps the earlier run reached are carried over ("Carry them over"):
+counted as reached and shown as carried. A carried step the user decides is reached but not answered ("Carry, but
+re-confirm", on a side note that the record keeps that the user answered, never what, so carrying the answer would
+let a resumed run write a decision the user never gave in it): its content rules apply until the user answers again. Not chosen: copying the earlier run's events into the new log; changing
+nothing (the new run's gates would flag the earlier steps as skipped). Drafter's choices, for Bryan's accept or
+challenge: carried evidence is stamped at the skill-loaded event's seq and closes no answer window, and a carried
+user-owned step's window opens at the skill-loaded event (in a run without step events, answers then go to the
+carried decision steps first, in order, which is the order the resume line asks for); a done claim of a carried step
+leaves it carried (so the skill marking its carried tasks completed raises no flag); a carried number the checklist
+doesn't have is ignored (ERR-10).
 
 Decided by Bryan on 2026-10-05, for version 13: a nested run that hands back ends with the reason returned ("New
 reason 'returned'"); nesting itself is SPEC-013's (version 14).
@@ -1291,3 +1328,4 @@ Still open, or notes:
 | 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-05: the run-end reason returned for a nested run that hands back (DM-02, BEH-12, new VER-42); status in-review | frontmatter, §1, DM-02, BEH-12, VER-42, §10, §11, §13 |
 | 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: VER-41's covers restored; BEH-12's returned wording | BEH-12, VER-41 |
 | 13 | 2026-10-05 | Bryan | Approved | status |
+| 14 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05 ("Resume from record", "Carry them over"): a run can continue an earlier one; skill-loaded's resumes and carried (DM-02); the carried state and evidence type (DM-03); carried steps reached and unflagged, user-owned ones re-confirmed (BEH-20, ERR-10); VER-43; status in-review | frontmatter, §1, DM-02, DM-03, BEH-20, ERR-10, VER-43, §11, §13 |
