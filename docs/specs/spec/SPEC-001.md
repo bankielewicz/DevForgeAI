@@ -492,6 +492,9 @@ lines don't change, so the brainstorm manifest stays matched; the questions keep
   says so (BEH-13), as architecture's BEH-18 keeps its gates.
 - Resolved (Bryan, 2026-10-04, version 15: "Fold it in"): step 5's table was text printed before the question, which
   the dialog hid; the proposals now go in the options' previews (BEH-06).
+- Approved (Bryan, 2026-10-04): SKL-001 v8, its 3-run qualification waived; he accepted the end-of-workflow notes.
+  Open, for later (from them): when step 5's table is too long for a preview, the question says the reasons are in
+  the reply, which the dialog hides.
 
 - Resolved (Bryan, 2026-10-03, with SPEC-012 version 9): each question names its step, in AskUserQuestion's
   metadata, which the tracker checks against the step marked in progress when the question is asked, and in each
@@ -540,3 +543,4 @@ lines don't change, so the brainstorm manifest stays matched; the questions keep
 | 15 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: BEH-01's 'ask none' names the topic exception; BEH-06 says what each answer writes and how a long table is shown; VER-15 checks extend-or-new and the Step 5 header | BEH-01, BEH-06, VER-15 |
 | 15 | 2026-10-04 | Bryan | Approved | status |
 | 15 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records SKL-001 v8's build, evals and VER-15 | §9 |
+| 15 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: Bryan approved SKL-001 v8 and waived its 3-run qualification; §13 records one item from the end-of-workflow notes | §13 |

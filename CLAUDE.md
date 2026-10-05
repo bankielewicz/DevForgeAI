@@ -20,9 +20,9 @@ Change Log holds the history. Read those, not this file, for any number or date.
 
 | Skill | Record (provenance) | Spec | Evals on the current version | Merged |
 |---|---|---|---|---|
-| `brainstorm` | SKL-001 v7, approved | SPEC-001 v15, approved 2026-10-04, not built (SKL-001 v8 next; v14 built) | 1 run, 9 of 9; 3-run qualification waived by Bryan | PR #77 (0.20.0) |
+| `brainstorm` | SKL-001 v8, approved | SPEC-001 v15, approved | 1 run, 9 of 9; 3-run qualification waived by Bryan | PR #83 (0.21.0), not merged |
 | `prd` | SKL-002 v5, approved | SPEC-002 v5, approved | 3 runs, 35 of 35 at ≥ 0.8 | PR #57 (0.11.0) |
-| `architecture` | SKL-003 v8, approved | SPEC-003 v11, approved 2026-10-04, not built (SKL-003 v9 next; v9 built) | 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #77 (0.20.0) |
+| `architecture` | SKL-003 v9, approved | SPEC-003 v11, approved | 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #83 (0.21.0), not merged |
 | `epic` | SKL-004 v4, approved | SPEC-004 v4, approved | 3 runs, 25 of 25 at ≥ 0.8 | PR #62 (0.12.1) |
 | `context` | SKL-010 v2, approved | SPEC-011 v3, approved | 3 runs, 18 of 18 at ≥ 0.8 | PR #45 (0.8.1) |
 | `documents-updater` | SKL-005 v1, draft | SPEC-006 v1, approved | 1 run, 8 of 8 at 1.00 | PR #1 (0.2.0) |
@@ -37,8 +37,8 @@ Change Log holds the history. Read those, not this file, for any number or date.
 - `spec-lookup` also ships a plugin agent, `agents/spec-lookup.md` (`devforgeai:spec-lookup`), which
   runs the lookup script for another skill's workflow.
 - The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v11, the evaluator)
-  and `hooks/progress.tsx` (SPEC-013 v10, the Claude Code adapter; v11, the review only after an answered turn,
-  approved 2026-10-04, not built). It records each tracked skill run
+  and `hooks/progress.tsx` (SPEC-013 v11, the Claude Code adapter; v11, the review only after an answered turn,
+  built in PR #83 (0.21.0), not merged). It records each tracked skill run
   (brainstorm and architecture have manifests) and shows its checklist steps in the status line and
   a band above the prompt. Its detail is in `.claude/rules/progress.md`.
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
