@@ -1927,7 +1927,7 @@ test('VER-35 (review M1): a last step reached in the turn\'s final events is eva
 async function turnEndFor($: Any, reason: string | undefined) {
   const e: Any = { turnId: 't', answer: '', durationMs: 1, isAborted: reason === 'aborted', usage: null }
   if (reason !== undefined) e.reason = reason
-  if (reason === 'refusal') e.refusal = { message: 'refused' }
+  if (reason === 'refusal') e.refusal = { category: null, explanation: 'refused' }
   await $.turn.complete(e)
 }
 

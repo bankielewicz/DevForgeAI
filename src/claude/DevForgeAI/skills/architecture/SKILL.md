@@ -345,7 +345,7 @@ blocking DEC cites: it is reported ready with no architectural question holding 
 (readiness.md, "Reuse, and deciding a question later").
 - **Reuse confirmed and the ARCH's PRD link is older than the PRD's version:** write the review record
   (output-rules.md), and nothing else.
-- **Reuse confirmed and the link already equals the PRD's version:** write nothing; go to step 11.
+- **Reuse confirmed and the link already equals the PRD's version:** nothing to write; go to step 11.
 
 ### 9. Write the ARCH and ADRs
 
