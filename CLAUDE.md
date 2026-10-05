@@ -9,7 +9,7 @@ work.
 
 ## What this workspace is
 
-DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.23.0 in
+DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.24.0 in
 `src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
 Brainstorm → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
 Architecture and Epic are built; `context` writes the project context documents between Architecture
@@ -37,7 +37,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 - `spec-lookup` also ships a plugin agent, `agents/spec-lookup.md` (`devforgeai:spec-lookup`), which
   runs the lookup script for another skill's workflow.
 - The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v12, the evaluator; v13, the run-end `returned`, built in PR #89, not merged; v12, the run-end `stopped`, merged in PR #85 (`4daa7c4`), deployed 0.22.0)
-  and `hooks/progress.tsx` (SPEC-013 v13, the Claude Code adapter; v14, nested runs paused and resumed, built in PR #89, not merged; v13, the trail of return points for skills Claude loads mid-run,
+  and `hooks/progress.tsx` (SPEC-013 v13, the Claude Code adapter; v14 and v15, nested runs paused and resumed, built in PR #89, not merged; v13, the trail of return points for skills Claude loads mid-run,
   merged in PR #87 (`13184e5`), deployed 0.23.0; v12, the deliberate stop and the /clear, /exit, /resume
   confirmation, merged in PR #85 (`4daa7c4`), deployed 0.22.0; v11, the review only after an answered turn,
   merged in PR #83 (`ab8301c`), deployed 0.21.0). It records each tracked skill run
@@ -152,7 +152,7 @@ claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --outp
   `src/claude/DevForgeAI/skills/spec-lookup/scripts/find_spec.py`) and cite what it finds, or ask
   Bryan. Never build what no spec, ADR or recorded decision covers. During another devforgeai skill's
   workflow, hand the lookup to the `devforgeai:spec-lookup` agent, which leaves that run alone: a skill
-  the user types ends the run, and one Claude loads pauses it until Claude goes back (SPEC-013 v14).
+  the user types ends the run, and one Claude loads pauses it until Claude goes back (SPEC-013 v15).
 - **Judgment calls are the user's.** In brainstorm, idea dispositions and convergence are written only
   when the user confirmed them; otherwise they stay `disposition: open`, `reason: null` and
   `status: draft` (VER-02). Each later spec names its own user-owned decisions.
