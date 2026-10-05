@@ -276,7 +276,8 @@ def handoff_basics(ver, folder):
         file_exists(f"{p}-resume-prompt", f"{folder}/RESUME-PROMPT.md"),
         regex(f"{p}-gitignore-star", r"^\*\s*$", target="devforgeai/handoff/.gitignore", flags="m"),
         tool_used(f"{p}-ran-checker", "Bash", CHECK_MATCH, minimum=1),
-        regex(f"{p}-checker-clean", r"handoff: (clean|0 problems)", target="trace"),
+        # Not after a backtick: the script's own docstring quotes `handoff: clean`, should the run read the script.
+        regex(f"{p}-checker-clean", r"(?<!`)handoff: (clean|0 problems)", target="trace"),
     ]
 
 
@@ -300,7 +301,7 @@ def cases(hashes):
             "graders": handoff_basics("VER-02", HANDOFF) + [
                 regex("ver02-names-branch", r"feat/export", target=f"{HANDOFF}/START-HERE.md"),
                 regex("ver02-names-last-commit", head, target=f"{HANDOFF}/START-HERE.md"),
-                regex("ver02-outstanding-delimiter", section(5, r"[Dd]elimiter[^\n]*Next:|[Dd]elimiter[\s\S]*?Next:"),
+                regex("ver02-outstanding-delimiter", section(5, r"[Dd]elimiter(?:(?!\n## )[\s\S])*?Next:"),
                       target=f"{HANDOFF}/START-HERE.md"),
                 regex("ver02-resume-absolute-path", r"(^|[\s`\"'(])/[^\s`\"')]*/" + HANDOFF + r"/START-HERE\.md",
                       target=f"{HANDOFF}/RESUME-PROMPT.md", flags="m"),

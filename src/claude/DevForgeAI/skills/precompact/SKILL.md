@@ -59,7 +59,7 @@ before step 2.
   that the user names as the project. The handoff folder is `devforgeai/handoff/<folder>/` under the root,
   `<folder>` being the branch name with each run of characters other than letters, digits, `.`, `_` and `-`
   replaced by `-` (`feat/csv-export` becomes `feat-csv-export`); `detached-<short hash>` on a detached HEAD;
-  `no-git` when git can't be used.
+  `no-git` when git can't be used for the project, a parent repository's top level included (see below).
 - Don't re-read what the session holds (its CLAUDE.md files and memory index are in context). Read only the handoff
   folder's earlier files and, when it exists, the progress tracker's
   `devforgeai/progress/sessions/${CLAUDE_SESSION_ID}/current.json` (the open run's skill and step). This session's
