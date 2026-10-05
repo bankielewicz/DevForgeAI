@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review    # draft | in-review | approved | superseded | deprecated
+status: approved    # draft | in-review | approved | superseded | deprecated
 version: 14
 created: 2026-10-02
 updated: 2026-10-05
@@ -1574,3 +1574,4 @@ Notes:
 | 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #87's merge (`13184e5`) and the deploy of plugin 0.23.0 | §9 |
 | 14 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05: nested runs paused and resumed (BEH-29 rewritten, new BEH-30; BEH-03, BEH-05, BEH-10, BEH-11, BEH-26, BEH-28; DM-02 rows; DM-03 the module object, ProgressPaused, ProgressReturned, returned); the return line asks for the re-mark; VER-41, VER-42 deprecated for new VER-43 to VER-45; status in-review | frontmatter, §1, DM-02, DM-03, BEH-03, BEH-05, BEH-10, BEH-11, BEH-26, BEH-28, BEH-29, BEH-30, VER-41 to VER-45, §10, §11, §13 |
 | 14 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: the nested-run guard counts only calls begun after the run opened (BEH-30); a load of Claude's that can't nest keeps the trail, and the return step waits for task updates under way (BEH-29); task maps per open run; the kept text with a trail (BEH-28); returned entries with nothing drawing (BEH-26); VER-43 to VER-45 sharpened; §9, §11 and §13 updated | DM-03, BEH-05, BEH-26, BEH-28, BEH-29, BEH-30, VER-43, VER-44, VER-45, §9, §11, §13 |
+| 14 | 2026-10-05 | Bryan | Approved | status |
