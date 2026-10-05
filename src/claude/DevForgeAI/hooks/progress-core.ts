@@ -187,10 +187,11 @@ export function summaryOf(state: ProgressState): ProgressSummary {
   }
 }
 
-/** The step a stopped run stopped at (BEH-10, version 12): the last step past pending, since the evaluator ignores
- *  everything after the run-end and the stopping answer is that step's last evidence; null for any other run. */
+/** The step a stopped run stopped at (BEH-10, version 12): the stopping answer's step, kept in the summary; without it,
+ *  the last step past pending (the evaluator ignores everything after the run-end); null for any other run. */
 export function stopStep(summary: ProgressSummary): number | null {
   if (summary.ended !== 'stopped') return null
+  if (typeof summary.stoppedAt === 'number') return summary.stoppedAt
   let n = 0
   summary.states.forEach((s, i) => { if (s !== 'pending') n = i + 1 })
   return n > 0 ? n : null

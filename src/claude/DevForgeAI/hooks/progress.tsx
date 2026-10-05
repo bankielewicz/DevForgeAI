@@ -289,6 +289,9 @@ async function recordNow($: E, kind: string, fields: Fields, mark: boolean): Pro
   // The seq comes from the run's own lines: a $.state read inside one dispatch sees that dispatch's moment, so
   // overlapping hooks would read the same seq from it.
   const held = await linesOf($, run)
+  // A run already ended (a deliberate stop, BEH-27) gets no second run-end, checked inside the chain (BEH-05, v12);
+  // events after the stop (the turn's end) may follow it, so any run-end in the log counts.
+  if (kind === 'run-end' && held.some(l => l.includes('"kind":"run-end"'))) return
   const seq = held.length + 1
   const lines = [...held, eventLine(run.id, seq, now, kind, fields)]
   const next: ProgressRun = { ...run, seq }
@@ -502,7 +505,8 @@ async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; te
   }
   const off = await read($, OFF)
   if (off !== null && off !== LOG_FULL && off !== NO_PYTHON && off !== NO_WRITE) await update($, OFF, () => null)
-  await update($, SUMMARY, () => summaryOf(got.state))
+  // The stopping answer's step stays with a stopped run's summary (BEH-10, version 12).
+  await update($, SUMMARY, prev => ({ ...summaryOf(got.state), stoppedAt: got.state.ended === 'stopped' ? prev?.stoppedAt ?? null : null }))
   const shown = await read($, SHOWN)
   const fresh = newFlagToasts(got.state, shown, await followingLines($, run))
   if (fresh.keys.length) await update($, SHOWN, () => [...shown, ...fresh.keys])
@@ -646,14 +650,6 @@ async function startPrune($: E, r: string, session: string, keepRun: string): Pr
 
 /** End the open run, and evaluate it once more when there is time (BEH-05). */
 async function endRun($: E, reason: string, timeoutMs: number | null): Promise<void> {
-  // A run already ended (a deliberate stop, BEH-27) gets no second run-end (BEH-05, version 12).
-  const open = await read($, RUN)
-  if (open !== null) {
-    await recordChain
-    const lines = await linesOf($, open)
-    // Events after the stop (the turn's end) may follow it, so any run-end in the log counts.
-    if (lines.some(l => (JSON.parse(l) as Fields).kind === 'run-end')) return
-  }
   await record($, 'run-end', { reason })
   pendingReport = null
   const run = await read($, RUN)
@@ -722,8 +718,10 @@ async function stopIfAsked($: E, input: Fields, outcome: ToolOutcome): Promise<v
     return
   }
   if (!stopsRun(input, outcome, state.steps ?? [])) return
-  await endRun($, 'stopped', python ? EVALUATOR_TIMEOUT : null)
-  await refreshStatus($)
+  // The run-end marks the run and the timer evaluates it: no tool call waits for an evaluation (BEH-06).
+  await endRun($, 'stopped', null)
+  const n = questionTag(input).step ?? null
+  await update($, SUMMARY, s => (s === null ? s : { ...s, stoppedAt: n }))
 }
 
 /** The end-of-run review (BEH-26, ERR-15): once every step of the open run is reached, once per run, in a session
@@ -1069,13 +1067,18 @@ export const register: Register = (on, options) => {
     return next(e)
   })
 
-  // A compaction of a run that follows the task list keeps its marked step in the summary and ends with a note asking
-  // Claude to bring the list in step (BEH-24). Anything after next(e) is caught here, so the compaction stands.
   // Confirming an exit (BEH-28, ERR-16; version 12): /clear, /exit and /resume typed while a run is unfinished ask
   // first, in Claude Code's own dialog. A confirmation, not a gate: it refuses nothing Claude does (ADR-006 D1 v2).
   on('command.run', async ($, e, next) => {
     const verb = CONFIRMED[e.command]
     if (verb === undefined || interactive !== true || disabled || !isPersonPrompt(e.origin)) return next(e)
+    // The run as it stands: events still being written and not yet evaluated come first, as for the review.
+    await recordChain
+    if (inFlight !== null) await inFlight
+    if (!evaluating && (await read($, MARKED))) {
+      inFlight = evaluateMarked($)
+      await inFlight
+    }
     const run = await read($, RUN)
     const summary = await read($, SUMMARY)
     if (run === null || summary === null || summary.ended !== null || summary.current === null) return next(e)
@@ -1105,6 +1108,8 @@ export const register: Register = (on, options) => {
     return next(e)
   })
 
+  // A compaction of a run that follows the task list keeps its marked step in the summary and ends with a note asking
+  // Claude to bring the list in step (BEH-24). Anything after next(e) is caught here, so the compaction stands.
   on('session.compact', async ($, e, next) => {
     const run = await read($, RUN)
     if (interactive !== true || disabled || run === null || e.agentId !== undefined || !(await follows($, run))) return next(e)

@@ -1987,10 +1987,30 @@ test('VER-38: Write nothing on a stoppable step ends the run as stopped, shown a
   await $.tool.call(stepQuestion('Outcome?') as Any)
   const events = eventsOf(w, 'architecture').map(l => JSON.parse(l))
   expect(events.slice(-2).map(e => [e.kind, e.step ?? e.reason])).toEqual([['answer', 8], ['run-end', 'stopped']])
+  await w.clock.advance(600)  // the run-end marked the run; the timer evaluates it (no tool call waits, BEH-06)
   expect(w.statuses[w.statuses.length - 1]).toBe('architecture stopped at step 8 · 1 flag')
   await turnEnd($)
   expect(asked.length).toBe(1)
   expect(asked[0]).toContain('architecture run, item 1 of 1: flagged at step 8')
+  await load($, 'devforgeai:architecture', TAGGED)  // a new run: the stopped run gets no another-skill run-end
+  expect(runsOf(w, 'architecture')[0].map(l => JSON.parse(l)).filter(e => e.kind === 'run-end').map(e => e.reason))
+    .toEqual(['stopped'])
+})
+
+test('VER-38: with no state.json yet, nothing stops', async ($, on) => {
+  const w = world(on, { evaluate: () => ({ state: archState(8) }), tool: answering({ 'Outcome?': 'Write nothing' }) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await $.tool.call(stepQuestion('Outcome?') as Any)  // no evaluation has run, so no state says step 8 is stoppable
+  expect(runEnds(w)).toEqual([])
+})
+
+test('VER-38: a session end after the stop writes no second run-end', async ($, on) => {
+  const w = world(on, { evaluate: () => ({ state: archState(8) }), tool: answering({ 'Outcome?': 'Write nothing' }) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await w.clock.advance(600)
+  await $.tool.call(stepQuestion('Outcome?') as Any)
   await $.session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } } as Any)
   expect(runEnds(w)).toEqual(['stopped'])
 })
@@ -2065,6 +2085,30 @@ test('VER-39: exit and resume ask with their verbs; a dismissal keeps; a failed 
   expect(ran).toEqual(['resume'])
   expect(asked).toEqual(['architecture run is at step 3 of 11 and unfinished. Exit anyway?',
     'architecture run is at step 3 of 11 and unfinished. Resume anyway?'])
+  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' exit: '))
+  expect(log.length).toBe(2)
+  expect(log[0]).toContain('kept /exit: dismissed')
+  expect(log[1]).toContain('ran /resume: the dialog failed')
+})
+
+test('VER-39: the dialog offers <Verb> anyway and Keep working under Progress; bridge asks; nothing draws runs', async ($, on) => {
+  const seen: Any[] = []
+  const ran: string[] = []
+  const over: Any = { surfaces: ['terminal'], evaluate: () => ({ state: archState(3) }), tool: (e: Any) => {
+    if (e.tool === 'AskUserQuestion' && e.questions?.[0]?.header === 'Progress') seen.push(e.questions[0])
+    return confirming('Keep working', [])(e)
+  } }
+  const w = world(on, over)
+  commands(on, ran)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await w.clock.advance(600)
+  await $.command.run({ command: 'clear', args: '', origin: { kind: 'bridge' } } as Any)
+  expect(seen.map(q => [q.header, q.options.map((o: Any) => o.label)])).toEqual([['Progress', ['Clear anyway', 'Keep working']]])
+  over.surfaces = []
+  await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)
+  expect(seen.length).toBe(1)
+  expect(ran).toEqual(['clear'])
 })
 
 test('VER-39: nothing is asked for other commands, a plugin\'s run, a finished or stopped run, no state, no run, headless', async ($, on) => {
@@ -2076,7 +2120,6 @@ test('VER-39: nothing is asked for other commands, a plugin\'s run, a finished o
   await start($)
   await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)   // no open run
   await load($, 'devforgeai:architecture', TAGGED)
-  await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)   // no state yet
   await w.clock.advance(600)
   await $.command.run({ command: 'compact', args: '', origin: COMPOSER } as Any)
   await $.command.run({ command: 'branch', args: '', origin: COMPOSER } as Any)
@@ -2090,7 +2133,20 @@ test('VER-39: nothing is asked for other commands, a plugin\'s run, a finished o
   await w.clock.advance(600)
   await $.command.run({ command: 'exit', args: '', origin: COMPOSER } as Any)    // stopped
   expect(asked).toEqual([])
-  expect(ran).toEqual(['clear', 'clear', 'compact', 'branch', 'clear', 'exit', 'exit'])
+  expect(ran).toEqual(['clear', 'compact', 'branch', 'clear', 'exit', 'exit'])
+})
+
+test('VER-39: with no state (the evaluator can\'t run), nothing is asked', async ($, on) => {
+  const asked: string[] = []
+  const ran: string[] = []
+  const w = world(on, { python3: false, tool: (e: Any) => confirming('Keep working', asked)(e) })
+  commands(on, ran)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await w.clock.advance(600)
+  await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)
+  expect(asked).toEqual([])
+  expect(ran).toEqual(['clear'])
 })
 
 test('VER-39: a headless session asks nothing', async ($, on) => {
