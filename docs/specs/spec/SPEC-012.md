@@ -3,7 +3,7 @@ id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
 status: approved       # draft | in-review | approved | superseded | deprecated
-version: 12
+version: 13
 created: 2026-10-02
 updated: 2026-10-05
 owner: "Bryan"
@@ -129,6 +129,10 @@ stopped run closes like any ended run: the steps after the last one reached stay
 (BEH-12). Before, such a run stayed open with steps 9 to 11 pending (Bryan, 2026-10-05: "a deliberate write
 nothing should count as finished"). A manifest marks the steps whose answer may stop the run (`stoppable`, DM-01);
 only architecture's step 8 is stoppable (Bryan, 2026-10-05: "Manifest flag, step 8 only").
+
+**Version 13** (2026-10-05) adds the run-end reason `returned`: a skill Claude loaded in the middle of another skill's
+run handed back to it (SPEC-013 version 14, nested runs; Bryan, 2026-10-05: "New reason 'returned'"). A returned run
+closes like any ended run (BEH-12).
 
 ## 2. Constraints
 
@@ -279,7 +283,7 @@ flowchart LR
     {"if": {"properties": {"kind": {"const": "turn"}}},
      "then": {"required": ["phase"], "properties": {"phase": {"enum": ["start", "end"]}}}},
     {"if": {"properties": {"kind": {"const": "run-end"}}},
-     "then": {"required": ["reason"], "properties": {"reason": {"enum": ["another-skill", "session-end", "clear", "idle", "stopped"]}}}}
+     "then": {"required": ["reason"], "properties": {"reason": {"enum": ["another-skill", "session-end", "clear", "idle", "stopped", "returned"]}}}}
   ]
 }
 ```
@@ -487,7 +491,7 @@ behaviors:
     rule: "gate holds the most recent gate check: its kind, its event's seq, refuse (true when that check raised any flag) and reason (the first such flag's message). Before any gate, kind and seq are null and refuse is false. An adapter in enforce mode refuses the tool call at that seq when refuse is true; the evaluator never refuses anything itself. The question gate (BEH-18) refuses whenever it raises its flag, so an adapter in enforce mode refuses a question asked while no step is in progress."
   - id: BEH-12
     status: active
-    rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged. The reason stopped (version 12) is the user's deliberate stop of the run (SPEC-013 BEH-27) and closes it the same way. A manifest step with stoppable true (DM-01) gives its state step stoppable true (DM-03); other steps carry no stoppable field."
+    rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged. The reason stopped (version 12) is the user's deliberate stop of the run (SPEC-013 BEH-27) and closes it the same way; so does the reason returned (version 13): a nested run that handed back to a run paused beneath it (SPEC-013 BEH-30). A manifest step with stoppable true (DM-01) gives its state step stoppable true (DM-03); other steps carry no stoppable field."
   - id: BEH-13
     status: active
     rule: "When the report step is done or the run has ended, next names the chain's following skill in the order brainstorm, prd, architecture, context, epic, story (ADR-002; ADR-004 D5 places context). The story skill isn't built, so its next has available false and the note 'the story skill isn't built yet (SPEC-009)'. Otherwise next is null."
@@ -596,6 +600,7 @@ quality_responses:
 
 | Kind | Status |
 | --- | --- |
+| Version 13 | Built on branch `docs/nested-runs-2` (PR #89, not merged): the run-end reason `returned` in `events.schema.json`'s enum (with the draft, `dc58447`); VER-42's case `arch-returned` and its test (`7db778a`) passed at once, since the evaluator takes any run-end reason (BEH-05 ends the run whatever the reason): no test of it could fail first. The adapter writes `returned` (SPEC-013 v14 BEH-30), seen live in SPEC-013's VER-45. src/tests 692 pass. Pass |
 | Version 12 | Merged in PR #85 (`4daa7c4`, 2026-10-05) and deployed as plugin 0.22.0 on 2026-10-05 (the deployed copy matches the source; `diff -rq` exit 0). Built on branch `docs/run-end-confirm` (PR #85): VER-41's case `arch-stopped` and test first, seen failing, then `stoppable` on architecture's step 8 and carried into state steps (`ed3f7ac`). §10 said no expected state moves; in fact all 37 architecture goldens gain `"stoppable": true` on step 8 and nothing else (a one-line addition each). `pytest src/tests/progress` 175 passed. Not specified, so not built: a layer rule for `stoppable` like `waivable`'s (a project manifest may add it to another step). Live: SPEC-013's VER-40 showed run-end stopped closing the run. Pass |
 | Version 11 | Merged in PR #77 (`8eb431a`, 2026-10-04 18:15 UTC) and deployed as plugin 0.20.0 on 2026-10-04 (the deployed copy matches the source; `diff -rq` exit 0). Built on branch `docs/waiver-menu-specs` (PR #77): tests first (`2a2117f`: VER-39's 15 cases and VER-40, failing), then `evaluate.py` and architecture's step 8 waivable (`100ebe1`), and the plugin-validator's fixes (`505a4ba`: no 'seen late' from the waiver stamp; your-turn as without the waiver). VER-39 and VER-40 pass, normally and under `python3 -S`; every earlier expected state changed only by `waiver: null` (checked line by line); `src/tests/progress` 173 passed. Live, in Bryan's worker1 tab on 2026-10-04, enforce mode, `claude --plugin-dir` on a copy of `505a4ba`: a Proceed waiver let an amend outcome through with step 8 done by waiver evidence at the first ARCH edit (SPEC-013 VER-36) |
 | Structural: this spec against `src/schemas/spec.schema.json` | Passes, checked 2026-10-02 with the helpers of `src/tests/context/test_structure.py`: the frontmatter and every item block, with QR-01 to QR-04 linked to PRD-001 v11's NFR-004 to NFR-007; every BEH, ERR and QR item is covered by a VER item; DM-01 to DM-03 are valid JSON Schema 2020-12. v2 re-checked on 2026-10-02 with the same helpers: passes, 25 VER items cover every BEH, ERR and QR item, and the changed DM-01 is valid JSON Schema 2020-12; the architecture manifest with step 5's `exclude` rule validates against it, and a write rule carrying `exclude` fails |
@@ -964,6 +969,12 @@ verifications:
     level: unit
     covers:
       - BEH-12
+  - id: VER-42
+    status: active
+    obligation: "Version 13: events.schema.json takes a run-end with reason returned. Case arch-returned: an architecture run that follows the task list, with evidence for steps 1 to 3, step 4 started, then run-end returned and a reply: ended is returned, steps 5 to 11 pending with the note 'not reached', no flag, and counts.afterEnd 1."
+    level: unit
+    covers:
+      - BEH-12
 ```
 
 ## 10. Rollout, migration and rollback
@@ -982,6 +993,8 @@ verifications:
   expected state moves: all 41 cases gave byte-identical states under version 4's BEH-09, checked on a copy. Over
   6,000 generated logs (the review's), version 4 credits every answer version 2 credits and nothing version 3
   doesn't. SPEC-013's upstream link moves to version 4 when it is approved.
+- **Version 13.** Built after approval with SPEC-013 version 14 (nested runs), in one plugin version. Additive: no
+  earlier case has a run-end returned.
 - **Version 12.** Built after approval with SPEC-013 version 12 (the adapter that records the stop), in one plugin
   version. Additive: no earlier case has a run-end stopped, so no expected state moves.
 - **Version 11.** Built after approval with SPEC-013 version 10 (the adapter that records the waiver), SPEC-001
@@ -1072,6 +1085,9 @@ that no other expected state moves, run every test, and record it in §9.
 Version 10's build, on version 9's branch before its merge: the case steps-after-done, seen failing; the rule in
 `evaluate.py`; no earlier expected state may move; §9.
 
+Version 13's build, with SPEC-013 version 14: VER-42's case and test, seen failing; DM-02's enum in
+events.schema.json; §9.
+
 Version 12's build, with SPEC-013 version 12: VER-41's case and test, seen failing; DM-02's enum in
 events.schema.json; §9.
 
@@ -1108,6 +1124,9 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 - **Validating with jsonschema at run time.** Thorough, but not in the standard library. The tests validate against the schemas instead (VER-02).
 
 ## 13. Open questions
+
+Decided by Bryan on 2026-10-05, for version 13: a nested run that hands back ends with the reason returned ("New
+reason 'returned'"); nesting itself is SPEC-013's (version 14).
 
 Decided by Bryan on 2026-10-05, for version 12: a deliberate stop (architecture's Write nothing) ends the run as
 finished, with the reason stopped ("Yes, review at the stop"; the review is SPEC-013's). Nested skill runs (a run
@@ -1269,3 +1288,6 @@ Still open, or notes:
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records version 12's build | §9 |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records the open layer rule for stoppable | §13 |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #85's merge (`4daa7c4`) and the deploy of plugin 0.22.0 | §9 |
+| 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-05: the run-end reason returned for a nested run that hands back (DM-02, BEH-12, new VER-42); status in-review | frontmatter, §1, DM-02, BEH-12, VER-42, §10, §11, §13 |
+| 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: VER-41's covers restored; BEH-12's returned wording | BEH-12, VER-41 |
+| 13 | 2026-10-05 | Bryan | Approved | status |

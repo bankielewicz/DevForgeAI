@@ -22,7 +22,7 @@ upstream:
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "leave decisions to the user; this skill applies it to what Claude proposes, not to a document it writes"}
   - {id: ADR-004, relation: informed_by, version: 2, hash: null, note: "skills read project documents and never edit them; the precedent for a read-only skill"}
-  - {id: SPEC-013, relation: informed_by, version: 13, hash: null, note: "BEH-02 and BEH-03: loading any plugin skill ends the open tracked run; DM-01: a subagent's tool calls aren't recorded, so lookups during a run go through a subagent (BEH-01)"}
+  - {id: SPEC-013, relation: informed_by, version: 15, hash: null, note: "BEH-02 and BEH-03: loading any plugin skill ends the open tracked run; DM-01: a subagent's tool calls aren't recorded, so lookups during a run go through a subagent (BEH-01)"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -432,6 +432,11 @@ worktree (ADR-001):
 
 For Bryan, in order. None of these is a requirement until he decides it.
 
+- Recorded (Bryan, 2026-10-05, "Record now, change later"): from SPEC-013 version 14 a plugin skill Claude loads with the
+  Skill tool during another skill's run pauses that run instead of ending it, so BEH-09's reason for the agent route
+  (loading the skill ends the run) holds only for a skill the user types. The agent route stays (it is cheaper and out
+  of band); revisit BEH-09 and the SPEC-013 link at this spec's next version.
+
 1. **Resolved (Bryan, 2026-10-04): the tracker conflict.** He chose "Use subagents for the workflow/skill usage that's
    out of band" over exempting the skill in SPEC-013 or accepting that the run ends. A lookup during another skill's
    workflow runs in a subagent that runs the script (BEH-01). Two notes remain:
@@ -484,3 +489,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records SKL-011 v1's build and evaluation: the unit and structural tests, the reviews, the cheap pass, the live prototype, the one-run suite, the qualification (QR-03 met), the trigger cases and the manual VER-08 (pass) | §9, blockquote |
 | 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 item 7 records the build's open notes, as Bryan decided in the end-of-workflow review | §13 |
 | 3 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: SKL-011 v1 approved by Bryan, merged in PR #75 (`fae4f64`) and deployed as plugin 0.19.0 on 2026-10-04 (§9, blockquote) | §9, blockquote |
+| 3 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records that SPEC-013 version 14 pauses a run on a Skill-tool load, for this spec's next version | §13 |

@@ -844,6 +844,19 @@ class SpecRules(Base):
             self.assertEqual((self.step(state, n)["state"], self.step(state, n)["note"]), ("pending", "not reached"))
         self.assertEqual(state["counts"]["afterEnd"], 2)
 
+    # VER-42 (version 13): run-end returned closes a nested run like any end.
+    def test_ver42_returned(self):
+        events_v = schema_validator("events")
+        base = {"run": "20261002T120000Z-architecture-0000abcd", "seq": 2, "time": "2026-10-02T12:00:02Z",
+                "kind": "run-end"}
+        self.assertEqual(list(events_v.iter_errors(dict(base, reason="returned"))), [])
+        state, _, _, _ = self.run_case("arch-returned")
+        self.assertEqual(state["ended"], "returned")
+        self.assertEqual(state["flags"], [])
+        for n in range(5, 12):
+            self.assertEqual((self.step(state, n)["state"], self.step(state, n)["note"]), ("pending", "not reached"))
+        self.assertEqual(state["counts"]["afterEnd"], 1)
+
 class SpecRulesUnderS(SpecRules):
     """Every SpecRules test with the evaluator under python3 -S (VER-18, QR-01)."""
     INTERPRETER = (sys.executable, "-S", "-B")

@@ -798,6 +798,13 @@ def _():
     return arch_waived("proceed", step8_answer=True)
 
 
+@case("arch-returned")  # VER-42 (version 13): a nested run that hands back ends as returned
+def _():
+    log = following("architecture").started(1).bash(POLICY).reply("Proceeding.").done(1).started(2)
+    log.glob("docs/specs/prd/PRD-*.md").done(2).started(3).read("docs/specs/prd/PRD-001.md").done(3).started(4)
+    return log.end("returned").reply("Back to the brainstorm."), plugin_only(), {}
+
+
 @case("arch-stopped")  # VER-41 (version 12): Write nothing at step 8 ends the run as stopped
 def _():
     log = following("architecture").started(1).bash(POLICY).reply("Proceeding.").done(1).started(2)

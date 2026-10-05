@@ -2162,8 +2162,7 @@ test('VER-39: a headless session asks nothing', async ($, on) => {
   expect(ran).toEqual(['clear'])
 })
 
-// ---- version 13: the trail of return points (VER-41) ----
-
+// ---- version 14: pausing and resuming nested runs (VER-43, VER-44); version 13's VER-41 tests are replaced ----
 /** Tasks for steps 1..n (IDs from `first`), then step `marked` in progress. */
 async function taskList($: Any, n: number, marked: number, first = 1) {
   for (let i = 1; i <= n; i++) await $.tool.call({ tool: 'TaskCreate', subject: `${i}. Step ${i}`, description: 'd', metadata: { devforgeai_step: i } } as Any)
@@ -2194,154 +2193,947 @@ function skillCalls(): { tool: (e: Any) => Any; load: ($: Any, skill: string, ag
 function trailLog(w: World): string[] {
   return (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' trail: ')).map(l => l.split(' trail: ')[1])
 }
+const RETURN_7 = "This skill was loaded by architecture at step 7. When this skill's work is done, mark architecture's step 7 task in progress again and continue architecture at step 7."
 
-const RETURN_7 = "This skill was loaded by architecture at step 7. When this skill's work is done, continue architecture at step 7."
+/** A state of `skill` with `n` steps, `current` current (null: every step reached), `ended`, `flags`. */
+function skState(skill: string, n: number, current: number | null, ended: string | null = null, flags: Any[] = [], stoppable: number[] = []): Any {
+  const steps = Array.from({ length: n }, (_, i) => {
+    const k = i + 1
+    const state = current === null ? 'done' : k < current ? 'done' : k === current ? 'current' : 'pending'
+    return { n: k, title: `Step ${k}`, state, userOwned: stoppable.includes(k), ...(stoppable.includes(k) ? { stoppable: true } : {}) }
+  })
+  return { ...STATE, skill, current, ended, steps, flags }
+}
 
-test('VER-41: a skill Claude loads mid-run gets the return line; the run ends as before; the checklist is the text before it', async ($, on) => {
+/** A world for nested runs: Skill calls held open as Claude Code does, the evaluator answering by the run's skill. */
+function nestWorld(on: Any, states: Record<string, () => Any>, over: Over = {}, ask?: (e: Any) => Any) {
   const sk = skillCalls()
-  const w = world(on, { tool: sk.tool })
+  const w = world(on, { tool: (e: Any) => (ask && e.tool === 'AskUserQuestion' ? ask(e) : sk.tool(e)), ...over, evaluate: argv => {
+    const ev = argv[argv.indexOf('--events') + 1]
+    const skill = Object.keys(states).find(s => ev.includes(`-${s}-`))
+    return { state: skill ? states[skill]() : STATE }
+  } })
+  return { w, sk }
+}
+
+function logOf(w: World, skill: string, i = 0): Any[] {
+  return (runsOf(w, skill)[i] ?? []).map(l => JSON.parse(l))
+}
+
+const READ = (name: string) => ({ tool: 'Read', file_path: `${ROOT}/docs/${name}` } as Any)
+
+test('VER-43: a skill Claude loads mid-run pauses the open run and gets the return line', async ($, on) => {
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => skState('spec-lookup', 5, 2) })
   await start($)
   await load($, 'devforgeai:architecture', TAGGED)
   await taskList($, 11, 7)
+  await w.clock.advance(600)
   const text = await sk.load($, 'devforgeai:spec-lookup')
   expect(text.endsWith('\n\n' + RETURN_7)).toBe(true)
-  const arch = runsOf(w, 'architecture')[0].map(l => JSON.parse(l))
-  expect(arch[arch.length - 1]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
-  const loaded = JSON.parse(eventsOf(w, 'spec-lookup')[0])
-  expect(loaded.checklist.includes('This skill was loaded by')).toBe(false)
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)
+  expect(logOf(w, 'spec-lookup')[0].checklist.includes('This skill was loaded by')).toBe(false)
   expect(trailLog(w)).toEqual(['push architecture at step 7 (1 on the trail)'])
+  await $.tool.call(READ('a.md'))
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('spec-lookup 2/5 · in architecture 7/11')
+  expect(logOf(w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'tool', tool: 'Read' })
+  expect(logOf(w, 'architecture').some(e => e.path === 'docs/a.md')).toBe(false)
 })
 
-test('VER-41: re-marking the return step pops nothing; completing it, or touching another of its tasks, pops', async ($, on) => {
-  const sk = skillCalls()
-  const w = world(on, { tool: sk.tool })
-  await start($)
-  await load($, 'devforgeai:architecture', TAGGED)
-  await taskList($, 11, 7)
-  await sk.load($, 'devforgeai:spec-lookup')
-  await $.tool.call({ tool: 'TaskUpdate', taskId: '7', status: 'in_progress' } as Any)
-  await $.tool.call({ tool: 'TaskUpdate', taskId: '99', status: 'completed' } as Any)  // fails: pops nothing
-  expect(trailLog(w)).toEqual(['push architecture at step 7 (1 on the trail)'])
-  await $.tool.call({ tool: 'TaskUpdate', taskId: '7', status: 'completed' } as Any)
-  expect(trailLog(w).slice(-1)).toEqual(['pop architecture (0 on the trail)'])
-})
-
-test('VER-41: touching another task of the entry pops it', async ($, on) => {
-  const sk = skillCalls()
-  const w = world(on, { tool: sk.tool })
-  await start($)
-  await load($, 'devforgeai:architecture', TAGGED)
-  await taskList($, 11, 7)
-  await sk.load($, 'devforgeai:spec-lookup')
-  await $.tool.call({ tool: 'TaskUpdate', taskId: '8', status: 'in_progress' } as Any)
-  expect(trailLog(w).slice(-1)).toEqual(['pop architecture (0 on the trail)'])
-})
-
-test('VER-41: typed loads, subagent loads, untracked skills and runs without a task list add nothing; a typed load empties the trail', async ($, on) => {
-  const sk = skillCalls()
-  const w = world(on, { tool: sk.tool })
-  await start($)
-  await load($, 'devforgeai:architecture', TAGGED)
-  expect((await sk.load($, 'devforgeai:spec-lookup')).includes('This skill was loaded by')).toBe(false)  // no task list
-  await load($, 'devforgeai:architecture', TAGGED)
-  await taskList($, 11, 7)
-  expect((await sk.load($, 'devforgeai:spec-lookup', 'agent-1')).includes('This skill was loaded by')).toBe(false)  // subagent
-  await load($, 'devforgeai:architecture', TAGGED)
-  await taskList($, 11, 7, 12)
-  expect((await sk.load($, 'other:helper')).includes('This skill was loaded by')).toBe(false)  // not tracked
-  expect(await sk.load($, 'devforgeai:spec-lookup')).toContain(RETURN_7)
-  const typed = (await $.skill.prompt({ skill: 'devforgeai:prd', text: TAGGED })) as Any  // no Skill call in flight
-  expect(typed.text.includes('This skill was loaded by')).toBe(false)
-  expect(trailLog(w).slice(-1)).toEqual(['empty (a load with no Skill call of the main loop in flight)'])
-})
-
-test('VER-41: the trail stacks, holds each skill once, and a load of the open run\'s own skill adds nothing', async ($, on) => {
-  const sk = skillCalls()
-  const w = world(on, { tool: sk.tool })
-  await start($)
-  await load($, 'devforgeai:architecture', TAGGED)
-  await taskList($, 11, 7)
-  await sk.load($, 'devforgeai:prd')                 // architecture@7
-  await taskList($, 9, 4, 12)
-  await sk.load($, 'devforgeai:spec-lookup')         // prd@4
-  await taskList($, 5, 2, 21)
-  expect(await sk.load($, 'devforgeai:spec-lookup')).not.toContain('This skill was loaded by')  // its own skill
-  await taskList($, 5, 2, 26)                         // BEH-03 restarted spec-lookup's run: its list again
-  await sk.load($, 'devforgeai:architecture')        // architecture is on the trail: its entry and prd's go first
-  expect(trailLog(w)).toEqual([
-    'push architecture at step 7 (1 on the trail)',
-    'push prd at step 4 (2 on the trail)',
-    'drop architecture and 1 above (already on the trail)',
-    'push spec-lookup at step 2 (1 on the trail)',
-  ])
-})
-
-test('VER-41: a compaction with a trail ends with the return note, once, also after a second compaction', async ($, on) => {
-  const sk = skillCalls()
-  const w = world(on, { tool: sk.tool })
+test('VER-43: three nested loads give a trail of three; a load of the open run\'s own skill changes nothing', async ($, on) => {
+  const { w, sk } = nestWorld(on, { brainstorm: () => skState('brainstorm', 8, 4), architecture: () => archState(7),
+    prd: () => skState('prd', 9, 3), 'spec-lookup': () => skState('spec-lookup', 5, 2) })
   await start($)
   await load($, 'devforgeai:brainstorm', TAGGED)
   await taskList($, 8, 4)
-  await sk.load($, 'devforgeai:architecture')        // brainstorm@4
+  await w.clock.advance(600)
+  await sk.load($, 'devforgeai:architecture')
   await taskList($, 11, 7, 9)
-  await sk.load($, 'devforgeai:spec-lookup')         // architecture@7
+  await w.clock.advance(600)
+  await sk.load($, 'devforgeai:prd')
+  await taskList($, 9, 3, 20)
+  await w.clock.advance(600)
+  await sk.load($, 'devforgeai:spec-lookup')
+  await taskList($, 5, 2, 29)
+  expect(await sk.load($, 'devforgeai:spec-lookup')).not.toContain('This skill was loaded by')
+  expect(runsOf(w, 'spec-lookup').length).toBe(1)
+  await $.tool.call(READ('b.md'))
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('spec-lookup 2/5 · in prd 3/9 · 2 more')
+})
+
+test('VER-43: a typed load ends the open run and every paused run; a Claude load that can\'t nest ends the open run only', async ($, on) => {
+  const { w, sk } = nestWorld(on, { brainstorm: () => skState('brainstorm', 8, 4), architecture: () => archState(1),
+    'spec-lookup': () => skState('spec-lookup', 5, 2), prd: () => skState('prd', 9, 1) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await sk.load($, 'devforgeai:architecture')        // brainstorm paused
+  await sk.load($, 'devforgeai:spec-lookup')         // architecture keeps no task list: it ends, brainstorm stays paused
+  expect(logOf(w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(logOf(w, 'brainstorm').some(e => e.kind === 'run-end')).toBe(false)
+  await $.skill.prompt({ skill: 'devforgeai:prd', text: TAGGED })   // typed: no Skill call in flight
+  expect(logOf(w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(logOf(w, 'brainstorm').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(trailLog(w).slice(-1)[0]).toBe('empty (a load with no Skill call of the main loop in flight)')
+})
+
+test('VER-43: a subagent\'s Skill call and an untracked skill pause nothing; a load that isn\'t Claude\'s ends the open run and the paused ones', async ($, on) => {
+  const { w, sk } = nestWorld(on, { brainstorm: () => skState('brainstorm', 8, 4), architecture: () => archState(7) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await sk.load($, 'devforgeai:architecture')                      // brainstorm paused
+  await taskList($, 11, 7, 9)
+  expect(await sk.load($, 'other:helper')).not.toContain('This skill was loaded by')
+  expect(trailLog(w)).toEqual(['push brainstorm at step 4 (1 on the trail)'])
+  expect(logOf(w, 'brainstorm').some(e => e.kind === 'run-end')).toBe(false)   // paused, not ended
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)
+  expect(await sk.load($, 'devforgeai:spec-lookup', 'agent-1')).not.toContain('This skill was loaded by')
+  expect(logOf(w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(logOf(w, 'brainstorm').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+})
+
+test('VER-43: a TaskCreate under way when the load comes records its task in the run open when it lands', async ($, on) => {
+  let hold: (() => void) | null = null
+  const inner = skillCalls()
+  const w = world(on, { tool: (e: Any) => {
+    if (e.tool === 'TaskCreate' && e.subject === '9. Late') return new Promise(r => { hold = () => r({ result: { task: { id: '50' } }, text: 'Task #50 created successfully: 9. Late' }) })
+    return inner.tool(e)
+  } })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  const late = $.tool.call({ tool: 'TaskCreate', subject: '9. Late', description: 'd', metadata: { devforgeai_step: 9 } } as Any)
+  for (let i = 0; i < 50; i++) await Promise.resolve()
+  const loading = inner.load($, 'devforgeai:spec-lookup')   // may wait up to 2 s for the TaskCreate under way (BEH-29)
+  for (let i = 0; i < 50; i++) await Promise.resolve()
+  await w.clock.advance(2500)
+  hold?.()
+  await loading
+  await late
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)               // paused
+  expect(logOf(w, 'architecture').some(e => e.tool === 'TaskCreate' && e.seq > 13)).toBe(false)
+  expect(logOf(w, 'spec-lookup').some(e => e.tool === 'TaskCreate')).toBe(true)              // recorded where it landed
+})
+
+test('VER-43: a compaction while nested ends with the return note once; a second session.start keeps the trail', async ($, on) => {
+  const { w, sk } = nestWorld(on, { brainstorm: () => skState('brainstorm', 8, 4), architecture: () => archState(7) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await sk.load($, 'devforgeai:architecture')
+  await taskList($, 11, 7, 9)
+  await sk.load($, 'devforgeai:spec-lookup')
+  expect(logOf(w, 'brainstorm').some(e => e.kind === 'run-end') || logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)
   const note = 'Return points (from the progress tracker): when spec-lookup is done, continue architecture at step 7; then brainstorm at step 4.'
   const out = (await ($ as Any).session.compact({ trigger: 'manual', instructions: '', messages: TALK })) as Any
   expect(out.messages.filter((m: Any) => m.text === note).length).toBe(1)
+  await start($)
   const again = (await ($ as Any).session.compact({ trigger: 'manual', instructions: '', messages: [...out.messages] })) as Any
   expect(again.messages.filter((m: Any) => m.text === note).length).toBe(1)
   expect(w.compactIn.length).toBe(2)
 })
 
-test('VER-41: a subagent turn.start keeps the main loop\'s Skill call in flight', async ($, on) => {
-  const sk = skillCalls()
-  const w = world(on, { tool: sk.tool })
+test('VER-44: once the nested run has worked, re-marking the outer\'s step resumes it; before, nothing', async ($, on) => {
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => skState('spec-lookup', 5, 2) })
   await start($)
   await load($, 'devforgeai:architecture', TAGGED)
   await taskList($, 11, 7)
-  await sk.load($, 'devforgeai:spec-lookup', undefined, async () => {
-    await $.turn.start({ turnId: 't2', agentId: 'agent-1' } as Any)  // a subagent's turn while the call is held open
-  })
+  await w.clock.advance(600)
+  await sk.load($, 'devforgeai:spec-lookup')
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '7', status: 'in_progress' } as Any)   // nothing done yet
   expect(trailLog(w)).toEqual(['push architecture at step 7 (1 on the trail)'])
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '2', status: 'in_progress' } as Any)      // fails (taskTools), a task of the paused run
+  await $.tool.call({ tool: 'TodoWrite', todos: [] } as Any)                             // never resumes
+  await $.tool.call(READ('c.md'))
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '7', status: 'in_progress' } as Any)
+  expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
+  expect(logOf(w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'returned' })
+  const arch = logOf(w, 'architecture')
+  expect(arch.slice(-2).map(e => [e.kind, e.tool ?? e.step])).toEqual([['tool', 'TaskUpdate'], ['step', 7]])
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('architecture 7/11')
 })
 
+test('VER-44: a stop of the nested run resumes the run beneath and keeps it in returned as stopped', async ($, on) => {
+  const { w, sk } = nestWorld(on, { brainstorm: () => skState('brainstorm', 8, 4),
+    architecture: () => skState('architecture', 11, 8, null, [], [8]) }, {}, answering({ 'Outcome?': 'Write nothing' }))
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await sk.load($, 'devforgeai:architecture')
+  await w.clock.advance(600)
+  const ask = { tool: 'AskUserQuestion', questions: [{ question: 'Outcome?', header: 'Step 8', multiSelect: false,
+    options: [{ label: 'Confirm amend', description: 'd' }, { label: 'Write nothing', description: 'd' }] }], metadata: { source: 'devforgeai_step:8' } }
+  await $.tool.call(ask as Any)
+  expect(logOf(w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'stopped' })
+  expect(trailLog(w).slice(-1)[0]).toBe('unwind to brainstorm at step 4 (1 returned, 0 on the trail)')
+})
 
-test('VER-41: after a nested load, the new run is the open one: the Skill call records nothing in either run', async ($, on) => {
-  const sk = skillCalls()
-  const w = world(on, { tool: sk.tool, mode: 'enforce local' })
+test('VER-44: at an answered turn\'s end, a nested run with every step reached resumes the run beneath; aborted, nothing', async ($, on) => {
+  let inner: Any = skState('spec-lookup', 5, 3)
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => inner })
   await start($)
   await load($, 'devforgeai:architecture', TAGGED)
   await taskList($, 11, 7)
   await sk.load($, 'devforgeai:spec-lookup')
-  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/docs/x.md` } as Any)
-  const look = eventsOf(w, 'spec-lookup').map(l => JSON.parse(l))
-  expect(look.some(e => e.tool === 'Skill')).toBe(false)
-  expect(look[look.length - 1]).toMatchObject({ kind: 'tool', tool: 'Read' })
-  const arch = runsOf(w, 'architecture')[0].map(l => JSON.parse(l))
-  expect(arch[arch.length - 1]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  inner = skState('spec-lookup', 5, null)
+  await $.tool.call(READ('d.md'))
+  await turnEndFor($, 'aborted')
+  expect(trailLog(w).length).toBe(1)
+  await turnEndFor($, 'answer')
+  expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
+  expect(logOf(w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'turn', phase: 'end' })
 })
 
-test('VER-41: a run with no marked and no current step adds no return point', async ($, on) => {
-  const sk = skillCalls()
-  const w = world(on, { tool: sk.tool, evaluate: () => ({ state: { ...STATE, current: null } }) })
-  await start($)
-  await load($, 'devforgeai:architecture', TAGGED)
-  await $.tool.call({ tool: 'TaskCreate', subject: '1. Step 1', description: 'd', metadata: { devforgeai_step: 1 } } as Any)
-  await w.clock.advance(600)
-  expect(await sk.load($, 'devforgeai:spec-lookup')).not.toContain('This skill was loaded by')
-  expect(trailLog(w)).toEqual([])
-})
-
-test('VER-41: the note comes for a run that doesn\'t follow the task list, and not with no run open', async ($, on) => {
-  const sk = skillCalls()
-  const w = world(on, { tool: sk.tool })
+test('VER-44: a Claude load of a paused run\'s skill unwinds to it and opens no run', async ($, on) => {
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => skState('spec-lookup', 5, 2) })
   await start($)
   await load($, 'devforgeai:architecture', TAGGED)
   await taskList($, 11, 7)
-  await sk.load($, 'other:helper')                      // not tracked: no run switch, architecture stays open
-  await sk.load($, 'devforgeai:spec-lookup')            // spec-lookup's run keeps no task list
-  const note = 'Return points (from the progress tracker): when spec-lookup is done, continue architecture at step 7.'
-  const out = (await ($ as Any).session.compact({ trigger: 'manual', instructions: '', messages: TALK })) as Any
-  expect(out.messages.filter((m: Any) => m.text === note).length).toBe(1)
-  expect(w.compactIn.length).toBe(1)
+  await sk.load($, 'devforgeai:spec-lookup')
+  expect(await sk.load($, 'devforgeai:architecture')).not.toContain('This skill was loaded by')
+  expect(runsOf(w, 'architecture').length).toBe(1)
+  expect(logOf(w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'returned' })
+  await $.tool.call(READ('e.md'))
+  expect(logOf(w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'tool', path: 'docs/e.md' })
+})
+
+test('VER-44: a returned run with an item is reviewed at the turn\'s end, before the open run\'s own review', async ($, on) => {
+  const asked: string[] = []
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => skState('spec-lookup', 5, 2, null, [FLAG8]) },
+    {}, reviewing(['Accept'], asked))
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await sk.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('f.md'))
+  await w.clock.advance(600)                                        // spec-lookup's state, with its flag, is evaluated
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '7', status: 'in_progress' } as Any)
+  await turnEndFor($, 'answer')
+  expect(asked.length).toBe(1)
+  expect(asked[0].startsWith('spec-lookup run, item 1 of 1: flagged at step 8')).toBe(true)
+  expect(runFiles(w, 'review.jsonl').some(p => p.includes('-spec-lookup-'))).toBe(true)
+})
+
+test('VER-44: session.end with a trail of two ends every run, bottom first', async ($, on) => {
+  const { w, sk } = nestWorld(on, { brainstorm: () => skState('brainstorm', 8, 4), architecture: () => archState(7) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await sk.load($, 'devforgeai:architecture')
+  await taskList($, 11, 7, 9)
+  await sk.load($, 'devforgeai:spec-lookup')
+  await $.session.end({ reason: 'resume', sessionId: 's1', resume: { id: 's1' } } as Any)
+  for (const s of ['brainstorm', 'architecture', 'spec-lookup']) {
+    expect(logOf(w, s).slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'session-end' })
+  }
+  const times = ['brainstorm', 'architecture', 'spec-lookup'].map(s => w.writes.lastIndexOf(runFiles(w, 'events.jsonl').find(p => p.includes(`-${s}-`))!))
+  expect(times[0] < times[1] && times[1] < times[2]).toBe(true)
+})
+
+test('VER-44: /clear while nested asks the nested question and keeps with the nested text', async ($, on) => {
+  const asked: string[] = []
+  const ran: string[] = []
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => skState('spec-lookup', 5, 2) },
+    {}, confirming('Keep working', asked))
+  commands(on, ran)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await sk.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('g.md'))
+  await w.clock.advance(600)
+  const kept = (await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)) as Any
+  expect(asked).toEqual(['spec-lookup run is at step 2 of 5 and unfinished (architecture paused at step 7). Clear anyway?'])
+  expect(kept.text).toBe('Kept working: the spec-lookup run goes on, and architecture is still paused at step 7.')
+  expect(ran).toEqual([])
+})
+
+// ---- version 14, the clauses of VER-43 and VER-44 the first thirteen tests leave out ----
+// Helpers are prefixed x so they can't clash with the drafted file's.
+
+const xSettle = async () => { for (let i = 0; i < 50; i++) await Promise.resolve() }
+
+const xReturn = (skill: string, step: number) =>
+  `This skill was loaded by ${skill} at step ${step}. When this skill's work is done, mark ${skill}'s step ${step} task in progress again and continue ${skill} at step ${step}.`
+
+const XSFLAG = { gate: 'write', seq: 40, step: 3, type: 'skipped', message: 'step 3 (Step 3) had no answer from you before docs/x.md was written' }
+const XAFLAG = { gate: 'write', seq: 41, step: 7, type: 'skipped', message: 'step 7 (Step 7) had no answer from you before docs/y.md was written' }
+const XBFLAG = { gate: 'report', seq: 42, step: 2, type: 'skipped', message: 'step 2 (Step 2) had no answer from you' }
+
+/**
+ * A world for nested runs whose tool calls can be held open: the Skill call (as skillCalls() does), a Read of
+ * slow.md, the TaskCreate '3. Late' and a TaskUpdate whose activeForm starts with HOLD (the key). `route` answers a
+ * call first (undefined passes it on), so tool answers go through world()'s over.tool and never a second
+ * on('tool.call'). `load` runs the Skill call and the skill.prompt inside it; `before` runs after the call is
+ * dispatched and before skill.prompt fires, `mid` while skill.prompt is pending.
+ */
+function xWorld(on: Any, states: Record<string, () => Any>, route?: (e: Any) => Any, over: Over = {}) {
+  const sk = skillCalls()
+  const held = new Map<string, () => void>()
+  let releaseSkill: (() => void) | null = null
+  const tool = (e: Any): Any => {
+    if (e.tool === 'Skill') return new Promise(r => { releaseSkill = () => r({ result: 'Launching skill' }) })
+    const key = e.tool === 'Read' && String(e.file_path).endsWith('/slow.md') ? 'read'
+      : e.tool === 'TaskCreate' && e.subject === '3. Late' ? 'create'
+      : e.tool === 'TaskUpdate' && String(e.activeForm ?? '').startsWith('HOLD') ? String(e.activeForm) : null
+    if (key !== null) {
+      return new Promise(r => held.set(key, () => r(key === 'create'
+        ? { result: { task: { id: '50' } }, text: 'Task #50 created successfully: 3. Late' } : { result: 'ok' })))
+    }
+    return route?.(e) ?? sk.tool(e)
+  }
+  const w = world(on, Object.assign(over, { tool, evaluate: (argv: readonly string[]) => {
+    const ev = argv[argv.indexOf('--events') + 1]
+    const skill = Object.keys(states).find(s => ev.includes(`-${s}-`))
+    return { state: skill ? states[skill]() : STATE }
+  } }))
+  return {
+    w,
+    release: (key: string) => held.get(key)?.(),
+    async load($: Any, skill: string, hooks: { before?: () => Promise<void>; mid?: () => Promise<void> } = {}): Promise<string> {
+      const call = $.tool.call({ tool: 'Skill', skill } as Any)
+      await xSettle()
+      await hooks.before?.()
+      const prompt = $.skill.prompt({ skill, text: TAGGED }) as Promise<Any>
+      await xSettle()
+      await hooks.mid?.()
+      const out = await prompt
+      releaseSkill?.()
+      await call
+      return out.text
+    },
+  }
+}
+
+type XWorld = ReturnType<typeof xWorld>
+
+const xStates = () => ({
+  architecture: () => archState(7),
+  'spec-lookup': () => skState('spec-lookup', 5, 2),
+})
+
+/** An architecture run at step 7 paused by spec-lookup, which has recorded a Read: where VER-44's unwinds start. */
+async function xNested($: Any, x: XWorld) {
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await x.w.clock.advance(600)
+  await x.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('worked.md'))
+}
+
+const xTaskUpdate = (taskId: string, status: string, extra: Any = {}) => ({ tool: 'TaskUpdate', taskId, status, ...extra } as Any)
+
+function xRuleEnds(w: World, skill: string): Any[] {
+  return logOf(w, skill).filter(e => e.kind === 'run-end')
+}
+
+/** Position of the last write of a run's log: the order the run-ends were written in. */
+function xLastWrite(w: World, skill: string): number {
+  return w.writes.lastIndexOf(runFiles(w, 'events.jsonl').find(p => p.includes(`-${skill}-`))!)
+}
+
+// -- pausing --
+
+test('VER-43: the band\'s row 1 ends with \' (paused: architecture at step 7)\'', async ($, on) => {
+  const x = xWorld(on, xStates())
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await x.w.clock.advance(600)
+  await x.load($, 'devforgeai:spec-lookup')
+  await x.w.clock.advance(600)
+  const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal' })
+  const row = await ui.find({ type: 'Text', text: /spec-lookup/ })
+  expect(row).toBeDefined()
+  const text = String(row.children.join(''))
+  expect(text).toContain('step 2 of 5: Step 2')
+  expect(text.endsWith(' (paused: architecture at step 7)')).toBe(true)
+  await ui.unmount()
+})
+
+test('VER-43: with three runs the band names the run just beneath and counts the rest', async ($, on) => {
+  const x = xWorld(on, { brainstorm: () => skState('brainstorm', 8, 4), ...xStates() })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await x.w.clock.advance(600)
+  await x.load($, 'devforgeai:architecture')
+  await taskList($, 11, 7, 9)
+  await x.w.clock.advance(600)
+  await x.load($, 'devforgeai:spec-lookup')
+  await x.w.clock.advance(600)
+  expect(x.w.statuses[x.w.statuses.length - 1]).toBe('spec-lookup 2/5 · in architecture 7/11 · 1 more')
+  const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal' })
+  const row = await ui.find({ type: 'Text', text: /spec-lookup/ })
+  const text = String(row.children.join(''))
+  expect(text).toContain('(paused: architecture at step 7')
+  expect(text).toContain('1 more')
+  await ui.unmount()
+})
+
+test('VER-43: the status line names a paused run with no saved summary as \' · in <skill> <step>\'', async ($, on) => {
+  const x = xWorld(on, xStates())
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)                           // no evaluation of architecture yet: its summary is empty
+  await x.load($, 'devforgeai:spec-lookup')
+  await x.w.clock.advance(600)
+  expect(x.w.statuses[x.w.statuses.length - 1]).toBe('spec-lookup 2/5 · in architecture 7')
+})
+
+test('VER-43: a Read and a TaskCreate of the Skill call\'s batch record in the run open when each lands; the Skill call itself in neither', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  const read = $.tool.call({ tool: 'Read', file_path: `${ROOT}/docs/slow.md` } as Any)   // hook begun before the load
+  await xSettle()
+  let late: Any
+  await x.load($, 'devforgeai:spec-lookup', {
+    before: async () => {   // a TaskCreate under way: the load waits for it, but only up to 2 seconds (BEH-29)
+      late = $.tool.call({ tool: 'TaskCreate', subject: '3. Late', description: 'd', metadata: { devforgeai_step: 3 } } as Any)
+      await xSettle()
+    },
+    mid: async () => { await w.clock.advance(2000) },
+  })
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
+  expect(trailLog(w)).toEqual(['push architecture at step 7 (1 on the trail)'])
+  x.release('create')
+  x.release('read')
+  await late
+  await read
+  const arch = logOf(w, 'architecture')
+  const look = logOf(w, 'spec-lookup')
+  expect(arch.filter(e => e.tool === 'TaskCreate').length).toBe(11)
+  expect(arch.some(e => e.path === 'docs/slow.md')).toBe(false)
+  expect(look.filter(e => e.tool === 'TaskCreate').length).toBe(1)
+  expect(look.some(e => e.path === 'docs/slow.md')).toBe(true)
+  // the new task is in spec-lookup's map: marking it gives a step event in that run, and unwinds nothing
+  await $.tool.call(xTaskUpdate('50', 'in_progress'))
+  expect(logOf(w, 'spec-lookup').some(e => e.kind === 'step' && e.step === 3 && e.state === 'started')).toBe(true)
+  expect(logOf(w, 'architecture').some(e => e.kind === 'step' && e.step === 3)).toBe(false)
+  expect(trailLog(w).length).toBe(1)
+  expect([...arch, ...logOf(w, 'spec-lookup')].some(e => e.tool === 'Skill')).toBe(false)
+})
+
+test('VER-43: a TaskUpdate of the Skill call\'s batch, under way when the load comes, sets the return step', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 6)                       // the list marks step 6
+  await w.clock.advance(600)
+  const text = await x.load($, 'devforgeai:spec-lookup', {
+    before: async () => {   // 'mark step 8 and load the skill' in one message
+      void $.tool.call(xTaskUpdate('8', 'in_progress', { activeForm: 'HOLD-A' }))
+      await xSettle()
+    },
+    mid: async () => { x.release('HOLD-A'); await xSettle() },
+  })
+  expect(text.endsWith('\n\n' + xReturn('architecture', 8))).toBe(true)
+  expect(trailLog(w)).toEqual(['push architecture at step 8 (1 on the trail)'])
+  expect(logOf(w, 'architecture').some(e => e.kind === 'step' && e.step === 8 && e.state === 'started')).toBe(true)
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
+})
+
+test('VER-43: a run with no known return step pauses nothing, and leaves the runs beneath paused', async ($, on) => {
+  const x = xWorld(on, { brainstorm: () => skState('brainstorm', 8, 4),
+    architecture: () => ({ ...STATE, skill: 'architecture', current: null, steps: [] }),
+    'spec-lookup': () => skState('spec-lookup', 5, 2) })
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await w.clock.advance(600)
+  await x.load($, 'devforgeai:architecture')         // brainstorm paused at step 4
+  await $.tool.call({ tool: 'TaskCreate', subject: '1. Step 1', description: 'd', metadata: { devforgeai_step: 1 } } as Any)
+  await w.clock.advance(600)                         // architecture: task IDs, but no step marked and none current
+  expect(await x.load($, 'devforgeai:spec-lookup')).not.toContain('This skill was loaded by')
+  expect(xRuleEnds(w, 'architecture').map(e => e.reason)).toEqual(['another-skill'])
+  expect(xRuleEnds(w, 'brainstorm')).toEqual([])
+  expect(trailLog(w)).toEqual(['push brainstorm at step 4 (1 on the trail)'])
+  await $.tool.call(READ('n.md'))
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('spec-lookup 2/5 · in brainstorm 4/8')
+})
+
+test('VER-43: a second session.start keeps the trail and the open run, and the unwind still works', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await xNested($, x)
+  const before = logOf(w, 'spec-lookup').slice(-1)[0].seq
+  await start($)                                      // as after a reload (the kit can't reload the module itself)
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('spec-lookup 2/5 · in architecture 7/11')
+  await $.tool.call(READ('after-reload.md'))
+  expect(logOf(w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'tool', path: 'docs/after-reload.md', seq: before + 1 })
+  expect(runsOf(w, 'spec-lookup').length).toBe(1)
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
+  await $.tool.call(xTaskUpdate('7', 'in_progress'))
+  expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
+})
+
+test('VER-43: a load whose new run\'s log can\'t be written stops tracking (ERR-03): no push, no run-end, the trail emptied', async ($, on) => {
+  const x = xWorld(on, xStates(), undefined, { failWrite: p => p.includes('-spec-lookup-') })
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  await x.load($, 'devforgeai:spec-lookup')
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
+  expect(trailLog(w).some(l => l.startsWith('push'))).toBe(false)
+  expect(w.statuses.includes('progress: off (cannot write devforgeai/progress)')).toBe(true)
+})
+
+// -- unwinding --
+
+test('VER-44: a failed TaskUpdate of a paused run\'s task resumes nothing; completing task 7 resumes, in the next seq', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  const last = logOf(w, 'architecture').slice(-1)[0].seq
+  await x.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('worked.md'))
+  await $.tool.call(xTaskUpdate('2', 'in_progress'))   // the stub fails this one: task 2 is architecture's
+  expect(trailLog(w)).toEqual(['push architecture at step 7 (1 on the trail)'])
+  expect(xRuleEnds(w, 'spec-lookup')).toEqual([])
+  await $.tool.call(xTaskUpdate('7', 'completed'))
+  expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
+  expect(xRuleEnds(w, 'spec-lookup').map(e => e.reason)).toEqual(['returned'])
+  const arch = logOf(w, 'architecture')
+  expect(arch.slice(last).map(e => [e.seq, e.kind, e.tool ?? e.step, e.state ?? null])).toEqual([
+    [last + 1, 'tool', 'TaskUpdate', null], [last + 2, 'step', 7, 'done'],
+  ])
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('architecture 7/11')
+})
+
+test('VER-44: touching another of the paused run\'s tasks (task 8) resumes it', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await xNested($, x)
+  await $.tool.call(xTaskUpdate('8', 'in_progress'))
+  expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
+  expect(xRuleEnds(w, 'spec-lookup').map(e => e.reason)).toEqual(['returned'])
+  const arch = logOf(w, 'architecture')
+  expect(arch.slice(-2).map(e => [e.kind, e.tool ?? e.step, e.state ?? null])).toEqual([['tool', 'TaskUpdate', null], ['step', 8, 'started']])
+})
+
+test('VER-44: a second TaskUpdate of a batch whose hooks began before the load resumes nothing', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 6)
+  await w.clock.advance(600)
+  // [TaskUpdate 7, TaskUpdate 8, Skill]: the first is recorded before the load, the second outlasts the wait
+  const text = await x.load($, 'devforgeai:spec-lookup', {
+    before: async () => {
+      void $.tool.call(xTaskUpdate('7', 'in_progress', { activeForm: 'HOLD-A' }))
+      void $.tool.call(xTaskUpdate('8', 'in_progress', { activeForm: 'HOLD-B' }))
+      await xSettle()
+    },
+    mid: async () => { x.release('HOLD-A'); await xSettle(); await w.clock.advance(2000) },
+  })
+  expect(text.endsWith('\n\n' + xReturn('architecture', 7))).toBe(true)
+  x.release('HOLD-B')
+  await xSettle()
+  await w.clock.advance(600)
+  expect(trailLog(w)).toEqual(['push architecture at step 7 (1 on the trail)'])
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
+  expect(xRuleEnds(w, 'spec-lookup')).toEqual([])
+  expect(logOf(w, 'spec-lookup').some(e => e.tool === 'TaskUpdate')).toBe(true)   // recorded in the run open when it landed
+  expect(w.statuses[w.statuses.length - 1]).toBe('spec-lookup 2/5 · in architecture 7/11')
+  // the nested run works, and then the same TaskUpdate resumes: it was the batch that didn't count
+  await $.tool.call(READ('worked.md'))
+  await $.tool.call(xTaskUpdate('7', 'in_progress'))
+  expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
+})
+
+test('VER-44: two TaskUpdates of the paused run\'s tasks in one batch resume it once', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await xNested($, x)
+  await Promise.all([$.tool.call(xTaskUpdate('7', 'completed')), $.tool.call(xTaskUpdate('8', 'in_progress'))])
+  expect(trailLog(w).filter(l => l.startsWith('unwind'))).toEqual(['unwind to architecture at step 7 (1 returned, 0 on the trail)'])
+  expect(xRuleEnds(w, 'spec-lookup').length).toBe(1)
+  expect(logOf(w, 'spec-lookup').filter(e => e.tool === 'TaskUpdate').length).toBe(0)
+  expect(logOf(w, 'architecture').filter(e => e.tool === 'TaskUpdate').length).toBe(3)   // the mark, and these two
+})
+
+test('VER-44: a Claude load of a paused run\'s skill from two levels up unwinds to it, the runs above returned top first, no run opened', async ($, on) => {
+  const x = xWorld(on, { brainstorm: () => skState('brainstorm', 8, 4), ...xStates() })
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await x.load($, 'devforgeai:architecture')
+  await taskList($, 11, 7, 9)
+  await x.load($, 'devforgeai:spec-lookup')
+  expect(await x.load($, 'devforgeai:brainstorm')).not.toContain('This skill was loaded by')
+  expect(runsOf(w, 'brainstorm').length).toBe(1)
+  expect(xRuleEnds(w, 'spec-lookup').map(e => e.reason)).toEqual(['returned'])
+  expect(xRuleEnds(w, 'architecture').map(e => e.reason)).toEqual(['returned'])
+  expect(xRuleEnds(w, 'brainstorm')).toEqual([])
+  expect(xLastWrite(w, 'spec-lookup') < xLastWrite(w, 'architecture')).toBe(true)
+  expect(trailLog(w).slice(-1)[0].startsWith('unwind to brainstorm at step 4')).toBe(true)
+  await $.tool.call(READ('b.md'))
+  expect(logOf(w, 'brainstorm').slice(-1)[0]).toMatchObject({ kind: 'tool', path: 'docs/b.md' })
+})
+
+test('VER-44: an answered turn\'s end unwinds one level, whatever the runs beneath show', async ($, on) => {
+  let inner: Any = skState('spec-lookup', 5, 2)
+  let mid: Any = archState(7)
+  const x = xWorld(on, { brainstorm: () => skState('brainstorm', 8, null), architecture: () => mid, 'spec-lookup': () => inner })
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await x.load($, 'devforgeai:architecture')
+  await taskList($, 11, 7, 9)
+  await x.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('one.md'))
+  inner = skState('spec-lookup', 5, null)
+  mid = archState(null)                               // architecture, once open, shows every step reached too
+  await w.clock.advance(600)
+  await turnEndFor($, 'answer')
+  expect(trailLog(w).filter(l => l.startsWith('unwind'))).toEqual(['unwind to architecture at step 7 (1 returned, 1 on the trail)'])
+  expect(xRuleEnds(w, 'brainstorm')).toEqual([])
+  await w.clock.advance(600)
+  await turnEndFor($, 'answer')
+  const unwinds = trailLog(w).filter(l => l.startsWith('unwind'))
+  expect(unwinds.length).toBe(2)
+  expect(unwinds[1].startsWith('unwind to brainstorm at step 4')).toBe(true)
+})
+
+test('VER-44: returned runs with an item are reviewed top first, then the open run\'s own review, each answer in its own review.jsonl', async ($, on) => {
+  const asked: string[] = []
+  const rv = reviewing(['Accept', 'Accept', 'Accept'], asked)
+  let spec: Any = skState('spec-lookup', 5, 2, null, [XSFLAG])   // returned before every step was reached
+  let arch: Any = archState(7, null, [XAFLAG])
+  let brain: Any = skState('brainstorm', 8, 4)
+  const x = xWorld(on, { brainstorm: () => brain, architecture: () => arch, 'spec-lookup': () => spec },
+    e => (e.questions?.[0]?.header === 'Review' ? rv(e) : undefined))
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await x.load($, 'devforgeai:architecture')
+  await taskList($, 11, 7, 9)
+  await x.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('r.md'))
+  await $.tool.call(xTaskUpdate('4', 'in_progress'))     // Claude is back in brainstorm: both runs above return
+  expect(trailLog(w).slice(-1)[0].startsWith('unwind to brainstorm at step 4')).toBe(true)
+  brain = skState('brainstorm', 8, null, null, [XBFLAG])  // the open run has every step reached and an item too
+  await w.clock.advance(600)
+  await turnEnd($)
+  const tail = ' (write gate): '
+  expect(asked).toEqual([
+    `spec-lookup run, item 1 of 1: flagged at step 3${tail}${XSFLAG.message}. Accept it, or challenge it?`,
+    `architecture run, item 1 of 1: flagged at step 7${tail}${XAFLAG.message}. Accept it, or challenge it?`,
+    `brainstorm run, item 1 of 1: flagged at step 2 (report gate): ${XBFLAG.message}. Accept it, or challenge it?`,
+  ])
+  const files = runFiles(w, 'review.jsonl')
+  expect(files.length).toBe(3)
+  for (const s of ['spec-lookup', 'architecture', 'brainstorm']) {
+    const path = files.find(p => p.includes(`-${s}-`))
+    expect(path).toBeDefined()
+    expect(JSON.parse((w.files.get(path!) ?? '').split('\n').filter(Boolean)[0])).toMatchObject({ item: 1, answer: 'accept' })
+  }
+})
+
+test('VER-44: a stopped nested run is reviewed at the turn\'s end from returned', async ($, on) => {
+  const asked: string[] = []
+  const rv = reviewing(['Accept'], asked)
+  const x = xWorld(on, { brainstorm: () => skState('brainstorm', 8, 4),
+    architecture: () => skState('architecture', 11, 8, null, [FLAG8], [8]) },
+  e => (e.questions?.[0]?.header === 'Review' ? rv(e)
+    : e.tool === 'AskUserQuestion' ? { result: { questions: e.questions, answers: { [e.questions[0].question]: 'Write nothing' }, annotations: {} } }
+    : undefined))
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await x.load($, 'devforgeai:architecture')
+  await w.clock.advance(600)
+  const ask = { tool: 'AskUserQuestion', questions: [{ question: 'Outcome?', header: 'Step 8', multiSelect: false,
+    options: [{ label: 'Confirm amend', description: 'd' }, { label: 'Write nothing', description: 'd' }] }], metadata: { source: 'devforgeai_step:8' } }
+  await $.tool.call(ask as Any)
+  expect(xRuleEnds(w, 'architecture').map(e => e.reason)).toEqual(['stopped'])
+  expect(trailLog(w).slice(-1)[0].startsWith('unwind to brainstorm at step 4')).toBe(true)
+  expect(asked).toEqual([])
+  await turnEnd($)
+  expect(asked).toEqual([`architecture run, item 1 of 1: flagged at step 8 (write gate): ${FLAG8.message}. Accept it, or challenge it?`])
+  expect(runFiles(w, 'review.jsonl').some(p => p.includes('-architecture-'))).toBe(true)
+})
+
+test('VER-44: a returned run with no item asks nothing', async ($, on) => {
+  const asked: string[] = []
+  const rv = reviewing(['Accept'], asked)
+  const x = xWorld(on, xStates(), e => (e.questions?.[0]?.header === 'Review' ? rv(e) : undefined))
+  const { w } = x
+  await xNested($, x)
+  await $.tool.call(xTaskUpdate('7', 'in_progress'))
+  expect(xRuleEnds(w, 'spec-lookup').map(e => e.reason)).toEqual(['returned'])
+  await w.clock.advance(600)
+  await turnEnd($)
+  expect(asked).toEqual([])
+  expect(runFiles(w, 'review.jsonl')).toEqual([])
+  expect(w.toasts.some(t => t.includes('your review is in'))).toBe(false)
+})
+
+test('VER-44: with nothing drawing, returned entries are dropped unreviewed, and a later surface doesn\'t revive them', async ($, on) => {
+  const asked: string[] = []
+  const rv = reviewing(['Accept'], asked)
+  const over: Over = { surfaces: [] }
+  const x = xWorld(on, { architecture: () => archState(7), 'spec-lookup': () => skState('spec-lookup', 5, 2, null, [XSFLAG]) },
+    e => (e.questions?.[0]?.header === 'Review' ? rv(e) : undefined), over)
+  const { w } = x
+  await xNested($, x)
+  await $.tool.call(xTaskUpdate('7', 'in_progress'))
+  expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
+  await w.clock.advance(600)
+  await turnEnd($)
+  expect(asked).toEqual([])
+  expect(runFiles(w, 'review.jsonl')).toEqual([])
+  over.surfaces = ['terminal']
+  await start($)
+  await turnEnd($)
+  expect(asked).toEqual([])
+  expect(runFiles(w, 'review.jsonl')).toEqual([])
+})
+
+test('VER-44: a full log while nested empties the trail, and the paused run gets no run-end', { timeoutMs: 120000 }, async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await xNested($, x)
+  for (let i = 0; i < 200 && !w.statuses.includes('progress: off (event log full)'); i++) {
+    await $.tool.call({ tool: 'Bash', command: 'z'.repeat(30 * 1024) } as Any)
+  }
+  expect(w.statuses.includes('progress: off (event log full)')).toBe(true)
+  expect(trailLog(w).slice(-1)[0].startsWith('empty')).toBe(true)
+  await $.tool.call(xTaskUpdate('7', 'in_progress'))
+  expect(trailLog(w).some(l => l.startsWith('unwind'))).toBe(false)
+  await $.session.end({ reason: 'prompt_input_exit', sessionId: 's1', resume: { id: 's1' } } as Any)
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
+})
+
+test('VER-44: /clear with a trail ends the paused runs and the open run with clear, bottom first', async ($, on) => {
+  const x = xWorld(on, { brainstorm: () => skState('brainstorm', 8, 4), ...xStates() })
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await x.load($, 'devforgeai:architecture')
+  await taskList($, 11, 7, 9)
+  await x.load($, 'devforgeai:spec-lookup')
+  await $.session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } } as Any)
+  for (const s of ['brainstorm', 'architecture', 'spec-lookup']) expect(xRuleEnds(w, s).map(e => e.reason)).toEqual(['clear'])
+  expect(xLastWrite(w, 'brainstorm') < xLastWrite(w, 'architecture') && xLastWrite(w, 'architecture') < xLastWrite(w, 'spec-lookup')).toBe(true)
+})
+
+test('VER-44: /clear while nested names the runs beneath, says done or has just started, and keeps with the nested text', async ($, on) => {
+  const asked: string[] = []
+  const ran: string[] = []
+  let inner: Any = undefined  // the evaluator gives the new run no state yet
+  const x = xWorld(on, { brainstorm: () => skState('brainstorm', 8, 4), architecture: () => archState(7), 'spec-lookup': () => inner },
+    e => (e.questions?.[0]?.header === 'Progress' ? confirming('Keep working', asked)(e) : undefined))
+  const { w } = x
+  commands(on, ran)
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await x.load($, 'devforgeai:architecture')
+  await taskList($, 11, 7, 9)
+  await w.clock.advance(600)
+  await x.load($, 'devforgeai:spec-lookup')           // no state for the new run yet
+  const kept = (await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)) as Any
+  expect(kept.text).toBe('Kept working: the spec-lookup run goes on, and architecture is still paused at step 7.')
+  inner = skState('spec-lookup', 5, 2)
+  await $.tool.call(READ('c.md'))
+  await w.clock.advance(600)
+  await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)
+  inner = skState('spec-lookup', 5, null)
+  await $.tool.call(READ('d.md'))
+  await w.clock.advance(600)
+  await $.command.run({ command: 'exit', args: '', origin: COMPOSER } as Any)
+  expect(asked).toEqual([
+    'spec-lookup run has just started (architecture paused at step 7, 1 more paused). Clear anyway?',
+    'spec-lookup run is at step 2 of 5 and unfinished (architecture paused at step 7, 1 more paused). Clear anyway?',
+    'spec-lookup run is done (architecture paused at step 7, 1 more paused). Exit anyway?',
+  ])
+  expect(ran).toEqual([])
+})
+
+// -- both modes --
+
+test('VER-43/44: in enforce mode the run pauses, the nested run is checked on its own files, and the unwind resumes the outer', async ($, on) => {
+  const x = xWorld(on, xStates(), undefined, { mode: 'enforce local' })
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  const text = await x.load($, 'devforgeai:spec-lookup')
+  expect(text.endsWith('\n\n' + RETURN_7)).toBe(true)
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
+  await $.tool.call({ tool: 'Write', file_path: `${ROOT}/docs/n.md`, content: 'x' } as Any)
+  expect(runFiles(w, 'pending.jsonl').some(p => p.includes('-spec-lookup-'))).toBe(true)
+  expect(runFiles(w, 'pending.jsonl').some(p => p.includes('-architecture-'))).toBe(false)
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('spec-lookup 2/5 · in architecture 7/11 · enforce')
+  await $.tool.call(xTaskUpdate('7', 'completed'))
+  expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
+  expect(xRuleEnds(w, 'spec-lookup').map(e => e.reason)).toEqual(['returned'])
+  await $.tool.call({ tool: 'Write', file_path: `${ROOT}/docs/m.md`, content: 'x' } as Any)
+  expect(runFiles(w, 'pending.jsonl').some(p => p.includes('-architecture-'))).toBe(true)
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('architecture 7/11 · enforce')
+})
+
+test('VER-43/44: in observe mode the return line is added, nothing is refused, and the unwind works', async ($, on) => {
+  const x = xWorld(on, xStates(), undefined, { mode: 'observe local' })
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  const text = await x.load($, 'devforgeai:spec-lookup')
+  expect(text.endsWith('\n\n' + RETURN_7)).toBe(true)
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
+  const r = (await $.tool.call({ tool: 'Write', file_path: `${ROOT}/docs/n.md`, content: 'x' } as Any)) as Any
+  expect(r.deny).toBeUndefined()
+  expect(runFiles(w, 'pending.jsonl')).toEqual([])
+  await $.tool.call(xTaskUpdate('8', 'in_progress'))
+  expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('architecture 7/11')
+})
+
+// ---- after the build's adversarial review (2026-10-05) ----
+
+test('VER-44: a paused run whose log can no longer be read: session.end still ends the open run and empties the module', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await xNested($, x)
+  w.files.delete(runFiles(w, 'events.jsonl').find(p => p.includes('-architecture-'))!)   // its folder cleaned mid-session
+  await $.session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } } as Any)
+  expect(logOf(w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'clear' })
+  await $.tool.call(READ('after-clear.md'))
+  expect(logOf(w, 'spec-lookup').some(e => e.path === 'docs/after-clear.md')).toBe(false)
+})
+
+test('VER-43: a typed load while a paused run\'s log can\'t be read still ends the open run and opens the new one', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await xNested($, x)
+  w.files.delete(runFiles(w, 'events.jsonl').find(p => p.includes('-architecture-'))!)
+  await $.skill.prompt({ skill: 'devforgeai:prd', text: TAGGED })
+  expect(runsOf(w, 'prd').length).toBe(1)
+  expect(logOf(w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(trailLog(w).slice(-1)[0]).toBe('empty (a load with no Skill call of the main loop in flight)')
+})
+
+test('VER-44: a TaskUpdate whose hook began before the load resumes nothing, even after the nested run has worked', async ($, on) => {
+  const x = xWorld(on, xStates())
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 6)
+  await w.clock.advance(600)
+  let upd: Any
+  await x.load($, 'devforgeai:spec-lookup', {
+    before: async () => { upd = $.tool.call(xTaskUpdate('7', 'in_progress', { activeForm: 'HOLD-A' })); await xSettle() },
+    mid: async () => { await w.clock.advance(2000) },   // the TaskUpdate outlasts the load's wait
+  })
+  await $.tool.call(READ('later.md'))                    // began after the load: spec-lookup has worked
+  x.release('HOLD-A')
+  await upd
+  expect(trailLog(w).some(l => l.startsWith('unwind'))).toBe(false)
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)
+})
+
+// ---- version 15 (Bryan, 2026-10-05: "Fix now as v15"): Claude's load of the open run's own skill when it is finished ----
+
+test('VER-43 (version 15): Claude\'s load of the open run\'s own skill changes nothing while it is unfinished; once every step is reached, a new run opens and the trail stays', async ($, on) => {
+  let inner: Any = skState('spec-lookup', 5, 2)
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => inner })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  await sk.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('a.md'))
+  await w.clock.advance(600)
+  expect(await sk.load($, 'devforgeai:spec-lookup')).not.toContain('This skill was loaded by')
+  expect(runsOf(w, 'spec-lookup').length).toBe(1)                     // unfinished: nothing changes
+  inner = skState('spec-lookup', 5, null)                              // every step reached
+  await $.tool.call(READ('b.md'))
+  await w.clock.advance(600)
+  expect(await sk.load($, 'devforgeai:spec-lookup')).not.toContain('This skill was loaded by')
+  expect(runsOf(w, 'spec-lookup').length).toBe(2)
+  expect(logOf(w, 'spec-lookup', 0).slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)   // still paused
+  expect(trailLog(w)).toEqual(['push architecture at step 7 (1 on the trail)'])  // never a push
+  inner = skState('spec-lookup', 5, 2)
+  await $.tool.call(READ('c.md'))
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('spec-lookup 2/5 · in architecture 7/11')
+  expect(logOf(w, 'spec-lookup', 1).slice(-1)[0]).toMatchObject({ kind: 'tool', path: 'docs/c.md' })
+})
+
+test('VER-43 (version 15): Claude\'s load of a stopped run\'s own skill opens a new run', async ($, on) => {
+  const { w, sk } = nestWorld(on, { architecture: () => skState('architecture', 11, 8, null, [], [8]) }, {},
+    answering({ 'Outcome?': 'Write nothing' }))
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 8)
+  await w.clock.advance(600)
+  const ask = { tool: 'AskUserQuestion', questions: [{ question: 'Outcome?', header: 'Step 8', multiSelect: false,
+    options: [{ label: 'Confirm amend', description: 'd' }, { label: 'Write nothing', description: 'd' }] }], metadata: { source: 'devforgeai_step:8' } }
+  await $.tool.call(ask as Any)
+  expect(logOf(w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'stopped' })
+  expect(await sk.load($, 'devforgeai:architecture')).not.toContain('This skill was loaded by')
+  expect(runsOf(w, 'architecture').length).toBe(2)
+  expect(logOf(w, 'architecture', 0).filter(e => e.kind === 'run-end').map(e => e.reason)).toEqual(['stopped'])
+  expect(trailLog(w)).toEqual([])
+})
+
+// ---- the module's values (version 14, DM-03): a hook that awaits across a run switch acts on the run open now ----
+
+test('DM-03 (version 14): a tool call that started before a run switch records after it without reopening the old run', async ($, on) => {
+  let releaseRead: (() => void) | null = null
+  let releaseSkill: (() => void) | null = null
+  const inner = taskTools()
+  const w = world(on, { tool: (e: Any) => {
+    if (e.tool === 'Read' && e.file_path?.endsWith('/slow.md')) return new Promise(r => { releaseRead = () => r({ result: 'read' }) })
+    if (e.tool === 'Skill') return new Promise(r => { releaseSkill = () => r({ result: 'Launching skill' }) })
+    return inner(e)
+  } })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  const slow = $.tool.call({ tool: 'Read', file_path: `${ROOT}/docs/slow.md` } as Any)   // its dispatch starts now
+  for (let i = 0; i < 50; i++) await Promise.resolve()
+  const skill = $.tool.call({ tool: 'Skill', skill: 'devforgeai:spec-lookup' } as Any)
+  for (let i = 0; i < 50; i++) await Promise.resolve()
+  await $.skill.prompt({ skill: 'devforgeai:spec-lookup', text: TAGGED })              // the switch
+  releaseSkill?.()
+  await skill
+  releaseRead?.()
+  await slow                                                                            // records after the switch
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/docs/after.md` } as Any)
+  const arch = runsOf(w, 'architecture')[0].map(l => JSON.parse(l))
+  expect(arch[arch.length - 1]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })  // nothing after its end
+  const look = eventsOf(w, 'spec-lookup').map(l => JSON.parse(l))
+  expect(look[look.length - 1]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/after.md' })  // still the open run
 })

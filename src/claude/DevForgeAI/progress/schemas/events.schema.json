@@ -235,7 +235,8 @@
               "session-end",
               "clear",
               "idle",
-              "stopped"
+              "stopped",
+              "returned"
             ]
           }
         }
