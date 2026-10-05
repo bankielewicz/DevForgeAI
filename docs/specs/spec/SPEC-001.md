@@ -2,8 +2,8 @@
 id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
-status: approved
-version: 14
+status: in-review
+version: 15
 created: 2026-09-22
 updated: 2026-10-04
 owner: "Bryan"
@@ -63,6 +63,11 @@ and "Ask me as usual". Your answer is recorded, so the progress tracker sees the
 version 11, SPEC-013 version 10). In a brainstorm it changes nothing the tracker checks: dispositions and convergence
 still need your confirmation either way (BEH-06). Without the question tool, as in eval runs, nothing is asked and the
 request is followed as before (BEH-13).
+
+**Version 15** (2026-10-04) keeps two promises (Bryan, 2026-10-04). "Proceed without questions" said "I ask nothing
+more", yet a missing topic and an existing BRN on the topic were still asked about; its description now names those
+two, as architecture's already names its exceptions (BEH-13). And step 5's proposals were a table printed just before
+the question, where the question dialog hid it; they now sit inside the question, in each option's preview (BEH-06).
 
 ## 2. Constraints
 
@@ -177,7 +182,7 @@ behaviors:
     rule: "During divergence, record the user's ideas in their own words alongside generated ones. Generate between 5 and 15 ideas unless the user asks otherwise. Every idea starts with disposition open."
   - id: BEH-06
     status: active
-    rule: "At convergence, propose a disposition (promoted, parked or rejected) and a reason for each idea, then ask the user to confirm or change them. Write only dispositions the user confirmed; leave the rest open. Set status to converged only when the user confirms convergence; otherwise leave it draft."
+    rule: "At convergence, propose a disposition (promoted, parked or rejected) and a reason for each idea, then ask the user to confirm or change them. With AskUserQuestion, put the proposals inside the question form, never only in text before it, which the dialog hides (version 15; Bryan, 2026-10-04: 'Fold it in'): one question, 'Confirm these dispositions?', whose options are 'Accept all as proposed' (Recommended) and 'Leave them open', each option's preview holding the table of idea ID, title, proposed disposition and one-line reason, with the user's changes typed under Other; and in the same form a second question, 'Has the brainstorm converged?', with the options 'Converged' and 'Not yet'. Write only dispositions the user confirmed; leave the rest open. Set status to converged only when the user confirms convergence; otherwise leave it draft."
   - id: BEH-07
     status: active
     rule: "Fill the frontmatter: generated_by.tool claude-code, generated_by.model the current model ID, generated_by.session the session ID; authors the user and claude-code; reviewed_by empty; every hash null; created and updated today's date. Ask for owner only if it cannot be determined. Write the author of each Change Log row the skill adds as claude-code (session <session ID>): the ID names the conversation's transcript, so claude --resume <ID> can reopen the conversation behind that version while the transcript is retained (30 days by default)."
@@ -198,7 +203,7 @@ behaviors:
     rule: "When the session has task-list tools (TaskCreate and TaskUpdate, or TodoWrite; they may need loading through ToolSearch), keep the workflow checklist there, as SPEC-012 §4's task-list convention says. Before anything else, the question asking for a topic included, create one task per checklist step: its subject the step's checklist line without the box ('<N>. <title>'), its metadata devforgeai_step: N (with TodoWrite, the content '<N>. <title>'). Mark a step in_progress when its work starts. Before asking the user any question, mark the step the question belongs to in_progress: the topic, clarifying and extend-or-new questions belong to step 1, the confirmation of dispositions and convergence to step 5. Never put two steps' questions in one question form. Tag each question form with its step: the AskUserQuestion call's metadata source 'devforgeai_step:N', which the user doesn't see and the progress tracker checks against the step marked in progress, and each of its questions' header 'Step N', which the user sees (SPEC-012 §4, version 9). Mark each step completed as soon as it is done, one at a time, a step with nothing to do included. Without task-list tools, copy the checklist into the reply and tick items off as before. SKILL.md names the tag devforgeai_step, which tells the progress tracker that the skill follows the convention."
   - id: BEH-13
     status: active
-    rule: "The waiver (version 14; Bryan, 2026-10-04). When the request says to proceed without questions (or not to ask, or to skip questions) and the session has AskUserQuestion, ask it once, at the start of step 1, before any other question, with step 1 marked in_progress (BEH-12): one question, alone in its form, the one question BEH-12's tag rule leaves out, with metadata source devforgeai_waiver (not devforgeai_step:1, so the progress tracker records it as the waiver and never as a step's answer), header 'Step 1', the question 'Your request says to proceed without questions. Should I?' and exactly two options, in this order: 'Proceed without questions' (description: 'I ask nothing more; decisions that need you stay open.') and 'Ask me as usual' (description: 'I ask about each decision as it comes up.'). On Proceed without questions, follow the request: ask no other question (BEH-01, BEH-06). On Ask me as usual, on anything typed instead, or on a dismissal, ask as if the request hadn't said so. Ask it at most once in a run. Without AskUserQuestion, ask nothing, in plain text or otherwise, and follow the request as before; when the request doesn't say to proceed without questions, never ask it."
+    rule: "The waiver (version 14; Bryan, 2026-10-04). When the request says to proceed without questions (or not to ask, or to skip questions) and the session has AskUserQuestion, ask it once, at the start of step 1, before any other question, with step 1 marked in_progress (BEH-12): one question, alone in its form, the one question BEH-12's tag rule leaves out, with metadata source devforgeai_waiver (not devforgeai_step:1, so the progress tracker records it as the waiver and never as a step's answer), header 'Step 1', the question 'Your request says to proceed without questions. Should I?' and exactly two options, in this order: 'Proceed without questions' (description: 'I ask nothing more, except which topic and whether to extend an existing BRN, when open; decisions that need you stay open.') and 'Ask me as usual' (description: 'I ask about each decision as it comes up.'). On Proceed without questions, follow the request: ask no other question (BEH-01, BEH-06), except BEH-01's topic question when no topic is given and ERR-01's extend-or-new question when a BRN on the topic exists, which are still asked when open (version 15; Bryan, 2026-10-04: 'Align with architecture', as SPEC-003 BEH-18 keeps its gates). On Ask me as usual, on anything typed instead, or on a dismissal, ask as if the request hadn't said so. Ask it at most once in a run. Without AskUserQuestion, ask nothing, in plain text or otherwise, and follow the request as before; when the request doesn't say to proceed without questions, never ask it."
 ```
 
 ## 7. Errors and edge cases
@@ -394,6 +399,13 @@ verifications:
       - BEH-13
     upstream:
       - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
+  - id: VER-15
+    status: active
+    obligation: "Live, in a session with the task tools (version 15): (a) a brainstorm whose request names no topic and says to proceed without questions asks the waiver, whose 'Proceed without questions' description reads 'I ask nothing more, except which topic and whether to extend an existing BRN, when open; decisions that need you stay open.'; after Proceed it asks for the topic; (b) a brainstorm with a user answering reaches step 5 and asks 'Confirm these dispositions?' and 'Has the brainstorm converged?' in one form, with the options in BEH-06's order, and each disposition option's preview shows the table of every idea with its proposed disposition and reason; accepting writes those dispositions. Recorded in §9."
+    level: manual
+    covers:
+      - BEH-06
+      - BEH-13
 ```
 
 ## 10. Rollout, migration and rollback
@@ -411,6 +423,9 @@ Version 14 (SKL-001 v7) ships in the plugin version that builds SPEC-012 version
 so the waiver's answer is recorded and never refused. The checklist's lines don't change, so the brainstorm manifest
 stays matched; no brainstorm step is waivable (SPEC-012 BEH-19), so a waiver changes nothing the tracker checks here.
 This spec's SPEC-012 link moves to version 11 when that is approved.
+
+Version 15 (SKL-001 v8) ships with SPEC-003 version 10 and SPEC-013 version 11, in one plugin version. The checklist's
+lines don't change, so the brainstorm manifest stays matched; the questions keep their step tags (step 1, step 5).
 
 ## 11. Implementation plan
 
@@ -440,6 +455,14 @@ This spec's SPEC-012 link moves to version 11 when that is approved.
 2. Evaluate cheapest first: the six waiving cases with `--runs 1`, then the suite with `--runs 1` (VER-13).
 3. Once the plugin version that builds SPEC-012 version 11 and SPEC-013 version 10 is deployed, run VER-14 live.
 
+**Version 15** (after approval), through `/plugin-dev:create-plugin` and `/plugin-dev:skill-development`:
+1. Build SKL-001 v8: Proceed's description and the topic and extend-or-new exception (BEH-13), step 5's question form
+   (BEH-06); `provenance.yaml` and `metadata.devforgeai-version` go to 8; skill-reviewer reviews it; `evaluate.py
+   check` reports the manifest matched.
+2. Evaluate the suite with `--runs 1` (eval runs have no question tool, so no case changes; every case must still
+   pass).
+3. Run VER-15 live in worker1, on Bryan's word.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -458,11 +481,13 @@ This spec's SPEC-012 link moves to version 11 when that is approved.
 
 - Resolved (Bryan, 2026-10-04, with SPEC-012 version 11 and SPEC-013 version 10): a request that says to proceed
   without questions is confirmed by the waiver question, asked once at the start, only then; the tracker records
-  its answer. Open: whether a dismissal or a typed answer should mean anything other than "Ask me as usual" (version
-  14 reads both so, which keeps every decision asked).
-- Open (Bryan, 2026-10-04, recorded for a later version): after *Proceed without questions*, the skill still asks
-  for a missing topic (BEH-01) and extend-or-new (ERR-01), although the option's description says "I ask nothing
-  more"; architecture's BEH-18 says its gates are still asked, and BEH-13 has no such sentence.
+  its answer. A dismissal or a typed answer means "Ask me as usual" (Resolved, Bryan, 2026-10-04, version 15: "Keep as
+  is"; it keeps every decision asked).
+- Resolved (Bryan, 2026-10-04, version 15: "Align with architecture"): after *Proceed without questions*, the skill
+  still asks for a missing topic (BEH-01) and extend-or-new (ERR-01) when open, and the option's description now
+  says so (BEH-13), as architecture's BEH-18 keeps its gates.
+- Resolved (Bryan, 2026-10-04, version 15: "Fold it in"): step 5's table was text printed before the question, which
+  the dialog hid; the proposals now go in the options' previews (BEH-06).
 
 - Resolved (Bryan, 2026-10-03, with SPEC-012 version 9): each question names its step, in AskUserQuestion's
   metadata, which the tracker checks against the step marked in progress when the question is asked, and in each
@@ -507,3 +532,4 @@ This spec's SPEC-012 link moves to version 11 when that is approved.
 | 14 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build, the tests, the evals and the live checks of version 14 | §9 |
 | 14 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: Bryan approved SKL-001 v7 and waived its 3-run qualification; §13 records an open item from the build's review | §9, §13 |
 | 14 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #77's merge (`8eb431a`) and the deploy of plugin 0.20.0 | §9 |
+| 15 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 (the waiver follow-ups): Proceed's description names the topic and extend-or-new questions still asked when open (BEH-13); step 5's proposals inside the question form, in each option's preview, with a convergence question in the same form (BEH-06); a dismissed or typed waiver answer stays Ask me as usual; new VER-15 (live); status in-review | frontmatter, §1, BEH-06, BEH-13, VER-15, §10, §11, §13 |

@@ -2,8 +2,8 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: approved    # draft | in-review | approved | superseded | deprecated
-version: 10
+status: in-review    # draft | in-review | approved | superseded | deprecated
+version: 11
 created: 2026-10-02
 updated: 2026-10-04
 owner: "Bryan"
@@ -94,6 +94,10 @@ evaluator can count it (SPEC-012 version 11, BEH-19), and never checks it at the
 run is reached and Claude's turn ends, and the run had at least one refusal or flag, the adapter asks you about each
 one in Claude Code's own question dialog, one at a time: Accept, or Challenge with an optional reason. Your answers
 go to the run's `review.jsonl` and `adapter.log`; nothing is sent to Claude (BEH-26).
+
+**Version 11** (2026-10-04) asks the review only after a turn Claude finished (Bryan, 2026-10-04, "Only after an
+answer"). Claude Code says why each turn ended: an answer, your Esc, a refusal or an API error. The review now waits
+for a turn that ended with an answer, so pressing Esc no longer opens it at once; the next answered turn asks it.
 
 **Version 9** (2026-10-03) words the stuck notice (BEH-25) by its cause. Version 8's notice always told you to
 help Claude bring its task list in step. That is the wrong advice when Claude was refused for a step the tracker
@@ -421,7 +425,7 @@ behaviors:
     rule: "In enforce mode the adapter counts its refusals in the open run by cause: the gate's kind and the type and step of the first flag raised at the refused seq ('<kind>:<type>:<step>'), in $.state's refusals (DM-03), which a new run empties. When a cause's count reaches 2, it shows the user one toast, '<skill>: the progress tracker refused Claude twice at step <step> for the same reason: <that flag's message>. <advice>', writes the same to adapter.log as kind stuck, and, where nothing draws, to $.ui.log; a third refusal for the cause shows nothing more. The advice is chosen by that flag's type and by whether its step is user-owned in the state's steps, never by message text (version 9): for unmarked-question, untagged-question or mismatched-question, 'Help Claude bring its task list in step, or switch to observe mode with the band's button.'; for skipped or claimed-not-evidenced on a step that isn't user-owned (a step the state doesn't list counts as not user-owned), 'Claude hasn't done that step in a way the tracker can see: ask Claude to do it as the message says, or switch to observe mode with the band's button.'; for skipped on a user-owned step, or rule-broken, 'The refused write records a decision that needs your answer: answer Claude's question about it, or ask Claude to leave it open, or switch to observe mode with the band's button.' The refusals themselves are unchanged: the notice is for the user, who can see what Claude can't (version 8; Bryan, 2026-10-03). Each refusal, a write's or a question's, is also kept in $.state's refused with its gate's kind, its seq and its first flag's step, type and message, which a new run empties, for the run's review (BEH-26; version 10): a refused question leaves no event, so the evaluator's state never shows it."
   - id: BEH-26
     status: active
-    rule: "The end-of-run review (version 10; Bryan, 2026-10-04: 'Tracker's own dialog'). At a turn.complete of the main loop, when the run is open, every step of it is reached (the state's current is null and its run hasn't ended), $.state's reviewed isn't this run, and the run has at least one item, the adapter sets reviewed to the run and asks about each item in turn, in either mode. The items are one per cause, the cause being the gate's kind and the flag's type and step, as BEH-25 counts it: each cause of the refusals in refused (BEH-25), in the order of its first refusal, then each cause of the latest state.json's flags that no refusal has, in the order of its first flag; a refusal and a later flag for the same cause are one item. For each, it calls $.ui.ask with the question '<skill> run, item <i> of <n>: <what> at step <step> (<gate> gate): <message>. Accept it, or challenge it?', <what> being 'refused <k> time(s)' for a cause with k refusals and 'flagged' for a flag, <message> the cause's first message, and the options Accept and Challenge, under the header 'Review'. Accept records accept; Challenge records challenge with reason null; anything typed under Other records challenge with that text as its reason; a dismissal records dismissed for that item and every item after it, which are not asked. Each answer is written to runs/<run>/review.jsonl (DM-02) and to adapter.log as kind review, '<i>/<n> <answer>: <step> <type>'. When the review ends, one toast says '<skill>: your review is in devforgeai/progress/runs/<run>/review.jsonl'. Nothing is sent to Claude: no prompt, no context and no reply (§2), so the review never steers the conversation, and observe mode still adds no text the model reads (BEH-07). A typed answer that equals a label exactly counts as that label, since $.ui.ask resolves to either. A run with no item, a run that ends before every step is reached, a session where nothing draws (BEH-01: no surface would show the dialog; untested), and a headless session get no review, and flags raised after the review in the same run are not reviewed. $.state empties only on /clear, /resume and /branch, which end the run first (BEH-05, BEH-17), so a review is never asked twice for one run. A $.ui.ask that rejects is ERR-15."
+    rule: "The end-of-run review (version 10; Bryan, 2026-10-04: 'Tracker's own dialog'). At a turn.complete of the main loop whose reason is answer (version 11; Bryan, 2026-10-04: 'Only after an answer'), when the run is open, every step of it is reached (the state's current is null and its run hasn't ended), $.state's reviewed isn't this run, and the run has at least one item, the adapter sets reviewed to the run and asks about each item in turn, in either mode. The items are one per cause, the cause being the gate's kind and the flag's type and step, as BEH-25 counts it: each cause of the refusals in refused (BEH-25), in the order of its first refusal, then each cause of the latest state.json's flags that no refusal has, in the order of its first flag; a refusal and a later flag for the same cause are one item. For each, it calls $.ui.ask with the question '<skill> run, item <i> of <n>: <what> at step <step> (<gate> gate): <message>. Accept it, or challenge it?', <what> being 'refused <k> time(s)' for a cause with k refusals and 'flagged' for a flag, <message> the cause's first message, and the options Accept and Challenge, under the header 'Review'. Accept records accept; Challenge records challenge with reason null; anything typed under Other records challenge with that text as its reason; a dismissal records dismissed for that item and every item after it, which are not asked. Each answer is written to runs/<run>/review.jsonl (DM-02) and to adapter.log as kind review, '<i>/<n> <answer>: <step> <type>'. When the review ends, one toast says '<skill>: your review is in devforgeai/progress/runs/<run>/review.jsonl'. Nothing is sent to Claude: no prompt, no context and no reply (§2), so the review never steers the conversation, and observe mode still adds no text the model reads (BEH-07). A typed answer that equals a label exactly counts as that label, since $.ui.ask resolves to either. A run with no item, a run that ends before every step is reached, a session where nothing draws (BEH-01: no surface would show the dialog; untested), and a headless session get no review, and flags raised after the review in the same run are not reviewed. $.state empties only on /clear, /resume and /branch, which end the run first (BEH-05, BEH-17), so a review is never asked twice for one run. A turn.complete whose reason is aborted (the user's Esc), refusal or error asks nothing and leaves reviewed unchanged, so the next turn.complete whose reason is answer asks (version 11). A $.ui.ask that rejects is ERR-15."
 ```
 
 ## 7. Errors and edge cases
@@ -979,6 +983,12 @@ verifications:
     covers:
       - BEH-26
       - BEH-21
+  - id: VER-37
+    status: active
+    obligation: "Kit tests of the review's turn (version 11): VER-35's run, every step reached with one refused question, at a turn.complete whose reason is aborted asks nothing, writes no review.jsonl line and leaves reviewed null; the same for reason refusal and reason error; the next turn.complete with reason answer asks item 1 of 1. VER-35's cases pass with reason answer."
+    level: integration
+    covers:
+      - BEH-26
 ```
 
 ## 10. Rollout, migration and rollback
@@ -1028,6 +1038,8 @@ verifications:
   plugin version (0.20.0); this spec's SPEC-012 link moves to version 11 when that is approved. Until a skill asks the
   waiver, no answer carries `devforgeai_waiver`, and nothing new is refused: the waiver question is never checked,
   and the review only asks. The review is new in both modes, on flagged runs only.
+- **Version 11.** Built after approval with SPEC-001 version 15 and SPEC-003 version 10, in one plugin version. The
+  review asks less often than in version 10, never more; nothing new is refused.
 - **Version 9.** Built after approval on the branch of SKL-001 v6 and SKL-003 v7, in their plugin version
   (Bryan, 2026-10-03). Only the stuck notice's last sentence changes: the refusals, their texts, the counting
   and the causes stay as version 8 has them, so nothing new is refused.
@@ -1104,6 +1116,11 @@ waiver question (DM-01, BEH-21), refused and reviewed in the types contract (DM-
 its file and log kind (DM-02); (3) `claude plugin validate`, `claude plugin test`, plugin-validator and every test;
 (4) VER-36 live, and §9.
 
+Version 11's build, through `/plugin-dev:create-plugin` with the built-in `plugin-authoring` skill: (1) VER-37's kit
+tests, seen failing; (2) BEH-26's check of the turn's reason in `hooks/progress.tsx`; (3) `claude plugin validate`,
+`claude plugin test`, plugin-validator and every test; (4) a live check in worker1 (Esc during a reviewed run's
+last turn shows no review; the next answered turn does), and §9.
+
 Version 6's build, with SPEC-012 version 7: the kit tests of VER-26, seen failing; then the refusal text and the wait
 (BEH-21), TodoWrite against oldTodos (BEH-20), adhered (BEH-22, DM-03); then plugin-validator and every test, and
 §9.
@@ -1179,11 +1196,20 @@ Version 6's build, with SPEC-012 version 7: the kit tests of VER-26, seen failin
 Decided by Bryan on 2026-10-04, for version 10: the waiver menu (his "Next cycle" of 2026-10-03), asked by the skills
 only when the request says to proceed without questions, recorded here as one of two fixed labels; and the end-of-run
 summary he asked for on 2026-10-04, as the tracker's own dialog, one item at a time, Accept or Challenge, recorded in
-the run's folder and never sent to Claude, in both modes, on flagged runs only, once every step is reached. Open, for
-later: whether a challenge should do more than record (an issue, a note for the next run); whether a run that ends
-before every step is reached should be reviewed at its end, when no one may be there to answer. Also open (Bryan,
-2026-10-04, recorded for a later version): turn.complete fires for an aborted turn (Esc) too, so the review can appear
-right after the user interrupts; BEH-26 allows it.
+the run's folder and never sent to Claude, in both modes, on flagged runs only, once every step is reached.
+
+Decided by Bryan on 2026-10-04, for version 11 (the waiver follow-ups):
+- Resolved, "Only after an answer": turn.complete fires for an aborted turn (Esc) too, so version 10's review could
+  appear right after the user interrupted. Version 11 asks it only at a turn whose reason is answer (BEH-26, VER-37).
+- Resolved, "Record only": a challenge stays a record in review.jsonl and adapter.log; nothing reaches Claude, as
+  decided for version 10 (§2, BEH-07).
+- Recorded for the next cycle ("Own cycle, next"): a run that ends before every step is reached still gets no review.
+  Bryan's words: "When a run ends, give the user an option to restart as it could have been a mistake to exist. Give
+  them the ability to resume/fork and confirmation to exit perhaps… or generate an artifact for resumptiom in a fresh
+  session." Of the pieces offered he chose a confirmation before `/clear` and `/exit` while a tracked run is unfinished
+  (`command.run` can answer a slash command without running it; Ctrl+C, Ctrl+D and closing the terminal can't be
+  caught), and noted that the legacy DevForgeAI framework's spec-driven-dev skill called a skill within a skill and
+  returned to the first where it left off ("light qa"); he can give its path. Not specified until that cycle.
 
 Decided by Bryan on 2026-10-02:
 - The adapter lives in the plugin (`src/claude/DevForgeAI/hooks/`).
@@ -1311,3 +1337,4 @@ Notes:
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build, the tests, the evals and the live checks of version 10 | §9 |
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records an open item from the build's review (the review after an aborted turn) | §13 |
 | 10 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #77's merge (`8eb431a`) and the deploy of plugin 0.20.0 | §9 |
+| 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-04 (the waiver follow-ups): the end-of-run review only at a turn that ended with an answer, never right after an Esc, a refusal or an error (BEH-26, new VER-37); a challenge stays a record; a run that ends before every step is reached recorded for the next cycle, in his words; status in-review | frontmatter, §1, BEH-26, VER-37, §10, §11, §13 |
