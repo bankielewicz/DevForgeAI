@@ -1394,14 +1394,29 @@ export const register: Register = (on, options) => {
         await switchRun($, r, name, out.text, true, offer?.extra ?? {})
         return offer === null ? out : { ...out, text: `${out.text}\n\n${offer.line}` }
       }
+      // Claude's load with no unfinished run open and none paused is offered as a typed load is (BEH-31, version 17):
+      // it nests nothing, and a fresh run would bury the unfinished one.
+      let offer: { extra: Fields; line: string } | null = null
+      const now = await hydrate($)
+      const open = now.run
+      const ended = open !== null && ((now.summary?.ended ?? null) !== null
+        || (await linesOf($, open)).some(x => x.includes('"kind":"run-end"')))
+      if (now.trail.length === 0 && (open === null || ended)) {
+        try {
+          offer = await resumeOffer($, r, name)
+        } catch (err) {
+          await recover($, 'skill.prompt', err)  // the offer never stops the load (ERR-17)
+        }
+      }
       // Claude's load (BEH-29): task-tool calls under way first, so a TaskUpdate of the same batch sets the return step.
       if (taskWork.size > 0) await Promise.race([Promise.allSettled([...taskWork]), $.clock.sleep(TASK_WAIT_MS)])
       const got = await chained(() => claudeLoadNow($, r, name, out.text))
       // The Skill call records nothing in either run once the open run changed (before skill.prompt returns).
       if (got.kind !== 'own') switchedIn.add(name)
-      if (got.kind === 'cannot') await finishSwitch($, r, name, out.text, got.ended, false)
+      if (got.kind === 'cannot') await finishSwitch($, r, name, out.text, got.ended, false, offer?.extra ?? {})
       await refreshStatus($)
       if (got.kind === 'pushed') return { ...out, text: `${out.text}\n\n${got.line}` }
+      if (got.kind === 'cannot' && offer !== null) return { ...out, text: `${out.text}\n\n${offer.line}` }
     } catch (err) {
       // After next, a failure is the adapter's own: tell the user, keep the skill's text (BEH-14).
       await recover($, 'skill.prompt', err)
@@ -1423,7 +1438,9 @@ export const register: Register = (on, options) => {
     const loading = tool === 'Skill' && input.agentId === undefined && typeof input.skill === 'string' ? skillName(input.skill) : null
     if (loading !== null) skillsLoading.set(loading, (skillsLoading.get(loading) ?? 0) + 1)
     try {
-      if (!(await recording($, input.agentId))) return next(e)
+      // Awaited, so the finally below runs after the call: a Skill call stays in flight while its skill.prompt fires,
+      // with no run open too (version 17; returning next(e)'s promise unawaited ran the finally at once).
+      if (!(await recording($, input.agentId))) return await next(e)
       if (tool === 'AskUserQuestion') {
         // Claude Code's own question only: a mod's $.ui.ask arrives here too (BEH-04, BEH-21).
         // The waiver question is never a question gate, so it isn't checked (BEH-21, version 10).
