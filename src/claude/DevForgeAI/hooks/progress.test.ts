@@ -1921,3 +1921,33 @@ test('VER-35 (review M1): a last step reached in the turn\'s final events is eva
   await turnEnd($)             // no timer tick in between
   expect(asked.length).toBe(1)
 })
+
+// ---- version 11: the review only after an answered turn (VER-37) ----
+
+async function turnEndFor($: Any, reason: string | undefined) {
+  const e: Any = { turnId: 't', answer: '', durationMs: 1, isAborted: reason === 'aborted', usage: null }
+  if (reason !== undefined) e.reason = reason
+  if (reason === 'refusal') e.refusal = { category: null, explanation: 'refused' }
+  await $.turn.complete(e)
+}
+
+test('VER-37: a turn ended by Esc, a refusal, an error or with no reason asks nothing; the next answered turn asks', async ($, on) => {
+  const asked: string[] = []
+  let state: Any = STATE
+  const w = reviewWorld(on, () => state, ['Accept'], asked)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await $.tool.call(QUESTION as Any)  // refused: unmarked-question at step 2
+  state = reached([])
+  await w.clock.advance(600)
+  for (const reason of ['aborted', 'refusal', 'error', undefined]) {
+    await turnEndFor($, reason)
+    expect(asked.length).toBe(0)
+    expect(runFiles(w, 'review.jsonl').length).toBe(0)
+  }
+  await turnEndFor($, 'answer')
+  expect(asked).toEqual([
+    'architecture run, item 1 of 1: refused 1 time(s) at step 2 (question gate): ' + MESSAGES['unmarked-question'] + '. Accept it, or challenge it?',
+  ])
+  expect(reviewLines(w).map(l => l.answer)).toEqual(['accept'])
+})

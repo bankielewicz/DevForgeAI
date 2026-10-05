@@ -1028,7 +1028,8 @@ export const register: Register = (on, options) => {
       await record($, 'turn', { phase: 'end' }, false)
     }
     const result = await next(e)
-    if (main) {
+    // Only a turn Claude answered is reviewed: after Esc, a refusal or an error the next answered turn asks (BEH-26).
+    if (main && e.reason === 'answer') {
       try {
         await review($)
       } catch (err) {
