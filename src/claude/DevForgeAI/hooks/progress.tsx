@@ -41,6 +41,72 @@ const REFUSED = atom({ plugin: 'devforgeai', key: 'refused' } as const, [] as Re
 const REVIEWED = atom({ plugin: 'devforgeai', key: 'reviewed' } as const, null as string | null)
 const TRAIL = atom({ plugin: 'devforgeai', key: 'trail' } as const, [] as TrailEntry[])
 
+// The open run's values, as the module holds them (version 14): every hook reads and writes these, never a $.state
+// snapshot, since each dispatch's $.state reads one moment of its own (a hook that awaits across another's write would
+// act on the old run). $.state keeps a mirror, written in order with the latest values, for a reload and the band.
+type Live = {
+  run: ProgressRun | null; summary: ProgressSummary | null; lastEventAt: number; marked: boolean; shown: string[]
+  contextSent: number[]; tasks: Record<string, number>; todos: Record<string, string>; adhered: string | null
+  refusals: Record<string, number>; refused: Refused[]; reviewed: string | null; trail: TrailEntry[]
+}
+let live: Live | null = null
+let mirrorChain: Promise<unknown> = Promise.resolve()
+
+function emptyLive(): Live {
+  return { run: null, summary: null, lastEventAt: 0, marked: false, shown: [], contextSent: [], tasks: {}, todos: {},
+    adhered: null, refusals: {}, refused: [], reviewed: null, trail: [] }
+}
+
+/** The module's values, read once from $.state after a load or a reload (BEH-17). */
+async function hydrate($: E): Promise<Live> {
+  if (live !== null) return live
+  const got: Live = {
+    run: await read($, RUN), summary: await read($, SUMMARY), lastEventAt: await read($, LAST),
+    marked: await read($, MARKED), shown: await read($, SHOWN), contextSent: await read($, SENT),
+    tasks: await read($, TASKS), todos: await read($, TODOS), adhered: await read($, ADHERED),
+    refusals: await read($, REFUSALS), refused: await read($, REFUSED), reviewed: await read($, REVIEWED),
+    trail: await read($, TRAIL),
+  }
+  if (live === null) live = got
+  return live
+}
+
+async function get<K extends keyof Live>($: E, key: K): Promise<Live[K]> {
+  return (await hydrate($))[key]
+}
+
+/** Change one value: the module's at once (no await between reading and writing it), then $.state's mirror. */
+async function put<K extends keyof Live>($: E, key: K, change: (value: Live[K]) => Live[K]): Promise<Live[K]> {
+  const l = await hydrate($)
+  const value = change(l[key])
+  l[key] = value
+  const step = mirrorChain.then(() => mirror($, key))
+  mirrorChain = step.catch(() => undefined)
+  await step.catch(() => undefined)
+  return value
+}
+
+/** Write the module's latest value of one key to $.state (literal refs, as claude plugin validate reads them). */
+async function mirror($: E, key: keyof Live): Promise<void> {
+  const l = live
+  if (l === null) return
+  switch (key) {
+    case 'run': await $.state.set({ plugin: 'devforgeai', key: 'run' } as const, l.run); break
+    case 'summary': await $.state.set({ plugin: 'devforgeai', key: 'summary' } as const, l.summary); break
+    case 'lastEventAt': await $.state.set({ plugin: 'devforgeai', key: 'lastEventAt' } as const, l.lastEventAt); break
+    case 'marked': await $.state.set({ plugin: 'devforgeai', key: 'marked' } as const, l.marked); break
+    case 'shown': await $.state.set({ plugin: 'devforgeai', key: 'shown' } as const, l.shown); break
+    case 'contextSent': await $.state.set({ plugin: 'devforgeai', key: 'contextSent' } as const, l.contextSent); break
+    case 'tasks': await $.state.set({ plugin: 'devforgeai', key: 'tasks' } as const, l.tasks); break
+    case 'todos': await $.state.set({ plugin: 'devforgeai', key: 'todos' } as const, l.todos); break
+    case 'adhered': await $.state.set({ plugin: 'devforgeai', key: 'adhered' } as const, l.adhered); break
+    case 'refusals': await $.state.set({ plugin: 'devforgeai', key: 'refusals' } as const, l.refusals); break
+    case 'refused': await $.state.set({ plugin: 'devforgeai', key: 'refused' } as const, l.refused); break
+    case 'reviewed': await $.state.set({ plugin: 'devforgeai', key: 'reviewed' } as const, l.reviewed); break
+    case 'trail': await $.state.set({ plugin: 'devforgeai', key: 'trail' } as const, l.trail); break
+  }
+}
+
 const EVALUATOR_TIMEOUT = 5000
 const START_TIMEOUT = 3000
 const PRUNE_TIMEOUT = 10000
@@ -163,7 +229,7 @@ async function notify($: E, text: string, key?: string): Promise<void> {
  *  to its last half when it passes 512 KiB, and a failed write is ignored. */
 async function adapterLog($: E, kind: string, text: string): Promise<void> {
   const step = logChain.then(async () => {
-    const run = await read($, RUN)
+    const run = await get($, 'run')
     const now = new Date(await $.clock.now()).toISOString().replace(/\.\d{3}Z$/, 'Z')
     // One line per entry, whatever the text: model text can't add lines of its own (DM-02).
     const line = `${now} ${run?.id ?? '-'} ${kind}: ${text.replace(/\s*[\r\n]+\s*/g, ' ')}\n`
@@ -188,9 +254,9 @@ async function appendLog($: E, r: string, lines: string): Promise<void> {
 /** The status line, sent only when its text changes (BEH-10). */
 async function refreshStatus($: E): Promise<void> {
   const now = await $.clock.now()
-  const last = await read($, LAST)
+  const last = await get($, 'lastEventAt')
   const idle = !turnOpen && last > 0 && now - last > IDLE_MS
-  const text = statusText(await read($, SUMMARY), await read($, MODE), idle, await read($, OFF))
+  const text = statusText(await get($, 'summary'), await read($, MODE), idle, await read($, OFF))
   if (text === lastStatus) return
   lastStatus = text
   await $.ui.status(text)
@@ -200,7 +266,7 @@ async function refreshStatus($: E): Promise<void> {
 /** Tracking can't go on for the session (ERR-03). */
 async function stopTracking($: E, reason: string): Promise<void> {
   disabled = true
-  await update($, RUN, () => null)
+  await put($, 'run', () => null)
   await update($, OFF, () => reason)
   await notify($, `DevForgeAI progress: off (${reason})`, `off:${reason}`)
   await refreshStatus($)
@@ -266,7 +332,7 @@ async function linesOf($: E, run: ProgressRun): Promise<string[]> {
 async function writeLog($: E, run: ProgressRun, lines: string[]): Promise<boolean> {
   const text = lines.join('\n') + '\n'
   if (byteSize(text) > LOG_LIMIT) {
-    await update($, RUN, () => null)
+    await put($, 'run', () => null)
     await update($, OFF, () => LOG_FULL)
     await notify($, `DevForgeAI progress: off (${LOG_FULL})`, `full:${run.id}`)
     await refreshStatus($)
@@ -291,7 +357,7 @@ async function record($: E, kind: string, fields: Fields, mark = true): Promise<
 }
 
 async function recordNow($: E, kind: string, fields: Fields, mark: boolean): Promise<void> {
-  const run = await read($, RUN)
+  const run = await get($, 'run')
   if (run === null || disabled) return
   const now = await $.clock.now()
   // The seq comes from the run's own lines: a $.state read inside one dispatch sees that dispatch's moment, so
@@ -304,13 +370,13 @@ async function recordNow($: E, kind: string, fields: Fields, mark: boolean): Pro
   const lines = [...held, eventLine(run.id, seq, now, kind, fields)]
   const next: ProgressRun = { ...run, seq }
   if (!(await writeLog($, next, lines))) return
-  await update($, RUN, () => next)
-  await update($, LAST, () => now)
-  if (mark) await update($, MARKED, () => true)
+  await put($, 'run', () => next)
+  await put($, 'lastEventAt', () => now)
+  if (mark) await put($, 'marked', () => true)
 }
 
 async function logBytes($: E): Promise<number> {
-  const run = await read($, RUN)
+  const run = await get($, 'run')
   return run === null ? 0 : byteSize((await linesOf($, run)).join('\n'))
 }
 
@@ -462,14 +528,14 @@ async function taskListOf($: E): Promise<{ taskList: boolean; read: boolean }> {
 /** The open run's task maps, from the module, or from $.state after a reload. */
 async function mapsOf($: E, run: string): Promise<{ run: string; tasks: Record<string, number>; todos: Record<string, string> }> {
   if (taskMaps === null || taskMaps.run !== run) {
-    taskMaps = { run, tasks: { ...(await read($, TASKS)) }, todos: { ...(await read($, TODOS)) } }
+    taskMaps = { run, tasks: { ...(await get($, 'tasks')) }, todos: { ...(await get($, 'todos')) } }
   }
   return taskMaps
 }
 
 /** Step events from a task tool's call that didn't fail, recorded after its tool event (BEH-20, ERR-13). */
 async function taskSteps($: E, tool: string, input: Fields, outcome: ToolOutcome): Promise<void> {
-  const run = await read($, RUN)
+  const run = await get($, 'run')
   if (run === null || isFailed(outcome)) return
   const maps = await mapsOf($, run.id)
   if (tool === 'TaskCreate') {
@@ -481,7 +547,7 @@ async function taskSteps($: E, tool: string, input: Fields, outcome: ToolOutcome
       return
     }
     maps.tasks[id] = step
-    await update($, TASKS, () => ({ ...maps.tasks }))
+    await put($, 'tasks', () => ({ ...maps.tasks }))
   } else if (tool === 'TaskUpdate') {
     const step = maps.tasks[String(input.taskId)]
     const state = stepStateOf(input.status)
@@ -490,7 +556,7 @@ async function taskSteps($: E, tool: string, input: Fields, outcome: ToolOutcome
     const result = (outcome as Fields).result
     const got = todoSteps(input.todos, maps.todos, result && typeof result === 'object' ? (result as Fields).oldTodos : undefined)
     maps.todos = got.statuses
-    await update($, TODOS, () => ({ ...got.statuses }))
+    await put($, 'todos', () => ({ ...got.statuses }))
     for (const e of got.events) await record($, 'step', e)
   }
 }
@@ -514,10 +580,10 @@ async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; te
   const off = await read($, OFF)
   if (off !== null && off !== LOG_FULL && off !== NO_PYTHON && off !== NO_WRITE) await update($, OFF, () => null)
   // The stopping answer's step stays with a stopped run's summary (BEH-10, version 12).
-  await update($, SUMMARY, prev => ({ ...summaryOf(got.state), stoppedAt: got.state.ended === 'stopped' ? prev?.stoppedAt ?? null : null }))
-  const shown = await read($, SHOWN)
+  await put($, 'summary', prev => ({ ...summaryOf(got.state), stoppedAt: got.state.ended === 'stopped' ? prev?.stoppedAt ?? null : null }))
+  const shown = await get($, 'shown')
   const fresh = newFlagToasts(got.state, shown, await followingLines($, run))
-  if (fresh.keys.length) await update($, SHOWN, () => [...shown, ...fresh.keys])
+  if (fresh.keys.length) await put($, 'shown', () => [...shown, ...fresh.keys])
   for (const toast of fresh.toasts) await notify($, toast)
   if (got.state.current === null && got.state.ended === null && allReachedFor !== run.id) {
     allReachedFor = run.id
@@ -526,13 +592,13 @@ async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; te
   // SPEC-012 §4's second level: a run that follows the task list and didn't keep it is told so once (BEH-22).
   const adherence = adherenceText(got.state)
   // $.state's adhered decides, so a reload of the module doesn't repeat the notice (version 6).
-  if (adherence !== null && (await read($, ADHERED)) !== run.id && (await follows($, run))) {
-    await update($, ADHERED, () => run.id)
+  if (adherence !== null && (await get($, 'adhered')) !== run.id && (await follows($, run))) {
+    await put($, 'adhered', () => run.id)
     await notify($, adherence)
     await adapterLog($, 'adherence', adherence)
   }
   const report = reportContext(got.state)
-  const sent = await read($, SENT)
+  const sent = await get($, 'contextSent')
   pendingReport = report !== null && !sent.includes(report.seq) && got.state.ended === null ? report : null
   await refreshStatus($)
 }
@@ -541,7 +607,7 @@ async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; te
 async function tick($: E): Promise<void> {
   try {
     await refreshStatus($)
-    if (evaluating || disabled || !(await read($, MARKED))) return
+    if (evaluating || disabled || !(await get($, 'marked'))) return
     inFlight = evaluateMarked($)
     await inFlight
   } catch (err) {
@@ -553,14 +619,14 @@ async function tick($: E): Promise<void> {
 async function evaluateMarked($: E): Promise<void> {
   evaluating = true  // before any await, so the timer and the review never start two evaluations
   try {
-    const run = await read($, RUN)
+    const run = await get($, 'run')
     if (run === null) return
     try {
-      await update($, MARKED, () => false)
+      await put($, 'marked', () => false)
       // The folder's .gitignore may have gone with a `git clean` while the run went on (BEH-15).
       await ensureIgnore($, rootOf(run)).catch(() => undefined)
       const got = await evaluate($, rootOf(run), `${run.dir}/events.jsonl`, `${run.dir}/state.json`, EVALUATOR_TIMEOUT)
-      const open = await read($, RUN)
+      const open = await get($, 'run')
       // A run that opened while the evaluator ran keeps its own summary and flags; this dispatch's $.state may not show
       // it yet (a nested load opens it mid-turn), so the module's id is checked too.
       if (open === null || open.id !== run.id || (openedId !== null && openedId !== run.id)) return
@@ -588,11 +654,11 @@ async function setup($: E): Promise<void> {
   await findPython($)
   await resolveMode($, await $.session.root())
   ensureTimer($)
-  const run = await read($, RUN)
+  const run = await get($, 'run')
   if (run !== null) {
     // After a reload the module's variables start over; the open run's folder exists, so its log goes there.
     await useLogRoot($, rootOf(run))
-    await update($, MARKED, () => true)
+    await put($, 'marked', () => true)
   }
 }
 
@@ -613,19 +679,19 @@ async function openRun($: E, r: string, skill: string, checklist: string): Promi
   })
   const run: ProgressRun = { id, skill, seq: 1, dir, root: r }
   if (!(await writeLog($, run, [line]))) return
-  await update($, RUN, () => run)
+  await put($, 'run', () => run)
   openedId = run.id
-  await update($, LAST, () => now)
-  await update($, MARKED, () => true)
-  await update($, SUMMARY, () => null)
-  await update($, SHOWN, () => [])
-  await update($, SENT, () => [])
+  await put($, 'lastEventAt', () => now)
+  await put($, 'marked', () => true)
+  await put($, 'summary', () => null)
+  await put($, 'shown', () => [])
+  await put($, 'contextSent', () => [])
   // A new run starts with an empty task map: a list left from an earlier run gives no step events (BEH-20).
   taskMaps = { run: id, tasks: {}, todos: {} }
-  await update($, TASKS, () => ({}))
-  await update($, TODOS, () => ({}))
-  await update($, REFUSALS, () => ({}))  // the stuck notice counts per run (BEH-25)
-  await update($, REFUSED, () => [])  // and the review lists this run's refusals (BEH-26)
+  await put($, 'tasks', () => ({}))
+  await put($, 'todos', () => ({}))
+  await put($, 'refusals', () => ({}))  // the stuck notice counts per run (BEH-25)
+  await put($, 'refused', () => [])  // and the review lists this run's refusals (BEH-26)
   if ((await read($, OFF)) === LOG_FULL) await update($, OFF, () => null)
   pendingReport = null
   // A skill that follows the convention, in a session with no task tools, is placed by guessing: say so once (BEH-23).
@@ -662,9 +728,9 @@ async function startPrune($: E, r: string, session: string, keepRun: string): Pr
 async function endRun($: E, reason: string, timeoutMs: number | null): Promise<void> {
   await record($, 'run-end', { reason })
   pendingReport = null
-  const run = await read($, RUN)
+  const run = await get($, 'run')
   if (run === null || timeoutMs === null || !python) return
-  await update($, MARKED, () => false)
+  await put($, 'marked', () => false)
   const got = await evaluate($, rootOf(run), `${run.dir}/events.jsonl`, `${run.dir}/state.json`, timeoutMs)
   if (typeof got !== 'string') await absorb($, run, got)
 }
@@ -673,7 +739,7 @@ async function endRun($: E, reason: string, timeoutMs: number | null): Promise<v
  *  pending.jsonl, evaluated; null when it can't be had, which lets the call go on (fail open). */
 async function pendingState($: E, kind: string, fields: Fields): Promise<{ state: ProgressState; seq: number; lines: readonly string[] } | null> {
   await recordChain  // events still being written are part of the run the check judges
-  const run = await read($, RUN)
+  const run = await get($, 'run')
   if (run === null) return null
   const lines = [...(await linesOf($, run))]
   const seq = lines.length + 1
@@ -696,13 +762,13 @@ async function pendingState($: E, kind: string, fields: Fields): Promise<{ state
 async function noteRefusal($: E, state: ProgressState, seq: number): Promise<void> {
   try {
     const cause = refusalCause(state, seq)
-    const run = await read($, RUN)
+    const run = await get($, 'run')
     if (cause === null || run === null) return
     // Every refusal is kept for the run's review: a refused question leaves no event (BEH-25, BEH-26).
     const gate = state.gate.kind ?? 'write'
-    await update($, REFUSED, r => [...r, { gate, seq, step: cause.step, type: cause.type, message: cause.message }])
+    await put($, 'refused', r => [...r, { gate, seq, step: cause.step, type: cause.type, message: cause.message }])
     let count = 0
-    await update($, REFUSALS, r => {
+    await put($, 'refusals', r => {
       count = (r[cause.key] ?? 0) + 1
       return { ...r, [cause.key]: count }
     })
@@ -719,7 +785,7 @@ async function noteRefusal($: E, state: ProgressState, seq: number): Promise<voi
 /** The deliberate stop (BEH-27, version 12): an answer of 'Write nothing' to one question tagged with a step the latest
  *  state marks stoppable ends the run with run-end stopped. A state that can't be read stops nothing. */
 async function stopIfAsked($: E, input: Fields, outcome: ToolOutcome): Promise<void> {
-  const run = await read($, RUN)
+  const run = await get($, 'run')
   if (run === null) return
   let state: ProgressState
   try {
@@ -731,24 +797,24 @@ async function stopIfAsked($: E, input: Fields, outcome: ToolOutcome): Promise<v
   // The run-end marks the run and the timer evaluates it: no tool call waits for an evaluation (BEH-06).
   await endRun($, 'stopped', null)
   const n = questionTag(input).step ?? null
-  await update($, SUMMARY, s => (s === null ? s : { ...s, stoppedAt: n }))
+  await put($, 'summary', s => (s === null ? s : { ...s, stoppedAt: n }))
 }
 
 /** The trail of return points (BEH-29, version 13): for a load the main loop's Skill call is making while a run that
  *  follows the task list is open, push the open run's return point and give the line to add; a load the user typed
  *  empties the trail. Called before BEH-03 ends the open run. */
 async function nest($: E, name: string): Promise<string | null> {
-  const trail = await read($, TRAIL)
-  const run = await read($, RUN)
+  const trail = await get($, 'trail')
+  const run = await get($, 'run')
   if (!skillsLoading.has(name)) {
     if (trail.length) {
-      await update($, TRAIL, () => [])
+      await put($, 'trail', () => [])
       await adapterLog($, 'trail', 'empty (a load with no Skill call of the main loop in flight)')
     }
     return null
   }
-  const summary = await read($, SUMMARY)
-  const tasks = await read($, TASKS)
+  const summary = await get($, 'summary')
+  const tasks = await get($, 'tasks')
   if (run === null || (summary !== null && summary.ended !== null) || Object.keys(tasks).length === 0) return null
   if (run.skill === name) return null
   await recordChain
@@ -766,7 +832,7 @@ async function nest($: E, name: string): Promise<string | null> {
   const at = trail.findIndex(t => t.skill === name)
   const kept = at >= 0 ? trail.slice(0, at) : trail
   const next = [...kept, { skill: run.skill, step, tasks: { ...tasks } }]
-  await update($, TRAIL, () => next)
+  await put($, 'trail', () => next)
   if (at >= 0) await adapterLog($, 'trail', `drop ${name} and ${trail.length - at - 1} above (already on the trail)`)
   await adapterLog($, 'trail', `push ${run.skill} at step ${step} (${next.length} on the trail)`)
   return returnLine(run.skill, step)
@@ -774,18 +840,18 @@ async function nest($: E, name: string): Promise<string | null> {
 
 /** A TaskUpdate that shows Claude back in a skill on the trail pops its entry and those above (BEH-29). */
 async function popTrail($: E, input: Fields): Promise<void> {
-  const trail = await read($, TRAIL)
+  const trail = await get($, 'trail')
   if (!trail.length) return
   const at = returnedTo(trail, input.taskId, input.status)
   if (at < 0) return
-  await update($, TRAIL, () => trail.slice(0, at))
+  await put($, 'trail', () => trail.slice(0, at))
   await adapterLog($, 'trail', `pop ${trail[at].skill} (${at} on the trail)`)
 }
 
 /** The compaction's last message names the trail while it isn't empty and a run is open (BEH-29); an earlier one goes. */
 async function withTrailNote<T>($: E, run: ProgressRun, out: T): Promise<T> {
   try {
-    const trail = await read($, TRAIL)
+    const trail = await get($, 'trail')
     const o = out as unknown as { messages?: { role: string; text?: unknown; toolUses: unknown[] }[] }
     if (!trail.length || !Array.isArray(o.messages)) return out
     const kept = o.messages.filter(m => !(typeof m.text === 'string' && m.text.startsWith(TRAIL_NOTE_START)))
@@ -804,16 +870,16 @@ async function review($: E): Promise<void> {
   // not yet evaluated come first, so a last step reached in the turn's final reply is seen (review M1).
   await recordChain
   if (inFlight !== null) await inFlight
-  if (!evaluating && !disabled && (await read($, MARKED))) {
+  if (!evaluating && !disabled && (await get($, 'marked'))) {
     inFlight = evaluateMarked($)
     await inFlight
   }
-  const run = await read($, RUN)
-  const summary = await read($, SUMMARY)
+  const run = await get($, 'run')
+  const summary = await get($, 'summary')
   if (run === null || summary === null) return
   // Every step reached with the run open, or a run the user stopped (BEH-27; version 12).
   if (summary.ended !== 'stopped' && (summary.current !== null || summary.ended !== null)) return
-  if ((await read($, REVIEWED)) === run.id) return
+  if ((await get($, 'reviewed')) === run.id) return
   // Where nothing draws, or the surfaces can't be read, no dialog can be answered: no review (BEH-26).
   let surfaces: readonly unknown[] = []
   try {
@@ -828,9 +894,9 @@ async function review($: E): Promise<void> {
   } catch {
     flags = []
   }
-  const items = reviewItems(await read($, REFUSED), flags)
+  const items = reviewItems(await get($, 'refused'), flags)
   if (items.length === 0) return
-  await update($, REVIEWED, () => run.id)
+  await put($, 'reviewed', () => run.id)
   const lines: string[] = []
   let dismissed: string | null = null
   let said = false
@@ -870,7 +936,7 @@ async function review($: E): Promise<void> {
 /** Enforce mode's write-gate check (BEH-08): the refusal text, or null to let the call go on. */
 async function enforceCheck($: E, fields: Fields, content: string | null): Promise<string | null> {
   const got = await pendingState($, 'tool', { ...fields, exit: 0, error: false, content: keptContent(content, await logBytes($)) })
-  const run = await read($, RUN)
+  const run = await get($, 'run')
   if (got === null) return null
   const refusal = refusalText(got.state, got.seq, run !== null && (await follows($, run)) ? got.lines : null)
   if (refusal !== null) await noteRefusal($, got.state, got.seq)
@@ -911,7 +977,7 @@ async function switchMode($: E): Promise<void> {
     await notify($, `DevForgeAI progress: couldn't save progress.mode (${NO_PYTHON})`)
     return
   }
-  const open = await read($, RUN)
+  const open = await get($, 'run')
   const r = open !== null ? rootOf(open) : await $.session.root()
   let res
   try {
@@ -929,14 +995,14 @@ async function switchMode($: E): Promise<void> {
   }
   await update($, MODE, () => target)
   await update($, SOURCE, () => 'local')
-  const run = await read($, RUN)
+  const run = await get($, 'run')
   await adapterLog($, 'switch', `${target} (local), at seq ${run?.seq ?? 0}`)
   await notify($, `DevForgeAI progress: ${target} mode, saved to .claude/devforgeai.local.md`)
   await refreshStatus($)
 }
 
 async function recording($: E, agentId: unknown): Promise<boolean> {
-  return interactive === true && !disabled && agentId === undefined && (await read($, RUN)) !== null
+  return interactive === true && !disabled && agentId === undefined && (await get($, 'run')) !== null
 }
 
 export const register: Register = (on, options) => {
@@ -991,7 +1057,7 @@ export const register: Register = (on, options) => {
         await recover($, 'skill.prompt', err)  // the trail never stops BEH-03's switch
       }
       if (skillsLoading.has(name)) switchedIn.add(name)  // before the switch, so the Skill call records nothing after it
-      if ((await read($, RUN)) !== null) await endRun($, 'another-skill', EVALUATOR_TIMEOUT)
+      if ((await get($, 'run')) !== null) await endRun($, 'another-skill', EVALUATOR_TIMEOUT)
       await openRun($, r, name, out.text)
       if (line !== null) return { ...out, text: `${out.text}\n\n${line}` }
     } catch (err) {
@@ -1047,7 +1113,7 @@ export const register: Register = (on, options) => {
         }
         return result
       }
-      const open = await read($, RUN)
+      const open = await get($, 'run')
       const r = open !== null ? rootOf(open) : await $.session.root()
       const content = await contentOf($, r, tool, input)
       const fields: Fields = {
@@ -1101,8 +1167,8 @@ export const register: Register = (on, options) => {
     const report = pendingReport
     if (report !== null && (await read($, MODE)) === 'enforce' && !e.text.trimStart().startsWith('/')) {
       pendingReport = null
-      const sent = await read($, SENT)
-      await update($, SENT, () => [...sent, report.seq])
+      const sent = await get($, 'contextSent')
+      await put($, 'contextSent', () => [...sent, report.seq])
       await adapterLog($, 'context', `report gate at seq ${report.seq}`)
       return next({ ...e, context: [...(e.context ?? []), report.text] })
     }
@@ -1173,12 +1239,12 @@ export const register: Register = (on, options) => {
     // The run as it stands: events still being written and not yet evaluated come first, as for the review.
     await recordChain
     if (inFlight !== null) await inFlight
-    if (!evaluating && (await read($, MARKED))) {
+    if (!evaluating && (await get($, 'marked'))) {
       inFlight = evaluateMarked($)
       await inFlight
     }
-    const run = await read($, RUN)
-    const summary = await read($, SUMMARY)
+    const run = await get($, 'run')
+    const summary = await get($, 'summary')
     if (run === null || summary === null || summary.ended !== null || summary.current === null) return next(e)
     if (!(await hasSurface($))) return next(e)
     const kept = keptText(summary.skill, summary.current)
@@ -1209,7 +1275,7 @@ export const register: Register = (on, options) => {
   // A compaction of a run that follows the task list keeps its marked step in the summary and ends with a note asking
   // Claude to bring the list in step (BEH-24). Anything after next(e) is caught here, so the compaction stands.
   on('session.compact', async ($, e, next) => {
-    const run = await read($, RUN)
+    const run = await get($, 'run')
     if (interactive === true && !disabled && run !== null && e.agentId === undefined && !(await follows($, run))) {
       return withTrailNote($, run, await next(e))
     }
@@ -1241,6 +1307,7 @@ export const register: Register = (on, options) => {
     pendingReport = null
     lastStatus = undefined
     turnOpen = false
+    live = emptyLive()
     // A new session ID follows /clear, /resume and /branch: its lines wait for its first run (DM-02).
     logRoot = null
     return next(e)
