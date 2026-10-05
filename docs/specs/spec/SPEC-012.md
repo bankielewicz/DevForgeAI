@@ -1112,7 +1112,9 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 Decided by Bryan on 2026-10-05, for version 12: a deliberate stop (architecture's Write nothing) ends the run as
 finished, with the reason stopped ("Yes, review at the stop"; the review is SPEC-013's). Nested skill runs (a run
 paused while another skill's run is open, with a return point the adapter sends to Claude) and resuming a run from
-its record are the next cycles' ("A + B now, nesting next"; "the tracker needs to send it to Claude").
+its record are the next cycles' ("A + B now, nesting next"; "the tracker needs to send it to Claude"). Open, for
+later (accepted by Bryan, 2026-10-05): a layer rule for `stoppable`, as `waivable` has (BEH-17), so a project manifest
+can't mark another step stoppable; version 12 doesn't specify one.
 
 Decided by Bryan on 2026-10-02:
 - PRD-001 v11 adds FR-021 (progress tracking) and NFR-004 to NFR-007, should/current; this spec links them.
@@ -1265,3 +1267,4 @@ Still open, or notes:
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes and Bryan's answers: stoppable on manifest and state steps, architecture's step 8 only (DM-01, DM-03, §4, BEH-12); VER-41 sharpened; ADR-006 link to version 2 | DM-01, DM-03, §1, §4, BEH-12, VER-41 |
 | 12 | 2026-10-05 | Bryan | Approved | status |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records version 12's build | §9 |
+| 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records the open layer rule for stoppable | §13 |

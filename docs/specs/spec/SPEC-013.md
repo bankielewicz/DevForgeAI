@@ -1260,7 +1260,10 @@ summary happened to keep it; an anchor mod that adds a return line to the inner 
 compaction made the return point deterministic, and he decided "the tracker needs to send it to Claude" and that
 "the mod enhancement is the winner". Resuming a run from its record follows nesting. Accepted (Bryan, 2026-10-05:
 "Accept and record it"): after a stop the tracker checks nothing more in that run, so a user-owned write asked for
-afterwards in the same session isn't checked, as after any run-end.
+afterwards in the same session isn't checked, as after any run-end. Accepted at the end of version 12's build (Bryan,
+2026-10-05, "Accept all"): DM-03's summary list doesn't name `stoppedAt`, which BEH-10 keeps there and the build has
+(fix the list at the next version); the review at a stop is tested with a flagged item, not a refusal; /branch isn't
+confirmed (not probed); the kept text reaches Claude as the command's output with the next prompt.
 
 Decided by Bryan on 2026-10-04, for version 11 (the waiver follow-ups):
 - Resolved, "Only after an answer": turn.complete fires for an aborted turn (Esc) too, so version 10's review could
@@ -1414,3 +1417,4 @@ Notes:
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes and Bryan's answers: the confirmation is not a gate (§2, BEH-28; ADR-006 version 2) and fails open (ERR-16, 'Run the command'); the stop only on a stoppable step (BEH-27, 'Manifest flag, step 8 only'); after a stop nothing more is checked (BEH-27, §13, 'Accept and record it'); BEH-26 on ended stopped; BEH-10's n; BEH-11's band; no second run-end (BEH-05); ERR-15 restored; VER-38 to VER-40 sharpened | §2, BEH-05, BEH-10, BEH-11, BEH-26, BEH-27, BEH-28, ERR-15, ERR-16, VER-38, VER-39, VER-40, §13 |
 | 12 | 2026-10-05 | Bryan | Approved | status |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records version 12's build and VER-40 | §9 |
+| 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records Bryan's acceptance of the end-of-workflow notes | §13 |
