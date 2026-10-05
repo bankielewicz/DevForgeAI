@@ -5,7 +5,8 @@
 [[fill: two or three sentences: what the work is, why it is being done, and where it stands]]
 
 - Project root: [[fill: the project root's absolute path, in backticks]]
-- Branch: [[fill: the branch name in backticks, and its upstream with ahead and behind counts, or "no upstream"; for a no-git handoff, "git not used" and why]]
+- Branch: [[fill: the work's branch in backticks, its worktree's path when that isn't the project root, and its upstream with ahead and behind counts, or "no upstream"; for a no-git handoff, "git not used" and why]]
+- Session runs in: [[fill: the checkout the session runs in and its branch, when that isn't the work's worktree, or delete this line]]
 - Written: [[fill: YYYY-MM-DD HH:MM from the date command]] UTC, by session [[fill: the session ID]]
 - Tracked run: [[fill: the progress tracker's open run and its step, from its current.json, or delete this line]]
 

@@ -21,8 +21,10 @@ this file has what goes in each section, with examples, and the self-check.
 Start from `assets/start-here.md`. Replace every `[[fill: ...]]`; delete a line the fill says to delete when it
 doesn't apply. More `##` sections may follow section 7; `###` headings may go anywhere.
 
-**1. What this is.** Two or three sentences a stranger understands, then the project root, the branch, the time
-written (UTC) and the session ID. When the session's progress tracker has an open run, name it and its step.
+**1. What this is.** Two or three sentences a stranger understands, then the project root, the work's branch (with
+its worktree's path when the session works in another worktree, and the checkout the session runs in), the time
+written (UTC) and the session ID. Several sessions may run in one checkout on one branch while each works in its own
+worktree: the folder follows the work's branch, so each keeps its own handoff. When the session's progress tracker has an open run, name it and its step.
 
 **2. Verified state.** One fact per bullet, each ending with how it was checked, or `(unverified: <source>, <date>)`.
 - Good: `- PR #12 is open as a draft [checked: gh pr view 12 --json isDraft -> true]`

@@ -141,7 +141,13 @@ another folder, a parent repository that isn't the project's (such as a home fol
 it (ERR-01). START-HERE §1 states the root, and every path the skill writes or checks is under it unless written
 absolute.
 
-**The handoff folder** is `<root>/devforgeai/handoff/<branch>/`, `<branch>` being the current branch's name with each
+**The work's branch** is the branch of the worktree the session's work is in: the one it edits or commits to (for
+example with `git -C .claude/worktrees/<name>`), or, when it works in its own checkout, that checkout's branch. With
+work in several worktrees, it is the one with the outstanding work, and START-HERE §1 names the others (version 2;
+Bryan, 2026-10-05: "Folder follows the work's branch", on a side note that sessions running on `main` and editing
+worktrees would all share `main`'s folder). The state checks (BEH-02) run in that worktree.
+
+**The handoff folder** is `<root>/devforgeai/handoff/<branch>/`, `<branch>` being the work's branch name with each
 run of characters other than letters, digits, `.`, `_` and `-` replaced by `-` (`docs/precompact` becomes
 `docs-precompact`); `detached-<short hash>` on a detached HEAD; `no-git` where git can't be used (ERR-01).
 `<root>/devforgeai/handoff/.gitignore` holds `*`, as the tracker's `devforgeai/progress/` does (SPEC-013 BEH-15): the
@@ -155,7 +161,7 @@ the only placeholder form; IF-01 refuses any left in a written file.
 
 | Heading | Holds |
 |---|---|
-| `## 1. What this is` | the work in two or three sentences; the project root; the branch; the date and time written (UTC) and the session that wrote it |
+| `## 1. What this is` | the work in two or three sentences; the project root; the work's branch, with its worktree's path when that isn't the root, and the checkout the session runs in; the date and time written (UTC) and the session that wrote it |
 | `## 2. Verified state` | facts checked while writing (BEH-02), one per bullet, each ending `[checked: <command> -> <what it showed>]` or `(unverified)` with where the fact came from and its date |
 | `## 3. Decisions` | `### Decided`: each decision as a bullet with who decided, the date as YYYY-MM-DD and their words in quotes; `### Open`: the questions still the user's, each with the options as the user saw them |
 | `## 4. Read first` | a numbered list, each item starting with the path in backticks, then why and when to read it; searches to run (`grep -n "<term>" <path>`) where a file is too long to read whole; a closing line: when something needed isn't here, search the repository and memory before asking the user |
@@ -169,8 +175,8 @@ updated, never replaced; past 20 done entries, the oldest move to `TASKS-archive
 names once and RESUME-PROMPT.md doesn't send the next session to.
 
 **DM-03. RESUME-PROMPT.md**, about 15 lines and at most 40, with no required headings: the work in one sentence; the
-absolute path of START-HERE.md, to be read first, then TASKS.md; to stop and tell the user when the branch checked out
-isn't the one START-HERE §1 names; to run START-HERE §7; to go on with the first item of §5, asking the user before
+absolute path of START-HERE.md, to be read first, then TASKS.md; to stop and tell the user when the work's branch (checked
+in the worktree §1 names, `git -C <worktree> branch --show-current`) isn't the one START-HERE §1 names; to run START-HERE §7; to go on with the first item of §5, asking the user before
 anything §3 or §5 says is theirs; and, when something needed isn't in the handoff, to search the repository (with the
 project's spec lookup where it has one) and the memory index before asking.
 
@@ -447,7 +453,7 @@ sessions such as tasks.md or start-here.md..."): "Full cycle, 1-run evals (Recom
 quoted in §1; "Yes, the tracker ignores it (Recommended)" (SPEC-013 version 18); "devforgeai/handoff/
 (Recommended)"; "START-HERE + TASKS + resume prompt (Recommended)". After the drafts review: "Record nothing after the
 load (Recommended)" (SPEC-013 BEH-02); "Key in SKILL.md; unreadable = tracked (Recommended)"; "One handoff per branch
-(Recommended)"; "Typed or asked; run at 70-80% (Recommended)", on a side note that the skill spends context itself and
+(Recommended)", with the folder following the work's branch ("Folder follows the work's branch", §4); "Typed or asked; run at 70-80% (Recommended)", on a side note that the skill spends context itself and
 a run cut off at the limit (automatic compaction off) would leave the handoff half-written.
 
 Recorded for later: running the skill, or a check that the handoff is current, from a compaction hook (Bryan:
@@ -470,4 +476,4 @@ named in BEH-06.
 | 1 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Drafted from Bryan's decisions of 2026-10-05 (`/plugin-dev:skill-development`, "Full cycle, 1-run evals", the purpose and content in his words, the tracker ignores it, devforgeai/handoff/, three files); status in-review | all |
 | 1 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes (2 critical: the checker's rules narrowed so valid handoffs pass and the fix loop ends; ERR-01 decided by git's top level, VER-05's premise in a parent repository) and Bryan's answers (one folder per branch; typed or asked, run at 70 to 80 percent, START-HERE written first, memory last; the session's plan file ticked; line shapes and the self-check in the spec; the resume prompt's absolute path and branch check; no tests run; no secrets; ERR-06) | §1 to §13 |
 | 1 | 2026-10-05 | Bryan | Approved ('Approve both (Recommended)', with the summary and the drafter's choices shown in its preview, the run at 70-80% flagged as a departure from his 80-90%) | status |
-| 2 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | The build's structure test found that §5's description holds `<branch>`, which skill-frontmatter.schema.json refuses (a description holds no < or >; PRD-001 NFR-002, §2): it now says 'in devforgeai/handoff/, one folder per branch'. Writing the no-git eval case (VER-05) found §4's project root (the git top level when a parent of the working directory) contradicting ERR-01 (a parent repository the user didn't name means git isn't used): the root is now the folder the session started in, or a folder holding it that the user names; status in-review | §4, §5 |
+| 2 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | The build's structure test found that §5's description holds `<branch>`, which skill-frontmatter.schema.json refuses (a description holds no < or >; PRD-001 NFR-002, §2): it now says 'in devforgeai/handoff/, one folder per branch'. Writing the no-git eval case (VER-05) found §4's project root (the git top level when a parent of the working directory) contradicting ERR-01 (a parent repository the user didn't name means git isn't used): the root is now the folder the session started in, or a folder holding it that the user names; status in-review; on a side note Bryan relayed (sessions on main that edit worktrees with git -C would share main's folder), he chose 'Folder follows the work's branch': the folder and the state checks follow the branch of the worktree the session's work is in; §1 names it and its worktree; the resume prompt checks that worktree's branch | §4, §5, DM-01, DM-03, §13 |

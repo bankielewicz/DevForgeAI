@@ -56,8 +56,11 @@ before step 2.
 ### 1. Check the state
 
 - Find the project root: the folder the session started in (not one a later `cd` moved to), or a folder holding it
-  that the user names as the project. The handoff folder is `devforgeai/handoff/<folder>/` under the root,
-  `<folder>` being the branch name with each run of characters other than letters, digits, `.`, `_` and `-`
+  that the user names as the project.
+- Find the work's branch: the branch of the worktree the session's work is in (the one it edited or committed to,
+  for example with `git -C <worktree>`), or the root's own branch when the work is there. Run the git checks below
+  in that worktree. The handoff folder is `devforgeai/handoff/<folder>/` under the root, `<folder>` being the
+  work's branch name with each run of characters other than letters, digits, `.`, `_` and `-`
   replaced by `-` (`feat/csv-export` becomes `feat-csv-export`); `detached-<short hash>` on a detached HEAD;
   `no-git` when git can't be used for the project, a parent repository's top level included (see below).
 - Don't re-read what the session holds (its CLAUDE.md files and memory index are in context). Read only the handoff
