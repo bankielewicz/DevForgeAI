@@ -4,6 +4,7 @@ import {
   isEngine, isFailed, isPersonPrompt, isTracked, keptContent, newFlagToasts, questionRefusal, refusalText, relPath,
   refusalCause, replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf, stuckAdvice,
   stuckText, summaryOf, taskIdOf, returnLine, trailNote, pausedWith, keptTrail, endReason, hasRoom, nestedExitQuestion, nestedKeptText,
+  runName, resumePlan, ageText, resumeQuestion,
   todoSteps, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT, QUESTION_REFUSAL, QUESTION_TAG,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
@@ -348,4 +349,56 @@ test('VER-44: the exit question and the kept text while a run is paused beneath 
   expect(nestedExitQuestion('spec-lookup', { ...at, current: null }, b, 1, 'Exit')).toBe('spec-lookup run is done (architecture paused at step 7, 1 more paused). Exit anyway?')
   expect(nestedExitQuestion('spec-lookup', null, b, 0, 'Resume')).toBe('spec-lookup run has just started (architecture paused at step 7). Resume anyway?')
   expect(nestedKeptText('spec-lookup', b)).toBe('Kept working: the spec-lookup run goes on, and architecture is still paused at step 7.')
+})
+
+// ---- the offer to continue an earlier run (SPEC-013 v16), after the build reviews: states as the evaluator writes them ----
+
+/** A brainstorm state as evaluate.py writes it: each step's state and evidence types, its claim, and how the run ended. */
+function brnState(steps: Array<[string, string[], string | null]>, ended: string | null = 'session-end'): ProgressState {
+  const titles = ['Intake', 'Framework', 'Diverge', 'Evaluate', 'Dispositions', 'Write the BRN', 'Validate', 'Report']
+  return { skill: 'brainstorm', current: null, ended, flags: [], gate: { kind: null, seq: null, refuse: false, reason: null },
+    manifest: { state: 'matched' },
+    steps: steps.map(([state, types, claim], i) => ({ n: i + 1, title: titles[i], state, userOwned: i + 1 === 5,
+      evidence: types.map(type => ({ type })), claim: claim === null ? null : { state: claim } })) } as unknown as ProgressState
+}
+const line = (o: object) => JSON.stringify({ run: 'x', seq: 1, time: '2026-10-05T10:00:00Z', ...o })
+
+test('VER-47 (review S1): a resumed run resumed again keeps its carried write step written and its answered decisions', () => {
+  // Run B continued run A at step 7 (A had answered step 5 and written the BRN): B's steps 1 to 6 are carried, step 5
+  // answered in A; B marked step 7 and ended.
+  const b = brnState([['carried', ['carried'], 'done'], ['carried', ['carried'], 'done'], ['carried', ['carried'], 'done'],
+    ['carried', ['carried'], 'done'], ['carried', ['carried'], 'done'], ['carried', ['carried'], 'done'],
+    ['pending', [], null], ['pending', [], null]])
+  const lines = [line({ kind: 'skill-loaded', resumes: 'A', carried: [1, 2, 3, 4, 5, 6], answered: [5] }),
+    line({ seq: 2, kind: 'step', step: 7, state: 'started' }), line({ seq: 3, kind: 'run-end', reason: 'session-end' })]
+  const plan = resumePlan('B', b, lines, 6, Date.parse('2026-10-05T12:00:00Z'))
+  expect(plan).toMatchObject({ step: 7, carried: [1, 2, 3, 4, 5, 6], answered: [5], owned: [] })
+})
+
+test('VER-47 (review S2): a decision written before the user\'s answer is no answer that stands', () => {
+  // The BRN was written with dispositions promoted before step 5 was answered (step 5 skipped, step 6 rule-broken); the
+  // user answered step 5 afterwards; the run ended marked at step 7.
+  const a = brnState([['done', ['read'], 'done'], ['done', [], 'done'], ['done', [], 'done'], ['done', [], 'done'],
+    ['skipped', ['answer'], 'done'], ['rule-broken', ['write'], 'done'], ['pending', [], null], ['pending', [], null]])
+  const lines = [line({ kind: 'skill-loaded' }), line({ seq: 2, kind: 'step', step: 7, state: 'started' }),
+    line({ seq: 3, kind: 'run-end', reason: 'session-end' })]
+  const plan = resumePlan('A', a, lines, 6, Date.parse('2026-10-05T12:00:00Z'))
+  expect(plan).toMatchObject({ step: 7, answered: [], owned: [5] })
+})
+
+test('VER-47 (review S3): the offer looks for runs under the name run IDs give the skill', () => {
+  expect(runName('My_Skill')).toBe('my-skill')
+  expect(runName('9lives')).toBe('lives')
+  expect(runName('brainstorm')).toBe('brainstorm')
+  expect(runId(T0, 'My_Skill', new Uint8Array([0, 0, 0, 1]))).toBe(`20261002T120000Z-${runName('My_Skill')}-00000001`)
+})
+
+test('BEH-31 (review notes): an unknown age and a path with a line break don\'t break the question', () => {
+  expect(ageText(NaN)).toBe('an unknown time')
+  const a = brnState([['done', ['read'], 'done'], ['pending', [], null], ['pending', [], null], ['pending', [], null],
+    ['pending', [], null], ['pending', [], null], ['pending', [], null], ['pending', [], null]])
+  const lines = [line({ kind: 'skill-loaded' }), line({ seq: 2, kind: 'tool', tool: 'Write', path: 'docs/a\nb.md', error: false }),
+    line({ seq: 3, kind: 'run-end', reason: 'session-end' })]
+  const plan = resumePlan('A', a, lines, 6, Date.parse('2026-10-05T12:00:00Z'))!
+  expect(resumeQuestion('brainstorm', plan)).toBe('brainstorm: an earlier run ended at step 2 of 8 on 2026-10-05 (session end). It wrote docs/a b.md. Continue it?')
 })
