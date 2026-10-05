@@ -38,7 +38,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
   runs the lookup script for another skill's workflow.
 - The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v12, the evaluator; v12, the run-end `stopped`, merged in PR #85 (`4daa7c4`), deployed 0.22.0)
   and `hooks/progress.tsx` (SPEC-013 v13, the Claude Code adapter; v13, the trail of return points for skills Claude loads mid-run,
-  built in PR #87 (0.23.0), not merged; v12, the deliberate stop and the /clear, /exit, /resume
+  merged in PR #87 (`13184e5`), deployed 0.23.0; v12, the deliberate stop and the /clear, /exit, /resume
   confirmation, merged in PR #85 (`4daa7c4`), deployed 0.22.0; v11, the review only after an answered turn,
   merged in PR #83 (`ab8301c`), deployed 0.21.0). It records each tracked skill run
   (brainstorm and architecture have manifests) and shows its checklist steps in the status line and
