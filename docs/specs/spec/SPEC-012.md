@@ -2,7 +2,7 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: in-review      # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 14
 created: 2026-10-02
 updated: 2026-10-05
@@ -14,7 +14,7 @@ generated_by:
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-04
+approved_on: 2026-10-05
 upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain's order, which the state's next step follows"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
@@ -1334,3 +1334,5 @@ Still open, or notes:
 | 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: VER-41's covers restored; BEH-12's returned wording | BEH-12, VER-41 |
 | 13 | 2026-10-05 | Bryan | Approved | status |
 | 14 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05 ("Resume from record", "Carry them over"): a run can continue an earlier one; skill-loaded's resumes and carried (DM-02); the carried state and evidence type (DM-03); carried steps reached and unflagged, user-owned ones re-confirmed (BEH-20, ERR-10); VER-43; status in-review | frontmatter, §1, DM-02, DM-03, BEH-20, ERR-10, VER-43, §11, §13 |
+| 14 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes and Bryan's answers: BEH-20 inside its yaml block; every step before the continue step carried; carried evidence starts and ends no answer window; skill-loaded's answered names the carried user-owned steps the earlier record shows answered once their document was written ('Not if already written', narrowed on a side note); VER-43's cases (written, written-open, windows, answered-unknown) | DM-02, BEH-20, ERR-10, VER-43, §13 |
+| 14 | 2026-10-05 | Bryan | Approved | status |

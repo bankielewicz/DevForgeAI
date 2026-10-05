@@ -36,8 +36,8 @@ Change Log holds the history. Read those, not this file, for any number or date.
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
 - `spec-lookup` also ships a plugin agent, `agents/spec-lookup.md` (`devforgeai:spec-lookup`), which
   runs the lookup script for another skill's workflow.
-- The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v13, the evaluator; v13, the run-end `returned`, merged in PR #89 (`9fdda66`), deployed 0.24.0; v12, the run-end `stopped`, merged in PR #85 (`4daa7c4`), deployed 0.22.0)
-  and `hooks/progress.tsx` (SPEC-013 v15, the Claude Code adapter; v14 and v15, nested runs paused and resumed,
+- The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v13, the evaluator; v14, carried steps for a run that continues an earlier one, approved 2026-10-05, not built; v13, the run-end `returned`, merged in PR #89 (`9fdda66`), deployed 0.24.0; v12, the run-end `stopped`, merged in PR #85 (`4daa7c4`), deployed 0.22.0)
+  and `hooks/progress.tsx` (SPEC-013 v15, the Claude Code adapter; v16, the offer to continue an earlier unfinished run, approved 2026-10-05, not built; v14 and v15, nested runs paused and resumed,
   merged in PR #89 (`9fdda66`), deployed 0.24.0; v13, the trail of return points for skills Claude loads mid-run,
   merged in PR #87 (`13184e5`), deployed 0.23.0; v12, the deliberate stop and the /clear, /exit, /resume
   confirmation, merged in PR #85 (`4daa7c4`), deployed 0.22.0; v11, the review only after an answered turn,

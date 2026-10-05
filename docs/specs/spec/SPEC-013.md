@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review   # draft | in-review | approved | superseded | deprecated
+status: approved    # draft | in-review | approved | superseded | deprecated
 version: 16
 created: 2026-10-02
 updated: 2026-10-05
@@ -14,11 +14,11 @@ generated_by:
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-04
+approved_on: 2026-10-05
 upstream:
   - {id: ADR-006, relation: constrains, version: 2, hash: null, note: "D1 (a hook blocks only at a gate, only in enforce mode; the tracker fails open), D3 (progress.mode, resolved at session start, and the button that switches it) and D6 (the local preference file); its follow-up gives D1, D3 and D6 to this spec"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "A3's local preference format, in which progress.mode is one entry; an entry that can't be used is ignored and reported, never fatal"}
-  - {id: SPEC-012, relation: constrains, version: 13, hash: null, note: "the event log (DM-02) this adapter writes, the state (DM-03) it reads, IF-01's command line, the gate and refuse (BEH-11), run-end (BEH-12), the operational files and the run ID (§4)"}
+  - {id: SPEC-012, relation: constrains, version: 14, hash: null, note: "the event log (DM-02) this adapter writes, the state (DM-03) it reads, IF-01's command line, the gate and refuse (BEH-11), run-end (BEH-12), the operational files and the run ID (§4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "progress tracking by evidence; this spec brings the core of SPEC-012 into Claude Code sessions"}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "decisions are the user's: enforce mode refuses a write that records a user-owned decision without the user's answer, and no button sends a prompt"}
 supersedes: []
@@ -1659,3 +1659,5 @@ Decided by Bryan on 2026-10-05, at version 14's end of workflow: 'Fix now as v15
 | 15 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's end-of-workflow decision of 2026-10-05 ('Fix now as v15'): a load of Claude's of the open run's own skill changes nothing only while that run is unfinished; a finished one ends and a new run opens, the trail kept, no push (BEH-29, VER-43). BEH-05's wording: a load that isn't Claude's ends every paused run (a load of Claude's that can't nest ends the open run only, as BEH-29 already said). VER-45 has one `covers`. §9 and §13 record the build and his end-of-workflow answers. | BEH-05, BEH-29, VER-43, VER-45, §9, §13 |
 | 15 | 2026-10-05 | Bryan | Approved ('Fix now as v15', with the version 15 text shown in its preview) | status |
 | 16 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05 ("Resume from record": Offer-and-tell, any unfinished run including a stop, the tracker's own dialog, carried steps, pruning unchanged): the offer at a typed load and the resume line (BEH-31, ERR-17), the resume line exempt in observe mode (BEH-07), the carried glyph (BEH-11), adapter.log's resume kind (DM-02), VER-46 to VER-48 kit, VER-49 live; after the drafts review and a probe of command.run on a typed skill, the offer asked in that load's skill.prompt, every step before the continue step carried, decisions before a carried write-gate step standing, a run with no run-end offered with its age; status in-review | frontmatter, §1, DM-02, BEH-07, BEH-11, BEH-31, ERR-17, VER-46, VER-47, VER-48, VER-49, §11, §13 |
+| 16 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes and Bryan's answers: BEH-31 inside its yaml block; a probe in worker1 of command.run on a typed skill, so the offer is asked in that load's skill.prompt for the name command.run keeps; every step before the continue step carried, never past a write-gate step without write evidence; answered for decisions the earlier record shows answered once written; a run with no run-end offered with its age; the stopped open run offered, paused runs not; manifest matched; nothing carried, no offer; the files named; VER-46 split into VER-46 to VER-48, the live check VER-49 | BEH-31, ERR-17, VER-46, VER-47, VER-48, VER-49, §11, §13 |
+| 16 | 2026-10-05 | Bryan | Approved | status |
