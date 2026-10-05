@@ -1,11 +1,12 @@
-// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v14).
+// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v18).
 //
 // It records each run of a tracked skill as SPEC-012's event log, runs SPEC-012's evaluator on a timer, and shows
 // the run in the status line, a two-row band above the prompt and toasts. In enforce mode it refuses the write
 // gate's Write or Edit when that gate raised flags, refuses a question at SPEC-012's question gate (no step marked,
 // no step tag, or another step's tag), and gives the model the report gate's flags. It records Claude Code's task list as step events.
 // A tracked skill Claude loads mid-run pauses the open run on a trail, which unwinds when Claude goes back (BEH-29,
-// BEH-30). It fails open:
+// BEH-30). A plugin skill whose SKILL.md metadata says devforgeai-tracked "false" is untracked: its load changes nothing
+// and the turn it loads in records no tool events (BEH-02, version 18). It fails open:
 // when it can't run, the work goes on and the user is told (ADR-006 D1). Old run and session folders are pruned
 // by progress/prune.py, which the adapter starts once per session and root (BEH-19).
 //
@@ -16,7 +17,7 @@ import type { EngineInterface, Register } from 'claude-code'
 import type { ProgressMode, ProgressModeSource, ProgressPaused, ProgressReturned, ProgressRun, ProgressSummary } from '../types'
 import {
   adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
-  hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, isWaiverQuestion, keptContent, markedStep, newFlagToasts,
+  hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, isUntrackedSkill, isWaiverQuestion, keptContent, markedStep, newFlagToasts,
   questionRefusal, questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, reviewItems, reviewQuestion,
   runId, runName, skillName, statusText, stepLabel, waiverAnswer, returnLine, pausedWith, keptTrail, endReason, hasRoom, trailNote, TRAIL_NOTE_START, stopsRun,
   exitQuestion, keptText, nestedExitQuestion, nestedKeptText, isDismissal, CONFIRMED, resumePlan, resumeQuestion, resumeLine,
@@ -167,6 +168,11 @@ let tenure = 0
 let typedName: string | null = null
 /** The open run has recorded the event of a tool call or an answer whose hook began after it opened (BEH-30 (a)). */
 let worked = false
+/** The turn is marked (BEH-02, version 18): an untracked skill was loaded in it, by the person (the typed name) or by
+ *  Claude's Skill call (the in-flight set). Set at that skill.prompt; the main loop's next turn.complete clears it, and
+ *  turn.start doesn't, since a typed load's skill.prompt comes before its turn starts. A tool call whose hook began while
+ *  it was set records no tool event. */
+let untrackedTurn = false
 let disabled = false
 let modeSession: string | null = null
 // The root the mode was resolved for: the local preference file is per checkout (BEH-16).
@@ -489,13 +495,25 @@ async function contentOf($: E, r: string, tool: string, input: Fields): Promise<
   }
 }
 
-/** The skills that open a run: the plugin's own, and those a project or organization manifest names (BEH-02). */
-async function tracked($: E, r: string, name: string): Promise<boolean> {
+/** What a skill's load is (BEH-02): 'tracked' (one of the plugin's own, or a project or organization manifest's), 'untracked'
+ *  (one of the plugin's own whose SKILL.md metadata has devforgeai-tracked "false", version 18) or 'other', which neither
+ *  starts nor ends a run. A plugin skill's SKILL.md is read at each of its loads, never cached, so a deployed change shows
+ *  at the next load; only a plugin skill can be untracked, and a manifest of its name changes nothing. A SKILL.md that can't
+ *  be read leaves the skill tracked, with one adapter.log line (ERR-18). */
+async function skillKind($: E, r: string, name: string): Promise<'tracked' | 'untracked' | 'other'> {
   if (pluginSkills === null) {
     try {
       pluginSkills = (await $.fs.list(`${$.plugin.root}/skills`)).filter(x => x.kind === 'dir').map(x => x.name)
     } catch {
       pluginSkills = []
+    }
+  }
+  if (pluginSkills.includes(name)) {
+    try {
+      return isUntrackedSkill(await $.fs.read(`${$.plugin.root}/skills/${name}/SKILL.md`)) ? 'untracked' : 'tracked'
+    } catch (err) {
+      await adapterLog($, 'skill-read', `${name}: ${firstLine(message(err))}`)
+      return 'tracked'
     }
   }
   const manifests: string[] = []
@@ -508,7 +526,7 @@ async function tracked($: E, r: string, name: string): Promise<boolean> {
       // an unreadable folder adds no manifest
     }
   }
-  return isTracked(name, pluginSkills, manifests)
+  return isTracked(name, pluginSkills, manifests) ? 'tracked' : 'other'
 }
 
 /** Find python3, then python (IF-03, ERR-01). */
@@ -1378,7 +1396,15 @@ export const register: Register = (on, options) => {
       const name = skillName(e.skill)
       // One read of the root serves every decision as the run opens (BEH-03): tracked, the folder, the mode.
       const r = await $.session.root()
-      if (!(await tracked($, r, name))) return out
+      const kind = await skillKind($, r, name)
+      if (kind === 'other') return out
+      if (kind === 'untracked') {
+        // An untracked skill's load opens no run, ends, pauses or unwinds nothing, offers nothing and changes no display
+        // (BEH-02, version 18). The person's load (the typed name BEH-31 keeps) or Claude's (BEH-29's in-flight set) marks
+        // the turn; a subagent's marks nothing.
+        if (typedName === name || skillsLoading.has(name)) untrackedTurn = true
+        return out
+      }
       ensureTimer($)
       // A load that isn't Claude's (typed, or a subagent's) ends the open run and every paused run (BEH-03, BEH-29).
       if (!skillsLoading.has(name)) {
@@ -1428,8 +1454,9 @@ export const register: Register = (on, options) => {
   })
 
   on('tool.call', async ($, e, next) => {
-    // The open run's tenure as this hook began, before any await (BEH-30 (a)).
+    // The open run's tenure as this hook began, before any await (BEH-30 (a)), and whether the turn was marked (BEH-02).
     const began = tenure
+    const unrecorded = untrackedTurn
     const input = e as unknown as Fields
     const tool = String(input.tool)
     // Registered before any await, so a question in the same batch finds it (BEH-21).
@@ -1493,6 +1520,10 @@ export const register: Register = (on, options) => {
       }
       const result = await next(e)
       if (loading !== null && switchedIn.delete(loading)) return result
+      // A hook that began in a marked turn leaves no tool event, in any run, and a task-tool call changes no task map, gives
+      // no step event and unwinds nothing (BEH-02, BEH-30 (a)). The Skill call that loaded the untracked skill began before
+      // the mark, and answers and the enforce checks above are as before.
+      if (unrecorded) return result
       try {
         const outcome = result as unknown as ToolOutcome
         const done: Fields = { ...fields, exit: exitOf(outcome), error: isFailed(outcome), content: keptContent(content, await logBytes($)) }
@@ -1582,6 +1613,8 @@ export const register: Register = (on, options) => {
   })
 
   on('turn.complete', async ($, e, next) => {
+    // The main loop's turn ends the mark of an untracked load, whatever its reason and whether or not a run is open (BEH-02).
+    if (e.agentId === undefined) untrackedTurn = false
     const main = await recording($, e.agentId)
     if (main) {
       turnOpen = false
@@ -1715,6 +1748,7 @@ export const register: Register = (on, options) => {
       turnOpen = false
       live = emptyLive()
       typedName = null
+      untrackedTurn = false
       // A new session ID follows /clear, /resume and /branch: its lines wait for its first run (DM-02).
       logRoot = null
     }
