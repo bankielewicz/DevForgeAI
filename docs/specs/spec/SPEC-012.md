@@ -25,7 +25,7 @@ upstream:
   - {id: PRD-001, item: FR-011, relation: informed_by, version: 11, hash: null, note: "custom workflows declare their required checks; a project skill's manifest is one (ADR-006 D4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "the requirement whose core this spec builds; built on a spec branch, as no story exists"}
   - {id: SPEC-001, item: VER-02, relation: informed_by, version: 15, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
-  - {id: SPEC-003, relation: informed_by, version: 10, hash: null, note: "the architecture skill's checklist; ADRs are accepted one by one when the user picks at step 7; the ARCH's outcome is written only when the user confirms it at step 8"}
+  - {id: SPEC-003, relation: informed_by, version: 11, hash: null, note: "the architecture skill's checklist; ADRs are accepted one by one when the user picks at step 7; the ARCH's outcome is written only when the user confirms it at step 8"}
   - {id: SPEC-007, relation: informed_by, version: 3, hash: null, note: "the git skill's checklist form for a legitimate skip, (skipped: <reason>); version 3 is in review"}
 supersedes: []
 superseded_by: null

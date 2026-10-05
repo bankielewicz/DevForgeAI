@@ -331,12 +331,12 @@ picks the direction.
   accepted or superseded, the new version, and an approved ARCH's return to in-review.
 - **Create:** name the new ARCH's ID and what it records.
 
-Offer three options, in this order: `Confirm <outcome> (Recommended)` (e.g. `Confirm amend
-(Recommended)`), which writes the outcome; `Write it with the outcome open`, which writes the change
-with `outcome: null`; and `Write nothing`: write and edit no file, mark step 8 completed, leave steps
-9 to 11 pending (a completed step 9 without a write claims work not done), reply with each question
-and its answer, say nothing was written so a later run can use them again, and stop. Typed text is
-the user's answer: act on what it says; a dismissal leaves the question unanswered: write nothing.
+Offer, in order: `Confirm <outcome> (Recommended)`, which writes it; `Write it with the outcome open`
+(not for reuse, which has nothing to write so), the change with `outcome: null`; `Write nothing`:
+write and edit no file, mark step 8 completed, leave steps 9 to 11 pending (step 9 completed without
+a write claims work not done), reply with each question and its answer, say nothing was written so a
+later run can use them again, and stop. Typed text is the user's answer: act on what it says; a
+dismissal leaves the question unanswered: write nothing.
 
 Write `outcome` only when it is confirmed at step 8, or the request named it and said to proceed
 without questions; otherwise it stays `null`. Confirming the outcome accepts no decision. When

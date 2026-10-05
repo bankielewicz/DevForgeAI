@@ -22,7 +22,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 |---|---|---|---|---|
 | `brainstorm` | SKL-001 v7, approved | SPEC-001 v15, approved 2026-10-04, not built (SKL-001 v8 next; v14 built) | 1 run, 9 of 9; 3-run qualification waived by Bryan | PR #77 (0.20.0) |
 | `prd` | SKL-002 v5, approved | SPEC-002 v5, approved | 3 runs, 35 of 35 at ≥ 0.8 | PR #57 (0.11.0) |
-| `architecture` | SKL-003 v8, approved | SPEC-003 v10, approved 2026-10-04, not built (SKL-003 v9 next; v9 built) | 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #77 (0.20.0) |
+| `architecture` | SKL-003 v8, approved | SPEC-003 v11, approved 2026-10-04, not built (SKL-003 v9 next; v9 built) | 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #77 (0.20.0) |
 | `epic` | SKL-004 v4, approved | SPEC-004 v4, approved | 3 runs, 25 of 25 at ≥ 0.8 | PR #62 (0.12.1) |
 | `context` | SKL-010 v2, approved | SPEC-011 v3, approved | 3 runs, 18 of 18 at ≥ 0.8 | PR #45 (0.8.1) |
 | `documents-updater` | SKL-005 v1, draft | SPEC-006 v1, approved | 1 run, 8 of 8 at 1.00 | PR #1 (0.2.0) |
