@@ -38,9 +38,15 @@ export function eventLine(run: string, seq: number, ms: number, kind: string, fi
 }
 
 /** The run ID: UTC time as yyyymmddThhmmssZ, the skill, 8 hex digits (SPEC-012 §4; BEH-03). */
+/** A skill's name as its run IDs carry it (DM-02's pattern): lower case, other characters as '-', from its first
+ *  letter. The offer looks for earlier runs under the same name (BEH-31). */
+export function runName(skill: string): string {
+  return skill.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^[^a-z]+/, '') || 'skill'
+}
+
 export function runId(ms: number, skill: string, random: Uint8Array): string {
   const t = isoTime(ms).replace(/[-:]/g, '')
-  const name = skill.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^[^a-z]+/, '') || 'skill'
+  const name = runName(skill)
   const hex = Array.from(random.slice(0, 4), b => b.toString(16).padStart(2, '0')).join('')
   return `${t}-${name}-${hex.padEnd(8, '0')}`
 }
@@ -808,6 +814,7 @@ function reachedStep(s: StateStep): boolean {
 
 /** An age as the offer says it: minutes, hours or days. */
 export function ageText(ms: number): string {
+  if (!Number.isFinite(ms)) return 'an unknown time'
   const minutes = Math.max(0, Math.floor(ms / 60000))
   if (minutes < 60) return `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`
   const hours = Math.floor(minutes / 60)
@@ -834,14 +841,27 @@ export function resumePlan(run: string, state: ProgressState, lines: readonly st
   const highest = reached.length ? Math.max(...reached) : null
   let step = markedStep(lines, Infinity, steps)
     ?? (highest === null ? steps[0].n : (steps.find(s => s.n > highest)?.n ?? steps[steps.length - 1].n))
-  // Never past the first step with the write gate that has no write evidence: its document was never written.
+  // Never past the first step with the write gate that has no write evidence: its document was never written. A write
+  // step carried from a run before counts as written there (review S1).
   const gate = writeGate === null ? undefined : steps.find(s => s.n === writeGate)
-  if (gate !== undefined && gate.n < step && !(gate.evidence ?? []).some(x => x.type === 'write')) step = gate.n
+  const wrote = gate !== undefined && (gate.evidence ?? []).some(x => x.type === 'write' || x.type === 'carried')
+  if (gate !== undefined && gate.n < step && !wrote) step = gate.n
   const carried = steps.filter(s => s.n < step).map(s => s.n)
   if (!carried.length) return null
-  const written = gate !== undefined && carried.includes(gate.n)
+  // The decisions that stand: written under the write gate (not a rule-broken write), each answered and not skipped
+  // there, in this run or, carried, in the run it continued (review S1, S2).
+  const written = gate !== undefined && carried.includes(gate.n) && gate.state !== 'rule-broken'
+  let before: number[] = []
+  try {
+    const first = JSON.parse(lines[0] ?? '{}') as Fields
+    if (Array.isArray(first.answered)) before = first.answered.filter((n): n is number => typeof n === 'number')
+  } catch {
+    // no earlier answers
+  }
   const owned = steps.filter(s => s.n < step && s.userOwned === true)
-  const answered = written ? owned.filter(s => (s.evidence ?? []).some(x => x.type === 'answer')).map(s => s.n) : []
+  const answered = written
+    ? owned.filter(s => s.state !== 'skipped' && ((s.evidence ?? []).some(x => x.type === 'answer') || before.includes(s.n))).map(s => s.n)
+    : []
   const files: string[] = []
   let ended: string | null = null
   let lastTime: string | null = null
@@ -854,8 +874,10 @@ export function resumePlan(run: string, state: ProgressState, lines: readonly st
     }
     if (typeof e.time === 'string') lastTime = e.time
     if (e.kind === 'run-end' && typeof e.reason === 'string' && ended === null) ended = e.reason
-    if (e.kind === 'tool' && (e.tool === 'Write' || e.tool === 'Edit') && e.error !== true && typeof e.path === 'string'
-      && !files.includes(e.path)) files.push(e.path)
+    // A path is shown in the dialog and Claude's text: one line of it (review note).
+    const path = typeof e.path === 'string' ? e.path.replace(/[\u0000-\u001f\u007f]+/g, ' ') : null
+    if (e.kind === 'tool' && (e.tool === 'Write' || e.tool === 'Edit') && e.error !== true && path !== null
+      && !files.includes(path)) files.push(path)
   }
   const of = `step ${step} of ${steps.length}`
   const when = ended !== null

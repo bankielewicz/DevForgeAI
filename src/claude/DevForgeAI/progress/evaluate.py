@@ -30,6 +30,7 @@ from pathlib import PurePosixPath
 CHECKLIST_LINE = re.compile(r"^\s*- \[ \] (\d+)\. (.+?)\s*$")
 DONE_TICK = re.compile(r"^\s*[-*]\s*\[[xX]\]\s*(\d+)\.")
 SKIP_TICK = re.compile(r"^\s*[-*]\s*\[[ xX]\]\s*(\d+)\..*\(skipped:\s*(.+?)\)\s*$")
+RUN_ID = re.compile(r"^[0-9]{8}T[0-9]{6}Z-[a-z][a-z0-9-]*-[0-9a-f]{8}$")  # DM-02's run ID (resumes, version 14)
 
 STEP_KINDS = ("read", "think", "ask", "forge", "inspect", "report")
 NEEDS = ("required", "conditional", "text-only")
@@ -584,7 +585,8 @@ class Run:
         carried = loaded.get("carried") if isinstance(loaded.get("carried"), list) else []
         answered = loaded.get("answered") if isinstance(loaded.get("answered"), list) else []
         resumes = loaded.get("resumes")
-        detail = "carried from the earlier run %s" % resumes if isinstance(resumes, str) else "carried from an earlier run"
+        named = isinstance(resumes, str) and RUN_ID.match(resumes) is not None  # DM-02's run ID pattern
+        detail = "carried from the earlier run %s" % resumes if named else "carried from an earlier run"
         taken = set()
         for n in carried:
             if isinstance(n, bool) or not isinstance(n, int) or n not in self.by_n or n in taken:

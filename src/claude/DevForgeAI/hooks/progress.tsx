@@ -18,7 +18,7 @@ import {
   adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
   hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, isWaiverQuestion, keptContent, markedStep, newFlagToasts,
   questionRefusal, questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, reviewItems, reviewQuestion,
-  runId, skillName, statusText, stepLabel, waiverAnswer, returnLine, pausedWith, keptTrail, endReason, hasRoom, trailNote, TRAIL_NOTE_START, stopsRun,
+  runId, runName, skillName, statusText, stepLabel, waiverAnswer, returnLine, pausedWith, keptTrail, endReason, hasRoom, trailNote, TRAIL_NOTE_START, stopsRun,
   exitQuestion, keptText, nestedExitQuestion, nestedKeptText, isDismissal, CONFIRMED, resumePlan, resumeQuestion, resumeLine,
   stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
 } from './progress-core'
@@ -1098,7 +1098,7 @@ async function resumeOffer($: E, r: string, name: string): Promise<{ extra: Fiel
   let latest: string | undefined
   try {
     if (!(await $.fs.exists(runs))) return null
-    const named = new RegExp(`^[0-9]{8}T[0-9]{6}Z-${name.replace(/[^a-z0-9-]/g, '')}-[0-9a-f]{8}$`)
+    const named = new RegExp(`^[0-9]{8}T[0-9]{6}Z-${runName(name)}-[0-9a-f]{8}$`)  // the name run IDs give it (review S3)
     latest = (await $.fs.list(runs)).filter(x => x.kind === 'dir' && named.test(x.name)).map(x => x.name).sort().pop()
   } catch (err) {
     await adapterLog($, 'resume', `no offer: ${firstLine(message(err))}`)  // ERR-17
