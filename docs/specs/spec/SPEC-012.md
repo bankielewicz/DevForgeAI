@@ -2,7 +2,7 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: in-review      # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 12
 created: 2026-10-02
 updated: 2026-10-05
@@ -1262,3 +1262,4 @@ Still open, or notes:
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #77's merge (`8eb431a`) and the deploy of plugin 0.20.0 | §9 |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05: the run-end reason stopped for a deliberate stop (DM-02, BEH-12, new VER-41); status in-review | frontmatter, §1, DM-02, BEH-12, VER-41, §10, §11, §13 |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes and Bryan's answers: stoppable on manifest and state steps, architecture's step 8 only (DM-01, DM-03, §4, BEH-12); VER-41 sharpened; ADR-006 link to version 2 | DM-01, DM-03, §1, §4, BEH-12, VER-41 |
+| 12 | 2026-10-05 | Bryan | Approved | status |

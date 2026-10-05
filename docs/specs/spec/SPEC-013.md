@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review    # draft | in-review | approved | superseded | deprecated
+status: approved    # draft | in-review | approved | superseded | deprecated
 version: 12
 created: 2026-10-02
 updated: 2026-10-05
@@ -1411,3 +1411,4 @@ Notes:
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #83's merge (`ab8301c`) and the deploy of plugin 0.21.0 | §9 |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05: a 'Write nothing' answer ends the run as stopped, shown and reviewed (new BEH-27; BEH-05, BEH-10, BEH-26, DM-01); /clear, /exit and /resume ask first while a run is unfinished (new BEH-28, ERR-16, DM-02's log kind exit); new VER-38 to VER-40; §13 records the nesting decisions; status in-review | frontmatter, §1, DM-01, DM-02, BEH-05, BEH-10, BEH-26, BEH-27, BEH-28, ERR-16, VER-38, VER-39, VER-40, §10, §11, §13 |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes and Bryan's answers: the confirmation is not a gate (§2, BEH-28; ADR-006 version 2) and fails open (ERR-16, 'Run the command'); the stop only on a stoppable step (BEH-27, 'Manifest flag, step 8 only'); after a stop nothing more is checked (BEH-27, §13, 'Accept and record it'); BEH-26 on ended stopped; BEH-10's n; BEH-11's band; no second run-end (BEH-05); ERR-15 restored; VER-38 to VER-40 sharpened | §2, BEH-05, BEH-10, BEH-11, BEH-26, BEH-27, BEH-28, ERR-15, ERR-16, VER-38, VER-39, VER-40, §13 |
+| 12 | 2026-10-05 | Bryan | Approved | status |
