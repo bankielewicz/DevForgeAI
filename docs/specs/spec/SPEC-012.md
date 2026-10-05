@@ -491,7 +491,7 @@ behaviors:
     rule: "gate holds the most recent gate check: its kind, its event's seq, refuse (true when that check raised any flag) and reason (the first such flag's message). Before any gate, kind and seq are null and refuse is false. An adapter in enforce mode refuses the tool call at that seq when refuse is true; the evaluator never refuses anything itself. The question gate (BEH-18) refuses whenever it raises its flag, so an adapter in enforce mode refuses a question asked while no step is in progress."
   - id: BEH-12
     status: active
-    rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged. The reason stopped (version 12) is the user's deliberate stop of the run (SPEC-013 BEH-27) and closes it the same way; so does the reason returned (version 13): a nested run that handed back to the run it was loaded from (SPEC-013 BEH-30). A manifest step with stoppable true (DM-01) gives its state step stoppable true (DM-03); other steps carry no stoppable field."
+    rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged. The reason stopped (version 12) is the user's deliberate stop of the run (SPEC-013 BEH-27) and closes it the same way; so does the reason returned (version 13): a nested run that handed back to a run paused beneath it (SPEC-013 BEH-30). A manifest step with stoppable true (DM-01) gives its state step stoppable true (DM-03); other steps carry no stoppable field."
   - id: BEH-13
     status: active
     rule: "When the report step is done or the run has ended, next names the chain's following skill in the order brainstorm, prd, architecture, context, epic, story (ADR-002; ADR-004 D5 places context). The story skill isn't built, so its next has available false and the note 'the story skill isn't built yet (SPEC-009)'. Otherwise next is null."
@@ -966,12 +966,12 @@ verifications:
     status: active
     obligation: "Version 12: manifest.schema.json takes stoppable on a step and architecture.json has stoppable true on step 8 only, brainstorm.json on no step; events.schema.json takes a run-end with reason stopped and rejects an unknown reason; progress.schema.json takes a step with stoppable true. Case arch-stopped: an architecture run that follows the task list, with evidence for steps 1 to 7, reaches step 8 with an answer tagged 8, then run-end stopped, then a TaskUpdate of step 8 completed and a reply: ended is stopped, step 8 done by the answer, steps 9 to 11 pending with the note 'not reached', step 8 has stoppable true and no other step has the field, no flag, and counts.afterEnd counts every event after the run-end."
     level: unit
+    covers:
+      - BEH-12
   - id: VER-42
     status: active
     obligation: "Version 13: events.schema.json takes a run-end with reason returned. Case arch-returned: an architecture run that follows the task list, with evidence for steps 1 to 3, step 4 started, then run-end returned and a reply: ended is returned, steps 5 to 11 pending with the note 'not reached', no flag, and counts.afterEnd 1."
     level: unit
-    covers:
-      - BEH-12
     covers:
       - BEH-12
 ```
@@ -1288,3 +1288,4 @@ Still open, or notes:
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §13 records the open layer rule for stoppable | §13 |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #85's merge (`4daa7c4`) and the deploy of plugin 0.22.0 | §9 |
 | 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decision of 2026-10-05: the run-end reason returned for a nested run that hands back (DM-02, BEH-12, new VER-42); status in-review | frontmatter, §1, DM-02, BEH-12, VER-42, §10, §11, §13 |
+| 13 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes: VER-41's covers restored; BEH-12's returned wording | BEH-12, VER-41 |

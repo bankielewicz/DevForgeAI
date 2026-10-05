@@ -430,11 +430,12 @@ worktree (ADR-001):
 
 ## 13. Open questions
 
+For Bryan, in order. None of these is a requirement until he decides it.
+
 - Recorded (Bryan, 2026-10-05, "Record now, change later"): from SPEC-013 version 14 a plugin skill Claude loads with the
   Skill tool during another skill's run pauses that run instead of ending it, so BEH-09's reason for the agent route
   (loading the skill ends the run) holds only for a skill the user types. The agent route stays (it is cheaper and out
   of band); revisit BEH-09 and the SPEC-013 link at this spec's next version.
-For Bryan, in order. None of these is a requirement until he decides it.
 
 1. **Resolved (Bryan, 2026-10-04): the tracker conflict.** He chose "Use subagents for the workflow/skill usage that's
    out of band" over exempting the skill in SPEC-013 or accepting that the run ends. A lookup during another skill's
