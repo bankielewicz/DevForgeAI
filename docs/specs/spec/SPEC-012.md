@@ -5,7 +5,7 @@ title: "Progress tracker core: formats, manifests and evaluator"
 status: in-review      # draft | in-review | approved | superseded | deprecated
 version: 12
 created: 2026-10-02
-updated: 2026-10-04
+updated: 2026-10-05
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -18,7 +18,7 @@ approved_on: 2026-10-04
 upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain's order, which the state's next step follows"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
-  - {id: ADR-006, relation: constrains, version: 1, hash: null, note: "each rule's class, manifest layers that only add rules, project skills' manifests as custom-workflow checks, and the tracker failing open"}
+  - {id: ADR-006, relation: constrains, version: 2, hash: null, note: "each rule's class, manifest layers that only add rules, project skills' manifests as custom-workflow checks, and the tracker failing open"}
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "D5 places the context step after Architecture Definition and before epics and stories"}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "skills leave decisions to the user; the content rules check that none was written without the user's answer"}
   - {id: PRD-001, item: FR-004, relation: informed_by, version: 11, hash: null, note: "each handoff names the next step; the state's next field reports the chain's next step"}
@@ -127,7 +127,8 @@ the skill's own rule (SPEC-003 BEH-08) is the only check of that, a trade-off Br
 architecture's "Write nothing" at step 8 (SPEC-003 BEH-08), which the adapter records (SPEC-013 version 12). A
 stopped run closes like any ended run: the steps after the last one reached stay pending and are never flagged
 (BEH-12). Before, such a run stayed open with steps 9 to 11 pending (Bryan, 2026-10-05: "a deliberate write
-nothing should count as finished").
+nothing should count as finished"). A manifest marks the steps whose answer may stop the run (`stoppable`, DM-01);
+only architecture's step 8 is stoppable (Bryan, 2026-10-05: "Manifest flag, step 8 only").
 
 ## 2. Constraints
 
@@ -205,6 +206,7 @@ flowchart LR
         "when": {"type": "string", "description": "for a conditional step: when it applies, shown as the note when it doesn't"},
         "userOwned": {"type": "boolean", "default": false},
         "waivable": {"type": "boolean", "default": false, "description": "version 11: a user-owned step that a recorded Proceed waiver answers (BEH-19)"},
+        "stoppable": {"type": "boolean", "default": false, "description": "version 12: a user-owned step whose answer 'Write nothing' ends the run as stopped (SPEC-013 BEH-27)"},
         "gate": {"enum": ["write", "report"]},
         "evidence": {"type": "array", "items": {"$ref": "#/$defs/rule"}}
       },
@@ -332,6 +334,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
         "kind": {"enum": ["read", "think", "ask", "forge", "inspect", "report", null]},
         "need": {"enum": ["required", "conditional", "text-only"]},
         "userOwned": {"type": "boolean"},
+        "stoppable": {"type": "boolean", "description": "version 12: present, and true, when the manifest marks the step stoppable (BEH-12)"},
         "state": {"enum": ["pending", "current", "your-turn", "done", "claimed", "unconfirmed", "skipped-with-reason", "not-applicable", "skipped", "rule-broken"]},
         "evidence": {"type": "array", "items": {
           "type": "object", "additionalProperties": false, "required": ["seq", "type", "strength", "detail"],
@@ -373,7 +376,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
 | | 5 | read, conditional: "the user named paths to inspect" | read `*` except `docs/specs/`, `.claude/` and `devforgeai/` | |
 | | 6 | think, text-only | none | |
 | | 7 | ask, conditional: "a question isn't settled by mandated policy or an accepted ADR" | answer | user-owned |
-| | 8 | ask, required | answer | user-owned, waivable (version 11) |
+| | 8 | ask, required | answer | user-owned, waivable (version 11), stoppable (version 12) |
 | | 9 | forge, required | write `docs/specs/arch/ARCH-*.md` or `docs/specs/adr/ADR-*.md` | write gate |
 | | 10 | inspect, required | read, target written | |
 | | 11 | report, required | none | report gate |
@@ -484,7 +487,7 @@ behaviors:
     rule: "gate holds the most recent gate check: its kind, its event's seq, refuse (true when that check raised any flag) and reason (the first such flag's message). Before any gate, kind and seq are null and refuse is false. An adapter in enforce mode refuses the tool call at that seq when refuse is true; the evaluator never refuses anything itself. The question gate (BEH-18) refuses whenever it raises its flag, so an adapter in enforce mode refuses a question asked while no step is in progress."
   - id: BEH-12
     status: active
-    rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged. The reason stopped (version 12) is the user's deliberate stop of the run (SPEC-013 BEH-27) and closes it the same way."
+    rule: "A run-end event closes the run: ended holds its reason, and later events are ignored and counted in counts.afterEnd. Steps after the highest step reached stay pending with the note 'not reached' and are never flagged. The reason stopped (version 12) is the user's deliberate stop of the run (SPEC-013 BEH-27) and closes it the same way. A manifest step with stoppable true (DM-01) gives its state step stoppable true (DM-03); other steps carry no stoppable field."
   - id: BEH-13
     status: active
     rule: "When the report step is done or the run has ended, next names the chain's following skill in the order brainstorm, prd, architecture, context, epic, story (ADR-002; ADR-004 D5 places context). The story skill isn't built, so its next has available false and the note 'the story skill isn't built yet (SPEC-009)'. Otherwise next is null."
@@ -956,7 +959,7 @@ verifications:
       - QR-03
   - id: VER-41
     status: active
-    obligation: "Version 12: events.schema.json takes a run-end with reason stopped. Case arch-stopped: an architecture run that follows the task list reaches step 8 with an answer tagged 8, then run-end stopped, then a TaskUpdate of step 8 completed and a reply: ended is stopped, step 8 done by the answer, steps 9 to 11 pending with the note 'not reached', no flag, counts.afterEnd 2, and next names the chain's following skill as for any ended run (BEH-13)."
+    obligation: "Version 12: manifest.schema.json takes stoppable on a step and architecture.json has stoppable true on step 8 only, brainstorm.json on no step; events.schema.json takes a run-end with reason stopped and rejects an unknown reason; progress.schema.json takes a step with stoppable true. Case arch-stopped: an architecture run that follows the task list, with evidence for steps 1 to 7, reaches step 8 with an answer tagged 8, then run-end stopped, then a TaskUpdate of step 8 completed and a reply: ended is stopped, step 8 done by the answer, steps 9 to 11 pending with the note 'not reached', step 8 has stoppable true and no other step has the field, no flag, and counts.afterEnd counts every event after the run-end."
     level: unit
     covers:
       - BEH-12
@@ -1258,3 +1261,4 @@ Still open, or notes:
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records the build, the tests, the evals and the live checks of version 11 | §9 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #77's merge (`8eb431a`) and the deploy of plugin 0.20.0 | §9 |
 | 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05: the run-end reason stopped for a deliberate stop (DM-02, BEH-12, new VER-41); status in-review | frontmatter, §1, DM-02, BEH-12, VER-41, §10, §11, §13 |
+| 12 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes and Bryan's answers: stoppable on manifest and state steps, architecture's step 8 only (DM-01, DM-03, §4, BEH-12); VER-41 sharpened; ADR-006 link to version 2 | DM-01, DM-03, §1, §4, BEH-12, VER-41 |

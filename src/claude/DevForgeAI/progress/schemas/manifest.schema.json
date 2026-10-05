@@ -86,6 +86,11 @@
           "default": false,
           "description": "version 11: a user-owned step that a recorded Proceed waiver answers (BEH-19)"
         },
+        "stoppable": {
+          "type": "boolean",
+          "default": false,
+          "description": "version 12: a user-owned step whose answer 'Write nothing' ends the run as stopped (SPEC-013 BEH-27)"
+        },
         "gate": {
           "enum": [
             "write",
