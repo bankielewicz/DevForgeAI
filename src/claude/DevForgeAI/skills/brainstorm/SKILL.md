@@ -4,7 +4,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "7"
+  devforgeai-version: "8"
 ---
 
 # Brainstorm
@@ -86,10 +86,13 @@ other question, ask it at most once in a run, alone in its own form, with
 as the waiver, never as a step's answer),
 `header: "Step 1"`, the question "Your request says to proceed without questions. Should I?" and
 exactly these two options, in this order:
-- `Proceed without questions`, description "I ask nothing more; decisions that need you stay open.";
+- `Proceed without questions`, description "I ask nothing more, except which topic and whether to
+  extend an existing BRN, when open; decisions that need you stay open.";
 - `Ask me as usual`, description "I ask about each decision as it comes up."
 
-On *Proceed without questions*, follow the request: ask nothing else. On *Ask me as usual*, on
+On *Proceed without questions*, follow the request: ask nothing else, except the topic question
+(Intake 1) when no topic is given and extend-or-new (Intake 2) when a BRN on the topic exists. On
+*Ask me as usual*, on
 anything typed instead, or on a dismissal, ask as if the request hadn't said so. Without
 AskUserQuestion, ask nothing, in plain text or otherwise, and follow the request; when the request
 doesn't say to proceed without questions, never ask it.
@@ -139,12 +142,20 @@ their defined fields, whatever the framework. Framework-specific reasoning goes 
 
 ### 5. Propose dispositions and confirm
 
-Present a table: idea, proposed disposition, one-line reason. Ask the user to confirm or change
-each one, and whether the brainstorm has converged. Then:
+Propose a disposition and a one-line reason for each idea, and ask the user to confirm them and
+whether the brainstorm has converged. With AskUserQuestion, put the proposals inside the form, never
+only in text before it (the dialog hides that text). One form, both questions with `header: "Step 5"`:
+1. "Confirm these dispositions?", options `Accept all as proposed` (Recommended) and `Leave them
+   open`, each option's `preview` holding the table: idea ID, title, proposed disposition, reason.
+   When the table is too long for a preview, list each idea's ID and proposed disposition there and
+   say in the question that the reasons are in the reply. Changes come typed under Other.
+2. "Has the brainstorm converged?", options `Converged` and `Not yet`.
 
-- Write each disposition and reason the user confirmed (explicitly, or by accepting the table).
-- Leave every other idea `open` with `reason: null`.
-- Set `status: converged` only if the user confirmed convergence; otherwise `draft`.
+Without AskUserQuestion, present the table in plain text and ask. Then:
+
+- Accept all writes every proposal; typed changes write the dispositions the text states; write no
+  other disposition, and leave every other idea `open` with `reason: null`.
+- Set `status: converged` only on *Converged*; otherwise `draft`.
 
 If the user stops partway through the session, ask whether to save what has been captured as a
 draft BRN. If yes, write it with every disposition `open`. If no, write nothing.
