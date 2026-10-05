@@ -2345,3 +2345,32 @@ test('VER-41: the note comes for a run that doesn\'t follow the task list, and n
   expect(out.messages.filter((m: Any) => m.text === note).length).toBe(1)
   expect(w.compactIn.length).toBe(1)
 })
+
+// ---- the module's values (version 14, DM-03): a hook that awaits across a run switch acts on the run open now ----
+
+test('DM-03 (version 14): a tool call that started before a run switch records after it without reopening the old run', async ($, on) => {
+  let releaseRead: (() => void) | null = null
+  let releaseSkill: (() => void) | null = null
+  const inner = taskTools()
+  const w = world(on, { tool: (e: Any) => {
+    if (e.tool === 'Read' && e.file_path?.endsWith('/slow.md')) return new Promise(r => { releaseRead = () => r({ result: 'read' }) })
+    if (e.tool === 'Skill') return new Promise(r => { releaseSkill = () => r({ result: 'Launching skill' }) })
+    return inner(e)
+  } })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  const slow = $.tool.call({ tool: 'Read', file_path: `${ROOT}/docs/slow.md` } as Any)   // its dispatch starts now
+  for (let i = 0; i < 50; i++) await Promise.resolve()
+  const skill = $.tool.call({ tool: 'Skill', skill: 'devforgeai:spec-lookup' } as Any)
+  for (let i = 0; i < 50; i++) await Promise.resolve()
+  await $.skill.prompt({ skill: 'devforgeai:spec-lookup', text: TAGGED })              // the switch
+  releaseSkill?.()
+  await skill
+  releaseRead?.()
+  await slow                                                                            // records after the switch
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/docs/after.md` } as Any)
+  const arch = runsOf(w, 'architecture')[0].map(l => JSON.parse(l))
+  expect(arch[arch.length - 1]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })  // nothing after its end
+  const look = eventsOf(w, 'spec-lookup').map(l => JSON.parse(l))
+  expect(look[look.length - 1]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/after.md' })  // still the open run
+})
