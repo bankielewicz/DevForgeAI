@@ -75,8 +75,9 @@ without asking.
 each, with the recommended option first and marked "(Recommended)", each form tagged with its step
 (Workflow, item 4). Otherwise ask in plain text and end your turn. Use at most `interview.max_calls`
 calls (step 1; default 8) unless the user asks for more; questions left when the budget runs out
-stay open. The waiver question doesn't count against `interview.max_calls`. When step 8 will ask, keep one call for its question; a gate still comes first. Write
-nothing that a pending answer affects until the answer arrives.
+stay open. The waiver question doesn't count against `interview.max_calls`. When step 8 will ask,
+keep one call for its question; a gate still comes first. Write nothing that a pending answer
+affects until the answer arrives.
 
 **"Proceed without questions."** When the request says to proceed without questions (or "don't ask
 me anything", "proceed without asking me anything else", "decide nothing"), ask nothing but an open
@@ -133,13 +134,13 @@ question form, its tag names that step:
    when an earlier run's tasks are still in the list: those don't count for this run.
 2. Mark a step in_progress when its work starts, and completed as soon as it is done, one step at a
    time; a step with nothing to do is completed too (step 5 with no scope, step 7 with no open
-   question). After step 8's *Write nothing*, leave steps 9 to 11 pending: the run stops there. Mark step 11 completed just before writing the final reply.
-3. Before asking any question, mark the step it belongs to in_progress: the waiver → step 1; which PRD →
-   step 2; reuse,
-   amend or create → step 4; reading outside the inspection scope → step 5; every decision question
-   → step 7; the outcome → step 8; any other question → the step whose work asks it (a component's
-   kind → step 6). Complete step 7 and mark step 8 in_progress before the outcome question, and ask
-   it alone, in its own form. Never put two steps' questions in one question form.
+   question). Mark step 11 completed just before writing the final reply. After step 8's *Write
+   nothing*, leave steps 9 to 11 pending instead: the run stops there.
+3. Before asking any question, mark the step it belongs to in_progress: the waiver → step 1; which
+   PRD → step 2; reuse, amend or create → step 4; reading outside the inspection scope → step 5;
+   every decision question → step 7; the outcome → step 8; any other question → the step whose work
+   asks it (a component's kind → step 6). Complete step 7 and mark step 8 in_progress before the
+   outcome question, and ask it alone, in its own form. Never put two steps' questions in one question form.
 4. Tag each question form with its step: AskUserQuestion's
    `metadata: {"source": "devforgeai_step:N"}`, which the user doesn't see, and `header: "Step N"`
    on each of its questions, which the user does. The one exception is the waiver question (step 1,
@@ -330,12 +331,12 @@ picks the direction.
   accepted or superseded, the new version, and an approved ARCH's return to in-review.
 - **Create:** name the new ARCH's ID and what it records.
 
-Offer three options, in this order: `Confirm <outcome>` (e.g. `Confirm amend`, "(Recommended)"), which
-writes the outcome; `Write it with the outcome open`, which writes the change with `outcome: null`;
-and `Write nothing`: write and edit no file, mark step 8 completed, leave steps 9 to 11 pending (a
-completed step 9 without a write claims work not done), reply with each question asked in this run
-and its answer, say nothing was written so a later run can reuse them, and stop. Read typed text as
-any typed answer; a dismissal leaves the question unanswered, so write nothing it affects.
+Offer three options, in this order: `Confirm <outcome> (Recommended)` (e.g. `Confirm amend
+(Recommended)`), which writes the outcome; `Write it with the outcome open`, which writes the change
+with `outcome: null`; and `Write nothing`: write and edit no file, mark step 8 completed, leave steps
+9 to 11 pending (a completed step 9 without a write claims work not done), reply with each question
+and its answer, say nothing was written so a later run can use them again, and stop. Typed text is
+the user's answer: act on what it says; a dismissal leaves the question unanswered: write nothing.
 
 Write `outcome` only when it is confirmed at step 8, or the request named it and said to proceed
 without questions; otherwise it stays `null`. Confirming the outcome accepts no decision. When
@@ -435,8 +436,8 @@ is, run `/devforgeai:epic PRD-001` for the ready requirements; FR-001 waits for 
 Never start epic work, and never write an epic.
 
 When the skill stops without writing (a gate is open, the outcome question is pending at step 8, the
-user picked *Write nothing* at step 8, no PRD exists, ERR-01, ERR-02, ERR-04), the reply says why and what the user can do, and leaves out the
-report block.
+user picked *Write nothing* at step 8, no PRD exists, ERR-01, ERR-02, ERR-04), the reply says why and
+what the user can do, and leaves out the report block and the next step.
 
 **After ERR-05**, a validation-failure report replaces both the block and the next step. It gives
 each file path with the status left (and cleared approvals), any supersession rolled back, every

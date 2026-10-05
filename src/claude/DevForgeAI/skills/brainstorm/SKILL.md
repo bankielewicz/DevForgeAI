@@ -33,7 +33,7 @@ confirmed* and continue with those values. This happens when the user said to pr
 questions (and picked *Proceed without questions* in the waiver question, Intake, or it couldn't be
 asked) or no user is there to answer. Record your proposals in section 6 prose so nothing is
 lost. When the user confirms them later, after the BRN is written, don't edit from that message
-alone. Continue this run's tasks (create none): mark step 5 in_progress, ask the step-5 question,
+alone. Continue this run's tasks (create none): mark step 5 in_progress, ask the step-5 form,
 tagged; then mark step 6 and edit the BRN in place, step 7 and validate it again, and step 8 to
 report. An unconfirmed disposition looks valid to every structural check, and a PRD would build on a
 choice nobody made. That is why this rule matters more than any other in this skill.
@@ -92,8 +92,8 @@ exactly these two options, in this order:
 
 On *Proceed without questions*, follow the request: ask nothing else, except the topic question
 (Intake 1) when no topic is given and extend-or-new (Intake 2) when a BRN on the topic exists. On
-*Ask me as usual*, on
-anything typed instead, or on a dismissal, ask as if the request hadn't said so. Without
+*Ask me as usual*, on anything typed instead, or on a dismissal, ask as if the request hadn't said
+so. Without
 AskUserQuestion, ask nothing, in plain text or otherwise, and follow the request; when the request
 doesn't say to proceed without questions, never ask it.
 
@@ -144,7 +144,8 @@ their defined fields, whatever the framework. Framework-specific reasoning goes 
 
 Propose a disposition and a one-line reason for each idea, and ask the user to confirm them and
 whether the brainstorm has converged. With AskUserQuestion, put the proposals inside the form, never
-only in text before it (the dialog hides that text). One form, both questions with `header: "Step 5"`:
+only in text before it (the dialog hides that text). One form tagged step 5 (Workflow, item 4),
+both questions with `header: "Step 5"`:
 1. "Confirm these dispositions?", options `Accept all as proposed` (Recommended) and `Leave them
    open`, each option's `preview` holding the table: idea ID, title, proposed disposition, reason.
    When the table is too long for a preview, list each idea's ID and proposed disposition there and
@@ -153,8 +154,8 @@ only in text before it (the dialog hides that text). One form, both questions wi
 
 Without AskUserQuestion, present the table in plain text and ask. Then:
 
-- Accept all writes every proposal; typed changes write the dispositions the text states; write no
-  other disposition, and leave every other idea `open` with `reason: null`.
+- Accept all writes every proposal; Leave them open writes none; typed changes write the dispositions
+  the text states; write no other disposition, and leave every other idea `open` with `reason: null`.
 - Set `status: converged` only on *Converged*; otherwise `draft`.
 
 If the user stops partway through the session, ask whether to save what has been captured as a
@@ -272,10 +273,11 @@ Do not start writing a PRD.
 
 **User says to proceed without questions.** The skill first asks the waiver question (with
 AskUserQuestion); on *Ask me as usual* it asks as in the first example. On *Proceed without
-questions*, or with no question tool, it asks nothing more and records unknowns as
+questions*, or with no question tool, it asks nothing more, except the topic or extend-or-new when
+open, and records unknowns as
 `[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, and puts
 its proposals in section 6. Its final reply says the user can confirm them later; when the user
-replies, it marks step 5 again, asks the step-5 question, and only then edits the BRN, validates it
+replies, it marks step 5 again, asks the step-5 form, and only then edits the BRN, validates it
 again and reports.
 
 **A BRN on the topic already exists.** The skill shows it and asks: extend it or create a new
