@@ -946,12 +946,18 @@ async function stopIfAsked($: E, input: Fields, outcome: ToolOutcome): Promise<v
 /** A load Claude made with its Skill tool (BEH-29): what it came to. */
 type LoadOutcome = { kind: 'own' } | { kind: 'unwound' } | { kind: 'pushed'; line: string } | { kind: 'cannot'; ended: ProgressRun | null } | { kind: 'failed' }
 
-/** Claude's load of a tracked skill, as one chain item (BEH-29): of the open run's own skill, nothing; of a paused run's
- *  skill, an unwind to it (BEH-30 (d)); else a push when the open run can nest, or the open run's end. */
+/** Claude's load of a tracked skill, as one chain item (BEH-29): of the open run's own skill, nothing while that run is
+ *  unfinished; of a paused run's skill, an unwind to it (BEH-30 (d)); else a push when the open run can nest, or the
+ *  open run's end. */
 async function claudeLoadNow($: E, r: string, name: string, checklist: string): Promise<LoadOutcome> {
   const l = await hydrate($)
   const open = l.run
-  if (open !== null && open.skill === name) return { kind: 'own' }
+  if (open !== null && open.skill === name) {
+    if (!(await finishedNow($))) return { kind: 'own' }
+    // A finished run of the same skill ends and a new one opens, the trail kept: never a push, so the trail still
+    // holds each skill once (version 15).
+    return { kind: 'cannot', ended: await endOpenNow($, 'another-skill') }
+  }
   const back = l.trail.find(t => t.skill === name && t.run !== null)
   if (back !== undefined) return (await unwindNow($, back.run!.id)) ? { kind: 'unwound' } : { kind: 'failed' }
   const step = await returnStepNow($)
@@ -968,6 +974,15 @@ async function claudeLoadNow($: E, r: string, name: string, checklist: string): 
   await afterOpen($, o)
   await adapterLog($, 'trail', `push ${open.skill} at step ${step} (${(await hydrate($)).trail.length} on the trail)`)
   return { kind: 'pushed', line: returnLine(open.skill, step) }
+}
+
+/** Whether the open run is finished (BEH-29, version 15): ended, stopped (its run-end not yet evaluated), or every step
+ *  reached. A run with no state yet is unfinished. */
+async function finishedNow($: E): Promise<boolean> {
+  const l = await hydrate($)
+  if (l.run === null) return false
+  if (l.summary !== null && (l.summary.ended !== null || l.summary.current === null)) return true
+  return (await linesOf($, l.run)).some(x => x.includes('"kind":"run-end"'))
 }
 
 /** The open run's return step, or null when it can't nest (BEH-29): it hasn't ended, it has task IDs, and its task list

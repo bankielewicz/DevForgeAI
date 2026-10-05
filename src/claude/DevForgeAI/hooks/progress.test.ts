@@ -3063,6 +3063,52 @@ test('VER-44: a TaskUpdate whose hook began before the load resumes nothing, eve
   expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)
 })
 
+// ---- version 15 (Bryan, 2026-10-05: "Fix now as v15"): Claude's load of the open run's own skill when it is finished ----
+
+test('VER-43 (version 15): Claude\'s load of the open run\'s own skill changes nothing while it is unfinished; once every step is reached, a new run opens and the trail stays', async ($, on) => {
+  let inner: Any = skState('spec-lookup', 5, 2)
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => inner })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  await sk.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('a.md'))
+  await w.clock.advance(600)
+  expect(await sk.load($, 'devforgeai:spec-lookup')).not.toContain('This skill was loaded by')
+  expect(runsOf(w, 'spec-lookup').length).toBe(1)                     // unfinished: nothing changes
+  inner = skState('spec-lookup', 5, null)                              // every step reached
+  await $.tool.call(READ('b.md'))
+  await w.clock.advance(600)
+  expect(await sk.load($, 'devforgeai:spec-lookup')).not.toContain('This skill was loaded by')
+  expect(runsOf(w, 'spec-lookup').length).toBe(2)
+  expect(logOf(w, 'spec-lookup', 0).slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)   // still paused
+  expect(trailLog(w)).toEqual(['push architecture at step 7 (1 on the trail)'])  // never a push
+  inner = skState('spec-lookup', 5, 2)
+  await $.tool.call(READ('c.md'))
+  await w.clock.advance(600)
+  expect(w.statuses[w.statuses.length - 1]).toBe('spec-lookup 2/5 · in architecture 7/11')
+  expect(logOf(w, 'spec-lookup', 1).slice(-1)[0]).toMatchObject({ kind: 'tool', path: 'docs/c.md' })
+})
+
+test('VER-43 (version 15): Claude\'s load of a stopped run\'s own skill opens a new run', async ($, on) => {
+  const { w, sk } = nestWorld(on, { architecture: () => skState('architecture', 11, 8, null, [], [8]) }, {},
+    answering({ 'Outcome?': 'Write nothing' }))
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 8)
+  await w.clock.advance(600)
+  const ask = { tool: 'AskUserQuestion', questions: [{ question: 'Outcome?', header: 'Step 8', multiSelect: false,
+    options: [{ label: 'Confirm amend', description: 'd' }, { label: 'Write nothing', description: 'd' }] }], metadata: { source: 'devforgeai_step:8' } }
+  await $.tool.call(ask as Any)
+  expect(logOf(w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'stopped' })
+  expect(await sk.load($, 'devforgeai:architecture')).not.toContain('This skill was loaded by')
+  expect(runsOf(w, 'architecture').length).toBe(2)
+  expect(logOf(w, 'architecture', 0).filter(e => e.kind === 'run-end').map(e => e.reason)).toEqual(['stopped'])
+  expect(trailLog(w)).toEqual([])
+})
+
 // ---- the module's values (version 14, DM-03): a hook that awaits across a run switch acts on the run open now ----
 
 test('DM-03 (version 14): a tool call that started before a run switch records after it without reopening the old run', async ($, on) => {
