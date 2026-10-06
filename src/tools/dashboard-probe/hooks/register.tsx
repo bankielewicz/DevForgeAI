@@ -12,8 +12,8 @@
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
 
-import { frame, setBoxTiles, SIZES, spriteCells, THEMES, tileModel, tileRects } from './drive'
-import type { Layout } from './drive'
+import { frame, setBoxTiles, SIZES, spriteCells, THEMES, tileModel, tileRects } from './dashboard'
+import type { Layout } from './dashboard'
 
 const PLUGIN = 'dashboard-probe'
 const PANE = 'dashboard-probe'

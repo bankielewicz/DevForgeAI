@@ -1,6 +1,6 @@
 import { expect, mock, test } from 'claude-code/testing'
 
-import { frame, SIZES, spriteCells } from '../hooks/drive'
+import { frame, SIZES, spriteCells } from '../hooks/dashboard'
 
 for (const layout of ['wide', 'compact', 'dock'] as const) {
   for (const look of ['A', 'B', 'C'] as const) {
