@@ -20,7 +20,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 
 | Skill | Record (provenance) | Spec | Evals on the current version | Merged |
 |---|---|---|---|---|
-| `brainstorm` | SKL-001 v8, approved | SPEC-001 v15, approved | 1 run, 9 of 9; 3-run qualification waived by Bryan | PR #83 (0.21.0) |
+| `brainstorm` | SKL-001 v8, approved | SPEC-001 v16, approved (v15 built) | 1 run, 9 of 9; 3-run qualification waived by Bryan | PR #83 (0.21.0) |
 | `prd` | SKL-002 v5, approved | SPEC-002 v5, approved | 3 runs, 35 of 35 at ≥ 0.8 | PR #57 (0.11.0) |
 | `architecture` | SKL-003 v9, approved | SPEC-003 v11, approved | 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #83 (0.21.0) |
 | `epic` | SKL-004 v4, approved | SPEC-004 v4, approved | 3 runs, 25 of 25 at ≥ 0.8 | PR #62 (0.12.1) |
@@ -37,8 +37,8 @@ Change Log holds the history. Read those, not this file, for any number or date.
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
 - `spec-lookup` also ships a plugin agent, `agents/spec-lookup.md` (`devforgeai:spec-lookup`), which
   runs the lookup script for another skill's workflow.
-- The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v14, the evaluator; v14, carried steps for a run that continues an earlier one, merged in PR #91 (`f128047`), deployed 0.25.0; v13, the run-end `returned`, merged in PR #89 (`9fdda66`), deployed 0.24.0; v12, the run-end `stopped`, merged in PR #85 (`4daa7c4`), deployed 0.22.0)
-  and `hooks/progress.tsx` (SPEC-013 v19, the Claude Code adapter; v18 and v19, untracked skills (a plugin skill whose
+- The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v15, the evaluator; v15, work files and their cleanup, approved 2026-10-06, not built; v14, carried steps for a run that continues an earlier one, merged in PR #91 (`f128047`), deployed 0.25.0; v13, the run-end `returned`, merged in PR #89 (`9fdda66`), deployed 0.24.0; v12, the run-end `stopped`, merged in PR #85 (`4daa7c4`), deployed 0.22.0)
+  and `hooks/progress.tsx` (SPEC-013 v20, the Claude Code adapter; v20, deleting a run's work files through prune.py, approved 2026-10-06, not built; v18 and v19, untracked skills (a plugin skill whose
   SKILL.md metadata says `devforgeai-tracked: "false"`, precompact the first: its load and its turn's tool calls and replies
   are recorded in no run), merged in PR #93 (`909a252`), deployed 0.26.0; v16 and v17, the offer to continue an earlier unfinished run, merged in PR #91 (`f128047`), deployed 0.25.0; v14 and v15, nested runs paused and resumed,
   merged in PR #89 (`9fdda66`), deployed 0.24.0; v13, the trail of return points for skills Claude loads mid-run,

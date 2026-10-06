@@ -89,6 +89,29 @@
       ],
       "description": "the run's waiver answer, the first answered one (BEH-19), or null when there is none (version 11)"
     },
+    "workFiles": {
+      "type": "object",
+      "required": [
+        "files",
+        "due"
+      ],
+      "additionalProperties": false,
+      "description": "version 15: present only when the manifest applies (matched or unverified) and names workFiles (BEH-21)",
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true,
+          "description": "the paths of the run's Write and Edit calls that didn't fail and match a work-file pattern, each once, in the order first written"
+        },
+        "due": {
+          "type": "boolean",
+          "description": "true when the manifest has a step proved by a script run on a written file and every such step is done: the work files' cleanup is due (SPEC-013 BEH-32)"
+        }
+      }
+    },
     "current": {
       "type": [
         "integer",

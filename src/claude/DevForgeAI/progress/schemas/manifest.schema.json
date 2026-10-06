@@ -38,6 +38,16 @@
         "$ref": "#/$defs/contentRule"
       }
     },
+    "workFiles": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^devforgeai/drafts/[^\\s]+$"
+      },
+      "description": "version 15: the project-relative patterns of the working copies the skill keeps outside its documents, written as a rule's pattern is; each begins devforgeai/drafts/, holds no .. segment and overlaps no write or read rule's pattern and no content rule's path (BEH-21); only the plugin's own manifest may carry them (BEH-17); the tracker deletes what they match once the run's cleanup is due, and by age (SPEC-013 BEH-32, BEH-19)"
+    },
     "source": {
       "type": "string",
       "description": "for a vendored organization manifest: its origin repository and ref (ADR-003 A3)"

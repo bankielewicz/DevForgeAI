@@ -2,7 +2,7 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: in-review       # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 15
 created: 2026-10-02
 updated: 2026-10-06
@@ -14,7 +14,7 @@ generated_by:
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-05
+approved_on: 2026-10-06
 upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain's order, which the state's next step follows"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
@@ -24,7 +24,7 @@ upstream:
   - {id: PRD-001, item: FR-004, relation: informed_by, version: 11, hash: null, note: "each handoff names the next step; the state's next field reports the chain's next step"}
   - {id: PRD-001, item: FR-011, relation: informed_by, version: 11, hash: null, note: "custom workflows declare their required checks; a project skill's manifest is one (ADR-006 D4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "the requirement whose core this spec builds; built on a spec branch, as no story exists"}
-  - {id: SPEC-001, item: VER-02, relation: informed_by, version: 15, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
+  - {id: SPEC-001, item: VER-02, relation: informed_by, version: 16, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
   - {id: SPEC-003, relation: informed_by, version: 11, hash: null, note: "the architecture skill's checklist; ADRs are accepted one by one when the user picks at step 7; the ARCH's outcome is written only when the user confirms it at step 8"}
   - {id: SPEC-007, relation: informed_by, version: 3, hash: null, note: "the git skill's checklist form for a legitimate skip, (skipped: <reason>); version 3 is in review"}
 supersedes: []
@@ -1421,3 +1421,4 @@ Still open, or notes:
 | 14 | 2026-10-05 | Bryan | Approved | status |
 | 15 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 ('Delete at end + ignore (Recommended)', 'Tracker deletes + ages (Recommended)', after "could the claude mod we developed have this integrated after validation to run a deletion script?"): a manifest names its skill's work files (DM-01 workFiles, base manifest only, confined to devforgeai/drafts/ and clear of the write and read rules; IF-02 checks it, BEH-16; BEH-17, ERR-04, ERR-09); the state reports the run's work files and when their cleanup is due (DM-03, new BEH-21); VER-44; status in-review | frontmatter, §1, DM-01, DM-03, §5, BEH-16, BEH-17, BEH-21, ERR-04, ERR-09, VER-44, §10, §11, §12, §13 |
 | 15 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, the drafts review's fixes (tmp/plans/save-work/review-drafts-2.md): workFiles is read only from the plugin's own manifest, a project's or organization's manifest can't set or change it, and a project's own skill can't carry it (BEH-17, ERR-09, DM-01); the evaluator copies the plugin's workFiles into the effective manifest after layering (BEH-17); a path holding a . or .. segment is never a work file (BEH-21); VER-44 gains the middle-.. paths, the omitting layer, the project-only skill and the leading-wildcard overlap; §10 no longer claims a Codex fork exists; §13 lists the added choices | DM-01, BEH-17, BEH-21, ERR-09, VER-44, §10, §13 |
+| 15 | 2026-10-06 | Bryan | Approved ('Approve all three'), with the drafter's choices in §13 | status |

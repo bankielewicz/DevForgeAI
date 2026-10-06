@@ -2,7 +2,7 @@
 id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
-status: in-review
+status: approved
 version: 16
 created: 2026-09-22
 updated: 2026-10-06
@@ -14,15 +14,15 @@ generated_by:
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-04
+approved_on: 2026-10-06
 upstream:
   - {id: STORY-001, relation: specifies, version: 4, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
-  - {id: SPEC-012, relation: constrains, version: 14, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
-  - {id: SPEC-013, relation: constrains, version: 19, hash: null, note: "BEH-31's resume line, which names the work file a continued run reads (BEH-14)"}
+  - {id: SPEC-012, relation: constrains, version: 15, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
+  - {id: SPEC-013, relation: constrains, version: 20, hash: null, note: "BEH-31's resume line, which names the work file a continued run reads (BEH-14)"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -642,3 +642,4 @@ by git.
 | 16 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, the drafts review's fixes and Bryan's pruning decisions ('Delete at end + ignore', 'Pre-approve rm only'): the work file's shape in §4, its id carrying the extend-or-new answer; the writes' timing, also when no question is asked; the work file's folder kept out of git; the work files deleted once the BRN validates, with the rm pre-approved in allowed-tools (§5); a continued run copies the work file to its own path and asks step 5 again only when the resume line asks; VER-16 and VER-17 extended | §1, §4, §5, BEH-14, VER-16, VER-17, §10, §11, §13 |
 | 16 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, Bryan's 'Tracker deletes + ages' (allowed-tools pre-approval lasts one turn, so step 7's rm would still prompt): the progress tracker deletes a run's work files once its step 7 is done, and work files past its retention period (SPEC-012 version 15, SPEC-013 version 20); the skill deletes nothing and gets no allowed-tools; a continued run's precedence clause (past step 6 reads no work file); VER-16 and VER-17 follow | §1, §4, §5, BEH-14, VER-16, VER-17, §10, §11, §13 |
 | 16 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, the second drafts review's fixes and Bryan's 'Finish into BRN-003': ERR-02's draft BRN sets the work file's id, so a continued run extends it; an unreadable named work file counts as none; VER-17 (e) follows; §10 and §13 say the write gate is unchanged rather than the tracker; the copy's drafter's choice | BEH-14, VER-17, §10, §13 |
+| 16 | 2026-10-06 | Bryan | Approved ('Approve all three'), with the drafter's choices in §13 | status |

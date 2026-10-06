@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review   # draft | in-review | approved | superseded | deprecated
+status: approved   # draft | in-review | approved | superseded | deprecated
 version: 20
 created: 2026-10-02
 updated: 2026-10-06
@@ -14,11 +14,11 @@ generated_by:
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-05
+approved_on: 2026-10-06
 upstream:
   - {id: ADR-006, relation: constrains, version: 2, hash: null, note: "D1 (a hook blocks only at a gate, only in enforce mode; the tracker fails open), D3 (progress.mode, resolved at session start, and the button that switches it) and D6 (the local preference file); its follow-up gives D1, D3 and D6 to this spec"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "A3's local preference format, in which progress.mode is one entry; an entry that can't be used is ignored and reported, never fatal"}
-  - {id: SPEC-012, relation: constrains, version: 14, hash: null, note: "the event log (DM-02) this adapter writes, the state (DM-03) it reads, IF-01's command line, the gate and refuse (BEH-11), run-end (BEH-12), the operational files and the run ID (§4)"}
+  - {id: SPEC-012, relation: constrains, version: 15, hash: null, note: "the event log (DM-02) this adapter writes, the state (DM-03) it reads, IF-01's command line, the gate and refuse (BEH-11), run-end (BEH-12), the operational files and the run ID (§4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "progress tracking by evidence; this spec brings the core of SPEC-012 into Claude Code sessions"}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "decisions are the user's: enforce mode refuses a write that records a user-owned decision without the user's answer, and no button sends a prompt"}
 supersedes: []
@@ -1829,3 +1829,4 @@ the live check (a) run in observe mode, with enforce covered by VER-50 (c).
 | 19 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: versions 18 and 19 merged in PR #93 (`909a252`) and deployed as plugin 0.26.0 (§9) | §9 |
 | 20 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 ('Delete at end + ignore (Recommended)', 'Tracker deletes + ages (Recommended)', after "could the claude mod we developed have this integrated after validation to run a deletion script?"): when an evaluation shows a run's work files due (SPEC-012 version 15), the adapter runs prune.py to delete them and those of the run it continues (new BEH-32, IF-05, ERR-19, ERR-20); IF-04's age pass also removes work files older than retentionDays (BEH-19); BEH-15 and QR-03 name the files IF-05 reaches; adapter.log kind workfiles (DM-02); VER-51 to VER-53; status in-review | frontmatter, §1, DM-02, DM-06, IF-04, IF-05, BEH-15, BEH-19, BEH-32, ERR-19, ERR-20, QR-03, VER-51, VER-52, VER-53, §10, §11, §12, §13 |
 | 20 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, the drafts review's fixes (tmp/plans/save-work/review-drafts-2.md): the age pass judges a work file by its run (a file stays while a surviving run's state.json lists it) and the run being continued is a second --keep-run (IF-04, BEH-19); prune.py reads patterns only from the plugin's own manifests folder and ignores one bad manifest alone (IF-04, IF-05, BEH-32, QR-03); paths pass as --file=<path>, only non-empty strings, and a path with a .. segment anywhere is skipped (IF-05, BEH-32, ERR-20); a vanished file is skipped, other errors exit 2 (IF-05); no cleanup for a paused run (BEH-32); BEH-15 reads the continued run's state.json; VER-51 to VER-53 extended; §13 lists the added choices and records that ADR-006 is silent on the deletion | DM-02, IF-04, IF-05, BEH-15, BEH-19, BEH-32, ERR-20, QR-03, VER-51, VER-52, VER-53, §13 |
+| 20 | 2026-10-06 | Bryan | Approved ('Approve all three'), with the drafter's choices in §13 | status |
