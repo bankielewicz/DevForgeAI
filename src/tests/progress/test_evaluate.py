@@ -974,13 +974,286 @@ class SpecRules(Base):
     def test_ver43_earlier_cases_carry_nothing(self):
         new = {"arch-carried", "brainstorm-carried-owned", "brainstorm-carried-confirmed", "brainstorm-carried-written",
                "brainstorm-carried-written-open", "carried-answered-unknown", "carried-windows", "carried-unknown",
-               "carried-then-evidence"}
+               "carried-then-evidence", "brn-workfiles-carried"}
         for name in mc.CASE_BUILDERS:
             if name not in new and name != "messy-log":
                 with self.subTest(name):
                     state, _, _, _ = self.run_case(name)
                     self.assertNotIn("carried", [s["state"] for s in state["steps"]])
                     self.assertNotIn("carried", [e["type"] for s in state["steps"] for e in s["evidence"]])
+
+
+    # VER-44 (version 15): a manifest's work files, the state's workFiles, and IF-02's check (BEH-16, BEH-17, BEH-21).
+    WORK_STATE = {"files": [mc.WORK], "due": True}
+
+    def work_state(self, name):
+        state, _, _, _ = self.run_case(name)
+        return state.get("workFiles")
+
+    @staticmethod
+    def plugin_manifest(skill="brainstorm"):
+        return json.loads((PROGRESS / "manifests" / (skill + ".json")).read_text(encoding="utf-8"))
+
+    @staticmethod
+    def put(folder, manifest, skill="brainstorm"):
+        folder.mkdir(parents=True, exist_ok=True)
+        (folder / (skill + ".json")).write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        return folder
+
+    def evaluate_with(self, tmp, folders, case="brn-workfiles-due", events=None):
+        """Evaluate a case's log with the given manifest folders; return (process, state or None)."""
+        out = Path(tmp) / "state.json"
+        out.unlink(missing_ok=True)
+        args = ["evaluate"]
+        for f in folders:
+            args += ["--manifests", f]
+        proc = self.run_cli(*args, "--events", events or mc.CASES / case / "events.jsonl", "--out", out)
+        return proc, (json.loads(out.read_text(encoding="utf-8")) if out.exists() else None)
+
+    def test_ver44_manifest_names_work_files_and_keeps_its_checklist_hash(self):
+        manifest = self.plugin_manifest()
+        self.assertEqual(manifest["workFiles"], ["devforgeai/drafts/brainstorm/*.md"])
+        self.assertNotIn("workFiles", self.plugin_manifest("architecture"))
+        self.assertEqual(manifest["checklistHash"], mc.checklist_hash((SKILLS / "brainstorm/SKILL.md").read_text(encoding="utf-8")))
+        self.assertEqual(manifest["checklistHash"],
+                         "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129")
+        validator = schema_validator("manifest")
+        for bad in (["docs/specs/brainstorm/*.md"], [], ["devforgeai/drafts/"], ["devforgeai/drafts/a b.md"],
+                    ["devforgeai/drafts/a.md", "devforgeai/drafts/a.md"], "devforgeai/drafts/x"):
+            with self.subTest(bad=bad):
+                self.assertNotEqual(list(validator.iter_errors(dict(manifest, workFiles=bad))), [])
+
+    def test_ver44_state_schema(self):
+        validator = schema_validator("progress")
+        state, _, _, _ = self.run_case("brn-workfiles-due")
+        self.assertEqual([e.message for e in validator.iter_errors(state)], [])
+        for bad in ({"files": [], "due": "yes"}, {"files": [], "due": True, "x": 1}, {"due": True}, {"files": [1], "due": True}):
+            with self.subTest(bad=bad):
+                self.assertNotEqual(list(validator.iter_errors(dict(state, workFiles=bad))), [])
+
+    def test_ver44_due_after_a_validator_pass(self):
+        state, _, _, _ = self.run_case("brn-workfiles-due")
+        self.assertEqual(state["workFiles"], self.WORK_STATE)  # the Write and the Edit name one file: listed once
+        self.assertEqual(state["flags"], [])
+        self.assertEqual(self.step(state, 7)["state"], "done")
+        # The work file's write is no write-gate evidence: step 6's evidence is the BRN's (BEH-21).
+        evidence = self.step(state, 6)["evidence"]
+        self.assertEqual([(e["type"], e["detail"]) for e in evidence], [("write", "Write " + mc.BRN_PATH)])
+        self.assertEqual(state["gate"]["kind"], "write")
+        self.assertFalse(state["gate"]["refuse"])
+
+    def test_ver44_not_due_without_evidence(self):
+        for name in ("brn-workfiles-open", "brn-workfiles-claimed", "brn-workfiles-failed"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(state["workFiles"], {"files": [mc.WORK], "due": False})
+        claimed, _, _, _ = self.run_case("brn-workfiles-claimed")
+        self.assertEqual(self.step(claimed, 7)["state"], "claimed")
+        failed, _, _, _ = self.run_case("brn-workfiles-failed")
+        self.assertNotEqual(self.step(failed, 7)["state"], "done")
+
+    def test_ver44_paths(self):
+        state, _, _, _ = self.run_case("brn-workfiles-paths")
+        self.assertEqual(state["workFiles"]["files"],
+                         ["devforgeai/drafts/brainstorm/a.md", "devforgeai/drafts/brainstorm/b.md"])
+        self.assertFalse(state["workFiles"]["due"])
+
+    def test_ver44_a_work_file_is_no_content_rules_file(self):
+        state, _, _, _ = self.run_case("brn-workfiles-content")
+        self.assertEqual(state["flags"], [])
+        self.assertNotIn("rule-broken", [s["state"] for s in state["steps"]])
+        self.assertEqual(state["workFiles"], {"files": [mc.WORK], "due": False})
+        self.assertEqual(state["gate"]["kind"], None)
+
+    def test_ver44_a_carried_step_is_not_due(self):
+        state, _, _, _ = self.run_case("brn-workfiles-carried")
+        self.assertEqual(self.step(state, 7)["state"], "carried")
+        self.assertEqual(state["workFiles"], {"files": [mc.WORK], "due": False})
+
+    def test_ver44_only_an_applied_manifest_has_workfiles(self):
+        stale, _, _, _ = self.run_case("brn-workfiles-stale")
+        self.assertEqual(stale["manifest"]["state"], "stale")
+        self.assertNotIn("workFiles", stale)
+        unverified, _, _, _ = self.run_case("brn-workfiles-unverified")
+        self.assertEqual(unverified["manifest"]["state"], "unverified")
+        self.assertEqual(unverified["workFiles"], {"files": [mc.WORK], "due": False})
+        for name in mc.CASE_BUILDERS:  # no other skill's manifest names workFiles, and a stale or none one has none
+            if name == "messy-log" or name.startswith("brn-workfiles"):
+                continue
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                if state["skill"] != "brainstorm" or state["manifest"]["state"] not in ("matched", "unverified"):
+                    self.assertNotIn("workFiles", state)
+
+    def test_ver44_older_brainstorm_runs_gain_only_the_key(self):
+        state, _, _, _ = self.run_case("brn-left-open")
+        self.assertEqual(state["workFiles"], {"files": [], "due": True})  # it validated, and wrote no work file
+
+    def test_ver44_due_needs_every_step_with_a_script_rule_on_written_files(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            manifest = self.plugin_manifest()
+            manifest["steps"]["7"]["evidence"] = [{"type": "script", "pattern": "validate_brn.py", "exit": 0}]
+            proc, state = self.evaluate_with(tmp, [self.put(tmp / "no-target", manifest)])
+            self.assertEqual(proc.returncode, 0, proc.stderr)  # no step with a script rule on written files
+            self.assertEqual(state["workFiles"], {"files": [mc.WORK], "due": False})
+            manifest = self.plugin_manifest()
+            manifest["steps"]["3"]["evidence"] = [{"type": "script", "pattern": "check.py", "exit": 0, "target": "written"}]
+            proc, state = self.evaluate_with(tmp, [self.put(tmp / "two", manifest)])
+            self.assertEqual(proc.returncode, 0, proc.stderr)  # step 7 is done, step 3 is not
+            self.assertEqual(self.step(state, 7)["state"], "done")
+            self.assertEqual(state["workFiles"], {"files": [mc.WORK], "due": False})
+
+    # Layers (BEH-17, ERR-09).
+    def test_ver44_layers_restate_or_omit(self):
+        same, _, _, _ = self.run_case("brn-workfiles-layer-same")
+        omits, _, _, _ = self.run_case("brn-workfiles-layer-omits")
+        for state in (same, omits):
+            self.assertEqual(len(state["manifest"]["layers"]), 2)
+            self.assertEqual(state["workFiles"], self.WORK_STATE)  # the effective manifest keeps the plugin's
+        self.assertEqual(self.work_state("brn-workfiles-due"), self.WORK_STATE)
+
+    def test_ver44_only_the_plugins_manifest_sets_workfiles(self):
+        plugin = self.plugin_manifest()
+        wf = plugin["workFiles"]
+        extra = dict(plugin, workFiles=wf + ["devforgeai/drafts/brainstorm-more/*.md"])
+        changed = dict(plugin, workFiles=["devforgeai/drafts/brainstorm/*.txt"])
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            for label, manifest in (("adds a pattern", extra), ("changes the pattern", changed)):
+                with self.subTest(label):
+                    proc, state = self.evaluate_with(tmp, [mc.PLUGIN_MANIFESTS, self.put(tmp / label.replace(" ", "-"), manifest)])
+                    self.assertEqual(proc.returncode, 2, proc.stdout)
+                    self.assertEqual(len(proc.stderr.strip().splitlines()), 1, proc.stderr)
+                    self.assertIn(label.replace(" ", "-") + "/brainstorm.json", proc.stderr)
+                    self.assertIn("workFiles", proc.stderr)
+                    self.assertIsNone(state)
+            # a later layer may carry the plugin's patterns in any order
+            two = dict(plugin, workFiles=wf + ["devforgeai/drafts/second/*.md"])
+            base = self.put(tmp / "base", two)
+            later = self.put(tmp / "later", dict(two, workFiles=list(reversed(two["workFiles"]))))
+            proc, state = self.evaluate_with(tmp, [base, later])
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            self.assertEqual(state["workFiles"]["files"], [mc.WORK])
+            # a later layer carrying them where the plugin's manifest has none
+            nowork = dict(plugin)
+            del nowork["workFiles"]
+            proc, state = self.evaluate_with(tmp, [self.put(tmp / "nowork", nowork), later])
+            self.assertEqual(proc.returncode, 2, proc.stdout)
+            self.assertIn("later/brainstorm.json", proc.stderr)
+            self.assertIsNone(state)
+
+    def test_ver44_a_project_only_skill_cannot_carry_workfiles(self):
+        own = json.loads((mc.CASES / "layer-own-skill/project/team-review.json").read_text(encoding="utf-8"))
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            events = tmp / "events.jsonl"
+            events.write_text("\n".join(mc.Log("team-review", checklist=mc.TEAM_REVIEW).read("reviews/a.md").lines()) + "\n",
+                              encoding="utf-8")
+            clean = self.put(tmp / "clean", own, "team-review")
+            proc, state = self.evaluate_with(tmp, [mc.PLUGIN_MANIFESTS, clean], events=events)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            self.assertNotIn("workFiles", state)
+            dirty = self.put(tmp / "dirty", dict(own, workFiles=["devforgeai/drafts/team-review/*.md"]), "team-review")
+            proc, state = self.evaluate_with(tmp, [mc.PLUGIN_MANIFESTS, dirty], events=events)
+            self.assertEqual(proc.returncode, 2, proc.stdout)
+            self.assertEqual(len(proc.stderr.strip().splitlines()), 1, proc.stderr)
+            self.assertIn("dirty/team-review.json", proc.stderr)
+            self.assertIsNone(state)
+
+    def test_ver44_a_later_layer_cannot_add_a_rule_that_overlaps_the_work_files(self):
+        project = self.plugin_manifest()
+        project["steps"]["6"]["evidence"] = project["steps"]["6"]["evidence"] + [
+            {"type": "write", "pattern": "devforgeai/drafts/brainstorm/BRN-*.md"}]
+        with tempfile.TemporaryDirectory() as tmp:
+            tmp = Path(tmp)
+            later = self.put(tmp / "later", {k: v for k, v in project.items() if k != "workFiles"})
+            proc, state = self.evaluate_with(tmp, [mc.PLUGIN_MANIFESTS, later])
+            self.assertEqual(proc.returncode, 2, proc.stdout)
+            self.assertIn("workFiles", proc.stderr)
+            self.assertIsNone(state)
+
+    # ERR-04 and IF-02: workFiles that break BEH-21's rules.
+    def invalid_variants(self):
+        def with_rule(step, rule):
+            def mutate(m):
+                m["steps"][step]["evidence"] = m["steps"][step].get("evidence", []) + [rule]
+            return mutate
+
+        def with_content(path):
+            def mutate(m):
+                m["contentRules"] = m["contentRules"] + [
+                    {"step": 5, "path": path, "field": "status", "scope": "anywhere", "allowed": ["draft"]}]
+            return mutate
+
+        def work(patterns):
+            return lambda m: m.update(workFiles=patterns)
+
+        D = "devforgeai/drafts/"
+        return [
+            ("outside drafts", work(["docs/specs/brainstorm/*.md"])),
+            ("outside drafts, overlapping nothing", work(["docs/other/*.md"])),
+            ("drafts only", work([D])),
+            ("leading ..", work([D + "../x.md"])),
+            ("middle ..", work([D + "brainstorm/../../x.md"])),
+            ("trailing ..", work([D + "brainstorm/.."])),
+            ("whitespace", work([D + "a b.md"])),
+            ("empty list", work([])),
+            ("not a list", work(D + "brainstorm/*.md")),
+            ("not a string", work([1])),
+            ("duplicate", work([D + "a/*.md", D + "a/*.md"])),
+            ("write rule overlaps", with_rule("6", {"type": "write", "pattern": D + "brainstorm/BRN-*.md"})),
+            ("write rule is a folder", with_rule("6", {"type": "write", "pattern": D})),
+            ("read rule overlaps", with_rule("1", {"type": "read", "pattern": D + "brainstorm/old/"})),
+            ("work pattern within a write rule", with_rule("6", {"type": "write", "pattern": D + "brainstorm/sub/x.md"})),
+            ("leading wildcard write rule", with_rule("6", {"type": "write", "pattern": "*.md"})),
+            ("leading wildcard read rule", with_rule("1", {"type": "read", "pattern": "*"})),
+            ("content rule overlaps", with_content(D + "brainstorm/BRN-*.md")),
+            ("leading wildcard content rule", with_content("*.md")),
+        ]
+
+    def test_ver44_invalid_workfiles_stop_evaluation_and_fail_the_check(self):
+        skill_md = SKILLS / "brainstorm/SKILL.md"
+        events = mc.CASES / "brn-workfiles-due" / "events.jsonl"
+        for label, mutate in self.invalid_variants():
+            with self.subTest(label), tempfile.TemporaryDirectory() as tmp:
+                tmp = Path(tmp)
+                manifest = self.plugin_manifest()
+                mutate(manifest)
+                folder = self.put(tmp / "m", manifest)
+                out = tmp / "state.json"
+                proc = self.run_cli("evaluate", "--manifests", folder, "--events", events, "--out", out)
+                self.assertEqual(proc.returncode, 2, proc.stdout)
+                self.assertEqual(len(proc.stderr.strip().splitlines()), 1, proc.stderr)
+                self.assertIn("brainstorm.json", proc.stderr)
+                self.assertFalse(out.exists())
+                proc = self.run_cli("check", "--manifests", folder, "--skill", "brainstorm", "--checklist", skill_md)
+                self.assertEqual(proc.returncode, 1, proc.stderr)
+                self.assertTrue(proc.stdout.startswith("invalid workFiles: "), proc.stdout)
+                self.assertEqual(len(proc.stdout.strip().splitlines()), 1, proc.stdout)
+                # whatever the hashes: a stale checklist reports the invalid workFiles too
+                other = tmp / "SKILL.md"
+                other.write_text("- [ ] 1. Something else", encoding="utf-8")
+                proc = self.run_cli("check", "--manifests", folder, "--skill", "brainstorm", "--checklist", other)
+                self.assertEqual(proc.returncode, 1, proc.stderr)
+                self.assertTrue(proc.stdout.startswith("invalid workFiles: "), proc.stdout)
+
+    def test_ver44_valid_variations_pass(self):
+        D = "devforgeai/drafts/"
+        skill_md = SKILLS / "brainstorm/SKILL.md"
+        for label, patterns, files in (
+                ("two patterns", [D + "brainstorm/*.md", D + "brainstorm-notes/*.txt"], [mc.WORK]),
+                ("a folder", [D + "brainstorm/"], [mc.WORK]),
+                ("another folder", [D + "x/*"], [])):
+            with self.subTest(label), tempfile.TemporaryDirectory() as tmp:
+                tmp = Path(tmp)
+                folder = self.put(tmp / "m", dict(self.plugin_manifest(), workFiles=patterns))
+                proc = self.run_cli("check", "--manifests", folder, "--skill", "brainstorm", "--checklist", skill_md)
+                self.assertEqual(proc.returncode, 0, proc.stdout)
+                self.assertTrue(proc.stdout.startswith("matched sha256:"), proc.stdout)
+                proc, state = self.evaluate_with(tmp, [folder])
+                self.assertEqual(proc.returncode, 0, proc.stderr)
+                self.assertEqual(state["workFiles"]["files"], files)
 
 
 class SpecRulesUnderS(SpecRules):

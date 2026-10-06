@@ -158,5 +158,9 @@
     }
   ],
   "through": 6,
-  "waiver": null
+  "waiver": null,
+  "workFiles": {
+    "due": false,
+    "files": []
+  }
 }

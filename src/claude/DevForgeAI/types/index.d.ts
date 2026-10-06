@@ -91,6 +91,8 @@ declare module 'claude-code' {
       trail: ProgressPaused[]
       /** Runs that ended returned or stopped while nested, for the turn's review (BEH-30; version 14). */
       returned: ProgressReturned[]
+      /** The runs whose work files cleanup has started, at most once per run (SPEC-013 BEH-32; version 20). */
+      cleaned: string[]
     }
   }
 }

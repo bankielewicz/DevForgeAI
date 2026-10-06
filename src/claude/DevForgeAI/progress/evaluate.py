@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v8).
+"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v15).
 
 Run from the project root:
     python3 evaluate.py evaluate --manifests DIR [--manifests DIR ...] --events FILE --out FILE
@@ -10,7 +10,7 @@ Run from the project root:
 (devforgeai-manifest/1), in layers, and writes the run's progress state (devforgeai-progress/1).
 It exits 0 when the state is written, with or without flags, and 2 when it can't run, with one line
 on stderr. `check` (IF-02) compares a skill's checklist with its manifest: exit 0 when they match,
-1 when the manifest is stale or missing, 2 when it can't run.
+1 when the manifest is stale, missing or names invalid workFiles, 2 when it can't run.
 
 The evaluator is a pure function of its inputs (BEH-01): each call reads the whole event log, keeps
 nothing between calls, and reads no clock. It uses the Python standard library only (QR-01), reads
@@ -114,8 +114,48 @@ def read_json(path):
 
 # ---- manifests (DM-01) and their layers (BEH-17) ---------------------------------------------
 
-def check_manifest_shape(m, path):
-    """The keys the evaluator relies on (ERR-04); the JSON Schema stays the full contract."""
+WORK_ROOT = "devforgeai/drafts/"  # every work-file pattern begins here (BEH-21, version 15)
+
+
+def literal_prefix(pattern):
+    """The characters of a pattern before its first *, ? or [ (BEH-21)."""
+    for i, c in enumerate(pattern):
+        if c in "*?[":
+            return pattern[:i]
+    return pattern
+
+
+def work_file_problem(m):
+    """Why a manifest's workFiles break BEH-21's rules, or None (version 15). Each pattern begins devforgeai/drafts/ with
+    a name after it, holds no whitespace and no .. segment, and neither it nor the pattern of any write or read rule, nor
+    any content rule's path, begins with the other's literal text; script rules' patterns are file names, left out."""
+    patterns = m["workFiles"]
+    if not isinstance(patterns, list) or not patterns:
+        return "not a non-empty list of patterns"
+    for p in patterns:
+        if not isinstance(p, str):
+            return "a pattern isn't text"
+        if not p.startswith(WORK_ROOT) or len(p) == len(WORK_ROOT) or re.search(r"\s", p):
+            return "%s doesn't begin with %s and a name, or holds whitespace" % (p, WORK_ROOT)
+        if ".." in p.split("/"):
+            return "%s holds a .. segment" % p
+        if patterns.count(p) > 1:
+            return "%s is listed twice" % p
+    others = [("step %s's %s rule %s" % (n, rule["type"], rule["pattern"]), rule["pattern"])
+              for n, step in m["steps"].items() for rule in step.get("evidence", [])
+              if rule["type"] in ("write", "read")]
+    others += [("the content rule path %s" % rule["path"], str(rule["path"])) for rule in m.get("contentRules", [])]
+    for p in patterns:
+        for what, other in others:
+            a, b = literal_prefix(p), literal_prefix(other)
+            if a.startswith(b) or b.startswith(a):
+                return "%s overlaps %s" % (p, what)
+    return None
+
+
+def check_manifest_shape(m, path, work_files=True):
+    """The keys the evaluator relies on (ERR-04); the JSON Schema stays the full contract. work_files false leaves
+    BEH-21's rules to the caller (IF-02 reports them itself)."""
     def bad(why):
         raise Fail("%s: %s" % (path, why))
     if not isinstance(m, dict):
@@ -150,6 +190,10 @@ def check_manifest_shape(m, path):
             bad("a content rule lacks step, path, field, scope or allowed")
         if rule["scope"] not in SCOPES or str(rule["step"]) not in m["steps"]:
             bad("a content rule names an unknown scope or step")
+    if work_files and "workFiles" in m:
+        problem = work_file_problem(m)  # version 15
+        if problem:
+            bad("invalid workFiles: " + problem)
 
 
 def relaxation(base, later):
@@ -189,23 +233,42 @@ def relaxation(base, later):
     return None
 
 
-def load_manifest(folders, skill):
-    """The effective manifest for a skill, and the files used, in layer order (BEH-17, ERR-04, ERR-09)."""
+def load_manifest(folders, skill, work_files=True):
+    """The effective manifest for a skill, and the files used, in layer order (BEH-17, ERR-04, ERR-09). Only the first
+    folder's manifest sets workFiles (version 15): a later file may carry them only unchanged, and the effective manifest
+    keeps the first folder's whether or not a later file restates them."""
     effective, effective_file, layers = None, None, []
-    for folder in folders:
+    base_work, base_file = None, None
+    for index, folder in enumerate(folders):
         if not os.path.isdir(folder):
             raise Fail("%s: not a folder" % folder)
         path = folder.rstrip("/") + "/" + skill + ".json"
         if not os.path.isfile(path):
             continue
         m = read_json(path)
-        check_manifest_shape(m, path)
+        check_manifest_shape(m, path, work_files)
         if effective is not None:
             problem = relaxation(effective, m)
             if problem:
                 raise Fail("%s: %s, which an earlier layer set (%s)" % (path, problem, effective_file))
+            if "workFiles" in m:
+                if base_work is None:
+                    raise Fail("%s: sets workFiles, which only the plugin's own manifest may carry (%s has none)"
+                               % (path, layers[0]))
+                if set(m["workFiles"]) != set(base_work):
+                    raise Fail("%s: changes workFiles, which an earlier layer set (%s)" % (path, base_file))
+        elif "workFiles" in m:
+            if index > 0:  # the plugin's folder has no manifest of this skill
+                raise Fail("%s: sets workFiles, which only the plugin's own manifest may carry" % path)
+            base_work, base_file = m["workFiles"], path
         effective, effective_file = m, path
         layers.append(path)
+    if base_work is not None and "workFiles" not in effective:
+        effective["workFiles"] = list(base_work)
+    if work_files and len(layers) > 1 and "workFiles" in effective:
+        problem = work_file_problem(effective)  # a later layer's rule may overlap them
+        if problem:
+            raise Fail("%s: invalid workFiles: %s" % (effective_file, problem))
     return effective, layers
 
 
@@ -466,6 +529,25 @@ class Run:
         self.waiver_event = next((e for e in events if e["kind"] == "answer" and e.get("answered") is True
                                   and e.get("waiver") in WAIVERS), None)
         self.waiver = self.waiver_event["waiver"] if self.waiver_event else None
+
+    # -- work files (BEH-21, version 15) --
+
+    def work_files(self, patterns):
+        """The state's workFiles: the paths of the run's Write and Edit calls without an error that match a work-file
+        pattern (never one starting with / or ../ or holding a . or .. segment), each once, in the order first written;
+        and due, when the manifest has a step with a script rule on written files and every such step is done by evidence."""
+        files = []
+        for e in self.events:
+            path = e.get("path")
+            if e["kind"] != "tool" or e.get("tool") not in ("Write", "Edit") or e.get("error") is True \
+                    or not isinstance(path, str) or path.startswith("/") or path.startswith("../") \
+                    or "." in path.split("/") or ".." in path.split("/"):
+                continue
+            if path not in files and any(path_matches(path, p) for p in patterns):
+                files.append(path)
+        scripted = [s for s in self.steps if any(r["type"] == "script" and r.get("target") == "written" for r in s.rules)]
+        due = bool(scripted) and all(self.final_state(s) == "done" for s in scripted)
+        return {"files": files, "due": due}
 
     # -- evidence and claims (BEH-05, BEH-06) --
 
@@ -1020,6 +1102,8 @@ def build_state(events, counts, manifest, layers, root=None):
         "counts": counts,
         "waiver": run.waiver,
     }
+    if manifest_state in ("matched", "unverified") and manifest.get("workFiles"):
+        state["workFiles"] = run.work_files(manifest["workFiles"])  # version 15
     return state
 
 
@@ -1076,11 +1160,16 @@ def cmd_evaluate(args):
 
 def cmd_check(args):
     text = read_text(args.checklist)
-    manifest, _ = load_manifest([args.manifests], args.skill)
+    manifest, _ = load_manifest([args.manifests], args.skill, work_files=False)
     found = checklist_hash(text) or "sha256:none"
     if manifest is None:
         print("none %s" % found)
         return 1
+    if "workFiles" in manifest:  # version 15: reported whatever the hashes
+        problem = work_file_problem(manifest)
+        if problem:
+            print("invalid workFiles: %s" % problem)
+            return 1
     if manifest["checklistHash"] == found:
         print("matched %s" % found)
         return 0

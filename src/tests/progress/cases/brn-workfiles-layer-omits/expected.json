@@ -1,0 +1,183 @@
+{
+  "counts": {
+    "afterEnd": 0,
+    "duplicates": 0,
+    "events": 18,
+    "malformed": 0,
+    "outOfOrder": 0,
+    "stepEvents": 12,
+    "unknownClaims": 0,
+    "unmarkedQuestions": 0
+  },
+  "current": 8,
+  "ended": null,
+  "flags": [],
+  "format": "devforgeai-progress/1",
+  "gate": {
+    "kind": "write",
+    "reason": null,
+    "refuse": false,
+    "seq": 14
+  },
+  "manifest": {
+    "checklistHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
+    "layers": [
+      "src/claude/DevForgeAI/progress/manifests/brainstorm.json",
+      "src/tests/progress/cases/brn-workfiles-layer-omits/project/brainstorm.json"
+    ],
+    "manifestHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
+    "state": "matched"
+  },
+  "next": null,
+  "run": "20261002T120000Z-brainstorm-0000abcd",
+  "skill": "brainstorm",
+  "steps": [
+    {
+      "claim": {
+        "reason": null,
+        "seq": 4,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "Glob docs/specs/brainstorm/BRN-*.md",
+          "seq": 3,
+          "strength": "medium",
+          "type": "read"
+        },
+        {
+          "detail": "Bash docs/specs/brainstorm/BRN-002.md",
+          "seq": 17,
+          "strength": "medium",
+          "type": "read"
+        }
+      ],
+      "kind": "read",
+      "n": 1,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Intake: topic, existing BRNs, clarifying questions",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 6,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 2,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Select a framework",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 8,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 3,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Diverge: problems, ideas, assumptions",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 10,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 4,
+      "need": "text-only",
+      "note": "",
+      "state": "done",
+      "title": "Evaluate with the framework",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "ask",
+      "n": 5,
+      "need": "required",
+      "note": "no answer; left open",
+      "state": "not-applicable",
+      "title": "Propose dispositions and ask the user to confirm",
+      "userOwned": true
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 15,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "Write docs/specs/brainstorm/BRN-002.md",
+          "seq": 14,
+          "strength": "medium",
+          "type": "write"
+        }
+      ],
+      "kind": "forge",
+      "n": 6,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Write the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 18,
+        "state": "done"
+      },
+      "evidence": [
+        {
+          "detail": "validate_brn.py exit 0",
+          "seq": 17,
+          "strength": "strong",
+          "type": "script"
+        }
+      ],
+      "kind": "inspect",
+      "n": 7,
+      "need": "required",
+      "note": "",
+      "state": "done",
+      "title": "Validate the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "report",
+      "n": 8,
+      "need": "required",
+      "note": "",
+      "state": "current",
+      "title": "Report and hand off",
+      "userOwned": false
+    }
+  ],
+  "through": 18,
+  "waiver": null,
+  "workFiles": {
+    "due": true,
+    "files": [
+      "devforgeai/drafts/brainstorm/BRN-002.md"
+    ]
+  }
+}

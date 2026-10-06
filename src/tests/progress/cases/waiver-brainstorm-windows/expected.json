@@ -166,5 +166,9 @@
     }
   ],
   "through": 5,
-  "waiver": "proceed"
+  "waiver": "proceed",
+  "workFiles": {
+    "due": false,
+    "files": []
+  }
 }

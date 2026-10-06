@@ -4,7 +4,7 @@ import {
   isEngine, isFailed, isPersonPrompt, isTracked, keptContent, newFlagToasts, questionRefusal, refusalText, relPath,
   refusalCause, replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf, stuckAdvice,
   stuckText, summaryOf, taskIdOf, returnLine, trailNote, pausedWith, keptTrail, endReason, hasRoom, nestedExitQuestion, nestedKeptText,
-  runName, resumePlan, ageText, resumeQuestion, isUntrackedSkill,
+  runName, resumePlan, ageText, resumeQuestion, isUntrackedSkill, removeArgv, resumesOf, workFilePaths, workFilesDue, workFilesProblem,
   todoSteps, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT, QUESTION_REFUSAL, QUESTION_TAG,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
@@ -470,4 +470,45 @@ test('VER-50 (f): the frontmatter is the text between the first line --- and the
   expect(isUntrackedSkill(skillMd('metadata:\n  author: x\n\n' + OFF))).toBe(false)
   // the closing --- ends it: a key after a second --- is the body's
   expect(isUntrackedSkill('---\nname: p\nmetadata:\n  author: x\n---\n  devforgeai-tracked: "false"\n')).toBe(false)
+})
+
+// ---- SPEC-013 v20: the work files' cleanup (BEH-32, IF-05) ----
+
+test('VER-52: workFilesDue is true only for workFiles.due true', () => {
+  const st = (workFiles: unknown) => ({ workFiles } as unknown as ProgressState)
+  expect(workFilesDue(st({ due: true, files: [] }))).toBe(true)
+  for (const w of [{ due: false, files: ['a'] }, { files: ['a'] }, { due: 'true' }, { due: 1 }, null, [], 'x', undefined]) {
+    expect(workFilesDue(st(w))).toBe(false)
+  }
+})
+
+test('VER-52: workFilePaths keeps the non-empty strings, in order, and nothing from a state that isn\'t shaped so', () => {
+  expect(workFilePaths({ workFiles: { files: ['a', 'b', '--root', 7, '', null, {}, ['c'], 'a'] } })).toEqual(['a', 'b', '--root', 'a'])
+  for (const bad of [null, [], 'x', 3, {}, { workFiles: null }, { workFiles: [] }, { workFiles: 'x' }, { workFiles: {} }, { workFiles: { files: 'a' } }]) {
+    expect(workFilePaths(bad)).toEqual([])
+  }
+})
+
+test('VER-52 / ERR-19: workFilesProblem says why a state names no workFiles object', () => {
+  expect(workFilesProblem({ workFiles: { files: [], due: false } })).toBeNull()
+  expect(workFilesProblem([])).not.toBeNull()
+  expect(workFilesProblem(null)).not.toBeNull()
+  expect(workFilesProblem({})).not.toBeNull()
+  expect(workFilesProblem({ workFiles: [] })).not.toBeNull()
+  expect(workFilesProblem({ workFiles: 'x' })).not.toBeNull()
+})
+
+test('VER-52: removeArgv gives one --file=<path> token per path, once each, in order, across the lists', () => {
+  expect(removeArgv('python3', '/p', '/r', ['a', 'b'], ['b', 'c'], ['-x', '', 'a'])).toEqual(
+    ['python3', '/p/progress/prune.py', 'remove', '--root', '/r', '--manifests', '/p/progress/manifests', '--file=a', '--file=b', '--file=c', '--file=-x'])
+  expect(removeArgv('python3', '/p', '/r')).toEqual(['python3', '/p/progress/prune.py', 'remove', '--root', '/r', '--manifests', '/p/progress/manifests'])
+})
+
+test('VER-52: resumesOf reads the run a skill-loaded line continues, only when it is shaped as a run ID', () => {
+  const id = '20260930T090000Z-brainstorm-1a2b3c4d'
+  expect(resumesOf(JSON.stringify({ kind: 'skill-loaded', resumes: id }))).toBe(id)
+  for (const bad of [undefined, '', 'not json', '{}', JSON.stringify({ resumes: 7 }), JSON.stringify({ resumes: '../../x' }),
+    JSON.stringify({ resumes: `${id}/..` }), JSON.stringify({ resumes: 'a/b' })]) {
+    expect(resumesOf(bad)).toBeNull()
+  }
 })

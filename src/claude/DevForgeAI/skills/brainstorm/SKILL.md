@@ -4,7 +4,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "8"
+  devforgeai-version: "9"
 ---
 
 # Brainstorm
@@ -19,6 +19,8 @@ claim decisions the user actually made.
 - `$ARGUMENTS`: the topic. It may be empty; then take the topic from the conversation, or ask for it.
 - Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
 - The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
+- The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md`, this session's copy of the
+  work so far, saved after steps 3 and 4 and at step 5 ([work-file.md](references/work-file.md)).
 
 ## Decisions that belong to the user
 
@@ -77,6 +79,20 @@ question form, its tag names that step:
 Without task-list tools, copy the checklist into your response once you have a topic, and tick items
 off (`- [x] N.`) in your reply text as you go.
 
+**Save the work as it goes.** After step 3 and after step 4, and at step 5 before its question, write
+the whole work file (*Inputs*) with the Write tool, in the shape
+[work-file.md](references/work-file.md) gives: `id: BRN-000`, every disposition `open`, step 5's
+proposals as a table. Before the first save, when `devforgeai/drafts/.gitignore` is missing, write it
+holding the single line `*`. Never write the work file under `docs/specs/`, never run the validator on
+it, never delete it (the progress tracker removes it once the BRN validates), and don't save it again
+once the BRN is written.
+
+**Continuing an earlier run.** When this text ends with the progress tracker's line "This run
+continues the earlier brainstorm run …", follow that line and
+[work-file.md](references/work-file.md#continuing-a-run): unless it continues past step 6, copy the
+last work file it names to this session's path right after creating the task list, then work from its
+topic, items, scores and IDs; with no readable work file, continue without one.
+
 ### 1. Intake
 
 **The waiver comes first**, only when the request says to proceed without questions (or not to ask,
@@ -133,6 +149,8 @@ Follow the framework's steps and questions.
   Every idea addresses at least one problem and starts with `disposition: open`.
 - Capture **assumptions** (`ASM-NN`): beliefs the ideas depend on, each with how to validate it.
 
+Mark step 3 completed, then save the work file (Workflow) before marking step 4 in progress.
+
 ### 4. Evaluate
 
 Fill `value`, `effort`, `risk` and `score` on each idea exactly as the framework's *Mapping to the
@@ -140,10 +158,13 @@ BRN* section says. Write only into the `problems`, `ideas` and `assumptions` col
 their defined fields, whatever the framework. Framework-specific reasoning goes into the section
 5 (evaluation method) and section 6 (convergence) prose, never into new YAML keys.
 
+Mark step 4 completed, then save the work file again before marking step 5 in progress.
+
 ### 5. Propose dispositions and confirm
 
 Propose a disposition and a one-line reason for each idea, and ask the user to confirm them and
-whether the brainstorm has converged. With AskUserQuestion, put the proposals inside the form, never
+whether the brainstorm has converged. Save the work file with the proposals table first, before
+asking, or right away when no question is asked. With AskUserQuestion, put the proposals inside the form, never
 only in text before it (the dialog hides that text). One form tagged step 5 (Workflow, item 4),
 both questions with `header: "Step 5"`:
 1. "Confirm these dispositions?", options `Accept all as proposed` (Recommended) and `Leave them
@@ -159,7 +180,9 @@ Without AskUserQuestion, present the table in plain text and ask. Then:
 - Set `status: converged` only on *Converged*; otherwise `draft`.
 
 If the user stops partway through the session, ask whether to save what has been captured as a
-draft BRN. If yes, write it with every disposition `open`. If no, write nothing.
+draft BRN. If yes, first save the work file once more with its `id` set to the ID the draft BRN gets
+(allocated as step 6 does), so a continued run extends it; then write the draft BRN with every
+disposition `open`, and don't run the validator on it. If no, write nothing more.
 
 ### 6. Write the BRN
 
@@ -288,4 +311,6 @@ one. It writes nothing until the user answers.
 - [references/frameworks/INDEX.md](references/frameworks/INDEX.md): read at step 2 to choose a
   framework. It links to each framework file.
 - [references/output-rules.md](references/output-rules.md): read before step 6.
+- [references/work-file.md](references/work-file.md): read before the first save at step 3, and when
+  continuing an earlier run.
 - `scripts/validate_brn.py`: run at step 7; it applies the output rules mechanically.

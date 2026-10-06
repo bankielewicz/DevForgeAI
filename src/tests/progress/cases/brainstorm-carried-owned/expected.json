@@ -178,5 +178,9 @@
     }
   ],
   "through": 3,
-  "waiver": null
+  "waiver": null,
+  "workFiles": {
+    "due": false,
+    "files": []
+  }
 }
