@@ -1491,6 +1491,8 @@ Version 6's build, with SPEC-012 version 7: the kit tests of VER-26, seen failin
 
 ## 13. Open questions
 
+- Accepted (Bryan, 2026-10-06, "Accept all"): the builders' readings where version 20's text was silent, as listed in tmp/plans/save-work/build-evaluator.md, build-prune.md and build-adapter.md (for example, a project manifest carrying workFiles exits 2; a path with a `.` or empty segment is skipped, not cleaned; the adapter's $.state key is `cleaned`).
+
 Decided by Bryan on 2026-10-06, for version 20 (SPEC-001 version 16, SPEC-012 version 15; "Save the work too"): the
 brainstorm skill keeps a work file and a continued run reads it; "drafts should be pruned eventually, since the
 brainstorm document will serve as the provenance root"; "Delete at end + ignore (Recommended)". When the drafting
@@ -1832,3 +1834,4 @@ the live check (a) run in observe mode, with enforce covered by VER-50 (c).
 | 20 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, the drafts review's fixes (tmp/plans/save-work/review-drafts-2.md): the age pass judges a work file by its run (a file stays while a surviving run's state.json lists it) and the run being continued is a second --keep-run (IF-04, BEH-19); prune.py reads patterns only from the plugin's own manifests folder and ignores one bad manifest alone (IF-04, IF-05, BEH-32, QR-03); paths pass as --file=<path>, only non-empty strings, and a path with a .. segment anywhere is skipped (IF-05, BEH-32, ERR-20); a vanished file is skipped, other errors exit 2 (IF-05); no cleanup for a paused run (BEH-32); BEH-15 reads the continued run's state.json; VER-51 to VER-53 extended; §13 lists the added choices and records that ADR-006 is silent on the deletion | DM-02, IF-04, IF-05, BEH-15, BEH-19, BEH-32, ERR-20, QR-03, VER-51, VER-52, VER-53, §13 |
 | 20 | 2026-10-06 | Bryan | Approved ('Approve all three'), with the drafter's choices in §13 | status |
 | 20 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §9 records version 20's build and its departure from ERR-20's text | §9 |
+| 20 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §13 records Bryan's acceptance of the build's readings | §13 |

@@ -1211,6 +1211,8 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 
 ## 13. Open questions
 
+- Accepted (Bryan, 2026-10-06, "Accept all"): the builders' readings where version 15's text was silent, as listed in tmp/plans/save-work/build-evaluator.md, build-prune.md and build-adapter.md (for example, a project manifest carrying workFiles exits 2; a path with a `.` or empty segment is skipped, not cleaned; the adapter's $.state key is `cleaned`).
+
 - Open (found by the build's adversarial review, 2026-10-06, tmp/plans/save-work/review-build.md S1; recorded on the
   recommendation given to Bryan, his answer due at the end-of-workflow review): a script rule credits any exit-0 command that names the script
   and the written file, so `cat validate_brn.py docs/specs/brainstorm/BRN-002.md` marks step 7 done; since version 15
@@ -1430,3 +1432,4 @@ Still open, or notes:
 | 15 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, the drafts review's fixes (tmp/plans/save-work/review-drafts-2.md): workFiles is read only from the plugin's own manifest, a project's or organization's manifest can't set or change it, and a project's own skill can't carry it (BEH-17, ERR-09, DM-01); the evaluator copies the plugin's workFiles into the effective manifest after layering (BEH-17); a path holding a . or .. segment is never a work file (BEH-21); VER-44 gains the middle-.. paths, the omitting layer, the project-only skill and the leading-wildcard overlap; §10 no longer claims a Codex fork exists; §13 lists the added choices | DM-01, BEH-17, BEH-21, ERR-09, VER-44, §10, §13 |
 | 15 | 2026-10-06 | Bryan | Approved ('Approve all three'), with the drafter's choices in §13 | status |
 | 15 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §13 records the build review's open item on script evidence (S1) | §13 |
+| 15 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §13 records Bryan's acceptance of the build's readings | §13 |
