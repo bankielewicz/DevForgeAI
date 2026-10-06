@@ -37,5 +37,6 @@
   "contentRules": [
     {"step": 5, "path": "docs/specs/brainstorm/BRN-*.md", "field": "disposition", "scope": "anywhere", "allowed": ["open"]},
     {"step": 5, "path": "docs/specs/brainstorm/BRN-*.md", "field": "status", "scope": "frontmatter", "allowed": ["draft"]}
-  ]
+  ],
+  "workFiles": ["devforgeai/drafts/brainstorm/*.md"]
 }

@@ -164,5 +164,9 @@
     }
   ],
   "through": 7,
-  "waiver": null
+  "waiver": null,
+  "workFiles": {
+    "due": false,
+    "files": []
+  }
 }

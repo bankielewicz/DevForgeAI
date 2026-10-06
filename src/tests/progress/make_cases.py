@@ -57,13 +57,13 @@ class Log:
     """Builds one run's events with fixed run ID, seq and times."""
 
     def __init__(self, skill, checklist=None, run_suffix="0000abcd", task_list=None, resumes=None, carried=None,
-                 answered=None):
+                 answered=None, draft=None):
         self.run = "20261002T120000Z-%s-%s" % (skill, run_suffix)
         self.events = []
         self.add("skill-loaded", format="devforgeai-events/1", skill=skill,
                  checklist=checklist if checklist is not None else checklist_block(skill),
                  host="claude-code 2.1.287", taskList=task_list, resumes=resumes, carried=carried,
-                 answered=answered)
+                 answered=answered, draft=draft)
 
     def add(self, kind, **fields):
         seq = len(self.events) + 1
@@ -73,9 +73,14 @@ class Log:
         self.events.append(event)
         return self
 
-    def tool(self, tool, path=None, command=None, exit_code=None, error=None, content=None):
+    def tool(self, tool, path=None, command=None, exit_code=None, error=None, content=None, wrote=None):
         return self.add("tool", tool=tool, path=path, command=command, exit=exit_code, error=error,
-                        content=content)
+                        content=content, wrote=wrote)
+
+    def wrote(self, path, command, exit_code=0, content=None):
+        """The adapter's record of a file a Bash call created or changed (version 16, DM-02): its error is false."""
+        return self.tool("Bash", path=path, command=command, exit_code=exit_code, error=False, content=content,
+                         wrote=True)
 
     def bash(self, command, exit_code=0):
         return self.tool("Bash", command=command, exit_code=exit_code)
@@ -89,10 +94,12 @@ class Log:
     def write(self, path, content=None):
         return self.tool("Write", path=path, content=content)
 
-    def answer(self, answered=True, step=None, outside=False, waiver=None):
+    def answer(self, answered=True, step=None, outside=False, waiver=None, questions=None):
         """An answer event; step is its question's tag (devforgeai_step:N), outside a source naming something else,
-        waiver the label picked in the waiver question (version 11)."""
+        waiver the label picked in the waiver question (version 11), questions the form Claude asked (version 16)."""
         fields = {"answered": answered}
+        if questions is not None:
+            fields["questions"] = questions
         if step is not None:
             fields["step"] = step
         if outside:
@@ -861,12 +868,12 @@ def _():
 EARLIER_RUN = "20261001T090000Z-%s-1111aaaa"
 
 
-def carrying(skill, carried, answered=None, follow=True):
+def carrying(skill, carried, answered=None, follow=True, draft=None):
     """A run that continues an earlier run (BEH-20): its skill-loaded event names the earlier run in resumes, the carried
     steps and, for a user-owned step the earlier run's state counted an answer for once its document was written, answered."""
     checklist = tasked(skill) if follow else checklist_block(skill)
     return Log(skill, checklist=checklist, task_list=True if follow else None, resumes=EARLIER_RUN % skill,
-               carried=carried, answered=answered)
+               carried=carried, answered=answered, draft=draft)
 
 
 def edit(log, path, content):
@@ -928,6 +935,224 @@ def _():
 def _():
     log = carrying("architecture", [1, 2]).started(2).read("docs/specs/prd/PRD-001.md")
     return log, plugin_only(), {}
+
+
+# ---- version 15: work files (VER-44) ---------------------------------------------------------------
+
+WORK = "devforgeai/drafts/brainstorm/BRN-002.md"
+OPEN_BRN = brn(["open"] * 15)
+
+
+def brn_working(validate=None, tick7=False, command=None):
+    """A brainstorm run that follows the task list and keeps a work file: steps 1 to 4 marked, the work file written, then
+    step 6 (an Edit of the work file, the Write of the BRN) and step 7: the validator run with exit `validate` (None:
+    not run; `command` replaces the validator's command line), the step marked done when `validate` is given or
+    tick7 says so."""
+    log = brn_to_four(following("brainstorm")).write(WORK, "# draft\n")
+    log.started(6).tool("Edit", path=WORK).write(BRN_PATH, OPEN_BRN).done(6).started(7)
+    if validate is not None:
+        log.bash(command or VALIDATE, exit_code=validate)
+    if validate == 0 or tick7:
+        log.done(7)
+    return log
+
+
+@case("brn-workfiles-due")  # VER-44: a Write and an Edit of the work file, the BRN, the validator's pass
+def _():
+    return brn_working(validate=0), plugin_only(), {}
+
+
+@case("brn-workfiles-open")  # VER-44: the same without the validator run: files listed, due false
+def _():
+    return brn_working(), plugin_only(), {}
+
+
+@case("brn-workfiles-claimed")  # VER-44: step 7 ticked, no validator run: a claim is no evidence
+def _():
+    return brn_working(tick7=True), plugin_only(), {}
+
+
+@case("brn-workfiles-failed")  # VER-44: the validator's run exits 1: step 7 has no evidence
+def _():
+    return brn_working(validate=1, tick7=True), plugin_only(), {}
+
+
+@case("brn-workfiles-paths")  # VER-44: only the second and third are files
+def _():
+    log = brn_start(Log("brainstorm")).tool("Write", path=WORK, error=True)
+    for path in ("./devforgeai/drafts/brainstorm/a.md", "devforgeai/drafts//brainstorm/b.md", "/abs/c.md", "../d.md",
+                 "devforgeai/drafts/brainstorm/../../../README.md", "devforgeai/drafts/brainstorm/./f.md",
+                 "devforgeai/drafts/other/e.txt", "docs/specs/brainstorm/BRN-001.md"):
+        log.write(path)
+    return log, plugin_only(), {}
+
+
+@case("brn-workfiles-content")  # VER-44: promoted dispositions in a work file before step 5's answer: no flag
+def _():
+    log = brn_start(Log("brainstorm")).write(WORK, brn(PROMOTED))
+    return log, plugin_only(), {}
+
+
+@case("brn-workfiles-carried")  # VER-44: a run carrying steps 1 to 7 is never due
+def _():
+    log = carrying("brainstorm", [1, 2, 3, 4, 5, 6, 7]).write(WORK, "# draft\n").started(8)
+    return log, plugin_only(), {}
+
+
+@case("brn-workfiles-stale")  # VER-44: a manifest that doesn't match gives no workFiles key
+def _():
+    stale = checklist_block("brainstorm").replace("6. Write the BRN", "6. Write the BRN file")
+    return Log("brainstorm", checklist=stale).write(WORK, "# draft\n"), plugin_only(), {}
+
+
+@case("brn-workfiles-unverified")  # VER-44: an unverified manifest applies, so the state has workFiles
+def _():
+    return Log("brainstorm", checklist="no checklist here").write(WORK, "# draft\n"), plugin_only(), {}
+
+
+@case("brn-workfiles-layer-same")  # VER-44: a project folder restating brainstorm.json unchanged evaluates
+def _():
+    project = json.loads((ROOT / PLUGIN_MANIFESTS / "brainstorm.json").read_text(encoding="utf-8"))
+    return brn_working(validate=0), {"manifests": ["@plugin", "project"], "root": None, "phases": None}, {
+        "project/brainstorm.json": json.dumps(project, indent=2) + "\n"}
+
+
+@case("brn-workfiles-layer-omits")  # VER-44: a project folder omitting workFiles still gives the plugin's: due fires
+def _():
+    project = json.loads((ROOT / PLUGIN_MANIFESTS / "brainstorm.json").read_text(encoding="utf-8"))
+    project.pop("workFiles", None)  # the key the plugin's manifest holds from version 15
+    return brn_working(validate=0), {"manifests": ["@plugin", "project"], "root": None, "phases": None}, {
+        "project/brainstorm.json": json.dumps(project, indent=2) + "\n"}
+
+
+# ---- version 16: script evidence, forms, Bash writes and the draft (VER-45, VER-46) ------------------
+
+SCRIPT = ".claude/skills/devforgeai/skills/brainstorm/scripts/validate_brn.py"
+BRN1_PATH = "docs/specs/brainstorm/BRN-001.md"
+
+
+@case("brn-script-named-only")  # VER-45: cat names the script and the BRN, runs nothing: step 7 isn't done
+def _():
+    return brn_working(validate=0, command="cat %s %s" % (SCRIPT, BRN_PATH)), plugin_only(), {}
+
+
+@case("brn-script-named-ls")  # VER-45: ls does the same
+def _():
+    return brn_working(validate=0, command="ls %s %s" % (SCRIPT, BRN_PATH)), plugin_only(), {}
+
+
+@case("brn-script-other-part")  # VER-45: the script runs on another file; the written one is in another part
+def _():
+    command = "python3 %s %s && head %s" % (SCRIPT, BRN1_PATH, BRN_PATH)
+    return brn_working(validate=0, command=command), plugin_only(), {}
+
+
+@case("brn-script-piped-read")  # VER-45: a piped read of the script gives the plain skipped flag, not the joined one
+def _():
+    return brn_validated("cat %s %s | head" % (SCRIPT, BRN_PATH)), plugin_only(), {}
+
+
+@case("brn-script-option")  # VER-45: an option before the script is skipped
+def _():
+    return brn_working(validate=0, command="python3 -B %s %s" % (SCRIPT, BRN_PATH)), plugin_only(), {}
+
+
+@case("brn-script-env")  # VER-45: NAME=value words before the interpreter are skipped
+def _():
+    command = "PYTHONDONTWRITEBYTECODE=1 python3 %s %s" % (SCRIPT, BRN_PATH)
+    return brn_working(validate=0, command=command), plugin_only(), {}
+
+
+@case("brn-script-direct")  # VER-45: the script as the command word
+def _():
+    return brn_working(validate=0, command="%s %s" % (SCRIPT, BRN_PATH)), plugin_only(), {}
+
+
+@case("brn-script-cd")  # VER-45: cd in an earlier part of the command
+def _():
+    command = "cd /work/proj && python3 %s %s" % (SCRIPT, BRN_PATH)
+    return brn_working(validate=0, command=command), plugin_only(), {}
+
+
+def brn_bash_written(confirmed=True, call_exit=0, content=None, twice=False):
+    """A brainstorm run that follows the task list and writes its BRN through Bash (VER-46): steps 1 to 4 marked, step 5
+    asked and answered when `confirmed`, then the Bash call, the adapter's wrote event, and the validator's pass."""
+    log = brn_to_four(following("brainstorm")).started(5)
+    if confirmed:
+        log.answer(step=5)
+    log.done(5).started(6)
+    command = "sed -n p d.md > " + BRN1_PATH
+    log.bash(command, exit_code=call_exit)
+    log.wrote(BRN1_PATH, command, exit_code=call_exit, content=content if content is not None else OPEN_BRN)
+    if twice:
+        log.wrote(BRN1_PATH, command, exit_code=call_exit, content=OPEN_BRN)
+    log.done(6).started(7)
+    return log.bash("python3 %s %s" % (SCRIPT, BRN1_PATH)).done(7)
+
+
+@case("brn-bash-write")  # VER-46: the wrote event is the write gate; one outside-write flag; step 7 done
+def _():
+    return brn_bash_written(), plugin_only(), {}
+
+
+@case("brn-bash-write-exit1")  # VER-46: the call's exit 1 changes nothing: the file is on disk
+def _():
+    return brn_bash_written(call_exit=1), plugin_only(), {}
+
+
+@case("brn-bash-write-unconfirmed")  # VER-46: step 5 unanswered, promoted dispositions: rule-broken, then outside-write
+def _():
+    return brn_bash_written(confirmed=False, content=brn(PROMOTED)), plugin_only(), {}
+
+
+@case("brn-bash-write-twice")  # VER-46: two wrote events of the BRN: two outside-write flags, one at each seq
+def _():
+    return brn_bash_written(twice=True), plugin_only(), {}
+
+
+@case("brn-bash-workfile")  # VER-46: a wrote event for the work file: listed, no flag, no write gate
+def _():
+    command = "cp d.md " + WORK
+    return brn_start(Log("brainstorm")).bash(command).wrote(WORK, command), plugin_only(), {}
+
+
+@case("brn-draft-carried")  # VER-46: the draft the line on continuing named is listed with no work-file write
+def _():
+    log = carrying("brainstorm", [1, 2, 3, 4], draft="devforgeai/drafts/brainstorm/a.md").started(5)
+    return log, plugin_only(), {}
+
+
+@case("brn-draft-outside")  # VER-46: a draft outside the work-file patterns is not listed
+def _():
+    return carrying("brainstorm", [1, 2, 3, 4], draft="docs/x.md").started(5), plugin_only(), {}
+
+
+@case("brn-draft-listed-first")  # VER-46: the draft, then a Write, then a Bash write, in that order; each once
+def _():
+    log = carrying("brainstorm", [1, 2, 3, 4], draft="./devforgeai/drafts/brainstorm/a.md").started(5)
+    command = "cp d.md devforgeai/drafts/brainstorm/c.md"
+    log.write("devforgeai/drafts/brainstorm/b.md", "# draft\n").write("devforgeai/drafts/brainstorm/a.md", "# draft\n")
+    log.bash(command).wrote("devforgeai/drafts/brainstorm/c.md", command)
+    return log, plugin_only(), {}
+
+
+FORM = [{"question": "Which of these ideas should be promoted?", "header": "Dispositions", "multiSelect": True,
+         "options": [{"label": "IDEA-01", "description": "the first idea", "preview": "x" * 10240},
+                     {"label": "IDEA-02", "description": "the second idea"}]},
+        {"question": "Anything else?"}]
+
+
+def brn_forms(forms):
+    """brn_working's run with step 5 asked and answered (a step 5 answer event); `forms` puts a form on the answer."""
+    log = brn_to_four(following("brainstorm")).started(5)
+    log.answer(step=5, questions=FORM if forms else None).done(5)
+    log.write(WORK, "# draft\n").started(6).tool("Edit", path=WORK).write(BRN_PATH, OPEN_BRN).done(6).started(7)
+    return log.bash(VALIDATE).done(7)
+
+
+@case("brn-forms")  # VER-46: questions on the answer event change nothing: the state equals the same log's without them
+def _():
+    return brn_forms(True), plugin_only(), {}
 
 
 # ---- writing ------------------------------------------------------------------------------------

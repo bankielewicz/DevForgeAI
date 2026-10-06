@@ -1,0 +1,125 @@
+{
+  "counts": {
+    "afterEnd": 0,
+    "duplicates": 0,
+    "events": 2,
+    "malformed": 0,
+    "outOfOrder": 0,
+    "stepEvents": 0,
+    "unknownClaims": 0,
+    "unmarkedQuestions": 0
+  },
+  "current": 1,
+  "ended": null,
+  "flags": [],
+  "format": "devforgeai-progress/1",
+  "gate": {
+    "kind": null,
+    "reason": null,
+    "refuse": false,
+    "seq": null
+  },
+  "manifest": {
+    "checklistHash": "sha256:1c2c4ecdf3f06862a947dd32897e233f5219c2f31f998178ef6321fe7effcfb1",
+    "layers": [
+      "src/claude/DevForgeAI/progress/manifests/brainstorm.json"
+    ],
+    "manifestHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
+    "state": "stale"
+  },
+  "next": null,
+  "run": "20261002T120000Z-brainstorm-0000abcd",
+  "skill": "brainstorm",
+  "steps": [
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 1,
+      "need": "text-only",
+      "note": "manifest out of date; tracking ticks only",
+      "state": "current",
+      "title": "Intake: topic, existing BRNs, clarifying questions",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 2,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Select a framework",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 3,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Diverge: problems, ideas, assumptions",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 4,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Evaluate with the framework",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 5,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Propose dispositions and ask the user to confirm",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 6,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Write the BRN file",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 7,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Validate the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": null,
+      "n": 8,
+      "need": "text-only",
+      "note": "",
+      "state": "pending",
+      "title": "Report and hand off",
+      "userOwned": false
+    }
+  ],
+  "through": 2,
+  "waiver": null
+}

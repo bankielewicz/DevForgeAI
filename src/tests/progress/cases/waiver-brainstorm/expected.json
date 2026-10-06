@@ -170,5 +170,9 @@
     }
   ],
   "through": 15,
-  "waiver": "proceed"
+  "waiver": "proceed",
+  "workFiles": {
+    "due": false,
+    "files": []
+  }
 }

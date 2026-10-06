@@ -1,0 +1,2 @@
+{"checklist": "no checklist here", "format": "devforgeai-events/1", "host": "claude-code 2.1.287", "kind": "skill-loaded", "run": "20261002T120000Z-brainstorm-0000abcd", "seq": 1, "skill": "brainstorm", "time": "2026-10-02T12:00:01Z"}
+{"content": "# draft\n", "kind": "tool", "path": "devforgeai/drafts/brainstorm/BRN-002.md", "run": "20261002T120000Z-brainstorm-0000abcd", "seq": 2, "time": "2026-10-02T12:00:02Z", "tool": "Write"}

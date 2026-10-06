@@ -4,8 +4,11 @@ import {
   isEngine, isFailed, isPersonPrompt, isTracked, keptContent, newFlagToasts, questionRefusal, refusalText, relPath,
   refusalCause, replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf, stuckAdvice,
   stuckText, summaryOf, taskIdOf, returnLine, trailNote, pausedWith, keptTrail, endReason, hasRoom, nestedExitQuestion, nestedKeptText,
-  runName, resumePlan, ageText, resumeQuestion, isUntrackedSkill,
+  runName, resumePlan, ageText, resumeQuestion, isUntrackedSkill, removeArgv, resumesOf, workFilePaths, workFilesDue, workFilesProblem,
   todoSteps, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT, QUESTION_REFUSAL, QUESTION_TAG,
+  formOf, formsText, draftCandidate, gatedOf, fnmatchcase, pathMatches, ruleMatches, scriptWord, runsScript, commandParts, pathToken,
+  outsideWord, outsideRefusal, outsideMessage, folderOf, folderOfFile, changedFiles, logNames, windowClosed, wroteText, withContext,
+  OUTSIDE_ADVICE,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
 
@@ -470,4 +473,193 @@ test('VER-50 (f): the frontmatter is the text between the first line --- and the
   expect(isUntrackedSkill(skillMd('metadata:\n  author: x\n\n' + OFF))).toBe(false)
   // the closing --- ends it: a key after a second --- is the body's
   expect(isUntrackedSkill('---\nname: p\nmetadata:\n  author: x\n---\n  devforgeai-tracked: "false"\n')).toBe(false)
+})
+
+// ---- SPEC-013 v20: the work files' cleanup (BEH-32, IF-05) ----
+
+test('VER-52: workFilesDue is true only for workFiles.due true', () => {
+  const st = (workFiles: unknown) => ({ workFiles } as unknown as ProgressState)
+  expect(workFilesDue(st({ due: true, files: [] }))).toBe(true)
+  for (const w of [{ due: false, files: ['a'] }, { files: ['a'] }, { due: 'true' }, { due: 1 }, null, [], 'x', undefined]) {
+    expect(workFilesDue(st(w))).toBe(false)
+  }
+})
+
+test('VER-52: workFilePaths keeps the non-empty strings, in order, and nothing from a state that isn\'t shaped so', () => {
+  expect(workFilePaths({ workFiles: { files: ['a', 'b', '--root', 7, '', null, {}, ['c'], 'a'] } })).toEqual(['a', 'b', '--root', 'a'])
+  for (const bad of [null, [], 'x', 3, {}, { workFiles: null }, { workFiles: [] }, { workFiles: 'x' }, { workFiles: {} }, { workFiles: { files: 'a' } }]) {
+    expect(workFilePaths(bad)).toEqual([])
+  }
+})
+
+test('VER-52 / ERR-19: workFilesProblem says why a state names no workFiles object', () => {
+  expect(workFilesProblem({ workFiles: { files: [], due: false } })).toBeNull()
+  expect(workFilesProblem([])).not.toBeNull()
+  expect(workFilesProblem(null)).not.toBeNull()
+  expect(workFilesProblem({})).not.toBeNull()
+  expect(workFilesProblem({ workFiles: [] })).not.toBeNull()
+  expect(workFilesProblem({ workFiles: 'x' })).not.toBeNull()
+})
+
+test('VER-52: removeArgv gives one --file=<path> token per path, once each, in order, across the lists', () => {
+  expect(removeArgv('python3', '/p', '/r', ['a', 'b'], ['b', 'c'], ['-x', '', 'a'])).toEqual(
+    ['python3', '/p/progress/prune.py', 'remove', '--root', '/r', '--manifests', '/p/progress/manifests', '--file=a', '--file=b', '--file=c', '--file=-x'])
+  expect(removeArgv('python3', '/p', '/r')).toEqual(['python3', '/p/progress/prune.py', 'remove', '--root', '/r', '--manifests', '/p/progress/manifests'])
+})
+
+test('VER-52: resumesOf reads the run a skill-loaded line continues, only when it is shaped as a run ID', () => {
+  const id = '20260930T090000Z-brainstorm-1a2b3c4d'
+  expect(resumesOf(JSON.stringify({ kind: 'skill-loaded', resumes: id }))).toBe(id)
+  for (const bad of [undefined, '', 'not json', '{}', JSON.stringify({ resumes: 7 }), JSON.stringify({ resumes: '../../x' }),
+    JSON.stringify({ resumes: `${id}/..` }), JSON.stringify({ resumes: 'a/b' })]) {
+    expect(resumesOf(bad)).toBeNull()
+  }
+})
+
+// ---- version 22 (BEH-37, BEH-38, BEH-39) ----
+
+const VALIDATE_PATH = '/plugin/skills/brainstorm/scripts/validate_brn.py'
+const DOC = 'docs/specs/brainstorm/BRN-001.md'
+const GATED = gatedOf([{ steps: { '6': { evidence: [{ type: 'write', pattern: 'docs/specs/brainstorm/BRN-*.md' }] },
+  '7': { evidence: [{ type: 'script', pattern: 'validate_brn.py', exit: 0, target: 'written' }] } }, workFiles: ['devforgeai/drafts/brainstorm/*.md'] }])
+
+test('runsScript gives the answers evaluate.py script_run gave VER-45\'s command strings (run 2026-10-06)', () => {
+  const oracle: Array<[string, boolean]> = [
+    [`cat ${VALIDATE_PATH} ${DOC}`, false], [`ls ${VALIDATE_PATH}`, false], [`python3 -B ${VALIDATE_PATH} ${DOC}`, true],
+    [`PYTHONDONTWRITEBYTECODE=1 python3 ${VALIDATE_PATH} ${DOC}`, true], [`python3 -B ${VALIDATE_PATH} ${DOC} | tail -3`, true],
+    [`cd x && python3 ${VALIDATE_PATH} d.md`, true], [`python3.12 ${VALIDATE_PATH} d.md`, true], [`python3 -c 'print(1)' ${VALIDATE_PATH}`, false],
+    [`bash ${VALIDATE_PATH}`, true], [`${VALIDATE_PATH} d.md`, true], [`FOO=1 BAR=2 ${VALIDATE_PATH} d.md`, true], ['echo validate_brn.py', false],
+    [`node -- ${VALIDATE_PATH}`, true], [`grep -l x ${VALIDATE_PATH}`, false], [`python ${VALIDATE_PATH} x`, true],
+  ]
+  for (const [command, runs] of oracle) expect(runsScript(command, 'validate_brn.py'), command).toBe(runs)
+  // finer than the evaluator on purpose: a ; or a line break also splits a part
+  expect(runsScript(`sed -n p d.md > b.md; python3 ${VALIDATE_PATH} b.md`, 'validate_brn.py')).toBe(true)
+  expect(runsScript(`echo a\npython3 ${VALIDATE_PATH}`, 'validate_brn.py')).toBe(true)
+  expect(scriptWord('python3 -B x.py', 'validate_brn.py')).toBeNull()
+})
+
+test('commandParts splits at &&, ||, ;, | and line breaks, but not at the | of >|', () => {
+  expect(commandParts('a && b || c ; d | e\nf')).toEqual(['a ', ' b ', ' c ', ' d ', ' e', 'f'])
+  expect(commandParts('cat x >| out')).toEqual(['cat x >| out'])
+  expect(commandParts('a \\\nb')).toEqual(['a  b'])
+})
+
+test('fnmatchcase reads patterns as Python does', () => {
+  expect(fnmatchcase('docs/specs/brainstorm/BRN-001.md', 'docs/specs/brainstorm/BRN-*.md')).toBe(true)
+  expect(fnmatchcase('docs/specs/brainstorm/x/BRN-1.md', 'docs/specs/brainstorm/BRN-*.md')).toBe(false)
+  expect(fnmatchcase('a/b/BRN-1.md', 'a/*/BRN-?.md')).toBe(true)
+  expect(fnmatchcase('a1', 'a[0-9]')).toBe(true)
+  expect(fnmatchcase('ab', 'a[!0-9]')).toBe(true)
+  expect(fnmatchcase('a.md', 'a.md')).toBe(true)
+  expect(fnmatchcase('axmd', 'a.md')).toBe(false)
+  expect(fnmatchcase('a[', 'a[')).toBe(true)
+  expect(pathMatches('docs/x/y.md', 'docs/x/')).toBe(true)
+  expect(pathMatches('docs/x', 'docs/x/')).toBe(true)
+  expect(ruleMatches('/docs/x/y.md', 'docs/x/')).toBe(false)
+  expect(ruleMatches('../docs/x/y.md', '*')).toBe(false)
+})
+
+test('pathToken reads a word as BEH-06 reads a read token, with a leading redirection removed first', () => {
+  for (const [word, token] of [['>docs/a.md', 'docs/a.md'], ['>|docs/a.md', 'docs/a.md'], ['>>docs/a.md', 'docs/a.md'], ['<docs/a.md', 'docs/a.md'],
+    ['&>docs/a.md', 'docs/a.md'], ['2>docs/a.md', 'docs/a.md'], ['2>>docs/a.md', 'docs/a.md'], ['"docs/a.md"', 'docs/a.md'], ["'./docs/a.md';", 'docs/a.md'],
+    ['(docs/a.md)', 'docs/a.md'], ['/work/docs/a.md', 'docs/a.md'], ['./docs//a.md', 'docs/a.md'], ['>"/work/docs/a.md"', 'docs/a.md']]) {
+    expect(pathToken(word, '/work'), word).toBe(token)
+  }
+})
+
+test('outsideWord finds a word naming a gated document, outside the parts that run the validator', () => {
+  expect(outsideWord(`cat ${DOC}`, GATED, '/work')).toEqual({ word: DOC, step: 6 })
+  expect(outsideWord(`python3 -B ${VALIDATE_PATH} ${DOC}`, GATED, '/work')).toBeNull()
+  expect(outsideWord(`python3 ${VALIDATE_PATH} ${DOC} && cat ${DOC}`, GATED, '/work')).toEqual({ word: DOC, step: 6 })
+  expect(outsideWord('ls docs/specs/brainstorm/', GATED, '/work')).toBeNull()
+  expect(outsideWord('cat devforgeai/drafts/brainstorm/x.md', GATED, '/work')).toBeNull()
+  expect(outsideWord(`cat ${DOC}`, gatedOf([]), '/work')).toBeNull()
+  expect(outsideRefusal(DOC).startsWith(outsideMessage(DOC) + '. ')).toBe(true)
+  expect(OUTSIDE_ADVICE).toContain('Write tool')
+})
+
+test('gatedOf takes the union of the layers and ignores what isn\'t a rule', () => {
+  const g = gatedOf([GATED && { steps: { '1': { evidence: [{ type: 'write', pattern: 'a/*.md' }, { type: 'write' }, 3, null] } }, workFiles: ['d/*.md', 4] },
+    { steps: { '1': { evidence: [{ type: 'write', pattern: 'a/*.md' }, { type: 'script', pattern: 's.py', target: 'written' }] }, x: { evidence: [] } } }, null, 'x', { steps: [] }])
+  expect(g.writes).toEqual([{ step: 1, pattern: 'a/*.md' }])
+  expect(g.scripts).toEqual(['s.py'])
+  expect(g.scriptSteps).toEqual([1])
+  expect(g.workFiles).toEqual(['d/*.md'])
+})
+
+test('folderOf and folderOfFile', () => {
+  expect(folderOf('docs/specs/brainstorm/BRN-*.md')).toBe('docs/specs/brainstorm/')
+  expect(folderOf('docs/specs/brainstorm/')).toBe('docs/specs/brainstorm/')
+  expect(folderOf('docs/x/file.md')).toBe('docs/x/')
+  expect(folderOf('BRN-*.md')).toBe('')
+  expect(folderOf('docs/*/BRN-1.md')).toBeNull()
+  expect(folderOfFile('devforgeai/drafts/brainstorm/s1.md')).toBe('devforgeai/drafts/brainstorm/')
+  expect(folderOfFile('x.md')).toBe('')
+})
+
+test('changedFiles: new or changed regular files, in order of path, less the folders that failed', () => {
+  const e = (size: number, mtimeMs: number, kind = 'file') => ({ kind, size, mtimeMs })
+  const before = new Map([['d/a.md', e(1, 1)], ['d/b.md', e(1, 1)], ['f/z.md', e(1, 1)]])
+  const after = new Map([['d/b.md', e(1, 1)], ['d/a.md', e(2, 1)], ['d/c.md', e(1, 1)], ['d/l.md', e(1, 1, 'other')], ['f/z.md', e(5, 5)], ['d/m.md', e(1, 2)]])
+  expect(changedFiles(before, after, [])).toEqual(['d/a.md', 'd/c.md', 'd/m.md', 'f/z.md'])
+  expect(changedFiles(before, after, ['f/'])).toEqual(['d/a.md', 'd/c.md', 'd/m.md'])
+})
+
+test('logNames reads a log for a path and its run-end', () => {
+  const lines = [JSON.stringify({ kind: 'tool', path: 'a.md' }), 'not json', JSON.stringify({ kind: 'run-end' })]
+  expect(logNames(lines, 'a.md')).toEqual({ names: true, ended: true })
+  expect(logNames(lines.slice(0, 1), 'b.md')).toEqual({ names: false, ended: false })
+})
+
+test('windowClosed: ended, every step reached, or a script-target step done', () => {
+  const st = (o: Partial<ProgressState>): ProgressState => ({ skill: 'x', current: 2, ended: null, steps: [{ n: 7, title: 't', state: 'pending' }], flags: [],
+    gate: { kind: null, seq: null, refuse: false, reason: null }, manifest: { state: 'matched' }, ...o })
+  expect(windowClosed(st({}), [7])).toBe(false)
+  expect(windowClosed(st({ ended: 'session-end' }), [7])).toBe(true)
+  expect(windowClosed(st({ current: null }), [7])).toBe(true)
+  expect(windowClosed(st({ steps: [{ n: 7, title: 't', state: 'done' }] }), [7])).toBe(true)
+  expect(windowClosed(st({ steps: [{ n: 7, title: 't', state: 'done' }] }), [])).toBe(false)
+})
+
+test('wroteText and withContext', () => {
+  expect(wroteText(['a.md', 'b.md'], ['m1', 'm2'])).toBe("DevForgeAI's progress tracker (enforce mode): this Bash command wrote a.md, b.md, which the tracker couldn't check before it was written.\nm1\nm2\nThe file stays as written. Write it again with the Write tool, asking the user first for any decision it records.")
+  expect(withContext({ result: 'ok' }, 't')).toEqual({ result: 'ok', context: ['t'] })
+  expect(withContext({ result: 'ok', context: ['u'] }, 't')).toEqual({ result: 'ok', context: ['u', 't'] })
+  expect(withContext({ deny: 'no' }, 't')).toBeNull()
+  expect(withContext(null, 't')).toBeNull()
+  expect(stuckAdvice('outside-write', false)).toBe(OUTSIDE_ADVICE)
+  expect(stuckAdvice('outside-write', true)).toBe(OUTSIDE_ADVICE)
+})
+
+test('formOf keeps the form, never the newer shapes or the answers, and drops it whole over 64 KiB or past 3 MiB', () => {
+  const input = { questions: [{ question: 'Q', header: 'H', multiSelect: true, kind: 'k', options: [{ label: 'A', description: 'd', preview: 'p', extra: 1 }] }], answers: { Q: 'A' } }
+  expect(formOf(input, 0)).toEqual([{ question: 'Q', header: 'H', multiSelect: true, options: [{ label: 'A', description: 'd', preview: 'p' }] }])
+  expect(formOf(input, LOG_CONTENT_LIMIT)).toBeUndefined()
+  expect(formOf({ questions: [] }, 0)).toBeUndefined()
+  expect(formOf({}, 0)).toBeUndefined()
+  expect(formOf({ questions: [{ question: 'Q', options: [{ label: 'A', description: 'x'.repeat(CONTENT_LIMIT) }] }] }, 0)).toBeUndefined()
+})
+
+test('formsText renders the last form of the step, points at the log over 8 KiB, and is empty without one', () => {
+  const ans = (step: number, q: string) => JSON.stringify({ kind: 'answer', answered: true, step, questions: [{ question: q, header: 'H', options: [{ label: 'A', description: 'd', preview: 'l1\nl2' }, { label: 'B' }] }] })
+  const got = formsText('RUN', 5, [ans(5, 'first'), ans(4, 'other'), ans(5, 'last'), 'junk'])
+  expect(got.inline).toBe(true)
+  expect(got.text).toBe(" The questions last shown at step 5 (Claude's proposals, not the user's answers):\nQ1. last [H]\n- A: d\n    l1\n    l2\n- B")
+  expect(formsText('RUN', 6, [ans(5, 'x')])).toEqual({ text: '', inline: false })
+  const big = JSON.stringify({ kind: 'answer', step: 5, questions: [{ question: 'q', options: [{ label: 'A', description: 'd'.repeat(9000) }] }] })
+  expect(formsText('RUN', 5, [big])).toEqual({ inline: false, text: ' The questions last shown at step 5 are in devforgeai/progress/runs/RUN/events.jsonl, on the events of kind answer with step 5 (field questions).' })
+})
+
+test('draftCandidate: the last work file while due is false and the step is at or before the write gate', () => {
+  const st = (w: unknown): ProgressState => ({ skill: 'x', current: 1, ended: null, steps: [], flags: [], gate: { kind: null, seq: null, refuse: false, reason: null },
+    manifest: { state: 'matched' }, workFiles: w as never })
+  expect(draftCandidate(st({ files: ['a', 'd/b.md'], due: false }), 5, 6)).toBe('d/b.md')
+  expect(draftCandidate(st({ files: ['a'], due: false }), 6, 6)).toBe('a')
+  expect(draftCandidate(st({ files: ['a'], due: false }), 7, 6)).toBeNull()
+  expect(draftCandidate(st({ files: ['a'], due: true }), 5, 6)).toBeNull()
+  expect(draftCandidate(st({ files: [], due: false }), 5, 6)).toBeNull()
+  expect(draftCandidate(st({ files: ['/etc/x'], due: false }), 5, 6)).toBeNull()
+  expect(draftCandidate(st({ files: ['../x'], due: false }), 5, 6)).toBeNull()
+  expect(draftCandidate(st({ files: ['a'], due: false }), 5, null)).toBeNull()
+  expect(draftCandidate(st(undefined), 5, 6)).toBeNull()
 })

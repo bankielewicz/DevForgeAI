@@ -1,5 +1,6 @@
 import { expect, mock, test } from 'claude-code/testing'
 import type { Plugin } from 'claude-code/testing'
+import { WROTE_CONTEXT_ROUTE } from './progress-core'
 
 // The adapter driven through the test kit (SPEC-013 §9). The kit stands for Claude Code: the world below answers
 // every call the module makes on $, so nothing touches disk (P12); the module's file writes are captured, its
@@ -33,11 +34,17 @@ type Over = {
   failWrite?: (path: string) => boolean
   files?: Record<string, string>
   prune?: (argv: readonly string[]) => Any
+  /** prune.py's remove command (IF-05); the default removes every --file and says so. */
+  remove?: (argv: readonly string[]) => Any
   toolList?: string[] | 'reject'
   compact?: (e: Any) => Any
   /** A skill's SKILL.md, by skill name: its text, null for a file that doesn't exist, { deny } for a read that rejects,
    *  undefined for the default. */
   skillMd?: (name: string) => string | null | { deny: string } | undefined
+  /** fs.list of a folder, by path: the entries, a { deny } for a rejection, undefined for the default (version 22). */
+  list?: (path: string) => Any[] | { deny: string } | undefined
+  /** The plugin's manifests, by skill name, served for any '<root>/progress/manifests/<skill>.json' (version 22). */
+  manifests?: Record<string, Any>
 }
 
 type World = {
@@ -55,6 +62,9 @@ type World = {
   inits: Any[]
   pruneSawRun: boolean[]
   compactIn: Any[]
+  /** Every fs.list path and every fs.read path (version 22). */
+  lists: string[]
+  reads: string[]
 }
 
 const STATE = {
@@ -98,16 +108,22 @@ function processRun(w: World, over: Over, argv: readonly string[]): Any {
   }
   if (script.endsWith('/progress/evaluate.py') && argv[2] === 'evaluate') {
     const out = argv[argv.indexOf('--out') + 1]
-    const answer = over.evaluate?.(argv) ?? { state: STATE }
-    if (answer.deny !== undefined) return { deny: answer.deny }
-    if (answer.state !== undefined) w.files.set(out, JSON.stringify(answer.state))
-    if (answer.raw !== undefined) w.files.set(out, answer.raw)
-    return { value: { exitCode: answer.exitCode ?? 0, stdout: 'progress brainstorm: step 2 of 2, 0 flags\n', stderr: answer.stderr ?? '' } }
+    const given = over.evaluate?.(argv) ?? { state: STATE }
+    const finish = (answer: Any): Any => {
+      if (answer.deny !== undefined) return { deny: answer.deny }
+      if (answer.state !== undefined) w.files.set(out, JSON.stringify(answer.state))
+      if (answer.raw !== undefined) w.files.set(out, answer.raw)
+      return { value: { exitCode: answer.exitCode ?? 0, stdout: 'progress brainstorm: step 2 of 2, 0 flags\n', stderr: answer.stderr ?? '' } }
+    }
+    return typeof given.then === 'function' ? given.then(finish) : finish(given)  // an evaluation held open is a promise
   }
   if (script.endsWith('/progress/prune.py') && argv[2] === 'prune') {
     const runs = `${argv[argv.indexOf('--root') + 1]}/devforgeai/progress/runs/`
     w.pruneSawRun.push([...w.files.keys()].some(k => k.startsWith(runs) && k.endsWith('/events.jsonl')))
     return over.prune?.(argv) ?? { value: { exitCode: 0, stdout: 'pruned 0 runs, 0 sessions\n', stderr: '' } }
+  }
+  if (script.endsWith('/progress/prune.py') && argv[2] === 'remove') {
+    return over.remove?.(argv) ?? { value: { exitCode: 0, stdout: `removed ${argv.filter(a => a.startsWith('--file=')).length} work files, skipped 0\n`, stderr: '' } }
   }
   return { deny: `unexpected process: ${argv.join(' ')}` }
 }
@@ -118,7 +134,7 @@ function world(on: Any, over: Over = {}): World {
     files: new Map(Object.entries(over.files ?? {})), writes: [], toasts: [], logs: [], statuses: [], runs: [],
     contexts: [], tools: [],
     clock: mock.clock(on, { now: T0 }),
-    root: ROOT, sessionId: 's1', inits: [], pruneSawRun: [], compactIn: [],
+    root: ROOT, sessionId: 's1', inits: [], pruneSawRun: [], compactIn: [], lists: [], reads: [],
   }
   on('session.root', () => ({ value: w.root }))
   on('session.id', () => (over.failSessionId ? { deny: 'no session id' } : { value: w.sessionId }))
@@ -152,11 +168,17 @@ function world(on: Any, over: Over = {}): World {
     w.statuses.push(e.text)
     return { value: undefined }
   })
+  const manifestOf = (path: string): Any | undefined => {
+    const m = /\/progress\/manifests\/([a-z-]+)\.json$/.exec(path)
+    return m && !w.files.has(path) ? over.manifests?.[m[1]] : undefined
+  }
   on('fs.exists', (_$: Any, e: Any) => over.failExists?.(e.path) ? { deny: `EIO: ${e.path}` } : ({
-    value: w.files.has(e.path) || [...w.files.keys()].some(k => k.startsWith(e.path.replace(/\/+$/, '') + '/')),
+    value: manifestOf(e.path) !== undefined || w.files.has(e.path) || [...w.files.keys()].some(k => k.startsWith(e.path.replace(/\/+$/, '') + '/')),
   }))
   on('fs.read', (_$: Any, e: Any) => {
+    w.reads.push(e.path)
     if (w.files.has(e.path)) return { value: w.files.get(e.path) }
+    if (manifestOf(e.path) !== undefined) return { value: JSON.stringify(manifestOf(e.path)) }
     const skill = /\/skills\/([^/]+)\/SKILL\.md$/.exec(e.path)?.[1]
     if (skill !== undefined) {
       const given = over.skillMd?.(skill)
@@ -173,7 +195,12 @@ function world(on: Any, over: Over = {}): World {
     w.writes.push(e.path)
     return { value: undefined }
   })
-  on('fs.list', (_$: Any, e: Any) => ({ value: listOf(w.files, e.path) }))
+  on('fs.list', (_$: Any, e: Any) => {
+    w.lists.push(e.path)
+    const given = over.list?.(e.path)
+    if (given === undefined) return { value: listOf(w.files, e.path) }
+    return Array.isArray(given) ? { value: given } : given
+  })
   on('process.run', (_$: Any, e: Any) => {
     w.runs.push([...e.argv])
     w.inits.push(e.init ?? {})
@@ -258,9 +285,9 @@ const EXPECTED_EVENTS = [
   '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":1,"time":"2026-10-02T12:00:00Z","kind":"skill-loaded","format":"devforgeai-events/1","skill":"brainstorm","checklist":"Base directory for this skill: /x\\n\\n- [ ] 1. Intake\\n- [ ] 2. Pick","host":"claude-code 2.1.287","taskList":true,"mode":"observe","modeSource":"framework-default"}',
   '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":2,"time":"2026-10-02T12:00:00Z","kind":"tool","tool":"Read","path":"docs/specs/brainstorm/BRN-001.md","exit":0,"error":false}',
   '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":3,"time":"2026-10-02T12:00:00Z","kind":"tool","tool":"Bash","command":"python3 scripts/validate_brn.py docs/specs/brainstorm/BRN-001.md","exit":0,"error":false}',
-  '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":4,"time":"2026-10-02T12:00:00Z","kind":"answer","answered":true}',
-  '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":5,"time":"2026-10-02T12:00:00Z","kind":"answer","answered":true}',
-  '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":6,"time":"2026-10-02T12:00:00Z","kind":"answer","answered":false}',
+  '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":4,"time":"2026-10-02T12:00:00Z","kind":"answer","answered":true,"questions":[{"question":"Pick one?","header":"Pick","multiSelect":false,"options":[]}]}',
+  '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":5,"time":"2026-10-02T12:00:00Z","kind":"answer","answered":true,"questions":[{"question":"Type me?","header":"Type","multiSelect":false,"options":[]}]}',
+  '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":6,"time":"2026-10-02T12:00:00Z","kind":"answer","answered":false,"questions":[{"question":"Dismiss me?","header":"No","multiSelect":false,"options":[]}]}',
   '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":7,"time":"2026-10-02T12:00:00Z","kind":"tool","tool":"Bash","command":"exit 3","exit":3,"error":true}',
   '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":8,"time":"2026-10-02T12:00:00Z","kind":"tool","tool":"Write","path":"tmp/refused.md","exit":null,"error":true,"content":"no"}',
   '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":9,"time":"2026-10-02T12:00:00Z","kind":"turn","phase":"start"}',
@@ -794,7 +821,8 @@ test('VER-18: pruning starts once per session ID, after the first run\'s folder 
   await w.clock.advance(0)
   expect(prunes(w).length).toBe(1)
   const argv = prunes(w)[0]
-  expect(argv.slice(2)).toEqual(['prune', '--root', ROOT, '--days', '30', '--keep-session', 's1', '--keep-run', argOf(argv, '--keep-run')])
+  expect(argv.slice(2)).toEqual(['prune', '--root', ROOT, '--days', '30', '--keep-session', 's1', '--keep-run', argOf(argv, '--keep-run'),
+    '--manifests', `${argv[1].replace(/\/prune\.py$/, '')}/manifests`])  // version 20: IF-04 also ages the work files
   expect(argOf(argv, '--keep-run')).toMatch(/^20261002T120000Z-brainstorm-[0-9a-f]{8}$/)
   expect(w.pruneSawRun).toEqual([true])
   expect(w.inits[w.runs.indexOf(argv)].timeoutMs).toBe(10000)
@@ -3218,6 +3246,8 @@ function rFresh(skill: string): Any {
 type RFix = {
   skill: string; stamp?: string; hex?: string; last?: string; end?: string | null; marked?: number | null
   writes?: Array<string | { path: string; failed?: boolean; tool?: string }>; state?: Any; evalFail?: boolean; noLog?: boolean
+  /** Further events (version 22), written after the writes: answer events with questions, tool events with wrote. */
+  extra?: Any[]
 }
 
 const rIdOf = (f: RFix) => `${f.stamp ?? '20260930T090000Z'}-${f.skill}-${f.hex ?? '1a2b3c4d'}`
@@ -3234,6 +3264,7 @@ function rLines(f: RFix): string {
     const x = typeof w === 'string' ? { path: w } : w
     out.push({ kind: 'tool', tool: (x as Any).tool ?? 'Write', path: x.path, exit: (x as Any).failed ? null : 0, error: !!(x as Any).failed, content: 'x', time: last })
   }
+  for (const x of f.extra ?? []) out.push({ time: last, ...x })
   if (f.marked) out.push({ kind: 'step', step: f.marked, state: 'started', time: last })
   if (f.end) out.push({ kind: 'run-end', reason: f.end, time: last })
   return out.map((e, i) => JSON.stringify({ run, seq: i + 1, ...{ time: e.time, ...e } })).join('\n') + '\n'
@@ -3253,6 +3284,8 @@ type RCfg = {
   noLoad?: string[]
   stateOf?: (skill: string, ev: string) => Any | undefined
   control?: boolean
+  /** Other files of the world (version 22): a work file the line names. */
+  files?: Record<string, string>
 }
 
 const R_CONTINUE = (q: Any): string => q.options[0].label
@@ -3260,7 +3293,7 @@ const R_DISMISS = { result: "Error: The user doesn't want to proceed with this t
 
 /** The world for the offer: earlier runs as files, the Progress dialog answered, a command.run stub whose skill.prompt fires inside next(e). */
 function rWorld($top: Any, on: Any, cfg: RCfg = {}) {
-  const files: Record<string, string> = {}
+  const files: Record<string, string> = { ...(cfg.files ?? {}) }
   const fixtures: RFix[] = [...(cfg.earlier ?? [])]
   const control: RFix = { skill: 'prd', stamp: '20260929T090000Z', hex: '0f0f0f0f', end: 'session-end', marked: 3, state: rReach('prd', [1, 2]) }
   if (cfg.control !== false) fixtures.push(control)
@@ -3301,7 +3334,7 @@ function rWorld($top: Any, on: Any, cfg: RCfg = {}) {
       // architecture's 9, under the plugin root the evaluator's own path gives (the offer evaluates first).
       const pluginRoot = String(argv[1]).replace(/\/progress\/evaluate\.py$/, '')
       for (const [skill, gate] of [['brainstorm', 6], ['architecture', 9]] as const) {
-        r.w?.files.set(`${pluginRoot}/progress/manifests/${skill}.json`, JSON.stringify({ skill, steps: { [gate]: { gate: 'write' } } }))
+        if (r.over.manifests?.[skill] === undefined) r.w?.files.set(`${pluginRoot}/progress/manifests/${skill}.json`, JSON.stringify({ skill, steps: { [gate]: { gate: 'write' } } }))
       }
       const ev = argv[argv.indexOf('--events') + 1]
       const skill = ev.match(/runs\/[0-9]{8}T[0-9]{6}Z-([a-z][a-z0-9-]*)-[0-9a-f]{8}\//)?.[1] ?? 'brainstorm'
@@ -3356,12 +3389,13 @@ const rQuestion = (skill: string, when: string, files = 'nothing') => `${skill}:
 const R_ENDED_4 = 'ended at step 4 of 8 on 2026-09-30 (session end)'
 
 /** BEH-31's line, from its template; lists are joined with ', ' (the template doesn't say how a list is written). */
-function rLineOf(o: { skill?: string; id: string; when: string; carried: number[]; step: number; owned?: number[]; files?: string[] }): string {
+function rLineOf(o: { skill?: string; id: string; when: string; carried: number[]; step: number; owned?: number[]; files?: string[]
+  draft?: string; ask?: string; forms?: string }): string {
   const skill = o.skill ?? 'brainstorm'
   return `This run continues the earlier ${skill} run ${o.id}, which ${o.when}. Steps ${o.carried.join(', ')} are carried over: the tracker counts them reached. `
     + `Create the task list with those steps' tasks completed, mark step ${o.step} in progress, and continue at step ${o.step}.`
     + ((o.owned ?? []).length ? ` Steps ${o.owned!.join(', ')} were the user's decisions, which the record doesn't keep: before any document records them, confirm each with the user again, in order, marking its step in progress and tagging the question with it.` : '')
-    + ` Files it wrote: ${(o.files ?? []).length ? o.files!.join(', ') : 'nothing'}. Its replies are in devforgeai/progress/runs/${o.id}/events.jsonl, the events of kind reply: use them to show the user what was proposed, never as a decision.`
+    + ` Files it wrote: ${(o.files ?? []).length ? o.files!.join(', ') : 'nothing'}.${o.draft ?? ''} Its replies and questions are in devforgeai/progress/runs/${o.id}/events.jsonl, the events of kind reply and answer: use them to show the user what was proposed, never as a decision.${o.ask ?? ''}${o.forms ?? ''}`
 }
 
 /** The text Claude read ends with the line, and nothing but the line was added to the checklist. */
@@ -3477,7 +3511,7 @@ test('VER-46: the dialog and the line name the files its writes that didn\'t fai
   await rType($)
   const files = `${BRN}, docs/notes.md`
   expect(r.asked.map(a => a.question)).toEqual([rQuestion('brainstorm', 'ended at step 7 of 8 on 2026-09-30 (session end)', files)])
-  expect(r.texts[0]).toContain(`Files it wrote: ${files}. Its replies are in devforgeai/progress/runs/${r.ids[0]}/events.jsonl`)
+  expect(r.texts[0]).toContain(`Files it wrote: ${files}. Its replies and questions are in devforgeai/progress/runs/${r.ids[0]}/events.jsonl`)
 })
 
 for (const mode of ['observe framework-default', 'enforce local']) {
@@ -4199,4 +4233,1377 @@ test('VER-50 (g): brainstorm and spec-lookup, which have no key, are tracked as 
   expect(logOf(r.w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
   expect(runsOf(r.w, 'brainstorm').length).toBe(2)
   expect(uLog(r.w, 'skill-read')).toEqual([])
+})
+
+// ---- SPEC-013 v20: the work files' cleanup (BEH-32, VER-52) ----
+
+// Captured from the committed evaluator's golden outputs (src/tests/progress/cases/brn-workfiles-*/expected.json, SPEC-012 v15),
+// not hand-built: `due` (workFiles due, one file), `open` (not due), `paths` (not due, two files), `stale` (no workFiles), `left` (due, no files).
+// Regenerate with the script in tmp/plans/save-work/build-adapter.md.
+const REAL: Record<string, Any> = {
+  left: {"counts":{"afterEnd":0,"duplicates":0,"events":7,"malformed":0,"outOfOrder":0,"stepEvents":0,"unknownClaims":0,"unmarkedQuestions":0},"current":null,"ended":null,"flags":[],"format":"devforgeai-progress/1","gate":{"kind":"report","reason":null,"refuse":false,"seq":7},"manifest":{"checklistHash":"sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129","layers":["src/claude/DevForgeAI/progress/manifests/brainstorm.json"],"manifestHash":"sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129","state":"matched"},"next":{"available":true,"note":"","skill":"prd"},"run":"20261002T120000Z-brainstorm-0000abcd","skill":"brainstorm","steps":[{"claim":{"reason":null,"seq":3,"state":"done"},"evidence":[{"detail":"Glob docs/specs/brainstorm/BRN-*.md","seq":2,"strength":"medium","type":"read"},{"detail":"Bash docs/specs/brainstorm/BRN-002.md","seq":5,"strength":"medium","type":"read"}],"kind":"read","n":1,"need":"required","note":"","state":"done","title":"Intake: topic, existing BRNs, clarifying questions","userOwned":false},{"claim":{"reason":null,"seq":3,"state":"done"},"evidence":[],"kind":"think","n":2,"need":"text-only","note":"","state":"done","title":"Select a framework","userOwned":false},{"claim":{"reason":null,"seq":3,"state":"done"},"evidence":[],"kind":"think","n":3,"need":"text-only","note":"","state":"done","title":"Diverge: problems, ideas, assumptions","userOwned":false},{"claim":{"reason":null,"seq":3,"state":"done"},"evidence":[],"kind":"think","n":4,"need":"text-only","note":"","state":"done","title":"Evaluate with the framework","userOwned":false},{"claim":null,"evidence":[],"kind":"ask","n":5,"need":"required","note":"no answer; left open","state":"not-applicable","title":"Propose dispositions and ask the user to confirm","userOwned":true},{"claim":{"reason":null,"seq":6,"state":"done"},"evidence":[{"detail":"Write docs/specs/brainstorm/BRN-002.md","seq":4,"strength":"medium","type":"write"}],"kind":"forge","n":6,"need":"required","note":"","state":"done","title":"Write the BRN","userOwned":false},{"claim":{"reason":null,"seq":6,"state":"done"},"evidence":[{"detail":"validate_brn.py exit 0","seq":5,"strength":"strong","type":"script"}],"kind":"inspect","n":7,"need":"required","note":"","state":"done","title":"Validate the BRN","userOwned":false},{"claim":{"reason":null,"seq":7,"state":"done"},"evidence":[],"kind":"report","n":8,"need":"required","note":"","state":"done","title":"Report and hand off","userOwned":false}],"through":7,"waiver":null,"workFiles":{"due":true,"files":[]}},
+  due: {"counts":{"afterEnd":0,"duplicates":0,"events":18,"malformed":0,"outOfOrder":0,"stepEvents":12,"unknownClaims":0,"unmarkedQuestions":0},"current":8,"ended":null,"flags":[],"format":"devforgeai-progress/1","gate":{"kind":"write","reason":null,"refuse":false,"seq":14},"manifest":{"checklistHash":"sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129","layers":["src/claude/DevForgeAI/progress/manifests/brainstorm.json"],"manifestHash":"sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129","state":"matched"},"next":null,"run":"20261002T120000Z-brainstorm-0000abcd","skill":"brainstorm","steps":[{"claim":{"reason":null,"seq":4,"state":"done"},"evidence":[{"detail":"Glob docs/specs/brainstorm/BRN-*.md","seq":3,"strength":"medium","type":"read"},{"detail":"Bash docs/specs/brainstorm/BRN-002.md","seq":17,"strength":"medium","type":"read"}],"kind":"read","n":1,"need":"required","note":"","state":"done","title":"Intake: topic, existing BRNs, clarifying questions","userOwned":false},{"claim":{"reason":null,"seq":6,"state":"done"},"evidence":[],"kind":"think","n":2,"need":"text-only","note":"","state":"done","title":"Select a framework","userOwned":false},{"claim":{"reason":null,"seq":8,"state":"done"},"evidence":[],"kind":"think","n":3,"need":"text-only","note":"","state":"done","title":"Diverge: problems, ideas, assumptions","userOwned":false},{"claim":{"reason":null,"seq":10,"state":"done"},"evidence":[],"kind":"think","n":4,"need":"text-only","note":"","state":"done","title":"Evaluate with the framework","userOwned":false},{"claim":null,"evidence":[],"kind":"ask","n":5,"need":"required","note":"no answer; left open","state":"not-applicable","title":"Propose dispositions and ask the user to confirm","userOwned":true},{"claim":{"reason":null,"seq":15,"state":"done"},"evidence":[{"detail":"Write docs/specs/brainstorm/BRN-002.md","seq":14,"strength":"medium","type":"write"}],"kind":"forge","n":6,"need":"required","note":"","state":"done","title":"Write the BRN","userOwned":false},{"claim":{"reason":null,"seq":18,"state":"done"},"evidence":[{"detail":"validate_brn.py exit 0","seq":17,"strength":"strong","type":"script"}],"kind":"inspect","n":7,"need":"required","note":"","state":"done","title":"Validate the BRN","userOwned":false},{"claim":null,"evidence":[],"kind":"report","n":8,"need":"required","note":"","state":"current","title":"Report and hand off","userOwned":false}],"through":18,"waiver":null,"workFiles":{"due":true,"files":["devforgeai/drafts/brainstorm/BRN-002.md"]}},
+  open: {"counts":{"afterEnd":0,"duplicates":0,"events":16,"malformed":0,"outOfOrder":0,"stepEvents":11,"unknownClaims":0,"unmarkedQuestions":0},"current":7,"ended":null,"flags":[],"format":"devforgeai-progress/1","gate":{"kind":"write","reason":null,"refuse":false,"seq":14},"manifest":{"checklistHash":"sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129","layers":["src/claude/DevForgeAI/progress/manifests/brainstorm.json"],"manifestHash":"sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129","state":"matched"},"next":null,"run":"20261002T120000Z-brainstorm-0000abcd","skill":"brainstorm","steps":[{"claim":{"reason":null,"seq":4,"state":"done"},"evidence":[{"detail":"Glob docs/specs/brainstorm/BRN-*.md","seq":3,"strength":"medium","type":"read"}],"kind":"read","n":1,"need":"required","note":"","state":"done","title":"Intake: topic, existing BRNs, clarifying questions","userOwned":false},{"claim":{"reason":null,"seq":6,"state":"done"},"evidence":[],"kind":"think","n":2,"need":"text-only","note":"","state":"done","title":"Select a framework","userOwned":false},{"claim":{"reason":null,"seq":8,"state":"done"},"evidence":[],"kind":"think","n":3,"need":"text-only","note":"","state":"done","title":"Diverge: problems, ideas, assumptions","userOwned":false},{"claim":{"reason":null,"seq":10,"state":"done"},"evidence":[],"kind":"think","n":4,"need":"text-only","note":"","state":"done","title":"Evaluate with the framework","userOwned":false},{"claim":null,"evidence":[],"kind":"ask","n":5,"need":"required","note":"no answer; left open","state":"not-applicable","title":"Propose dispositions and ask the user to confirm","userOwned":true},{"claim":{"reason":null,"seq":15,"state":"done"},"evidence":[{"detail":"Write docs/specs/brainstorm/BRN-002.md","seq":14,"strength":"medium","type":"write"}],"kind":"forge","n":6,"need":"required","note":"","state":"done","title":"Write the BRN","userOwned":false},{"claim":null,"evidence":[],"kind":"inspect","n":7,"need":"required","note":"","state":"current","title":"Validate the BRN","userOwned":false},{"claim":null,"evidence":[],"kind":"report","n":8,"need":"required","note":"","state":"pending","title":"Report and hand off","userOwned":false}],"through":16,"waiver":null,"workFiles":{"due":false,"files":["devforgeai/drafts/brainstorm/BRN-002.md"]}},
+  paths: {"counts":{"afterEnd":0,"duplicates":0,"events":12,"malformed":0,"outOfOrder":0,"stepEvents":0,"unknownClaims":0,"unmarkedQuestions":0},"current":7,"ended":null,"flags":[],"format":"devforgeai-progress/1","gate":{"kind":"write","reason":null,"refuse":false,"seq":12},"manifest":{"checklistHash":"sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129","layers":["src/claude/DevForgeAI/progress/manifests/brainstorm.json"],"manifestHash":"sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129","state":"matched"},"next":null,"run":"20261002T120000Z-brainstorm-0000abcd","skill":"brainstorm","steps":[{"claim":{"reason":null,"seq":3,"state":"done"},"evidence":[{"detail":"Glob docs/specs/brainstorm/BRN-*.md","seq":2,"strength":"medium","type":"read"}],"kind":"read","n":1,"need":"required","note":"","state":"done","title":"Intake: topic, existing BRNs, clarifying questions","userOwned":false},{"claim":{"reason":null,"seq":3,"state":"done"},"evidence":[],"kind":"think","n":2,"need":"text-only","note":"","state":"done","title":"Select a framework","userOwned":false},{"claim":{"reason":null,"seq":3,"state":"done"},"evidence":[],"kind":"think","n":3,"need":"text-only","note":"","state":"done","title":"Diverge: problems, ideas, assumptions","userOwned":false},{"claim":{"reason":null,"seq":3,"state":"done"},"evidence":[],"kind":"think","n":4,"need":"text-only","note":"","state":"done","title":"Evaluate with the framework","userOwned":false},{"claim":null,"evidence":[],"kind":"ask","n":5,"need":"required","note":"content not available; rule not checked","state":"pending","title":"Propose dispositions and ask the user to confirm","userOwned":true},{"claim":null,"evidence":[{"detail":"Write docs/specs/brainstorm/BRN-001.md","seq":12,"strength":"medium","type":"write"}],"kind":"forge","n":6,"need":"required","note":"","state":"done","title":"Write the BRN","userOwned":false},{"claim":null,"evidence":[],"kind":"inspect","n":7,"need":"required","note":"","state":"current","title":"Validate the BRN","userOwned":false},{"claim":null,"evidence":[],"kind":"report","n":8,"need":"required","note":"","state":"pending","title":"Report and hand off","userOwned":false}],"through":12,"waiver":null,"workFiles":{"due":false,"files":["devforgeai/drafts/brainstorm/a.md","devforgeai/drafts/brainstorm/b.md"]}},
+  stale: {"counts":{"afterEnd":0,"duplicates":0,"events":2,"malformed":0,"outOfOrder":0,"stepEvents":0,"unknownClaims":0,"unmarkedQuestions":0},"current":1,"ended":null,"flags":[],"format":"devforgeai-progress/1","gate":{"kind":null,"reason":null,"refuse":false,"seq":null},"manifest":{"checklistHash":"sha256:1c2c4ecdf3f06862a947dd32897e233f5219c2f31f998178ef6321fe7effcfb1","layers":["src/claude/DevForgeAI/progress/manifests/brainstorm.json"],"manifestHash":"sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129","state":"stale"},"next":null,"run":"20261002T120000Z-brainstorm-0000abcd","skill":"brainstorm","steps":[{"claim":null,"evidence":[],"kind":null,"n":1,"need":"text-only","note":"manifest out of date; tracking ticks only","state":"current","title":"Intake: topic, existing BRNs, clarifying questions","userOwned":false},{"claim":null,"evidence":[],"kind":null,"n":2,"need":"text-only","note":"","state":"pending","title":"Select a framework","userOwned":false},{"claim":null,"evidence":[],"kind":null,"n":3,"need":"text-only","note":"","state":"pending","title":"Diverge: problems, ideas, assumptions","userOwned":false},{"claim":null,"evidence":[],"kind":null,"n":4,"need":"text-only","note":"","state":"pending","title":"Evaluate with the framework","userOwned":false},{"claim":null,"evidence":[],"kind":null,"n":5,"need":"text-only","note":"","state":"pending","title":"Propose dispositions and ask the user to confirm","userOwned":false},{"claim":null,"evidence":[],"kind":null,"n":6,"need":"text-only","note":"","state":"pending","title":"Write the BRN file","userOwned":false},{"claim":null,"evidence":[],"kind":null,"n":7,"need":"text-only","note":"","state":"pending","title":"Validate the BRN","userOwned":false},{"claim":null,"evidence":[],"kind":null,"n":8,"need":"text-only","note":"","state":"pending","title":"Report and hand off","userOwned":false}],"through":2,"waiver":null},
+}
+
+const WF_FILE = 'devforgeai/drafts/brainstorm/BRN-002.md'
+const WF_A = 'devforgeai/drafts/brainstorm/a.md'
+const WF_B = 'devforgeai/drafts/brainstorm/b.md'
+
+function removes(w: World): string[][] {
+  return w.runs.filter(a => (a[1] ?? '').endsWith('/progress/prune.py') && a[2] === 'remove')
+}
+
+function wfLog(w: World): string[] {
+  return (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' workfiles: '))
+}
+
+const evaluations = (w: World): number => w.runs.filter(a => a[2] === 'evaluate').length
+const filesOf = (argv: string[]): string[] => argv.filter(a => a.startsWith('--file=')).map(a => a.slice('--file='.length))
+const wfManifests = (argv: string[]): string => `${argv[1].replace(/\/prune\.py$/, '')}/manifests`
+
+type Cur = { state: Any }
+
+/** A world whose evaluator answers with `cur.state`, as the committed evaluator's real output. */
+function wfWorld(on: Any, cur: Cur, over: Over = {}): World {
+  return world(on, { ...over, evaluate: () => ({ state: cur.state }) })
+}
+
+/** Give the run an event, take the state `state` in at the timer's next evaluation. */
+async function wfEvaluate($: Any, w: World, cur: Cur, state: Any): Promise<void> {
+  cur.state = state
+  await $.tool.call(READ('x.md'))
+  await w.clock.advance(600)
+}
+
+const withFiles = (state: Any, files: unknown, due = true): Any => ({ ...state, workFiles: { files, due } })
+
+for (const mode of ['observe framework-default', 'enforce local']) {
+  test(`VER-52 (${mode.split(' ')[0]}): a state not due starts nothing; the evaluation that first shows it due starts one remove with BEH-32's argv`, async ($, on) => {
+    const cur: Cur = { state: REAL.open }
+    const w = wfWorld(on, cur, { mode })
+    await start($)
+    await load($)
+    await w.clock.advance(600)
+    expect(evaluations(w)).toBeGreaterThan(0)
+    expect(removes(w)).toEqual([])
+    const toasts = [...w.toasts]
+    const events = kinds(eventsOf(w))
+    const tools = [...w.tools]
+    await wfEvaluate($, w, cur, REAL.due)
+    expect(removes(w).length).toBe(1)
+    const argv = removes(w)[0]
+    expect(argv[0]).toBe('python3')
+    expect(argv.slice(2)).toEqual(['remove', '--root', ROOT, '--manifests', wfManifests(argv), `--file=${WF_FILE}`])
+    expect(argv[4 + 1]).toBe('--manifests')
+    expect(wfManifests(argv).endsWith('/progress/manifests')).toBe(true)
+    expect(w.inits[w.runs.indexOf(argv)]).toMatchObject({ cwd: ROOT, timeoutMs: 10000 })
+    // nothing shown, no event of it in the run, no tool call
+    expect(w.toasts).toEqual(toasts)
+    expect(kinds(eventsOf(w))).toEqual([...events, 'tool'])
+    expect(w.tools).toEqual([...tools, 'Read'])  // only the test's own Read reached the tools
+    expect(JSON.stringify(eventsOf(w)).includes('prune')).toBe(false)
+  })
+}
+
+test('VER-52: the output line reaches adapter.log as kind workfiles, with the run\'s ID', async ($, on) => {
+  const cur: Cur = { state: REAL.due }
+  const w = wfWorld(on, cur)
+  await start($)
+  const runId = await openedRun($, w)
+  await w.clock.advance(600)
+  const lines = wfLog(w)
+  expect(lines.length).toBe(1)
+  expect(lines[0]).toMatch(new RegExp(`^\\S+ ${runId} workfiles: removed 1 work files, skipped 0$`))
+})
+
+/** Load brainstorm and return its run's ID. */
+async function openedRun($: Any, w: World): Promise<string> {
+  await load($)
+  const path = w.writes.find(p => p.endsWith('/events.jsonl') && p.includes('-brainstorm-')) ?? ''
+  return path.split('/runs/')[1]?.split('/')[0] ?? ''
+}
+
+test('VER-52: a second due evaluation starts none, and neither does one after the module starts again (a reload)', async ($, on) => {
+  const cur: Cur = { state: REAL.open }
+  const w = wfWorld(on, cur)
+  await start($)
+  await load($)
+  await wfEvaluate($, w, cur, REAL.due)
+  expect(removes(w).length).toBe(1)
+  await wfEvaluate($, w, cur, REAL.due)
+  await wfEvaluate($, w, cur, withFiles(REAL.due, [WF_FILE, WF_A]))
+  expect(removes(w).length).toBe(1)
+  await start($)  // as after a reload (the kit can't reload the module itself)
+  await wfEvaluate($, w, cur, REAL.due)
+  expect(removes(w).length).toBe(1)
+})
+
+test('VER-52: due true with no files starts none, and the run counts as cleaned', async ($, on) => {
+  const cur: Cur = { state: REAL.open }
+  const w = wfWorld(on, cur)
+  await start($)
+  await load($)
+  await wfEvaluate($, w, cur, REAL.left)
+  expect(REAL.left.workFiles).toEqual({ due: true, files: [] })
+  expect(removes(w)).toEqual([])
+  await wfEvaluate($, w, cur, REAL.due)  // a later state with files: the run was already cleaned
+  expect(removes(w)).toEqual([])
+})
+
+test('VER-52: a state without workFiles (a manifest that names none) starts none', async ($, on) => {
+  const cur: Cur = { state: REAL.stale }
+  const w = wfWorld(on, cur)
+  await start($)
+  await load($)
+  await wfEvaluate($, w, cur, REAL.stale)
+  expect(evaluations(w)).toBeGreaterThan(0)
+  expect(removes(w)).toEqual([])
+  expect(wfLog(w)).toEqual([])
+})
+
+test('VER-52: the argv holds only the non-empty strings, once each, as --file= tokens; prune.py judges the rest', async ($, on) => {
+  const cur: Cur = { state: REAL.open }
+  const w = wfWorld(on, cur)
+  await start($)
+  await load($)
+  const hostile = [WF_FILE, '--root', '-x', 7, '', null, {}, ['a'], '/etc/passwd', 'devforgeai/drafts/../../README.md', WF_FILE, WF_A, '--root']
+  await wfEvaluate($, w, cur, withFiles(REAL.due, hostile))
+  expect(removes(w).length).toBe(1)
+  const argv = removes(w)[0]
+  expect(argv.slice(2, 7)).toEqual(['remove', '--root', ROOT, '--manifests', wfManifests(argv)])
+  expect(argv.slice(7)).toEqual([`--file=${WF_FILE}`, '--file=--root', '--file=-x', '--file=/etc/passwd',
+    '--file=devforgeai/drafts/../../README.md', `--file=${WF_A}`])
+  // a path beginning with - is never an option of its own
+  expect(argv.slice(7).every(a => a.startsWith('--file='))).toBe(true)
+  expect(argv.filter(a => a === '--root').length).toBe(1)
+})
+
+test('VER-52: a files value that isn\'t a list gives no path and starts none', async ($, on) => {
+  const cur: Cur = { state: REAL.open }
+  const w = wfWorld(on, cur)
+  await start($)
+  await load($)
+  await wfEvaluate($, w, cur, withFiles(REAL.due, 'devforgeai/drafts/brainstorm/x.md'))
+  expect(removes(w)).toEqual([])
+})
+
+test('VER-52: a due state whose files prune.py skips ("removed 0 work files, skipped 2") records the run as cleaned and writes the line', async ($, on) => {
+  const cur: Cur = { state: REAL.open }
+  const w = wfWorld(on, cur, { remove: () => ({ value: { exitCode: 0, stdout: 'removed 0 work files, skipped 2\n', stderr: '' } }) })
+  await start($)
+  await load($)
+  await wfEvaluate($, w, cur, withFiles(REAL.due, [WF_A, WF_B]))
+  expect(removes(w).length).toBe(1)
+  expect(wfLog(w).map(l => l.split(' workfiles: ')[1])).toEqual(['removed 0 work files, skipped 2'])
+  await wfEvaluate($, w, cur, REAL.due)
+  expect(removes(w).length).toBe(1)
+})
+
+test('VER-52: output with ignored manifests goes to the line whole', async ($, on) => {
+  const cur: Cur = { state: REAL.open }
+  const w = wfWorld(on, cur, { remove: () => ({ value: { exitCode: 0, stdout: 'removed 1 work files, skipped 0; ignored x.json: bad\n', stderr: '' } }) })
+  await start($)
+  await load($)
+  await wfEvaluate($, w, cur, REAL.due)
+  expect(wfLog(w).map(l => l.split(' workfiles: ')[1])).toEqual(['removed 1 work files, skipped 0; ignored x.json: bad'])
+})
+
+const WF_FAILURES: Array<[string, Any, string]> = [
+  ['exits 2', { value: { exitCode: 2, stdout: '', stderr: 'prune: /work: not a folder\nmore\n' } }, 'prune: /work: not a folder'],
+  ['can\'t start', { deny: 'failed to start: ENOENT' }, 'failed to start: ENOENT'],
+  ['times out', { deny: 'timed out after 10000ms' }, 'timed out after 10000ms'],
+  ['exits 1 with no stderr', { value: { exitCode: 1, stdout: '', stderr: '' } }, 'exit 1'],
+]
+for (const [name, answer, text] of WF_FAILURES) {
+  test(`VER-52 / ERR-19: a remove that ${name} leaves one adapter.log line, is not tried again and leaves tracking as it was`, async ($, on) => {
+    const cur: Cur = { state: REAL.open }
+    const w = wfWorld(on, cur, { remove: () => answer })
+    await start($)
+    await load($)
+    await wfEvaluate($, w, cur, REAL.due)
+    expect(removes(w).length).toBe(1)
+    const lines = wfLog(w)
+    expect(lines.length).toBe(1)
+    expect(lines[0]).toContain(`workfiles: `)
+    expect(lines[0]).toContain(text)
+    expect(w.toasts.some(t => /prune|remove|work file|failed to start|timed/.test(t))).toBe(false)
+    await wfEvaluate($, w, cur, REAL.due)
+    expect(removes(w).length).toBe(1)
+    await $.tool.call(READ('y.md'))
+    expect(kinds(eventsOf(w)).slice(-1)).toEqual(['tool'])
+    expect(w.statuses.length).toBeGreaterThan(0)
+  })
+}
+
+test('VER-52: no hook or tool call waits for the remove', async ($, on) => {
+  let release: () => void = () => {}
+  const cur: Cur = { state: REAL.open }
+  const w = wfWorld(on, cur, { remove: () => new Promise(resolve => {
+    release = () => resolve({ value: { exitCode: 0, stdout: 'removed 1 work files, skipped 0\n', stderr: '' } })
+  }) })
+  await start($)
+  const brainstormId = await openedRun($, w)
+  await wfEvaluate($, w, cur, REAL.due)
+  expect(removes(w).length).toBe(1)
+  await $.tool.call(READ('z.md'))
+  expect(kinds(eventsOf(w)).slice(-1)).toEqual(['tool'])
+  await load($, 'devforgeai:architecture')  // a switch is no wait either
+  expect(runsOf(w, 'architecture').length).toBe(1)
+  expect(wfLog(w)).toEqual([])
+  release()
+  await w.clock.advance(600)
+  // the line is the cleaned run's, though another run is open when it is written
+  expect(wfLog(w).length).toBe(1)
+  expect(wfLog(w)[0]).toContain(` ${brainstormId} workfiles: `)
+})
+
+test('VER-52: the final evaluation of a run ended by another skill\'s load starts it, with that run\'s ID in the line', async ($, on) => {
+  const cur: Cur = { state: REAL.due }
+  const w = wfWorld(on, cur)
+  await start($)
+  const runId = await openedRun($, w)
+  await load($, 'devforgeai:architecture')  // no timer evaluation in between: only the final evaluation sees due
+  await w.clock.advance(0)
+  expect(removes(w).length).toBe(1)
+  expect(filesOf(removes(w)[0])).toEqual([WF_FILE])
+  const lines = wfLog(w)
+  expect(lines.length).toBe(1)
+  expect(lines[0]).toContain(` ${runId} workfiles: `)
+})
+
+test('VER-52: a final evaluation in a session.end hook starts none', async ($, on) => {
+  const cur: Cur = { state: REAL.due }
+  const w = wfWorld(on, cur)
+  await start($)
+  await load($)
+  const before = evaluations(w)
+  await ($ as Any).session.end({ reason: 'session-end', sessionId: 's1', resume: { id: 's1' } })
+  expect(evaluations(w)).toBeGreaterThan(before)  // the final evaluation did run, and absorbed a due state
+  await w.clock.advance(600)
+  expect(removes(w)).toEqual([])
+})
+
+test('VER-52: an enforce check\'s provisional evaluation starts none, while the timer\'s starts one', async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: argv => ({ state: argv.some(a => a.endsWith('/pending.jsonl')) ? REAL.due : REAL.open }) })
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  await $.tool.call({ tool: 'Write', file_path: `${ROOT}/docs/specs/brainstorm/BRN-002.md`, content: 'x' } as Any)
+  expect(w.runs.some(a => a[2] === 'evaluate' && a.some(x => x.endsWith('/pending.jsonl')))).toBe(true)
+  await w.clock.advance(600)
+  expect(removes(w)).toEqual([])
+})
+
+test('VER-52: a headless session records nothing and starts none', async ($, on) => {
+  const cur: Cur = { state: REAL.due }
+  const w = wfWorld(on, cur)
+  await start($, false)
+  await load($)
+  await w.clock.advance(600)
+  expect(removes(w)).toEqual([])
+  expect(evaluations(w)).toBe(0)
+})
+
+test('VER-52: a run paused by Claude\'s load of another skill starts none', async ($, on) => {
+  const { w, sk } = nestWorld(on, { brainstorm: () => REAL.due, architecture: () => archState(7) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)  // no evaluation while brainstorm is the open run
+  await sk.load($, 'devforgeai:architecture')
+  expect(trailLog(w).length).toBe(1)
+  await $.tool.call(READ('a.md'))
+  await w.clock.advance(600)
+  await $.tool.call(READ('b.md'))
+  await w.clock.advance(600)
+  expect(w.runs.filter(a => a[2] === 'evaluate' && a.some(x => x.includes('-architecture-'))).length).toBeGreaterThan(0)
+  expect(removes(w)).toEqual([])
+})
+
+test('VER-52: an evaluation still running when Claude\'s load pauses the run starts none when it is taken in', async ($, on) => {
+  let release: () => void = () => {}
+  const held = new Promise<void>(resolve => { release = resolve })
+  const sk = skillCalls()
+  const w = world(on, { tool: sk.tool, evaluate: argv => (argv.some(a => a.includes('-brainstorm-')) ? held.then(() => ({ state: REAL.due })) : { state: archState(7) }) })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await w.clock.advance(600)  // brainstorm's evaluation starts and waits
+  expect(evaluations(w)).toBe(1)
+  await sk.load($, 'devforgeai:architecture')
+  expect(trailLog(w).length).toBe(1)
+  release()
+  for (let i = 0; i < 200; i++) await Promise.resolve()  // the held evaluation finishes and is taken in (or dropped)
+  await w.clock.advance(600)
+  const stateOfPaused = [...w.files.entries()].find(([k]) => k.includes('-brainstorm-') && k.endsWith('/state.json'))?.[1] ?? ''
+  expect(stateOfPaused.includes('"due":true')).toBe(true)  // it did finish with a due state
+  expect(removes(w)).toEqual([])
+  expect(wfLog(w)).toEqual([])
+})
+
+// -- the run it continues (BEH-31, BEH-32) --
+
+/** A world where the next brainstorm run continues the earlier one (the offer answered Continue). */
+function cWorld($: Any, on: Any, cur: Cur, cfg: RCfg = {}) {
+  return rWorld($, on, { earlier: [rBrn(4)], control: false, stateOf: () => cur.state, ...cfg })
+}
+
+const earlierState = (r: RW): string => `${PROGRESS}/runs/${r.ids[0]}/state.json`
+
+test('VER-52: a continued run\'s files and the earlier run\'s are removed together: --file for a, b and c, each once', async ($, on) => {
+  const cur: Cur = { state: withFiles(REAL.due, [WF_A, WF_B]) }
+  const r = cWorld($, on, cur)
+  await start($)
+  await rType($)
+  expect(rNew(r)).toMatchObject({ resumes: r.ids[0] })
+  r.w.files.set(earlierState(r), JSON.stringify(withFiles(REAL.paths, ['devforgeai/drafts/brainstorm/c.md'], false)))
+  await r.w.clock.advance(600)
+  expect(removes(r.w).length).toBe(1)
+  const argv = removes(r.w)[0]
+  expect(argv.slice(2, 7)).toEqual(['remove', '--root', ROOT, '--manifests', wfManifests(argv)])
+  expect(filesOf(argv)).toEqual([WF_A, WF_B, 'devforgeai/drafts/brainstorm/c.md'])
+})
+
+test('VER-52: the same path in both lists gives one --file (the earlier run\'s real state and the new run\'s)', async ($, on) => {
+  const cur: Cur = { state: REAL.due }
+  const r = cWorld($, on, cur)
+  await start($)
+  await rType($)
+  r.w.files.set(earlierState(r), JSON.stringify(REAL.due))
+  await r.w.clock.advance(600)
+  expect(filesOf(removes(r.w)[0])).toEqual([WF_FILE])
+  expect(removes(r.w)[0].filter(a => a.startsWith('--file=')).length).toBe(1)
+})
+
+test('VER-52: only the run it continues is read, never an older run', async ($, on) => {
+  const cur: Cur = { state: REAL.due }
+  const r = cWorld($, on, cur)
+  await start($)
+  await rType($)
+  r.w.files.set(earlierState(r), JSON.stringify(withFiles(REAL.paths, [WF_A], false)))
+  r.w.files.set(`${PROGRESS}/runs/20260101T000000Z-brainstorm-deadbeef/state.json`, JSON.stringify(withFiles(REAL.paths, [WF_B], false)))
+  await r.w.clock.advance(600)
+  expect(filesOf(removes(r.w)[0])).toEqual([WF_FILE, WF_A])
+})
+
+test('VER-52: hostile entries in the earlier run\'s state.json reach argv only as non-empty-string --file= tokens', async ($, on) => {
+  const cur: Cur = { state: REAL.due }
+  const r = cWorld($, on, cur)
+  await start($)
+  await rType($)
+  r.w.files.set(earlierState(r), JSON.stringify(withFiles(REAL.paths, [WF_A, '--root', '-x', 7, '', null, ['q'], WF_A], false)))
+  await r.w.clock.advance(600)
+  const argv = removes(r.w)[0]
+  expect(argv.slice(7)).toEqual([`--file=${WF_FILE}`, `--file=${WF_A}`, '--file=--root', '--file=-x'])
+})
+
+const WF_UNUSABLE: Array<[string, (r: RW) => void]> = [
+  ['is missing', r => { r.w.files.delete(earlierState(r)) }],
+  ['isn\'t JSON', r => { r.w.files.set(earlierState(r), '{not json') }],
+  ['has no workFiles', r => { r.w.files.set(earlierState(r), JSON.stringify(REAL.stale)) }],
+  ['is a list', r => { r.w.files.set(earlierState(r), '[]') }],
+  ['has workFiles that isn\'t an object', r => { r.w.files.set(earlierState(r), JSON.stringify({ workFiles: 'x' })) }],
+]
+for (const [name, make] of WF_UNUSABLE) {
+  test(`VER-52 / ERR-19: an earlier run whose state.json ${name} gives the run's own paths and one adapter.log line`, async ($, on) => {
+    const cur: Cur = { state: withFiles(REAL.due, [WF_A, WF_B]) }
+    const r = cWorld($, on, cur)
+    await start($)
+    await rType($)
+    make(r)
+    await r.w.clock.advance(600)
+    expect(removes(r.w).length).toBe(1)
+    expect(filesOf(removes(r.w)[0])).toEqual([WF_A, WF_B])
+    const lines = wfLog(r.w).filter(l => l.includes(r.ids[0]))
+    expect(lines.length).toBe(1)
+    expect(lines[0]).toContain('workfiles:')
+    expect(wfLog(r.w).length).toBe(2)  // that one and the remove's output line
+  })
+}
+
+test('VER-52: an earlier run whose state.json lists files while the new run lists none still gets its --file', async ($, on) => {
+  const cur: Cur = { state: REAL.left }
+  const r = cWorld($, on, cur)
+  await start($)
+  await rType($)
+  r.w.files.set(earlierState(r), JSON.stringify(withFiles(REAL.paths, [WF_A], false)))
+  await r.w.clock.advance(600)
+  expect(filesOf(removes(r.w)[0])).toEqual([WF_A])
+})
+
+test('VER-52: a run that continues nothing reads no other state.json', async ($, on) => {
+  const cur: Cur = { state: REAL.due }
+  const w = wfWorld(on, cur)
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  expect(filesOf(removes(w)[0])).toEqual([WF_FILE])
+  expect(wfLog(w).length).toBe(1)
+})
+
+// -- IF-04 at the session's first run (BEH-19) --
+
+test('VER-52: IF-04\'s argv at the first run carries --manifests once and the new run as --keep-run', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await w.clock.advance(0)
+  const argv = prunes(w)[0]
+  expect(argv.slice(2)).toEqual(['prune', '--root', ROOT, '--days', '30', '--keep-session', 's1', '--keep-run', argOf(argv, '--keep-run'),
+    '--manifests', wfManifests(argv)])
+  expect(argv.filter(a => a === '--manifests').length).toBe(1)
+  expect(argv.filter(a => a === '--keep-run').length).toBe(1)
+})
+
+test('VER-52: a run that continues an earlier one spares both: --keep-run for the new run and for that run', async ($, on) => {
+  const cur: Cur = { state: REAL.open }
+  const r = cWorld($, on, cur)
+  await start($)
+  await rType($)
+  await r.w.clock.advance(0)
+  const argv = prunes(r.w)[0]
+  const keeps = argv.map((a, i) => (a === '--keep-run' ? argv[i + 1] : null)).filter(x => x !== null)
+  expect(keeps.length).toBe(2)
+  expect(keeps[0]).toMatch(/^20261002T120000Z-brainstorm-[0-9a-f]{8}$/)
+  expect(keeps[1]).toBe(r.ids[0])
+  expect(argv.slice(-2)).toEqual(['--manifests', wfManifests(argv)])
+  expect(argv.filter(a => a === '--manifests').length).toBe(1)
+})
+
+test('VER-52: IF-04\'s output line, work files included, goes to adapter.log as kind prune', async ($, on) => {
+  const w = world(on, { prune: () => ({ value: { exitCode: 0, stdout: 'pruned 1 runs, 2 sessions, 3 work files\n', stderr: '' } }) })
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  const lines = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' prune: '))
+  expect(lines.map(l => l.split(' prune: ')[1])).toEqual(['pruned 1 runs, 2 sessions, 3 work files'])
+})
+
+test('VER-52: nothing but the two commands ever reaches prune.py, and never from session.end', async ($, on) => {
+  const cur: Cur = { state: REAL.due }
+  const w = wfWorld(on, cur)
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  const before = w.runs.length
+  await ($ as Any).session.end({ reason: 'session-end', sessionId: 's1', resume: { id: 's1' } })
+  expect(w.runs.slice(before).filter(a => (a[1] ?? '').endsWith('/prune.py'))).toEqual([])
+  expect(w.runs.filter(a => (a[1] ?? '').endsWith('/prune.py')).map(a => a[2]).sort()).toEqual(['prune', 'remove'])
+})
+
+// ---- version 22: forms (VER-58), Bash writes (VER-59, VER-60) and the state stated on continuing (VER-61) ----
+
+/** A question as Claude Code's tool takes it, with the newer shapes' fields the record must not keep. */
+const FORM_Q = (n: number): Any => ({
+  question: `Which way ${n}?`, header: `H${n}`, multiSelect: n === 2, kind: 'choice', description: 'extra', placeholder: 'ph', min: 1, max: 2, step: 1,
+  defaultValue: 'x', unit: 'u',
+  options: [
+    { label: 'A', description: `first ${n}`, preview: 'line one\nline two', extra: 1 },
+    { label: 'B', description: `second ${n}` },
+    { label: 'C' },
+  ],
+})
+const FORM_RECORDED = (n: number): Any => ({
+  question: `Which way ${n}?`, header: `H${n}`, multiSelect: n === 2,
+  options: [{ label: 'A', description: `first ${n}`, preview: 'line one\nline two' }, { label: 'B', description: `second ${n}` }, { label: 'C' }],
+})
+const tagged = (n: number, questions: Any[]): Any => ({ tool: 'AskUserQuestion', questions, metadata: { source: `devforgeai_step:${n}` }, annotations: { x: 1 } })
+const answersOf = (w: World): Any[] => eventsOf(w).map(l => JSON.parse(l)).filter(e => e.kind === 'answer')
+
+test('VER-58: a step-tagged question records the form as Claude asked it, in order, and never the answers', async ($, on) => {
+  const w = world(on, { tool: bottomTool })
+  await start($)
+  await load($)
+  await $.tool.call(tagged(5, [FORM_Q(1), FORM_Q(2)]) as Any)
+  const line = eventsOf(w).slice(-1)[0]
+  const e = JSON.parse(line)
+  expect(e).toMatchObject({ kind: 'answer', answered: true, step: 5 })
+  expect(e.questions).toEqual([FORM_RECORDED(1), FORM_RECORDED(2)])
+  // the fields of each question and option come in the order the spec gives
+  expect(Object.keys(e.questions[0])).toEqual(['question', 'header', 'multiSelect', 'options'])
+  expect(Object.keys(e.questions[0].options[0])).toEqual(['label', 'description', 'preview'])
+  expect(Object.keys(e)).toEqual(['run', 'seq', 'time', 'kind', 'answered', 'step', 'questions'])
+  expect(line).not.toContain('"answers"')
+  expect(line).not.toContain('annotations')
+})
+
+test('VER-58: a dismissed question keeps its form; an untagged in-run question carries one', async ($, on) => {
+  const w = world(on, { tool: bottomTool })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'AskUserQuestion', questions: [{ question: 'Dismiss me?', header: 'No', multiSelect: false, options: [{ label: 'A' }] }], metadata: { source: 'devforgeai_step:3' } } as Any)
+  await $.tool.call({ tool: 'AskUserQuestion', questions: [FORM_Q(1)] } as Any)
+  const got = answersOf(w)
+  expect(got[0]).toMatchObject({ answered: false, step: 3 })
+  expect(got[0].questions).toEqual([{ question: 'Dismiss me?', header: 'No', multiSelect: false, options: [{ label: 'A' }] }])
+  expect(got[1].answered).toBe(true)
+  expect(got[1].step).toBeUndefined()
+  expect(got[1].questions).toEqual([FORM_RECORDED(1)])
+})
+
+test('VER-58: a field the input has with another type is left out, and an item with no question or label is skipped', async ($, on) => {
+  const w = world(on, { tool: bottomTool })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'AskUserQuestion', questions: [
+    { question: 'Q?', header: 7, multiSelect: 'yes', options: [{ label: 'A', description: 3, preview: null }, { description: 'no label' }, 'x'] },
+    { header: 'no question' }, 'text', null,
+  ] } as Any)
+  expect(answersOf(w)[0].questions).toEqual([{ question: 'Q?', options: [{ label: 'A' }] }])
+})
+
+test('VER-58: outside and waiver answers carry no form; a $.ui.ask dialog records nothing', { plugins: [asker] }, async ($, on) => {
+  const w = world(on, { tool: bottomTool })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'AskUserQuestion', questions: [FORM_Q(1)], metadata: { source: 'remember' } } as Any)
+  await $.tool.call(waiverQuestion('Skip the questions?') as Any)
+  await $.tool.call(waiverQuestion('Skip?', WAIVER_SOURCE, true) as Any)  // two questions: recorded with outside
+  await ($ as Any).command.run({ command: 'ask-me', args: '' })
+  const got = answersOf(w)
+  expect(got.length).toBe(3)
+  expect(got[0]).toMatchObject({ outside: true })
+  expect(got[1]).toMatchObject({ waiver: 'other' })
+  expect(got[2]).toMatchObject({ outside: true })
+  for (const a of got) expect(a.questions).toBeUndefined()
+})
+
+test('VER-58: a form whose JSON is 64 KiB is kept; one byte more is dropped whole, answered and step stay', async ($, on) => {
+  const w = world(on, { tool: bottomTool })
+  await start($)
+  await load($)
+  const make = (pad: number, rest = 0): Any[] => [{ question: 'Q?', header: 'H', multiSelect: false,
+    options: [{ label: 'A', description: 'é'.repeat(pad) + 'x'.repeat(rest) }] }]
+  const bytes = (q: Any[]) => new TextEncoder().encode(JSON.stringify(q)).length
+  const base = bytes(make(0))
+  // two-byte characters: the cap counts UTF-8 bytes, not characters
+  const room = 64 * 1024 - base
+  const exact = make(Math.floor(room / 2), room % 2)
+  expect(bytes(exact)).toBe(64 * 1024)
+  await $.tool.call(tagged(5, exact) as Any)
+  const over = [{ ...exact[0], header: 'H' + 'x' }]
+  expect(bytes(over)).toBe(64 * 1024 + 1)
+  await $.tool.call(tagged(5, over) as Any)
+  const got = answersOf(w)
+  expect(got[0].questions.length).toBe(1)
+  expect(got[1]).toMatchObject({ kind: 'answer', answered: true, step: 5 })
+  expect(got[1].questions).toBeUndefined()
+})
+
+test('VER-58: past 3 MiB in events.jsonl no form is kept', { timeoutMs: 120000 }, async ($, on) => {
+  const w = world(on, { tool: bottomTool })
+  await start($)
+  await load($)
+  const chunk = 'y'.repeat(60 * 1024)
+  for (let i = 0; i < 60; i++) await $.tool.call({ tool: 'Write', file_path: `${ROOT}/c${i}.md`, content: chunk } as Any)
+  await $.tool.call(tagged(5, [FORM_Q(1)]) as Any)
+  const last = answersOf(w).slice(-1)[0]
+  expect(last).toMatchObject({ answered: true, step: 5 })
+  expect(last.questions).toBeUndefined()
+})
+
+// ---- BEH-38 ----
+
+const PLUGIN_DIR = '/plugin'
+const VALIDATE = `${PLUGIN_DIR}/skills/brainstorm/scripts/validate_brn.py`
+const BRN_ONE = 'docs/specs/brainstorm/BRN-001.md'
+const BRAINSTORM_MANIFEST = {
+  skill: 'brainstorm',
+  steps: {
+    '1': { evidence: [{ type: 'read', pattern: 'docs/specs/brainstorm/' }] },
+    '6': { gate: 'write', evidence: [{ type: 'write', pattern: 'docs/specs/brainstorm/BRN-*.md' }] },
+    '7': { evidence: [{ type: 'script', pattern: 'validate_brn.py', exit: 0, target: 'written' }] },
+  },
+  workFiles: ['devforgeai/drafts/brainstorm/*.md'],
+}
+const OUTSIDE_REFUSAL = (word: string): string => `DevForgeAI's progress tracker refused this Bash command (enforce mode): it names ${word}, a document this run writes at its write gate, and a Bash command's writes can't be checked before they happen. To write or edit it, use the Write or Edit tool; to read it, use the Read or Grep tool.`
+const OUTSIDE_ADVICE = "Ask Claude to write the document with the Write tool, or switch to observe mode with the band's button."
+
+const bash = (command: string, extra: Any = {}): Any => ({ tool: 'Bash', command, ...extra })
+const enforcing = { mode: 'enforce local', manifests: { brainstorm: BRAINSTORM_MANIFEST } }
+
+test('VER-59: in enforce mode each command that names the document is refused with BEH-38\'s text, recorded as an error', async ($, on) => {
+  const w = world(on, enforcing)
+  await start($)
+  await load($)
+  const refused: Array<[string, string]> = [
+    ['sed -n p d.md > docs/specs/brainstorm/BRN-001.md', BRN_ONE],
+    ['cat x >docs/specs/brainstorm/BRN-001.md', BRN_ONE],
+    ['cp d.md ./docs/specs/brainstorm/BRN-002.md', 'docs/specs/brainstorm/BRN-002.md'],
+    ['cat docs/specs/brainstorm/BRN-001.md', BRN_ONE],
+    ['grep -l topic docs/specs/brainstorm/BRN-*.md', 'docs/specs/brainstorm/BRN-*.md'],
+    [`sed -i s/a/b/ docs/specs/brainstorm/BRN-001.md && python3 ${VALIDATE} docs/specs/brainstorm/BRN-001.md`, BRN_ONE],
+    ['echo hi 2>&1 &>docs/specs/brainstorm/BRN-003.md', 'docs/specs/brainstorm/BRN-003.md'],
+    ['tee "/work/docs/specs/brainstorm/BRN-004.md" < in', 'docs/specs/brainstorm/BRN-004.md'],
+  ]
+  for (const [command, word] of refused) {
+    const r = (await $.tool.call(bash(command) as Any)) as Any
+    expect(r.deny).toBe(OUTSIDE_REFUSAL(word))
+  }
+  expect(w.tools.includes('Bash')).toBe(false)
+  const tools = eventsOf(w).map(l => JSON.parse(l)).filter(e => e.kind === 'tool')
+  expect(tools.length).toBe(refused.length)
+  for (const t of tools) expect(t).toMatchObject({ tool: 'Bash', exit: null, error: true })
+  expect(tools[0].command).toBe(refused[0][0])
+})
+
+test('VER-59: a command that runs the validator, lists, loops over the folder or writes a draft is not refused', async ($, on) => {
+  const w = world(on, enforcing)
+  await start($)
+  await load($)
+  const allowed = [
+    `python3 -B ${VALIDATE} docs/specs/brainstorm/BRN-001.md`,
+    `python3 -B ${VALIDATE} docs/specs/brainstorm/BRN-001.md | tail -3`,
+    `PYTHONDONTWRITEBYTECODE=1 python3 ${VALIDATE} docs/specs/brainstorm/BRN-001.md`,
+    `cd x && python3 ${VALIDATE} docs/specs/brainstorm/BRN-001.md`,
+    `python3 ${VALIDATE} docs/specs/brainstorm/BRN-001.md; echo $?`,
+    'ls docs/specs/brainstorm/',
+    'for f in docs/specs/brainstorm/*.md; do head -3 $f; done',
+    'cat notes.md > devforgeai/drafts/brainstorm/x.md',
+    `python3 -c "open('docs/specs/brainstorm/BRN-001.md')"`,
+  ]
+  for (const command of allowed) {
+    const r = (await $.tool.call(bash(command) as Any)) as Any
+    expect(r.deny, command).toBeUndefined()
+  }
+  expect(w.tools.filter(t => t === 'Bash').length).toBe(allowed.length)
+})
+
+test('VER-59: another part of the same command naming the document is still refused, whatever joins it', async ($, on) => {
+  world(on, enforcing)
+  await start($)
+  await load($)
+  for (const join of ['&&', '||', ';', '|', '\n']) {
+    const r = (await $.tool.call(bash(`python3 ${VALIDATE} ${BRN_ONE} ${join} cat ${BRN_ONE}`) as Any)) as Any
+    expect(r.deny, JSON.stringify(join)).toBe(OUTSIDE_REFUSAL(BRN_ONE))
+  }
+})
+
+test('VER-59: a project layer\'s added write rule is refused from the run\'s first Bash call', async ($, on) => {
+  const w = world(on, { ...enforcing, files: { [`${ROOT}/devforgeai/manifests/brainstorm.json`]: JSON.stringify({
+    skill: 'brainstorm', steps: { '4': { evidence: [{ type: 'write', pattern: 'docs/notes/N-*.md' }] } } }) } })
+  await start($)
+  await load($)
+  const r = (await $.tool.call(bash('cp a docs/notes/N-1.md') as Any)) as Any
+  expect(r.deny).toBe(OUTSIDE_REFUSAL('docs/notes/N-1.md'))
+  expect(w.tools.includes('Bash')).toBe(false)
+})
+
+test('VER-59: a subagent\'s Bash call is not refused', async ($, on) => {
+  const w = world(on, enforcing)
+  await start($)
+  await load($)
+  const sub = (await $.tool.call(bash(`cat ${BRN_ONE}`, { agentId: 'a1' }) as Any)) as Any
+  expect(sub.deny).toBeUndefined()
+  expect(w.tools.filter(t => t === 'Bash').length).toBe(1)
+})
+
+test('VER-59: a mod\'s own $.tool.call of Bash is not refused', { plugins: [{
+  name: 'caller',
+  register(on) {
+    on('command.run', { command: 'bash-it' }, async $ => {
+      const r = (await $.tool.call({ tool: 'Bash', command: 'cat docs/specs/brainstorm/BRN-001.md' } as Any)) as Any
+      return { text: r.deny === undefined ? 'ran' : 'denied' }
+    })
+  },
+}] }, async ($, on) => {
+  const w = world(on, enforcing)
+  await start($)
+  await load($)
+  const out = (await ($ as Any).command.run({ command: 'bash-it', args: '' })) as Any
+  expect(out.text).toBe('ran')
+  expect(w.tools.includes('Bash')).toBe(true)
+})
+
+test('VER-59: in observe mode nothing is refused', async ($, on) => {
+  const w = world(on, { manifests: { brainstorm: BRAINSTORM_MANIFEST } })
+  await start($)
+  await load($)
+  const r = (await $.tool.call(bash(`cat ${BRN_ONE}`) as Any)) as Any
+  expect(r.deny).toBeUndefined()
+  expect(w.tools.includes('Bash')).toBe(true)
+})
+
+test('VER-59: the refusal counts for BEH-25: the second one for the cause toasts once with the outside-write advice, and adapter.log has each', async ($, on) => {
+  const w = world(on, enforcing)
+  await start($)
+  await load($)
+  for (let i = 0; i < 3; i++) await $.tool.call(bash(`cat ${BRN_ONE}`) as Any)
+  const stuck = w.toasts.filter(t => t.includes('refused Claude twice'))
+  expect(stuck.length).toBe(1)
+  expect(stuck[0]).toBe(`brainstorm: the progress tracker refused Claude twice at step 6 for the same reason: ${OUTSIDE_REFUSAL(BRN_ONE).split('. ')[0]}. ${OUTSIDE_ADVICE}`)
+  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n')
+  expect(log.filter(l => l.includes(` bash: refused ${BRN_ONE}`)).length).toBe(3)
+  expect(log.filter(l => l.includes(' stuck: ')).length).toBe(1)
+})
+
+test('VER-59: where nothing draws, the refusal text also goes to $.ui.log', async ($, on) => {
+  const w = world(on, { ...enforcing, surfaces: [] })
+  await start($)
+  await load($)
+  await $.tool.call(bash(`cat ${BRN_ONE}`) as Any)
+  expect(w.logs).toContain(OUTSIDE_REFUSAL(BRN_ONE))
+})
+
+test('VER-59: the window: refused before the first evaluation, not once every step is reached or the validator ran on the document', async ($, on) => {
+  let state: Any = STATE
+  const w = world(on, { ...enforcing, evaluate: () => ({ state }) })
+  await start($)
+  await load($)
+  expect(((await $.tool.call(bash(`cat ${BRN_ONE}`) as Any)) as Any).deny).toBeDefined()  // no evaluation yet
+  await w.clock.advance(600)
+  expect(((await $.tool.call(bash(`cat ${BRN_ONE}`) as Any)) as Any).deny).toBeDefined()  // step 2 of 2 is current
+  state = { ...STATE, current: null, steps: STATE.steps.map(s => ({ ...s, state: 'done' })) }
+  await $.tool.call(READ('x.md'))
+  await w.clock.advance(600)
+  expect(((await $.tool.call(bash(`cat ${BRN_ONE}`) as Any)) as Any).deny).toBeUndefined()  // every step reached
+  state = { ...STATE, steps: [...STATE.steps, { n: 7, title: 'Validate', state: 'done' }] }
+  await $.tool.call(READ('y.md'))
+  await w.clock.advance(600)
+  expect(((await $.tool.call(bash(`cat ${BRN_ONE}`) as Any)) as Any).deny).toBeUndefined()  // the validator's step is done
+  state = STATE
+  await $.tool.call(READ('z.md'))
+  await w.clock.advance(600)
+  expect(((await $.tool.call(bash(`cat ${BRN_ONE}`) as Any)) as Any).deny).toBeDefined()  // open again
+})
+
+test('VER-59: an unrecorded turn still refuses, and records the refused call as an error', async ($, on) => {
+  const r = rWorld($, on, { control: false })
+  r.over.mode = 'enforce local'
+  r.over.manifests = { brainstorm: BRAINSTORM_MANIFEST }
+  await start($)
+  await rType($)
+  await rType($, 'precompact')  // the turn is marked: an untracked skill loaded in it
+  const out = (await $.tool.call(bash(`cat ${BRN_ONE}`) as Any)) as Any
+  expect(out.deny).toBe(OUTSIDE_REFUSAL(BRN_ONE))
+  expect(JSON.parse(eventsOf(r.w).slice(-1)[0])).toMatchObject({ kind: 'tool', tool: 'Bash', error: true })
+})
+
+// -- the script run's reading, mirrored from evaluate.py's script_run (SPEC-012 BEH-06, version 16) --
+
+// The answers evaluate.py's script_run gives these commands (run with the plugin's evaluator on 2026-10-06): it splits at
+// && and || only.
+const SCRIPT_RUN_ORACLE: Array<[string, boolean]> = [
+  [`cat ${VALIDATE} docs/specs/brainstorm/BRN-001.md`, false],
+  [`ls ${VALIDATE}`, false],
+  [`python3 -B ${VALIDATE} docs/specs/brainstorm/BRN-001.md`, true],
+  [`PYTHONDONTWRITEBYTECODE=1 python3 ${VALIDATE} docs/specs/brainstorm/BRN-001.md`, true],
+  [`python3 -B ${VALIDATE} docs/specs/brainstorm/BRN-001.md | tail -3`, true],
+  [`cd x && python3 ${VALIDATE} d.md`, true],
+  [`python3.12 ${VALIDATE} d.md`, true],
+  [`python3 -c 'print(1)' ${VALIDATE}`, false],
+  [`bash ${VALIDATE}`, true],
+  [`${VALIDATE} d.md`, true],
+  [`FOO=1 BAR=2 ${VALIDATE} d.md`, true],
+  ['echo validate_brn.py', false],
+  [`node -- ${VALIDATE}`, true],
+  [`grep -l x ${VALIDATE}`, false],
+  [`python ${VALIDATE} x`, true],
+]
+
+test('VER-59: the exemption reads a part as evaluate.py reads it (the oracle of VER-45\'s command strings)', async ($, on) => {
+  const w = world(on, enforcing)
+  await start($)
+  await load($)
+  // A part that runs the script exempts its own words only: name the document in the part itself.
+  // (a pipe puts the named document in another part: the pure test of runsScript has those)
+  for (const [command, runs] of SCRIPT_RUN_ORACLE.filter(([c]) => !c.includes('|'))) {
+    const named = `${command} ${BRN_ONE}`
+    const r = (await $.tool.call(bash(named) as Any)) as Any
+    expect(r.deny === undefined, named).toBe(runs)
+  }
+})
+
+// ---- BEH-38 (b): the check after ----
+
+type Disk = Record<string, { size: number; mtimeMs: number; kind?: string }>
+
+/** fs.list from a table of files (paths relative to the root), and of run folders (their events.jsonl's mtime by run ID). */
+function diskList(disk: Disk, o: { listFail?: (folder: string) => boolean; missing?: string[]; gone?: string[]; runMtimes?: Record<string, number> } = {}) {
+  return (path: string): Any[] | { deny: string } | undefined => {
+    if (!path.startsWith(`${ROOT}/`)) return undefined  // the plugin's own folders
+    const folder = path.replace(`${ROOT}/`, '').replace(/\/+$/, '')
+    if (o.listFail?.(folder)) return { deny: `EIO: ${folder}` }
+    const run = /^devforgeai\/progress\/runs\/([^/]+)$/.exec(folder)?.[1]
+    if (run !== undefined && o.runMtimes?.[run] !== undefined) return [{ name: 'events.jsonl', kind: 'file', size: 1, mtimeMs: o.runMtimes[run], isLink: false }]
+    if (folder.startsWith('devforgeai/progress')) return undefined
+    const entries = Object.entries(disk).filter(([p]) => p.slice(0, p.lastIndexOf('/')) === folder && !(o.gone ?? []).includes(p))
+    if (!entries.length && (o.missing ?? []).includes(folder)) return { deny: `ENOENT: ${folder}` }
+    return entries.map(([p, d]) => ({ name: p.slice(p.lastIndexOf('/') + 1), kind: d.kind ?? 'file', size: d.size, mtimeMs: d.mtimeMs, isLink: d.kind === 'other' }))
+  }
+}
+
+/** A world whose folders are a table the Bash stub changes during next(e): listings come from it, file texts from the world. */
+function diskWorld(on: Any, o: { mode?: string; disk?: Disk; during?: (e: Any, w: World, disk: Disk) => Any; evaluate?: Over['evaluate'];
+  files?: Record<string, string>; listFail?: (folder: string) => boolean; missing?: string[]; surfaces?: string[]; runMtimes?: Record<string, number> } = {}) {
+  const disk: Disk = o.disk ?? {}
+  const world0 = world(on, {
+    mode: o.mode, manifests: { brainstorm: BRAINSTORM_MANIFEST }, files: o.files, evaluate: o.evaluate, surfaces: o.surfaces,
+    list: diskList(disk, o),
+    tool: (e: Any) => {
+      if (e.tool === 'Bash') {
+        const given = o.during?.(e, world0, disk)
+        if (given !== undefined) return given
+        if (String(e.command).includes('exit1')) return { result: 'Error: Exit code 1', isError: true, text: 'Exit code 1' }
+        return { result: 'ok' }
+      }
+      return bottomTool(e)
+    },
+  })
+  return { w: world0, disk }
+}
+
+/** A file appears or changes on the disk table and in the world's files. */
+function putFile(w: World, disk: Disk, path: string, text: string, mtimeMs: number, kind = 'file'): void {
+  disk[path] = { size: new TextEncoder().encode(text).length, mtimeMs, kind }
+  w.files.set(`${ROOT}/${path}`, text)
+}
+
+const BRN_TEXT = '---\nid: BRN-001\nstatus: draft\n---\n'
+const eventsParsed = (w: World): Any[] => eventsOf(w).map(l => JSON.parse(l))
+
+test('VER-60: a Bash call that creates the document records, right after its own event and in the same step, one wrote event with the file as read', async ($, on) => {
+  const { w } = diskWorld(on, { during: (e, w, d) => { putFile(w, d, BRN_ONE, BRN_TEXT, 1000) } })
+  await start($)
+  await load($)
+  const command = 'cd docs/specs/brainstorm && sed -n p ../../../d.md > BRN-001.md'
+  await $.tool.call(bash(command) as Any)
+  const ev = eventsParsed(w)
+  expect(ev.map(e => e.kind)).toEqual(['skill-loaded', 'tool', 'tool'])
+  expect(ev[1]).toMatchObject({ tool: 'Bash', command, exit: 0, error: false })
+  expect(ev[1].wrote).toBeUndefined()
+  expect(ev[2]).toEqual({ run: ev[2].run, seq: 3, time: ev[2].time, kind: 'tool', tool: 'Bash', path: BRN_ONE, command, exit: 0, error: false,
+    content: BRN_TEXT, wrote: true })
+  expect(Object.keys(ev[2])).toEqual(['run', 'seq', 'time', 'kind', 'tool', 'path', 'command', 'exit', 'error', 'content', 'wrote'])
+})
+
+test('VER-60: the same call exiting 1 records the same event with error false', async ($, on) => {
+  const { w } = diskWorld(on, { during: (e, w, d) => { putFile(w, d, BRN_ONE, BRN_TEXT, 1000) } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('sed -n p d.md > docs/x exit1') as Any)
+  const ev = eventsParsed(w)
+  expect(ev[1]).toMatchObject({ exit: 1, error: true })
+  expect(ev[2]).toMatchObject({ wrote: true, path: BRN_ONE, exit: 1, error: false, content: BRN_TEXT })
+})
+
+test('VER-60: files are recorded in order of path, each right after the call\'s own event', async ($, on) => {
+  const { w } = diskWorld(on, { during: (e, w, d) => {
+    putFile(w, d, 'docs/specs/brainstorm/BRN-003.md', 'three', 1)
+    putFile(w, d, 'docs/specs/brainstorm/BRN-001.md', 'one', 1)
+    putFile(w, d, 'docs/specs/brainstorm/BRN-002.md', 'two', 1)
+  } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('make') as Any)
+  expect(eventsParsed(w).slice(2).map(e => [e.seq, e.path])).toEqual([
+    [3, 'docs/specs/brainstorm/BRN-001.md'], [4, 'docs/specs/brainstorm/BRN-002.md'], [5, 'docs/specs/brainstorm/BRN-003.md'],
+  ])
+})
+
+test('VER-60: this session\'s draft is recorded as a wrote event; another session\'s draft, a symbolic link and a file outside the patterns are not', async ($, on) => {
+  const { w } = diskWorld(on, { during: (e, w, d) => {
+    putFile(w, d, 'devforgeai/drafts/brainstorm/s1.md', 'mine', 1)
+    putFile(w, d, 'devforgeai/drafts/brainstorm/other.md', 'theirs', 1)
+    putFile(w, d, 'docs/specs/brainstorm/BRN-009.md', 'link', 1, 'other')
+    putFile(w, d, 'docs/specs/brainstorm/notes.txt', 'outside', 1)
+  } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('make') as Any)
+  expect(eventsParsed(w).slice(2).map(e => e.path)).toEqual(['devforgeai/drafts/brainstorm/s1.md'])
+})
+
+test('VER-60: the draft the line named (skill-loaded draft) is this run\'s own too', async ($, on) => {
+  const r = rWorld($, on, { control: false, files: { [`${ROOT}/${DRAFT}`]: 'old draft' }, earlier: [rBrn(5, { writes: [{ path: DRAFT }],
+    state: withDraft(rReach('brainstorm', [1, 2, 3, 4])) })] })
+  const disk: Disk = {}
+  const inner = r.over.tool!
+  r.over.manifests = { brainstorm: BRAINSTORM_MANIFEST }
+  r.over.list = diskList(disk)
+  r.over.tool = (e: Any) => {
+    if (e.tool === 'Bash') { putFile(r.w, disk, DRAFT, 'new text', 5); return { result: 'ok' } }
+    return inner(e)
+  }
+  await start($)
+  await rType($)
+  expect(rNew(r).draft).toBe(DRAFT)
+  await $.tool.call(bash('make') as Any)
+  const wrote = logOf(r.w, 'brainstorm', 0).filter(e => e.wrote === true)
+  expect(wrote.map(e => [e.path, e.content])).toEqual([[DRAFT, 'new text']])
+})
+
+test('VER-60: a document another live run\'s log names is not this call\'s; an idle one, an ended one do not exclude', async ($, on) => {
+  const other = (id: string, path: string, extra: Any[] = []) => {
+    const lines = [{ run: id, seq: 1, kind: 'skill-loaded' }, { run: id, seq: 2, kind: 'tool', tool: 'Write', path, exit: 0, error: false }, ...extra]
+    return lines.map(l => JSON.stringify(l)).join('\n') + '\n'
+  }
+  const live = '20261002T110000Z-brainstorm-aaaaaaaa'
+  const idle = '20261002T100000Z-brainstorm-bbbbbbbb'
+  const ended = '20261002T090000Z-brainstorm-cccccccc'
+  const files: Record<string, string> = {
+    [`${PROGRESS}/runs/${live}/events.jsonl`]: other(live, 'docs/specs/brainstorm/BRN-001.md'),
+    [`${PROGRESS}/runs/${idle}/events.jsonl`]: other(idle, 'docs/specs/brainstorm/BRN-002.md'),
+    [`${PROGRESS}/runs/${ended}/events.jsonl`]: other(ended, 'docs/specs/brainstorm/BRN-003.md', [{ run: ended, seq: 3, kind: 'run-end', reason: 'session-end' }]),
+  }
+  const runMtimes = { [live]: T0 - 60_000, [idle]: T0 - 31 * 60_000, [ended]: T0 - 1000 }
+  const { w } = diskWorld(on, { files, runMtimes, during: (e, w, d) => {
+    for (const n of [1, 2, 3]) putFile(w, d, `docs/specs/brainstorm/BRN-00${n}.md`, `t${n}`, 1)
+  } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('make') as Any)
+  expect(eventsParsed(w).slice(2).map(e => e.path)).toEqual(['docs/specs/brainstorm/BRN-002.md', 'docs/specs/brainstorm/BRN-003.md'])
+})
+
+test('VER-60: the run this run continues never excludes, live as it looks', async ($, on) => {
+  const r = rWorld($, on, { control: false, earlier: [rBrn(5, { end: null, writes: [BRN], state: rReach('brainstorm', [1, 2, 3, 4]) })] })
+  const disk: Disk = {}
+  const inner = r.over.tool!
+  r.over.manifests = { brainstorm: BRAINSTORM_MANIFEST }
+  r.over.list = diskList(disk, { runMtimes: { [r.ids[0]]: T0 - 1000 } })
+  r.over.tool = (e: Any) => {
+    if (e.tool === 'Bash') { putFile(r.w, disk, BRN, BRN_TEXT, 5); return { result: 'ok' } }
+    return inner(e)
+  }
+  await start($)
+  await rType($)
+  expect(rNew(r).resumes).toBe(r.ids[0])
+  await $.tool.call(bash('make') as Any)
+  expect(logOf(r.w, 'brainstorm', 0).filter(e => e.wrote === true).map(e => e.path)).toEqual([BRN])
+})
+
+test('VER-60: other runs\' logs are read only when the listing found a candidate', async ($, on) => {
+  const id = '20261002T110000Z-brainstorm-aaaaaaaa'
+  const { w } = diskWorld(on, { files: { [`${PROGRESS}/runs/${id}/events.jsonl`]: '{}\n' } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('ls') as Any)
+  expect(w.reads.filter(p => p.includes(`/runs/${id}/`))).toEqual([])
+  expect(w.lists.some(p => p.includes('/runs/'))).toBe(false)
+})
+
+test('VER-60: a second call that leaves the recorded file\'s size and mtimeMs unchanged records none; a changed one records again', async ($, on) => {
+  let n = 0
+  const { w } = diskWorld(on, { during: (e, w, d) => {
+    n += 1
+    if (n === 1) putFile(w, d, BRN_ONE, 'v1', 1000)
+    if (n === 3) putFile(w, d, BRN_ONE, 'v2!', 2000)
+  } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('one') as Any)
+  await $.tool.call(bash('two') as Any)
+  await $.tool.call(bash('three') as Any)
+  const wrote = eventsParsed(w).filter(e => e.wrote === true)
+  expect(wrote.map(e => e.content)).toEqual(['v1', 'v2!'])
+})
+
+test('VER-60: a file the run already recorded, deleted and put back with the same size and mtimeMs, is not recorded again', async ($, on) => {
+  let n = 0
+  const { w } = diskWorld(on, { during: (e, w, d) => {
+    n += 1
+    if (n === 1) putFile(w, d, BRN_ONE, 'v1', 1000)
+    if (n === 2) delete d[BRN_ONE]
+    if (n === 3) putFile(w, d, BRN_ONE, 'v1', 1000)  // new to the listing, but the signature is the recorded one
+    if (n === 4) putFile(w, d, BRN_ONE, 'v1', 1001)  // a later mtimeMs is a change
+  } })
+  await start($)
+  await load($)
+  for (const c of ['one', 'two', 'three', 'four']) await $.tool.call(bash(c) as Any)
+  expect(eventsParsed(w).filter(e => e.wrote === true).length).toBe(2)
+})
+
+test('VER-60: a deleted document records none', async ($, on) => {
+  const { w } = diskWorld(on, { disk: { [BRN_ONE]: { size: 3, mtimeMs: 1 } }, during: (e, w, d) => { delete d[BRN_ONE] } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('rm docs/x') as Any)
+  expect(eventsParsed(w).filter(e => e.wrote === true)).toEqual([])
+})
+
+test('VER-60: a read that rejects records the event with no content and an ERR-23 line; a listing that rejects skips that folder', async ($, on) => {
+  const { w } = diskWorld(on, { files: { [`${ROOT}/devforgeai/drafts/brainstorm/keep.md`]: 'x' }, listFail: f => f === 'devforgeai/drafts/brainstorm', during: (e, w, d) => {
+    d[BRN_ONE] = { size: 5, mtimeMs: 1, kind: 'file' }  // listed, but the world holds no text: the read rejects
+    d['devforgeai/drafts/brainstorm/s1.md'] = { size: 5, mtimeMs: 1 }
+  } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('make') as Any)
+  const wrote = eventsParsed(w).filter(e => e.wrote === true)
+  expect(wrote.map(e => e.path)).toEqual([BRN_ONE])
+  expect(wrote[0].content).toBeUndefined()
+  expect(wrote[0].error).toBe(false)
+  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' bash: '))
+  expect(log.length).toBe(3)  // the folder's listing before and after, and the read
+  expect(log.some(l => l.includes(BRN_ONE))).toBe(true)
+})
+
+test('VER-60: a folder that doesn\'t exist lists as empty, so the document the call creates there is new', async ($, on) => {
+  const { w } = diskWorld(on, { missing: ['docs/specs/brainstorm'], during: (e, w, d) => { putFile(w, d, BRN_ONE, BRN_TEXT, 1) } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('mkdir -p docs/specs/brainstorm && make') as Any)
+  expect(eventsParsed(w).filter(e => e.wrote === true).map(e => e.path)).toEqual([BRN_ONE])
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' bash: ')).toBe(false)
+})
+
+test('VER-60: a content over 64 KiB is recorded without content', async ($, on) => {
+  const { w } = diskWorld(on, { during: (e, w, d) => { putFile(w, d, BRN_ONE, 'x'.repeat(64 * 1024 + 1), 1) } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('make') as Any)
+  const wrote = eventsParsed(w).filter(e => e.wrote === true)
+  expect(wrote.length).toBe(1)
+  expect(wrote[0].content).toBeUndefined()
+})
+
+test('VER-60: the listings are of the run\'s root joined to each pattern\'s folder, never a bare path', async ($, on) => {
+  const { w } = diskWorld(on)
+  await start($)
+  await load($)
+  await $.tool.call(bash('cd docs/specs/brainstorm && ls') as Any)
+  const lists = w.lists.filter(p => !p.includes('/devforgeai/progress') && !p.endsWith('/skills'))
+  expect([...new Set(lists)].sort()).toEqual([`${ROOT}/devforgeai/drafts/brainstorm`, `${ROOT}/docs/specs/brainstorm`].sort())
+  expect(lists.length).toBe(4)  // each folder before and after
+})
+
+const caller: Plugin = {
+  name: 'caller',
+  register(on) {
+    on('command.run', { command: 'bash-it' }, async $ => {
+      const r = (await $.tool.call({ tool: 'Bash', command: 'make' } as Any)) as Any
+      return { text: r.deny === undefined ? 'ran' : 'denied' }
+    })
+  },
+}
+
+test('VER-60: nothing is listed for a subagent\'s Bash call or another mod\'s', { plugins: [caller] }, async ($, on) => {
+  const { w } = diskWorld(on, { mode: 'enforce local', during: (e, w, d) => { putFile(w, d, BRN_ONE, BRN_TEXT, 1) } })
+  await start($)
+  await load($)
+  await $.tool.call(bash('ls', { agentId: 'a1' }) as Any)
+  expect(((await ($ as Any).command.run({ command: 'bash-it', args: '' })) as Any).text).toBe('ran')
+  expect(w.lists.filter(p => p.endsWith('/brainstorm'))).toEqual([])
+  expect(eventsParsed(w).filter(e => e.wrote === true)).toEqual([])
+})
+
+test('VER-60: an unrecorded turn records no wrote event and lists nothing', async ($, on) => {
+  const r = rWorld($, on, { control: false })
+  const disk: Disk = {}
+  const inner = r.over.tool!
+  r.over.manifests = { brainstorm: BRAINSTORM_MANIFEST }
+  r.over.list = diskList(disk)
+  r.over.tool = (e: Any) => {
+    if (e.tool === 'Bash') { putFile(r.w, disk, BRN_ONE, BRN_TEXT, 5); return { result: 'ok' } }
+    return inner(e)
+  }
+  await start($)
+  await rType($)
+  await rType($, 'precompact')
+  await $.tool.call(bash('make') as Any)
+  expect(logOf(r.w, 'brainstorm', 0).filter(e => e.tool === 'Bash')).toEqual([])
+  expect(r.w.lists.filter(p => p.endsWith('/brainstorm'))).toEqual([])
+})
+
+test('VER-60: once every step is reached, a Bash call lists nothing', async ($, on) => {
+  let state: Any = STATE
+  const { w } = diskWorld(on, { evaluate: () => ({ state }) })
+  await start($)
+  await load($)
+  state = { ...STATE, current: null, steps: STATE.steps.map(s => ({ ...s, state: 'done' })) }
+  await $.tool.call(READ('a.md'))
+  await w.clock.advance(600)
+  await $.tool.call(bash('ls') as Any)
+  expect(w.lists.filter(p => p.endsWith('/brainstorm'))).toEqual([])
+})
+
+const OUTSIDE_FLAG = (path: string): string => `${path} was written by a Bash command, not the Write or Edit tool: write it with the Write tool, so the tracker checks it before it is written`
+
+/** The evaluator's answer for the enforce check: one outside-write flag at each wrote event's seq, the gate at the last. */
+function flaggingWrote(w: () => World): Over['evaluate'] {
+  return (argv: readonly string[]) => {
+    const ev = argv[argv.indexOf('--events') + 1]
+    const lines = (w().files.get(ev) ?? '').split('\n').filter(Boolean).map(l => JSON.parse(l))
+    const wrote = lines.filter(l => l.wrote === true)
+    if (!wrote.length) return { state: STATE }
+    return { state: { ...STATE, flags: wrote.map(l => ({ gate: 'write', seq: l.seq, step: 6, type: 'outside-write', message: OUTSIDE_FLAG(l.path) })),
+      gate: { kind: 'write', seq: wrote[wrote.length - 1].seq, refuse: true, reason: 'x' } } }
+  }
+}
+
+const WROTE_HEAD = (paths: string[]): string => `DevForgeAI's progress tracker (enforce mode): this Bash command wrote ${paths.join(', ')}, which the tracker couldn't check before it was written.`
+const WROTE_TAIL = 'The file stays as written. Write it again with the Write tool, asking the user first for any decision it records.'
+
+test('VER-60: in enforce mode a wrote document with flags gives the model BEH-38\'s text, by the route the switch names, the file left as written', async ($, on) => {
+  let ww!: World
+  const { w } = diskWorld(on, { mode: 'enforce local', evaluate: flaggingWrote(() => ww), during: (e, w, d) => { putFile(w, d, BRN_ONE, BRN_TEXT, 1) } })
+  ww = w
+  await start($)
+  await load($)
+  const r = (await $.tool.call(bash('cd docs/specs/brainstorm && sed -n p ../../../d.md > BRN-001.md') as Any)) as Any
+  const text = `${WROTE_HEAD([BRN_ONE])}\n${OUTSIDE_FLAG(BRN_ONE)}\n${WROTE_TAIL}`
+  if (WROTE_CONTEXT_ROUTE === 'result') {
+    expect(r.context).toEqual([text])
+  } else {
+    expect(r.context).toBeUndefined()
+    await ($ as Any).prompt.submit({ text: 'next', wait: false, origin: { kind: 'composer' } })
+    expect(w.contexts.slice(-1)[0]).toEqual([text])
+  }
+  expect(r.result).toBe('ok')
+  expect(w.files.get(`${ROOT}/${BRN_ONE}`)).toBe(BRN_TEXT)
+  // the evaluation waited for: it read events.jsonl and wrote pending.json, never state.json
+  const evals = w.runs.filter(a => a[2] === 'evaluate')
+  expect(evals.length).toBe(1)
+  expect(evals[0][evals[0].indexOf('--out') + 1].endsWith('/pending.json')).toBe(true)
+})
+
+test('VER-60: a second wrote event\'s flags are found though a later gate point overwrote state.gate', async ($, on) => {
+  let ww!: World
+  const { w } = diskWorld(on, { mode: 'enforce local', evaluate: flaggingWrote(() => ww), during: (e, w, d) => {
+    putFile(w, d, 'docs/specs/brainstorm/BRN-001.md', 'one', 1)
+    putFile(w, d, 'docs/specs/brainstorm/BRN-002.md', 'two', 1)
+  } })
+  ww = w
+  await start($)
+  await load($)
+  const r = (await $.tool.call(bash('make') as Any)) as Any
+  const paths = ['docs/specs/brainstorm/BRN-001.md', 'docs/specs/brainstorm/BRN-002.md']
+  const text = `${WROTE_HEAD(paths)}\n${paths.map(OUTSIDE_FLAG).join('\n')}\n${WROTE_TAIL}`
+  if (WROTE_CONTEXT_ROUTE === 'result') expect(r.context).toEqual([text])
+  else {
+    await ($ as Any).prompt.submit({ text: 'next', wait: false, origin: { kind: 'composer' } })
+    expect(w.contexts.slice(-1)[0]).toEqual([text])
+  }
+})
+
+test('VER-60: a wrote document with no flag adds nothing; observe mode adds nothing; neither writes state.json', async ($, on) => {
+  let ww!: World
+  const a = diskWorld(on, { mode: 'enforce local', evaluate: () => ({ state: STATE }), during: (e, w, d) => { putFile(w, d, BRN_ONE, BRN_TEXT, 1) } })
+  ww = a.w
+  await start($)
+  await load($)
+  const r = (await $.tool.call(bash('make') as Any)) as Any
+  expect(r.context).toBeUndefined()
+  expect(eventsParsed(ww).filter(e => e.wrote === true).length).toBe(1)
+})
+
+test('VER-60: in observe mode the wrote event is recorded and the model is told nothing', async ($, on) => {
+  let ww!: World
+  const { w } = diskWorld(on, { evaluate: flaggingWrote(() => ww), during: (e, w, d) => { putFile(w, d, BRN_ONE, BRN_TEXT, 1) } })
+  ww = w
+  await start($)
+  await load($)
+  const r = (await $.tool.call(bash('make') as Any)) as Any
+  expect(r.context).toBeUndefined()
+  expect(eventsParsed(w).filter(e => e.wrote === true).length).toBe(1)
+  expect(w.runs.filter(a => a[2] === 'evaluate').length).toBe(0)  // the timer evaluates, nothing waits
+  await ww.clock.advance(600)
+  expect(w.runs.filter(a => a[2] === 'evaluate').length).toBe(1)
+})
+
+test('VER-60: an evaluation that fails or times out adds no text and writes an ERR-23 line; the call goes on', async ($, on) => {
+  const { w } = diskWorld(on, { mode: 'enforce local', evaluate: () => ({ deny: 'evaluator unavailable' }), during: (e, w, d) => { putFile(w, d, BRN_ONE, BRN_TEXT, 1) } })
+  await start($)
+  await load($)
+  const r = (await $.tool.call(bash('make') as Any)) as Any
+  expect(r.deny).toBeUndefined()
+  expect(r.context).toBeUndefined()
+  expect(eventsParsed(w).filter(e => e.wrote === true).length).toBe(1)
+  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').some(l => l.includes(' bash: '))).toBe(true)
+})
+
+test('VER-60: when the call\'s answer is a deny the text goes to the next prompt\'s context instead', async ($, on) => {
+  let ww!: World
+  const { w } = diskWorld(on, { mode: 'enforce local', evaluate: flaggingWrote(() => ww), during: (e, w, d) => {
+    putFile(w, d, BRN_ONE, BRN_TEXT, 1)
+    return { deny: 'refused by a settings hook' }
+  } })
+  ww = w
+  await start($)
+  await load($)
+  const r = (await $.tool.call(bash('make') as Any)) as Any
+  expect(r.deny).toBe('refused by a settings hook')
+  await ($ as Any).prompt.submit({ text: 'next', wait: false, origin: { kind: 'composer' } })
+  expect(w.contexts.slice(-1)[0]).toEqual([`${WROTE_HEAD([BRN_ONE])}\n${OUTSIDE_FLAG(BRN_ONE)}\n${WROTE_TAIL}`])
+  await ($ as Any).prompt.submit({ text: 'again', wait: false, origin: { kind: 'composer' } })
+  expect(w.contexts.slice(-1)[0]).toEqual([])  // once
+})
+
+// ---- BEH-39: the state stated on continuing (VER-61) ----
+
+const DRAFT = 'devforgeai/drafts/brainstorm/old.md'
+const FORM_ANSWER = (step: number, questions: Any[], answered = true): Any => ({ kind: 'answer', answered, step, questions })
+const FORM_OF = (n: number, previews = true): Any => ({
+  question: `Which way ${n}?`, header: `H${n}`, multiSelect: false,
+  options: [{ label: 'A', description: `first ${n}`, ...(previews ? { preview: 'line one\nline two' } : {}) }, { label: 'B' }],
+})
+const FORMS_TEXT = (step: number, qs: Any[]): string => {
+  const out: string[] = []
+  qs.forEach((q, i) => {
+    out.push(`Q${i + 1}. ${q.question} [${q.header}]`)
+    for (const o of q.options) {
+      out.push(`- ${o.label}${o.description ? `: ${o.description}` : ''}`)
+      if (o.preview) for (const l of String(o.preview).split('\n')) out.push(`    ${l}`)
+    }
+  })
+  return ` The questions last shown at step ${step} (Claude's proposals, not the user's answers):\n${out.join('\n')}`
+}
+const DRAFT_TEXT = (p = DRAFT): string => ` Its draft is ${p}: load it, keep saving to that path, and keep what it holds (its items, scores and IDs); what it proposes is not yet the user's decision.`
+const ASK_TEXT = (step: number, withForms: boolean, title = `Step ${step}`): string =>
+  ` Step ${step} (${title}) is the user's decision: ask it, marking it in progress and tagging the question with it${withForms ? ', with the proposals in the questions below' : ''}.`
+const withDraft = (state: Any, due = false, files: string[] = [DRAFT]): Any => ({ ...state, workFiles: { files, due } })
+const WHEN_5 = 'ended at step 5 of 8 on 2026-09-30 (session end)'
+
+test('VER-61: a brainstorm run stopped at step 5 after its tagged question, a work file written and no BRN: the line has the draft, the ask and the forms; the new run carries draft', async ($, on) => {
+  const q = [FORM_OF(1), FORM_OF(2)]
+  const r = rWorld($, on, { files: { [`${ROOT}/${DRAFT}`]: 'draft' }, earlier: [rBrn(5, { writes: [{ path: DRAFT }], extra: [FORM_ANSWER(5, q)],
+    state: withDraft(rReach('brainstorm', [1, 2, 3, 4])) })] })
+  await start($)
+  await rType($)
+  rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when: WHEN_5, carried: [1, 2, 3, 4], step: 5, files: [DRAFT], draft: DRAFT_TEXT(),
+    ask: ASK_TEXT(5, true), forms: FORMS_TEXT(5, q) }))
+  expect(rNew(r)).toMatchObject({ resumes: r.ids[0], carried: [1, 2, 3, 4], draft: DRAFT })
+})
+
+test('VER-61: the new run\'s skill-loaded event has draft after answered, in DM-02\'s order', async ($, on) => {
+  const r = rWorld($, on, { files: { [`${ROOT}/${DRAFT}`]: 'draft' }, earlier: [rBrn(5, { writes: [{ path: DRAFT }], extra: [FORM_ANSWER(5, [FORM_OF(1)])],
+    state: withDraft(rReach('brainstorm', [1, 2, 3, 4])) })] })
+  await start($)
+  await rType($)
+  const keys = Object.keys(rNew(r))
+  expect(keys.slice(keys.indexOf('resumes'))).toEqual(['resumes', 'carried', 'answered', 'draft'])
+})
+
+test('VER-61: that run ended with no save and was continued again: the third line names the same draft', async ($, on) => {
+  const q = [FORM_OF(1)]
+  const r = rWorld($, on, { files: { [`${ROOT}/${DRAFT}`]: 'draft' }, earlier: [rBrn(5, { writes: [{ path: DRAFT }], extra: [FORM_ANSWER(5, q)],
+    state: withDraft(rReach('brainstorm', [1, 2, 3, 4])) })],
+    // the second run's evaluation lists the carried draft first (SPEC-012 BEH-21), due false
+    stateOf: (skill: string) => (skill === 'brainstorm' ? withDraft(rReach('brainstorm', [1, 2, 3, 4])) : undefined) })
+  await start($)
+  await rType($)
+  await ($ as Any).session.end({ reason: 'session-end', sessionId: 's1', resume: { id: 's1' } })
+  await start($)
+  await rType($)
+  const loaded = logOf(r.w, 'brainstorm', 1)[0]
+  expect(loaded.resumes).not.toBe(r.ids[0])
+  expect(loaded.draft).toBe(DRAFT)
+  expect(r.texts[1]).toContain(DRAFT_TEXT())
+})
+
+test('VER-61: forms over 8 KiB give the pointer sentence and an ask without the proposals', async ($, on) => {
+  const big = { ...FORM_OF(1), options: [{ label: 'A', description: 'd'.repeat(9000) }] }
+  const r = rWorld($, on, { earlier: [rBrn(5, { extra: [FORM_ANSWER(5, [big])] })] })
+  await start($)
+  await rType($)
+  const pointer = ` The questions last shown at step 5 are in devforgeai/progress/runs/${r.ids[0]}/events.jsonl, on the events of kind answer with step 5 (field questions).`
+  rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when: WHEN_5, carried: [1, 2, 3, 4], step: 5, ask: ASK_TEXT(5, false), forms: pointer }))
+})
+
+test('VER-61: forms of exactly 8 KiB are inlined', async ($, on) => {
+  const base = FORMS_TEXT(5, [{ ...FORM_OF(1), options: [{ label: 'A', description: '' }] }])
+  const pad = 8 * 1024 - new TextEncoder().encode(base).length
+  const q = { ...FORM_OF(1), options: [{ label: 'A', description: 'd'.repeat(pad + 0) }] }
+  const text = FORMS_TEXT(5, [q])
+  const extra = new TextEncoder().encode(text).length - 8 * 1024
+  const exact = { ...q, options: [{ label: 'A', description: 'd'.repeat(pad - extra) }] }
+  const r = rWorld($, on, { earlier: [rBrn(5, { extra: [FORM_ANSWER(5, [exact])] })] })
+  expect(new TextEncoder().encode(FORMS_TEXT(5, [exact])).length).toBe(8 * 1024)
+  await start($)
+  await rType($)
+  rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when: WHEN_5, carried: [1, 2, 3, 4], step: 5, ask: ASK_TEXT(5, true), forms: FORMS_TEXT(5, [exact]) }))
+})
+
+test('VER-61: the work file deleted, or $.fs.exists rejecting for it: no draft, and the new run carries none', async ($, on) => {
+  const state = withDraft(rReach('brainstorm', [1, 2, 3, 4]))
+  const gone = rWorld($, on, { earlier: [rBrn(5, { writes: [{ path: DRAFT }], extra: [FORM_ANSWER(5, [FORM_OF(1)])], state })] })
+  await start($)
+  await rType($)
+  expect(gone.texts[0]).not.toContain('Its draft is')
+  expect(rNew(gone).draft).toBeUndefined()
+})
+
+test('VER-61: $.fs.exists rejecting for the work file counts as missing', async ($, on) => {
+  const state = withDraft(rReach('brainstorm', [1, 2, 3, 4]))
+  const r = rWorld($, on, { files: { [`${ROOT}/${DRAFT}`]: 'draft' }, earlier: [rBrn(5, { writes: [{ path: DRAFT }], extra: [FORM_ANSWER(5, [FORM_OF(1)])], state })] })
+  r.over.failExists = (p: string) => p.endsWith(DRAFT)
+  await start($)
+  await rType($)
+  expect(r.texts[0]).not.toContain('Its draft is')
+  expect(rNew(r).draft).toBeUndefined()
+})
+
+test('VER-61: a run whose BRN validated (due true, stopped at step 7): no draft and no ask for step 5', async ($, on) => {
+  const r = rWorld($, on, { files: { [`${ROOT}/${DRAFT}`]: 'draft' }, earlier: [rBrn(7, { writes: [BRN, { path: DRAFT }], extra: [FORM_ANSWER(5, [FORM_OF(1)])],
+    state: withDraft(rReach('brainstorm', [1, 2, 3, 4, 5, 6]), true) }, [1, 2, 3, 4, 5, 6])] })
+  await start($)
+  await rType($)
+  expect(r.texts[0]).not.toContain('Its draft is')
+  expect(r.texts[0]).not.toContain("is the user's decision: ask it")
+  expect(r.texts[0]).not.toContain('The questions last shown')
+})
+
+test('VER-61: a run stopped at step 4 that wrote its draft (due false): the draft is named, no ask', async ($, on) => {
+  const r = rWorld($, on, { files: { [`${ROOT}/${DRAFT}`]: 'draft' }, earlier: [rBrn(4, { writes: [{ path: DRAFT }], state: withDraft(rReach('brainstorm', [1, 2, 3])) })] })
+  await start($)
+  await rType($)
+  rExpectLine(r.texts[0], rLineOf({ id: r.ids[0], when: 'ended at step 4 of 8 on 2026-09-30 (session end)', carried: [1, 2, 3], step: 4, files: [DRAFT], draft: DRAFT_TEXT() }))
+  expect(rNew(r).draft).toBe(DRAFT)
+})
+
+test('VER-61: the draft is the last of the work files', async ($, on) => {
+  const second = 'devforgeai/drafts/brainstorm/two.md'
+  const r = rWorld($, on, { files: { [`${ROOT}/${second}`]: 'draft' }, earlier: [rBrn(4, { state: withDraft(rReach('brainstorm', [1, 2, 3]), false, [DRAFT, second]) })] })
+  await start($)
+  await rType($)
+  expect(r.texts[0]).toContain(DRAFT_TEXT(second))
+  expect(rNew(r).draft).toBe(second)
+})
+
+test('VER-61: a step 5 answered by a typed prompt, or while it was still marked in progress, is asked all the same', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(5, { extra: [FORM_ANSWER(5, [FORM_OF(1)])], state: rReach('brainstorm', [1, 2, 3, 4, 5]) }, [1, 2, 3, 4, 5])] })
+  await start($)
+  await rType($)
+  expect(r.texts[0]).toContain(ASK_TEXT(5, true))
+})
+
+test('VER-61: an earlier run whose waiver is proceed has no ask; a run continued at step 4 has none', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(5, { extra: [FORM_ANSWER(5, [FORM_OF(1)])], state: { ...rReach('brainstorm', [1, 2, 3, 4]), waiver: 'proceed' } })] })
+  await start($)
+  await rType($)
+  expect(r.texts[0]).not.toContain("is the user's decision: ask it")
+})
+
+test('VER-61: a run with no answer event tagged for the step has no forms, and its ask doesn\'t promise the proposals', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(5, { extra: [FORM_ANSWER(3, [FORM_OF(1)]), { kind: 'answer', answered: true, step: 5 }] })] })
+  await start($)
+  await rType($)
+  expect(r.texts[0]).toContain(ASK_TEXT(5, false))
+  expect(r.texts[0]).not.toContain('The questions last shown')
+  expect(r.texts[0]).not.toContain('are in devforgeai/progress/runs/' + r.ids[0] + '/events.jsonl, on the events')
+})
+
+test('VER-61: an architecture run continued at step 7 has the ask and its last form, and no draft', async ($, on) => {
+  const first = FORM_OF(1)
+  const last = FORM_OF(2)
+  const r = rWorld($, on, { earlier: [{ skill: 'architecture', end: 'session-end', marked: 7, state: rReach('architecture', [1, 2, 3, 4, 5, 6]),
+    extra: [FORM_ANSWER(7, [first]), FORM_ANSWER(7, [last])] }] })
+  await start($)
+  await rType($, 'architecture')
+  const text = r.texts[0]
+  expect(text).toContain(ASK_TEXT(7, true))
+  expect(text.endsWith(FORMS_TEXT(7, [last]))).toBe(true)
+  expect(text).not.toContain('Which way 1?')
+  expect(text).not.toContain('Its draft is')
+})
+
+test('VER-61: a wrote event\'s path is among the files the question and the line name', async ($, on) => {
+  const r = rWorld($, on, { earlier: [rBrn(7, { extra: [{ kind: 'tool', tool: 'Bash', path: BRN, command: 'x', exit: 0, error: false, wrote: true, content: 'c' },
+    { kind: 'tool', tool: 'Bash', path: 'docs/failed.md', command: 'x', exit: 0, error: true, wrote: true }] }, [1, 2, 3, 4, 5, 6])] })
+  await start($)
+  await rType($)
+  expect(r.asked.map(a => a.question)).toEqual([rQuestion('brainstorm', 'ended at step 7 of 8 on 2026-09-30 (session end)', BRN)])
 })

@@ -1,4 +1,4 @@
-// The progress tracker adapter's $.state contract (SPEC-013 v14 DM-03). $.state survives a reload of the module
+// The progress tracker adapter's $.state contract (SPEC-013 v22 DM-03). $.state survives a reload of the module
 // and empties on /clear, /resume and /branch; whether the session is interactive and the evaluation timer are
 // module variables instead (BEH-01, BEH-06).
 
@@ -57,6 +57,9 @@ export type ProgressReturned = {
   reason: 'returned' | 'stopped'
 }
 
+/** The documents a Bash call wrote that were recorded, by run ID and path, with their size and mtimeMs as listed (BEH-38 (b); version 22). */
+export type ProgressWroteSeen = { [run: string]: { [path: string]: string } }
+
 export type ProgressMode = 'observe' | 'enforce'
 
 export type ProgressModeSource = 'framework-default' | 'local'
@@ -91,6 +94,13 @@ declare module 'claude-code' {
       trail: ProgressPaused[]
       /** Runs that ended returned or stopped while nested, for the turn's review (BEH-30; version 14). */
       returned: ProgressReturned[]
+      /** The runs whose work files cleanup has started, at most once per run (SPEC-013 BEH-32; version 20). */
+      cleaned: string[]
+      /** For each of the last 20 runs, the documents a Bash call wrote that were recorded, by path, with their size and mtimeMs as
+       *  listed, so an unchanged recorded file isn't recorded twice (SPEC-013 BEH-38 (b); version 22). */
+      wroteSeen: ProgressWroteSeen
+      /** The run whose last evaluation closed BEH-38's window (every step reached, ended, or its validator's step done), or null (version 22). */
+      closedFor: string | null
     }
   }
 }

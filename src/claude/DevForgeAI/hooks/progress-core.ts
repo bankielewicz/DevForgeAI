@@ -12,12 +12,18 @@ export const LOG_LIMIT = 4 * 1024 * 1024
 export const IDLE_MS = 30 * 60 * 1000
 export const FORMAT = 'devforgeai-events/1'
 
+/** How BEH-38 (b)'s enforce-mode text reaches the model (the P14 switch, SPEC-013 version 22): 'result' adds it to the context
+ *  of the Bash call's own result, which probe P14 showed a tool.call hook can do after next(e) (Claude Code 2.1.291,
+ *  2026-10-06); 'prompt' gives it to the context of the user's next prompt instead, as BEH-09's report does. The result
+ *  route falls back to the prompt when the call's answer is a deny, which can't carry context. */
+export const WROTE_CONTEXT_ROUTE: 'result' | 'prompt' = 'result'
+
 // Each kind's fields in SPEC-012 DM-02's order, after run, seq, time and kind. The order is fixed here so an
 // event line is the same bytes whichever code built it (VER-04 compares lines byte for byte).
 const ORDER: Record<string, readonly string[]> = {
-  'skill-loaded': ['format', 'skill', 'checklist', 'host', 'taskList', 'mode', 'modeSource', 'resumes', 'carried', 'answered'],
-  tool: ['tool', 'path', 'command', 'exit', 'error', 'content'],
-  answer: ['answered', 'step', 'outside', 'waiver'],
+  'skill-loaded': ['format', 'skill', 'checklist', 'host', 'taskList', 'mode', 'modeSource', 'resumes', 'carried', 'answered', 'draft'],
+  tool: ['tool', 'path', 'command', 'exit', 'error', 'content', 'wrote'],
+  answer: ['answered', 'step', 'outside', 'waiver', 'questions'],
   prompt: [],
   reply: ['text'],
   turn: ['phase'],
@@ -163,6 +169,38 @@ export function keptContent(content: string | null | undefined, logBytes: number
   return content
 }
 
+/** The form of an AskUserQuestion call as the record keeps it (BEH-37; version 22): for each of the input's questions, in order,
+ *  its question, header, multiSelect and options (each option's label, description and preview), a field only when the input
+ *  has it with that type, and nothing else: the newer shapes' fields and the result's answers are never copied. A question
+ *  with no string question, and an option with no string label, is skipped (DM-02 requires them). Undefined when nothing
+ *  is left, when the record would pass 64 KiB of UTF-8 as JSON, or when the log has passed 3 MiB (ERR-11): dropped whole. */
+export function formOf(input: Fields, logBytes: number): Fields[] | undefined {
+  const raw = input.questions
+  if (!Array.isArray(raw) || logBytes >= LOG_CONTENT_LIMIT) return undefined
+  const out: Fields[] = []
+  for (const q of raw) {
+    if (q === null || typeof q !== 'object' || Array.isArray(q)) continue
+    const x = q as Fields
+    if (typeof x.question !== 'string') continue
+    const item: Fields = { question: x.question }
+    if (typeof x.header === 'string') item.header = x.header
+    if (typeof x.multiSelect === 'boolean') item.multiSelect = x.multiSelect
+    if (Array.isArray(x.options)) {
+      item.options = x.options.flatMap((o: unknown) => {
+        if (o === null || typeof o !== 'object' || Array.isArray(o) || typeof (o as Fields).label !== 'string') return []
+        const y = o as Fields
+        const opt: Fields = { label: y.label }
+        if (typeof y.description === 'string') opt.description = y.description
+        if (typeof y.preview === 'string') opt.preview = y.preview
+        return [opt]
+      })
+    }
+    out.push(item)
+  }
+  if (!out.length || byteSize(JSON.stringify(out)) > CONTENT_LIMIT) return undefined
+  return out
+}
+
 /** The text of a response row: its text blocks joined by newlines; none for a row without text (§9, P7). */
 export function replyText(content: unknown): string {
   if (typeof content === 'string') return content
@@ -198,6 +236,10 @@ export type ProgressState = {
   gate: { kind: string | null; seq: number | null; refuse: boolean; reason: string | null }
   manifest: { state: ProgressSummary['manifest'] }
   counts?: { stepEvents?: number; unmarkedQuestions?: number }
+  /** Version 15: present when the run's manifest names workFiles (SPEC-012 BEH-21, DM-03). */
+  workFiles?: { files?: unknown; due?: unknown }
+  /** The user's answer to the waiver question, when one was answered (SPEC-012 DM-03, version 11). */
+  waiver?: string | null
 }
 
 /** The summary the status line and the band draw (DM-03). */
@@ -737,6 +779,7 @@ const QUESTION_GATE_TYPES = new Set(['unmarked-question', 'untagged-question', '
  *  user-owned, never by message text: the task list for a question gate, the decision for a user-owned step's skipped
  *  flag or a rule-broken one, and otherwise the step's evidence. */
 export function stuckAdvice(type: string, userOwned: boolean): string {
+  if (type === OUTSIDE_WRITE_TYPE) return OUTSIDE_ADVICE
   if (QUESTION_GATE_TYPES.has(type)) {
     return "Help Claude bring its task list in step, or switch to observe mode with the band's button."
   }
@@ -828,6 +871,13 @@ const WHY: Record<string, string> = {
 export type ResumePlan = {
   run: string; step: number; steps: number; carried: number[]; answered: number[]; owned: number[]; files: string[]
   when: string
+  /** BEH-39 (version 22): the work file to continue in when it still exists (the adapter checks that), else null. */
+  draft: string | null
+  /** The draft the state names, before the adapter has checked that it exists. */
+  draftCandidate: string | null
+  /** BEH-39's <ask> and <forms>: ready-made text, '' for nothing. */
+  ask: string
+  forms: string
 }
 
 /** A step is reached when it has evidence other than waiver evidence, or a done claim (BEH-31; SPEC-012 BEH-07). */
@@ -899,15 +949,66 @@ export function resumePlan(run: string, state: ProgressState, lines: readonly st
     if (e.kind === 'run-end' && typeof e.reason === 'string' && ended === null) ended = e.reason
     // A path is shown in the dialog and Claude's text: one line of it (review note).
     const path = typeof e.path === 'string' ? e.path.replace(/[\u0000-\u001f\u007f]+/g, ' ') : null
-    if (e.kind === 'tool' && (e.tool === 'Write' || e.tool === 'Edit') && e.error !== true && path !== null
+    if (e.kind === 'tool' && (e.tool === 'Write' || e.tool === 'Edit' || e.wrote === true) && e.error !== true && path !== null
       && !files.includes(path)) files.push(path)
   }
   const of = `step ${step} of ${steps.length}`
   const when = ended !== null
     ? `ended at ${of} on ${(lastTime ?? '').slice(0, 10)} (${WHY[ended] ?? ended})`
     : `was at ${of} with no end recorded, its last event ${ageText(now - Date.parse(lastTime ?? ''))} ago (it may still be open in another session)`
+  const forms = formsText(run, step, lines)
+  const decision = steps.find(s => s.n === step)
+  const ask = decision?.userOwned === true && state.waiver !== 'proceed'
+    ? ` Step ${step} (${decision.title}) is the user's decision: ask it, marking it in progress and tagging the question with it`
+      + `${forms.inline ? ', with the proposals in the questions below' : ''}.`
+    : ''
   return { run, step, steps: steps.length, carried, answered, owned: owned.map(s => s.n).filter(n => !answered.includes(n)),
-    files, when }
+    files, when, draft: null, draftCandidate: draftCandidate(state, step, writeGate), ask, forms: forms.text }
+}
+
+/** The work file BEH-39's <draft> names, before it is known to exist: the last of the state's workFiles.files while due is
+ *  false, when the step to continue at is at or before the step with the write gate; null otherwise. A path that isn't a
+ *  project-relative one, as the evaluator lists them, is never one. */
+export function draftCandidate(state: ProgressState, step: number, writeGate: number | null): string | null {
+  const w = state.workFiles
+  if (typeof w !== 'object' || w === null || w.due !== false || !Array.isArray(w.files) || writeGate === null || step > writeGate) return null
+  const last = w.files[w.files.length - 1]
+  if (typeof last !== 'string' || last === '' || last.startsWith('/') || last.split('/').some(p => p === '' || p === '.' || p === '..')) return null
+  return last
+}
+
+const FORMS_LIMIT = 8 * 1024
+
+/** BEH-39's <forms>: the questions of the last answer event of the run whose step is `step` and that carries questions,
+ *  rendered inline, or one sentence pointing at them when the rendering passes 8 KiB; nothing when there is no such event.
+ *  `inline` is true when the questions themselves are in the text. */
+export function formsText(run: string, step: number, lines: readonly string[]): { text: string; inline: boolean } {
+  let found: unknown[] | null = null
+  for (const line of lines) {
+    let e: Fields
+    try {
+      e = JSON.parse(line) as Fields
+    } catch {
+      continue
+    }
+    if (e.kind === 'answer' && e.step === step && Array.isArray(e.questions) && e.questions.length) found = e.questions
+  }
+  if (found === null) return { text: '', inline: false }
+  const out: string[] = []
+  found.forEach((q, i) => {
+    if (q === null || typeof q !== 'object') return
+    const x = q as Fields
+    out.push(`Q${i + 1}. ${String(x.question)}${typeof x.header === 'string' ? ` [${x.header}]` : ''}`)
+    for (const o of Array.isArray(x.options) ? x.options : []) {
+      if (o === null || typeof o !== 'object') continue
+      const y = o as Fields
+      out.push(`- ${String(y.label)}${typeof y.description === 'string' && y.description !== '' ? `: ${y.description}` : ''}`)
+      if (typeof y.preview === 'string' && y.preview !== '') for (const l of y.preview.split('\n')) out.push(`    ${l}`)
+    }
+  })
+  const text = ` The questions last shown at step ${step} (Claude's proposals, not the user's answers):\n${out.join('\n')}`
+  if (byteSize(text) <= FORMS_LIMIT) return { text, inline: true }
+  return { text: ` The questions last shown at step ${step} are in devforgeai/progress/runs/${run}/events.jsonl, on the events of kind answer with step ${step} (field questions).`, inline: false }
 }
 
 /** BEH-31's question. */
@@ -923,6 +1024,302 @@ export function resumeLine(skill: string, plan: ResumePlan): string {
   return `This run continues the earlier ${skill} run ${plan.run}, which ${plan.when}. Steps ${stepList(plan.carried)} are `
     + `carried over: the tracker counts them reached. Create the task list with those steps' tasks completed, mark step `
     + `${plan.step} in progress, and continue at step ${plan.step}.${owned} Files it wrote: `
-    + `${plan.files.length ? plan.files.join(', ') : 'nothing'}. Its replies are in devforgeai/progress/runs/${plan.run}/`
-    + `events.jsonl, the events of kind reply: use them to show the user what was proposed, never as a decision.`
+    + `${plan.files.length ? plan.files.join(', ') : 'nothing'}.${plan.draft === null ? '' : draftSentence(plan.draft)} Its replies and questions are in `
+    + `devforgeai/progress/runs/${plan.run}/events.jsonl, the events of kind reply and answer: use them to show the user what `
+    + `was proposed, never as a decision.${plan.ask}${plan.forms}`
+}
+
+/** BEH-39's <draft>: the sentence that names the work file to continue in. */
+export function draftSentence(path: string): string {
+  const shown = path.replace(/[\u0000-\u001f\u007f]+/g, ' ')
+  return ` Its draft is ${shown}: load it, keep saving to that path, and keep what it holds (its items, scores and IDs); `
+    + `what it proposes is not yet the user's decision.`
+}
+
+// ---- The work files' cleanup (BEH-32, IF-05; version 20) ----
+
+/** A run ID as run folders are named (SPEC-012's pattern): the only shape the adapter lets into a path. */
+const RUN_ID = /^[0-9]{8}T[0-9]{6}Z-[a-z][a-z0-9-]*-[0-9a-f]{8}$/
+
+/** Whether an evaluation says the run's work files are due (SPEC-012 BEH-21: workFiles.due is true). */
+export function workFilesDue(state: ProgressState): boolean {
+  const w = state.workFiles
+  return typeof w === 'object' && w !== null && !Array.isArray(w) && w.due === true
+}
+
+/** The paths of a state's workFiles.files that the adapter passes on: the non-empty strings and nothing else, in order.
+ *  A state.json is a file the model's tools can write, so whatever isn't a list gives none; prune.py judges the paths
+ *  themselves (ERR-20). */
+export function workFilePaths(state: unknown): string[] {
+  if (typeof state !== 'object' || state === null || Array.isArray(state)) return []
+  const w = (state as { workFiles?: unknown }).workFiles
+  if (typeof w !== 'object' || w === null || Array.isArray(w)) return []
+  const files = (w as { files?: unknown }).files
+  return Array.isArray(files) ? files.filter((f): f is string => typeof f === 'string' && f !== '') : []
+}
+
+/** Why a continued run's state.json gives no work files, or null when it names a workFiles object (ERR-19). */
+export function workFilesProblem(state: unknown): string | null {
+  if (typeof state !== 'object' || state === null || Array.isArray(state)) return 'its state is not an object'
+  const w = (state as { workFiles?: unknown }).workFiles
+  if (w === undefined) return 'its state has no workFiles'
+  if (typeof w !== 'object' || w === null || Array.isArray(w)) return 'its workFiles is not an object'
+  return null
+}
+
+/** IF-05's argv (BEH-32): every path once, in the order given across the lists, each as one --file=<path> token, so a
+ *  path that begins with - is a value and never an option. */
+export function removeArgv(python: string, plugin: string, root: string, ...lists: readonly (readonly string[])[]): string[] {
+  const paths = [...new Set(lists.flat().filter(p => typeof p === 'string' && p !== ''))]
+  return [python, `${plugin}/progress/prune.py`, 'remove', '--root', root, '--manifests', `${plugin}/progress/manifests`,
+    ...paths.map(p => `--file=${p}`)]
+}
+
+/** The run a run's skill-loaded line says it continues (BEH-31), when it is shaped as a run ID. */
+export function resumesOf(line: string | undefined): string | null {
+  if (line === undefined) return null
+  try {
+    const v = (JSON.parse(line) as { resumes?: unknown }).resumes
+    return typeof v === 'string' && RUN_ID.test(v) ? v : null
+  } catch {
+    return null
+  }
+}
+
+// ---- Bash writes (BEH-38; version 22) ----
+
+/** The refused entry's type and BEH-25's advice for it (BEH-38 (a)). */
+export const OUTSIDE_WRITE_TYPE = 'outside-write'
+export const OUTSIDE_ADVICE = "Ask Claude to write the document with the Write tool, or switch to observe mode with the band's button."
+
+/** What a run's manifests make gated (BEH-38): the write rules (pattern and the step each belongs to), the patterns of the
+ *  script rules, the steps with a script rule of target written, and the work-file patterns, across the plugin, organization
+ *  and project layers (their union). */
+export type Gated = { writes: { step: number; pattern: string }[]; scripts: string[]; scriptSteps: number[]; workFiles: string[] }
+
+/** The gated rules of the manifests' parsed JSON (the layers' files); anything that isn't the expected shape adds nothing. */
+export function gatedOf(manifests: readonly unknown[]): Gated {
+  const g: Gated = { writes: [], scripts: [], scriptSteps: [], workFiles: [] }
+  for (const m of manifests) {
+    if (m === null || typeof m !== 'object') continue
+    const steps = (m as Fields).steps
+    if (steps !== null && typeof steps === 'object' && !Array.isArray(steps)) {
+      for (const [key, step] of Object.entries(steps as Fields)) {
+        const n = Number(key)
+        const evidence = step !== null && typeof step === 'object' ? (step as Fields).evidence : undefined
+        if (!Array.isArray(evidence) || !Number.isInteger(n)) continue
+        for (const rule of evidence) {
+          if (rule === null || typeof rule !== 'object' || typeof (rule as Fields).pattern !== 'string') continue
+          const r = rule as Fields
+          const pattern = r.pattern as string
+          if (r.type === 'write' && !g.writes.some(w => w.step === n && w.pattern === pattern)) g.writes.push({ step: n, pattern })
+          if (r.type === 'script') {
+            if (!g.scripts.includes(pattern)) g.scripts.push(pattern)
+            if (r.target === 'written' && !g.scriptSteps.includes(n)) g.scriptSteps.push(n)
+          }
+        }
+      }
+    }
+    const work = (m as Fields).workFiles
+    if (Array.isArray(work)) for (const p of work) if (typeof p === 'string' && !g.workFiles.includes(p)) g.workFiles.push(p)
+  }
+  return g
+}
+
+/** Python's fnmatch.fnmatchcase (the evaluator's matching): * is any run of characters, / included, ? one character,
+ *  [seq] and [!seq] a class. */
+export function fnmatchcase(name: string, pattern: string): boolean {
+  let re = ''
+  for (let i = 0; i < pattern.length; i++) {
+    const c = pattern[i]
+    if (c === '*') re += '[\\s\\S]*'
+    else if (c === '?') re += '[\\s\\S]'
+    else if (c === '[') {
+      let j = i + 1
+      if (pattern[j] === '!') j += 1
+      if (pattern[j] === ']') j += 1
+      while (j < pattern.length && pattern[j] !== ']') j += 1
+      if (j >= pattern.length) re += '\\['
+      else {
+        let set = pattern.slice(i + 1, j).replace(/\\/g, '\\\\')
+        if (set[0] === '!') set = '^' + set.slice(1)
+        else if (set[0] === '^') set = '\\' + set
+        re += `[${set}]`
+        i = j
+      }
+    } else re += c.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')
+  }
+  try {
+    return new RegExp(`^${re}$`).test(name)
+  } catch {
+    return false
+  }
+}
+
+/** evaluate.py's path_matches: a pattern ending in / means anything inside that folder. */
+export function pathMatches(path: string, pattern: string): boolean {
+  if (pattern.endsWith('/')) return path.startsWith(pattern) || path === pattern.slice(0, -1)
+  return fnmatchcase(path, pattern)
+}
+
+/** A project-relative path against a rule's pattern: one starting with / or ../ matches none (SPEC-012 BEH-06). */
+export function ruleMatches(path: string, pattern: string): boolean {
+  return !path.startsWith('/') && !path.startsWith('../') && pathMatches(path, pattern)
+}
+
+const INTERPRETERS = ['python', 'python3', 'bash', 'sh', 'node']
+const PYTHON_N = /^python3\.[0-9]+$/
+const ENV_WORD = /^[A-Za-z_][A-Za-z0-9_]*=/
+
+/** The last path segment as Python's PurePosixPath(word).name gives it. */
+function baseName(word: string): string {
+  const p = word.replace(/\/+$/, '')
+  const name = p.slice(p.lastIndexOf('/') + 1)
+  return name === '.' ? '' : name
+}
+
+/** evaluate.py's script_word: the word of one part of a command that names the script a script rule's pattern matches, when
+ *  that part runs it: its first word after any NAME=value words has a file name matching the pattern, or is an interpreter
+ *  whose first word after it not starting with - does. Words are taken as written, quotes included. */
+export function scriptWord(part: string, pattern: string): string | null {
+  const words = part.split(/\s+/).filter(Boolean)
+  let i = 0
+  while (i < words.length && ENV_WORD.test(words[i])) i += 1
+  if (i === words.length) return null
+  const name = baseName(words[i])
+  if (fnmatchcase(name, pattern)) return words[i]
+  if (INTERPRETERS.includes(name) || PYTHON_N.test(name)) {
+    for (const word of words.slice(i + 1)) {
+      if (!word.startsWith('-')) return fnmatchcase(baseName(word), pattern) ? word : null
+    }
+  }
+  return null
+}
+
+/** A command's parts as BEH-38 (a) splits them: at &&, ||, ;, | and line breaks (a backslash line continuation joins nothing;
+ *  the | of a >| redirection is no split). */
+export function commandParts(command: string): string[] {
+  return command.replace(/\\\n/g, ' ').split(/&&|\|\||;|(?<!>)\||\n/)
+}
+
+/** Whether some part of the command runs a script the pattern matches, by evaluate.py's reading of a part. */
+export function runsScript(command: string, pattern: string): boolean {
+  return commandParts(command).some(part => scriptWord(part, pattern) !== null)
+}
+
+const REDIRECT = /^(?:[0-9]>>|[0-9]>|>\||>>|&>|>|<)/
+
+/** A word of a command as BEH-38 (a) reads it: SPEC-012 BEH-06's read token (every quote character removed, the characters
+ *  ; ( ) stripped from both ends, a leading ./ removed, the root and its / removed), with a leading redirection removed first
+ *  and repeated slashes collapsed. */
+export function pathToken(word: string, root: string): string {
+  const edge = (t: string) => t.replace(/^[;()]+/, '').replace(/[;()]+$/, '')
+  let token = edge(word.replace(/['"]/g, '')).replace(REDIRECT, '')
+  token = edge(token).replace(/\/{2,}/g, '/')
+  while (token.startsWith('./')) token = token.slice(2)
+  const r = root.replace(/\/+$/, '')
+  if (token.startsWith(r + '/')) token = token.slice(r.length + 1)
+  while (token.startsWith('./')) token = token.slice(2)
+  return token
+}
+
+/** BEH-38 (a): the first word of the command that names a document the run writes at its write gate (the token, and the
+ *  step of the write rule it matches), skipping the words of a part that runs one of the manifest's script rules' scripts;
+ *  null when none. */
+export function outsideWord(command: string, g: Gated, root: string): { word: string; step: number } | null {
+  for (const part of commandParts(command)) {
+    if (g.scripts.some(p => scriptWord(part, p) !== null)) continue
+    for (const word of part.split(/\s+/).filter(Boolean)) {
+      const token = pathToken(word, root)
+      if (token === '') continue
+      const rule = g.writes.find(w => ruleMatches(token, w.pattern))
+      if (rule !== undefined) return { word: token, step: rule.step }
+    }
+  }
+  return null
+}
+
+/** The first sentence of BEH-38 (a)'s text, which is the refused entry's message (without its final period, since the stuck
+ *  notice adds one). */
+export function outsideMessage(word: string): string {
+  return `DevForgeAI's progress tracker refused this Bash command (enforce mode): it names ${word}, a document this run writes at `
+    + `its write gate, and a Bash command's writes can't be checked before they happen`
+}
+
+/** BEH-38 (a)'s refusal text. */
+export function outsideRefusal(word: string): string {
+  return `${outsideMessage(word)}. To write or edit it, use the Write or Edit tool; to read it, use the Read or Grep tool.`
+}
+
+/** The folder BEH-38 (b) lists for a pattern: its text up to the last / before its first wildcard ('' is the root), or null
+ *  for a pattern with a wildcard before its last /. */
+export function folderOf(pattern: string): string | null {
+  const w = pattern.search(/[*?[]/)
+  if (w >= 0 && pattern.slice(w).includes('/')) return null
+  const head = w < 0 ? pattern : pattern.slice(0, w)
+  return head.slice(0, head.lastIndexOf('/') + 1)
+}
+
+/** The folder of a project-relative file path, with its trailing / ('' for the root). */
+export function folderOfFile(path: string): string {
+  return path.slice(0, path.lastIndexOf('/') + 1)
+}
+
+/** One listed entry, as BEH-38 (b) keeps it. */
+export type Listed = { kind: string; size: unknown; mtimeMs: unknown }
+
+/** The signature that says a file is the same: its size and mtimeMs. */
+export function signature(e: Listed): string {
+  return `${String(e.size)}:${String(e.mtimeMs)}`
+}
+
+/** BEH-38 (b): the regular files (kind file) that are new or whose size or mtimeMs changed between the two listings,
+ *  in order of path, leaving out the folders either listing failed for. Keys are project-relative paths. */
+export function changedFiles(before: ReadonlyMap<string, Listed>, after: ReadonlyMap<string, Listed>, failed: readonly string[]): string[] {
+  const out: string[] = []
+  for (const [path, e] of after) {
+    if (e.kind !== 'file' || failed.includes(folderOfFile(path))) continue
+    const was = before.get(path)
+    if (was === undefined || signature(was) !== signature(e)) out.push(path)
+  }
+  return out.sort()
+}
+
+/** Whether a run's log, as lines, names the path in a tool event (BEH-38 (b)'s exclusion), and whether it has ended. */
+export function logNames(lines: readonly string[], path: string): { names: boolean; ended: boolean } {
+  let names = false
+  let ended = false
+  for (const line of lines) {
+    let e: Fields
+    try {
+      e = JSON.parse(line) as Fields
+    } catch {
+      continue
+    }
+    if (e.kind === 'run-end') ended = true
+    if (e.kind === 'tool' && e.path === path) names = true
+  }
+  return { names, ended }
+}
+
+/** Whether BEH-38's window has closed for a run, from its last evaluated state: it has ended, every step is reached
+ *  (current is null), or a step with a script rule of target written is done (brainstorm: its BRN validated). */
+export function windowClosed(state: ProgressState, scriptSteps: readonly number[]): boolean {
+  if (state.ended !== null || state.current === null) return true
+  return scriptSteps.some(n => state.steps.find(s => s.n === n)?.state === 'done')
+}
+
+/** The text BEH-38 (b) gives the model in enforce mode (version 22) for the documents a Bash call wrote and the flags raised
+ *  at their events. */
+export function wroteText(paths: readonly string[], messages: readonly string[]): string {
+  return `DevForgeAI's progress tracker (enforce mode): this Bash command wrote ${paths.join(', ')}, which the tracker couldn't check `
+    + `before it was written.\n${messages.join('\n')}\nThe file stays as written. Write it again with the Write tool, asking the `
+    + `user first for any decision it records.`
+}
+
+/** The answer of a tool call with the text added to its context, or null when the answer can't carry it (a deny). */
+export function withContext(result: unknown, text: string): Fields | null {
+  if (result === null || typeof result !== 'object' || (result as Fields).deny !== undefined) return null
+  const r = result as Fields
+  return { ...r, context: [...(Array.isArray(r.context) ? (r.context as unknown[]) : []), text] }
 }
