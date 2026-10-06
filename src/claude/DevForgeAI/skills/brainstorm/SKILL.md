@@ -180,8 +180,9 @@ Without AskUserQuestion, present the table in plain text and ask. Then:
 - Set `status: converged` only on *Converged*; otherwise `draft`.
 
 If the user stops partway through the session, ask whether to save what has been captured as a
-draft BRN. If yes, write it with every disposition `open`, then save the work file once more with
-its `id` set to that BRN's ID, so a continued run extends it. If no, write nothing more.
+draft BRN. If yes, first save the work file once more with its `id` set to the ID the draft BRN gets
+(allocated as step 6 does), so a continued run extends it; then write the draft BRN with every
+disposition `open`, and don't run the validator on it. If no, write nothing more.
 
 ### 6. Write the BRN
 

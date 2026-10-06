@@ -32,9 +32,10 @@ Write the whole file with the Write tool, three times:
 3. With step 5 in progress, once the proposals are made: before asking step 5's question, or, when no
    question is asked (the waiver's *Proceed without questions*, or no AskUserQuestion), right away.
 
-When the user stops and agrees to save a draft BRN (ERR-02), write the work file (again, or for the
-first time) with its `id` set to that BRN's ID, so a continued run extends that BRN instead of
-allocating another.
+When the user stops and agrees to save a draft BRN (ERR-02), first write the work file (again, or for
+the first time) with its `id` set to the ID the draft BRN gets, so a continued run extends that BRN
+instead of allocating another; then write the draft BRN, and don't run the validator on it: a
+validated BRN tells the progress tracker the work file is done with, and it deletes the file.
 
 Once the BRN is written (step 6), don't save the work file again, even when step 5 is asked again
 for a confirmation that comes later.
@@ -70,7 +71,8 @@ run (it begins "This run continues the earlier brainstorm run"):
    it.
 3. Right after creating the task list as the line says, before any other work, write its content
    unchanged to this session's work file path, so a later continuation finds it. Its topic is the
-   run's topic: ask for none.
+   run's topic: ask for none. Later saves then set its session and Change Log row to this session
+   (*Its shape*).
 4. Work from it: keep its problems, ideas, assumptions, scores and IDs. When its `id` is a BRN's ID,
    step 6 extends that BRN (version + 1, a Change Log row for this session) without asking
    extend-or-new again; otherwise step 6 allocates the ID as usual.
