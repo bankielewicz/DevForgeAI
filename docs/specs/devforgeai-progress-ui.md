@@ -1,5 +1,7 @@
 # DevForgeAI progress UI
 
+**Superseded in part (2026-10-06):** its views, layouts, graphics and buttons (sections 2, 6, 8 and 9) are replaced by `devforgeai-dashboard.md`; its manifests, step states and gates (sections 4 and 5) are built as SPEC-012 and SPEC-013. The rest is kept as the pre-build proposal.
+
 **Status:** design proposal, not approved. Nothing here is built. It expands B1 (chain-navigator) of `devforgeai-claude-mods.md` and follows that document's design rules (its section 3). It changes no spec, skill or plugin version.
 
 **Goal:** the framework is open source and portable. It is dogfooded now in the Claude Code CLI; the target hosts are also the Claude desktop app and VS Code, and other tools later. Sections 7 and 8 are written for that.
