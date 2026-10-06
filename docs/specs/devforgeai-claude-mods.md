@@ -457,7 +457,7 @@ The chain order the mods follow is Brainstorm → PRD → Architecture Definitio
 
 ### B1. chain-navigator
 
-Expanded into its own design: `devforgeai-progress-ui.md`. That design adds a Journey through the framework's phases and the running skill's steps, judged by evidence so skipped steps show, with pixel-art graphics and an animated mascot. It keeps this entry's `chain_state.py` helper, its `file:` links, and its rule that buttons fill the prompt box and never send it.
+Expanded into its own design: `devforgeai-progress-ui.md`, whose views are now replaced by `devforgeai-dashboard.md` (2026-10-06). That design adds a Journey through the framework's phases and the running skill's steps, judged by evidence so skipped steps show, with pixel-art graphics and an animated mascot. It keeps this entry's `chain_state.py` helper, its `file:` links, and its rule that buttons fill the prompt box and never send it. (The dashboard changes that last rule: a button that starts work asks first, and the person's answer is the go-ahead; `devforgeai-dashboard.md` §9.)
 
 ### B2. document-guard
 

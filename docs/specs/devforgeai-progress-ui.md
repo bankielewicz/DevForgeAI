@@ -1,5 +1,7 @@
 # DevForgeAI progress UI
 
+**Superseded in part (2026-10-06):** its views, layouts, graphics and buttons (sections 2, 6, 8 and 9) are replaced by `devforgeai-dashboard.md`; its manifests, step states and gates (sections 4 and 5) are built as SPEC-012 and SPEC-013. The rest is kept as the pre-build proposal.
+
 **Status:** design proposal, not approved. Nothing here is built. It expands B1 (chain-navigator) of `devforgeai-claude-mods.md` and follows that document's design rules (its section 3). It changes no spec, skill or plugin version.
 
 **Goal:** the framework is open source and portable. It is dogfooded now in the Claude Code CLI; the target hosts are also the Claude desktop app and VS Code, and other tools later. Sections 7 and 8 are written for that.
@@ -443,7 +445,7 @@ The colours are saturated mid-tones, so they read on dark and light themes alike
 
 ## 9. Buttons, links and what reaches the model
 
-- **Buttons that start work fill the prompt box; they never send it.** Examples: "Fill prompt: back to 5", and `/devforgeai:context` from the Journey. Each phase's next step is also offered as a Tab suggestion when a skill's run ends.
+- **Buttons that start work fill the prompt box; they never send it.** (Superseded: `devforgeai-dashboard.md` §9 has a button that starts work ask first and run on the person's answer.) Examples: "Fill prompt: back to 5", and `/devforgeai:context` from the Journey. Each phase's next step is also offered as a Tab suggestion when a skill's run ends.
 - **The mode button:** the band and pane show observe or enforce, with **Switch to enforce** or **Switch to observe**. Pressing it saves your choice in your local preference file; when the project locks the mode, the button is unavailable and the band names the setting that locks it (ADR-006 D3).
 - **Buttons that only show something act at once:** "Why flagged?", "Run log", "Skill health", "Copy as finding".
 - **Links:** documents are `file:` links in `Markdown` (`‹PRD-001›`). A PR or issue is a `Link` to GitHub, which allows `https:` only.
