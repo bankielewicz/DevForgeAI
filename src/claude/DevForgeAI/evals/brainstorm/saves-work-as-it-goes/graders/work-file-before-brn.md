@@ -1,5 +1,6 @@
 ---
 type: regex
 target: trace
+match: contains
 ---
-"file_path"\s*:\s*"[^"]*devforgeai/drafts/brainstorm/[^"/]+\.md"[\s\S]*"file_path"\s*:\s*"[^"]*docs/specs/brainstorm/BRN-001\.md"
+^(?:(?!"name"\s*:\s*"Write"[^}]*?"file_path"\s*:\s*"[^"]*/docs/specs/brainstorm/BRN-001\.md")[\s\S])*"name"\s*:\s*"Write"[^}]*?"file_path"\s*:\s*"[^"]*/devforgeai/drafts/brainstorm/[^"/]+\.md"
