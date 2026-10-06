@@ -2,7 +2,7 @@
 id: SPEC-016
 type: spec
 title: "DevForgeAI Dashboard: the planning chain, the run and the session in one pane"
-status: in-review      # draft | in-review | approved | superseded | deprecated
+status: approved      # draft | in-review | approved | superseded | deprecated
 version: 1
 created: 2026-10-06
 updated: 2026-10-06
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-opus-5-5"
   session: "7637882f-b2ec-465e-988a-9602340d1023"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-06
 upstream:
   - {id: PRD-001, item: FR-022, relation: implements, version: 12, hash: null}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 12, hash: null, note: "the dashboard is a view of the progress tracker; it shows a run's progress and changes none of the tracker's rules"}
@@ -198,8 +198,8 @@ SPEC-013 BEH-02 defines (no `<plugin>:` prefix); the document type is the `type`
 | Brainstorm | `brainstorm` | `brainstorm` | the latest document's status is `converged` | `<id> <status>` |
 | PRD | `prd` | `prd` | the latest document's status is `approved` | `<id> <status>` |
 | Architecture | `architecture` | `arch` | the latest document's status is `approved` | `<id> <status>` |
-| Context | `context` | `context` | at least one document exists and every one is `approved` | `<n> docs, <k> approved` |
-| Epic | `epic` | `epic` | at least one document exists and every one is `approved` | `<n> epics, <k> approved` |
+| Context | `context` | `context` | at least one live document exists and every live one is `approved` | `<n> docs, <k> approved` (live ones only) |
+| Epic | `epic` | `epic` | at least one live document exists and every live one is `approved` | `<n> epics, <k> approved` (live ones only) |
 | Story | `story` | `story` | built, and the latest document's status is `approved` | `<id> <status>`, or 'coming soon' |
 | Spec | `spec` | `spec` | built, and the latest document's status is `approved` | `<id> <status>`, or 'coming soon' |
 
@@ -210,6 +210,8 @@ Rules, all deterministic:
 - **Status words.** The brainstorm skill writes `draft`, `converged` or `archived` (its `references/output-rules.md`);
   the other documents `draft`, `in-review`, `approved`, `superseded` or `deprecated`. A status that isn't the phase's
   done word shows as that word, with no reading of its own: `in-review`, `archived` and the rest are not done.
+- **Live documents** (Bryan, 2026-10-06: 'Ignore retired docs'). For Context and Epic, a `superseded` or `deprecated`
+  document isn't live: it is left out of the counts and of the done rule.
 - **Built.** A phase is built when `<plugin root>/skills/<skill>/SKILL.md` exists (`$.fs.exists`, read at each open, as
   SPEC-013 BEH-02 finds the plugin's skills). Today the first five exist; Story and Spec don't, so their tiles are
   `nb` ('coming soon') until their skills ship.
@@ -525,8 +527,8 @@ Drafter's choices, for Bryan's accept or challenge:
   the mean of RPM samples over 180 seconds, with no new step in timing.activeSeconds over the same span. The 180
   seconds of samples are on the clock, not active time, and are lost at a reload.
 - The ETA's rule (medians of at least 2 ended, complete runs), its rounding to the nearest minute and its phases ahead.
-- The phase table (DM-06): brainstorm done at `converged`; Context and Epic done only when every document of the type is
-  `approved` (so a `superseded` or `deprecated` context document keeps Context from reading done); the 'needs ...'
+- The phase table (DM-06): brainstorm done at `converged`; Context and Epic done when every live document of the type is
+  `approved` (superseded and deprecated ones left out; Bryan, 2026-10-06: 'Ignore retired docs'); the 'needs ...'
   texts; 'built' meaning the skill's `SKILL.md` exists; the latest document by `updated` date.
 - The layouts' content (DM-07) and what version 1 leaves out: the log and telemetry panels, the start and ship markers
   with per-phase times, a done tile's steps and time.
@@ -571,3 +573,5 @@ to build it as a choice; whether it ships in a published plugin is his call at r
 | --- | --- | --- | --- | --- |
 | 1 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | First draft, from the design (`docs/specs/devforgeai-dashboard.md`) and Bryan's decisions of 2026-10-05 and 2026-10-06, the prototype `src/tools/dashboard-probe/` and its live probes | all |
 | 1 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Before approval, the drafts review's fixes (tmp/plans/dashboard/review-specs.md): the odometer is one file for each session with BEH-10 as its writer and history.py's total as the display; the dashboard adds no event beyond SPEC-013 BEH-40's; the tracking-off and stopped cases agree with SPEC-013 BEH-01; the phase table (DM-06) and the layouts' content (DM-07); one log line for each failure and kind dashboard throughout; the fuel chip uses BEH-35's text and the dial follows the settings; no session.measure hook; the scripts run only with the pane open; the look's fallback key; menu N and the plugin origin as the types document them; the turn.step hook's failure (ERR-08); wheel-spin and the cache hit rate defined; the drafter's choices completed | frontmatter, §1 to §3, DM-01 to DM-07, IF-01 to IF-03, BEH-01 to BEH-19, ERR-01 to ERR-08, QR-01, QR-02, VER-01 to VER-14, §10 to §13 |
+| 1 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Bryan's answers in the approval round: 'Ignore retired docs (Recommended)' (DM-06: superseded and deprecated documents left out of Context's and Epic's counts and done rule); 'Only after a run (Recommended)' (BEH-10's ledger written only under a run's root, as drafted) | DM-06, §13 |
+| 1 | 2026-10-06 | Bryan | Approved ('Approve all four (Recommended)', with the drafters' choices shown in its preview) | status |
