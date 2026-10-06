@@ -100,5 +100,8 @@
         "null"
       ]
     }
+  ],
+  "workFiles": [
+    "devforgeai/drafts/brainstorm/*.md"
   ]
 }

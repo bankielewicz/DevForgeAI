@@ -930,6 +930,93 @@ def _():
     return log, plugin_only(), {}
 
 
+# ---- version 15: work files (VER-44) ---------------------------------------------------------------
+
+WORK = "devforgeai/drafts/brainstorm/BRN-002.md"
+OPEN_BRN = brn(["open"] * 15)
+
+
+def brn_working(validate=None, tick7=False):
+    """A brainstorm run that follows the task list and keeps a work file: steps 1 to 4 marked, the work file written, then
+    step 6 (an Edit of the work file, the Write of the BRN) and step 7: the validator run with exit `validate` (None:
+    not run), the step marked done when `validate` is given or tick7 says so."""
+    log = brn_to_four(following("brainstorm")).write(WORK, "# draft\n")
+    log.started(6).tool("Edit", path=WORK).write(BRN_PATH, OPEN_BRN).done(6).started(7)
+    if validate is not None:
+        log.bash(VALIDATE, exit_code=validate)
+    if validate == 0 or tick7:
+        log.done(7)
+    return log
+
+
+@case("brn-workfiles-due")  # VER-44: a Write and an Edit of the work file, the BRN, the validator's pass
+def _():
+    return brn_working(validate=0), plugin_only(), {}
+
+
+@case("brn-workfiles-open")  # VER-44: the same without the validator run: files listed, due false
+def _():
+    return brn_working(), plugin_only(), {}
+
+
+@case("brn-workfiles-claimed")  # VER-44: step 7 ticked, no validator run: a claim is no evidence
+def _():
+    return brn_working(tick7=True), plugin_only(), {}
+
+
+@case("brn-workfiles-failed")  # VER-44: the validator's run exits 1: step 7 has no evidence
+def _():
+    return brn_working(validate=1, tick7=True), plugin_only(), {}
+
+
+@case("brn-workfiles-paths")  # VER-44: only the second and third are files
+def _():
+    log = brn_start(Log("brainstorm")).tool("Write", path=WORK, error=True)
+    for path in ("./devforgeai/drafts/brainstorm/a.md", "devforgeai/drafts//brainstorm/b.md", "/abs/c.md", "../d.md",
+                 "devforgeai/drafts/brainstorm/../../../README.md", "devforgeai/drafts/brainstorm/./f.md",
+                 "devforgeai/drafts/other/e.txt", "docs/specs/brainstorm/BRN-001.md"):
+        log.write(path)
+    return log, plugin_only(), {}
+
+
+@case("brn-workfiles-content")  # VER-44: promoted dispositions in a work file before step 5's answer: no flag
+def _():
+    log = brn_start(Log("brainstorm")).write(WORK, brn(PROMOTED))
+    return log, plugin_only(), {}
+
+
+@case("brn-workfiles-carried")  # VER-44: a run carrying steps 1 to 7 is never due
+def _():
+    log = carrying("brainstorm", [1, 2, 3, 4, 5, 6, 7]).write(WORK, "# draft\n").started(8)
+    return log, plugin_only(), {}
+
+
+@case("brn-workfiles-stale")  # VER-44: a manifest that doesn't match gives no workFiles key
+def _():
+    stale = checklist_block("brainstorm").replace("6. Write the BRN", "6. Write the BRN file")
+    return Log("brainstorm", checklist=stale).write(WORK, "# draft\n"), plugin_only(), {}
+
+
+@case("brn-workfiles-unverified")  # VER-44: an unverified manifest applies, so the state has workFiles
+def _():
+    return Log("brainstorm", checklist="no checklist here").write(WORK, "# draft\n"), plugin_only(), {}
+
+
+@case("brn-workfiles-layer-same")  # VER-44: a project folder restating brainstorm.json unchanged evaluates
+def _():
+    project = json.loads((ROOT / PLUGIN_MANIFESTS / "brainstorm.json").read_text(encoding="utf-8"))
+    return brn_working(validate=0), {"manifests": ["@plugin", "project"], "root": None, "phases": None}, {
+        "project/brainstorm.json": json.dumps(project, indent=2) + "\n"}
+
+
+@case("brn-workfiles-layer-omits")  # VER-44: a project folder omitting workFiles still gives the plugin's: due fires
+def _():
+    project = json.loads((ROOT / PLUGIN_MANIFESTS / "brainstorm.json").read_text(encoding="utf-8"))
+    project.pop("workFiles", None)  # the key the plugin's manifest holds from version 15
+    return brn_working(validate=0), {"manifests": ["@plugin", "project"], "root": None, "phases": None}, {
+        "project/brainstorm.json": json.dumps(project, indent=2) + "\n"}
+
+
 # ---- writing ------------------------------------------------------------------------------------
 
 def generated():
