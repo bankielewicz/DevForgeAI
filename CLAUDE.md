@@ -47,6 +47,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
   merged in PR #83 (`ab8301c`), deployed 0.21.0). It records each tracked skill run
   (brainstorm and architecture have manifests) and shows its checklist steps in the status line and
   a band above the prompt. Its detail is in `.claude/rules/progress.md`.
+- **The dashboard** (PRD-001 v12 FR-022; SPEC-016 v1, approved 2026-10-06, not built; design `docs/specs/devforgeai-dashboard.md`; prototype `src/tools/dashboard-probe/`) is a pane of the tracker's mod, `/devforgeai:dashboard`. It needs SPEC-012 v17 and SPEC-013 v24 (their changes approved 2026-10-06, stacked on the save-the-work drafts SPEC-012 v16 and SPEC-013 v22, and on SPEC-013 v23's fuel wording), none built.
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels.
 - ADR-001 to ADR-006 in `docs/specs/adr/` are accepted. PRD-001 (DevForgeAI itself) and PRD-002
