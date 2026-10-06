@@ -40,7 +40,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 - The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v14, the evaluator; v14, carried steps for a run that continues an earlier one, merged in PR #91 (`f128047`), deployed 0.25.0; v13, the run-end `returned`, merged in PR #89 (`9fdda66`), deployed 0.24.0; v12, the run-end `stopped`, merged in PR #85 (`4daa7c4`), deployed 0.22.0)
   and `hooks/progress.tsx` (SPEC-013 v19, the Claude Code adapter; v18 and v19, untracked skills (a plugin skill whose
   SKILL.md metadata says `devforgeai-tracked: "false"`, precompact the first: its load and its turn's tool calls and replies
-  are recorded in no run), PR #93 (0.26.0); v16 and v17, the offer to continue an earlier unfinished run, merged in PR #91 (`f128047`), deployed 0.25.0; v14 and v15, nested runs paused and resumed,
+  are recorded in no run), merged in PR #93 (`909a252`), deployed 0.26.0; v16 and v17, the offer to continue an earlier unfinished run, merged in PR #91 (`f128047`), deployed 0.25.0; v14 and v15, nested runs paused and resumed,
   merged in PR #89 (`9fdda66`), deployed 0.24.0; v13, the trail of return points for skills Claude loads mid-run,
   merged in PR #87 (`13184e5`), deployed 0.23.0; v12, the deliberate stop and the /clear, /exit, /resume
   confirmation, merged in PR #85 (`4daa7c4`), deployed 0.22.0; v11, the review only after an answered turn,
