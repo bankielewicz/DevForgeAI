@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review   # draft | in-review | approved | superseded | deprecated
+status: approved   # draft | in-review | approved | superseded | deprecated
 version: 22
 created: 2026-10-02
 updated: 2026-10-06
@@ -2071,3 +2071,4 @@ Drafter's choices in version 21, for Bryan to accept or challenge (plan `tmp/pla
 | 21 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Before approval, the drafts review's fixes (tmp/plans/dashboard/review-drafts.md: 6 critical, 8 should-fix, all applied) and Bryan's change of 2026-10-06, "Display a warning at 70% that at 80% the precompact skill will run": the row warns at precompactAt and the adapter runs /devforgeai:precompact once at precompactRunAt (BEH-36, DM-08, ERR-22) | BEH-35, BEH-36, DM-08, ERR-22, VER-56, VER-57, §13 |
 | 21 | 2026-10-06 | Bryan | Approved ('Approve (Recommended)', with the warn-at-70, run-at-80 change shown in its preview; default '70% (Recommended)') | status |
 | 22 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 (§13): the answer event records the form Claude asked, never the answer (BEH-37); a Bash command naming a document a run writes at its write gate is refused in enforce mode, and after every Bash call in a run the files of its gated patterns it created or changed are recorded with their content, so the write gate, the content rules and an outside-write flag apply (BEH-38, ERR-23); the line on continuing states the run's draft, asks the step it continues at when that is the user's and unanswered, and inlines that step's last form up to 8 KiB (BEH-39). VER-58 to VER-62 | DM-01, BEH-15, BEH-31, BEH-37, BEH-38, BEH-39, ERR-23, VER-58 to VER-62, §10-§13 |
+| 22 | 2026-10-06 | Bryan | Approved ('Approve all three (option 1)'), with the drafter's choices and the reviews' fixes in §13 | status |

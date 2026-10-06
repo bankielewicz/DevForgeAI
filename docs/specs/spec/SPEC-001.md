@@ -2,7 +2,7 @@
 id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
-status: in-review
+status: approved
 version: 17
 created: 2026-09-22
 updated: 2026-10-06
@@ -656,3 +656,4 @@ by git.
 | 16 | 2026-10-06 | Bryan | Approved ('Approve all three'), with the drafter's choices in §13 | status |
 | 16 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §9 records SKL-001 v9's build, its single-arm evaluation and Bryan's waiver of the 3-run qualification | §9 |
 | 17 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 (§13): BEH-14's continuation is one rule, use the draft the progress tracker's line names (SPEC-013 BEH-39), and the tracker decides the step to ask and its proposals; VER-17 follows. Links: SPEC-012 v16, SPEC-013 v22 | BEH-14, VER-17, §13 |
+| 17 | 2026-10-06 | Bryan | Approved ('Approve all three (option 1)'), with the drafter's choices and the reviews' fixes in §13 | status |

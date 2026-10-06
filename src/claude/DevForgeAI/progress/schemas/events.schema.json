@@ -91,6 +91,10 @@
             },
             "uniqueItems": true,
             "description": "the carried user-owned steps whose answer counted in the earlier run, once its document was written (version 14, BEH-20)"
+          },
+          "draft": {
+            "type": "string",
+            "description": "version 16: the earlier run's draft that the line on continuing named (SPEC-013 BEH-39), project-relative; BEH-21 lists it first among the run's work files"
           }
         }
       }
@@ -129,7 +133,11 @@
           },
           "content": {
             "type": "string",
-            "description": "a Write's content, or the file an Edit will leave; optional"
+            "description": "a Write's content, or the file an Edit will leave; for an event with wrote, the file as read after the Bash call; optional"
+          },
+          "wrote": {
+            "const": true,
+            "description": "version 16: an event the adapter adds after a Bash call, for a file matching a write rule's pattern or a workFiles pattern that the call created or changed; its tool is Bash, its path the file, its command and exit the call's, and its error always false, since it records a file that is on disk whatever the call's exit (BEH-06, BEH-22)"
           }
         }
       }
@@ -167,6 +175,48 @@
               "other"
             ],
             "description": "set on every answer to the waiver question, a single question tagged devforgeai_waiver, answered or not: which of its two fixed labels was picked, proceed (Proceed without questions) or ask (Ask me as usual), or other for anything typed and for a dismissal (version 11)"
+          },
+          "questions": {
+            "type": "array",
+            "minItems": 1,
+            "description": "version 16: the form as Claude asked it, never the user's answer (BEH-22)",
+            "items": {
+              "type": "object",
+              "required": [
+                "question"
+              ],
+              "properties": {
+                "question": {
+                  "type": "string"
+                },
+                "header": {
+                  "type": "string"
+                },
+                "multiSelect": {
+                  "type": "boolean"
+                },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "label"
+                    ],
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "description": {
+                        "type": "string"
+                      },
+                      "preview": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

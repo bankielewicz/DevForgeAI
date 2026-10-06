@@ -2,7 +2,7 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: in-review       # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 16
 created: 2026-10-02
 updated: 2026-10-06
@@ -1493,3 +1493,4 @@ Still open, or notes:
 | 15 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §13 records the build review's open item on script evidence (S1) | §13 |
 | 15 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §13 records Bryan's acceptance of the build's readings | §13 |
 | 16 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 (§13): an answer event may carry the form Claude asked, never the answer, which the evaluator reads no field of; a tool event with wrote, the adapter's record of a file a Bash call created or changed, is write evidence and goes to the content rules, and a document's raises an outside-write flag; work files written through Bash are listed; script evidence needs the script to be what runs (S1). BEH-22, VER-45, VER-46 | DM-02, DM-03, BEH-06, BEH-08, BEH-21, BEH-22, VER-45, VER-46, §10-§13 |
+| 16 | 2026-10-06 | Bryan | Approved ('Approve all three (option 1)'), with the drafter's choices and the reviews' fixes in §13 | status |

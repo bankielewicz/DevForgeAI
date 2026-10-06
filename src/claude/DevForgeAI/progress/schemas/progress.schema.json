@@ -367,7 +367,8 @@
             "rule-broken",
             "unmarked-question",
             "mismatched-question",
-            "untagged-question"
+            "untagged-question",
+            "outside-write"
           ]
         },
         "message": {
