@@ -443,26 +443,29 @@ prototype unless noted:
 | Mouse clicks don't reach Claude Code in cmux | neither a mod Button (a `ui.press` logger saw nothing) nor the pane's own ✕ responded; keys did |
 | The desktop app's WSL chat loads no mods | context-bar showed in the terminal "but not in the chat session of claude code desktop app" (Bryan) |
 | A mod's command name allows no colon | `CommandSpec.name`: letters, digits, `_`, `-` |
+| A plugin command file answered by a mod's `command.run` hook opens the pane and loads no prompt | `/dashboard-probe:dashboard` (from `commands/dashboard.md`) opened the dashboard; Claude never saw the file |
+| `$.config.set` changes the plugin's own `userConfig` row, and it reads back at once | `/dashboard-probe look`: "set dashboard-probe.dashboardTheme = Night drive ✓ (reads back Night drive)" |
+| Tiles as keyed Boxes with plain Buttons over a Raster draw in all three layouts | kit mounts (docked 66, inline 130 and 193 columns) and live, docked |
+| A tile's menu can be asked while Claude is mid-turn, and the turn goes on | `/dashboard-probe menu 5` (immediate) during a 500-word reply; Esc cancelled; the turn finished |
+| Night drive stays within a Raster's colour pairs | 788 distinct pairs in its busiest wide frame (Default 41, Race telemetry 48), under 1,024 |
+| A second RPM reading | "1754 tok in 18.0 s = 98 tok/s" |
 
 **Unverified**, each with its check:
 
 | Question | Check |
 | --- | --- |
-| Does `$.config.set` change the plugin's own `userConfig` row, and does the module see it without a reload? | a probe that writes `dashboardTheme` and reads `/config` |
-| Does `commands/<name>.md` in the plugin plus a `command.run` hook give `/devforgeai:<name>` that opens the pane without loading a prompt? | a probe in a scratch copy of the plugin |
 | Do clicks reach Buttons in Windows Terminal? | the prototype in a Windows Terminal WSL tab |
 | Does an `Svg` dashboard draw in the desktop app's Code tab on a Windows-path project, and how does it animate? | a desktop probe |
 | Does the pass-through `turn.step` hook slow streaming? | time a long reply with and without it |
-| Can tiles be keyed Boxes holding plain Buttons, beside Rasters for the dials and the character, at 5 redraws a second, and how do the looks survive solid tile fills? | a layout prototype (next) |
-| Does `commands/dashboard.md` give `/devforgeai:dashboard`? | as above |
-| Does a `$.ui.ask` opened while Claude is mid-turn, and a `$.command.run` queued then, behave (it runs "once the session is idle")? | press a tile key during a turn |
-| Do Night drive's gradients stay within a Raster's colour pairs? | count the distinct pairs per frame in a kit test |
+| How do the looks survive solid tile fills (Night drive loses its in-tile gradient), and does a mouse click on a Box tile reach its Button? | Bryan's eye on the prototype; the click in a terminal that reports clicks |
+| Does `$.command.run` queued mid-turn run after the turn ends? | pick Start in a mid-turn menu |
+| Does `/devforgeai:dashboard` work the same inside the real plugin? | the build (the route is proven on `dashboard-probe`) |
 | Is PACE's scale right on real runs? | compute it over the recorded runs in `devforgeai/progress/runs/` |
 
 ## 15. Build order
 
-1. The probes the specs depend on: `$.config.set`, the command route, a tile key mid-turn, colour pairs; and the
-   layout prototype for clickable tiles and the character.
+1. Done 2026-10-06: `$.config.set`, the command route, a tile menu mid-turn, colour pairs, and the layout prototype
+   for clickable tiles and the character (`src/tools/dashboard-probe/`).
 2. SPEC-016 and the SPEC-012 and SPEC-013 versions drafted, then a drafts review and Bryan's approval.
 3. The scripts: `chain_state.py`, `history.py`, and the per-run figures in `evaluate.py`, with tests.
 4. The adapter: the pane, the three layouts and looks, the instruments, the agents window, the guardrails panel,
