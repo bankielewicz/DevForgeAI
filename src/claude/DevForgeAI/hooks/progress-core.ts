@@ -198,6 +198,8 @@ export type ProgressState = {
   gate: { kind: string | null; seq: number | null; refuse: boolean; reason: string | null }
   manifest: { state: ProgressSummary['manifest'] }
   counts?: { stepEvents?: number; unmarkedQuestions?: number }
+  /** Version 15: present when the run's manifest names workFiles (SPEC-012 BEH-21, DM-03). */
+  workFiles?: { files?: unknown; due?: unknown }
 }
 
 /** The summary the status line and the band draw (DM-03). */
@@ -925,4 +927,54 @@ export function resumeLine(skill: string, plan: ResumePlan): string {
     + `${plan.step} in progress, and continue at step ${plan.step}.${owned} Files it wrote: `
     + `${plan.files.length ? plan.files.join(', ') : 'nothing'}. Its replies are in devforgeai/progress/runs/${plan.run}/`
     + `events.jsonl, the events of kind reply: use them to show the user what was proposed, never as a decision.`
+}
+
+// ---- The work files' cleanup (BEH-32, IF-05; version 20) ----
+
+/** A run ID as run folders are named (SPEC-012's pattern): the only shape the adapter lets into a path. */
+const RUN_ID = /^[0-9]{8}T[0-9]{6}Z-[a-z][a-z0-9-]*-[0-9a-f]{8}$/
+
+/** Whether an evaluation says the run's work files are due (SPEC-012 BEH-21: workFiles.due is true). */
+export function workFilesDue(state: ProgressState): boolean {
+  const w = state.workFiles
+  return typeof w === 'object' && w !== null && !Array.isArray(w) && w.due === true
+}
+
+/** The paths of a state's workFiles.files that the adapter passes on: the non-empty strings and nothing else, in order.
+ *  A state.json is a file the model's tools can write, so whatever isn't a list gives none; prune.py judges the paths
+ *  themselves (ERR-20). */
+export function workFilePaths(state: unknown): string[] {
+  if (typeof state !== 'object' || state === null || Array.isArray(state)) return []
+  const w = (state as { workFiles?: unknown }).workFiles
+  if (typeof w !== 'object' || w === null || Array.isArray(w)) return []
+  const files = (w as { files?: unknown }).files
+  return Array.isArray(files) ? files.filter((f): f is string => typeof f === 'string' && f !== '') : []
+}
+
+/** Why a continued run's state.json gives no work files, or null when it names a workFiles object (ERR-19). */
+export function workFilesProblem(state: unknown): string | null {
+  if (typeof state !== 'object' || state === null || Array.isArray(state)) return 'its state is not an object'
+  const w = (state as { workFiles?: unknown }).workFiles
+  if (w === undefined) return 'its state has no workFiles'
+  if (typeof w !== 'object' || w === null || Array.isArray(w)) return 'its workFiles is not an object'
+  return null
+}
+
+/** IF-05's argv (BEH-32): every path once, in the order given across the lists, each as one --file=<path> token, so a
+ *  path that begins with - is a value and never an option. */
+export function removeArgv(python: string, plugin: string, root: string, ...lists: readonly (readonly string[])[]): string[] {
+  const paths = [...new Set(lists.flat().filter(p => typeof p === 'string' && p !== ''))]
+  return [python, `${plugin}/progress/prune.py`, 'remove', '--root', root, '--manifests', `${plugin}/progress/manifests`,
+    ...paths.map(p => `--file=${p}`)]
+}
+
+/** The run a run's skill-loaded line says it continues (BEH-31), when it is shaped as a run ID. */
+export function resumesOf(line: string | undefined): string | null {
+  if (line === undefined) return null
+  try {
+    const v = (JSON.parse(line) as { resumes?: unknown }).resumes
+    return typeof v === 'string' && RUN_ID.test(v) ? v : null
+  } catch {
+    return null
+  }
 }

@@ -63,6 +63,23 @@ class AdapterStructure(unittest.TestCase):
         self.assertEqual(retention["title"], "Keep progress files (days)")
         self.assertTrue((PLUGIN / "progress/prune.py").is_file())
 
+    # SPEC-013 v20 (VER-52): every process the adapter starts gets an argv list, never a shell line, and the work files
+    # reach prune.py's remove only as one --file=<path> token each, deduplicated.
+    def test_ver52_processes_take_an_argv_and_remove_takes_file_tokens(self):
+        tsx = (HOOKS / "progress.tsx").read_text(encoding="utf-8")
+        calls = re.findall(r"\$\.process\.run\(\s*([^,]+),", tsx)
+        self.assertGreaterEqual(len(calls), 5)
+        for first in calls:
+            self.assertTrue(first.startswith("[") or first == "argv", first)
+        core = (HOOKS / "progress-core.ts").read_text(encoding="utf-8")
+        body = core[core.index("export function removeArgv"):]
+        body = body[:body.index("\n}\n")]
+        self.assertIn("'remove'", body)
+        self.assertIn("'--manifests'", body)
+        self.assertIn("new Set(", body)
+        self.assertIn("`--file=${p}`", body)
+        self.assertNotIn("'--file'", body)
+
     def test_the_deploy_command_leaves_tests_and_generated_files_out(self):
         text = CLAUDE_MD.read_text(encoding="utf-8")
         deploy = [line for line in text.splitlines() if line.startswith("X") and "--exclude" in line]

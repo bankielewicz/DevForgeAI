@@ -21,7 +21,7 @@ import {
   questionRefusal, questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, reviewItems, reviewQuestion,
   runId, runName, skillName, statusText, stepLabel, waiverAnswer, returnLine, pausedWith, keptTrail, endReason, hasRoom, trailNote, TRAIL_NOTE_START, stopsRun,
   exitQuestion, keptText, nestedExitQuestion, nestedKeptText, isDismissal, CONFIRMED, resumePlan, resumeQuestion, resumeLine,
-  stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
+  removeArgv, resumesOf, workFilePaths, workFilesDue, workFilesProblem, stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
 } from './progress-core'
 import type { Fields, ProgressState, Refused, ReviewItem, ToolOutcome } from './progress-core'
 
@@ -45,6 +45,7 @@ const REFUSED = atom({ plugin: 'devforgeai', key: 'refused' } as const, [] as Re
 const REVIEWED = atom({ plugin: 'devforgeai', key: 'reviewed' } as const, null as string | null)
 const TRAIL = atom({ plugin: 'devforgeai', key: 'trail' } as const, [] as ProgressPaused[])
 const RETURNED = atom({ plugin: 'devforgeai', key: 'returned' } as const, [] as ProgressReturned[])
+const CLEANED = atom({ plugin: 'devforgeai', key: 'cleaned' } as const, [] as string[])
 
 // The open run's values, as the module holds them (version 14): every hook reads and writes these, never a $.state
 // snapshot, since each dispatch's $.state reads one moment of its own (a hook that awaits across another's write would
@@ -54,13 +55,15 @@ type Live = {
   contextSent: number[]; tasks: Record<string, number>; todos: Record<string, string>; adhered: string | null
   refusals: Record<string, number>; refused: Refused[]; reviewed: string | null; trail: ProgressPaused[]
   returned: ProgressReturned[]
+  /** The runs whose work files' cleanup was started (BEH-32), newest last, the last 50. */
+  cleaned: string[]
 }
 let live: Live | null = null
 let mirrorChain: Promise<unknown> = Promise.resolve()
 
 function emptyLive(): Live {
   return { run: null, summary: null, lastEventAt: 0, marked: false, shown: [], contextSent: [], tasks: {}, todos: {},
-    adhered: null, refusals: {}, refused: [], reviewed: null, trail: [], returned: [] }
+    adhered: null, refusals: {}, refused: [], reviewed: null, trail: [], returned: [], cleaned: [] }
 }
 
 /** The module's values, read once from $.state after a load or a reload (BEH-17). */
@@ -75,6 +78,7 @@ async function hydrate($: E): Promise<Live> {
     // An entry without its run, version 13's shape, is dropped (BEH-30); the mirror catches up at the next change.
     // A reload between the mirror's writes of a push can leave the open run on the trail too: it is dropped.
     trail: keptTrail(await read($, TRAIL)).filter(t => t.run!.id !== run?.id), returned: await read($, RETURNED),
+    cleaned: await read($, CLEANED),
   }
   if (live === null) live = got
   return live
@@ -137,6 +141,7 @@ async function mirror($: E, key: keyof Live): Promise<void> {
     case 'reviewed': await $.state.set({ plugin: 'devforgeai', key: 'reviewed' } as const, l.reviewed); break
     case 'trail': await $.state.set({ plugin: 'devforgeai', key: 'trail' } as const, l.trail); break
     case 'returned': await $.state.set({ plugin: 'devforgeai', key: 'returned' } as const, l.returned); break
+    case 'cleaned': await $.state.set({ plugin: 'devforgeai', key: 'cleaned' } as const, l.cleaned); break
   }
 }
 
@@ -268,12 +273,12 @@ async function notify($: E, text: string, key?: string): Promise<void> {
 
 /** One line in the session's adapter.log (DM-02); held in memory until a run has created the folder, kept
  *  to its last half when it passes 512 KiB, and a failed write is ignored. */
-async function adapterLog($: E, kind: string, text: string): Promise<void> {
+async function adapterLog($: E, kind: string, text: string, runId?: string): Promise<void> {
   const step = logChain.then(async () => {
     const run = await get($, 'run')
     const now = new Date(await $.clock.now()).toISOString().replace(/\.\d{3}Z$/, 'Z')
     // One line per entry, whatever the text: model text can't add lines of its own (DM-02).
-    const line = `${now} ${run?.id ?? '-'} ${kind}: ${text.replace(/\s*[\r\n]+\s*/g, ' ')}\n`
+    const line = `${now} ${runId ?? run?.id ?? '-'} ${kind}: ${text.replace(/\s*[\r\n]+\s*/g, ' ')}\n`
     if (logRoot === null) {
       // The first lines are kept (the early notices are the ones that matter); past 200, newer ones are dropped.
       if (early.length < 200) early = [...early, line]
@@ -672,15 +677,15 @@ async function taskStepsNow($: E, into: string, tool: string, input: Fields, out
 
 /** Take an evaluation in: the session's current.json, the summary, toasts, the report gate's context (BEH-06, BEH-09,
  *  BEH-12). */
-async function absorb($: E, run: ProgressRun, got: { state: ProgressState; text: string }): Promise<void> {
+async function absorb($: E, run: ProgressRun, got: { state: ProgressState; text: string }, cleanup = false): Promise<void> {
   // One at a time: the run-end evaluation and a timer's can finish together, and each reads the shown flags and
   // adhered before it writes them, so a notice could otherwise show twice.
-  const step = absorbChain.then(() => absorbNow($, run, got))
+  const step = absorbChain.then(() => absorbNow($, run, got, cleanup))
   absorbChain = step.catch(() => undefined)
   await step
 }
 
-async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; text: string }): Promise<void> {
+async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; text: string }, cleanup: boolean): Promise<void> {
   // An evaluation whose run isn't the open run changes nothing: a push, an unwind or a switch came first (BEH-30).
   if ((await hydrate($)).run?.id !== run.id) return
   try {
@@ -717,6 +722,7 @@ async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; te
   if (l.run?.id === run.id) {
     pendingReport = report !== null && !l.contextSent.includes(report.seq) && got.state.ended === null ? { ...report, run: run.id } : null
   }
+  if (cleanup) await startCleanup($, run, got.state)
   await refreshStatus($)
 }
 
@@ -747,7 +753,7 @@ async function evaluateMarked($: E): Promise<void> {
       // A run that opened, paused or resumed while the evaluator ran keeps its own summary and flags (the module's values).
       if (open === null || open.id !== run.id) return
       if (typeof got === 'string') await failOpen($, got)
-      else await absorb($, run, got)
+      else await absorb($, run, got, true)
     } finally {
       evaluating = false
     }
@@ -820,7 +826,7 @@ async function afterOpen($: E, o: Opening): Promise<void> {
     await notify($, hint)
     await adapterLog($, 'tools-hint', hint)
   }
-  await startPrune($, o.r, o.session, o.run.id)
+  await startPrune($, o.r, o.session, o.run.id, resumesOf(o.line))
 }
 
 /** The run-end of the open run, inside a chain item (BEH-05); the run as it ended, or null with no open run. */
@@ -851,7 +857,7 @@ async function switchRun($: E, r: string, name: string, checklist: string, endPa
 /** The rest of a switch: the ended run's last evaluation, then the new run, as one chain item. */
 async function finishSwitch($: E, r: string, name: string, checklist: string, ended: ProgressRun | null, emptyTrail: boolean,
   extra: Fields = {}): Promise<void> {
-  if (ended !== null) await finalEvaluation($, ended, EVALUATOR_TIMEOUT)
+  if (ended !== null) await finalEvaluation($, ended, EVALUATOR_TIMEOUT, true)
   await chained(async () => {
     await endOpenNow($, 'another-skill')  // a run an unwind resumed meanwhile ends too; the ended one is skipped
     const o = await prepareRun($, r, name, checklist, extra)
@@ -866,13 +872,14 @@ async function finishSwitch($: E, r: string, name: string, checklist: string, en
 
 /** Prune old run and session folders once per session ID and root, after the run's folder exists; nothing waits
  *  for it, and its result or failure goes to adapter.log only (BEH-19, ERR-12). */
-async function startPrune($: E, r: string, session: string, keepRun: string): Promise<void> {
+async function startPrune($: E, r: string, session: string, keepRun: string, continued: string | null = null): Promise<void> {
   if (!python) return
   const key = `${session}\n${r}`
   if (pruned.has(key)) return
   pruned.add(key)
   const argv = [python, `${$.plugin.root}/progress/prune.py`, 'prune', '--root', r, '--days', String(retentionDays),
-    '--keep-session', session, '--keep-run', keepRun]
+    '--keep-session', session, '--keep-run', keepRun, ...(continued === null ? [] : ['--keep-run', continued]),
+    '--manifests', `${$.plugin.root}/progress/manifests`]
   try {
     void $.process.run(argv, { cwd: r, timeoutMs: PRUNE_TIMEOUT }).then(
       res => adapterLog($, 'prune', res.exitCode === 0 ? firstLine(res.stdout) : firstLine(res.stderr) || `exit ${res.exitCode}`),
@@ -884,12 +891,59 @@ async function startPrune($: E, r: string, session: string, keepRun: string): Pr
   }
 }
 
+/** The work files' cleanup (BEH-32, IF-05; version 20): when an evaluation the timer started, or the final evaluation of a
+ *  run that has just ended, says the open run's work files are due, run prune.py's remove once for the run's files and the
+ *  continued run's. Nothing waits for it, nothing is shown, no event is recorded, and its failure is a log line (ERR-19). */
+async function startCleanup($: E, run: ProgressRun, state: ProgressState): Promise<void> {
+  try {
+    if (!python || !workFilesDue(state) || (await get($, 'cleaned')).includes(run.id)) return
+    // Recorded before anything awaits, in the module and in $.state: a second evaluation or a reload starts none; and only
+    // while the run is the open one, so a paused run's files wait for the age pass.
+    const mine = await putFor($, run.id, l => ({ cleaned: [...l.cleaned, run.id].slice(-50) }))
+    if (!mine) return
+    const own = workFilePaths(state)
+    const continued = await continuedFiles($, run)
+    if (own.length + continued.length === 0) return
+    const argv = removeArgv(python, $.plugin.root, rootOf(run), own, continued)
+    const finish = (text: string): Promise<void> => adapterLog($, 'workfiles', text, run.id)
+    try {
+      void $.process.run(argv, { cwd: rootOf(run), timeoutMs: PRUNE_TIMEOUT }).then(
+        res => finish(res.exitCode === 0 ? firstLine(res.stdout) : firstLine(res.stderr) || `exit ${res.exitCode}`),
+        err => finish(firstLine(message(err))),
+      ).catch(() => undefined)
+    } catch (err) {
+      await finish(firstLine(message(err)))
+    }
+  } catch (err) {
+    await adapterLog($, 'workfiles', firstLine(message(err)), run.id).catch(() => undefined)
+  }
+}
+
+/** The paths the run it continues (its skill-loaded line's resumes, BEH-31) lists in its own state.json; none, with a log
+ *  line saying why, when that file can't be used (ERR-19). That run only, never its ancestors. */
+async function continuedFiles($: E, run: ProgressRun): Promise<string[]> {
+  const resumes = resumesOf((await linesOf($, run))[0])
+  if (resumes === null) return []
+  const file = `${rootOf(run)}/devforgeai/progress/runs/${resumes}/state.json`
+  let problem: string | null
+  let paths: string[] = []
+  try {
+    const earlier: unknown = JSON.parse(await $.fs.read(file))
+    problem = workFilesProblem(earlier)
+    if (problem === null) paths = workFilePaths(earlier)
+  } catch (err) {
+    problem = firstLine(message(err))
+  }
+  if (problem !== null) await adapterLog($, 'workfiles', `${resumes}: not used: ${problem}`, run.id)
+  return paths
+}
+
 /** Evaluate an ended run once more when there is time (BEH-05); taken in only while it is still the open run. */
-async function finalEvaluation($: E, run: ProgressRun, timeoutMs: number | null): Promise<void> {
+async function finalEvaluation($: E, run: ProgressRun, timeoutMs: number | null, cleanup = false): Promise<void> {
   if (timeoutMs === null || !python) return
   await putFor($, run.id, () => ({ marked: false }))
   const got = await evaluate($, rootOf(run), `${run.dir}/events.jsonl`, `${run.dir}/state.json`, timeoutMs)
-  if (typeof got !== 'string') await absorb($, run, got)
+  if (typeof got !== 'string') await absorb($, run, got, cleanup)
 }
 
 /** The state the run would have with one more event (BEH-08, BEH-21): the run's lines and the pending event in
