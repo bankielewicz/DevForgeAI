@@ -1,0 +1,22 @@
+{
+  "name": "dashboard-probe",
+  "version": "0.4.0",
+  "description": "Prototype of the DevForgeAI Dashboard (docs/specs/devforgeai-dashboard.md): the dashboard in a pane, with probes for its open platform questions. Not part of the devforgeai plugin; all values are sample data except RPM and fuel.",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "dashboardTheme": {
+      "type": "string",
+      "title": "Dashboard look",
+      "default": "Default",
+      "options": ["Default", "Night drive", "Race telemetry"],
+      "description": "The dashboard's starting look. t in the dashboard switches it and writes it back here."
+    },
+    "dashboardCharacter": {
+      "type": "string",
+      "title": "Dashboard character",
+      "default": "Ember",
+      "options": ["Ember", "Clawd", "none"],
+      "description": "The character drawn beside the dashboard's controls."
+    }
+  }
+}
