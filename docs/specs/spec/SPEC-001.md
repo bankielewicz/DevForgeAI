@@ -555,7 +555,8 @@ by git.
   BEH-39), and the skill keeps one rule: use the draft the line names. Version 16's case analysis (copy the work file
   first, read it only at step 6 or earlier, ask step 5 only when the line says to confirm it) is removed: three
   reviews and a live check showed such prose misread or ignored ("Claude ignores ceremonial verbiage and I've noticed
-  if a skill contains too much pseudo code logic, it will ignore also").
+  if a skill contains too much pseudo code logic, it will ignore also"). The build (SKL-001 v10) carries this into
+  SKILL.md and references/work-file.md (its "Continuing a run" steps) and checks the saves-work-as-it-goes graders.
 
 - Resolved (Bryan, 2026-10-06, version 16, from the second drafts review): a run stopped at step 4 whose user saved
   ERR-02's draft BRN, then continued, finishes into that BRN ("Finish into BRN-003 (Recommended)"): ERR-02's write
@@ -581,7 +582,8 @@ by git.
   answer to a continued run, sections not reached marked; the work file never validated; a continued run reads the
   last work file its resume line names, copies it to its own path first (a Write Claude retypes, so a copy could come out shortened; no
   cp, which would prompt), and asks step 5 again only when the line asks
-  to confirm step 5; a fresh run ("Start fresh" included) reads none and leaves the earlier one in place; work files of
+  to confirm step 5 (version 17 replaces this: nothing is copied, the run saves to the draft the line names, and the
+  tracker's line says which step to ask); a fresh run ("Start fresh" included) reads none and leaves the earlier one in place; work files of
   runs never continued are deleted by age with the runs, ignored by git meanwhile; the first write prompts for
   permission at step 3, earlier than the BRN's at step 6.
 
