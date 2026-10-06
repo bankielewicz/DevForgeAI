@@ -1,4 +1,4 @@
-// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v18).
+// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v19).
 //
 // It records each run of a tracked skill as SPEC-012's event log, runs SPEC-012's evaluator on a timer, and shows
 // the run in the status line, a two-row band above the prompt and toasts. In enforce mode it refuses the write
@@ -6,7 +6,7 @@
 // no step tag, or another step's tag), and gives the model the report gate's flags. It records Claude Code's task list as step events.
 // A tracked skill Claude loads mid-run pauses the open run on a trail, which unwinds when Claude goes back (BEH-29,
 // BEH-30). A plugin skill whose SKILL.md metadata says devforgeai-tracked "false" is untracked: its load changes nothing
-// and the turn it loads in records no tool events (BEH-02, version 18). It fails open:
+// and the turn it loads in records no tool events and no replies (BEH-02, versions 18 and 19). It fails open:
 // when it can't run, the work goes on and the user is told (ADR-006 D1). Old run and session folders are pruned
 // by progress/prune.py, which the adapter starts once per session and root (BEH-19).
 //
@@ -171,7 +171,7 @@ let worked = false
 /** The turn is marked (BEH-02, version 18): an untracked skill was loaded in it, by the person (the typed name) or by
  *  Claude's Skill call (the in-flight set). Set at that skill.prompt; the main loop's next turn.complete clears it, and
  *  turn.start doesn't, since a typed load's skill.prompt comes before its turn starts. A tool call whose hook began while
- *  it was set records no tool event. */
+ *  it was set records no tool event, and a reply arriving while it is set isn't recorded (version 19). */
 let untrackedTurn = false
 let disabled = false
 let modeSession: string | null = null
@@ -1598,7 +1598,10 @@ export const register: Register = (on, options) => {
   // Claude's text, one row per kept block, so ticks written between tool calls arrive (§9, P7). Recorded before
   // next(e): the row is kept either way.
   on('session.append', { door: 'response' }, async ($, e, next) => {
-    if (await recording($, e.agentId)) {
+    // A reply in a marked turn is recorded in no run (BEH-02, version 19): a numbered tick in the untracked skill's reply
+    // would otherwise count as the open run's step.
+    const unrecorded = untrackedTurn
+    if (!unrecorded && (await recording($, e.agentId))) {
       try {
         const text = replyText((e.message as unknown as Fields).content)
         if (text) await record($, 'reply', { text })

@@ -93,6 +93,8 @@ a scaffold that seeds the BRNs, PRDs, ADRs and policies the case reads.
 - `--judge-model sonnet`: the default small judge failed correct replies. Even sonnet failed a correct
   8 kB PRD in 3 of 3 votes, so check claims about a written file with regex graders, and test each
   regex with `node` against a real output first.
+- `file_exists` counts only files the run created: a file the scaffold wrote fails it even when present (precompact's
+  first suite, 2026-10-05), so grade such a file with a regex on its content.
 - `--keep-temp` keeps `out/trace.jsonl`, the run's full transcript, with every tool call and the
   final reply; the workspace itself is sealed (mode 000).
 

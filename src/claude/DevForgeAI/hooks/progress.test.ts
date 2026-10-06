@@ -3887,6 +3887,31 @@ test('VER-50 (c): in the turn of a typed load, tool calls begun after it are rec
   expect(stepsOf(logOf(r.w, 'brainstorm').map(e => JSON.stringify(e)))).toEqual([[4, 'started']])
 })
 
+test('VER-50 (h): in the marked turn a reply is recorded in no run, its numbered tick included; the next turn\'s is (version 19)', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  await uTyped($, r)
+  const count = uCount(r.w, 'brainstorm')
+  await respond($, [{ type: 'text', text: 'Writing the handoff.\n- [x] 2. Header row' }])
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual([])
+  expect(runsOf(r.w, 'precompact')).toEqual([])
+  await turnEnd($)
+  await ($ as Any).turn.start({ turnId: 't2' })
+  await respond($, [{ type: 'text', text: 'Back to the brainstorm.' }])
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual(['turn', 'turn', 'reply'])
+})
+
+test('VER-50 (h): in the turn of Claude\'s load, a reply before the load is recorded and one after it isn\'t (version 19)', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  await ($ as Any).turn.start({ turnId: 't1' })
+  const count = uCount(r.w, 'brainstorm')
+  await respond($, [{ type: 'text', text: 'Before the handoff.' }])
+  await r.sk.load($, U_LOAD)
+  await respond($, [{ type: 'text', text: 'The handoff is written.\n- [x] 3. Diverge' }])
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual(['reply', 'tool'])
+})
+
 test('VER-50 (c) (d): in the turn of Claude\'s load, a TaskUpdate naming a paused run\'s task unwinds nothing; the next turn\'s does', async ($, on) => {
   const r = uWorld($, on)
   await uNested($, r)

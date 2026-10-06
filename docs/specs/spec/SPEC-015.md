@@ -2,7 +2,7 @@
 id: SPEC-015
 type: spec
 title: "Pre-compaction handoff skill: save what the session learned and write a full-fidelity handoff before /compact"
-status: in-review      # draft | in-review | approved | superseded | deprecated
+status: approved      # draft | in-review | approved | superseded | deprecated
 version: 2
 created: 2026-10-05
 updated: 2026-10-05
@@ -21,7 +21,7 @@ upstream:
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "decisions stay the user's: the handoff records who decided what, in their words, and never turns outstanding work into a decision"}
-  - {id: SPEC-013, relation: informed_by, version: 18, hash: null, note: "BEH-02 (version 18): an untracked skill opens no run, and the turn that loads it records nothing more in the open run, so the handoff can be written in the middle of a tracked run"}
+  - {id: SPEC-013, relation: informed_by, version: 19, hash: null, note: "BEH-02 (versions 18 and 19): an untracked skill opens no run, and the turn that loads it records no further tool event or reply in the open run, so the handoff can be written in the middle of a tracked run"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -31,7 +31,7 @@ components: ["src/claude/DevForgeAI/skills/precompact", "src/tests/precompact", 
 
 # SPEC-015 — Pre-compaction handoff skill: save what the session learned and write a full-fidelity handoff before /compact
 
-> **Status:** version 2 in review: version 1 was approved by Bryan on 2026-10-05; version 2 fixes §5's description,
+> **Status:** version 2 approved by Bryan on 2026-10-05 (version 1 the same day); version 2 fixes §5's description,
 > which the build found holding `<branch>`, refused by the frontmatter schema, and §4's project root, which
 > contradicted ERR-01. The drafting plan and its checkpoints
 > are in `tmp/plans/2026-10-05-precompact.md` (local); the review is `tmp/plans/precompact/review-drafts.md` (local).
@@ -95,7 +95,7 @@ memory (the eval sandbox seals the home folder), so saving to memory is checked 
   skills"); its next step is the user's `/compact`.
 - **Generic.** The plugin ships to every user, so the skill's text names no machine, terminal tab, person or path of
   this repository; what a project needs comes from that project's instructions and files.
-- **The progress tracker** (SPEC-013 v18, informed_by): BEH-02 tracks every plugin skill except one whose SKILL.md
+- **The progress tracker** (SPEC-013 v19, informed_by): BEH-02 tracks every plugin skill except one whose SKILL.md
   metadata has `devforgeai-tracked: "false"`; this skill is the first.
 - **Standard library only** for the check script, like `validate_brn.py` and `find_spec.py`: it runs under
   `python3 -S`.
@@ -417,7 +417,7 @@ verifications:
 - **New skill, nothing to migrate.** It ships in the next plugin version after approval and build (0.26.0, the next
   free minor, set at merge on Bryan's word), with SPEC-013 version 18. Rolling back is removing `skills/precompact/`,
   its evals and tests, the CLAUDE.md row, the schema's const, and SPEC-013 v18's clause.
-- **The tracker.** SPEC-013 version 18 (BEH-02). After the deploy, an open session needs `/reload-plugins` before the
+- **The tracker.** SPEC-013 versions 18 and 19 (BEH-02). After the deploy, an open session needs `/reload-plugins` before the
   key takes effect: until then typing the skill would end the open run, as any plugin skill did.
 - **Codex.** The Codex port isn't changed; a port is for Codex sessions to build.
 - **Records.** CLAUDE.md's skill table gains a `precompact` row (SKL-012, SPEC-015); `src/templates/skill/README.md`
@@ -484,3 +484,4 @@ named in BEH-06.
 | 1 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes (2 critical: the checker's rules narrowed so valid handoffs pass and the fix loop ends; ERR-01 decided by git's top level, VER-05's premise in a parent repository) and Bryan's answers (one folder per branch; typed or asked, run at 70 to 80 percent, START-HERE written first, memory last; the session's plan file ticked; line shapes and the self-check in the spec; the resume prompt's absolute path and branch check; no tests run; no secrets; ERR-06) | §1 to §13 |
 | 1 | 2026-10-05 | Bryan | Approved ('Approve both (Recommended)', with the summary and the drafter's choices shown in its preview, the run at 70-80% flagged as a departure from his 80-90%) | status |
 | 2 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | The build's structure test found that §5's description holds `<branch>`, which skill-frontmatter.schema.json refuses (a description holds no < or >; PRD-001 NFR-002, §2): it now says 'in devforgeai/handoff/, one folder per branch'. Writing the no-git eval case (VER-05) found §4's project root (the git top level when a parent of the working directory) contradicting ERR-01 (a parent repository the user didn't name means git isn't used): the root is now the folder the session started in, or a folder holding it that the user names; status in-review; on a side note Bryan relayed (sessions on main that edit worktrees with git -C would share main's folder), he chose 'Folder follows the work's branch': the folder and the state checks follow the branch of the worktree the session's work is in; §1 names it and its worktree; the resume prompt checks that worktree's branch; IF-01 states the checker's readings that the build's reviews settled (only the three files read; `[[fill:` outside code; a §2 bullet's own text before a nested list; `- None.` under Decided; `Nothing outstanding` with a note; items over blank lines and fences; `:LINE:COL`, URL-decoded and root-relative links; a relative path beside its file too; the markers on any line of a §4 item; unset variables skipped; the resume path matched whole; an unreadable folder exits 2) | §4, §5, IF-01, DM-01, DM-03, §13 |
+| 2 | 2026-10-05 | Bryan | Approved ('Approve v2 (Recommended)', with the four changes shown in its preview); the SPEC-013 link moved to version 19 on his 'Fix now as SPEC-013 v19' | status, §2, §10 |

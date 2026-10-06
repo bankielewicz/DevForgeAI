@@ -159,6 +159,9 @@ class Skill(unittest.TestCase):
                          (SKL, "precompact", "precompact"))
         self.assertIn({"id": "SPEC-015", "relation": "implements", "version": SPEC_VERSION, "hash": None},
                       self.prov["upstream"])
+        # Approved by Bryan on 2026-10-05, after the 1-run suite (12 of 12 at 1.00) and the live VER-07.
+        self.assertEqual((self.prov["status"], self.prov["approved_by"], self.prov["approved_on"]),
+                         ("approved", "Bryan", "2026-10-05"))
 
     def test_every_file_skill_md_names_exists(self):
         named = set(re.findall(r"\b((?:references|assets|scripts)/[\w.-]+)", self.text))
@@ -252,8 +255,8 @@ class Spec(unittest.TestCase):
     def test_spec_validates_and_every_item_is_covered(self):
         doc = spec_document(spec_text())
         self.assertEqual(errors("spec.schema.json", doc), [])
-        # Version 2 (the description without <branch>, found by this test) waits for Bryan's approval at the end of the build.
-        self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (SPEC_VERSION, "in-review"))
+        # Version 2 (the description without <branch>, found by this test) approved by Bryan on 2026-10-05.
+        self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (SPEC_VERSION, "approved"))
         covered = {c for v in doc["verifications"] for c in v.get("covers", [])}
         for key in ("behaviors", "errors", "quality_responses"):
             for item in doc[key]:
