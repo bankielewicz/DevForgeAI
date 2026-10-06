@@ -3,7 +3,7 @@ id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
 status: in-review       # draft | in-review | approved | superseded | deprecated
-version: 16
+version: 17
 created: 2026-10-02
 updated: 2026-10-06
 owner: "Bryan"
@@ -24,6 +24,7 @@ upstream:
   - {id: PRD-001, item: FR-004, relation: informed_by, version: 11, hash: null, note: "each handoff names the next step; the state's next field reports the chain's next step"}
   - {id: PRD-001, item: FR-011, relation: informed_by, version: 11, hash: null, note: "custom workflows declare their required checks; a project skill's manifest is one (ADR-006 D4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "the requirement whose core this spec builds; built on a spec branch, as no story exists"}
+  - {id: PRD-001, item: FR-022, relation: informed_by, version: 12, hash: null, note: "the dashboard (version 17): the per-run figures, the chain listing, the history figures and the odometer ledger files it draws"}
   - {id: SPEC-001, item: VER-02, relation: informed_by, version: 17, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
   - {id: SPEC-003, relation: informed_by, version: 11, hash: null, note: "the architecture skill's checklist; ADRs are accepted one by one when the user picks at step 7; the ARCH's outcome is written only when the user confirms it at step 8"}
   - {id: SPEC-007, relation: informed_by, version: 3, hash: null, note: "the git skill's checklist form for a legitimate skip, (skipped: <reason>); version 3 is in review"}
@@ -31,7 +32,7 @@ supersedes: []
 superseded_by: null
 blocked_by: []
 # --- spec-specific ---
-components: ["src/claude/DevForgeAI/progress", "src/tests/progress"]
+components: ["src/claude/DevForgeAI/progress", "src/claude/DevForgeAI/progress/chain_state.py", "src/claude/DevForgeAI/progress/history.py", "src/tests/progress"]
 ---
 
 # SPEC-012 — Progress tracker core: formats, manifests and evaluator
@@ -152,6 +153,20 @@ brainstorm is step 7, the validator's pass (BEH-21). The evaluator deletes nothi
 adapter deletes (SPEC-013 version 20). A work file's write is no write-gate evidence and no content rule's file, so
 the gate and the question window are as they were.
 
+**Version 17** (2026-10-06) adds what the DevForgeAI Dashboard needs from the evaluator's side (SPEC-016; the design
+is `docs/specs/devforgeai-dashboard.md`), none of it a judgement on a run. `state.json` gains the run's own figures,
+computed from its event log alone: its active time, the steps it reached itself and when it reached each, and the
+tokens its main-loop turns used (DM-03, BEH-23 to BEH-25). The tokens come from a new event kind, `usage`, which the
+adapter writes once per main-loop turn (DM-02; SPEC-013 version 24 records it). Two scripts join `evaluate.py`:
+`chain_state.py`, which lists the documents under `docs/specs/` (the script the out-of-scope list above left for a later
+spec), and `history.py`, which reads the finished runs' states and the odometer ledger for the cross-run figures
+(IF-03, IF-04, DM-04 to DM-06, BEH-26 to BEH-28). The evaluator stays a pure function of one events file, with no
+clock and no look at any other run, which is why the cross-run figures are `history.py`'s (§12). PACE is not computed
+here: the dashboard computes it from the run's steps reached and active time (SPEC-016 BEH-08), so a change to its
+scale needs no version of this spec. The 30-minute gap that defines active time is new in this spec; until now the
+number was only the adapter's stuck-notice timer (proposed, §13). The decisions behind the figures are the
+dashboard's (Bryan, 2026-10-06: "Pace (Recommended)", "All tokens, incl. agents"; the design §16).
+
 ## 2. Constraints
 
 - **The chain's order** (ADR-002, and ADR-004 D5 for the context step) fixes the state's `next` step (BEH-13).
@@ -180,7 +195,8 @@ flowchart LR
 | Path | Holds | Deploys |
 | --- | --- | --- |
 | `src/claude/DevForgeAI/progress/evaluate.py` | the evaluator and its two commands (IF-01, IF-02) | yes |
-| `src/claude/DevForgeAI/progress/schemas/manifest.schema.json`, `events.schema.json`, `progress.schema.json` | DM-01 to DM-03 as JSON Schema 2020-12, for tests and for other tools; the evaluator itself doesn't load them (QR-01) | yes |
+| `src/claude/DevForgeAI/progress/schemas/manifest.schema.json`, `events.schema.json`, `progress.schema.json` | DM-01 to DM-03 as JSON Schema 2020-12, for tests and for other tools; the evaluator itself doesn't load them (QR-01). Version 17 adds `odometer.schema.json`, `chain.schema.json` and `history.schema.json` for DM-04 to DM-06, and the build regenerates `events.schema.json` and `progress.schema.json` from DM-02 and DM-03 | yes |
+| `src/claude/DevForgeAI/progress/chain_state.py`, `history.py` | version 17: the chain listing and the cross-run figures (IF-03, IF-04), standard library only, read-only (QR-05, QR-06) | yes |
 | `src/claude/DevForgeAI/progress/manifests/brainstorm.json`, `architecture.json` | the two manifests (DM-01), bound to each skill's checklist by its hash (VER-01) | yes |
 | `src/tests/progress/test_evaluate.py` | the unit tests | no |
 | `src/tests/progress/cases/<case>/events.jsonl`, `expected.json`, and `manifests/` when a case needs its own | recorded event logs and the states they must produce | no |
@@ -277,7 +293,7 @@ flowchart LR
     "run": {"type": "string", "pattern": "^[0-9]{8}T[0-9]{6}Z-[a-z][a-z0-9-]*-[0-9a-f]{8}$"},
     "seq": {"type": "integer", "minimum": 1},
     "time": {"type": "string", "format": "date-time"},
-    "kind": {"enum": ["skill-loaded", "tool", "answer", "prompt", "reply", "turn", "run-end", "step"]}
+    "kind": {"enum": ["skill-loaded", "tool", "answer", "prompt", "reply", "turn", "run-end", "step", "usage"]}
   },
   "allOf": [
     {"if": {"properties": {"kind": {"const": "skill-loaded"}}},
@@ -306,7 +322,15 @@ flowchart LR
     {"if": {"properties": {"kind": {"const": "turn"}}},
      "then": {"required": ["phase"], "properties": {"phase": {"enum": ["start", "end"]}}}},
     {"if": {"properties": {"kind": {"const": "run-end"}}},
-     "then": {"required": ["reason"], "properties": {"reason": {"enum": ["another-skill", "session-end", "clear", "idle", "stopped", "returned"]}}}}
+     "then": {"required": ["reason"], "properties": {"reason": {"enum": ["another-skill", "session-end", "clear", "idle", "stopped", "returned"]}}}},
+    {"if": {"properties": {"kind": {"const": "usage"}}},
+     "then": {"required": ["turn", "model", "input", "output", "cacheRead", "cacheWrite"],
+              "properties": {"turn": {"type": "string", "minLength": 1, "description": "version 17: the host's ID of the main-loop turn these counts are for; the evaluator counts each turn ID once (BEH-25)"},
+                             "model": {"type": "string", "minLength": 1},
+                             "input": {"type": "integer", "minimum": 0, "description": "the turn's input tokens, cache reads and writes not included"},
+                             "output": {"type": "integer", "minimum": 0},
+                             "cacheRead": {"type": "integer", "minimum": 0},
+                             "cacheWrite": {"type": "integer", "minimum": 0}}}}
   ]
 }
 ```
@@ -319,7 +343,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "Progress state (devforgeai-progress/1), state.json",
   "type": "object",
-  "required": ["format", "run", "skill", "manifest", "through", "ended", "current", "steps", "flags", "gate", "next", "counts", "waiver"],
+  "required": ["format", "run", "skill", "manifest", "through", "ended", "current", "steps", "flags", "gate", "next", "counts", "waiver", "timing", "usage"],
   "additionalProperties": false,
   "properties": {
     "format": {"const": "devforgeai-progress/1"},
@@ -339,6 +363,25 @@ A `prompt` event records only that the user sent a prompt; its text is never log
       "description": "version 15: present only when the manifest applies (matched or unverified) and names workFiles (BEH-21)",
       "properties": {"files": {"type": "array", "items": {"type": "string"}, "uniqueItems": true, "description": "the paths of the run's Write and Edit calls that didn't fail and match a work-file pattern, each once, in the order first written"},
                      "due": {"type": "boolean", "description": "true when the manifest has a step proved by a script run on a written file and every such step is done: the work files' cleanup is due (SPEC-013 BEH-32)"}}
+    },
+    "timing": {
+      "type": "object", "required": ["started", "lastEvent", "activeSeconds", "untimed", "stepsReached", "stepsCarried"], "additionalProperties": false,
+      "description": "version 17: the run's figures from its event times alone, never a clock (BEH-23, BEH-24)",
+      "properties": {"started": {"type": ["string", "null"], "description": "the time of the first evaluated event whose time reads, as the event gave it; null when none reads"},
+                     "lastEvent": {"type": ["string", "null"], "description": "the time of the last evaluated event whose time reads, as the event gave it: the run-end's when the run ended"},
+                     "activeSeconds": {"type": "integer", "minimum": 0, "description": "the run's span from its first to its last timed event with every gap of more than 1,800 seconds between consecutive timed events left out (BEH-23)"},
+                     "untimed": {"type": "integer", "minimum": 0, "description": "evaluated events whose time doesn't read (ERR-12)"},
+                     "stepsReached": {"type": "integer", "minimum": 0, "description": "the steps this run reached itself: those whose reached isn't null (BEH-24)"},
+                     "stepsCarried": {"type": "integer", "minimum": 0, "description": "the steps with carried evidence, which count as reached in the earlier run (BEH-20, BEH-24)"}}
+    },
+    "usage": {
+      "type": "object", "required": ["turns", "input", "output", "cacheRead", "cacheWrite", "models", "duplicates"], "additionalProperties": false,
+      "description": "version 17: the totals of the run's usage events, the main loop's only (BEH-25)",
+      "properties": {"turns": {"type": "integer", "minimum": 0, "description": "the distinct turns counted"},
+                     "input": {"type": "integer", "minimum": 0}, "output": {"type": "integer", "minimum": 0},
+                     "cacheRead": {"type": "integer", "minimum": 0}, "cacheWrite": {"type": "integer", "minimum": 0},
+                     "models": {"type": "array", "items": {"type": "string"}, "uniqueItems": true, "description": "the distinct model names the counted events named, sorted"},
+                     "duplicates": {"type": "integer", "minimum": 0, "description": "usage events left out because an earlier one named the same turn"}}
     },
     "current": {"type": ["integer", "null"]},
     "steps": {"type": "array", "items": {"$ref": "#/$defs/step"}},
@@ -361,7 +404,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
   "$defs": {
     "step": {
       "type": "object", "additionalProperties": false,
-      "required": ["n", "title", "kind", "need", "userOwned", "state", "evidence", "claim", "note"],
+      "required": ["n", "title", "kind", "need", "userOwned", "state", "evidence", "claim", "note", "reached"],
       "properties": {
         "n": {"type": "integer"}, "title": {"type": "string"},
         "kind": {"enum": ["read", "think", "ask", "forge", "inspect", "report", null]},
@@ -375,7 +418,11 @@ A `prompt` event records only that the user sent a prompt; its text is never log
                          "strength": {"enum": ["strong", "medium"]}, "detail": {"type": "string"}}}},
         "claim": {"type": ["object", "null"], "additionalProperties": false, "required": ["seq", "state", "reason"],
                   "properties": {"seq": {"type": "integer"}, "state": {"enum": ["done", "skipped"]}, "reason": {"type": ["string", "null"]}}},
-        "note": {"type": "string"}
+        "note": {"type": "string"},
+        "reached": {"type": ["object", "null"], "additionalProperties": false, "required": ["seq", "time", "activeSeconds"],
+                    "description": "version 17: when this run first reached the step (BEH-24), or null when it never did or the step is carried",
+                    "properties": {"seq": {"type": "integer"}, "time": {"type": "string", "description": "that event's time, as the event gave it"},
+                                   "activeSeconds": {"type": "integer", "minimum": 0, "description": "the run's active time up to that event (BEH-23)"}}}
       }
     },
     "flag": {
@@ -387,6 +434,103 @@ A `prompt` event records only that the user sent a prompt; its text is never log
       "type": "object", "additionalProperties": false, "required": ["kind", "seq", "refuse", "reason"],
       "properties": {"kind": {"enum": ["write", "report", "end", "question", null]}, "seq": {"type": ["integer", "null"]},
                      "refuse": {"type": "boolean"}, "reason": {"type": ["string", "null"]}}
+    }
+  }
+}
+```
+
+**The ledger and the two scripts' output** (version 17). The odometer ledger is one file for each session, written by that
+session's adapter (SPEC-016 BEH-10: it reads its own file and writes it whole, since `$.fs` has no append, and no other
+session writes it) and read by `history.py`; its line format is DM-04. The host's `input_tokens`, `output_tokens`,
+`cache_read_input_tokens` and `cache_creation_input_tokens` are `input`, `output`, `cacheRead` and `cacheWrite`, as in
+DM-02's `usage` event. A reader ignores keys it doesn't know. `chain_state.py` prints DM-05
+and `history.py` DM-06, each as JSON with sorted keys, two-space indentation and a final newline, as BEH-14 says of the
+state.
+
+```json
+{
+  "x-item-id": "DM-04",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Odometer ledger line (devforgeai-odometer/1): one JSON object per line of devforgeai/progress/odometer/<session-id>.jsonl, one file for each session",
+  "type": "object",
+  "required": ["session", "turn", "source", "input", "output", "cacheRead", "cacheWrite", "time"],
+  "properties": {
+    "session": {"type": "string", "minLength": 1, "description": "the host's session ID; the name of the file the line is in, less .jsonl (history.py counts a line by its own session, whatever file holds it)"},
+    "turn": {"type": "string", "minLength": 1, "description": "the host's turn ID within the session"},
+    "source": {"type": "string", "minLength": 1, "description": "main for the main loop, or the subagent's ID"},
+    "input": {"type": "integer", "minimum": 0, "description": "input tokens, cache reads and writes not included"},
+    "output": {"type": "integer", "minimum": 0},
+    "cacheRead": {"type": "integer", "minimum": 0},
+    "cacheWrite": {"type": "integer", "minimum": 0},
+    "time": {"type": "string", "format": "date-time", "description": "when the adapter wrote the line; history.py keeps it for people and reads no clock from it (BEH-28)"}
+  }
+}
+```
+
+```json
+{
+  "x-item-id": "DM-05",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Chain state (devforgeai-chain/1), printed by chain_state.py",
+  "type": "object",
+  "required": ["format", "documents", "skipped"],
+  "additionalProperties": false,
+  "properties": {
+    "format": {"const": "devforgeai-chain/1"},
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "type", "status", "version", "updated", "path", "upstream"],
+        "properties": {
+          "id": {"type": "string"},
+          "type": {"type": ["string", "null"], "description": "the frontmatter's type, or null when it has none"},
+          "status": {"type": ["string", "null"], "description": "the frontmatter's status as written, or null when it has none; a reader decides what a missing status means"},
+          "version": {"type": ["integer", "string", "null"], "description": "an integer when the value is all digits, else the text as written, or null"},
+          "updated": {"type": ["string", "null"], "description": "the text as written, normally yyyy-mm-dd"},
+          "path": {"type": "string", "description": "relative to --root, with / separators"},
+          "upstream": {"type": "array", "items": {"type": "string"}, "uniqueItems": true, "description": "the IDs of the frontmatter's upstream entries, in file order"}
+        }
+      }
+    },
+    "skipped": {"type": "integer", "minimum": 0, "description": "Markdown files under docs/specs/ that were left out: no frontmatter id, or unreadable (ERR-13)"}
+  }
+}
+```
+
+```json
+{
+  "x-item-id": "DM-06",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "History (devforgeai-history/1), printed by history.py",
+  "type": "object",
+  "required": ["format", "skills", "odometer", "runs"],
+  "additionalProperties": false,
+  "properties": {
+    "format": {"const": "devforgeai-history/1"},
+    "skills": {
+      "type": "object",
+      "description": "one entry for each skill a readable run's state names, keyed by its name",
+      "additionalProperties": {
+        "type": "object", "additionalProperties": false, "required": ["runs", "complete", "medianActiveSeconds"],
+        "properties": {"runs": {"type": "integer", "minimum": 1, "description": "readable runs of the skill"},
+                       "complete": {"type": "integer", "minimum": 0, "description": "the runs that count toward the median (BEH-27)"},
+                       "medianActiveSeconds": {"type": ["integer", "null"], "description": "the median of the complete runs' activeSeconds, or null with fewer than 2 complete runs"}}
+      }
+    },
+    "odometer": {
+      "type": "object", "additionalProperties": false,
+      "required": ["input", "output", "cacheRead", "cacheWrite", "tokens", "turns", "duplicates", "malformed"],
+      "properties": {"input": {"type": "integer", "minimum": 0}, "output": {"type": "integer", "minimum": 0},
+                     "cacheRead": {"type": "integer", "minimum": 0}, "cacheWrite": {"type": "integer", "minimum": 0},
+                     "tokens": {"type": "integer", "minimum": 0, "description": "the four counts added: all tokens"},
+                     "turns": {"type": "integer", "minimum": 0, "description": "ledger lines counted, each (session, turn, source) once"},
+                     "duplicates": {"type": "integer", "minimum": 0}, "malformed": {"type": "integer", "minimum": 0}}
+    },
+    "runs": {
+      "type": "object", "additionalProperties": false, "required": ["read", "skipped"],
+      "properties": {"read": {"type": "integer", "minimum": 0, "description": "state.json files read as a state with timing"},
+                     "skipped": {"type": "integer", "minimum": 0, "description": "state.json files left out (ERR-15)"}}
     }
   }
 }
@@ -466,7 +610,8 @@ skill). The tracker answers at three levels:
 **Operational files.** A host adapter writes a run's files under the project root's `devforgeai/` folder:
 - `devforgeai/progress/runs/<run>/events.jsonl`: the event log (DM-02), appended by the adapter;
 - `devforgeai/progress/runs/<run>/state.json`: the evaluator's output (DM-03), written through `--out`;
-- `devforgeai/progress/current.json`: a copy of the active run's state, for renderers.
+- `devforgeai/progress/current.json`: a copy of the active run's state, for renderers;
+- `devforgeai/progress/odometer/<session-id>.jsonl`: the odometer ledger (DM-04, version 17), one file for each session, one line per turn of the session, the main loop's and subagents' alike. Only that session's adapter writes it, by reading its own file and writing it whole (SPEC-016 BEH-10; `$.fs` has no append, and one writer for each file means two sessions never overwrite each other); `history.py` totals every file in the folder (BEH-28). `$.fs` reads and writes at most 4 MiB, about 20,000 turns at 200 bytes a line, so a session's file is the most one session can record (SPEC-016 ERR-06). It is outside every run, so pruning a run doesn't remove its tokens from the total; SPEC-013 version 24 makes `prune.py` keep the folder and its files.
 
 `devforgeai/progress/` is gitignored by default (Bryan, 2026-10-02): its files are per session working data. The adapter writes the `.gitignore` entry (its spec). `devforgeai/manifests/` stays tracked.
 
@@ -480,6 +625,8 @@ A run ID is `<UTC time as yyyymmddThhmmssZ>-<skill>-<8 hex digits>`. The evaluat
 | --- | --- | --- |
 | IF-01 | `evaluate --manifests DIR [--manifests DIR …] --events FILE --out FILE [--root DIR] [--phases FILE]` | `--manifests` may repeat, in layer order: the plugin's folder first, then an organization's, then a project's (BEH-17). Reads `FILE` (DM-02) and each folder's `<skill>.json` (DM-01), writes the state (DM-03) to `--out`, and prints one summary line. `--root` is the project root, for reading written files that carry no `content`. Exit 0 when the state is written, with or without flags; flags are data, never an exit status. Exit 2 when it can't run (ERR-03, ERR-04, ERR-07, ERR-08), with one line on stderr naming the file and the reason |
 | IF-02 | `check --manifests DIR --skill NAME --checklist FILE` | Hashes the checklist in `FILE` (a `SKILL.md`, or any text holding the block) and compares it with `DIR/NAME.json`. When the manifest names workFiles that break BEH-21's rules, prints `invalid workFiles: <reason>` and exits 1 whatever the hashes (version 15). Otherwise prints `matched <hash>`, `stale manifest <hash> checklist <hash>` or `none <hash>`. Exit 0 when matched, 1 when stale, none or invalid, 2 when it can't run |
+| IF-03 | `python3 <plugin>/progress/chain_state.py --root DIR` | Version 17. Lists the documents under `DIR/docs/specs/` as DM-05 (BEH-26) on stdout. Exit 0 whenever it prints, an empty `documents` list when there is no `docs/specs/`; exit 2 when it can't run (ERR-14), with one line on stderr. Reads and writes nothing else (QR-06) |
+| IF-04 | `python3 <plugin>/progress/history.py --root DIR` | Version 17. Reads the run folders' `state.json` files under `DIR/devforgeai/progress/runs/` and the ledger files `DIR/devforgeai/progress/odometer/*.jsonl` (DM-04, one level, in the byte order of their names) and prints DM-06 (BEH-27, BEH-28) on stdout. Exit 0 whenever it prints, with no runs or no ledger giving empty and zero figures; exit 2 when it can't run (ERR-14). Reads and writes nothing else (QR-06) |
 
 ## 6. Behavior
 
@@ -551,6 +698,24 @@ behaviors:
   - id: BEH-22
     status: active
     rule: "Forms and Bash writes (version 16; Bryan, 2026-10-06: 'Question only', 'Accept the set', 'Refuse before', then 'Both', 'Flag it too', 'Fix in v16'). An answer event may carry questions, the form Claude asked (DM-02), and never the answer: the evaluator reads no field of it, so it changes no state, flag or gate, and a state is the same with or without it; the run's record keeps what was proposed, never what the user picked (BEH-20's 'never what' stands). A tool event with wrote is the adapter's record of a file a Bash call created or changed (SPEC-013 BEH-38): it is write evidence (BEH-06) and goes to the content rules as a Write does, its content being the file as read after the call (none when the adapter couldn't read it: ERR-05's reading applies), and a document's raises BEH-08's outside-write flag."
+  - id: BEH-23
+    status: active
+    rule: "Active time (version 17; Bryan, 2026-10-06: 'Pace (Recommended)'; the 30-minute gap is proposed, §13). The evaluator reads the time of each evaluated event, those after a run-end left out (BEH-12), and an event's time reads when it is an ISO 8601 date-time with a Z or a UTC offset, to the millisecond (ERR-12 when it doesn't). The run's timed events are the evaluated events whose time reads, in seq order, of every kind: any event shows the session was at work. The gap between two consecutive timed events is the later time less the earlier, in milliseconds; a gap below 0, when the log's times run backward, counts as 0. A gap of more than 1,800,000 ms (30 minutes) is an idle gap and is left out; every other gap, one of exactly 30 minutes included, is active. timing.activeSeconds is the sum of the active gaps in whole seconds, rounded down, and 0 with fewer than two timed events; timing.started and timing.lastEvent are the first and last timed event's time as the event gave it, null when none reads. Every time comes from the log and none from a clock, so BEH-01 and QR-02 hold: the same log gives the same figures whenever it is evaluated."
+  - id: BEH-24
+    status: active
+    rule: "Steps reached, and when (version 17). A step is first reached in this run at the lowest seq, among the evaluated events, of: its first evidence of a type other than carried or waiver (BEH-06; BEH-19 says a waiver doesn't make a step reached, and BEH-20's carried evidence is the earlier run's); its first claim of any kind (BEH-05: a tick, a skipped line or a step event with state done); and its first step event of either state, so a step marked started counts when it starts although BEH-07's reached doesn't include a started mark. A claim or step event for a step the checklist doesn't have counts for nothing (ERR-06). The state's steps[].reached then holds that event's seq, its time as the event gave it and the run's active time up to it: BEH-23's sum over the gaps up to that event, taken at the last timed event at or before it when its own time doesn't read; it is null when the step is never reached. A step with carried evidence (BEH-20) has reached null whatever else happens to it in this run, since the earlier run reached it. Several steps reached at one event each hold that event and each counts once. timing.stepsReached is the number of steps whose reached isn't null, and timing.stepsCarried the number with carried evidence. In a run whose manifest is stale or none (BEH-04) the figures come from claims and step events alone. The evaluator computes no rate: PACE, the steps reached per hour of active time and its scale, is the dashboard's (SPEC-016 BEH-08), from the state's stepsReached and activeSeconds; and none of these figures changes any step's state, flag or gate."
+  - id: BEH-25
+    status: active
+    rule: "Usage (version 17; Bryan, 2026-10-06: 'All tokens, incl. agents'). A usage event (DM-02) is the adapter's record of one main-loop turn's token counts (SPEC-013 version 24); the adapter writes none for a subagent's turn, whose counts go to the odometer ledger only (BEH-28). It is no evidence, claim, answer or gate: it starts or ends no answer window and moves no step, current, flag, gate or next, so a state's steps, flags, gate and next are the same with the usage events removed. It is an event: it counts in counts.events and moves through, and a usage event after the run-end is ignored and counted in counts.afterEnd (BEH-12), as every event after it is. The state's usage totals every usage event evaluated: input, output, cacheRead and cacheWrite are the sums of the events' counts; turns counts the distinct turn IDs; models lists the distinct model names the counted events named, sorted by byte order. A usage event whose turn ID an earlier evaluated usage event named is left out of every total and counted in usage.duplicates, so an adapter that writes a turn twice counts it once. A run with no usage event has all counts 0, models [] and duplicates 0. The evaluator prices nothing and adds no dollar figure: a price table isn't a function of the log."
+  - id: BEH-26
+    status: active
+    rule: "The chain listing (version 17; chain_state.py, planned in §11 since version 1). IF-03's --root names the project root. The script visits every file whose name ends in .md anywhere under DIR/docs/specs/, following no symbolic link (a link to a file or a folder is left out and counted in skipped), and reads each only as far as the line that closes its frontmatter: the lines between the file's first two --- lines, the first line of the file being the first of them; a file whose first line isn't --- or that never closes it has none. As §4 reads field values, with no YAML library, a top-level key is a line beginning at column 0 with <key>: and its value is the characters after the colon, an optional quote removed, up to the first whitespace, quote, #, comma or }; so 'status: in-review       # draft | in-review' reads in-review. A file whose frontmatter has no id is left out and counted in skipped (ERR-13). Each other file gives one entry of DM-05: id; type, status, version and updated from the keys of those names, each null when the key is absent, version an integer when its value is all digits and the text otherwise, updated as text; path, relative to DIR with / separators; and upstream, the IDs of the frontmatter's upstream list, each once in file order. The list is the lines after a column-0 'upstream:' up to the next column-0 line that is not blank, a comment or a list item beginning with '-'; 'upstream: []' on its own line is an empty list; each list line gives one ID, read from '{id: <ID>' or '- id: <ID>' where the ID is letters, digits and hyphens. The entries are sorted by type (null first), then id, then path, in the byte order of the text, so the order never depends on a folder listing. The script judges nothing: it reads no document's body, checks no status, version or link, and doesn't say which phase a project is in (SPEC-016 draws that from the list)."
+  - id: BEH-27
+    status: active
+    rule: "The history figures (version 17; the design §6). IF-04 reads DIR/devforgeai/progress/runs/<run>/state.json for every run folder one level deep, in byte order of the folder names, following no symbolic link. A file is a read run when it is a JSON object with format devforgeai-progress/1, a string skill and a timing object whose activeSeconds is an integer, and any other state.json is ERR-15's. skills[<skill>].runs counts the read runs of the skill, an open run (ended null) included. A read run is complete when ended isn't null, timing.stepsCarried is 0 and no step has the state pending, current, your-turn or carried: it ended, and every step was reached or passed over (done, claimed, unconfirmed, skipped-with-reason, not-applicable, skipped or rule-broken). A run the user stopped (BEH-12), one that ended early, one that continued another (BEH-20) and one still open are therefore not complete, as a conditional step that didn't apply doesn't make a finished run incomplete. skills[<skill>].complete counts them, and medianActiveSeconds is the median of their timing.activeSeconds: the middle value for an odd count, the mean of the two middle values rounded down to a whole second for an even count, and null when the skill has fewer than 2 complete runs. A skill no read run names has no entry, and the script lists every skill the states name, built or not: which phases have a built skill is the dashboard's to say. runs.read counts the read runs and runs.skipped the states ERR-15 left out."
+  - id: BEH-28
+    status: active
+    rule: "The odometer total (version 17; Bryan, 2026-10-06: 'All tokens, incl. agents'). IF-04 reads every regular file whose name ends in .jsonl directly in DIR/devforgeai/progress/odometer/, in the byte order of the file names and each line by line, and follows no symbolic link: a link, a folder and a file of another name in it are ignored and counted nowhere, and no odometer/ folder gives all-zero figures. A blank line is ignored and counted nowhere. A line counts when it is a JSON object with a non-empty string session, turn and source, input, output, cacheRead and cacheWrite that are integers of 0 or more (a boolean is not an integer) and a string time (DM-04); any other line is malformed, left out and counted in odometer.malformed (ERR-16). A line whose (session, turn, source) triple an earlier line had, in the same file or an earlier file, is a duplicate: left out of the totals, the first line's counts standing, and counted in odometer.duplicates, so a reload of the adapter, or two files that hold the same turn, count it once; the main loop and each agent of one turn are three different triples. Every other line adds its four counts to odometer.input, output, cacheRead and cacheWrite and 1 to odometer.turns, and odometer.tokens is the four sums added. No line is dropped for its age: the total is the project's lifetime, whatever pruning removed of the runs. A session's file holds every turn of that session, the main loop's and each subagent's; a run's usage events (BEH-25) hold the main loop's only and history.py never reads them, so no total is added to the other. The script reads the time field as text only and no clock. The adapter writes each session's file (SPEC-016 BEH-10) and prune.py keeps the folder and its files (SPEC-013 version 24); this script only reads them."
 ```
 
 ## 7. Errors and edge cases
@@ -607,6 +772,36 @@ errors:
     condition: "A skill-loaded event's carried names a step the checklist doesn't have, or isn't a list of positive integers; or its answered names a step that isn't a carried user-owned step, or isn't such a list."
     handling: "The bad numbers are ignored and the rest kept (BEH-20); a carried or answered that isn't a list counts as empty. The event is otherwise taken as it is."
     user_result: "None: the steps named carry over and the run is evaluated."
+  - id: ERR-11
+    status: active
+    condition: "A usage event lacks a non-empty string turn or model, or has an input, output, cacheRead or cacheWrite that isn't an integer of 0 or more (a boolean isn't one)."
+    handling: "Skip the line and count it in counts.malformed, as ERR-01 does; it is no event, so it adds to no total and sets no time."
+    user_result: "The state is written; the count shows how many lines were skipped."
+  - id: ERR-12
+    status: active
+    condition: "An evaluated event's time isn't an ISO 8601 date-time with a Z or a UTC offset, such as 'yesterday' or a time with no offset."
+    handling: "The event is otherwise taken as it is (ERR-01 reads no time's format). It is left out of the timed events (BEH-23): no gap is measured to or from it, the next timed event's gap is measured from the last timed one, and timing.untimed counts it. A step reached at such an event holds its seq and time as given, with the active time at the last timed event before it (BEH-24)."
+    user_result: "The state is written; timing.untimed shows how many events had no usable time."
+  - id: ERR-13
+    status: active
+    condition: "chain_state.py: DIR/docs/specs/ doesn't exist, or a Markdown file under it has no frontmatter, has frontmatter with no id, can't be read, isn't UTF-8, or is a symbolic link."
+    handling: "No docs/specs/ gives an empty documents list, skipped 0 and exit 0. Any such file is left out, counted in skipped, and the script goes on with the rest."
+    user_result: "The JSON is printed with exit 0; skipped shows how many files were left out, as a design proposal with no ID is."
+  - id: ERR-14
+    status: active
+    condition: "chain_state.py or history.py: --root is missing, isn't a folder or can't be read, or an argument is unknown."
+    handling: "Print nothing on stdout and exit 2."
+    user_result: "stderr: one line, 'chain_state: <what is wrong>' or 'history: <what is wrong>'."
+  - id: ERR-15
+    status: active
+    condition: "history.py: a run folder has a state.json that can't be read, isn't JSON, isn't a JSON object of format devforgeai-progress/1 with a string skill, or has no timing object with an integer activeSeconds (a state written before version 17 has none); or an entry of runs/ is a symbolic link."
+    handling: "Leave the run out and count it in runs.skipped, and go on. A run folder with no state.json isn't a run state and is ignored, uncounted. No runs/ folder gives skills {}, runs read 0 and skipped 0, and exit 0."
+    user_result: "The JSON is printed with exit 0; runs.skipped shows how many states were left out."
+  - id: ERR-16
+    status: active
+    condition: "history.py: a ledger file has a line that isn't a counted line (BEH-28), including a last line cut short by a write that failed part-way; or the odometer/ folder or its files don't exist; or a file exists but can't be read."
+    handling: "A malformed line is skipped and counted in odometer.malformed, and the script goes on. No ledger gives all-zero odometer figures and exit 0. A ledger file that exists and can't be read is ERR-14's: exit 2, with stderr naming the file."
+    user_result: "The JSON is printed; odometer.malformed shows how many lines were skipped."
 ```
 
 ## 8. Non-functional design
@@ -637,6 +832,25 @@ quality_responses:
     measured_by: "Code review at build time, recorded in §9; VER-15 checks that nothing but --out is written."
     upstream:
       - {id: PRD-001, item: NFR-007, relation: satisfies, version: 11, hash: null}
+  - id: QR-05
+    status: active
+    response: "chain_state.py and history.py import only the Python standard library and run under python3 -S. The same files under --root always give byte-identical output: sorted keys, no clock, no absolute path, and no order taken from a set, a hash or a folder listing."
+    measured_by: "VER-53: both scripts run under python3 -S, an import scan finds only standard-library modules, and two runs under different PYTHONHASHSEED values over every fixture give identical bytes."
+    upstream:
+      - {id: PRD-001, item: NFR-004, relation: informed_by, version: 11, hash: null, note: "the NFR names the evaluator; version 17's scripts follow it by this item"}
+      - {id: PRD-001, item: NFR-005, relation: informed_by, version: 11, hash: null, note: "the NFR names the progress state; version 17's scripts follow it by this item"}
+  - id: QR-06
+    status: active
+    response: "chain_state.py reads only Markdown files under DIR/docs/specs/, and each only up to its frontmatter's closing line. history.py reads only DIR/devforgeai/progress/runs/<run>/state.json files and the .jsonl files in DIR/devforgeai/progress/odometer/. Neither follows a symbolic link, writes any file, opens a network connection or runs another program; both print to stdout and report an error on stderr."
+    measured_by: "Code review at build time, recorded in §9; VER-53 runs both over a tree made read-only and finds every file's content and the folder listings unchanged."
+    upstream:
+      - {id: PRD-001, item: NFR-007, relation: informed_by, version: 11, hash: null, note: "the NFR names the evaluator; this item is its counterpart for the two scripts of version 17 (SPEC-013 version 24 relies on it)"}
+  - id: QR-07
+    status: active
+    response: "The adapter runs each script with a 5-second limit (SPEC-016 IF-03), so each is quick: chain_state.py reads a document's frontmatter only, and history.py reads each file once."
+    measured_by: "VER-54: a generated project of 500 documents, 500 run folders and a ledger of 20 files and 20,000 lines in all runs each script in under 1 second in the test; the time measured on the owner's machine is recorded in §9."
+    upstream:
+      - {id: PRD-001, item: NFR-006, relation: informed_by, version: 11, hash: null, note: "the NFR names the evaluator's 200 ms; the scripts' target is the adapter's limit"}
 ```
 
 ## 9. Verification
@@ -1055,6 +1269,71 @@ verifications:
       - BEH-08
       - BEH-21
       - BEH-22
+  - id: VER-47
+    status: active
+    obligation: "Version 17, timing (tests first, in src/tests/progress/, seen failing; progress.schema.json takes timing and each step's reached). Cases, each a small generated log with the times named: timing-basic (events at 0 s, 60 s, 1,860 s and 3,661 s: the gaps 60 and 1,800 are active, the gap of 1,801 is idle, so activeSeconds is 1,860, started the first time and lastEvent the last, as given); timing-single (one event: activeSeconds 0, started equal to lastEvent); timing-backward (a time earlier than its predecessor adds 0 and the next gap is measured from it); timing-millis (gaps of 1.5 s and 1.4 s give 2, the floor of 2.9); timing-offset (a +02:00 time read as the same instant as its Z form); timing-untimed (an event with the time 'yesterday' and one with 2026-10-06T10:00:00 and no offset: both counted in untimed, left out of the gaps, the gap measured across them); timing-after-end (events after the run-end add nothing to lastEvent or activeSeconds and count in afterEnd); timing-usage-gap (usage and turn events are timed events: a usage event at 20 minutes after the last event, then another 20 minutes later, keeps both gaps active). Every earlier case's expected state gains timing, usage and each step's reached and nothing else moves, checked line by line (the case logs' own times fix the figures). The cases validate against the schemas (VER-02) and run the same under python3 -S and byte-identical twice (QR-01, QR-02)."
+    level: unit
+    covers:
+      - DM-03
+      - BEH-23
+      - ERR-12
+  - id: VER-48
+    status: active
+    obligation: "Version 17, steps reached. Cases: reached-kinds (a brainstorm run that follows the task list: step 1 reached by a tool event at seq 5, step 2 by a tick at seq 8, step 3 by a started step event at seq 9, then step 3's done event: each step's reached holds that seq, its time as given and the active time up to it; stepsReached 3, stepsCarried 0); reached-same-event (a reply ticking steps 2 to 4 at once: each holds that event and each counts); reached-idle (a step reached after a 40-minute gap: its activeSeconds leaves the gap out); reached-skipped-tick (a skipped claim reaches the step); reached-unknown (a tick for a step the checklist hasn't, ERR-06: no step reached by it); reached-waiver (architecture's step 8 done only by waiver evidence, BEH-19: reached null); reached-carried (a run carrying steps 1 to 7 that then reads step 4's folder again: steps 1 to 7 have reached null, stepsCarried 7, stepsReached counts only the steps reached after); reached-stale (a stale manifest: reached from the ticks alone); reached-untimed-step (a step reached at an event whose time doesn't read: its seq and time as given, the active time of the last timed event before it). Each case's steps, flags, gate, current and next equal what they were without the figures, which every earlier golden confirms. The cases validate against the schemas (VER-02) and run the same under python3 -S and byte-identical twice (QR-01, QR-02)."
+    level: unit
+    covers:
+      - DM-03
+      - BEH-24
+  - id: VER-49
+    status: active
+    obligation: "Version 17, usage. events.schema.json takes a usage event (turn, model and four counts) and rejects one with a negative or string count, and progress.schema.json takes a state's usage. Cases: usage-totals (three events from two models, in one turn each: the four sums, turns 3, models sorted, duplicates 0); usage-duplicate-turn (the same turn ID twice with different counts: the first stands, duplicates 1, turns not raised); usage-neutral (an architecture log with a usage event after every turn, beside the same log without: steps, flags, gate, current and next are equal, and counts.events and through, timing and usage differ as they should); usage-after-end (a usage event after the run-end: not in the totals, counted in afterEnd); usage-malformed (a usage line with no turn, no model, a negative count, a string count and a count of true: five lines counted in counts.malformed, none in the totals); usage-none (no usage event: all counts 0, models [], duplicates 0). The cases validate against the schemas (VER-02) and run the same under python3 -S and byte-identical twice (QR-01, QR-02)."
+    level: unit
+    covers:
+      - DM-02
+      - DM-03
+      - BEH-25
+      - ERR-11
+  - id: VER-50
+    status: active
+    obligation: "Version 17, chain_state.py: tests first, on fixture trees the test builds in a temporary folder, with the exact JSON asserted and validated against DM-05. A tree with a brainstorm, a PRD, a spec whose upstream list is in the flow style of this spec ('- {id: ADR-002, relation: constrains, ...}') and one in the block style ('- id: ADR-002'), a document with 'upstream: []', one with a trailing comment after its status, one with a quoted version and one with a version like 1.2: each document's id, type, status, version (an integer, or the text), updated, path and upstream IDs in file order, each ID once. A design proposal with no frontmatter, a file whose frontmatter never closes, one with no id, one that isn't UTF-8, and a symbolic link to a document outside the root: none listed, each counted in skipped, and the link's target never read. Documents in a subfolder are listed, and the order is the same whatever order the files were created in. A root with no docs/specs/: documents [], skipped 0, exit 0 (ERR-13). A missing --root, a --root that is a file, and an unknown argument: exit 2 with nothing on stdout and one line on stderr (ERR-14). Run on this repository's docs/specs/, the output validates against DM-05 and lists SPEC-012 with the version its frontmatter holds and every upstream ID the frontmatter names."
+    level: unit
+    covers:
+      - IF-03
+      - DM-05
+      - BEH-26
+      - ERR-13
+      - ERR-14
+  - id: VER-51
+    status: active
+    obligation: "Version 17, history.py's run figures: tests first, on fixture run folders the test builds from states the evaluator wrote (the cases' own), with the output validated against DM-06. Three complete brainstorm runs with activeSeconds 600, 1,200 and 900: median 900. Two complete runs with 100 and 201: median 150 (the mean 150.5 rounded down). One complete run: medianActiveSeconds null, complete 1, runs 1. An open run, an architecture run the user stopped (steps 9 to 11 pending), a run that carried steps and a run ended by another skill with step 7 current: each in runs, none complete. A run that ended 'idle' with a conditional step not-applicable and every other step reached: complete. A state with no timing (as before version 17), a state.json that isn't JSON, an empty one, one that is a JSON array, one of another format and one whose skill isn't a string: each counted in runs.skipped and in no skill; a run folder with no state.json: ignored and uncounted. A run folder that is a symbolic link is skipped. The same figures whatever order the folders were created in. No runs/ folder: skills {}, runs read 0 and skipped 0, exit 0. A missing --root, and a --root that is a file: exit 2 (ERR-14)."
+    level: unit
+    covers:
+      - IF-04
+      - DM-06
+      - BEH-27
+      - ERR-14
+      - ERR-15
+  - id: VER-52
+    status: active
+    obligation: "Version 17, the odometer ledger: tests first, on fixture ledger folders (one file for each session), with every generated line validated against DM-04 and the output against DM-06. Lines for the main loop and two agents over several turns, in two session files: each of the four counts and tokens summed, turns counted. The same (session, turn, source) twice with different counts: the first counts, duplicates 1; the same turn for main and for an agent: both count; the same turn ID in two sessions: both count; the same triple in two files counts once, the earlier file's line standing; a symbolic link, a folder and a file not ending in .jsonl in the folder are ignored. A blank line is ignored. Not JSON, a JSON array, a missing key, an empty session, a negative count, a string count, a count of true, a missing time and a last line cut short with no newline: each counted in malformed and in no total, and the lines around them counted. A line dated before every run's start still counts (no age filter). A missing or empty odometer/ folder: all-zero figures, exit 0. A ledger file that exists and can't be read (the test skips this case when run as a user the permission doesn't bind): exit 2 with the file named on stderr (ERR-16). With run states and usage events in the fixture, the odometer holds the ledger files' lines alone: the usage events are never added (BEH-28)."
+    level: unit
+    covers:
+      - DM-04
+      - BEH-28
+      - ERR-16
+  - id: VER-53
+    status: active
+    obligation: "Version 17, the scripts' rules (QR-05, QR-06), over every fixture of VER-50 to VER-52. Both scripts run under python3 -S and give the same output as without it. An import scan of the two files (the ast module) finds only standard-library modules (sys.stdlib_module_names) and none of socket, subprocess, urllib, http or ctypes. Two runs under different PYTHONHASHSEED values give identical bytes, and the output holds no absolute path. With the fixture tree made read-only, and with a snapshot of every file's content and of every folder's listing taken before and after, both scripts leave it unchanged, create no file anywhere under the temporary folder or the working directory, and write nothing to stderr on a run that exits 0."
+    level: unit
+    covers:
+      - QR-05
+      - QR-06
+  - id: VER-54
+    status: active
+    obligation: "Version 17: a generated project of 500 documents with frontmatter, 500 run folders with a state.json and a ledger of 20 files and 20,000 lines in all runs chain_state.py and history.py, each in under 1 second in the test; the test prints both times, and §9 records them on the owner's machine against the 5-second limit of SPEC-016 IF-03."
+    level: performance
+    covers:
+      - QR-07
 ```
 
 ## 10. Rollout, migration and rollback
@@ -1121,6 +1400,17 @@ verifications:
   counts a step line as malformed and goes on (ERR-01). Every existing expected state gains counts.stepEvents and
   counts.unmarkedQuestions, both 0, and nothing else in it moves: no current case has a step event or taskList.
 
+- **Version 17.** Built after approval with SPEC-013 version 24 (the adapter that records `usage` events and keeps the
+  ledger folder when pruning) and SPEC-016 (the dashboard, which reads the figures and whose BEH-10 writes the ledger),
+  in one plugin version. Additive: `usage` is a new event kind and the ledger is a new folder of files, so no earlier
+  log changes meaning. Every
+  existing expected state gains `timing`, `usage` and each step's `reached`, and nothing else moves, checked line by
+  line against the case logs' own times; the states carry no `usage` events yet, so their usage is zeros. An older
+  reader, such as the Codex port's fork when it exists, counts a `usage` line as malformed and goes on (ERR-01). An
+  older run's `state.json`, written before this version, has no `timing`: `history.py` skips it and counts it
+  (ERR-15), so the ETA's history starts with the first run evaluated by this version. `chain_state.py` and
+  `history.py` are new files, run by no hook until SPEC-016's adapter calls them. Rollback: the previous plugin
+  version, which ignores the new key and kind; the ledger files stay, ignored by git like the rest of `devforgeai/progress/`.
 - **Version 16.** Built after approval with SPEC-013 version 22 and SPEC-001 version 17 in one plugin version (PR 3 of
   "Save the work too", stacked on PR #95 and the dashboard's SPEC-013 version 21; PR #95 merges with it). Existing logs
   stay valid: questions and wrote are new optional fields, and the outside-write flag needs a wrote event, which no
@@ -1185,6 +1475,15 @@ Version 10's build, on version 9's branch before its merge: the case steps-after
 Version 13's build, with SPEC-013 version 14: VER-42's case and test, seen failing; DM-02's enum in
 events.schema.json; §9.
 
+Version 17's build, with SPEC-013 version 24 and SPEC-016: (1) VER-47 to VER-54's cases and tests in
+`src/tests/progress/`, seen failing (`test_schemas_equal_the_spec_blocks` is red from the draft until step 2); (2)
+`events.schema.json` and `progress.schema.json` regenerated from DM-02 and DM-03, and `odometer.schema.json`,
+`chain.schema.json` and `history.schema.json` written from DM-04 to DM-06 (`json.dumps(block, indent=2) + "\n"`);
+the draft doesn't regenerate them; (3) BEH-23 to BEH-25, ERR-11 and ERR-12 in `evaluate.py`; (4) `chain_state.py` and
+`history.py` (IF-03, IF-04, BEH-26 to BEH-28, ERR-13 to ERR-16), each a file of its own; (5) every expected state
+regenerated and read line by line (only `timing`, `usage` and `reached` moved); (6) the tests normally and under
+`python3 -S`, VER-54's times recorded, and the §1 out-of-scope item for `chain_state.py` read as built; §9.
+
 Version 16's build, with SPEC-013 version 22 and SPEC-001 version 17: (1) VER-45's and VER-46's cases and tests,
 seen failing; (2) events.schema.json and progress.schema.json regenerated from DM-02 and DM-03; (3) BEH-06's script and
 write readings, BEH-08's flag and BEH-21's addition in `evaluate.py`; (4) every expected state that moves listed and
@@ -1248,7 +1547,80 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
   builds the file name in a script (a side agent's note, 2026-10-06). Kept as SPEC-013 BEH-37, with BEH-38 behind it
   ("Both").
 
+- **The evaluator computes PACE** (version 17). It would give the dashboard one number, but the scale (100 is 12 steps
+  an hour) is a display choice that is still to be checked against recorded runs (the design §14); every change of it
+  would need a version of this spec and a regeneration of every golden. The state gives the inputs instead (BEH-24),
+  and the dashboard divides.
+- **Cross-run figures in `evaluate.py`** (version 17), reading the other run folders for the ETA. The evaluator would
+  no longer be a pure function of one events file (BEH-01), and recorded logs would stop being complete tests. `history.py`
+  reads the states instead (BEH-27).
+- **Active time from the adapter's idle timer** (version 17). The adapter already has a stuck-notice timer
+  (`IDLE_MS`), but that is a live reading of a clock. Active time is figured from the event times alone, so a
+  finished run gives the same figure whenever it is read, and the same rule counts a past run in `history.py`.
+- **The odometer from the runs' `usage` totals** (version 17). Runs are pruned after `retentionDays`, and a run holds
+  the main loop's turns only, so the lifetime total of all tokens ("All tokens, incl. agents") would fall and miss
+  every subagent. The ledger outside the runs keeps both (BEH-28).
+- **One shared ledger file, appended by every session** (version 17). `$.fs` has no append (it reads and writes a whole
+  file, 4 MiB at most), so a shared file would be read and rewritten whole by each session, and two sessions open at once
+  would overwrite each other's lines (the drafts review). One file for each session has one writer, and `history.py`
+  totals the folder.
+
 ## 13. Open questions
+
+Decided by Bryan on 2026-10-06, for version 17 (the dashboard, SPEC-016; the design `docs/specs/devforgeai-dashboard.md`
+§16), already recorded there: "Pace (Recommended)" for the third dial, whose inputs this version gives; "All tokens,
+incl. agents" for the odometer, which the ledger and `usage` events carry; "Accept 120 / 3 min" for wheel-spin, the
+adapter's own detector, which needs nothing from this spec. As of 2026-10-06 Bryan has not yet seen this draft.
+
+Drafter's choices in version 17, for Bryan to accept or challenge:
+- **Which side computes PACE.** The evaluator gives `timing.stepsReached`, `timing.activeSeconds` and each step's
+  `reached`, and no rate; the dashboard computes PACE (SPEC-016 BEH-08), so its scale, the 5-minute threshold and
+  the cap are its own and can change without a version here.
+- **The 30-minute rule is new in this spec** (proposed in the design §5; before, 30 minutes was only the adapter's
+  `IDLE_MS`). A gap of exactly 30 minutes counts as active, a gap that runs backward counts as 0, and every kind of
+  event, `usage` and `turn` events included, is a timed event. Active time is whole seconds, rounded down from the
+  millisecond total. A time with no Z or offset doesn't read, since reading it would need a guess about the zone
+  (ERR-12).
+- **A step marked started counts as reached for the figures** (BEH-24), because the skill has begun it, although
+  BEH-07's `reached` and `current` treat a started mark differently. A step with carried evidence never counts in
+  this run, even when the run then works it again (the design: "A carried step doesn't count: it was reached in the
+  earlier run"), and a waiver's evidence never makes a step reached (BEH-19).
+- **The new keys are required in every state** (`timing`, `usage`, and `reached` on each step, null when never), so
+  every existing golden moves by exactly those keys (§10). The alternative, optional keys as in version 15, would have
+  left the older goldens alone but made every reader test for a key.
+- **`usage` events carry a turn ID, and the evaluator counts each once** (BEH-25, `duplicates`), so an adapter that
+  writes a turn twice doesn't double the run's total. It lists the distinct model names, sorted, and gives no
+  per-model split and no dollars: a price table isn't a function of the log. A usage event after the run-end is
+  ignored like every event after it, so the last turn's usage can be lost when the run ends first; the odometer
+  ledger, which has no run-end, loses nothing.
+- **"Every step reached" for the ETA means `ended`, no step still pending, current, your-turn or carried, and no
+  carried steps** (BEH-27). A literal reading, every step with a `reached` time, would leave out every architecture
+  run whose conditional steps 5 and 7 didn't apply, so those count as passed over. Stopped, early-ended, continued
+  and open runs don't count, as the design says. The medians use an even count's mean of the middle two, rounded
+  down, and are over every skill the states name, built or not.
+- **`chain_state.py` reads the frontmatter's top-level keys by their text, not as YAML** (§4's own reading), and its
+  output holds `id`, `type`, `status`, `version`, `updated`, `path` and `upstream` IDs. A missing `status` is null:
+  the design's rule that it counts as draft is the dashboard's. A Markdown file with no frontmatter `id` (a design
+  proposal such as `docs/specs/devforgeai-dashboard.md`) is skipped and counted, never listed. It lists every
+  document type under `docs/specs/`, not only the chain's.
+- **The ledger is one file for each session** (the drafts review, 2026-10-06), `odometer/<session-id>.jsonl`, written
+  whole by its session's adapter (SPEC-016 BEH-10); the writer is SPEC-016's, not SPEC-013's. The drafts had one shared
+  `odometer.jsonl`, which two open sessions would have overwritten. `history.py` reads the folder one level deep and
+  follows no link.
+- **The ledger's names and its duplicate rule.** Each line is `session`, `turn`, `source` (`main` or an agent ID), the
+  four counts and `time` (DM-04); a duplicate is a repeat of the (session, turn, source) triple, in the same file or
+  another, and the first line counts (files in the byte order of their names). `history.py` reads the ledger's `time` as text only. The odometer total never adds a run's `usage`
+  totals, which would count the main loop's turns twice.
+- **The frontmatter keeps version 16's `approved_by` and `approved_on`** while version 17 is in review, as SPEC-013's
+  does for versions 21 to 24; version 17's change has no approval row yet.
+- **The new rules' links to PRD-001 are `informed_by`**, not `satisfies`, because NFR-004 to NFR-007 name "the
+  progress evaluator" and "the progress state" and the two scripts are neither. PRD-001's next real version could
+  widen their wording to say "the progress tracker's scripts"; until then QR-05 to QR-07 stand on their own.
+- **Open:** a session's file grows by one line a turn, about 200 bytes, up to `$.fs`'s 4 MiB (about 20,000 turns; then
+  that session stops recording, SPEC-016 ERR-06); the folder has no total limit. Whether `prune.py` should ever
+  compact it into daily totals, losing the duplicate check for old turns, is SPEC-013 version 24's and Bryan's call.
+  Also open: PACE's scale and wheel-spin's numbers are still to be checked against the recorded runs
+  (`devforgeai/progress/runs/`), now computable from the states' `timing` once the evaluator is built.
 
 Decided by Bryan on 2026-10-06, for version 16 (SPEC-013 version 22, SPEC-001 version 17, "Save the work too" PR 3),
 after a live check (SPEC-013 VER-53) in which Claude wrote BRN-001.md with `sed ... > docs/specs/brainstorm/BRN-001.md`
@@ -1487,3 +1859,6 @@ Still open, or notes:
 | 15 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §13 records the build review's open item on script evidence (S1) | §13 |
 | 15 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §13 records Bryan's acceptance of the build's readings | §13 |
 | 16 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 (§13): an answer event may carry the form Claude asked, never the answer, which the evaluator reads no field of; a tool event with wrote, the adapter's record of a file a Bash call created or changed, is write evidence and goes to the content rules, and a document's raises an outside-write flag; work files written through Bash are listed; script evidence needs the script to be what runs (S1). BEH-22, VER-45, VER-46 | DM-02, DM-03, BEH-06, BEH-08, BEH-21, BEH-22, VER-45, VER-46, §10-§13 |
+| 17 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft for the DevForgeAI Dashboard (SPEC-016; Bryan, 2026-10-06: 'Pace (Recommended)', 'All tokens, incl. agents'): the state gains the run's timing (active time by a new 30-minute gap rule, steps reached and carried) and usage totals, and each step's first-reached time (DM-03, BEH-23 to BEH-25, ERR-11, ERR-12); a new event kind `usage` for each main-loop turn (DM-02); the odometer ledger's line format (DM-04); two read-only scripts, `chain_state.py` (IF-03, DM-05, BEH-26) and `history.py` (IF-04, DM-06, BEH-27, BEH-28) with ERR-13 to ERR-16 and QR-05 to QR-07; VER-47 to VER-54; PACE left to the dashboard; version 16's text untouched; status stays in-review | frontmatter, §1, §3, §4, DM-02 to DM-06, §5, BEH-23 to BEH-28, ERR-11 to ERR-16, QR-05 to QR-07, VER-47 to VER-54, §10 to §13 |
+| 17 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Before approval, the drafts review's fixes (tmp/plans/dashboard/review-specs.md): the odometer ledger is one file for each session, `odometer/<session-id>.jsonl`, written whole by its session's adapter and totalled by `history.py` over the folder, with SPEC-016 BEH-10 as its writer (DM-04, §4, IF-04, BEH-28, ERR-16, QR-06, QR-07, VER-52, VER-54); the usage field names mapped to the host's; §10, §12 and §13 follow | DM-04, §4, IF-04, BEH-28, ERR-16, QR-06, QR-07, VER-52, VER-54, §10, §12, §13 |
+| 17 | 2026-10-06 | Bryan | Approved version 17's change ('Approve all four (Recommended)', with the drafters' choices shown in its preview). The document's status stays in-review until version 16, which it is stacked on, is approved; the links that cite SPEC-012 move then | Change Log |
