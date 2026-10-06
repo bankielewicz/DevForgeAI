@@ -43,6 +43,8 @@ PYTHONDONTWRITEBYTECODE=1 python3 src/tests/context/check_graders.py
 node src/tests/context/grade_evals.mjs src/claude/DevForgeAI/evals/context/<case> <workspace> <reply.txt>
 # spec-lookup: regenerate (checks each case's premise with the skill's find_spec.py first)
 PYTHONDONTWRITEBYTECODE=1 python3 src/tests/spec-lookup/make_evals.py
+# precompact: regenerate (builds each scaffold, checks its premise and computes the fixture's head hash)
+PYTHONDONTWRITEBYTECODE=1 python3 src/tests/precompact/make_evals.py
 # before every paid run: bind a new results folder to the commit, plugin digest and cases
 bash src/tests/prd/record_revision.sh tmp/eval-results/<new-folder> <tag>
 ```
@@ -75,9 +77,11 @@ a scaffold that seeds the BRNs, PRDs, ADRs and policies the case reads.
 - `--threshold 0.8`: the default is 1.0. The framework bar is ≥ 0.8 per case over 3 runs, the default
   run count.
 - Narrow a run with `--case existing-brn`, or `--tag brainstorm`, `--tag prd`, `--tag architecture`,
-  `--tag epic`, `--tag git`, `--tag context` or `--tag spec-lookup`. Trigger cases carry other tags:
-  context's 12 are tagged `trigger` and `ver-26`, spec-lookup's 5 `trigger`, `ver-06` and
-  `spec-lookup-trigger`, so `--tag trigger` selects both suites' trigger cases. `ver-NN` tags repeat
+  `--tag epic`, `--tag git`, `--tag context`, `--tag spec-lookup` or `--tag precompact`. Trigger cases carry
+  other tags: context's 12 are tagged `trigger` and `ver-26`, spec-lookup's 5 `trigger`, `ver-06` and
+  `spec-lookup-trigger`, precompact's 8 (`precompact-trigger-NN`) `trigger`, `ver-06` and `precompact-trigger`,
+  so `--tag trigger` selects all three suites' trigger cases. `--tag precompact-trigger` found no cases on
+  2026-10-05 (2.1.290); select precompact's with `--case "precompact-trigger-*"`. `ver-NN` tags repeat
   across skills (brainstorm, prd, architecture and epic each have a `ver-08`), and so can case names
   (prd and architecture each have `policy-bad-date`), so pair `--case` with care. `--case` takes one name; loop for several. Use
   `--runs 1` for a quick pass.
@@ -89,6 +93,8 @@ a scaffold that seeds the BRNs, PRDs, ADRs and policies the case reads.
 - `--judge-model sonnet`: the default small judge failed correct replies. Even sonnet failed a correct
   8 kB PRD in 3 of 3 votes, so check claims about a written file with regex graders, and test each
   regex with `node` against a real output first.
+- `file_exists` counts only files the run created: a file the scaffold wrote fails it even when present (precompact's
+  first suite, 2026-10-05), so grade such a file with a regex on its content.
 - `--keep-temp` keeps `out/trace.jsonl`, the run's full transcript, with every tool call and the
   final reply; the workspace itself is sealed (mode 000).
 

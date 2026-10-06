@@ -14,7 +14,9 @@ paths:
 - `skills/<name>/provenance.yaml`: the SKL record with an `implements` link to the spec; Claude never
   loads it. Directory name = `SKILL.md` `name` = `skill_name`. `metadata.devforgeai-id` and
   `devforgeai-version` mirror provenance `id` and `version`: bump both on any change to `SKILL.md` or
-  its references.
+  its references. A third key, `devforgeai-tracked: "false"` (quoted, the schema's only allowed value),
+  makes a skill untracked: the progress tracker opens no run for it and records nothing after its load
+  in that turn (SPEC-013 v18 BEH-02). Only `precompact` has it.
 - `skills/<name>/references/`: loaded on demand, one level deep. `output-rules.md` defines keys, ID
   patterns and allowed fields, and ends with the self-check list used in place of `devforgeai check`.
 - `skills/<name>/scripts/`: executed, not loaded. Keep `__pycache__/` out of the deployed copy.

@@ -4,7 +4,7 @@ import {
   isEngine, isFailed, isPersonPrompt, isTracked, keptContent, newFlagToasts, questionRefusal, refusalText, relPath,
   refusalCause, replyText, reportContext, retentionOf, runId, skillName, statusText, stepOfTask, stepStateOf, stuckAdvice,
   stuckText, summaryOf, taskIdOf, returnLine, trailNote, pausedWith, keptTrail, endReason, hasRoom, nestedExitQuestion, nestedKeptText,
-  runName, resumePlan, ageText, resumeQuestion,
+  runName, resumePlan, ageText, resumeQuestion, isUntrackedSkill,
   todoSteps, toolPath, CONTENT_LIMIT, LOG_CONTENT_LIMIT, QUESTION_REFUSAL, QUESTION_TAG,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
@@ -401,4 +401,73 @@ test('BEH-31 (review notes): an unknown age and a path with a line break don\'t 
     line({ seq: 3, kind: 'run-end', reason: 'session-end' })]
   const plan = resumePlan('A', a, lines, 6, Date.parse('2026-10-05T12:00:00Z'))!
   expect(resumeQuestion('brainstorm', plan)).toBe('brainstorm: an earlier run ended at step 2 of 8 on 2026-10-05 (session end). It wrote docs/a b.md. Continue it?')
+})
+
+// ---- version 18: the key that makes a plugin skill untracked (BEH-02, VER-50 (f)) ----
+
+/** A SKILL.md: frontmatter with `meta` lines after its name and description, then a body. */
+const skillMd = (meta: string, body = '# precompact\n') => `---\nname: precompact\ndescription: Writes the handoff.\n${meta}---\n\n${body}`
+const OFF = '  devforgeai-tracked: "false"\n'
+
+test('VER-50 (f): the key devforgeai-tracked "false" in the metadata block marks a skill untracked', () => {
+  expect(isUntrackedSkill(skillMd(`metadata:\n${OFF}`))).toBe(true)
+  expect(isUntrackedSkill(skillMd('metadata:\n  author: devforgeai\n' + OFF + '  version: "1"\n'))).toBe(true)
+  // any depth of indentation: the block is the lines that start with a space
+  expect(isUntrackedSkill(skillMd('metadata:\n        devforgeai-tracked: "false"\n'))).toBe(true)
+})
+
+test('VER-50 (f): single quotes, spaces around the line, a trailing comment and CRLF line ends all read the same', () => {
+  expect(isUntrackedSkill(skillMd("metadata:\n  devforgeai-tracked: 'false'\n"))).toBe(true)
+  expect(isUntrackedSkill(skillMd('metadata:\n    devforgeai-tracked: "false"    \n'))).toBe(true)
+  expect(isUntrackedSkill(skillMd('metadata:\n  devforgeai-tracked:   "false"\n'))).toBe(true)
+  expect(isUntrackedSkill(skillMd('metadata:\n  devforgeai-tracked: "false" # the tracker ignores it\n'))).toBe(true)
+  expect(isUntrackedSkill(skillMd("metadata:\n  devforgeai-tracked: 'false'   #x\n"))).toBe(true)
+  expect(isUntrackedSkill(skillMd(`metadata:\n${OFF}`).replace(/\n/g, '\r\n'))).toBe(true)
+  expect(isUntrackedSkill(skillMd("metadata:\n  devforgeai-tracked: 'false'\n").replace(/\n/g, '\r\n'))).toBe(true)
+  // a CRLF file's `metadata:` line and closing --- carry the CR too
+  expect(isUntrackedSkill('---\r\nname: p\r\nmetadata:\r\n  devforgeai-tracked: "false"\r\n---\r\n')).toBe(true)
+})
+
+test('VER-50 (f): false unquoted, "False", other values and a quote mismatch leave the skill tracked', () => {
+  for (const value of ['false', '"False"', '"FALSE"', "'False'", '"true"', '"no"', '""', '"false" x', '"false\'', '\'false"', '"fals"',
+    'false # x', '"false"#x', '0', '~', '']) {
+    expect(isUntrackedSkill(skillMd(`metadata:\n  devforgeai-tracked: ${value}\n`))).toBe(false)
+  }
+  expect(isUntrackedSkill(skillMd('metadata:\n  devforgeai-tracked:"false"\n'))).toBe(false)
+})
+
+test('VER-50 (f): the key outside the metadata block, with no metadata block or in the body leaves the skill tracked', () => {
+  // at the frontmatter's top level
+  expect(isUntrackedSkill(skillMd('devforgeai-tracked: "false"\n'))).toBe(false)
+  expect(isUntrackedSkill(skillMd('devforgeai-tracked: "false"\nmetadata:\n  author: x\n'))).toBe(false)
+  // after the block ended
+  expect(isUntrackedSkill(skillMd('metadata:\n  author: x\ndevforgeai-tracked: "false"\n'))).toBe(false)
+  // under another key, and under an indented metadata line
+  expect(isUntrackedSkill(skillMd('license: MIT\n  devforgeai-tracked: "false"\n'))).toBe(false)
+  expect(isUntrackedSkill(skillMd('  metadata:\n    devforgeai-tracked: "false"\n'))).toBe(false)
+  // no key, no metadata, an empty file
+  expect(isUntrackedSkill(skillMd('metadata:\n  author: x\n'))).toBe(false)
+  expect(isUntrackedSkill(skillMd('metadata:\n'))).toBe(false)
+  expect(isUntrackedSkill(skillMd(''))).toBe(false)
+  expect(isUntrackedSkill('')).toBe(false)
+  // another key's name
+  expect(isUntrackedSkill(skillMd('metadata:\n  devforgeai-tracked-by: "false"\n'))).toBe(false)
+  expect(isUntrackedSkill(skillMd('metadata:\n  devforgeai_tracked: "false"\n'))).toBe(false)
+  expect(isUntrackedSkill(skillMd('metadata:\n  Devforgeai-tracked: "false"\n'))).toBe(false)
+  // in the body, after the frontmatter's closing line
+  expect(isUntrackedSkill(skillMd('', 'metadata:\n  devforgeai-tracked: "false"\n'))).toBe(false)
+})
+
+test('VER-50 (f): the frontmatter is the text between the first line --- and the next line ---', () => {
+  // no frontmatter at all, or none that is closed
+  expect(isUntrackedSkill('metadata:\n  devforgeai-tracked: "false"\n')).toBe(false)
+  expect(isUntrackedSkill('---\nname: p\nmetadata:\n  devforgeai-tracked: "false"\n')).toBe(false)
+  // the first line isn't the opener
+  expect(isUntrackedSkill('\n---\nname: p\nmetadata:\n  devforgeai-tracked: "false"\n---\n')).toBe(false)
+  // a block that runs to the closing line, and a closing line right after the key
+  expect(isUntrackedSkill('---\nmetadata:\n  devforgeai-tracked: "false"\n---\nbody\n')).toBe(true)
+  // the block ends at the first line that doesn't start with a space (a blank line included)
+  expect(isUntrackedSkill(skillMd('metadata:\n  author: x\n\n' + OFF))).toBe(false)
+  // the closing --- ends it: a key after a second --- is the body's
+  expect(isUntrackedSkill('---\nname: p\nmetadata:\n  author: x\n---\n  devforgeai-tracked: "false"\n')).toBe(false)
 })

@@ -62,6 +62,29 @@ export function isTracked(name: string, pluginSkills: readonly string[], manifes
   return pluginSkills.includes(name) || manifestNames.includes(name)
 }
 
+/** Whether a plugin skill's SKILL.md marks it untracked (BEH-02, version 18). Its frontmatter is the text between its
+ *  first line, '---', and the next line that is '---'; its metadata block is the frontmatter's line 'metadata:' at
+ *  column 0 and the lines after it that start with a space. The skill is untracked when that block holds a line
+ *  devforgeai-tracked: "false", the value in double or single quotes, with leading and trailing spaces, a trailing
+ *  '# comment' and a CR ignored (a file with CRLF line ends reads the same). Anything else is tracked: no such line, the
+ *  key outside the block, false unquoted (a YAML boolean), "False" or any other value, no frontmatter. */
+export function isUntrackedSkill(skillMd: string): boolean {
+  const lines = skillMd.split('\n').map(l => (l.endsWith('\r') ? l.slice(0, -1) : l))
+  if (lines[0] !== '---') return false
+  const close = lines.indexOf('---', 1)
+  if (close < 0) return false
+  const front = lines.slice(1, close)
+  const at = front.findIndex(l => l.trimEnd() === 'metadata:')
+  if (at < 0) return false
+  for (let i = at + 1; i < front.length && front[i].startsWith(' '); i++) {
+    if (UNTRACKED_LINE.test(front[i])) return true
+  }
+  return false
+}
+
+/** The line that marks a skill untracked: the key, then the value "false" or 'false', then at most a comment. */
+const UNTRACKED_LINE = /^ *devforgeai-tracked:[ \t]+(?:"false"|'false')[ \t]*(?:[ \t]#.*)?$/
+
 /** A path relative to the project root with / separators; a path outside the root stays absolute. */
 export function relPath(root: string, path: string): string {
   const p = path.replace(/\\/g, '/')

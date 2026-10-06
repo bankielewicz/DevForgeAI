@@ -9,7 +9,11 @@ const ROOT = '/work'
 const T0 = Date.UTC(2026, 9, 2, 12, 0, 0)
 const PROGRESS = `${ROOT}/devforgeai/progress`
 const SESSION = `${PROGRESS}/sessions/s1`
-const SKILLS = ['architecture', 'brainstorm', 'context', 'documents-updater', 'epic', 'git', 'prd', 'spec-lookup']
+const SKILLS = ['architecture', 'brainstorm', 'context', 'documents-updater', 'epic', 'git', 'precompact', 'prd', 'spec-lookup']
+// Each plugin skill's SKILL.md (BEH-02, version 18): the adapter reads it at every load. The stub serves one without the
+// key for every skill on the list, so no earlier test reaches ERR-18, and precompact's with the key.
+const skillMdOf = (name: string): string => `---\nname: ${name}\ndescription: A skill.\nmetadata:\n  author: devforgeai\n---\n\n# ${name}\n`
+const PRECOMPACT_MD = '---\nname: precompact\ndescription: Writes the handoff.\nmetadata:\n  devforgeai-tracked: "false"\n---\n\n# precompact\n'
 const CHECKLIST = 'Base directory for this skill: /x\n\n- [ ] 1. Intake\n- [ ] 2. Pick'
 
 type Any = any // the kit's stubs take loosely typed events; the module itself is typed
@@ -31,6 +35,9 @@ type Over = {
   prune?: (argv: readonly string[]) => Any
   toolList?: string[] | 'reject'
   compact?: (e: Any) => Any
+  /** A skill's SKILL.md, by skill name: its text, null for a file that doesn't exist, { deny } for a read that rejects,
+   *  undefined for the default. */
+  skillMd?: (name: string) => string | null | { deny: string } | undefined
 }
 
 type World = {
@@ -148,7 +155,18 @@ function world(on: Any, over: Over = {}): World {
   on('fs.exists', (_$: Any, e: Any) => over.failExists?.(e.path) ? { deny: `EIO: ${e.path}` } : ({
     value: w.files.has(e.path) || [...w.files.keys()].some(k => k.startsWith(e.path.replace(/\/+$/, '') + '/')),
   }))
-  on('fs.read', (_$: Any, e: Any) => (w.files.has(e.path) ? { value: w.files.get(e.path) } : { deny: `ENOENT: ${e.path}` }))
+  on('fs.read', (_$: Any, e: Any) => {
+    if (w.files.has(e.path)) return { value: w.files.get(e.path) }
+    const skill = /\/skills\/([^/]+)\/SKILL\.md$/.exec(e.path)?.[1]
+    if (skill !== undefined) {
+      const given = over.skillMd?.(skill)
+      if (given === null) return { deny: `ENOENT: ${e.path}` }
+      if (typeof given === 'object') return { deny: given.deny }
+      if (given !== undefined) return { value: given }
+      if (SKILLS.includes(skill)) return { value: skill === 'precompact' ? PRECOMPACT_MD : skillMdOf(skill) }
+    }
+    return { deny: `ENOENT: ${e.path}` }
+  })
   on('fs.write', (_$: Any, e: Any) => {
     if (over.failWrite?.(e.path)) return { deny: `EACCES: ${e.path}` }
     w.files.set(e.path, e.text)
@@ -3154,6 +3172,7 @@ const R_ROWS: Record<string, RRows> = {
   brainstorm: { kinds: ['read', 'think', 'think', 'think', 'ask', 'forge', 'inspect', 'report'], owned: [5] },
   architecture: { kinds: ['read', 'read', 'read', 'read', 'read', 'think', 'ask', 'ask', 'forge', 'inspect', 'report'], owned: [7, 8] },
   prd: { kinds: ['read', 'think', 'ask', 'forge', 'report'], owned: [3] },
+  precompact: { kinds: ['read', 'think', 'ask', 'forge', 'report'], owned: [3] },  // VER-50: an earlier run a tracked load would offer
 }
 
 type RStateOpts = { evidence?: Record<number, string[]>; claims?: number[]; states?: Record<number, string>; ended?: string | null; manifest?: string }
@@ -3738,4 +3757,446 @@ test('VER-48 (version 17): a load by Claude\'s Skill tool while a run is paused 
   await r.sk.load($, 'devforgeai:spec-lookup')    // architecture paused on the trail
   await r.sk.load($, 'devforgeai:brainstorm')
   expect(r.asked).toEqual([])
+})
+
+// ---- version 18: untracked skills (VER-50) ----
+// The plugin's precompact skill has metadata devforgeai-tracked: "false" in its SKILL.md (the world's fs.read serves it), so
+// its load, typed or Claude's, opens no run and changes nothing of the open one (BEH-02), and the turn it loads in is
+// marked: tool calls begun after the load are recorded in no run. Helpers are prefixed u. The world is rWorld's (the typed
+// load's command.run, Skill calls held open, earlier runs as files) in enforce mode, with the brainstorm run at step 4,
+// architecture at step 7, and an earlier unfinished precompact run that a tracked precompact load would offer.
+
+const U_LOAD = 'devforgeai:precompact'
+const U_HANDOFF = `${ROOT}/devforgeai/handoff/docs-precompact/START-HERE.md`
+const U_WRITE = { tool: 'Write', file_path: U_HANDOFF, content: '# Start here\n' } as Any
+const U_BASH = { tool: 'Bash', command: 'git status --short' } as Any
+const U_BRN_WRITE = { tool: 'Write', file_path: `${ROOT}/docs/specs/brainstorm/BRN-001.md`, content: 'disposition: promoted' } as Any
+
+function uEarlier(): RFix {
+  return { skill: 'precompact', end: 'session-end', marked: 3, state: rReach('precompact', [1, 2]) }
+}
+
+function uWorld($: Any, on: Any, cfg: RCfg = {}) {
+  return rWorld($, on, { control: false, mode: 'enforce local', earlier: [uEarlier()],
+    stateOf: (skill: string) => (skill === 'brainstorm' ? skState('brainstorm', 8, 4) : skill === 'architecture' ? archState(7) : undefined),
+    ...cfg })
+}
+
+/** The brainstorm run open at step 4 (tasks 1 to 8, task 4 marked), in enforce mode. */
+async function uOpen($: Any, r: RW) {
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await r.w.clock.advance(600)
+}
+
+/** Brainstorm paused beneath architecture, which has worked: Claude's load of architecture pushed it (return step 4). */
+async function uNested($: Any, r: RW) {
+  await uOpen($, r)
+  await r.sk.load($, 'devforgeai:architecture')
+  await $.tool.call(READ('worked.md'))
+  await r.w.clock.advance(600)
+}
+
+async function uBand($: Any): Promise<string> {
+  const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal' })
+  const row = await ui.find({ type: 'Text', text: /step \d+ of \d+/ })
+  const text = row === undefined ? '' : String(row.children.join(''))
+  await ui.unmount()
+  return text
+}
+
+/** What the person sees and what adapter.log holds: the status line (and how often it was sent), the band and the log. */
+async function uSnap($: Any, w: World) {
+  await w.clock.advance(600)
+  return { status: w.statuses.filter(Boolean).slice(-1)[0], sent: w.statuses.length, band: await uBand($), log: w.files.get(`${SESSION}/adapter.log`) ?? '' }
+}
+
+const uKinds = (w: World, skill: string, from = 0): string[] => logOf(w, skill).slice(from).map(e => e.kind)
+const uCount = (w: World, skill: string): number => logOf(w, skill).length
+const uLog = (w: World, kind: string): string[] =>
+  (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(` ${kind}: `))
+
+/** The person's typed load: command.run, the skill's text with its skill.prompt inside next(e), the prompt it submits, the turn's start. */
+async function uTyped($: Any, r: RW, skill = 'precompact') {
+  await rType($, skill)
+  await $.prompt.submit({ text: `/devforgeai:${skill}`, wait: false, origin: COMPOSER } as Any)
+  await ($ as Any).turn.start({ turnId: 't1' })
+}
+
+test('VER-50 (a): a typed load of an untracked skill opens no run, ends nothing, offers nothing and leaves the display as it was', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  const before = await uSnap($, r.w)
+  expect(before.status).toBe('brainstorm 4/8 · enforce')
+  expect(before.band).toContain('step 4 of 8')
+  await rType($, 'precompact')
+  // skill.prompt fired inside command.run's next(e); no dialog, and the text is the skill's own
+  expect(r.order).toEqual(['command:enter', 'skill.prompt', 'skill.prompt done', 'command:leave'])
+  expect(r.asked).toEqual([])
+  expect(r.texts).toEqual([TAGGED])
+  expect(runsOf(r.w, 'precompact')).toEqual([])
+  expect(uKinds(r.w, 'brainstorm')).not.toContain('run-end')
+  expect(r.w.tools).not.toContain('AskUserQuestion')
+  const after = await uSnap($, r.w)
+  expect(after).toEqual(before)
+  expect(after.log).not.toContain(' switch: ')
+})
+
+test('VER-50 (b): Claude\'s Skill call for an untracked skill does the same, and the call\'s own tool event lands in the open run', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  const before = await uSnap($, r.w)
+  const count = uCount(r.w, 'brainstorm')
+  const text = await r.sk.load($, U_LOAD)
+  expect(text).toBe(TAGGED)
+  expect(runsOf(r.w, 'precompact')).toEqual([])
+  expect(uKinds(r.w, 'brainstorm')).not.toContain('run-end')
+  const events = logOf(r.w, 'brainstorm')
+  expect(events.length).toBe(count + 1)
+  expect(events[events.length - 1]).toMatchObject({ kind: 'tool', tool: 'Skill', error: false })
+  expect(await uSnap($, r.w)).toEqual(before)
+})
+
+test('VER-50 (c): in the turn of a typed load, tool calls begun after it are recorded in no run, the Write isn\'t refused, an answer is recorded', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  await uTyped($, r)               // the load, the prompt it submits, then turn.start: the mark outlives turn.start
+  const count = uCount(r.w, 'brainstorm')
+  await $.tool.call(READ('a.md'))
+  await $.tool.call(U_BASH)
+  const wrote = (await $.tool.call(U_WRITE)) as Any
+  expect(wrote.deny).toBeUndefined()
+  expect(r.w.tools).toContain('Write')                // it went on to the tool
+  await $.tool.call(QUESTION as Any)                   // the user's answer is recorded as before
+  // a task tool changes no task map and gives no step event: the task created now is unknown after the turn
+  await $.tool.call({ tool: 'TaskCreate', subject: '9. Extra', description: 'd', metadata: { devforgeai_step: 9 } } as Any)
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '9', status: 'in_progress' } as Any)
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual(['answer'])
+  expect(runsOf(r.w, 'precompact')).toEqual([])
+  await turnEnd($)
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual(['answer', 'turn'])
+  // the next turn: tool events are recorded again, and task 9 was never mapped
+  await ($ as Any).turn.start({ turnId: 't2' })
+  await $.tool.call(READ('b.md'))
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '9', status: 'in_progress' } as Any)
+  const next = logOf(r.w, 'brainstorm').slice(count)
+  expect(next.map(e => e.kind)).toEqual(['answer', 'turn', 'turn', 'tool', 'tool'])
+  expect(next[3]).toMatchObject({ tool: 'Read', path: 'docs/b.md' })
+  expect(next[4]).toMatchObject({ tool: 'TaskUpdate' })
+  expect(stepsOf(logOf(r.w, 'brainstorm').map(e => JSON.stringify(e)))).toEqual([[4, 'started']])
+})
+
+test('VER-50 (h): in the marked turn a reply is recorded in no run, its numbered tick included; the next turn\'s is (version 19)', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  await uTyped($, r)
+  const count = uCount(r.w, 'brainstorm')
+  await respond($, [{ type: 'text', text: 'Writing the handoff.\n- [x] 2. Header row' }])
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual([])
+  expect(runsOf(r.w, 'precompact')).toEqual([])
+  await turnEnd($)
+  await ($ as Any).turn.start({ turnId: 't2' })
+  await respond($, [{ type: 'text', text: 'Back to the brainstorm.' }])
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual(['turn', 'turn', 'reply'])
+})
+
+test('VER-50 (h): in the turn of Claude\'s load, a reply before the load is recorded and one after it isn\'t (version 19)', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  await ($ as Any).turn.start({ turnId: 't1' })
+  const count = uCount(r.w, 'brainstorm')
+  await respond($, [{ type: 'text', text: 'Before the handoff.' }])
+  await r.sk.load($, U_LOAD)
+  await respond($, [{ type: 'text', text: 'The handoff is written.\n- [x] 3. Diverge' }])
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual(['reply', 'tool'])
+})
+
+test('VER-50 (c) (d): in the turn of Claude\'s load, a TaskUpdate naming a paused run\'s task unwinds nothing; the next turn\'s does', async ($, on) => {
+  const r = uWorld($, on)
+  await uNested($, r)
+  await ($ as Any).turn.start({ turnId: 't1' })
+  const before = await uSnap($, r.w)
+  expect(before.status).toContain(' · in brainstorm 4/8')
+  await r.sk.load($, U_LOAD)
+  const count = uCount(r.w, 'architecture')
+  const paused = uCount(r.w, 'brainstorm')
+  expect(logOf(r.w, 'architecture')[count - 1]).toMatchObject({ kind: 'tool', tool: 'Skill' })   // the call's own event is in the open run
+  await $.tool.call(READ('a.md'))
+  await $.tool.call(U_BASH)
+  expect(((await $.tool.call(U_WRITE)) as Any).deny).toBeUndefined()
+  await $.tool.call(QUESTION as Any)
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '4', status: 'in_progress' } as Any)   // brainstorm's step-4 task
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '5', status: 'completed' } as Any)
+  // (d) the trail keeps its paused run, and the open run stays open
+  expect(uKinds(r.w, 'architecture', count)).toEqual(['answer'])
+  expect(uCount(r.w, 'brainstorm')).toBe(paused)
+  expect(trailLog(r.w)).toEqual(['push brainstorm at step 4 (1 on the trail)'])
+  expect(uKinds(r.w, 'architecture')).not.toContain('run-end')
+  expect(uKinds(r.w, 'brainstorm')).not.toContain('run-end')
+  expect(logOf(r.w, 'architecture').filter(e => e.kind === 'step')).toEqual([])
+  const during = await uSnap($, r.w)
+  expect(during.status).toBe(before.status)
+  expect(during.band).toBe(before.band)
+  expect(during.band).toContain('(paused: brainstorm at step 4)')
+  // the turn ends; the next turn's calls are recorded, and the same TaskUpdate now unwinds to brainstorm
+  await turnEnd($)
+  await ($ as Any).turn.start({ turnId: 't2' })
+  await $.tool.call(READ('b.md'))
+  expect(logOf(r.w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/b.md' })
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '4', status: 'in_progress' } as Any)
+  expect(trailLog(r.w).slice(-1)[0]).toMatch(/^unwind to brainstorm at step 4/)
+  expect(logOf(r.w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'returned' })
+  expect(logOf(r.w, 'brainstorm').filter(e => e.kind === 'step').map(e => [e.step, e.state])).toEqual([[4, 'started'], [4, 'started']])
+})
+
+test('VER-50 (c): an enforce-mode check of a Write still runs in the marked turn, and a refused one is recorded as an error', async ($, on) => {
+  const r = uWorld($, on)
+  const base = r.over.evaluate!
+  r.over.evaluate = (argv: readonly string[]) => {
+    const ev = argv[argv.indexOf('--events') + 1]
+    if (ev.endsWith('/pending.jsonl') && ev.includes('-brainstorm-')) {
+      const last = JSON.parse((r.w.files.get(ev) ?? '').trim().split('\n').slice(-1)[0])
+      if (last.kind === 'tool' && String(last.path).endsWith('BRN-001.md')) {
+        return { state: { ...skState('brainstorm', 8, 4), gate: { kind: 'write', seq: last.seq, refuse: true, reason: 'x' },
+          flags: [{ gate: 'write', seq: last.seq, step: 1, type: 'skipped', message: 'step 1 had no answer from you' }] } }
+      }
+    }
+    return base(argv)
+  }
+  await uOpen($, r)
+  await uTyped($, r)
+  const count = uCount(r.w, 'brainstorm')
+  const refused = (await $.tool.call(U_BRN_WRITE)) as Any
+  expect(refused.deny).toContain('step 1 had no answer from you')
+  expect(r.w.tools.filter(t => t === 'Write')).toEqual([])
+  expect(await $.tool.call(READ('a.md'))).toBeDefined()
+  expect(((await $.tool.call(U_WRITE)) as Any).deny).toBeUndefined()
+  // only the refused call is recorded, as BEH-08 says: an error event; the Read and the handoff's Write leave none
+  const events = logOf(r.w, 'brainstorm').slice(count)
+  expect(events.map(e => e.kind)).toEqual(['tool'])
+  expect(events[0]).toMatchObject({ kind: 'tool', tool: 'Write', path: 'docs/specs/brainstorm/BRN-001.md', exit: null, error: true })
+})
+
+test('VER-50 (c): a hook is judged by when it began: one begun before the load is recorded, one begun after isn\'t, whenever each returns', async ($, on) => {
+  const x = xWorld(on, { brainstorm: () => skState('brainstorm', 8, 4) }, undefined, { mode: 'enforce local' })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 8, 4)
+  await x.w.clock.advance(600)
+  const slow = { tool: 'Read', file_path: `${ROOT}/docs/slow.md` } as Any
+  const early = $.tool.call(slow)          // begins, and is held, before the load
+  await xSettle()
+  await x.load($, U_LOAD)                  // marks the turn
+  x.release('read')
+  await early
+  const reads = () => logOf(x.w, 'brainstorm').filter(e => e.tool === 'Read').length
+  expect(reads()).toBe(1)                  // it returned in the marked turn and is recorded
+  const late = $.tool.call(slow)           // begins after the load
+  await xSettle()
+  await turnEnd($)                         // the turn ends while it is in flight
+  x.release('read')
+  await late
+  expect(reads()).toBe(1)                  // it returned after the turn ended and is not
+})
+
+test('VER-50: only the main loop\'s turn.complete clears the mark, with any reason; a subagent\'s turn end does not', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  await r.sk.load($, U_LOAD)
+  const count = uCount(r.w, 'brainstorm')
+  await ($ as Any).turn.complete({ turnId: 'sub', answer: '', durationMs: 1, isAborted: false, reason: 'answer', usage: null, agentId: 'a1' })
+  await $.tool.call(READ('a.md'))
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual([])
+  await turnEndFor($, 'aborted')           // Esc: the turn is over all the same
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual(['turn'])
+  await $.tool.call(READ('b.md'))
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual(['turn', 'tool'])
+})
+
+test('VER-50: a skill.prompt that is neither the typed name nor in a Skill call\'s flight (a subagent\'s) is untracked too, and marks nothing', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  const before = await uSnap($, r.w)
+  const count = uCount(r.w, 'brainstorm')
+  const out = (await $.skill.prompt({ skill: U_LOAD, text: TAGGED })) as Any
+  expect(out.text).toBe(TAGGED)
+  expect(runsOf(r.w, 'precompact')).toEqual([])
+  expect(uKinds(r.w, 'brainstorm')).not.toContain('run-end')
+  await $.tool.call(READ('a.md'))
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual(['tool'])
+  expect(await uSnap($, r.w)).toEqual(before)
+})
+
+test('VER-50: with no run open an untracked load writes nothing, and a tracked load after it records as usual', async ($, on) => {
+  const r = uWorld($, on)
+  await start($)
+  await rType($, 'precompact')
+  await $.tool.call(READ('a.md'))
+  expect(r.w.writes).toEqual([])
+  await turnEnd($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call(READ('b.md'))
+  expect(uKinds(r.w, 'brainstorm')).toEqual(['skill-loaded', 'tool'])
+})
+
+test('VER-50: session.end ends the mark, so a run opened after /clear records its first turn', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  await r.sk.load($, U_LOAD)                // the turn is marked and never completes
+  await ($ as Any).session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } })
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call(READ('a.md'))
+  const runs = runsOf(r.w, 'brainstorm')
+  expect(kinds(runs[runs.length - 1])).toEqual(['skill-loaded', 'tool'])
+})
+
+test('VER-50 (e): afterwards /compact still carries the marked step and the note, /clear still asks, session.end writes the one run-end', async ($, on) => {
+  const r = uWorld($, on)
+  const asked: string[] = []
+  const base = r.over.tool!
+  r.over.tool = (e: Any): Any => {
+    const q = e.questions?.[0]
+    if (e.tool === 'AskUserQuestion' && q?.header === 'Progress' && String(q.question).includes('Clear anyway?')) {
+      asked.push(q.question)
+      return { result: { questions: e.questions, answers: { [q.question]: 'Keep working' }, annotations: {} } }
+    }
+    return base(e)
+  }
+  await uOpen($, r)
+  await uTyped($, r)
+  await $.tool.call(U_WRITE)
+  await turnEnd($)
+  const out = (await ($ as Any).session.compact({ trigger: 'manual', instructions: 'keep the plan', messages: TALK })) as Any
+  expect(r.w.compactIn[0].instructions).toBe("keep the plan\n\nKeep, for DevForgeAI's progress tracker: in the brainstorm run, the task list marks step 4 (Step 4) in progress.")
+  expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('step 4 (Step 4)')])
+  const kept = (await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)) as Any
+  expect(asked).toEqual(['brainstorm run is at step 4 of 8 and unfinished. Clear anyway?'])
+  expect(kept.text).toBe('Kept working: the brainstorm run is still at step 4.')
+  await ($ as Any).session.end({ reason: 'resume', sessionId: 's1', resume: { id: 's1' } })
+  const ends = logOf(r.w, 'brainstorm').filter(e => e.kind === 'run-end')
+  expect(ends.map(e => e.reason)).toEqual(['session-end'])
+})
+
+// -- (f): reading the key --
+
+const U_OFF = 'metadata:\n  devforgeai-tracked: "false"\n'
+const uMd = (meta: string) => `---\nname: precompact\ndescription: Writes the handoff.\n${meta}---\n\n# precompact\n`
+
+for (const [name, md] of [
+  ['CRLF line ends', uMd(U_OFF).replace(/\n/g, '\r\n')],
+  ['single quotes', uMd(U_OFF.replace('"false"', "'false'"))],
+  ['spaces and a trailing comment', uMd('metadata:\n    devforgeai-tracked: "false"   # the tracker ignores it  \n')],
+] as Array<[string, string]>) {
+  test(`VER-50 (f): ${name} leave the skill untracked`, async ($, on) => {
+    const r = uWorld($, on)
+    r.over.skillMd = n => (n === 'precompact' ? md : undefined)
+    await uOpen($, r)
+    await rType($, 'precompact')
+    expect(r.asked).toEqual([])
+    expect(runsOf(r.w, 'precompact')).toEqual([])
+    expect(uKinds(r.w, 'brainstorm')).not.toContain('run-end')
+    expect(uLog(r.w, 'skill-read')).toEqual([])
+  })
+}
+
+for (const [name, md] of [
+  ['false unquoted', uMd(U_OFF.replace('"false"', 'false'))],
+  ['"False"', uMd(U_OFF.replace('"false"', '"False"'))],
+  ['the key at the frontmatter\'s top level', uMd('devforgeai-tracked: "false"\nmetadata:\n  author: devforgeai\n')],
+  ['no key', uMd('metadata:\n  author: devforgeai\n')],
+] as Array<[string, string]>) {
+  test(`VER-50 (f): ${name} leaves the skill tracked: a typed load ends the brainstorm run with another-skill`, async ($, on) => {
+    const r = uWorld($, on, { answer: 'Start fresh' })
+    r.over.skillMd = n => (n === 'precompact' ? md : undefined)
+    await uOpen($, r)
+    await rType($, 'precompact')
+    expect(r.asked.length).toBe(1)                       // a tracked skill's typed load is offered the earlier run
+    expect(logOf(r.w, 'brainstorm').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+    expect(runsOf(r.w, 'precompact').length).toBe(1)
+    expect(uLog(r.w, 'skill-read')).toEqual([])
+  })
+}
+
+test('VER-50 (f): a SKILL.md whose read rejects leaves the skill tracked, with one adapter.log line of kind skill-read (ERR-18)', async ($, on) => {
+  const r = uWorld($, on, { answer: 'Start fresh' })
+  r.over.skillMd = n => (n === 'precompact' ? { deny: 'EACCES: permission denied\nsecond line of the reason' } : undefined)
+  await uOpen($, r)
+  await rType($, 'precompact')
+  expect(logOf(r.w, 'brainstorm').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(runsOf(r.w, 'precompact').length).toBe(1)
+  const lines = uLog(r.w, 'skill-read')
+  expect(lines.length).toBe(1)
+  expect(lines[0]).toContain('skill-read: precompact: ')
+  expect(lines[0]).toContain('EACCES')
+  expect(lines[0]).not.toContain('second line')   // one line of the reason, as every adapter.log line is
+  expect(oneLineEntries(r.w)).toBe(true)
+})
+
+test('VER-50 (f): a SKILL.md that is missing leaves the skill tracked too, and Claude\'s load of it nests as any tracked skill\'s', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  r.over.skillMd = n => (n === 'precompact' ? null : undefined)
+  const text = await r.sk.load($, U_LOAD)
+  expect(text.endsWith('\n\n' + "This skill was loaded by brainstorm at step 4. When this skill's work is done, mark brainstorm's step 4 task in progress again and continue brainstorm at step 4.")).toBe(true)
+  const lines = uLog(r.w, 'skill-read')
+  expect(lines.length).toBe(1)
+  expect(lines[0]).toContain('skill-read: precompact: ')
+  expect(lines[0]).toContain('ENOENT')
+  expect(trailLog(r.w)).toEqual(['push brainstorm at step 4 (1 on the trail)'])
+})
+
+test('VER-50 (f): a manifest devforgeai/manifests/precompact.json doesn\'t make the plugin\'s skill tracked', async ($, on) => {
+  const r = uWorld($, on)
+  r.w.files.set(`${ROOT}/devforgeai/manifests/precompact.json`, '{}')
+  await uOpen($, r)
+  await rType($, 'precompact')
+  expect(r.asked).toEqual([])
+  expect(runsOf(r.w, 'precompact')).toEqual([])
+  expect(uKinds(r.w, 'brainstorm')).not.toContain('run-end')
+  const text = await r.sk.load($, U_LOAD)
+  expect(text).toBe(TAGGED)
+  expect(trailLog(r.w)).toEqual([])
+})
+
+test('VER-50 (f): a project\'s own skill, named by a manifest alone, is never untracked, whatever any SKILL.md says', async ($, on) => {
+  const r = uWorld($, on)
+  r.w.files.set(`${ROOT}/devforgeai/manifests/release.json`, '{}')
+  r.over.skillMd = n => (n === 'release' ? PRECOMPACT_MD : undefined)
+  await uOpen($, r)
+  await rType($, 'release')
+  expect(logOf(r.w, 'brainstorm').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(runsOf(r.w, 'release').length).toBe(1)
+  expect(uLog(r.w, 'skill-read')).toEqual([])
+})
+
+test('VER-50 (f): SKILL.md is read at each load, never cached: a deployed change shows at the next load', async ($, on) => {
+  const r = uWorld($, on, { answer: 'Start fresh' })
+  let md: string | undefined
+  r.over.skillMd = n => (n === 'precompact' ? md : undefined)
+  await uOpen($, r)
+  await rType($, 'precompact')                 // the world's default: the key
+  expect(runsOf(r.w, 'precompact')).toEqual([])
+  md = uMd('metadata:\n  author: devforgeai\n')  // redeployed without the key
+  await rType($, 'precompact')
+  expect(logOf(r.w, 'brainstorm').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(runsOf(r.w, 'precompact').length).toBe(1)
+  md = undefined                               // and with the key again: untracked again, the open run (precompact's) stays
+  await rType($, 'precompact')
+  expect(runsOf(r.w, 'precompact').length).toBe(1)
+  expect(uKinds(r.w, 'precompact')).not.toContain('run-end')
+})
+
+// -- (g): the plugin's other skills --
+
+test('VER-50 (g): brainstorm and spec-lookup, which have no key, are tracked as before: typed ends the run, Claude\'s nests it', async ($, on) => {
+  const r = uWorld($, on, { answer: 'Start fresh' })
+  await uOpen($, r)
+  await r.sk.load($, 'devforgeai:spec-lookup')
+  expect(trailLog(r.w)).toEqual(['push brainstorm at step 4 (1 on the trail)'])
+  expect(runsOf(r.w, 'spec-lookup').length).toBe(1)
+  await rType($, 'brainstorm')
+  expect(logOf(r.w, 'spec-lookup').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(runsOf(r.w, 'brainstorm').length).toBe(2)
+  expect(uLog(r.w, 'skill-read')).toEqual([])
 })
