@@ -2,8 +2,8 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: approved   # draft | in-review | approved | superseded | deprecated
-version: 20
+status: in-review   # draft | in-review | approved | superseded | deprecated
+version: 21
 created: 2026-10-02
 updated: 2026-10-06
 owner: "Bryan"
@@ -144,6 +144,17 @@ prompts and nothing is recorded in a run; it never refuses or waits, and a failu
 mods don't load, the files stay, ignored by git. `claude plugin eval` runs no mods, so the deletion is shown by the
 tests and a live check, not by an eval.
 
+**Version 21** (2026-10-06; the number is provisional while version 20's build is open) takes three ideas from a
+review of community mods (Bryan, 2026-10-05: "the 3 new ideas sound perfect"; plan
+`tmp/plans/2026-10-06-dashboard.md`). (1) A tool call another mod makes through `$.tool.call` arrives at the
+`tool.call` hook as Claude's would; the adapter records only the calls Claude Code fired (`next.origin.plugin` is
+`engine`), as it already did for answers, though the write gate still checks every Write and Edit (BEH-33). (2) The
+adapter registers a `/progress` command that prints the open run's progress; a name Claude Code refuses is logged and
+the session starts as before (BEH-34, ERR-21). The dashboard (plan, cycle 2) will open from it. (3) When the context
+window passes a share the person sets, 70 percent by default, a row above the prompt suggests
+`/devforgeai:precompact` before `/compact`, as SPEC-015 advises running it at 70 to 80 percent (BEH-35, DM-07). It
+only suggests: it runs nothing, refuses nothing and shows in both modes, with or without a run.
+
 **Version 9** (2026-10-03) words the stuck notice (BEH-25) by its cause. Version 8's notice always told you to
 help Claude bring its task list in step. That is the wrong advice when Claude was refused for a step the tracker
 hasn't seen done, such as a script run it didn't see, or for a decision written without your answer: a live
@@ -258,7 +269,7 @@ rows, an Edit's resulting file), which its tests can call directly.
 
 | Hook | What the adapter does |
 | --- | --- |
-| `session.start` | tells a headless session apart by `isInteractive` (BEH-01), resolves the mode (BEH-16), starts the evaluation timer (BEH-06), and keeps an open run across a reload (BEH-17) |
+| `session.start` | tells a headless session apart by `isInteractive` (BEH-01), resolves the mode (BEH-16), starts the evaluation timer (BEH-06), keeps an open run across a reload (BEH-17), and registers `/progress` (BEH-34; version 21) |
 | `classic.SessionStart` with `source` `clear`, `resume` or `fork` | resolves the mode and restarts the timer after `/clear`, `/resume` or `/branch`, which fire no `session.start` (BEH-06, BEH-16) |
 | `prompt.compose` | a second headless signal, the trait `print` (BEH-01) |
 | `skill.prompt` | starts and ends runs (BEH-02, BEH-03, BEH-05), and starts pruning once per session and root (BEH-19) |
@@ -267,7 +278,9 @@ rows, an Edit's resulting file), which its tests can call directly.
 | `session.append` with door `response` | records Claude's text as it is kept, ticks included (BEH-04) |
 | `turn.start`, `turn.complete` | records turns (BEH-04) |
 | `session.end` | ends the run (BEH-05) |
-| `ui.render` on `AbovePrompt` | draws the band (BEH-11) |
+| `ui.render` on `AbovePrompt` | draws the band (BEH-11) and the precompact row (BEH-35) |
+| `command.run` on `progress` | prints the open run's progress (BEH-34; version 21) |
+| `session.measure`, `session.compact` | shows and hides the precompact row (BEH-35; version 21) |
 
 ## 4. Data model
 
@@ -279,9 +292,9 @@ DevForgeAI skill uses subagents today).
 | Claude Code | When | Event |
 | --- | --- | --- |
 | `skill.prompt` for a tracked skill (BEH-02) | as it loads | `skill-loaded`: `format` `devforgeai-events/1`; `skill`, the name without a `<plugin>:` prefix; `checklist`, the text that `next(e)` resolves to, which is what the model reads; `host`, `claude-code <version>` from `$.session.version()`; `taskList`, true when `$.tool.list()` names TaskCreate and TaskUpdate, or TodoWrite, and false otherwise, so a session without the task tools is never held to a task list (version 5; ERR-14); and two fields DM-02 allows but the evaluator doesn't read: `mode` and `modeSource` (ADR-006 D3) |
-| `tool.call`, any tool but AskUserQuestion | after `next(e)` resolves | `tool`: `tool`; `path` (below); `command` for Bash; `exit`; `error`; `content` for Write and Edit (below) |
+| `tool.call`, any tool but AskUserQuestion, that Claude Code fired (`next.origin.plugin` is `engine`; a call a mod makes through `$.tool.call` names that plugin and isn't recorded, version 21) | after `next(e)` resolves | `tool`: `tool`; `path` (below); `command` for Bash; `exit`; `error`; `content` for Write and Edit (below) |
 | `tool.call` of AskUserQuestion that Claude Code fired (`next.origin.plugin` is `engine`; a mod's `$.ui.ask` arrives the same way and isn't recorded) | after `next(e)` resolves | `answer`: `answered` true when the call didn't fail and the result's `answers` holds at least one entry, an option picked or an answer typed; false when it failed, as a dismissal does (§9, P5); `step`, N when the call's input `metadata.source` is `devforgeai_step:N`, N a whole number from 1 written without leading zeros; `outside` true when `metadata.source` is a string that doesn't start with `devforgeai_step`, as another command's question has (Claude Code's /remember sets `remember`); both left out otherwise, a malformed tag such as `devforgeai_step: 5` included (version 8; SPEC-012 version 9); when `metadata.source` is exactly `devforgeai_waiver` and the call asks exactly one question, neither `step` nor `outside` but `waiver`, on every such answer, answered or not: `proceed` when the result's `answers` entry for that question is exactly `Proceed without questions`, `ask` when it is exactly `Ask me as usual`, and `other` for anything else, a typed answer and a dismissal included; a typed answer that equals a label exactly is that label, since the result can't tell them apart. A call with that source and more than one question is recorded with `outside`, as any other source is, so its questions can't take the waiver's exemption (version 10; SPEC-012 version 11) |
-| `tool.call` of TaskUpdate, or TodoWrite, that changes a mapped step's status (BEH-20) | after `next(e)` resolves, when the call didn't fail | after the call's own `tool` event, a `step` event: `step`, the step's number; `state` `started` for `in_progress`, `done` for `completed` |
+| `tool.call` of TaskUpdate, or TodoWrite, that Claude Code fired and that changes a mapped step's status (BEH-20) | after `next(e)` resolves, when the call didn't fail | after the call's own `tool` event, a `step` event: `step`, the step's number; `state` `started` for `in_progress`, `done` for `completed` |
 | `prompt.submit` that the person sent (`e.origin.kind` `composer` or `bridge`; a task notification, a scheduled prompt, a peer's message, an SDK turn or a plugin's prompt isn't recorded), and that doesn't start with `/` (BEH-04) | as it is submitted | `prompt` |
 | `turn.start` | | `turn` with `phase` `start` |
 | `session.append` with door `response` | as each row is kept | `reply` with `text`, the row's text blocks joined by newlines, when it has any; a row that holds only a tool call gives none. Each row arrives as it is kept, so ticks written between tool calls are recorded; `turn.complete`'s `answer` holds only the turn's last text, and a whole skill run can be one turn (§9, P7) |
@@ -396,6 +409,12 @@ run's or a session's files, or a work file, must be before IF-04 removes them (B
 transcript retention (`cleanupPeriodDays`, 30 by default), so a run's log lasts as long as the transcript it came
 from. The floor of 7 days keeps a session left open over a weekend from losing its open run's folder to another
 session's pruning, which judges by the files' times.
+
+**DM-07. The `precompactAt` setting** (version 21), a `userConfig` number field in `plugin.json`: title "Suggest
+/devforgeai:precompact at (% of context)", default 70, `min` 0, `max` 95, shown in `/config`. Like `tracking`, it is
+the person's setting, not policy. BEH-35 shows its row when the context window's fill reaches this percentage; 0
+turns the row off. A value that isn't a whole number from 0 to 95 counts as 70, and an adapter.log line of kind
+`setting` says so. The build checks the field's exact shape with `claude plugin validate`.
 
 ## 5. Interfaces and contracts
 
@@ -512,6 +531,15 @@ behaviors:
   - id: BEH-32
     status: active
     rule: "The work files' cleanup (version 20; Bryan, 2026-10-06: 'Delete at end + ignore (Recommended)', 'Tracker deletes + ages (Recommended)'). When an evaluation the timer started for the open run (BEH-06), or the final evaluation of a run that has just ended (BEH-05), absorbs a state whose workFiles.due is true (SPEC-012 BEH-21) and no cleanup of that run was started, the adapter starts one: it records the run's ID as cleaned, in its memory and in $.state with the run's values, so a second evaluation or a reload starts none, and, when there is a path to remove, runs IF-05 once with --root the run's root, --manifests the plugin's own manifests folder, one --file=<path> token for each path of the state's workFiles.files and for each path of workFiles.files in the state.json of the run it continues (the skill-loaded event's resumes, BEH-31; read with $.fs.read at that moment; that run only, never its ancestors), each path once and only an entry that is a non-empty string (prune.py judges the rest, ERR-20), and timeoutMs 10000. Nothing waits for it, no hook and no tool call, and nothing is shown to the user; its output line goes to adapter.log as kind workfiles, with the run's ID. It is a process, not a tool call: it asks nothing of Claude Code's permissions and is recorded in no run. Observe and enforce mode alike. It is never started by an enforce check's provisional state (BEH-08), in a session.end hook (the 1.5 seconds BEH-19 keeps for the final evaluation), or in a headless session or an eval's child run (BEH-01). It is started only for the open run, or the run whose final evaluation this is: a paused run (BEH-29) starts none, so its files wait for the age pass. A work file written after the cleanup, or of a run that never becomes due, is left to the age pass (BEH-19). A failure is ERR-19's, a path it won't remove ERR-20's."
+  - id: BEH-33
+    status: active
+    rule: "Other mods' tool calls (version 21; Bryan, 2026-10-05: 'the 3 new ideas sound perfect'). A tool.call whose next.origin.plugin isn't 'engine' (a call another plugin's mod makes through $.tool.call) gives no event of any kind (no tool, answer or step event), changes no task map (BEH-20) and is no work for BEH-30. It still passes through the enforce-mode write gate (BEH-08) as any Write or Edit does: where a call comes from relaxes no gate. A process a mod starts with $.process.run, this adapter's own included, is no tool call and never reaches the hook. A call whose next.origin is missing counts as Claude Code's, the direction that keeps the recording as it was."
+  - id: BEH-34
+    status: active
+    rule: "The /progress command (version 21). In an interactive session (BEH-01) with tracking on (DM-05), session.start, after its other work, calls $.command.register with the name 'progress' and the description 'Show the DevForgeAI run in progress', and catches its failure: a refused name is ERR-21, and session.start goes on. A command.run hook on the command 'progress' answers with text: while a run is open, the status line's text (BEH-10) on the first line, then the band's two rows as text (BEH-11), the button left out, so row 2 reads 'observe mode' or 'enforce mode' and then the newest flag's message, or 'no flags'; with no run open, 'No DevForgeAI run is open in this session.', followed, when a run ended earlier in the session, by the status line's text for it. It records nothing, opens and ends no run (it is no skill, and a prompt that starts with '/' isn't recorded, BEH-04), asks nothing, and works in both modes. Its text comes from the functions that build the status line and the band, so the three never disagree."
+  - id: BEH-35
+    status: active
+    rule: "The precompact row (version 21; SPEC-015 §1 advises running /devforgeai:precompact at 70 to 80 percent of the context window). A session.measure hook in the main session keeps e.context.percent, when it is a number, and returns next(e) unchanged. The row is due while the kept percent is at least precompactAt (DM-07), precompactAt isn't 0, and the row isn't hidden. A load of the plugin's precompact skill (skill.prompt, the name under BEH-02) hides it until the next session.compact; a session.compact also drops the kept percent, so the row comes back only when a later measurement reaches the share again. While it is due, the AbovePrompt hook (BEH-11) draws one row after the band's rows, or alone when no run is open: 'Context <percent>%: consider /devforgeai:precompact before /compact', cut to e.props.bodyColumns; none while e.props.hasSurvey is true, and when e.props.maxRows leaves no room, this row goes before the band's rows do. It runs nothing, fills no prompt, refuses nothing and is recorded in no run. Both modes, with a run open or not; never in a headless session (BEH-01) or with tracking off (DM-05). Before a measurement gives a percent (the session's first response, and again after a compaction) there is no row."
 ```
 
 ## 7. Errors and edge cases
@@ -618,6 +646,11 @@ errors:
     condition: "IF-05 is given a path it won't remove: outside every pattern, absolute or holding a .. segment, behind a link, not a regular file, or missing. The list comes from a state.json, a file the model's own tools can write, so no path in it is trusted: a path beginning with - or a non-string entry, which the adapter doesn't pass, is no reason to stop the others."
     handling: "Skip the path, count it in skipped and go on with the others; exit 0."
     user_result: "Nothing shown; the adapter.log line says 'skipped <k>'."
+  - id: ERR-21
+    status: active
+    condition: "$.command.register refuses the name 'progress' (a built-in command has it) or fails (version 21)."
+    handling: "Catch it, write an adapter.log line of kind command with the host's error, and go on with session.start: every other part of the adapter works as before."
+    user_result: "Nothing shown; typing /progress runs whatever owns the name, or nothing."
 ```
 
 ## 8. Non-functional design
@@ -1233,6 +1266,34 @@ verifications:
     covers:
       - BEH-19
       - BEH-32
+  - id: VER-54
+    status: active
+    obligation: "Kit tests of other mods' tool calls (version 21), written first and seen failing, in both modes: with a run open, a Write, a Bash call and a TaskUpdate that maps a step, each with next.origin.plugin 'other-mod', add no line to events.jsonl and change no task map; the same calls with origin 'engine' are recorded as before; a call with no origin is recorded; in enforce mode a Write from 'other-mod' that the gate's flags would refuse is still refused (BEH-08)."
+    level: integration
+    covers:
+      - BEH-33
+  - id: VER-55
+    status: active
+    obligation: "Kit tests of /progress (version 21), written first and seen failing: session.start registers 'progress' once in an interactive session, not in a headless one or with tracking off; with a run open, the command's text is the status line's text and the band's two rows without the button; with none, 'No DevForgeAI run is open in this session.' and, after a run ended, its status line text; running it adds nothing to events.jsonl; a register that throws leaves an adapter.log line of kind command, and the session's next tracked skill still opens a run (ERR-21)."
+    level: integration
+    covers:
+      - BEH-34
+      - ERR-21
+  - id: VER-56
+    status: active
+    obligation: "Kit tests of the precompact row (version 21), written first and seen failing, in both modes, with and without an open run: session.measure with percent 69 and precompactAt 70 draws no row, 70 draws 'Context 70%: consider /devforgeai:precompact before /compact'; precompactAt 0 draws none; a load of the precompact skill hides it, and after session.compact a measure of 72 shows it again; session.compact alone hides it until the next measure; hasSurvey draws none; with maxRows 2 and a run open, the band's row 1 and this row are drawn and row 2 is not; a headless session draws none; an invalid precompactAt counts as 70 with an adapter.log line of kind setting; nothing is added to events.jsonl."
+    level: integration
+    covers:
+      - BEH-35
+      - DM-07
+  - id: VER-57
+    status: active
+    obligation: "Live, in Bryan's worker1 tab with --plugin-dir on the build (version 21): (a) /progress during a brainstorm run prints its line and rows, and with no run prints the no-run text; (b) precompactAt set to a share just above the session's current fill in /config, one more turn shows the row; /devforgeai:precompact hides it; /compact keeps it hidden until the share is reached again; (c) claude plugin validate passes with the precompactAt field. A mod's own tool calls aren't checked live (no installed mod makes them); VER-54 covers them. Recorded in §9."
+    level: manual
+    covers:
+      - BEH-34
+      - BEH-35
+      - DM-07
 ```
 
 ## 10. Rollout, migration and rollback
@@ -1745,6 +1806,24 @@ spec is silent (session.end also clears the mark; the key's parser needs a space
 BEH-21's question check still runs in a marked turn; the ERR-18 line reads `skill-read: <name>: <the host's error>`) and
 the live check (a) run in observe mode, with enforce covered by VER-50 (c).
 
+Drafter's choices in version 21, for Bryan to accept or challenge (plan `tmp/plans/2026-10-06-dashboard.md`):
+- The version number is provisional: version 20's build (branch `docs/save-the-work`) is still open, and a build has
+  minted a version twice before (15, 19). If it mints one, this draft is renumbered before approval.
+- The precompact row measures the share of the context window (`context.percent`), as SPEC-015 words its advice,
+  not the share of the auto-compact point, which only `$.session.usage({ breakdown })` gives and which is missing
+  when automatic compaction is off, the case where a run that fills the window simply stops (SPEC-015 §1).
+- `precompactAt` runs from 0 (off) to 95, default 70, the low end of SPEC-015's 70 to 80 percent; Bryan's own habit
+  was 80 to 90 percent (SPEC-015's approval row), so he may want 80.
+- After `/devforgeai:precompact` the row stays hidden until a compaction, not for the rest of the session: after
+  `/compact` the window can fill again, and the advice holds again.
+- A tool call with no `next.origin` counts as Claude Code's, so nothing that was recorded stops being recorded; a
+  mod's Write still meets the write gate (the "never relax a constraint" preference).
+- The command is registered as `progress`, not under the plugin's name, as the mods in the reviewed repository do.
+  A string search of Claude Code 2.1.290 found no built-in of that name, but the search can't prove there is none:
+  ERR-21 covers a refusal. The dashboard (plan, cycle 2) will make `/progress` open a pane.
+- Not changed, noted: DM-01's "(no DevForgeAI skill uses subagents today)" has been stale since the spec-lookup
+  agent (SPEC-014); a subagent's events are still skipped, so only the remark is out of date.
+
 ## Change Log
 
 | Version | Date | Author | Change | Items affected |
@@ -1830,3 +1909,4 @@ the live check (a) run in observe mode, with enforce covered by VER-50 (c).
 | 20 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 ('Delete at end + ignore (Recommended)', 'Tracker deletes + ages (Recommended)', after "could the claude mod we developed have this integrated after validation to run a deletion script?"): when an evaluation shows a run's work files due (SPEC-012 version 15), the adapter runs prune.py to delete them and those of the run it continues (new BEH-32, IF-05, ERR-19, ERR-20); IF-04's age pass also removes work files older than retentionDays (BEH-19); BEH-15 and QR-03 name the files IF-05 reaches; adapter.log kind workfiles (DM-02); VER-51 to VER-53; status in-review | frontmatter, §1, DM-02, DM-06, IF-04, IF-05, BEH-15, BEH-19, BEH-32, ERR-19, ERR-20, QR-03, VER-51, VER-52, VER-53, §10, §11, §12, §13 |
 | 20 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, the drafts review's fixes (tmp/plans/save-work/review-drafts-2.md): the age pass judges a work file by its run (a file stays while a surviving run's state.json lists it) and the run being continued is a second --keep-run (IF-04, BEH-19); prune.py reads patterns only from the plugin's own manifests folder and ignores one bad manifest alone (IF-04, IF-05, BEH-32, QR-03); paths pass as --file=<path>, only non-empty strings, and a path with a .. segment anywhere is skipped (IF-05, BEH-32, ERR-20); a vanished file is skipped, other errors exit 2 (IF-05); no cleanup for a paused run (BEH-32); BEH-15 reads the continued run's state.json; VER-51 to VER-53 extended; §13 lists the added choices and records that ADR-006 is silent on the deletion | DM-02, IF-04, IF-05, BEH-15, BEH-19, BEH-32, ERR-20, QR-03, VER-51, VER-52, VER-53, §13 |
 | 20 | 2026-10-06 | Bryan | Approved ('Approve all three'), with the drafter's choices in §13 | status |
+| 21 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, on Bryan's decisions of 2026-10-05 ("the 3 new ideas sound perfect"; "3 ideas, then dashboard"): a tool call another mod makes is recorded in no run, and the write gate still checks it (BEH-33); a /progress command prints the open run's progress, a refused name logged (BEH-34, ERR-21); a row above the prompt suggests /devforgeai:precompact once the context window is filled to precompactAt, 70 percent by default (BEH-35, DM-07); kit tests VER-54 to VER-56 and live VER-57; the drafter's choices in §13. The version number is provisional while version 20's build is open | §1, §3, DM-01, DM-07, BEH-33 to BEH-35, ERR-21, VER-54 to VER-57, §13 |
