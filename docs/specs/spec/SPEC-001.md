@@ -552,6 +552,14 @@ by git.
 
 ## 13. Open questions
 
+- Decided (Bryan, 2026-10-06, end-of-workflow summary of PR 3): VER-16 ("Graders on outcome (Recommended)"): saves-work-as-it-goes fails only its tool clause
+  (three saves with the Write tool) in headless evals, where Claude saves with Bash and copies the draft into the BRN;
+  with the progress tracker present (SPEC-013 VER-62, live) those writes are recorded, refused or flagged. Waived for
+  the merge of PR #95 and PR #99; open for a later version: the case's graders check the files (the draft holds the
+  proposals before the BRN exists; the BRN validates), whatever tool wrote them.
+- Decided (Bryan, 2026-10-06, end-of-workflow summary of PR 3): VER-17 (b) to (e), not run live, are waived ("Waive, kit-covered (Recommended)"): SPEC-013 VER-61's
+  kit tests cover the line for (b), (d) and (e), and (c)'s skill text is unchanged.
+
 - Decided by Bryan on 2026-10-06, for version 17 (SPEC-012 version 16, SPEC-013 version 22): the progress tracker
   states a continued run's state, its draft, the step to ask and that step's last form, as facts in its line (SPEC-013
   BEH-39), and the skill keeps one rule: use the draft the line names. Version 16's case analysis (copy the work file

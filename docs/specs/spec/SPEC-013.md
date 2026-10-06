@@ -1652,6 +1652,15 @@ with SPEC-001 version 17; evals run headless, so the adapter's new parts are cov
 
 ## 13. Open questions
 
+- Accepted (Bryan, 2026-10-06, end-of-workflow summary of PR 3, "Accept all (Recommended)"): version 22's builders' readings and the DM-03 departure (§9's
+  version 22 row; tmp/plans/save-work/build-adapter-v22.md) and the accepted limits listed below.
+- Open (Bryan, 2026-10-06, end-of-workflow summary of PR 3, "Record, fix next cycle (Recommended)"), found in VER-62's live runs and their side notes, for a version
+  after the dashboard's 23 and 24: (1) BEH-38 (a)'s text says 'a document this run writes' for any file matching a
+  write pattern, which misled a side agent when a read of another run's BRN-001 was refused: name the pattern instead;
+  (2) a refused Bash read of another document reaches the user as a review item (BEH-26): keep read refusals out of
+  the review; (3) a second brainstorm in one session shares the session-named draft path (SPEC-001 BEH-14), so it can
+  overwrite an unfinished earlier run's draft: name the draft by run.
+
 Decided by Bryan on 2026-10-06, for version 22 (SPEC-012 version 16, SPEC-001 version 17; "Save the work too" PR 3),
 after VER-53's live check failed because Claude wrote the BRN with a Bash `sed` redirect the tracker never saw: the
 mod is the state tracker ("The goal is to have the Claude mod act as a state tracker"; "The draft of the conversation

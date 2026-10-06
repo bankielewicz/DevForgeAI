@@ -1253,6 +1253,9 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 
 ## 13. Open questions
 
+- Accepted (Bryan, 2026-10-06, end-of-workflow summary of PR 3, "Accept all (Recommended)"): version 16's builders' readings and VER-46's gate.reason departure
+  (§9's Build (v16) row; tmp/plans/save-work/build-evaluator-v16.md).
+
 Decided by Bryan on 2026-10-06, for version 16 (SPEC-013 version 22, SPEC-001 version 17, "Save the work too" PR 3),
 after a live check (SPEC-013 VER-53) in which Claude wrote BRN-001.md with `sed ... > docs/specs/brainstorm/BRN-001.md`
 and the tracker saw no write: "Refuse before (Recommended)", then, after a side agent's note that a refusal by name
