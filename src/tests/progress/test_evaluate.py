@@ -974,7 +974,8 @@ class SpecRules(Base):
     def test_ver43_earlier_cases_carry_nothing(self):
         new = {"arch-carried", "brainstorm-carried-owned", "brainstorm-carried-confirmed", "brainstorm-carried-written",
                "brainstorm-carried-written-open", "carried-answered-unknown", "carried-windows", "carried-unknown",
-               "carried-then-evidence", "brn-workfiles-carried"}
+               "carried-then-evidence", "brn-workfiles-carried", "brn-draft-carried", "brn-draft-outside",
+               "brn-draft-listed-first"}
         for name in mc.CASE_BUILDERS:
             if name not in new and name != "messy-log":
                 with self.subTest(name):
@@ -1254,6 +1255,192 @@ class SpecRules(Base):
                 proc, state = self.evaluate_with(tmp, [folder])
                 self.assertEqual(proc.returncode, 0, proc.stderr)
                 self.assertEqual(state["workFiles"]["files"], files)
+
+
+    # VER-45 (version 16): a script rule's evidence needs the script to be what runs (BEH-06, BEH-08).
+    def state_of(self, log):
+        """Evaluate a log built in memory against the plugin's manifests; return the state."""
+        with tempfile.TemporaryDirectory() as tmp:
+            events, out = Path(tmp) / "events.jsonl", Path(tmp) / "state.json"
+            events.write_text("\n".join(log.lines()) + "\n", encoding="utf-8")
+            proc = self.run_cli("evaluate", "--manifests", mc.PLUGIN_MANIFESTS, "--events", events, "--out", out)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            return json.loads(out.read_text(encoding="utf-8"))
+
+    def test_ver45_naming_the_script_is_no_run(self):
+        for name in ("brn-script-named-only", "brn-script-named-ls", "brn-script-other-part"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                s7 = self.step(state, 7)
+                self.assertEqual(s7["state"], "claimed")
+                self.assertEqual(s7["evidence"], [])
+                self.assertEqual(state["workFiles"], {"files": [mc.WORK], "due": False})
+
+    def test_ver45_a_piped_read_gives_the_plain_skipped_flag(self):
+        state, _, _, _ = self.run_case("brn-script-piped-read")
+        flags = self.flags(state, 7)
+        self.assertEqual([f["type"] for f in flags], ["skipped"])
+        self.assertTrue(flags[0]["message"].startswith("step 7 (Validate the BRN) has no evidence or tick before"),
+                        flags[0]["message"])
+        self.assertNotIn("joined", flags[0]["message"])
+
+    def test_ver45_a_run_of_the_script_still_counts(self):
+        for name in ("brn-script-option", "brn-script-env", "brn-script-direct", "brn-script-cd"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                s7 = self.step(state, 7)
+                self.assertEqual((s7["state"], [e["type"] for e in s7["evidence"]]), ("done", ["script"]))
+                self.assertEqual(state["flags"], [])
+                self.assertEqual(state["workFiles"], self.WORK_STATE)
+
+    def test_ver45_command_forms(self):
+        target, other = mc.BRN_PATH, mc.BRN1_PATH
+        runs = [("python3 %s %s" % (mc.SCRIPT, target), True),
+                ("python %s %s" % (mc.SCRIPT, target), True),
+                ("python3.12 %s %s" % (mc.SCRIPT, target), True),
+                ("/usr/bin/python3 %s %s" % (mc.SCRIPT, target), True),
+                ("bash %s %s" % (mc.SCRIPT, target), True),
+                ("sh %s %s" % (mc.SCRIPT, target), True),
+                ("node %s %s" % (mc.SCRIPT, target), True),
+                ("A=1 B=2 python3 -B -S %s %s" % (mc.SCRIPT, target), True),
+                ("echo hi && %s %s" % (mc.SCRIPT, target), True),
+                ("python3 -B \\\n  %s %s" % (mc.SCRIPT, target), True),
+                ("python3 \"%s\" %s" % (mc.SCRIPT, target), False),
+                ("python3 '%s' %s" % (mc.SCRIPT, target), False),
+                ("python3 -W ignore %s %s" % (mc.SCRIPT, target), False),
+                ("timeout 60 python3 %s %s" % (mc.SCRIPT, target), False),
+                ("env python3 %s %s" % (mc.SCRIPT, target), False),
+                ("uv run python3 %s %s" % (mc.SCRIPT, target), False),
+                ("python2 %s %s" % (mc.SCRIPT, target), False),
+                ("python3.x %s %s" % (mc.SCRIPT, target), False),
+                ("head %s %s" % (mc.SCRIPT, target), False),
+                ("python3 %s %s" % (mc.SCRIPT, other), False),
+                ("python3 %s %s || true" % (mc.SCRIPT, target), False),
+                ("python3 %s && head %s" % (mc.SCRIPT, target), False),
+                ("python3 %s; head %s" % (mc.SCRIPT, target), False)]
+        for command, counts in runs:
+            with self.subTest(command=command):
+                state = self.state_of(mc.brn_working(validate=0, command=command))
+                self.assertEqual(self.step(state, 7)["state"], "done" if counts else "claimed")
+                self.assertEqual(state["workFiles"]["due"], counts)
+
+    def test_ver45_a_joined_run_is_read_as_evidence_is(self):
+        # The script runs in its own part: the joined-run flag names it. A part that only reads it, no flag of that kind.
+        run = "python3 %s %s" % (mc.SCRIPT, mc.BRN_PATH)
+        state = self.state_of(mc.brn_validated(run + "; echo $?"))
+        self.assertIn("ran, but the command joined it", self.flags(state, 7)[0]["message"])
+        for command in ("cat %s %s | head" % (mc.SCRIPT, mc.BRN_PATH), "python3 -W ignore %s %s; echo" % (mc.SCRIPT, mc.BRN_PATH)):
+            with self.subTest(command=command):
+                state = self.state_of(mc.brn_validated(command))
+                self.assertNotIn("joined", self.flags(state, 7)[0]["message"])
+
+    # VER-46 (version 16): forms, Bash writes and the draft (DM-02, BEH-06, BEH-08, BEH-10, BEH-21, BEH-22).
+    OUTSIDE = ("%s was written by a Bash command, not the Write or Edit tool: write it with the Write tool, "
+               "so the tracker checks it before it is written")
+
+    def wrote_seqs(self, name):
+        lines = (mc.CASES / name / "events.jsonl").read_text(encoding="utf-8").splitlines()
+        return [e["seq"] for e in map(json.loads, lines) if e.get("wrote")]
+
+    def test_ver46_schemas(self):
+        events_v, progress_v = schema_validator("events"), schema_validator("progress")
+        run = "20261002T120000Z-brainstorm-0000abcd"
+        base = {"run": run, "seq": 2, "time": "2026-10-02T12:00:02Z"}
+        tool = dict(base, kind="tool", tool="Bash", path="a.md", command="x", exit=0, error=False)
+        self.assertEqual(list(events_v.iter_errors(dict(tool, wrote=True))), [])
+        self.assertNotEqual(list(events_v.iter_errors(dict(tool, wrote=False))), [])
+        answer = dict(base, kind="answer", answered=True)
+        form = [{"question": "Q?", "header": "H", "multiSelect": False, "options": [{"label": "A", "description": "d", "preview": "p"}]}]
+        self.assertEqual(list(events_v.iter_errors(dict(answer, questions=form))), [])
+        for bad in ([], [{}], [{"question": "Q", "options": [{}]}]):
+            self.assertNotEqual(list(events_v.iter_errors(dict(answer, questions=bad))), [], bad)
+        loaded = dict(base, seq=1, kind="skill-loaded", format="devforgeai-events/1", skill="brainstorm", checklist="x")
+        self.assertEqual(list(events_v.iter_errors(dict(loaded, draft="devforgeai/drafts/brainstorm/a.md"))), [])
+        self.assertNotEqual(list(events_v.iter_errors(dict(loaded, draft=1))), [])
+        state, _, _, _ = self.run_case("brn-bash-write")
+        self.assertEqual([e.message for e in progress_v.iter_errors(state)], [])
+        self.assertEqual([f["type"] for f in state["flags"]], ["outside-write"])
+        bad = json.loads(json.dumps(state))
+        bad["flags"][0]["type"] = "outside"
+        self.assertNotEqual(list(progress_v.iter_errors(bad)), [])
+
+    def test_ver46_a_bash_write_is_the_write_gate(self):
+        for name in ("brn-bash-write", "brn-bash-write-exit1"):
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                (seq,) = self.wrote_seqs(name)
+                s6 = self.step(state, 6)
+                self.assertEqual((s6["state"], [(e["type"], e["detail"], e["seq"]) for e in s6["evidence"]]),
+                                 ("done", [("write", "Bash " + mc.BRN1_PATH, seq)]))
+                message = self.OUTSIDE % mc.BRN1_PATH
+                self.assertEqual(state["flags"], [{"gate": "write", "seq": seq, "step": 6, "type": "outside-write",
+                                                   "message": message}])
+                self.assertEqual(state["gate"], {"kind": "write", "seq": seq, "refuse": True, "reason": message})
+                s7 = self.step(state, 7)  # the validator's run names a file written through Bash
+                self.assertEqual((s7["state"], [e["type"] for e in s7["evidence"]]), ("done", ["script"]))
+                self.assertEqual(state["workFiles"], {"files": [], "due": True})
+
+    def test_ver46_the_wrote_event_goes_to_the_content_rules(self):
+        state, _, _, _ = self.run_case("brn-bash-write-unconfirmed")
+        (seq,) = self.wrote_seqs("brn-bash-write-unconfirmed")
+        self.assertEqual([(f["step"], f["type"], f["seq"]) for f in state["flags"]],
+                         [(5, "skipped", seq), (6, "rule-broken", seq), (6, "outside-write", seq)])
+        self.assertIn("sets disposition: promoted", state["flags"][1]["message"])
+        self.assertEqual(state["flags"][2]["message"], self.OUTSIDE % mc.BRN1_PATH)
+        # BEH-08: gate.reason is the first of the other flags, the step 5 flag a Write raises first too.
+        self.assertEqual(state["gate"]["reason"], state["flags"][0]["message"])
+        self.assertEqual(self.step(state, 6)["state"], "rule-broken")
+        self.assertEqual(self.step(state, 5)["state"], "skipped")
+
+    def test_ver46_one_flag_for_each_wrote_event(self):
+        state, _, _, _ = self.run_case("brn-bash-write-twice")
+        seqs = self.wrote_seqs("brn-bash-write-twice")
+        self.assertEqual(len(seqs), 2)
+        self.assertEqual([(f["type"], f["seq"], f["step"]) for f in state["flags"]],
+                         [("outside-write", s, 6) for s in seqs])
+        self.assertEqual(state["gate"]["seq"], seqs[1])
+
+    def test_ver46_a_work_file_written_through_bash(self):
+        state, _, _, _ = self.run_case("brn-bash-workfile")
+        self.assertEqual(state["workFiles"], {"files": [mc.WORK], "due": False})
+        self.assertEqual(state["flags"], [])
+        self.assertEqual(state["gate"]["kind"], None)
+        self.assertEqual(self.step(state, 6)["evidence"], [])
+
+    def test_ver46_the_draft_is_listed_first(self):
+        draft = "devforgeai/drafts/brainstorm/%s.md"
+        state, _, _, _ = self.run_case("brn-draft-carried")
+        self.assertEqual(state["workFiles"], {"files": [draft % "a"], "due": False})
+        state, _, _, _ = self.run_case("brn-draft-outside")
+        self.assertEqual(state["workFiles"], {"files": [], "due": False})
+        state, _, _, _ = self.run_case("brn-draft-listed-first")
+        self.assertEqual(state["workFiles"]["files"], [draft % "a", draft % "b", draft % "c"])
+        self.assertEqual(state["flags"], [])
+        for bad in ("/abs/draft.md", "../draft.md", "devforgeai/drafts/brainstorm/../../x.md", "devforgeai/drafts/brainstorm/./x.md"):
+            with self.subTest(draft=bad):
+                state = self.state_of(mc.carrying("brainstorm", [1, 2, 3, 4], draft=bad).started(5))
+                self.assertEqual(state["workFiles"]["files"], [])
+
+    def test_ver46_a_form_changes_nothing(self):
+        state, _, raw, _ = self.run_case("brn-forms")
+        with_forms = (mc.CASES / "brn-forms" / "events.jsonl").read_text(encoding="utf-8")
+        self.assertIn('"questions"', with_forms)
+        self.assertGreater(len(with_forms), 10240)
+        plain = self.state_of(mc.brn_forms(False))
+        self.assertEqual(state, plain)
+        self.assertEqual(state["workFiles"], self.WORK_STATE)
+        self.assertEqual(state["flags"], [])
+        # The literal reading too: a log with no answer event has no form, and brn-workfiles-due is such a log.
+        due, _, _, _ = self.run_case("brn-workfiles-due")
+        self.assertEqual(due["workFiles"], self.WORK_STATE)
+
+    def test_ver46_earlier_cases_move_only_as_the_spec_says(self):
+        new = {n for n in mc.CASE_BUILDERS if n.startswith(("brn-script-", "brn-bash-", "brn-draft-")) or n == "brn-forms"}
+        for name in mc.CASE_BUILDERS:
+            if name not in new and name != "messy-log":
+                with self.subTest(name):
+                    state, _, _, _ = self.run_case(name)
+                    self.assertNotIn("outside-write", [f["type"] for f in state["flags"]])
 
 
 class SpecRulesUnderS(SpecRules):

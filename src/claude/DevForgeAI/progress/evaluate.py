@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v15).
+"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v16).
 
 Run from the project root:
     python3 evaluate.py evaluate --manifests DIR [--manifests DIR ...] --events FILE --out FILE
@@ -58,6 +58,12 @@ def joined(command):
     """Whether a command joins its parts so its exit status may be another command's (BEH-06); a backslash line
     continuation splits one command over two lines and joins nothing."""
     return bool(JOINED.search(command.replace("\\\n", " ")))
+OUTSIDE_WRITE = ("%s was written by a Bash command, not the Write or Edit tool: write it with the Write tool, "
+                 "so the tracker checks it before it is written")  # version 16 (BEH-08)
+# What may run a script (BEH-06, version 16): the interpreters, by file name, and an environment assignment before a word.
+INTERPRETERS = ("python", "python3", "bash", "sh", "node")
+PYTHON_N = re.compile(r"python3\.[0-9]+")
+ENV_WORD = re.compile(r"[A-Za-z_][A-Za-z0-9_]*=")
 UNMARKED = ("a question was asked while no step was marked in progress in the task list: "
             "mark the step it belongs to in progress, then ask")
 MISMATCHED = ("a question for step {n} was asked while step {k} was marked in progress: "
@@ -66,6 +72,44 @@ UNTAGGED = ("a question was asked without naming a step of the checklist: tag it
             "for the step it belongs to, mark that step in progress, then ask")  # version 9
 CHAIN = ("brainstorm", "prd", "architecture", "context", "epic", "story")
 NOT_BUILT = {"story": "the story skill isn't built yet (SPEC-009)"}
+
+
+def script_word(part, pattern):
+    """The word of one part of a command that names the script a script rule's pattern matches, when that part runs it
+    (BEH-06, version 16): its first word after any NAME=value words has a file name matching the pattern, or is an
+    interpreter whose first word after it not starting with - does. Words are taken as written, quotes included."""
+    words = part.split()
+    i = 0
+    while i < len(words) and ENV_WORD.match(words[i]):
+        i += 1
+    if i == len(words):
+        return None
+    name = PurePosixPath(words[i]).name
+    if fnmatchcase(name, pattern):
+        return words[i]
+    if name in INTERPRETERS or PYTHON_N.fullmatch(name):
+        for word in words[i + 1:]:
+            if not word.startswith("-"):
+                return word if fnmatchcase(PurePosixPath(word).name, pattern) else None
+    return None
+
+
+def script_run(command, pattern):
+    """(the script's word, the words of the part that runs it) for a command that runs a script matching the pattern
+    in one of its parts, split at && and ||; else None (BEH-06, version 16). A backslash line continuation joins nothing."""
+    for part in re.split(r"&&|\|\|", command.replace("\\\n", " ")):
+        hit = script_word(part, pattern)
+        if hit is not None:
+            return hit, part.split()
+    return None
+
+
+def clean_path(path):
+    """A path as BEH-06 reads it: repeated slashes collapsed, a leading ./ removed."""
+    path = re.sub(r"/{2,}", "/", path)
+    while path.startswith("./"):
+        path = path[2:]
+    return path
 
 
 class Fail(Exception):
@@ -306,10 +350,7 @@ def read_events(path):
             if e["kind"] == "tool" and isinstance(e.get("path"), str):
                 # Every tool's path is read like the rest (BEH-06): a leading ./ removed, as from a Glob at the root
                 # or a Write's relative path, after repeated slashes collapse (a build departure, SPEC-012 §9).
-                tool_path = re.sub(r"/{2,}", "/", e["path"])
-                while tool_path.startswith("./"):
-                    tool_path = tool_path[2:]
-                e["path"] = tool_path
+                e["path"] = clean_path(e["path"])
             valid.append(e)
         else:
             counts["malformed"] += 1
@@ -533,15 +574,21 @@ class Run:
     # -- work files (BEH-21, version 15) --
 
     def work_files(self, patterns):
-        """The state's workFiles: the paths of the run's Write and Edit calls without an error that match a work-file
-        pattern (never one starting with / or ../ or holding a . or .. segment), each once, in the order first written;
+        """The state's workFiles: the skill-loaded event's draft, then the paths of the run's Write and Edit calls and of
+        its tool events with wrote (version 16) without an error, that match a work-file pattern (never one starting
+        with / or ../ or holding a . or .. segment), each once, in the order first written;
         and due, when the manifest has a step with a script rule on written files and every such step is done by evidence."""
         files = []
+        candidates = []
+        draft = self.events[0].get("draft")  # the earlier run's draft, listed first (version 16, BEH-21)
+        if isinstance(draft, str):
+            candidates.append(clean_path(draft))
         for e in self.events:
-            path = e.get("path")
-            if e["kind"] != "tool" or e.get("tool") not in ("Write", "Edit") or e.get("error") is True \
-                    or not isinstance(path, str) or path.startswith("/") or path.startswith("../") \
-                    or "." in path.split("/") or ".." in path.split("/"):
+            if e["kind"] == "tool" and (e.get("tool") in ("Write", "Edit") or e.get("wrote") is True) \
+                    and e.get("error") is not True and isinstance(e.get("path"), str):
+                candidates.append(e["path"])
+        for path in candidates:
+            if path.startswith("/") or path.startswith("../") or "." in path.split("/") or ".." in path.split("/"):
                 continue
             if path not in files and any(path_matches(path, p) for p in patterns):
                 files.append(path)
@@ -558,18 +605,20 @@ class Run:
         tool, kind = e.get("tool"), rule["type"]
         if e.get("error") is True:
             return None
+        wrote = e.get("wrote") is True  # a file a Bash call wrote: evidence by its path only (BEH-06, version 16)
         if kind == "script":
             command = e.get("command")
-            if tool != "Bash" or not isinstance(command, str):
+            if wrote or tool != "Bash" or not isinstance(command, str) or joined(command) \
+                    or e.get("exit") != rule.get("exit", 0):
                 return None
-            tokens = command.split()
-            hit = next((t for t in tokens if fnmatchcase(PurePosixPath(t).name, rule["pattern"])), None)
-            if hit is None or joined(command) or e.get("exit") != rule.get("exit", 0):
+            run = script_run(command, rule["pattern"])
+            if run is None:
                 return None
+            hit, tokens = run
             if rule.get("target") == "written" and not any(names_a(t, self.written_before(e["seq"])) for t in tokens):
                 return None
             return "%s exit %d" % (PurePosixPath(hit).name, e["exit"])
-        if kind == "read" and tool == "Bash":
+        if kind == "read" and tool == "Bash" and not wrote:
             command = e.get("command")
             if not isinstance(command, str) or e.get("exit") != rule.get("exit", 0) or not bash_readable(rule["pattern"]):
                 return None
@@ -585,9 +634,9 @@ class Run:
         path = e.get("path")
         if not isinstance(path, str):
             return None
-        if kind == "write" and tool in ("Write", "Edit") and path_matches(path, rule["pattern"]):
+        if kind == "write" and (tool in ("Write", "Edit") or wrote) and path_matches(path, rule["pattern"]):
             return "%s %s" % (tool, path)
-        if kind == "read" and tool in ("Read", "Glob", "Grep"):
+        if kind == "read" and tool in ("Read", "Glob", "Grep") and not wrote:
             if not rule_path_matches(path, rule):
                 return None
             if rule.get("target") == "written" and not names_a(path, self.written_before(e["seq"])):
@@ -597,16 +646,17 @@ class Run:
 
     def joined_run(self, rule, e):
         """The script's file name when a Bash command names a script rule's script but joins it to another command,
-        which hides its exit status (BEH-06, version 7); else None. With target written, a token must also name a
-        written file, as for evidence, so a read of the script (cat … | head) isn't reported as a run."""
+        which hides its exit status (BEH-06, version 7); else None. The script run is read as evidence reads it
+        (version 16): a command that only names the script, as cat or ls do, isn't reported as a run. With target
+        written, a token of the part that runs it must also name a written file."""
         command = e.get("command")
         if rule["type"] != "script" or e.get("tool") != "Bash" or not isinstance(command, str) \
                 or e.get("error") is True or not joined(command):
             return None
-        tokens = command.split()
-        hit = next((t for t in tokens if fnmatchcase(PurePosixPath(t).name, rule["pattern"])), None)
-        if hit is None:
+        run = None if e.get("wrote") is True else script_run(command, rule["pattern"])  # as BEH-06 reads it (version 16)
+        if run is None:
             return None
+        hit, tokens = run
         if rule.get("target") == "written":
             written = self.written_before(e["seq"])
             if not any(names_a(t.strip("'\";()|&"), written) for t in tokens):
@@ -616,7 +666,8 @@ class Run:
     def take_tool(self, e):
         if self.write_gate is not None:
             for rule in self.write_gate.rules:
-                if rule["type"] == "write" and e.get("error") is not True and e.get("tool") in ("Write", "Edit") \
+                if rule["type"] == "write" and e.get("error") is not True \
+                        and (e.get("tool") in ("Write", "Edit") or e.get("wrote") is True) \
                         and isinstance(e.get("path"), str) and path_matches(e["path"], rule["pattern"]):
                     self.written.append((e["seq"], e["path"]))
                     break
@@ -937,12 +988,21 @@ class Run:
         content = {}
         if w is not None:
             for e in self.events:
-                if e["kind"] == "tool" and e["seq"] >= w and e.get("tool") in ("Write", "Edit") \
+                if e["kind"] == "tool" and e["seq"] >= w and (e.get("tool") in ("Write", "Edit") or e.get("wrote") is True) \
                         and e.get("error") is not True and isinstance(e.get("path"), str) \
                         and any(path_matches(e["path"], rule["path"]) for rule in self.content_rules):
                     content[e["seq"]] = e
         questions = self.questions
-        points = sorted({p for p in (w, r, end) if p is not None} | set(content) | set(questions))
+        # A document a Bash call wrote (a tool event with wrote that is write evidence) raises an outside-write flag of
+        # its own at its seq (BEH-08, version 16); its step is the write rule's step.
+        outside = {}
+        for e in self.events:
+            if e["kind"] == "tool" and e.get("wrote") is True and e.get("error") is not True:
+                step = next((s for s in self.steps if any(x["seq"] == e["seq"] and x["type"] == "write"
+                                                          for x in s.evidence)), None)
+                if step is not None:
+                    outside[e["seq"]] = (step, e["path"])
+        points = sorted({p for p in (w, r, end) if p is not None} | set(content) | set(questions) | set(outside))
         for seq in points:
             new = []
             if seq in questions:
@@ -963,6 +1023,9 @@ class Run:
                 highest = self.highest_reached()
                 if highest is not None:
                     self.check_steps(new, "end", seq, [s for s in self.steps if s.n <= highest])
+            if seq in outside:
+                step, path = outside[seq]
+                self.flag(new, "write", seq, step, "outside-write", OUTSIDE_WRITE % path, once=False)
             kind = "end" if seq == end else "report" if seq == r else "question" if seq in questions else "write"
             self.gate = {"kind": kind, "seq": seq, "refuse": bool(new), "reason": new[0]["message"] if new else None}
 
