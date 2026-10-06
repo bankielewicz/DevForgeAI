@@ -19,7 +19,7 @@ plugin version: the changes it asks for are listed in section 13.
   each at 160×48, at 120×36, with the tile menu open and docked at 64×48, plus the colour tokens;
 - the working prototype, a throwaway mod in `tmp/probes/drive-probe/` (local only), run live in Bryan's terminal on
   2026-10-06. Its findings are in section 14 and in the memory note `claude-code-verified-facts.md`; a reviewer
-  without them should rerun the prototype (open question 12);
+  without them should rerun the prototype, which is to be committed (section 16);
 - the mod API in Claude Code 2.1.291 (the `plugin-authoring` skill and its `claude-code.d.ts`); the API is early
   access and changes between releases;
 - `devforgeai-claude-mods.md` (proposal) and its design rules (section 3).
@@ -42,11 +42,12 @@ defined in section 5.
 9. Keys, the tile menu and what reaches the model
 10. Commands and settings
 11. Renderers: terminal, desktop and the rest
+11a. The character
 12. When it can't draw everything
 13. Where each piece of data comes from, and the specs this needs
 14. Verified and unverified
 15. Build order
-16. Open questions for the owner
+16. Decisions on the open questions, and what is still open
 
 ## 1. Purpose and the decisions behind it
 
@@ -61,7 +62,7 @@ The dashboard is one pane. It shows:
 - which guardrails are armed.
 
 It also starts the next phase's skill when you ask it to. It extends PRD-001 FR-021 ("show the run's progress to
-the user"); the instruments, the route and starting skills go beyond FR-021 (open question 7).
+the user"); the instruments, the route and starting skills go beyond FR-021, so PRD-001 gets a new requirement (section 16).
 
 Bryan's decisions, 2026-10-05 and 2026-10-06:
 
@@ -132,10 +133,10 @@ The canvas still names the first look "Model Y"; it is **Default** everywhere el
 **Choosing.**
 - A `/config` setting, `dashboardTheme`, sets the starting look; Default is its default. It is a display setting,
   which ADR-006 D6 leaves to the host's own mechanism, here the plugin's `userConfig`.
-- `t` cycles the looks while the pane is open, and the pick is remembered for the person with `$.store`, as the
-  prototype does (Bryan approved remembering it). A remembered pick wins over the `/config` default.
-- Whether `t` should instead write the `/config` setting itself with `$.config.set`, so there is one stored value,
-  is open question 3; that the call works on a plugin's own `userConfig` row is unverified.
+- `t` cycles the looks while the pane is open and writes the pick into that same `/config` setting with
+  `$.config.set`, so there is one stored value (Bryan, 2026-10-06: "Write /config"). That the call works on a
+  plugin's own `userConfig` row, and that the module sees the change without a reload, is unverified (section 14).
+  If it doesn't work, `t` remembers the pick in `$.store` instead, which then wins over the `/config` default.
 
 ## 5. The instruments
 
@@ -155,8 +156,7 @@ The canvas still names the first look "Model Y"; it is **Default** everywhere el
 - It turns amber from 30% and red from 20%. At 30% the fuel chip reads "▲ Fuel 28% · precompact runs at 20%". At
   20% `/devforgeai:precompact` runs (v21 BEH-36), and the chip reads "● Fuel 18% · running /devforgeai:precompact".
 - These are the moments v21 fixes: `precompactAt` 70 and `precompactRunAt` 80 of the window used are 30% and 20% of
-  fuel. The dashboard only counts the other way. Whether v21's own row and settings switch to fuel wording is open
-  question 2.
+  fuel. The dashboard only counts the other way. v21's own row and settings switch to fuel wording before it is built (section 13).
 - Fuel is the share of the whole window. On a 1M-token window, 20% fuel is 800k tokens used, which may come after
   an automatic compaction (v21 §13).
 
@@ -171,9 +171,9 @@ The canvas still names the first look "Model Y"; it is **Default** everywhere el
   once each. A carried step (SPEC-012 v14) doesn't count: it was reached in the earlier run.
 - PACE shows "—" until the run has 5 minutes of active time, and 0 with no run open.
 - **Wheel-spin** is a new detector, not the tracker's stuck notice. (BEH-25 counts enforce-mode refusals and knows
-  nothing of RPM.) Proposed rule: RPM at least 120 while the open run reaches no new step for 3 minutes of active
-  time. Then the PACE dial turns amber and reads "▲ WHEEL-SPIN". It works in both modes, refuses nothing and tells
-  the model nothing. Its numbers are open question 9.
+  nothing of RPM.) The rule (Bryan, 2026-10-06: "Accept 120 / 3 min"): RPM at least 120 while the open run reaches
+  no new step for 3 minutes of active time, to be checked against recorded runs before the spec fixes it. Then the PACE dial turns amber and reads "▲ WHEEL-SPIN". It works in both modes, refuses nothing and tells
+  the model nothing.
 - The reasoning for PACE over the alternatives (cache efficiency, dollars per hour, or no third dial): it can be
   computed from data the tracker has, says something the other instruments don't, reads at a glance, and is
   something you act on.
@@ -181,10 +181,11 @@ The canvas still names the first look "Model Y"; it is **Default** everywhere el
 **The odometer: lifetime tokens.**
 - The odometer totals the tokens DevForgeAI has used in this project ("the aggregate of tokens for the entire
   framework usage"). It is drawn as rolling digit drums, with the last digit in the accent colour.
-- Which tokens count is open question 10. The options are: main-loop tokens of tracked runs only; those plus
-  subagents' tokens (which SPEC-013 DM-01 doesn't record today); or every turn of the session.
-- Runs are pruned after `retentionDays` (SPEC-013 DM-06), so the total lives in a ledger the pruning keeps (section
-  13).
+- It counts every turn in the project, the main loop's and subagents', input and output with cache reads and
+  writes, since all are billed (Bryan, 2026-10-06: "All tokens, incl. agents"). Subagents' tokens are added as
+  counts only: SPEC-013 DM-01 still keeps their events out of runs.
+- The counts live in a ledger the pruning keeps (section 13), since runs are pruned after `retentionDays` (SPEC-013
+  DM-06).
 
 **The trip computer.** A line of text under the dials, not a dial:
 - the prompt-cache hit rate, from `turn.complete`'s `usage`: cache reads over all input tokens;
@@ -265,10 +266,12 @@ decisions; `t`, `a` and `q` are proposed (from the prototype).
 | `a` | pauses or resumes the animation |
 | `q` | closes the pane |
 
-**Clicks are a bonus.** Clicks reach a mod's Buttons only where the terminal reports them. In Bryan's cmux terminal
-no click reached Claude Code, not even its own pane close button (section 14). The drawn tiles are one Raster,
-which can't be pressed. Clickable tiles need each tile drawn as a keyed Box holding a plain Button (open question
-1).
+**Clickable tiles** (Bryan, 2026-10-06: "Clickable tiles"). Each tile is drawn as a keyed Box holding a plain
+Button over the tile's text, not as part of the Raster, so a click on it opens its menu where the terminal reports
+clicks. The dials, odometer and character stay in Rasters. A Box has one background colour, so Night drive's
+gradient inside a tile becomes a solid tint with a gradient border; the layout prototype settles the look (section
+14). Clicks reach a mod's Buttons only where the terminal reports them: in Bryan's cmux terminal no click reached
+Claude Code, not even its own pane close button. So the keys stay the guaranteed path.
 
 **The tile menu.** A key, or a click where clicks arrive, opens `$.ui.ask` with "<Phase>: what would you like to
 do?":
@@ -281,8 +284,8 @@ do?":
   step N / Start fresh", as it does for a typed skill. BEH-31 counts only a load the person typed (origin `composer`
   or `bridge`), and a mod's `$.command.run` has origin `plugin`. So SPEC-013 needs one change: a start from the
   dashboard counts as typed. It was the person's pick (section 13).
-- An "Open <document>" option is left out. No call opens a file in the editor, and a `file:` link needs a click,
-  which cmux doesn't pass on (open question 4).
+- An "Open <document>" option is left out for now. No call opens a file in the editor, and a `file:` link needs a
+  click, which cmux doesn't pass on (open question 1).
 
 **This changes a recorded rule.** "Buttons fill the prompt box and never send it" is written in five places:
 - `devforgeai-progress-ui.md` §9;
@@ -311,8 +314,9 @@ and refuses nothing. The tracker's enforce-mode refusals stay the model's only s
   give `/devforgeai:<name>`. The prototype is `/devforgeai-probe`.
 - Inside the `devforgeai` plugin, a command file (`commands/<name>.md`) would list as `/devforgeai:<name>`, and a
   `command.run` hook could answer it by opening the pane. That is unverified (section 14).
+- The command is **`/devforgeai:drive`**, through that command file (Bryan, 2026-10-06), if the probe shows it opens
+  the pane without loading a prompt; otherwise **`/devforgeai-drive`**, registered by the mod.
 - v21's `/progress` stays, printing the run as text (section 12), and also opens the dashboard.
-- The name is open question 5.
 
 **Settings** (`userConfig`, shown in `/config`; the person's and not policy, like `tracking` and `retentionDays`):
 
@@ -320,13 +324,15 @@ and refuses nothing. The tracker's enforce-mode refusals stay the model's only s
 | --- | --- | --- |
 | `dashboardTheme` | Default, Night drive, Race telemetry | Default |
 | `dashboardWidth` | the docked width asked for, in columns, from 64 to 160 | 66: the 64-column layout plus a column each side |
-| `dashboardAutoOpen` | open by itself at session start | follows open question 8. Claude Code seats an unasked pane only from 144 columns, or from 110 once the person has opened it before |
-| `precompactAt`, `precompactRunAt` | v21 DM-07, DM-08 | 70, 80 (context used): 30% and 20% of fuel |
+| `dashboardAutoOpen` | open by itself at session start | off (Bryan, 2026-10-06). When on, Claude Code seats an unasked pane only from 144 columns, or from 110 once the person has opened it before |
+| `dashboardCharacter` | Ember, Clawd, none | Ember (section 11a) |
+| the precompact settings | v21 DM-07, DM-08, reworded to fuel left (section 13) | warn at 30% fuel, run at 20% |
 
 A stored value outside a `userConfig` field's range stops the whole module from loading (verified 2026-10-02), so
 every number field has `min` and `max`.
 
 ## 11. Renderers: terminal, desktop and the rest
+11a. The character
 
 **One view model, several renderers.** A pure module (proposed `dashboard-core.ts`, no `$`) turns the readings and
 states into a view model: the tiles, the dial values, the route, the ETA, the agents, the chips. Each renderer only
@@ -338,11 +344,31 @@ draws that model, so the looks, the layouts and the data stay the same across su
 | Desktop app, Code tab, on a Windows-path project | `Svg`: the same model as vector shapes, `isInteractive` for hover and animated needles; at most 131,072 characters of source; presses go on Buttons around the drawing, since presses inside an `Svg` aren't reported | second (Bryan: "the design should include an svg version for the desktop app"); no prototype yet |
 | Desktop app on a WSL project | nothing: plugins don't load there (section 14) | — |
 | kitty, Ghostty and other terminals that show images | an `Image` tier (the SVG rasterised) was considered | dropped for now: it draws nothing in cmux, and braille dials look clean there |
-| VS Code chat panel | nothing: hooks run, nothing draws | open question 6 |
+| VS Code chat panel | nothing: hooks run, nothing draws. VS Code users are pointed to Claude Code in VS Code's terminal (the full dashboard), and to `progress.html` in VS Code's browser once it exists (Bryan, 2026-10-06: "Both") | — |
 | Any browser | `progress.html`, a static page from the same model | later (SPEC-012 §11 plans it) |
 
 Testing the desktop renderer needs a project on a Windows path opened in the desktop app; the kit can draw the
 `desktop` surface for automated checks.
+
+## 11a. The character
+
+Bryan, 2026-10-06: build the character now, "with configuration for either ember or clawd" (the earlier proposal's
+G4 and §8, which this section brings forward).
+
+- **Choice.** `dashboardCharacter`: **Ember**, a small forge spark and the framework's own character, the default;
+  **Clawd**, Claude Code's mascot; or none. A risk to record: a plugin that draws Anthropic's mascot could read as
+  endorsed by Anthropic, and the mods announcement gives no guidance (`devforgeai-progress-ui.md` §8). Clawd ships
+  only if that's acceptable when the plugin is published.
+- **What it does.** The character acts out the current step's kind, from the step manifests (SPEC-012): reading a
+  book (`read`), a thought bubble (`think`), a `?` sign (`ask`), hammering at an anvil (`forge`), a magnifier
+  (`inspect`), a scroll (`report`); waving under `!` on your turn; confetti when a phase is done; a sweat drop when
+  flagged; dozing when idle; spinning wheels during wheel-spin. Each loop is about a second.
+- **Where.** A scene beside the instruments in the wide and compact layouts, and a small sprite in the docked
+  layout's header. Exact sizes come from a layout prototype.
+- **How it's drawn.** One SVG source per character, with named moving parts and small timelines as data
+  (`devforgeai-progress-ui.md` §8). The terminal draws cell-fitted frames built ahead of time (a mod can't rasterise
+  SVG while it runs), repainted with `$.ui.blit`; the desktop draws the SVG with its animation. `a` pauses it with
+  the rest of the motion.
 
 ## 12. When it can't draw everything
 
@@ -377,7 +403,7 @@ NFR-007), and an evaluator that keeps state or reads a clock was rejected (SPEC-
 | Active time, per-step times, steps reached, PACE | one run's `events.jsonl` times | `evaluate.py`, in `state.json` |
 | Per-run token totals | a new `usage` event kind (each main-loop turn's usage), recorded by the adapter | adapter records, `evaluate.py` totals |
 | ETA medians | the ended runs' `state.json` files | `history.py` |
-| Odometer | a ledger, `devforgeai/progress/odometer.jsonl`: one line per run ID, appended when a run ends, read with duplicates by run ID ignored, so reruns and several sessions add each run once | `history.py` writes; `prune.py` keeps it |
+| Odometer | a ledger, `devforgeai/progress/odometer.jsonl`: one line per turn (session ID, turn ID, main or agent, token counts), appended by the adapter at each turn's end, read with duplicates by session and turn ignored, so a reload or several sessions count each turn once | adapter appends; `history.py` totals; `prune.py` keeps it |
 | RPM, time to first token | `turn.step` timing | adapter, live only |
 | FUEL | `session.measure` `context.percent` | adapter, live only |
 | Cache hit rate, $/hour | `turn.complete` usage, `$.session.usage().cost` | adapter, live only |
@@ -389,10 +415,11 @@ NFR-007), and an evaluator that keeps state or reads a clock was rejected (SPEC-
 
 | Spec | What it gets |
 | --- | --- |
-| **SPEC-016** (new) | the dashboard: views, layouts, looks, the instruments' definitions, wheel-spin, the tile menu and its own unfinished-run question, keys, settings, the fallbacks of section 12, renderers, and VER items (kit tests per look and layout; live checks docked and inline) |
+| **SPEC-016** (new) | the dashboard: views, layouts, looks, the instruments' definitions, wheel-spin, clickable tiles and the tile menu with its own unfinished-run question, keys, settings, the character and its assets, the fallbacks of section 12, renderers, and VER items (kit tests per look and layout; live checks docked and inline) |
 | **SPEC-012**, next free version | `usage` in DM-02's event kinds and `events.schema.json`; active time, per-step times, steps reached and PACE in DM-03's state; `chain_state.py` and `history.py` with their own read-only rules; the odometer ledger |
 | **SPEC-013**, next free version | the pane and its command; recording `usage` events (DM-01); the RPM and FUEL readings; the agents window's memory; the settings; the dashboard's start counting as typed for BEH-31; `prune.py` keeping the ledger; the button rule's new wording in §2, §12 and the FR-003 link note |
-| **PRD-001** (draft) | possibly a requirement for the dashboard (open question 7); NFR-007 is kept as is, by putting cross-run work in `history.py` |
+| **PRD-001** (draft) | a new requirement for the dashboard (Bryan, 2026-10-06: "Add an FR"); NFR-007 kept as is, by putting cross-run work in `history.py` |
+| **SPEC-013 v21** (approved, not built) | reworded to fuel before it is built (Bryan, 2026-10-06: "Switch to fuel"): the row reads "▲ Fuel 28% · precompact runs at 20%", and DM-07/DM-08 count fuel left (warn 30, run 20). The same moments; a Change Log revision and re-approval |
 
 The save-the-work cycle plans its next change as SPEC-013 v22, on top of v21; this design takes the next free
 number when its specs are drafted.
@@ -425,45 +452,42 @@ prototype unless noted:
 | Do clicks reach Buttons in Windows Terminal? | the prototype in a Windows Terminal WSL tab |
 | Does an `Svg` dashboard draw in the desktop app's Code tab on a Windows-path project, and how does it animate? | a desktop probe |
 | Does the pass-through `turn.step` hook slow streaming? | time a long reply with and without it |
-| Can tiles be keyed Boxes holding plain Buttons, beside a Raster for the dials, at 5 redraws a second? | a prototype layout |
+| Can tiles be keyed Boxes holding plain Buttons, beside Rasters for the dials and the character, at 5 redraws a second, and how do the looks survive solid tile fills? | a layout prototype (next) |
+| Does the command file route give `/devforgeai:drive`? | as above |
 | Does a `$.ui.ask` opened while Claude is mid-turn, and a `$.command.run` queued then, behave (it runs "once the session is idle")? | press a tile key during a turn |
 | Do Night drive's gradients stay within a Raster's colour pairs? | count the distinct pairs per frame in a kit test |
 | Is PACE's scale right on real runs? | compute it over the recorded runs in `devforgeai/progress/runs/` |
 
 ## 15. Build order
 
-1. The probes the specs depend on: `$.config.set`, the command route, a tile key mid-turn, colour pairs.
+1. The probes the specs depend on: `$.config.set`, the command route, a tile key mid-turn, colour pairs; and the
+   layout prototype for clickable tiles and the character.
 2. SPEC-016 and the SPEC-012 and SPEC-013 versions drafted, then a drafts review and Bryan's approval.
 3. The scripts: `chain_state.py`, `history.py`, and the per-run figures in `evaluate.py`, with tests.
 4. The adapter: the pane, the three layouts and looks, the instruments, the agents window, the guardrails panel,
    keys and the tile menu, with kit tests per look and layout.
-5. Live checks in worker1, docked and inline. Then the desktop `Svg` renderer, then `progress.html`.
+5. The character's assets and its terminal frames.
+6. Live checks in worker1, docked and inline. Then the desktop `Svg` renderer, then `progress.html`.
 
-## 16. Open questions for the owner
+## 16. Decisions on the open questions, and what is still open
 
-1. **Clickable tiles.** Keys always work. Should the tiles also be clickable boxes, where the terminal reports
-   clicks, or keep keys only?
-2. **Fuel wording in v21.** v21's row says "Context 72%" and its settings count context used. Should they switch to
-   fuel ("Fuel 28% · precompact runs at 20%"), a small change to v21 before it is built?
-3. **Where `t` stores the look.** In `$.store` (as approved, alongside the `/config` default), or written into the
-   `/config` setting itself with `$.config.set` (one stored value; unverified)?
-4. **Opening a document from a tile.** Leave it out (as proposed), print its path, or add it once clicks or an
-   editor call allow?
-5. **The command's name.** `/devforgeai:drive` (needs the command-file route, unverified), `/devforgeai-drive`, or
-   only v21's `/progress`?
-6. **VS Code.** Its chat panel draws no mod UI. Point VS Code users to Claude Code in VS Code's terminal (the full
-   dashboard), to `progress.html` in VS Code's browser, or both?
-7. **A PRD requirement.** PRD-001 FR-021 covers showing a run's progress; the instruments, the route and starting
-   skills go beyond it. Add a requirement to PRD-001 (a draft), or treat the dashboard as part of FR-021?
-8. **Opening by itself.** Should the dashboard open at session start when the terminal is wide enough, or only on
-   its command?
-9. **Wheel-spin's numbers.** Proposed: RPM at least 120 with no new step for 3 minutes of active time. Accept, or set
-   others?
-10. **What the odometer counts.** Main-loop tokens of tracked runs; those plus subagents; or every turn? Input plus
-    output, or everything billed, including cache reads?
-11. **The mascot, emblems, scenes and other themes.** The earlier proposal had an animated character (Ember, or
-    Clawd as a skin), phase emblems and backdrops (`devforgeai-progress-ui.md` G4 and §8). Keep them for a later
-    version, or drop them? Is a light-terminal look wanted?
-12. **Skill health and the prototype.** Keep the earlier proposal's skill-health grid (§6.5) as a second view? And
-    keep the prototype local in `tmp/`, or commit it (for example under `src/tools/`) so others can rerun it?
-13. **Phases beyond Spec.** The route ends at Spec. Show QA and Ship as "coming", as the earlier proposal asked?
+Bryan answered the review round's questions on 2026-10-06:
+
+| Question | Answer |
+| --- | --- |
+| Clickable tiles | "Clickable tiles": keyed Boxes with Buttons (section 9) |
+| Fuel wording in v21 | "Switch to fuel": v21 reworded before it is built (section 13) |
+| Where `t` stores the look | "Write /config", with `$.store` as the fallback (section 4) |
+| The command's name | "/devforgeai:drive", with `/devforgeai-drive` as the fallback (section 10) |
+| VS Code | "Both": the integrated terminal, and `progress.html` once built (section 11) |
+| A PRD requirement | "Add an FR" (section 13) |
+| Opening by itself | "Setting, off by default" (section 10) |
+| Wheel-spin's numbers | "Accept 120 / 3 min" (section 5) |
+| What the odometer counts | "All tokens, incl. agents" (section 5) |
+| The character | build it now, "with configuration for either ember or clawd" (section 11a) |
+| Skill health | "Keep skill health (later)": recorded, not in this version |
+| The prototype's home | "Commit the prototype": into the repository, for example `src/tools/drive-probe/` |
+| Phases beyond Spec | "Stop at Spec" |
+
+Still open:
+1. **Opening a document from a tile.** Left out for now. Revisit when clicks or an editor call allow it.
