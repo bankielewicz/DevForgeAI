@@ -76,8 +76,9 @@ what it had found: step 5's proposals lived only in the question's preview, so a
 ideas (SPEC-013 VER-49). The skill now keeps a work file outside `docs/specs/`, rewritten after steps 3 and 4 and
 before step 5's question, and a continued run reads it and asks step 5 from the same proposals (BEH-14). The BRN is
 still written only at step 6, so the tracker's write gate and the stop's draft question (ERR-02) are unchanged. Once
-the BRN validates, the BRN is the record and the work file is deleted (Bryan, 2026-10-06: "drafts should be pruned
-eventually, since the brainstorm document will serve as the provenance root"); its folder is kept out of git.
+the BRN validates, the BRN is the record and the progress tracker deletes the work file (Bryan, 2026-10-06: "drafts
+should be pruned eventually, since the brainstorm document will serve as the provenance root"); its folder is kept out
+of git.
 
 ## 2. Constraints
 
@@ -136,8 +137,10 @@ disposition `open`, a proposal never written as a disposition value; sections th
 `[NEEDS CLARIFICATION: not reached]`; step 5's proposals, once made, as a table of idea ID, title, proposed disposition
 and reason in the convergence prose; no HTML comments. When extending, it starts from that BRN's content with its IDs
 kept (BEH-11). BEH-08's rule that every placeholder is replaced doesn't hold for its `id`. It is the skill's own work
-copy: nothing downstream reads it and the validator doesn't check it. The skill deletes it once the BRN validates
-(BEH-14); a work file of a run that is never continued stays in the ignored folder until the user removes it.
+copy: nothing downstream reads it and the validator doesn't check it. The progress tracker, not the skill, deletes it:
+a run's work files once its step 7 is done, and any work file older than the tracker's retention period, as old runs
+are pruned (SPEC-012 version 15, SPEC-013 version 20). Where the tracker doesn't run, work files stay in the ignored
+folder until the user removes them.
 
 **Extension point: a framework reference.** Each file in `references/frameworks/` has these sections,
 in order:
@@ -165,7 +168,6 @@ The skill's interface is its invocation, not an API.
 name: brainstorm
 description: Runs a structured brainstorming session and writes a DevForgeAI brainstorm (BRN) document with identified problems, ideas, assumptions and user-confirmed dispositions. Use whenever the user asks to brainstorm, explore ideas or options, come up with ways to solve a problem, or generate ideas for a product, feature or process, even when they don't mention a document, and to start the DevForgeAI planning chain before a PRD.
 argument-hint: "[topic]"
-allowed-tools: Bash(rm devforgeai/drafts/brainstorm/*)   # version 16: deleting the work file (BEH-14)
 metadata:
   devforgeai-id: "SKL-001"
   devforgeai-version: "6"
@@ -181,9 +183,8 @@ metadata:
   so the brainstorm skill must never change an item's meaning under an existing ID.
 - **Tools:** Read, Glob, Write and Edit for files, and AskUserQuestion for confirmations; when the session has
   them, the task-list tools (TaskCreate and TaskUpdate, or TodoWrite) for the workflow checklist (BEH-12).
-  Writes go through normal permission prompts. The one pre-approval is `allowed-tools`'s
-  `Bash(rm devforgeai/drafts/brainstorm/*)`, for deleting the work file (version 16; Bryan, 2026-10-06: 'Pre-approve rm
-  only'); everything else, the work file's writes included, is prompted as before.
+  No `allowed-tools` pre-approval in the MVP, so writes go through normal permission prompts. The skill never
+  deletes a file: the progress tracker deletes its work files (version 16).
 
 ## 6. Behavior
 
@@ -230,7 +231,7 @@ behaviors:
     rule: "The waiver (version 14; Bryan, 2026-10-04). When the request says to proceed without questions (or not to ask, or to skip questions) and the session has AskUserQuestion, ask it once, at the start of step 1, before any other question, with step 1 marked in_progress (BEH-12): one question, alone in its form, the one question BEH-12's tag rule leaves out, with metadata source devforgeai_waiver (not devforgeai_step:1, so the progress tracker records it as the waiver and never as a step's answer), header 'Step 1', the question 'Your request says to proceed without questions. Should I?' and exactly two options, in this order: 'Proceed without questions' (description: 'I ask nothing more, except which topic and whether to extend an existing BRN, when open; decisions that need you stay open.') and 'Ask me as usual' (description: 'I ask about each decision as it comes up.'). On Proceed without questions, follow the request: ask no other question (BEH-01, BEH-06), except BEH-01's topic question when no topic is given and ERR-01's extend-or-new question when a BRN on the topic exists, which are still asked when open (version 15; Bryan, 2026-10-04: 'Align with architecture', as SPEC-003 BEH-18 keeps its gates). On Ask me as usual, on anything typed instead, or on a dismissal, ask as if the request hadn't said so. Ask it at most once in a run. Without AskUserQuestion, ask nothing, in plain text or otherwise, and follow the request as before; when the request doesn't say to proceed without questions, never ask it."
   - id: BEH-14
     status: active
-    rule: "Save the work as it goes (version 16; Bryan, 2026-10-06: 'Work file, skill only', 'Delete at end + ignore', 'Pre-approve rm only'), so a run the progress tracker continues later has the content, not only the position (SPEC-013 BEH-31). Keep a work file at devforgeai/drafts/brainstorm/<session ID>.md, the session ID being the one BEH-07 names, in the shape §4 gives, and write it in full with the Write tool three times: after marking step 3 completed and before marking step 4 in progress; after marking step 4 completed and before marking step 5 in progress; and with step 5 in progress, once its proposals are made and before its question is asked, or, when no question is asked (BEH-13, or no AskUserQuestion), once the proposals are made. Before the first write, create devforgeai/drafts/.gitignore holding the single line * when it is missing, so no work file reaches git. Never write a work file under docs/specs/: the progress tracker then counts none of these writes as the BRN's write gate and never refuses them (SPEC-012 BEH-06). Never run the validator on it. Step 6 writes the BRN as before. Once step 7's validator passes, delete the work files of this run (its own, and the one it read when continued) with rm, one path per command, the one Bash command SKILL.md's allowed-tools pre-approves; when validation still fails (ERR-05), keep them. Continuing: when the text Claude reads ends with the progress tracker's line that continues an earlier brainstorm run (SPEC-013 BEH-31), its step to continue at is step 6 or earlier, and the files it names include a work file under devforgeai/drafts/brainstorm/, read the last one it names; before anything else, write it unchanged to this session's work file path, so a later continuation finds it; then work from it: keep its problems, ideas, assumptions, scores and IDs, and, when its id is a BRN's ID, extend that BRN at step 6 (ERR-01's extend, BEH-11) without asking ERR-01's question again, otherwise allocate the ID at step 6 (BEH-02). When the line asks to confirm step 5 again and the work file holds step 5's proposals, ask step 5's question (BEH-06) with those proposals. When the line continues past step 6, or carries step 5 as decided, read no work file. A fresh run reads none, and never reads another session's work file. ERR-02's question on a stop stays: the work file is not the draft BRN it offers."
+    rule: "Save the work as it goes (version 16; Bryan, 2026-10-06: 'Work file, skill only', 'Delete at end + ignore', 'Tracker deletes + ages'), so a run the progress tracker continues later has the content, not only the position (SPEC-013 BEH-31). Keep a work file at devforgeai/drafts/brainstorm/<session ID>.md, the session ID being the one BEH-07 names, in the shape §4 gives, and write it in full with the Write tool three times: after marking step 3 completed and before marking step 4 in progress; after marking step 4 completed and before marking step 5 in progress; and with step 5 in progress, once its proposals are made and before its question is asked, or, when no question is asked (BEH-13, or no AskUserQuestion), once the proposals are made. Before the first write, create devforgeai/drafts/.gitignore holding the single line * when it is missing, so no work file reaches git. Never write a work file under docs/specs/: the progress tracker then counts none of these writes as the BRN's write gate and never refuses them (SPEC-012 BEH-06). Never run the validator on it. Step 6 writes the BRN as before. Never delete a work file: the progress tracker deletes a run's work files once its step 7 is done, and work files older than its retention period (SPEC-012 version 15, SPEC-013 version 20); when validation still fails (ERR-05), they stay. Continuing: when the text Claude reads ends with the progress tracker's line that continues an earlier brainstorm run (SPEC-013 BEH-31), its step to continue at is step 6 or earlier, and the files it names include a work file under devforgeai/drafts/brainstorm/, read the last one it names; before anything else, write it unchanged to this session's work file path, so a later continuation finds it; then work from it: keep its problems, ideas, assumptions, scores and IDs, and, when its id is a BRN's ID, extend that BRN at step 6 (ERR-01's extend, BEH-11) without asking ERR-01's question again, otherwise allocate the ID at step 6 (BEH-02). When the line asks to confirm step 5 again and the work file holds step 5's proposals, ask step 5's question (BEH-06) with those proposals. When the line continues past step 6, or carries step 5 as decided, read no work file, even when it asks to confirm step 5 again (a BRN is then written, ERR-02's draft included, and its convergence prose holds the proposals). A fresh run reads none, and never reads another session's work file. ERR-02's question on a stop stays: the work file is not the draft BRN it offers."
 ```
 
 ## 7. Errors and edge cases
@@ -439,7 +440,7 @@ verifications:
       - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
   - id: VER-16
     status: active
-    obligation: "With the Write tool (version 16), VER-01's prompt in an empty workspace: Writes of one file under devforgeai/drafts/brainstorm/ come after the task list is created and before the Write of docs/specs/brainstorm/BRN-001.md, the last of them holding status draft, id BRN-000, no disposition other than open and a table of proposed dispositions in its convergence prose; devforgeai/drafts/.gitignore holds *; after the validator passes, an rm of that work file, so none is left under devforgeai/drafts/brainstorm/ at the end; no file under docs/specs/ other than BRN-001.md is written; the BRN still validates. Eval case saves-work-as-it-goes (hand-written, like the other brainstorm cases); its graders are fixed at the build."
+    obligation: "With the Write tool (version 16), VER-01's prompt in an empty workspace: Writes of one file under devforgeai/drafts/brainstorm/ come after the task list is created and before the Write of docs/specs/brainstorm/BRN-001.md, the last of them holding status draft, id BRN-000, no disposition other than open and a table of proposed dispositions in its convergence prose; devforgeai/drafts/.gitignore holds *; no rm or other delete of it by the skill (eval runs have no progress tracker, so the work file is still there at the end); no file under docs/specs/ other than BRN-001.md is written; the BRN still validates. Eval case saves-work-as-it-goes (hand-written, like the other brainstorm cases); its graders are fixed at the build."
     level: e2e
     covers:
       - BEH-14
@@ -447,7 +448,7 @@ verifications:
       - {id: STORY-001, item: AC-01, relation: verifies, version: 4, hash: null}
   - id: VER-17
     status: active
-    obligation: "Live, in enforce mode, with SPEC-013's VER-49 (version 16): (a) a brainstorm stopped at step 5 after its question showed the proposals, then typed again and continued: the resume line names the work file; the continued run writes it to its own path first, its step-5 question shows the same ideas and proposed dispositions as before the stop, the BRN written at step 6 keeps the work file's item IDs, and both work files are deleted once it validates; (b) the same, stopped again at step 5 before the question and continued a second time: the third run still shows the same proposals; (c) a run that chose to extend BRN-001, stopped at step 5 and continued: no extend-or-new question, and step 6 extends BRN-001; (d) a run stopped after its BRN validated and continued: no step-5 question. No flag and no refusal. Recorded in §9."
+    obligation: "Live, in enforce mode, with SPEC-013's VER-49 (version 16): (a) a brainstorm stopped at step 5 after its question showed the proposals, then typed again and continued: the resume line names the work file; the continued run writes it to its own path first, its step-5 question shows the same ideas and proposed dispositions as before the stop, the BRN written at step 6 keeps the work file's item IDs, and once step 7 is done the tracker has deleted both work files, with no permission prompt; (b) the same, stopped again at step 5 before the question and continued a second time: the third run still shows the same proposals; (c) a run that chose to extend BRN-001, stopped at step 5 and continued: no extend-or-new question, and step 6 extends BRN-001; (d) a run stopped after its BRN validated and continued: no step-5 question; (e) a run stopped at step 4 whose user saved ERR-02's draft BRN, then continued: no work file read. No flag and no refusal. Recorded in §9."
     level: manual
     covers:
       - BEH-14
@@ -477,8 +478,9 @@ lines don't change, so the brainstorm manifest stays matched; the questions keep
 Version 16 (SKL-001 v9) needs no tracker change: the work file is outside the write gate's pattern
 (`docs/specs/brainstorm/BRN-*.md`), and the resume line already names every file a run's Write and Edit calls wrote
 (SPEC-013 BEH-31, version 16). The checklist's lines don't change, so the brainstorm manifest stays matched. Work files already written stay in
-the user's project; rolling back to SKL-001 v8 stops writing, reading and deleting them, and drops the rm
-pre-approval.
+the user's project; rolling back to SKL-001 v8 stops writing and reading them. Deleting them is the tracker's
+(SPEC-012 version 15, SPEC-013 version 20), shipped in the same plugin version; with an older tracker they stay, ignored
+by git.
 
 ## 11. Implementation plan
 
@@ -520,7 +522,7 @@ pre-approval.
 1. Write the eval case `saves-work-as-it-goes` (VER-16) and run it on SKL-001 v8 with `--runs 1 --ablation none`; it
    fails, since v8 writes no work file.
 2. Build SKL-001 v9: BEH-14 in steps 3, 4, 5 and 7 and a continuing paragraph, with the work file's shape (§4) in
-   `references/` so SKILL.md stays short (NFR-001), `allowed-tools` as §5 shows, and the checklist's lines unchanged;
+   `references/` so SKILL.md stays short (NFR-001), no delete by the skill, and the checklist's lines unchanged;
    `provenance.yaml` and `metadata.devforgeai-version` go to 9; skill-reviewer reviews it; `evaluate.py check` reports
    the manifest matched. Check in the first eval run that the second and third Writes of the work file succeed without
    a Read between them.
@@ -550,8 +552,13 @@ pre-approval.
   cycle ("Brainstorm now"); the draft is a work file outside `docs/specs/`, with no tracker change ("Work file, skill
   only"); ERR-02's draft question on a stop stays ("Keep it"). Then, on a side note that drafts add prompts and leftover
   files, Bryan: "drafts should be pruned eventually, since the brainstorm document will serve as the provenance root";
-  he chose "Delete at end + ignore" (the skill deletes its work files once the BRN validates, and the folder gets a
-  .gitignore) and "Pre-approve rm only" (allowed-tools pre-approves the rm; writes are still prompted). Drafter's
+  he chose "Delete at end + ignore" (the work files deleted once the BRN validates, and the folder gets a .gitignore)
+  and "Pre-approve rm only". Claude Code's skills documentation then showed that allowed-tools pre-approval lasts only
+  for the turn that loads the skill, so step 7's rm would still prompt; Bryan asked "could the claude mod we developed
+  have this integrated after validation to run a deletion script?" and chose "Tracker deletes + ages (Recommended)":
+  the progress tracker deletes a run's work files once its validation step is done, and work files older than its
+  retention period, through progress/prune.py (SPEC-012 version 15, SPEC-013 version 20); the skill never deletes.
+  Drafter's
   choices, for Bryan's accept or challenge (with the drafts review's, tmp/plans/save-work/review-drafts.md): the path
   `devforgeai/drafts/brainstorm/<session ID>.md`, outside `docs/specs/`; three full writes, at the step boundaries
   BEH-14 names, so a stop mid-step loses that step's work since its last write, and the step-5 write made also when no
@@ -559,9 +566,8 @@ pre-approval.
   answer to a continued run, sections not reached marked; the work file never validated; a continued run reads the
   last work file its resume line names, copies it to its own path first, and asks step 5 again only when the line asks
   to confirm step 5; a fresh run ("Start fresh" included) reads none and leaves the earlier one in place; work files of
-  runs never continued stay, ignored by git, until the user removes them (no age pruning); the rm pre-approval's
-  pattern ends in a wildcard, which Claude Code matches against the rest of the command, so BEH-14 runs it with one
-  path; the first write prompts for permission at step 3, earlier than the BRN's at step 6.
+  runs never continued are deleted by age with the runs, ignored by git meanwhile; the first write prompts for
+  permission at step 3, earlier than the BRN's at step 6.
 
 - Resolved (Bryan, 2026-10-04, with SPEC-012 version 11 and SPEC-013 version 10): a request that says to proceed
   without questions is confirmed by the waiver question, asked once at the start, only then; the tracker records
@@ -627,3 +633,4 @@ pre-approval.
 | 15 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #83's merge (`ab8301c`) and the deploy of plugin 0.21.0 | §9 |
 | 16 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 ("Save the work too": brainstorm now, a work file with no tracker change, ERR-02 kept): the skill keeps a work file at devforgeai/drafts/brainstorm/<session ID>.md, written after steps 3 and 4 and before step 5's question, which a run the tracker continues reads (new BEH-14, VER-16, VER-17); SPEC-013 link; status in-review | frontmatter, §1, §4, BEH-14, VER-16, VER-17, §10, §11, §12, §13 |
 | 16 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, the drafts review's fixes and Bryan's pruning decisions ('Delete at end + ignore', 'Pre-approve rm only'): the work file's shape in §4, its id carrying the extend-or-new answer; the writes' timing, also when no question is asked; the work file's folder kept out of git; the work files deleted once the BRN validates, with the rm pre-approved in allowed-tools (§5); a continued run copies the work file to its own path and asks step 5 again only when the resume line asks; VER-16 and VER-17 extended | §1, §4, §5, BEH-14, VER-16, VER-17, §10, §11, §13 |
+| 16 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, Bryan's 'Tracker deletes + ages' (allowed-tools pre-approval lasts one turn, so step 7's rm would still prompt): the progress tracker deletes a run's work files once its step 7 is done, and work files past its retention period (SPEC-012 version 15, SPEC-013 version 20); the skill deletes nothing and gets no allowed-tools; a continued run's precedence clause (past step 6 reads no work file); VER-16 and VER-17 follow | §1, §4, §5, BEH-14, VER-16, VER-17, §10, §11, §13 |
