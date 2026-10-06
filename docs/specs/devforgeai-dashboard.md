@@ -1,4 +1,4 @@
-# DevForgeAI Drive: the dashboard
+# DevForgeAI Dashboard
 
 **Status:** design proposal, not approved. Nothing here is built into the plugin. It supersedes the views, layouts,
 graphics and buttons of `devforgeai-progress-ui.md` (its sections 2, 6, 8 and 9). That document's manifests, step
@@ -15,9 +15,9 @@ plugin version: the changes it asks for are listed in section 13.
 **Sources:**
 - Bryan's decisions, quoted in section 1, as recorded in the plan `tmp/plans/2026-10-06-dashboard.md` (local only:
   `tmp/` is gitignored);
-- the design canvas "DevForgeAI Drive" (claude.ai artifact `RwsfT8oYuzcebLfvhPtuW1`, private to Bryan): three looks,
+- the design canvas, titled "DevForgeAI Drive" before the rename (claude.ai artifact `RwsfT8oYuzcebLfvhPtuW1`, private to Bryan): three looks,
   each at 160×48, at 120×36, with the tile menu open and docked at 64×48, plus the colour tokens;
-- the working prototype, a throwaway mod in `tmp/probes/drive-probe/` (local only), run live in Bryan's terminal on
+- the working prototype, a throwaway mod in `tmp/probes/drive-probe/` (local only; to be committed as `src/tools/dashboard-probe/`), run live in Bryan's terminal on
   2026-10-06. Its findings are in section 14 and in the memory note `claude-code-verified-facts.md`; a reviewer
   without them should rerun the prototype, which is to be committed (section 16);
 - the mod API in Claude Code 2.1.291 (the `plugin-authoring` skill and its `claude-code.d.ts`); the API is early
@@ -88,7 +88,7 @@ Everything else in this document is proposed and marked so, or is an open questi
 
 | Area | Shows |
 | --- | --- |
-| Header | DevForgeAI Drive, the look's name and its key |
+| Header | DevForgeAI Dashboard, the look's name and its key |
 | Route | seven identical tiles, one per phase: glyph, name, the document it produced, its state, its key `[1]` to `[7]` |
 | Navigation | "▼ YOU ARE HERE", the route travelled and still to go, the ETA chip |
 | Instruments | the RPM, FUEL and PACE dials, the odometer and the trip computer (section 5) |
@@ -314,8 +314,9 @@ and refuses nothing. The tracker's enforce-mode refusals stay the model's only s
   give `/devforgeai:<name>`. The prototype is `/devforgeai-probe`.
 - Inside the `devforgeai` plugin, a command file (`commands/<name>.md`) would list as `/devforgeai:<name>`, and a
   `command.run` hook could answer it by opening the pane. That is unverified (section 14).
-- The command is **`/devforgeai:drive`**, through that command file (Bryan, 2026-10-06), if the probe shows it opens
-  the pane without loading a prompt; otherwise **`/devforgeai-drive`**, registered by the mod.
+- The command is **`/devforgeai:dashboard`**, through a command file `commands/dashboard.md` (Bryan, 2026-10-06), if
+  the probe shows it opens the pane without loading a prompt; otherwise **`/devforgeai-dashboard`**, registered by
+  the mod.
 - v21's `/progress` stays, printing the run as text (section 12), and also opens the dashboard.
 
 **Settings** (`userConfig`, shown in `/config`; the person's and not policy, like `tracking` and `retentionDays`):
@@ -453,7 +454,7 @@ prototype unless noted:
 | Does an `Svg` dashboard draw in the desktop app's Code tab on a Windows-path project, and how does it animate? | a desktop probe |
 | Does the pass-through `turn.step` hook slow streaming? | time a long reply with and without it |
 | Can tiles be keyed Boxes holding plain Buttons, beside Rasters for the dials and the character, at 5 redraws a second, and how do the looks survive solid tile fills? | a layout prototype (next) |
-| Does the command file route give `/devforgeai:drive`? | as above |
+| Does `commands/dashboard.md` give `/devforgeai:dashboard`? | as above |
 | Does a `$.ui.ask` opened while Claude is mid-turn, and a `$.command.run` queued then, behave (it runs "once the session is idle")? | press a tile key during a turn |
 | Do Night drive's gradients stay within a Raster's colour pairs? | count the distinct pairs per frame in a kit test |
 | Is PACE's scale right on real runs? | compute it over the recorded runs in `devforgeai/progress/runs/` |
@@ -478,7 +479,7 @@ Bryan answered the review round's questions on 2026-10-06:
 | Clickable tiles | "Clickable tiles": keyed Boxes with Buttons (section 9) |
 | Fuel wording in v21 | "Switch to fuel": v21 reworded before it is built (section 13) |
 | Where `t` stores the look | "Write /config", with `$.store` as the fallback (section 4) |
-| The command's name | "/devforgeai:drive", with `/devforgeai-drive` as the fallback (section 10) |
+| The command's name | "/devforgeai:drive", then renamed: "change the drive verbiage to dashboard". `/devforgeai:dashboard`, with `/devforgeai-dashboard` as the fallback (section 10) |
 | VS Code | "Both": the integrated terminal, and `progress.html` once built (section 11) |
 | A PRD requirement | "Add an FR" (section 13) |
 | Opening by itself | "Setting, off by default" (section 10) |
@@ -486,7 +487,7 @@ Bryan answered the review round's questions on 2026-10-06:
 | What the odometer counts | "All tokens, incl. agents" (section 5) |
 | The character | build it now, "with configuration for either ember or clawd" (section 11a) |
 | Skill health | "Keep skill health (later)": recorded, not in this version |
-| The prototype's home | "Commit the prototype": into the repository, for example `src/tools/drive-probe/` |
+| The prototype's home | "Commit the prototype": into the repository, as `src/tools/dashboard-probe/` (Bryan: "src/tools/drive-probe/ --> src/tools/dashboard-probe/") |
 | Phases beyond Spec | "Stop at Spec" |
 
 Still open:
