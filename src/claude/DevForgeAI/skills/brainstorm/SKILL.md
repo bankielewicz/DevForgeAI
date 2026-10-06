@@ -4,7 +4,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "9"
+  devforgeai-version: "10"
 ---
 
 # Brainstorm
@@ -19,8 +19,9 @@ claim decisions the user actually made.
 - `$ARGUMENTS`: the topic. It may be empty; then take the topic from the conversation, or ask for it.
 - Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
 - The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
-- The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md`, this session's copy of the
-  work so far, saved after steps 3 and 4 and at step 5 ([work-file.md](references/work-file.md)).
+- The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md` (or the draft path the progress
+  tracker's line on continuing names, below), the work so far, saved after steps 3 and 4 and at
+  step 5 ([work-file.md](references/work-file.md)).
 
 ## Decisions that belong to the user
 
@@ -88,10 +89,9 @@ it, never delete it (the progress tracker removes it once the BRN validates), an
 once the BRN is written.
 
 **Continuing an earlier run.** When this text ends with the progress tracker's line "This run
-continues the earlier brainstorm run …", follow that line and
-[work-file.md](references/work-file.md#continuing-a-run): unless it continues past step 6, copy the
-last work file it names to this session's path right after creating the task list, then work from its
-topic, items, scores and IDs; with no readable work file, continue without one.
+continues the earlier brainstorm run …" and it says "Its draft is <path>", that path is the work file:
+load it, save to it from then on, and keep its problems, ideas, scores and IDs. Follow the rest of the
+line as written ([work-file.md](references/work-file.md#continuing-a-run)).
 
 ### 1. Intake
 
