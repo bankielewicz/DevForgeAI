@@ -2,10 +2,10 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: approved   # draft | in-review | approved | superseded | deprecated
-version: 19
+status: in-review   # draft | in-review | approved | superseded | deprecated
+version: 20
 created: 2026-10-02
-updated: 2026-10-05
+updated: 2026-10-06
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -131,6 +131,18 @@ earlier one reached (SPEC-012 version 14) and tells Claude where to go on: the s
 and where its replies are. Steps where you decided are carried but not answered: Claude confirms each with you again
 before a document records it, since the record keeps that you answered, not what. Start fresh, or Esc, runs the skill as before. The record holds where a run stopped, not
 your answers: what reached disk, and what Claude's replies said, is what a continued run can use.
+
+**Version 20** (2026-10-06) deletes the work files a skill keeps (SPEC-001 version 16, "Save the work too"; Bryan,
+2026-10-06: "drafts should be pruned eventually, since the brainstorm document will serve as the provenance root";
+"Delete at end + ignore (Recommended)", then, after "could the claude mod we developed have this integrated after
+validation to run a deletion script?", "Tracker deletes + ages (Recommended)"). A skill can't do it: its
+`allowed-tools` pre-approval lasts only the turn that loads it. When an evaluation says a run's work files are due
+(SPEC-012 version 15), the adapter runs `prune.py` once to remove that run's work files and those of the run it
+continues (BEH-32, IF-05); and the session's first pruning also removes work files older than `retentionDays`, the age
+at which a run stops being offered (BEH-19, IF-04). It is a process the adapter starts, not a tool call, so nothing
+prompts and nothing is recorded in a run; it never refuses or waits, and a failure is only logged (ERR-19). Where
+mods don't load, the files stay, ignored by git. `claude plugin eval` runs no mods, so the deletion is shown by the
+tests and a live check, not by an eval.
 
 **Version 9** (2026-10-03) words the stuck notice (BEH-25) by its cause. Version 8's notice always told you to
 help Claude bring its task list in step. That is the wrong advice when Claude was refused for a step the tracker
@@ -304,10 +316,11 @@ for `current.json`, §2). `<session>` is `$.session.id()` when the file is writt
 | `runs/<run>/pending.jsonl`, `pending.json` | during an enforce check (BEH-08) | the run's events plus the pending one, and the provisional state; overwritten at the next check, since `$.fs` can't delete |
 | `runs/<run>/review.jsonl` | as each review answer arrives (BEH-26) | one JSON object per line: `time`, `run`, `item` (the item's number in the review, from 1), `gate`, `seq`, `step`, `type`, `message`, `refused` (the cause's number of refusals, 0 for a flag), `answer` (`accept`, `challenge` or `dismissed`) and `reason` (the typed text, or null); rewritten whole from the review's lines, as `events.jsonl` is (version 10) |
 | `sessions/<session>/current.json` | after each evaluation | a copy of the session's open run's `state.json`, for renderers; the last run's stays after it ends, and shows it ended when the final evaluation ran (BEH-05). A renderer treats a session folder with no recent write as a session that has gone |
-| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23), `compact` (BEH-24), `stuck` (BEH-25), `review` (BEH-26, version 10), `exit` (BEH-28, version 12), `trail` (BEH-29, BEH-30, version 13), `resume` (BEH-31, version 16), `skill-read` (ERR-18, version 18); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
+| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23), `compact` (BEH-24), `stuck` (BEH-25), `review` (BEH-26, version 10), `exit` (BEH-28, version 12), `trail` (BEH-29, BEH-30, version 13), `resume` (BEH-31, version 16), `skill-read` (ERR-18, version 18), `workfiles` (BEH-32, ERR-19, ERR-20, version 20); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
 
 `prune.py` (IF-04) deletes `runs/<run>/` and `sessions/<session>/` folders whose files are all older than the
-retention period (BEH-19), and nothing else.
+retention period (BEH-19), and, from version 20, work files (SPEC-012 BEH-21) under `devforgeai/drafts/`: those
+older than the retention period (IF-04) and those a run's cleanup names (IF-05, BEH-32); it deletes nothing else.
 
 **DM-03. The adapter's session state,** in `$.state`, declared in `types/index.d.ts` under the plugin's name.
 `$.state` survives a reload of the module; module variables don't (BEH-17). `/clear`, `/resume` and `/branch` empty
@@ -380,7 +393,7 @@ turns the whole adapter off for that user, in every project. The build checks th
 **DM-06. The `retentionDays` setting,** a `userConfig` number field in `plugin.json`: title "Keep progress files
 (days)", default 30, `min` 7, `max` 3650, shown in `/config` (a number field with `default`, `min` and `max` passes
 `claude plugin validate` on 2.1.288). Like `tracking`, it is the person's setting, not policy. It sets how old a
-run's or a session's files must be before IF-04 removes them (BEH-19). The default matches Claude Code's own
+run's or a session's files, or a work file, must be before IF-04 removes them (BEH-19). The default matches Claude Code's own
 transcript retention (`cleanupPeriodDays`, 30 by default), so a run's log lasts as long as the transcript it came
 from. The floor of 7 days keeps a session left open over a weekend from losing its open run's folder to another
 session's pruning, which judges by the files' times.
@@ -394,7 +407,8 @@ session's pruning, which judges by the files' times.
 | IF-01 | `mode --root DIR` | Resolves `progress.mode` for the project at `DIR` (BEH-18): prints `observe framework-default`, `observe local` or `enforce local`. When the file has a `progress.mode` line it can't use, the reason goes to stderr as `ignored .claude/devforgeai.local.md progress.mode (<reason>)`, the wording the skills use for ignored entries. Exit 0; exit 2 when `DIR` isn't a folder |
 | IF-02 | `set-mode --root DIR --value observe\|enforce` | Saves the entry in `DIR/.claude/devforgeai.local.md` (BEH-18), adding `devforgeai_local: 1` when the file has none, since IF-01 would otherwise ignore the saved entry, and prints `saved progress.mode=<value> to .claude/devforgeai.local.md`. Exit 0 when saved; 1 when it refuses to change a file that isn't frontmatter-only or declares another format version; 2 when it can't write |
 | IF-03 | the evaluator call | `<python> <plugin root>/progress/evaluate.py evaluate --manifests <plugin root>/progress/manifests [--manifests <root>/devforgeai/manifests/organization] [--manifests <root>/devforgeai/manifests] --events <events file> --out <state file> --root <root>`, SPEC-012 IF-01. A layer folder that doesn't exist is left out, since a `--manifests` that isn't a folder stops the evaluator (SPEC-012 ERR-04). `<python>` is the first of `python3` and `python` that runs (ERR-01) |
-| IF-04 | `prune --root DIR --days N [--keep-session ID] [--keep-run ID]` (`prune.py`) | Removes old working files under `DIR/devforgeai/progress/` (BEH-19): each folder `runs/<name>` whose name matches SPEC-012's run-ID pattern, and each `sessions/<name>` whose name is a UUID, when the newest file in it was last modified more than `N` days ago and it isn't the kept session's or run's folder. A session ID of another shape is left alone. It never follows a symbolic link: it skips one, leaves any folder that holds one, and refuses a folder whose real path isn't inside `DIR/devforgeai/progress/`. It deletes nothing else. Prints `pruned <r> runs, <s> sessions`; exit 0, also when there is no `devforgeai/progress/`; exit 2 with one line on stderr when `DIR` isn't a folder, `N` isn't a whole number of at least 1, or a deletion fails |
+| IF-04 | `prune --root DIR --days N [--keep-session ID] [--keep-run ID] [--manifests DIR …]` (`prune.py`) | Removes old working files under `DIR/devforgeai/progress/` (BEH-19): each folder `runs/<name>` whose name matches SPEC-012's run-ID pattern, and each `sessions/<name>` whose name is a UUID, when the newest file in it was last modified more than `N` days ago and it isn't the kept session's or run's folder. A session ID of another shape is left alone. It never follows a symbolic link: it skips one, leaves any folder that holds one, and refuses a folder whose real path isn't inside `DIR/devforgeai/progress/`. It deletes nothing else. Prints `pruned <r> runs, <s> sessions`; exit 0, also when there is no `devforgeai/progress/`; exit 2 with one line on stderr when `DIR` isn't a folder, `N` isn't a whole number of at least 1, or a deletion fails. With `--manifests` (version 20, repeatable, the folders IF-03 names), after those folders it also removes work files by age: every regular file under `DIR/devforgeai/drafts/` whose project-relative path matches a `workFiles` pattern of those manifests (as IF-05 reads them) and whose last modification is more than `N` days ago. It descends only through plain folders opened by descriptor without following a link, removes no folder, and leaves a link, and a file that isn't regular. It prints `pruned <r> runs, <s> sessions, <w> work files` in place of the line without `--manifests`; a refused pattern (IF-05) skips this pass and, after the folders were pruned, exits 2 naming it |
+| IF-05 | `remove --root DIR --manifests DIR [--manifests DIR …] --file PATH [--file PATH …]` (`prune.py`) | Removes work files (BEH-32; version 20). The patterns are the union of the `workFiles` of every `*.json` manifest in the folders: a folder that isn't there, a file that isn't JSON and a manifest without the key add none, and a pattern that is no string, doesn't begin `devforgeai/drafts/` or holds a `..` segment is refused: exit 2, nothing removed. Each `--file` is taken relative to `DIR` and is removed only when it isn't absolute and holds no empty, `.` or `..` segment; it matches a pattern (SPEC-012 BEH-21's matching); every folder on its way down from `DIR` is a plain folder opened by descriptor without following a link; and its last entry is a regular file (not a link, folder or device). Any other path, and a file that is missing, is skipped (ERR-20). It deletes nothing else, folders included. Prints `removed <n> work files, skipped <k>`; exit 0, also when `n` is 0 and when `DIR` has no such folder; exit 2 with one line on stderr when `DIR` isn't a folder, no `--file` is given, a pattern is refused, the platform lacks descriptor support (as IF-04), or an unlink fails (after the other paths were tried, naming the first) |
 
 `<plugin root>` is `$.plugin.root`; `<root>` is the run's root, `$.session.root()` when the run opened (BEH-03). Both scripts are run through `$.process.run`
 with an argv, never a shell string. `evaluate.py` isn't executable, so the interpreter is always named.
@@ -447,7 +461,7 @@ behaviors:
     rule: "The adapter fails open (ADR-006 D1). A hook that fails before calling next is skipped and the event goes on, and one that fails after next leaves that result standing. Each hook is also registered with a .catch whose handler, within its 1-second limit, writes the error to adapter.log, shows a toast once per distinct error, and returns next(e): in a .catch, next is replay-safe, so when the hook had already called it (next.called), the result it got stands. When the evaluator can't run (ERR-01, ERR-02, ERR-07), the tool call proceeds, the status line shows 'progress: off (<reason>)' until an evaluation succeeds, and events are still recorded, so the state can be computed later. Claude Code reports an installed plugin's load failures and skipped hooks only in its debug log (claude --debug), so a missing band is the visible sign during dogfooding. The adapter registers no guard: a guard's fail-closed .catch (D1) belongs to the guard's own spec."
   - id: BEH-15
     status: active
-    rule: "The adapter writes only under devforgeai/progress/ in a run's root (DM-02), deletes only through IF-04 (BEH-19), and .claude/devforgeai.local.md only through IF-02 when the user presses the button. It creates devforgeai/progress/ with its .gitignore holding '*' the first time it writes a run's events under a root, which is only after BEH-01 has found the session interactive, and never edits the project's own .gitignore. $.fs.write isn't atomic and holds at most 4 MiB a file: the adapter is the only writer of its files, starts an evaluation only after the write it depends on has finished, keeps each Write or Edit's content to 64 KiB, and stops adding content once events.jsonl passes 3 MiB (ERR-11). It reads the plugin's files, the manifest folders, the local preference file through IF-01, and a file an Edit names (DM-01). It opens no network connection."
+    rule: "The adapter writes only under devforgeai/progress/ in a run's root (DM-02), deletes only through IF-04 (BEH-19) and IF-05 (BEH-32), which reach folders under devforgeai/progress/ and, from version 20, files under devforgeai/drafts/ that a manifest's workFiles name, and .claude/devforgeai.local.md only through IF-02 when the user presses the button. It creates devforgeai/progress/ with its .gitignore holding '*' the first time it writes a run's events under a root, which is only after BEH-01 has found the session interactive, and never edits the project's own .gitignore. $.fs.write isn't atomic and holds at most 4 MiB a file: the adapter is the only writer of its files, starts an evaluation only after the write it depends on has finished, keeps each Write or Edit's content to 64 KiB, and stops adding content once events.jsonl passes 3 MiB (ERR-11). It reads the plugin's files, the manifest folders, the local preference file through IF-01, and a file an Edit names (DM-01). It opens no network connection."
   - id: BEH-16
     status: active
     rule: "At session.start, at classic.SessionStart with source clear, resume or fork, and at a skill.prompt when $.state holds no mode or the session's root differs from the one the mode was resolved for (the local preference file is per checkout and gitignored, so a new worktree has none), the adapter runs IF-01 with timeoutMs 3000, since Claude Code holds the first prompt until session.start's hooks finish, and keeps the mode and its source in $.state; it writes each entry IF-01 reports as ignored to adapter.log and shows them in one toast. Every skill-loaded event carries the mode and source in force when the run opened (ADR-006 D3). Until the shared-schema change brings progress.mode into policy, only the framework default and the local entry apply, and the button is always available."
@@ -459,7 +473,7 @@ behaviors:
     rule: "settings.py reads .claude/devforgeai.local.md only as frontmatter: the file must start with a line '---' and end with the next '---' line, with nothing after it but blank lines. IF-01 uses the progress.mode entry when the file is frontmatter-only, devforgeai_local is 1, and the value is observe or enforce, quoted or not; otherwise the mode is observe from the framework default, and each reason is reported (ERR-04). IF-02 creates .claude/ and the file when they are missing, with devforgeai_local: 1 and the entry; in an existing frontmatter-only file it replaces the progress.mode line, or adds it before the closing '---', and keeps every other line as it was. It adds devforgeai_local: 1 to a file that has no such line, and refuses (exit 1) one that declares another value. It writes a temporary file beside the target and renames it over the target. It reads no other entry: the skills apply the rest (ADR-003 A3)."
   - id: BEH-19
     status: active
-    rule: "Once per session ID, when its first run opens, and again when a run opens under another root, the adapter starts IF-04 after the run's folder exists, with --root the run's root, --days the retentionDays setting (DM-06), --keep-session the session's ID and --keep-run the new run's ID, and timeoutMs 10000. Nothing waits for it, no hook and no tool call, and its output line goes to adapter.log as kind prune; its failure is ERR-12. What protects a run still open in another, idle session is DM-06's floor of 7 days, not --keep-run, which only spares the caller's new folder in case its files' times are old. Nothing is deleted at session.end: $.fs can't delete, all session.end hooks share 1.5 seconds, which the final evaluation needs (BEH-05), and a session closed with its terminal or killed may not fire session.end at all, so the next session's pruning covers every way a session ends. A project where no tracked skill runs gets no pruning and no files (BEH-15)."
+    rule: "Once per session ID, when its first run opens, and again when a run opens under another root, the adapter starts IF-04 after the run's folder exists, with --root the run's root, --days the retentionDays setting (DM-06), --keep-session the session's ID and --keep-run the new run's ID, and timeoutMs 10000. Nothing waits for it, no hook and no tool call, and its output line goes to adapter.log as kind prune; its failure is ERR-12. What protects a run still open in another, idle session is DM-06's floor of 7 days, not --keep-run, which only spares the caller's new folder in case its files' times are old. Nothing is deleted at session.end: $.fs can't delete, all session.end hooks share 1.5 seconds, which the final evaluation needs (BEH-05), and a session closed with its terminal or killed may not fire session.end at all, so the next session's pruning covers every way a session ends. From version 20 the call also gives --manifests, once for each of IF-03's folders in its order, so IF-04 also removes the work files older than --days (SPEC-012 BEH-21's patterns; Bryan, 2026-10-06: 'Tracker deletes + ages (Recommended)'), whichever skill opened the session's first run; its line (pruned <r> runs, <s> sessions, <w> work files) goes to adapter.log as kind prune. A project where no tracked skill runs gets no pruning and no files (BEH-15)."
   - id: BEH-20
     status: active
     rule: "While a run is open, the adapter reads Claude Code's task list as SPEC-012's task-list convention (§4) has a skill keep it. After a TaskCreate that didn't fail, it maps the task's ID, taken from the result text 'Task #<id> created successfully', to a step number: the input's metadata devforgeai_step when it is a whole number, else the number that starts its subject ('<N>. <title>'); it keeps the map in $.state for the run. After a TaskUpdate that didn't fail, for a mapped task, status in_progress gives a step event with state started and completed one with state done, recorded after the call's tool event; other statuses, and unmapped tasks, give none. Overlapping task-tool calls, as a batch of TaskCreate calls gives, each see the others' mappings. After a TodoWrite that didn't fail, each todo whose content starts with '<N>.' is compared with its status in the list the call replaced, as the call's result gives it (oldTodos), or with that step's last status when the result has none, so an earlier run's completed todos left in the list claim nothing in a new run (version 6): becoming in_progress gives started, becoming completed gives done (a todo that goes straight from pending to completed gives done only), and the new statuses are kept. A new run starts with an empty map: a task list left over from an earlier run gives no step events until its tasks are created again or updated in a TodoWrite."
@@ -496,6 +510,9 @@ behaviors:
   - id: BEH-31
     status: active
     rule: "The offer to continue (version 16; Bryan, 2026-10-05: 'Offer-and-tell', 'Any unfinished, stops too', 'Tracker's own dialog', 'Carry them over', 'No change', 'Carry, but re-confirm', 'Not if already written', 'Offer it, show its age'). When command.run comes from the person (origin kind composer or bridge, as BEH-28 counts it), the adapter keeps its command's name, without its '<plugin>:' prefix (skillName, BEH-02), until that command.run's next(e) settles: a typed skill's skill.prompt fires inside it, before prompt.submit and turn.start (probe, 2026-10-05). A skill.prompt for a tracked skill (BEH-02) whose name is the one kept, with no Skill call of the main loop in flight (BEH-29), is the person's typed load: before BEH-03 opens its run, in an interactive session where something draws ($.session.surfaces() isn't empty), the adapter looks for an earlier run to offer. The candidate is the skill's latest run in the session's root: the folder under <root>/devforgeai/progress/runs/ whose ID names the skill and sorts last (run IDs begin with their UTC time), other than the run open in this session while it hasn't ended (a skill typed again mid-run is BEH-03's restart; one the user stopped is offered) and other than a run paused on the trail (BEH-29). It is offered when, evaluated once more from its own log (IF-03, up to 5 seconds, its state.json rewritten), its manifest state is matched (an upgraded skill, whose steps may differ, offers nothing), its last step isn't reached or it ended stopped, and it carries at least one step. A step is reached when it has evidence other than waiver evidence, or a done claim (SPEC-012 BEH-07, BEH-19). Its step to continue at is the step its task list marked last (BEH-24's marked step, filtered by that state's steps), else the step after its highest reached step, but never past the first step with the write gate that has no write evidence (SPEC-012 BEH-06) in that state, since its document was never written (a done claim alone doesn't count). The steps carried are every step before that one (SPEC-012 BEH-20). The question, in Claude Code's own dialog ($.ui.ask), header 'Progress': '<skill>: an earlier run <when>. It wrote <files>. Continue it?', where <when> is 'ended at step <step> of <steps> on <date> (<why>)', <date> the UTC date of its last event as yyyy-mm-dd and <why> one of 'session end', '/clear', 'stopped', 'another skill loaded' and 'returned to the skill beneath', or, for a log with no run-end, 'was at step <step> of <steps> with no end recorded, its last event <age> ago (it may still be open in another session)', <age> in minutes, hours or days; <files> are the project-relative paths of its Write and Edit tool events that didn't fail, each once, in order, or 'nothing'; the options are 'Continue from step <step>' and 'Start fresh'. On Continue, the run opens as BEH-03 opens it, its skill-loaded event with resumes, the earlier run's ID, carried, and answered: the carried user-owned steps whose state shows the user's answer counted for them (answer evidence; a waiver's isn't), named only when the step with the write gate is carried, so their document was written (SPEC-012 BEH-20); and the text Claude reads gains one line at its end: 'This run continues the earlier <skill> run <run ID>, which <when>. Steps <list> are carried over: the tracker counts them reached. Create the task list with those steps' tasks completed, mark step <step> in progress, and continue at step <step>. Steps <owned> were the user's decisions, which the record doesn't keep: before any document records them, confirm each with the user again, in order, marking its step in progress and tagging the question with it. Files it wrote: <files>. Its replies are in devforgeai/progress/runs/<run ID>/events.jsonl, the events of kind reply: use them to show the user what was proposed, never as a decision.' <owned> are the carried user-owned steps that answered doesn't name, and that sentence is left out when there are none. The skill-loaded event's checklist is the text before that line. Start fresh, or a dismissal (Esc), opens the run as before, with neither field and no line. A load of Claude's (BEH-29) is offered the same way when no unfinished run is open and none is paused: no run is open, or the open one has ended (version 17; Bryan, 2026-10-05: 'Fix now as v17'), since it nests nothing and its fresh run would bury the unfinished one; on Continue its run opens as a load of Claude's that can't nest opens one, with the fields and the line. Nothing is offered for a load of Claude's while a run is open and unfinished or paused (it nests, or ends the open run only), for any other load without the kept name, where nothing draws, or when the candidate can't be read or evaluated (ERR-17); observe and enforce mode offer alike. The kept name also goes at session.end. Each offer writes adapter.log lines of kind resume: 'offered <run ID> at step <step>', then 'continued <run ID> at step <step>, carried <list>' or 'fresh (<answer>)'. Pruning is unchanged: a run older than retentionDays is gone and isn't offered (BEH-19)."
+  - id: BEH-32
+    status: active
+    rule: "The work files' cleanup (version 20; Bryan, 2026-10-06: 'Delete at end + ignore (Recommended)', 'Tracker deletes + ages (Recommended)'). When an evaluation the timer started for the open run (BEH-06), or the final evaluation of a run that has just ended (BEH-05), absorbs a state whose workFiles.due is true (SPEC-012 BEH-21) and no cleanup of that run was started, the adapter starts one: it records the run's ID as cleaned, in its memory and in $.state with the run's values, so a second evaluation or a reload starts none, and, when there is a path to remove, runs IF-05 once with --root the run's root, --manifests IF-03's folders in IF-03's order, one --file for each path of the state's workFiles.files and for each path of workFiles.files in the state.json of the run it continues (the skill-loaded event's resumes, BEH-31; read with $.fs.read at that moment; that run only, never its ancestors), each path once, and timeoutMs 10000. Nothing waits for it, no hook and no tool call, and nothing is shown to the user; its output line goes to adapter.log as kind workfiles, with the run's ID. It is a process, not a tool call: it asks nothing of Claude Code's permissions and is recorded in no run. Observe and enforce mode alike. It is never started by an enforce check's provisional state (BEH-08), in a session.end hook (the 1.5 seconds BEH-19 keeps for the final evaluation), or in a headless session or an eval's child run (BEH-01). A work file written after the cleanup, or of a run that never becomes due, is left to the age pass (BEH-19). A failure is ERR-19's, a path it won't remove ERR-20's."
 ```
 
 ## 7. Errors and edge cases
@@ -592,6 +609,16 @@ errors:
     condition: "At a plugin skill's load, its <plugin root>/skills/<name>/SKILL.md can't be read: it is missing, or $.fs.read rejects (BEH-02, version 18)."
     handling: "Treat the skill as tracked, as every plugin skill was before version 18 (Bryan, 2026-10-05: 'Key in SKILL.md; unreadable = tracked'), and write one adapter.log line of kind skill-read naming the skill and the error. The load goes on as BEH-03, BEH-05, BEH-29 and BEH-31 say for a tracked skill."
     user_result: "The skill loads; the tracker treats it as tracked, so an untracked skill whose SKILL.md can't be read ends or pauses the open run as any tracked skill does, and adapter.log says why."
+  - id: ERR-19
+    status: active
+    condition: "BEH-32's IF-05 can't start, exits 2, or is still running after 10 seconds, when $.process.run rejects; or the state.json of the run being continued can't be read, isn't JSON or has no workFiles."
+    handling: "Write the stderr line, the rejection's reason or the read's reason to adapter.log as kind workfiles; the cleanup is not tried again (the run stays recorded as cleaned); for an unreadable continued run, go on with the run's own paths only; tracking and the work go on (ADR-006 D1). The files wait for the age pass (BEH-19) or for the user."
+    user_result: "Nothing shown; adapter.log has the line, and the work file stays, ignored by git."
+  - id: ERR-20
+    status: active
+    condition: "IF-05 is given a path it won't remove: outside every pattern, absolute or holding a .. segment, behind a link, not a regular file, or missing. The list comes from a state.json, a file the model's own tools can write, so no path in it is trusted."
+    handling: "Skip the path, count it in skipped and go on with the others; exit 0."
+    user_result: "Nothing shown; the adapter.log line says 'skipped <k>'."
 ```
 
 ## 8. Non-functional design
@@ -612,8 +639,8 @@ quality_responses:
       - {id: PRD-001, item: NFR-006, relation: informed_by, version: 11, hash: null}
   - id: QR-03
     status: active
-    response: "The adapter writes and deletes only under devforgeai/progress/, deleting only through IF-04's confined folders, and on the user's press writes .claude/devforgeai.local.md; it reads only the files BEH-15 lists, and opens no network connection."
-    measured_by: "VER-11 checks the files written in a scripted session; VER-16 checks that claude plugin validate lists no network call; code review at build time, recorded in §9."
+    response: "The adapter writes only under devforgeai/progress/ and deletes only through IF-04's and IF-05's confined paths: folders under devforgeai/progress/ and, from version 20, regular files under devforgeai/drafts/ that a manifest's workFiles patterns match; and on the user's press writes .claude/devforgeai.local.md; it reads only the files BEH-15 lists, and opens no network connection."
+    measured_by: "VER-11 checks the files written in a scripted session; VER-51 checks what prune.py deletes and refuses; VER-16 checks that claude plugin validate lists no network call; code review at build time, recorded in §9."
     upstream:
       - {id: PRD-001, item: NFR-007, relation: informed_by, version: 11, hash: null}
   - id: QR-04
@@ -1181,6 +1208,32 @@ verifications:
       - BEH-05
       - BEH-29
       - ERR-18
+  - id: VER-51
+    status: active
+    obligation: "Tests of prune.py in src/tests/progress/test_prune.py, written first and seen failing (version 20), normally and under python3 -S. IF-05, with a plugin manifests folder holding brainstorm.json with workFiles [devforgeai/drafts/brainstorm/*.md]: a regular file of that pattern is removed and its folders stay; the output reads 'removed 1 work files, skipped 0'; with several --file, each once; a missing file, a path outside the patterns (docs/specs/brainstorm/BRN-001.md, devforgeai/drafts/.gitignore, devforgeai/drafts/other/x.md), an absolute path, a path with .., an empty or . segment, a folder, a symbolic link to a file (the link and its target stay), a file whose parent folder is a link (and one swapped for a link between the check and the removal, as test_prune's race tests do) and a named pipe are skipped and counted, with exit 0; a patterns union over two folders, a folder that isn't there, a non-JSON file and a manifest without the key; a manifest whose pattern is docs/specs/*.md, devforgeai/drafts/../x, not a string or an empty list item exits 2 and removes nothing; no --file, a root that isn't a folder, and a platform without descriptor support exit 2; an unlink that fails leaves the other paths removed and names the first. IF-04 with --manifests: a matching file older than --days is removed, a newer one stays, an old file that matches no pattern (.gitignore, a .txt) stays, a link stays with its target, no folder is removed, the output is 'pruned <r> runs, <s> sessions, <w> work files', the run and session folders are pruned as before, a refused pattern exits 2 after the folders pass, and without --manifests the line and every earlier test are unchanged."
+    level: unit
+    covers:
+      - BEH-19
+      - BEH-32
+      - ERR-20
+      - QR-03
+      - QR-04
+  - id: VER-52
+    status: active
+    obligation: "Kit tests of the cleanup (version 20), written first and seen failing, in both modes. With an evaluation (the stub's IF-03) giving a state whose workFiles has files [a, b] and due false, no process is started for it; when a later evaluation gives due true, IF-05 starts once with the argv BEH-32 gives (--root, --manifests in IF-03's order, one --file per path) and timeoutMs 10000, no tool call or hook awaits it, nothing is shown and no event is recorded in the run; a second due evaluation, and a reload (BEH-17) followed by one, start none; due true with no files starts none; a continued run (BEH-31) whose earlier run's state.json lists [c] gets --file for a, b and c, each once, and one whose state.json can't be read or lacks workFiles gets a and b and one adapter.log line (ERR-19); an IF-05 that rejects, times out or exits 2 gives one adapter.log line of kind workfiles, nothing more, is not tried again and leaves tracking and the next tool call as they were; its output line reaches adapter.log with the run's ID; the final evaluation of a run ended by another skill's load starts it, while one in a session.end hook, an enforce check's provisional evaluation (BEH-08) and a session whose isInteractive is false start none; IF-04's argv at the first run carries --manifests for each folder of IF-03 and its output line goes to adapter.log as kind prune. test_adapter_structure.py checks that the module's every use of $.process.run for IF-05 passes an argv, never a shell string."
+    level: integration
+    covers:
+      - BEH-15
+      - BEH-19
+      - BEH-32
+      - ERR-19
+  - id: VER-53
+    status: active
+    obligation: "Live, in Bryan's worker1 tab with --plugin-dir on the build, with SPEC-001's VER-17 and SPEC-012's VER-44 passed (version 20): (a) in observe mode and again in enforce mode, a brainstorm run to step 7: once the validator has passed, its work file under devforgeai/drafts/brainstorm/ is gone within a few seconds, with no permission prompt, no flag, no refusal and no event of it in the run; adapter.log has a workfiles line 'removed 1 work files, skipped 0'; devforgeai/drafts/.gitignore stays; (b) a run continued from a stopped one (VER-49): after its step 7, both work files are gone; (c) a run stopped at step 5 and never continued keeps its work file, and git status shows none; with that file's modification time set back more than retentionDays (retentionDays 7, the file 8 days old, by touch -d), the next session's first tracked run removes it, and does not remove devforgeai/drafts/.gitignore or a .txt beside it; (d) with the mods not loaded (the rollout flag off) or in a claude -p run, the work file stays. Recorded in §9."
+    level: manual
+    covers:
+      - BEH-19
+      - BEH-32
 ```
 
 ## 10. Rollout, migration and rollback
@@ -1230,6 +1283,12 @@ verifications:
   plugin version (0.20.0); this spec's SPEC-012 link moves to version 11 when that is approved. Until a skill asks the
   waiver, no answer carries `devforgeai_waiver`, and nothing new is refused: the waiver question is never checked,
   and the review only asks. The review is new in both modes, on flagged runs only.
+- **Version 20.** Built after approval with SPEC-012 version 15 (the state that says when), SPEC-001 version 16 and
+  SKL-001 v9 (the skill that writes the files), in one plugin version; this spec's SPEC-012 link moves to version 15
+  when that is approved. Until SKL-001 v9 writes a work file, no path matches a pattern and nothing is deleted. New in
+  both modes, and silent: the deletion and its adapter.log lines. IF-04's output line changes only when `--manifests`
+  is given, which the adapter now does. Rolling back is returning to version 19: nothing deletes work files, which
+  stay, ignored by git, until the user removes them.
 - **Version 14.** Built after approval with SPEC-012 version 13 (the reason returned), in one plugin version, after a
   refactor with no behaviour change that moves the open run's values into the module (DM-03). Rolling back is returning
   to version 13, where a nested load ends the open run.
@@ -1330,6 +1389,13 @@ skill during another's workflow, the texts in `progress-core.ts`, the trail and 
 contract; (3) `claude plugin validate`, `claude plugin test`, plugin-validator and every test; (4) VER-45 live in
 worker1, and §9.
 
+Version 20's build, with SPEC-012 version 15 and SPEC-001 version 16, through `/plugin-dev:create-plugin` with the
+built-in `plugin-authoring` skill: (1) VER-51's tests in `test_prune.py` and VER-52's kit tests, seen failing; (2)
+`prune.py`: IF-05 and IF-04's `--manifests`, descriptor-based as the folder pass is; (3) BEH-32 and ERR-19 in
+`hooks/progress.tsx` (the argv and texts in `progress-core.ts`), the cleaned run IDs in the types contract (DM-03),
+IF-04's call with `--manifests` (BEH-19); (4) `claude plugin validate`, `claude plugin test`, plugin-validator and
+every test; (5) VER-53 live in worker1, and §9.
+
 Version 13's build, through `/plugin-dev:create-plugin` with the built-in `plugin-authoring` skill: (1) VER-41's kit
 tests, seen failing; (2) BEH-29 in `hooks/progress.tsx`, its texts in `progress-core.ts`, the trail in the types
 contract; (3) `claude plugin validate`, `claude plugin test`, plugin-validator and every test; (4) VER-42 live in
@@ -1414,8 +1480,36 @@ Version 6's build, with SPEC-012 version 7: the kit tests of VER-26, seen failin
   others, and it would be checked at the question gate; its own tag avoids both (SPEC-012 §12).
 - **A DM-02 event for a mode switch.** It would let the log carry mid-run switches, but DM-02 is approved and has
   no such kind; `adapter.log` records them until a SPEC-012 v2 adds one.
+- **The skill deletes its work files with a pre-approved `rm`** (version 20). Claude Code's `allowed-tools`
+  pre-approval lasts only the turn that loads the skill (found while drafting SPEC-001 version 16), so the `rm` at
+  step 7 would still prompt. Bryan chose the tracker.
+- **No deletion: the skill deletes nothing and the files stay** (version 20). Nothing prompts, but drafts pile up in
+  every project; rejected by "drafts should be pruned eventually".
+- **The adapter passes the patterns to prune.py** (version 20). A manifest and a state.json are both files the model's
+  tools can write; prune.py reads the manifests itself and treats the path list as untrusted (ERR-20), so no argument
+  widens what is deleted.
 
 ## 13. Open questions
+
+Decided by Bryan on 2026-10-06, for version 20 (SPEC-001 version 16, SPEC-012 version 15; "Save the work too"): the
+brainstorm skill keeps a work file and a continued run reads it; "drafts should be pruned eventually, since the
+brainstorm document will serve as the provenance root"; "Delete at end + ignore (Recommended)". When the drafting
+found that a skill's `allowed-tools` pre-approval lasts only the turn that loads the skill (his earlier "Pre-approve rm
+only" would still prompt at step 7), he asked "could the claude mod we developed have this integrated after validation
+to run a deletion script?" and chose "Tracker deletes + ages (Recommended)": brainstorm.json gains "workFiles"; at step 7
+done the adapter runs prune.py to delete this run's work files (and the one it continued from); at session start
+prune.py also deletes drafts older than retentionDays (the same age runs stop being offered); the skill writes drafts
+and a .gitignore and never rm. Drafter's choices, for Bryan's accept or challenge: prune.py gets a second command,
+`remove` (IF-05), and `prune` an optional `--manifests`; both read the patterns from the manifests themselves, and
+only files matching them, regular, under `devforgeai/drafts/` and reached without a link are removed, since the paths
+come from a state.json the model can write; the age pass runs where the folder pass does (the session's first run,
+whichever skill), judges each file by its own modification time and removes no folder; the cleanup starts from an
+absorbed timer or final evaluation only, never in a session.end hook, is tried once per run and not retried, and shows
+the user nothing (adapter.log kind `workfiles`); the run it continues is read one level (its state.json), so an older
+ancestor's file ages out; observe and enforce alike; BEH-15 and QR-03, which said the adapter deletes only under
+`devforgeai/progress/`, are amended to name IF-05's files. Noted for SPEC-001's review: the age pass can remove a
+work file hours before its run's folder ages out, so BEH-31 can offer a run whose named work file is gone; SPEC-001
+BEH-14 doesn't say what a missing file means (it should read none).
 
 Decided by Bryan on 2026-10-05, for version 16 ("what's next?" → "Resume from record", his request of 2026-10-04 in
 the item below this cycle's: "when the skill is ran a subsequent time, it could pickup the session json file ... and
@@ -1734,3 +1828,4 @@ the live check (a) run in observe mode, with enforce covered by VER-50 (c).
 | 19 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's end-of-workflow decision of 2026-10-05 ('Fix now as SPEC-013 v19'): a reply that arrives while the turn is marked (an untracked skill's turn) is recorded in no run, as SPEC-015 §1 says of the handoff's work (live VER-07 (a) showed the replies recorded, and a probe with the real evaluator showed a numbered tick in them counting as the open run's step); VER-50 (h); §9 and §13 record version 18's build and his acceptance of its readings | BEH-02, VER-50, §9, §13 |
 | 19 | 2026-10-05 | Bryan | Approved ('Fix now as SPEC-013 v19 (Recommended)', with the version 19 change shown in its preview) | status |
 | 19 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: versions 18 and 19 merged in PR #93 (`909a252`) and deployed as plugin 0.26.0 (§9) | §9 |
+| 20 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 ('Delete at end + ignore (Recommended)', 'Tracker deletes + ages (Recommended)', after "could the claude mod we developed have this integrated after validation to run a deletion script?"): when an evaluation shows a run's work files due (SPEC-012 version 15), the adapter runs prune.py to delete them and those of the run it continues (new BEH-32, IF-05, ERR-19, ERR-20); IF-04's age pass also removes work files older than retentionDays (BEH-19); BEH-15 and QR-03 name the files IF-05 reaches; adapter.log kind workfiles (DM-02); VER-51 to VER-53; status in-review | frontmatter, §1, DM-02, DM-06, IF-04, IF-05, BEH-15, BEH-19, BEH-32, ERR-19, ERR-20, QR-03, VER-51, VER-52, VER-53, §10, §11, §12, §13 |

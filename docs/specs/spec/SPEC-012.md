@@ -2,10 +2,10 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: approved       # draft | in-review | approved | superseded | deprecated
-version: 14
+status: in-review       # draft | in-review | approved | superseded | deprecated
+version: 15
 created: 2026-10-02
-updated: 2026-10-05
+updated: 2026-10-06
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -139,6 +139,19 @@ them over"). A run's first event can name the earlier run it continues and the s
 count as reached in the new run, shown as carried, so the new run's gates judge only the work from the step it goes on
 at (BEH-20). The earlier run's log is never changed: a run-end closed it (BEH-12).
 
+**Version 15** (2026-10-06) lets a manifest name the working copies its skill keeps outside its documents, the work
+files, and lets the state say when they can go (SPEC-001 version 16, "Save the work too"; Bryan, 2026-10-06:
+"drafts should be pruned eventually, since the brainstorm document will serve as the provenance root"; "Delete at end
++ ignore (Recommended)"). A skill can't delete them itself: Claude Code's `allowed-tools` pre-approval of a skill lasts
+only the turn that loads it, so the `rm` at step 7 would still ask. Bryan asked "could the claude mod we developed
+have this integrated after validation to run a deletion script?" and chose "Tracker deletes + ages (Recommended)".
+The evaluator's part is only to know and say. A manifest's `workFiles` (DM-01) lists the patterns of those files;
+brainstorm's names `devforgeai/drafts/brainstorm/*.md`. The state reports the run's work files, the ones its Write and
+Edit calls wrote, and `due`, true once every step proved by a script run on a written file is done, which for
+brainstorm is step 7, the validator's pass (BEH-21). The evaluator deletes nothing and never reads a work file; the
+adapter deletes (SPEC-013 version 20). A work file's write is no write-gate evidence and no content rule's file, so
+the gate and the question window are as they were.
+
 ## 2. Constraints
 
 - **The chain's order** (ADR-002, and ADR-004 D5 for the context step) fixes the state's `next` step (BEH-13).
@@ -201,6 +214,7 @@ flowchart LR
       "additionalProperties": {"$ref": "#/$defs/step"}
     },
     "contentRules": {"type": "array", "items": {"$ref": "#/$defs/contentRule"}},
+    "workFiles": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^devforgeai/drafts/[^\\s]+$"}, "description": "version 15: the project-relative patterns of the working copies the skill keeps outside its documents, written as a rule's pattern is; each begins devforgeai/drafts/, holds no .. segment and overlaps no write or read rule's pattern and no content rule's path (BEH-21); the tracker deletes what they match once the run's cleanup is due, and by age (SPEC-013 BEH-32, BEH-19)"},
     "source": {"type": "string", "description": "for a vendored organization manifest: its origin repository and ref (ADR-003 A3)"}
   },
   "$defs": {
@@ -319,6 +333,12 @@ A `prompt` event records only that the user sent a prompt; its text is never log
     "through": {"type": "integer", "minimum": 0, "description": "the seq of the last event evaluated"},
     "ended": {"type": ["string", "null"], "description": "the run-end reason, or null while the run is open"},
     "waiver": {"enum": ["proceed", "ask", "other", null], "description": "the run's waiver answer, the first answered one (BEH-19), or null when there is none (version 11)"},
+    "workFiles": {
+      "type": "object", "required": ["files", "due"], "additionalProperties": false,
+      "description": "version 15: present only when the manifest applies (matched or unverified) and names workFiles (BEH-21)",
+      "properties": {"files": {"type": "array", "items": {"type": "string"}, "uniqueItems": true, "description": "the paths of the run's Write and Edit calls that didn't fail and match a work-file pattern, each once, in the order first written"},
+                     "due": {"type": "boolean", "description": "true when the manifest has a step proved by a script run on a written file and every such step is done: the work files' cleanup is due (SPEC-013 BEH-32)"}}
+    },
     "current": {"type": ["integer", "null"]},
     "steps": {"type": "array", "items": {"$ref": "#/$defs/step"}},
     "flags": {"type": "array", "items": {"$ref": "#/$defs/flag"}},
@@ -458,7 +478,7 @@ A run ID is `<UTC time as yyyymmddThhmmssZ>-<skill>-<8 hex digits>`. The evaluat
 | Item | Command | Behaviour |
 | --- | --- | --- |
 | IF-01 | `evaluate --manifests DIR [--manifests DIR …] --events FILE --out FILE [--root DIR] [--phases FILE]` | `--manifests` may repeat, in layer order: the plugin's folder first, then an organization's, then a project's (BEH-17). Reads `FILE` (DM-02) and each folder's `<skill>.json` (DM-01), writes the state (DM-03) to `--out`, and prints one summary line. `--root` is the project root, for reading written files that carry no `content`. Exit 0 when the state is written, with or without flags; flags are data, never an exit status. Exit 2 when it can't run (ERR-03, ERR-04, ERR-07, ERR-08), with one line on stderr naming the file and the reason |
-| IF-02 | `check --manifests DIR --skill NAME --checklist FILE` | Hashes the checklist in `FILE` (a `SKILL.md`, or any text holding the block) and compares it with `DIR/NAME.json`. Prints `matched <hash>`, `stale manifest <hash> checklist <hash>` or `none <hash>`. Exit 0 when matched, 1 when stale or none, 2 when it can't run |
+| IF-02 | `check --manifests DIR --skill NAME --checklist FILE` | Hashes the checklist in `FILE` (a `SKILL.md`, or any text holding the block) and compares it with `DIR/NAME.json`. When the manifest names workFiles that break BEH-21's rules, prints `invalid workFiles: <reason>` and exits 1 whatever the hashes (version 15). Otherwise prints `matched <hash>`, `stale manifest <hash> checklist <hash>` or `none <hash>`. Exit 0 when matched, 1 when stale, none or invalid, 2 when it can't run |
 
 ## 6. Behavior
 
@@ -511,10 +531,10 @@ behaviors:
     rule: "With --phases, the file's JSON is copied into phases unchanged. Without it, the state has no phases key."
   - id: BEH-16
     status: active
-    rule: "IF-02 computes the checklist hash of its file by §4's function and compares it with the manifest's checklistHash; it reads nothing else."
+    rule: "IF-02 computes the checklist hash of its file by §4's function and compares it with the manifest's checklistHash and, when the manifest names workFiles, checks them against BEH-21's rules (version 15); it reads nothing else."
   - id: BEH-17
     status: active
-    rule: "Manifests are read from each --manifests folder in the order given. The first folder that has <skill>.json gives the base manifest; so a project's own skill, which the plugin doesn't have, gets its manifest from the project's folder. Each later file for the same skill must carry the same skill and checklistHash, and may only add: evidence rules on a step, a gate on a step that had none, userOwned true, a stricter need (text-only or conditional to required), and content rules. It may not remove or change anything the earlier layers set; a step's title and kind stay as they are. So a later file restates the earlier layers in full: every earlier step, with the same title and kind, an equal or stricter need, userOwned and any gate kept, and its when text unchanged while it stays conditional; every earlier evidence and content rule; and no new step. The result applies as one manifest, and manifest.layers lists every file used, in order. A later file that would remove or relax a rule, or that carries another skill or checklistHash, stops evaluation (ERR-09). waivable true relaxes a user-owned step, so only the base manifest may set it: a later file must keep each step's waivable as the earlier layers set it, and one that sets it true where they didn't stops evaluation the same way (version 11)."
+    rule: "Manifests are read from each --manifests folder in the order given. The first folder that has <skill>.json gives the base manifest; so a project's own skill, which the plugin doesn't have, gets its manifest from the project's folder. Each later file for the same skill must carry the same skill and checklistHash, and may only add: evidence rules on a step, a gate on a step that had none, userOwned true, a stricter need (text-only or conditional to required), and content rules. It may not remove or change anything the earlier layers set; a step's title and kind stay as they are. So a later file restates the earlier layers in full: every earlier step, with the same title and kind, an equal or stricter need, userOwned and any gate kept, and its when text unchanged while it stays conditional; every earlier evidence and content rule; and no new step. The result applies as one manifest, and manifest.layers lists every file used, in order. A later file that would remove or relax a rule, or that carries another skill or checklistHash, stops evaluation (ERR-09). waivable true relaxes a user-owned step, so only the base manifest may set it: a later file must keep each step's waivable as the earlier layers set it, and one that sets it true where they didn't stops evaluation the same way (version 11). workFiles names files the tracker deletes, so, like waivable, only the base manifest sets it (version 15): the effective workFiles is the base manifest's, and a later file may carry it only unchanged (the same patterns, in any order); one that sets or changes it stops evaluation the same way (ERR-09)."
   - id: BEH-18
     status: active
     rule: "Step events place answers: in a run with any step event, each answer and prompt goes to the step in progress at its seq, the step whose latest step event before it is started (the latest started when several are). A mark stands until a step event ends it: version 7's rule that later work makes it stale was withdrawn in version 8. When that step is user-owned, the answer counts for it as answer evidence; when it isn't, the answer is that step's own exchange, such as an intake question, and counts for no user-owned step. A run follows the task list when its skill-loaded event has taskList true and its checklist text names devforgeai_step, the convention's tag (§4). In such a run an answer event counts for the step in progress only when it names that step (DM-02's step, from the question's tag): the tag is a check on the mark, never a placement of its own, since Claude writes both (version 9). A tag naming a step the checklist doesn't have is ERR-06's and counts as no tag. An answer event marked outside (DM-02: its question's source names something other than the convention's tag, as another command's question does) is no question gate and counts for no step, so it can't stand for a decision (version 9). In every run, whether or not it follows the task list, an answer event carrying waiver (DM-02) is no question gate and counts for no step, by the mark, the tag or BEH-09's windows: BEH-19 alone reads it (version 11). In such a run, when its manifest is matched or unverified (as every gate needs), an answer event, answered or not, since the question was asked, is a question gate (BEH-08, BEH-11), with exactly one of three flags, checked in this order: when no step is in progress (unmarked-question); when it is untagged (untagged-question); when it names a step other than the step in progress (mismatched-question) (version 9). An answer at a question gate counts for no step, so a decision it was meant for still needs an answer that counts (BEH-10). Once every step of the run is reached before the answer's seq (BEH-07's reached: evidence or a claim), an answer that fails the cross-check is no question gate and counts for no step: the checklist is finished, so a later question isn't the checklist's (version 10). A prompt at which no step is in progress counts for no step and raises nothing, since a typed message isn't known to be an answer. A tag in a run that doesn't follow the task list is ignored. In any other run, an answer or prompt at which no step is in progress, and every answer in a run with no step event, is placed by BEH-09's windows: a skill whose text predates the convention, even with a task list Claude kept unasked, is never refused at the question gate. counts.stepEvents counts the run's step events naming a step the checklist has (an unknown step's counts only in unknownClaims, ERR-06) and counts.unmarkedQuestions its answer events at a question gate (§4, 'When a run doesn't keep its list')."
@@ -524,6 +544,9 @@ behaviors:
   - id: BEH-20
     status: active
     rule: "Carried steps (version 14; Bryan, 2026-10-05: 'Carry them over', 'Carry, but re-confirm', 'Not if already written'). A skill-loaded event may name, in resumes, an earlier run this run continues, and in carried the steps carried from it: every step before the one this run continues at (SPEC-013 BEH-31 sets both). Each carried step the checklist has gets one piece of evidence of type carried, strong, with the detail 'carried from the earlier run <resumes>', stamped with the skill-loaded event's seq; a carried number the checklist doesn't have, and an answered number that isn't a carried user-owned step, are ignored (ERR-10). Carried evidence makes the step reached from that seq (BEH-07), so current moves past it as tool evidence would and no gate flags it (BEH-08); it neither starts nor ends any step's answer window (BEH-09). A carried step's state is carried while carried evidence is its only evidence, whatever claims it gets: a done claim, as a task the skill marks completed gives, leaves it carried and raises no claimed-not-evidenced flag; evidence of another type gives it the state BEH-07 gives. Carried evidence is no answer, since the record keeps that the user answered, never what: a user-owned carried step counts as answered only when an answer counts for it in this run (BEH-09, BEH-18), and until then its content rules apply (BEH-10), so a document records its decision only after the user confirms it again; a write that breaks its rule makes it skipped and the gate's step rule-broken, as BEH-10 says. The exception: a carried user-owned step that the event's answered names counts as answered and its content rules don't apply: the adapter names a step there only when the earlier run's state counted the user's answer for it and its document was written (SPEC-013 BEH-31; 'Not if already written', narrowed after a side note to the steps the record shows answered: a document written under a Proceed waiver, with every decision left open, proves no answer). resumes names the earlier run only; the evaluator reads nothing of that run. Without carried, a run is evaluated as before."
+  - id: BEH-21
+    status: active
+    rule: "Work files (version 15; Bryan, 2026-10-06: 'Delete at end + ignore (Recommended)', 'Tracker deletes + ages (Recommended)'). A manifest's workFiles (DM-01) lists patterns of the working copies its skill keeps outside its documents. A pattern is matched as a rule's pattern is (BEH-06: as text with fnmatch, so * matches a /, and a pattern ending in / means anything inside that folder) against a tool event's path read as BEH-06 reads it (a leading ./ removed, repeated slashes collapsed), and a path that starts with / or ../ matches none. When the manifest applies (matched or unverified, BEH-04), the state holds workFiles: files, the paths of the run's Write and Edit tool events with no error that match any pattern, each once, in the order first written; and due, true when the manifest has at least one step with an evidence rule of type script and target written and the state of every such step is done, that is, it has evidence: a claim alone, a skipped or carried step, and a manifest with no such step all leave due false (brainstorm: step 7, the validator's pass on the written BRN, so a validation that fails leaves it false). It is computed afresh at each call from the whole log, as every field is (BEH-01). A work file's write is evidence for no step and no content rule's file: each pattern must begin with devforgeai/drafts/, hold no .. segment, and neither it nor the pattern of any write or read rule, nor any content rule's path, may begin with the other's literal text, the characters before its first *, ? or [; script rules' patterns, which are file names, are left out. A manifest that breaks these is ERR-04's and IF-02 reports it. In a stale or none manifest (BEH-04), or without workFiles, the state has no workFiles key. The evaluator deletes nothing and never reads a work file's content; deleting is the adapter's (SPEC-013 BEH-32)."
 ```
 
 ## 7. Errors and edge cases
@@ -547,7 +570,7 @@ errors:
     user_result: "stderr: 'evaluate: <events file>: the first event must be skill-loaded'."
   - id: ERR-04
     status: active
-    condition: "--manifests isn't a folder, or <skill>.json exists but isn't valid JSON or lacks a required key."
+    condition: "--manifests isn't a folder, or <skill>.json exists but isn't valid JSON, lacks a required key, or holds workFiles that aren't a non-empty list of patterns obeying BEH-21 (version 15)."
     handling: "Exit 2 and write no state. A missing <skill>.json isn't an error: the manifest state is none (BEH-04)."
     user_result: "stderr names the folder or file and what is wrong with it."
   - id: ERR-05
@@ -572,7 +595,7 @@ errors:
     user_result: "stderr names --out and the reason."
   - id: ERR-09
     status: active
-    condition: "A later layer's manifest removes or relaxes a rule an earlier layer set, changes a step's title or kind, or carries another skill or checklistHash."
+    condition: "A later layer's manifest removes or relaxes a rule an earlier layer set, changes a step's title or kind, carries another skill or checklistHash, or sets or changes workFiles (version 15)."
     handling: "Exit 2 and write no state, as ADR-003 A4 stops a disallowed override."
     user_result: "stderr: 'evaluate: <file>: <what it changes>, which an earlier layer set (<earlier file>)'."
   - id: ERR-10
@@ -999,6 +1022,19 @@ verifications:
     covers:
       - BEH-20
       - ERR-10
+  - id: VER-44
+    status: active
+    obligation: "Version 15: manifest.schema.json takes workFiles (a non-empty list of patterns beginning devforgeai/drafts/, none holding whitespace) and progress.schema.json takes a state's workFiles with files and due; brainstorm.json holds workFiles [devforgeai/drafts/brainstorm/*.md] and architecture.json none; IF-02 prints matched for brainstorm, and for a copy whose workFiles is docs/specs/brainstorm/*.md, devforgeai/drafts/../x.md or devforgeai/drafts/brainstorm/BRN-*.md written beside a write rule of devforgeai/drafts/brainstorm/BRN-*.md, prints invalid workFiles and exits 1, and IF-01 exits 2 on each. Cases, each a brainstorm run that follows the task list: brn-workfiles-due (a Write and an Edit of devforgeai/drafts/brainstorm/<id>.md, a Write of the BRN, the validator run with exit 0 on it: workFiles files is the work file once and due is true, no flag, and the work file's write is no write-gate evidence, so step 6's evidence is the BRN's); brn-workfiles-open (the same without the validator run: files listed, due false); brn-workfiles-claimed (step 7 ticked, no validator run: due false); brn-workfiles-failed (the validator's run exits 1: due false); brn-workfiles-paths (a Write with error true, a Write of ./devforgeai/drafts/brainstorm/a.md, one spelled devforgeai/drafts//brainstorm/b.md, one of /abs/c.md, one of ../d.md, one of devforgeai/drafts/other/e.txt and one of docs/specs/brainstorm/BRN-001.md: only the second and third are files, as devforgeai/drafts/brainstorm/a.md and b.md); brn-workfiles-content (a Write of the work file holding disposition: promoted before step 5 has an answer: no flag and no rule-broken step, since the write gate and the content rules never see it); brn-workfiles-carried (a run carrying steps 1 to 7: step 7 carried, due false); brn-workfiles-stale (a manifest hash that doesn't match: no workFiles key). An architecture run's state has no workFiles key. Layers: a project folder restating brainstorm.json unchanged, workFiles included, evaluates; one that adds a pattern, or changes one, exits 2 (ERR-09); one that omits it keeps the base's. Every brainstorm expected state whose manifest is matched or unverified (48 cases at the draft) gains workFiles and nothing else moves, checked line by line; every other expected state is unchanged; the cases validate against the schemas (VER-02), and run the same under python3 -S and byte-identical twice (QR-01, QR-02)."
+    level: unit
+    covers:
+      - DM-01
+      - DM-03
+      - IF-02
+      - BEH-16
+      - BEH-17
+      - BEH-21
+      - ERR-04
+      - ERR-09
 ```
 
 ## 10. Rollout, migration and rollback
@@ -1017,6 +1053,17 @@ verifications:
   expected state moves: all 41 cases gave byte-identical states under version 4's BEH-09, checked on a copy. Over
   6,000 generated logs (the review's), version 4 credits every answer version 2 credits and nothing version 3
   doesn't. SPEC-013's upstream link moves to version 4 when it is approved.
+- **Version 15.** Built after approval with SPEC-013 version 20 (the adapter that deletes) and SPEC-001 version 16 with
+  SKL-001 v9 (the skill that writes the files), in one plugin version. Additive: the manifest key and the state key are
+  optional. The brainstorm expected states whose manifest is matched or unverified (48 cases at the draft) gain
+  `workFiles` and nothing else; architecture's and every other expected state don't move. Adding the key to
+  brainstorm.json leaves its `checklistHash` as it is, so a run recorded before this version still evaluates matched
+  (BEH-04), `manifestHash` is unchanged, and SPEC-013 BEH-31's offer to continue, which needs a matched manifest, is
+  unaffected. An older brainstorm run's state now carries workFiles with no files (it wrote none), and due true when it
+  validated: nothing for the adapter to delete. The Codex port's fork reads the shared manifest and ignores a key it
+  doesn't know (ERR-04 checks the required keys only), so it runs unchanged and reports no workFiles until a Codex
+  session builds it. Rolling back is returning to version 14: the key is ignored, and the work files stay, ignored by
+  git, until the user removes them.
 - **Version 13.** Built after approval with SPEC-013 version 14 (nested runs), in one plugin version. Additive: no
   earlier case has a run-end returned.
 - **Version 12.** Built after approval with SPEC-013 version 12 (the adapter that records the stop), in one plugin
@@ -1112,6 +1159,13 @@ Version 10's build, on version 9's branch before its merge: the case steps-after
 Version 13's build, with SPEC-013 version 14: VER-42's case and test, seen failing; DM-02's enum in
 events.schema.json; §9.
 
+Version 15's build, with SPEC-013 version 20 and SPEC-001 version 16: (1) VER-44's cases and tests, seen failing
+(`test_schemas_equal_the_spec_blocks` is red from the draft until step 2); (2) `manifest.schema.json` and
+`progress.schema.json` regenerated from DM-01 and DM-03 (`json.dumps(block, indent=2) + "\n"`); (3) `workFiles` in
+`brainstorm.json`, checked by IF-02; (4) BEH-21, BEH-16's check and ERR-04 and ERR-09's additions in `evaluate.py`;
+(5) the 48 expected states regenerated and read line by line (only the key moved); (6) the tests normally and under
+`python3 -S`; §9.
+
 Version 14's build, with SPEC-013 version 16: VER-43's cases and test, seen failing; DM-02's and DM-03's changes in
 events.schema.json and progress.schema.json; BEH-20 in `evaluate.py`; no earlier expected state may move; §9.
 
@@ -1148,9 +1202,39 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 - **A waiver that only silences question flags** (version 11). It would leave §13's step-8 case refused; rejected.
 - **The waiver as a step-1 answer** (`devforgeai_step:1`, version 11). It would need the label read to tell it from
   step 1's other questions; its own tag keeps it out of the question gate and the windows.
+- **The skill deletes its own work files** (version 15). Its `allowed-tools` could pre-approve `rm`, but Claude Code's
+  pre-approval lasts only the turn that loads the skill (found while drafting SPEC-001 version 16), so step 7's `rm`
+  would still prompt. Bryan chose the tracker ("Tracker deletes + ages (Recommended)").
+- **No cleanup: the skill deletes nothing and the files stay** (version 15). Nothing would prompt, but drafts would
+  pile up in every project; Bryan: "drafts should be pruned eventually, since the brainstorm document will serve as
+  the provenance root".
 - **Validating with jsonschema at run time.** Thorough, but not in the standard library. The tests validate against the schemas instead (VER-02).
 
 ## 13. Open questions
+
+Decided by Bryan on 2026-10-06, for version 15 (SPEC-001 version 16, "Save the work too"): the brainstorm skill keeps
+a work file outside `docs/specs/` and a later run reads it; on a side note that drafts add prompts and leftover files,
+he said "drafts should be pruned eventually, since the brainstorm document will serve as the provenance root" and chose
+"Delete at end + ignore (Recommended)". When the drafting found that a skill's `allowed-tools` pre-approval lasts only
+the turn that loads the skill, he asked "could the claude mod we developed have this integrated after validation to
+run a deletion script?" and chose "Tracker deletes + ages (Recommended)", whose design was shown as: brainstorm.json
+gains "workFiles": "devforgeai/drafts/brainstorm/*.md"; step 7 done, and the adapter runs prune.py to delete this run's
+work files (and the one it continued from); at session start prune.py also deletes drafts older than retentionDays
+(the same age runs stop being offered); the skill writes drafts and a .gitignore and never rm; specs SPEC-001 v16,
+SPEC-012 v15, SPEC-013 v20. Drafter's choices, for Bryan's accept or challenge: `workFiles` is a list of patterns, where
+the sketch showed one string, so a skill with two folders needs no format change; every pattern must begin
+`devforgeai/drafts/` and hold no `..` segment, so no manifest, a project's own included, can make the tracker delete
+anything else (not asked; the deleter's confinement); a pattern may not overlap a write or read rule's pattern or a
+content rule's path, checked by their literal text before the first wildcard, at load (ERR-04) and by IF-02, which now
+reads the manifest's workFiles and prints `invalid workFiles` with exit 1 (so BEH-16's "reads nothing else" is widened);
+only the base manifest sets it, as `waivable` is, since it adds a deletion, and a later layer may carry it only
+unchanged; the cleanup is due when every step with a script rule on a written file is done, by evidence and not by a
+tick or a carry, so a failed validation, a tick alone or a manifest with no such step leaves it false and the files
+wait for the age pass; a run continued at step 8 or later carries step 7, so its own state is never due, and what the
+earlier run left ages out; the state key is optional (present only when the manifest applies and names workFiles), so
+only the 48 brainstorm expected states move; `files` lists every successful Write and Edit path that matches, kept in the
+state after the files are gone, and the evaluator never reads their content, so a work file is never checked for
+anything.
 
 Decided by Bryan on 2026-10-05, for version 14 (SPEC-013 version 16, "Resume from record"): a later run of a skill
 can continue an earlier unfinished one, and the steps the earlier run reached are carried over ("Carry them over"):
@@ -1337,3 +1421,4 @@ Still open, or notes:
 | 14 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Bryan's decisions of 2026-10-05 ("Resume from record", "Carry them over"): a run can continue an earlier one; skill-loaded's resumes and carried (DM-02); the carried state and evidence type (DM-03); carried steps reached and unflagged, user-owned ones re-confirmed (BEH-20, ERR-10); VER-43; status in-review | frontmatter, §1, DM-02, DM-03, BEH-20, ERR-10, VER-43, §11, §13 |
 | 14 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Before approval, the drafts review's fixes and Bryan's answers: BEH-20 inside its yaml block; every step before the continue step carried; carried evidence starts and ends no answer window; skill-loaded's answered names the carried user-owned steps the earlier record shows answered once their document was written ('Not if already written', narrowed on a side note); VER-43's cases (written, written-open, windows, answered-unknown) | DM-02, BEH-20, ERR-10, VER-43, §13 |
 | 14 | 2026-10-05 | Bryan | Approved | status |
+| 15 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 ('Delete at end + ignore (Recommended)', 'Tracker deletes + ages (Recommended)', after "could the claude mod we developed have this integrated after validation to run a deletion script?"): a manifest names its skill's work files (DM-01 workFiles, base manifest only, confined to devforgeai/drafts/ and clear of the write and read rules; IF-02 checks it, BEH-16; BEH-17, ERR-04, ERR-09); the state reports the run's work files and when their cleanup is due (DM-03, new BEH-21); VER-44; status in-review | frontmatter, §1, DM-01, DM-03, §5, BEH-16, BEH-17, BEH-21, ERR-04, ERR-09, VER-44, §10, §11, §12, §13 |
