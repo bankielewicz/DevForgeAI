@@ -150,11 +150,13 @@ review of community mods (Bryan, 2026-10-05: "the 3 new ideas sound perfect"; pl
 `tool.call` hook as Claude's would; the adapter records only the calls Claude Code fired (`next.origin.plugin` is
 `engine`), as it already did for answers, though the write gate still checks every Write and Edit (BEH-33). (2) The
 adapter registers a `/progress` command that prints the open run's progress; a name Claude Code refuses is logged and
-the session starts as before (BEH-34, ERR-21). The dashboard (plan, cycle 2) will open from it. (3) When the context
-window passes a share the person sets, 70 percent by default, a row above the prompt suggests
-`/devforgeai:precompact` before `/compact`, as SPEC-015 advises running it at 70 to 80 percent (BEH-35, DM-07). It
-only suggests: it runs nothing, refuses nothing and shows in both modes, with or without a run, in an interactive
-session.
+the session starts as before (BEH-34, ERR-21). The dashboard (plan, cycle 2) will open from it. (3) SPEC-015 advises
+running `/devforgeai:precompact` at 70 to 80 percent of the context window. When the window passes a share the person
+sets, 70 percent by default, a row above the prompt warns that the skill will run at a second share, 80 percent by
+default (BEH-35, DM-07); at that share the adapter runs the skill once, as if the person had typed it (BEH-36, DM-08,
+ERR-22; Bryan, 2026-10-06: "Display a warning at 70% that at 80% the precompact skill will run"). This fulfils
+SPEC-015 §13's "eventually, it may run with the precompact hook". Both refuse nothing, show and run in both modes, with
+or without a tracked run, only in an interactive session.
 
 **Version 9** (2026-10-03) words the stuck notice (BEH-25) by its cause. Version 8's notice always told you to
 help Claude bring its task list in step. That is the wrong advice when Claude was refused for a step the tracker
@@ -261,7 +263,7 @@ flowchart LR
 | `src/claude/DevForgeAI/types/index.d.ts` | the `$.state` contract (DM-03), named by `plugin.json`'s `types` | yes |
 | `src/claude/DevForgeAI/progress/settings.py` | IF-01 and IF-02 | yes |
 | `src/claude/DevForgeAI/progress/prune.py` | IF-04 | yes |
-| `src/claude/DevForgeAI/.claude-plugin/plugin.json` | gains `types`, the `tracking` setting (DM-05), the `retentionDays` setting (DM-06) and the `precompactAt` setting (DM-07, version 21) | yes |
+| `src/claude/DevForgeAI/.claude-plugin/plugin.json` | gains `types`, the `tracking` setting (DM-05), the `retentionDays` setting (DM-06) and the `precompactAt` and `precompactRunAt` settings (DM-07, DM-08, version 21) | yes |
 | `src/tests/progress/test_settings.py`, `test_prune.py`, `test_adapter_structure.py` | settings.py's tests (VER-02, VER-03), prune.py's (VER-17) and the structure checks, which read VER-04's expected lines from `hooks/progress.test.ts` (VER-16) | no |
 
 `evaluate.py`, its schemas and its manifests don't change. Every use of `$` stays in top-level functions of
@@ -281,7 +283,7 @@ rows, an Edit's resulting file), which its tests can call directly.
 | `session.end` | ends the run (BEH-05) |
 | `ui.render` on `AbovePrompt` | draws the band (BEH-11) and the precompact row (BEH-35) |
 | `command.run` on `progress` | prints the open run's progress (BEH-34; version 21) |
-| `session.measure`, `session.compact` | shows and hides the precompact row (BEH-35; version 21); `session.compact` also sends BEH-24's instructions |
+| `session.measure`, `session.compact` | shows and hides the precompact row (BEH-35) and runs the precompact skill at its share (BEH-36; version 21); `session.compact` also sends BEH-24's instructions |
 
 ## 4. Data model
 
@@ -330,7 +332,7 @@ for `current.json`, §2). `<session>` is `$.session.id()` when the file is writt
 | `runs/<run>/pending.jsonl`, `pending.json` | during an enforce check (BEH-08) | the run's events plus the pending one, and the provisional state; overwritten at the next check, since `$.fs` can't delete |
 | `runs/<run>/review.jsonl` | as each review answer arrives (BEH-26) | one JSON object per line: `time`, `run`, `item` (the item's number in the review, from 1), `gate`, `seq`, `step`, `type`, `message`, `refused` (the cause's number of refusals, 0 for a flag), `answer` (`accept`, `challenge` or `dismissed`) and `reason` (the typed text, or null); rewritten whole from the review's lines, as `events.jsonl` is (version 10) |
 | `sessions/<session>/current.json` | after each evaluation | a copy of the session's open run's `state.json`, for renderers; the last run's stays after it ends, and shows it ended when the final evaluation ran (BEH-05). A renderer treats a session folder with no recent write as a session that has gone |
-| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23), `compact` (BEH-24), `stuck` (BEH-25), `review` (BEH-26, version 10), `exit` (BEH-28, version 12), `trail` (BEH-29, BEH-30, version 13), `resume` (BEH-31, version 16), `skill-read` (ERR-18, version 18), `workfiles` (BEH-32, ERR-19, ERR-20, version 20), `command` (ERR-21, version 21), `setting` (DM-07, version 21); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
+| `sessions/<session>/adapter.log` | on each notice | one line per entry: `<UTC time> <run or -> <kind>: <text>`, kind one of `mode`, `switch`, `ignored`, `refused` (a write or a question), `context`, `fail-open`, `error`, `prune`, `task` (ERR-13), `tools` (ERR-14), `adherence` (BEH-22), `tools-hint` (BEH-23), `compact` (BEH-24), `stuck` (BEH-25), `review` (BEH-26, version 10), `exit` (BEH-28, version 12), `trail` (BEH-29, BEH-30, version 13), `resume` (BEH-31, version 16), `skill-read` (ERR-18, version 18), `workfiles` (BEH-32, ERR-19, ERR-20, version 20), `command` (ERR-21, version 21), `setting` (DM-07, DM-08, version 21), `precompact` (BEH-36, ERR-22, version 21); a line's text is one line, so text from the model can't add lines of its own. Lines from before the session's first run are held in memory, the first 200 of them, and written once that run has created the folder with its `.gitignore` (BEH-15); past 512 KiB the file keeps its last half |
 
 `prune.py` (IF-04) deletes `runs/<run>/` and `sessions/<session>/` folders whose files are all older than the
 retention period (BEH-19), and, from version 20, work files (SPEC-012 BEH-21) under `devforgeai/drafts/`: those older than the retention period that no surviving run lists (IF-04) and those a run's cleanup names (IF-05, BEH-32); it deletes nothing else.
@@ -411,15 +413,22 @@ transcript retention (`cleanupPeriodDays`, 30 by default), so a run's log lasts 
 from. The floor of 7 days keeps a session left open over a weekend from losing its open run's folder to another
 session's pruning, which judges by the files' times.
 
-**DM-07. The `precompactAt` setting** (version 21), a `userConfig` number field in `plugin.json`: title "Suggest
-/devforgeai:precompact at (% of context)", default 70, `min` 0, `max` 95, shown in `/config`. Like `tracking`, it is
-the person's setting, not policy. Its description: "Show a row above the prompt suggesting /devforgeai:precompact
-once the context window is this full. 0 turns it off." BEH-35 shows its row when the context window's fill reaches
-this percentage; 0 turns the row off. It is read when the module loads, as `retentionDays` is, so a change in
+**DM-07. The `precompactAt` setting** (version 21), a `userConfig` number field in `plugin.json`: title "Warn
+before /devforgeai:precompact at (% of context)", default 70, `min` 0, `max` 95, shown in `/config`. Like `tracking`,
+it is the person's setting, not policy. Its description: "Show a row above the prompt once the context window is
+this full, saying when /devforgeai:precompact will run. 0 turns the row off." BEH-35 shows its row when the context
+window's fill reaches this percentage; 0 turns the row off. It is read when the module loads, as `retentionDays` is, so a change in
 `/config` applies after `/reload-plugins` or in the next session. A missing value is 70; a value that isn't a number
 (checked with `typeof`, so no null or empty string reads as 0) or isn't a whole number from 0 to 95 counts as 70, and
 an adapter.log line of kind `setting` says so. This exact field, `min` 0 included, passed `claude plugin validate`
 on Claude Code 2.1.290 (a scratch copy of the plugin, 2026-10-06); the build checks it again.
+
+**DM-08. The `precompactRunAt` setting** (version 21; Bryan, 2026-10-06: "at 80% the precompact skill will run"), a
+`userConfig` number field in `plugin.json`: title "Run /devforgeai:precompact at (% of context)", default 80, `min` 0,
+`max` 95, shown in `/config`; its description: "Run /devforgeai:precompact once when the context window is this full.
+0 never runs it." The person's setting, not policy. It is read, checked and logged as DM-07 is (a missing or invalid
+value counts as 80, logged as kind `setting`). A value at or below `precompactAt` (not 0) leaves no warning share:
+the skill runs at `precompactRunAt` and the row shows only when the run fails (ERR-22).
 
 ## 5. Interfaces and contracts
 
@@ -544,7 +553,10 @@ behaviors:
     rule: "The /progress command (version 21). In an interactive session (BEH-01), with tracking on (DM-05), the adapter calls $.command.register with the name 'progress', the description 'Show the DevForgeAI run in progress' and immediate true (so it answers while Claude works), and catches its failure (ERR-21): in session.start after its other work, and again in classic.SessionStart with source clear, resume or fork, since none of those fires a session.start and registering a name again replaces it. A command.run hook on the command 'progress' answers only when this session's latest registration succeeded and tracking hasn't stopped (ERR-03); otherwise it returns next(e) untouched, so whatever else owns the name runs. Its answer is text, the command's own output (no $.ui.log), its args ignored: while a run is open, the status line's text (BEH-10) on the first line, then the band's two rows as text (BEH-11), the button left out, so row 2 reads 'observe mode' or 'enforce mode' and then the newest flag's message, or 'no flags'; paused runs show as those two already show them (BEH-29). With no run open, 'No DevForgeAI run is open in this session.', followed, while $.state still holds the summary of a run that ended (BEH-10; a reload keeps it, /clear empties it), by the status line's text for it. It records nothing, opens and ends no run (it is no skill, and a prompt that starts with '/' isn't recorded, BEH-04), asks nothing, and works in both modes. Its text comes from the functions that build the status line and the band, so the three never disagree. Another plugin that registers 'progress' later replaces it without an error, which nothing here can see."
   - id: BEH-35
     status: active
-    rule: "The precompact row (version 21; SPEC-015 §1 advises running /devforgeai:precompact at 70 to 80 percent of the context window). A session.measure hook keeps e.context.percent (a whole number, 0 to 100) as the measured share, and clears it when the measurement has none (a fresh session, or one just compacted), then returns next(e) unchanged. The row is due while a measured share is at least precompactAt (DM-07), precompactAt isn't 0, and the row isn't hidden. A load of the plugin's own precompact skill (skill.prompt, the skill's name as BEH-02 defines it, typed or loaded by Claude, not a subagent's load) hides it until a compaction: a session.compact hook with no agentId and a trigger other than precompute, after next(e) resolves to a compaction (a result with messages, not a skip), as BEH-24's hook judges one, clears the hidden mark and the measured share. The measured share and the hidden mark live in $.state with the adapter's other values, written only when the row's due-or-not result or the hidden mark changes, which redraws the band: so a reload keeps them (BEH-17), and /clear, /resume and /branch empty them. While the row is due, the AbovePrompt hook (BEH-11) draws it inside the same Box, after the band's rows and before what next(e) resolves to, or, with no run open, a Box holding this row and then what next(e) resolves to: 'Context <percent>%: consider /devforgeai:precompact before /compact', cut to fit e.props.bodyColumns as BEH-11 cuts its rows. It goes through BEH-11's chain of draws, draws nothing while e.props.hasSurvey is true, and counts against e.props.maxRows with the band's rows: the band's row 1, then row 2, then this row, so with too few rows this row goes first. It runs nothing, fills no prompt, refuses nothing and is recorded in no run. Both modes, with a run open or not; only in an interactive session (BEH-01) with tracking on (DM-05) and not stopped (ERR-03). With no measured share there is no row."
+    rule: "The precompact row (version 21; SPEC-015 §1 advises running /devforgeai:precompact at 70 to 80 percent of the context window; Bryan, 2026-10-06: 'Display a warning at 70% that at 80% the precompact skill will run'). A session.measure hook keeps e.context.percent (a whole number, 0 to 100) as the measured share, and clears it when the measurement has none (a fresh session, or one just compacted), then returns next(e) unchanged. The row is due while a measured share is at least precompactAt (DM-07), precompactAt isn't 0, and the row isn't hidden. Its text: while precompactRunAt (DM-08) isn't 0 and is above the measured share, and no automatic run (BEH-36) has started since the last compaction, 'Context <percent>%: at <precompactRunAt>% /devforgeai:precompact will run'; while precompactRunAt is 0, 'Context <percent>%: consider /devforgeai:precompact before /compact'; after ERR-22, 'Context <percent>%: run /devforgeai:precompact now'. A load of the plugin's own precompact skill (skill.prompt, the skill's name as BEH-02 defines it, typed, loaded by Claude or started by BEH-36, not a subagent's load) hides it until a compaction: a session.compact hook with no agentId and a trigger other than precompute, after next(e) resolves to a compaction (a result with messages, not a skip), as BEH-24's hook judges one, clears the hidden mark, the measured share, BEH-36's run mark and ERR-22's failure. These values live in $.state with the adapter's other values, written only when one of them, or the row's due-or-not result, changes, which redraws the band: so a reload keeps them (BEH-17), and /clear, /resume and /branch empty them. While the row is due, the AbovePrompt hook (BEH-11) draws it inside the same Box, after the band's rows and before what next(e) resolves to, or, with no run open, a Box holding this row and then what next(e) resolves to, cut to fit e.props.bodyColumns as BEH-11 cuts its rows. It goes through BEH-11's chain of draws, draws nothing while e.props.hasSurvey is true, and counts against e.props.maxRows with the band's rows: the band's row 1, then row 2, then this row, so with too few rows this row goes first. The row itself runs nothing, fills no prompt, refuses nothing and is recorded in no run. Both modes, with a run open or not; only in an interactive session (BEH-01) with tracking on (DM-05) and not stopped (ERR-03). With no measured share there is no row."
+  - id: BEH-36
+    status: active
+    rule: "The automatic precompact run (version 21; Bryan, 2026-10-06: 'at 80% the precompact skill will run'). In the session.measure hook, after next(e), when the measured share (BEH-35) is at least precompactRunAt (DM-08), precompactRunAt isn't 0, the row isn't hidden (precompact hasn't loaded since the last compaction) and no automatic run has started since the last compaction, the adapter starts one: it first sets the run mark in its memory and in $.state, so a second measurement or a reload starts none, shows the toast 'Context <percent>%: running /devforgeai:precompact', writes an adapter.log line of kind precompact, and calls $.command.run with the command 'devforgeai:precompact' and no args, which runs it as if the person had typed it, once the session is idle; the hook doesn't wait for it. The skill is untracked (BEH-02, SPEC-015), so its load opens, ends and pauses no run, and a tracked run that was open goes on after it. It runs at most once between two compactions (BEH-35 clears the mark), never in a headless session (BEH-01), with tracking off (DM-05) or stopped (ERR-03), or for a subagent. Both modes, with a tracked run open or not. Whether the skill writes anything is its own business (SPEC-015); the adapter never runs /compact. A failure is ERR-22."
 ```
 
 ## 7. Errors and edge cases
@@ -656,6 +668,11 @@ errors:
     condition: "$.command.register refuses the name 'progress' (a built-in command has it) or fails (version 21)."
     handling: "Catch it, write an adapter.log line of kind command with the host's error (held until the session's first run, as every earlier line is, BEH-15), mark the registration failed, so BEH-34's command.run hook passes the command on, and go on: every other part of the adapter works as before."
     user_result: "Nothing shown; typing /progress runs whatever owns the name, or nothing."
+  - id: ERR-22
+    status: active
+    condition: "BEH-36's $.command.run of devforgeai:precompact rejects or fails, for example because the command isn't listed (the plugin's skill isn't loaded) or the host refuses a plugin's command run (version 21)."
+    handling: "Keep the run mark (no retry before the next compaction), write an adapter.log line of kind precompact with the host's error, and mark the run failed, so BEH-35's row reads 'Context <percent>%: run /devforgeai:precompact now'."
+    user_result: "The row above the prompt asks the person to run it themselves."
 ```
 
 ## 8. Non-functional design
@@ -1287,20 +1304,25 @@ verifications:
       - ERR-21
   - id: VER-56
     status: active
-    obligation: "Kit tests of the precompact row (version 21), written first and seen failing, in both modes, with and without an open run, measurements built as { context: { window, percent }, rateLimits: [], changed: ['context'] }: percent 69 with precompactAt 70 draws no row, 70 draws 'Context 70%: consider /devforgeai:precompact before /compact'; precompactAt 0 draws none; a measurement without percent removes the row; a load of the precompact skill hides it and opens no run (BEH-02), and a later compaction (manual, its result with messages) followed by a measure of 72 shows it again; a skipped compaction, a precompute one and one with an agentId leave it as it was; hasSurvey draws none; with a run open, maxRows 3 draws both band rows and this row, maxRows 2 the band's two rows only; the row sits before the next mod's drawing; a reload keeps the row and the hidden mark, and classic.SessionStart clear removes the row; a headless session and a stopped tracker draw none; an out-of-range precompactAt counts as 70 and logs a line of kind setting; nothing is added to events.jsonl."
+    obligation: "Kit tests of the precompact row and run (version 21), written first and seen failing, in both modes, with and without an open run, measurements built as { context: { window, percent }, rateLimits: [], changed: ['context'] }, defaults 70 and 80: percent 69 draws no row, 70 draws 'Context 70%: at 80% /devforgeai:precompact will run' and runs nothing; 80 starts exactly one $.command.run of 'devforgeai:precompact' (a stub records it), shows the toast and logs a line of kind precompact, and a second measure of 85, or a reload and a measure of 85, starts none; precompactRunAt 0 draws 'Context 72%: consider /devforgeai:precompact before /compact' and never runs; precompactAt 0 draws no row but still runs at 80; precompactRunAt at or below precompactAt runs at precompactRunAt with no warning row; a rejected command.run (ERR-22) leaves 'Context 80%: run /devforgeai:precompact now' and no retry at 90; a measurement without percent removes the row; a load of the precompact skill hides the row and opens no run (BEH-02), and after a compaction (manual, its result with messages) a measure of 80 runs it again; a skipped compaction, a precompute one and one with an agentId change nothing; hasSurvey draws none; with a run open, maxRows 3 draws both band rows and this row, maxRows 2 the band's two rows only; the row sits before the next mod's drawing; classic.SessionStart clear removes the row; a headless session and a stopped tracker draw none and run nothing; an out-of-range setting counts as its default and logs a line of kind setting; nothing is added to events.jsonl, and an open tracked run is still open after the run starts."
     level: integration
     covers:
       - BEH-35
+      - BEH-36
       - BEH-02
+      - ERR-22
       - DM-07
+      - DM-08
   - id: VER-57
     status: active
-    obligation: "Live, in Bryan's worker1 tab with --plugin-dir on the build (version 21): (a) /progress during a brainstorm run prints its line and rows, also while Claude works; with no run it prints the no-run text; after /clear it still answers; (b) with precompactAt set in /config to a share just above the session's fill and /reload-plugins run, one more turn shows the row; /devforgeai:precompact hides it; /compact keeps it hidden until the share is reached again; (c) claude plugin validate passes with the precompactAt field (min 0), run before the build relies on it. A mod's own tool calls aren't checked live (no installed mod makes them); VER-54 covers them. Recorded in §9."
+    obligation: "Live, in Bryan's worker1 tab with --plugin-dir on the build (version 21): (a) /progress during a brainstorm run prints its line and rows, also while Claude works; with no run it prints the no-run text; after /clear it still answers; (b) with precompactAt and precompactRunAt set in /config just above the session's fill (one and two points) and /reload-plugins run, one more turn shows the warning row, the next starts /devforgeai:precompact by itself (its handoff written under devforgeai/handoff/), with a tracked run left open and continuing afterwards; the row stays hidden after it until /compact, and after /compact the run happens again only once the share is reached again; (c) claude plugin validate passes with both settings. Before the build relies on $.command.run starting a plugin skill, a throwaway mod checks it (the plan's probe P1). A mod's own tool calls aren't checked live (no installed mod makes them); VER-54 covers them. Recorded in §9."
     level: manual
     covers:
       - BEH-34
       - BEH-35
+      - BEH-36
       - DM-07
+      - DM-08
 ```
 
 ## 10. Rollout, migration and rollback
@@ -1819,10 +1841,17 @@ Drafter's choices in version 21, for Bryan to accept or challenge (plan `tmp/pla
 - The precompact row measures the share of the context window (`context.percent`), as SPEC-015 words its advice,
   not the share of the auto-compact point, which only `$.session.usage({ breakdown })` gives and which is missing
   when automatic compaction is off, the case where a run that fills the window simply stops (SPEC-015 §1).
-- `precompactAt` runs from 0 (off) to 95, default 70, the low end of SPEC-015's 70 to 80 percent; Bryan's own habit
-  was 80 to 90 percent (SPEC-015's approval row), so he may want 80.
-- After `/devforgeai:precompact` the row stays hidden until a compaction, not for the rest of the session: after
-  `/compact` the window can fill again, and the advice holds again.
+- Defaults 70 (warn) and 80 (run), SPEC-015's 70 to 80 percent (Bryan, 2026-10-06: "70% (Recommended)", then
+  "Display a warning at 70% that at 80% the precompact skill will run").
+- After `/devforgeai:precompact`, typed or automatic, the row stays hidden and nothing runs until a compaction:
+  after `/compact` the window can fill again, and the warning and the run hold again.
+- The automatic run goes through `$.command.run`, as if typed, not `$.prompt.submit`: the person sees the command
+  run, the skill loads as a typed skill (untracked, BEH-02), and no prompt text is sent in their name. That a
+  plugin's `$.command.run` starts a plugin skill is unverified; the plan's probe P1 checks it before the build, and
+  ERR-22 covers a refusal.
+- The adapter never runs `/compact`: the skill's report tells the person to, as SPEC-015 says.
+- The run starts after a turn, wherever a tracked run stands, so it can come between two steps of a skill's workflow;
+  the tracked run is neither paused nor ended (BEH-02), and the person carries on after the handoff.
 - A tool call with no `next.origin` counts as Claude Code's, so nothing that was recorded stops being recorded; a
   mod's Write still meets the write gate (the "never relax a constraint" preference).
 - The command is registered as `progress`, not under the plugin's name, as the mods in the reviewed repository do.
@@ -1833,7 +1862,7 @@ Drafter's choices in version 21, for Bryan to accept or challenge (plan `tmp/pla
 - The share is of the whole window, so on a 1M-token model 70 percent is 700k tokens, which can come after an
   automatic compaction; the setting lets Bryan pick a share that suits the window he uses.
 - `/progress` answers while Claude works (`immediate`); another plugin registering the same name replaces it silently.
-- A `precompactAt` change applies after `/reload-plugins`, as `retentionDays` does; reading it at each measurement was
+- A `precompactAt` or `precompactRunAt` change applies after `/reload-plugins`, as `retentionDays` does; reading it at each measurement was
   left out as more machinery than the row is worth.
 - The frontmatter keeps version 20's `approved_by` and `approved_on` while this version is in review, as version 20's
   own draft kept version 19's. At approval the upstream links naming SPEC-013 v20 (SPEC-001, SPEC-014, SPEC-015) move
@@ -1925,4 +1954,4 @@ Drafter's choices in version 21, for Bryan to accept or challenge (plan `tmp/pla
 | 20 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Bryan's decisions of 2026-10-06 ('Delete at end + ignore (Recommended)', 'Tracker deletes + ages (Recommended)', after "could the claude mod we developed have this integrated after validation to run a deletion script?"): when an evaluation shows a run's work files due (SPEC-012 version 15), the adapter runs prune.py to delete them and those of the run it continues (new BEH-32, IF-05, ERR-19, ERR-20); IF-04's age pass also removes work files older than retentionDays (BEH-19); BEH-15 and QR-03 name the files IF-05 reaches; adapter.log kind workfiles (DM-02); VER-51 to VER-53; status in-review | frontmatter, §1, DM-02, DM-06, IF-04, IF-05, BEH-15, BEH-19, BEH-32, ERR-19, ERR-20, QR-03, VER-51, VER-52, VER-53, §10, §11, §12, §13 |
 | 20 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Before approval, the drafts review's fixes (tmp/plans/save-work/review-drafts-2.md): the age pass judges a work file by its run (a file stays while a surviving run's state.json lists it) and the run being continued is a second --keep-run (IF-04, BEH-19); prune.py reads patterns only from the plugin's own manifests folder and ignores one bad manifest alone (IF-04, IF-05, BEH-32, QR-03); paths pass as --file=<path>, only non-empty strings, and a path with a .. segment anywhere is skipped (IF-05, BEH-32, ERR-20); a vanished file is skipped, other errors exit 2 (IF-05); no cleanup for a paused run (BEH-32); BEH-15 reads the continued run's state.json; VER-51 to VER-53 extended; §13 lists the added choices and records that ADR-006 is silent on the deletion | DM-02, IF-04, IF-05, BEH-15, BEH-19, BEH-32, ERR-20, QR-03, VER-51, VER-52, VER-53, §13 |
 | 20 | 2026-10-06 | Bryan | Approved ('Approve all three'), with the drafter's choices in §13 | status |
-| 21 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, on Bryan's decisions of 2026-10-05 ("the 3 new ideas sound perfect"; "3 ideas, then dashboard"): a tool call another mod makes is recorded in no run, and the write gate still checks it (BEH-33); a /progress command prints the open run's progress, a refused name logged (BEH-34, ERR-21); a row above the prompt suggests /devforgeai:precompact once the context window is filled to precompactAt, 70 percent by default (BEH-35, DM-07); kit tests VER-54 to VER-56 and live VER-57; the drafter's choices in §13. The version number is provisional while version 20's build is open | §1, §3, DM-01, DM-02, DM-07, BEH-02, BEH-33 to BEH-35, ERR-21, VER-54 to VER-57, §13 |
+| 21 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, on Bryan's decisions of 2026-10-05 ("the 3 new ideas sound perfect"; "3 ideas, then dashboard"): a tool call another mod makes is recorded in no run, and the write gate still checks it (BEH-33); a /progress command prints the open run's progress, a refused name logged (BEH-34, ERR-21); a row above the prompt warns at precompactAt (70 percent by default) that /devforgeai:precompact will run at precompactRunAt (80 percent by default), and the adapter runs it once there through $.command.run (BEH-35, BEH-36, DM-07, DM-08, ERR-22; Bryan, 2026-10-06: "Display a warning at 70% that at 80% the precompact skill will run"); kit tests VER-54 to VER-56 and live VER-57; the drafter's choices in §13. The version number is provisional while version 20's build is open | §1, §3, DM-01, DM-02, DM-07, DM-08, BEH-02, BEH-33 to BEH-36, ERR-21, ERR-22, VER-54 to VER-57, §13 |
