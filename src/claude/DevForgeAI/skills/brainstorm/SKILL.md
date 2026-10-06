@@ -20,7 +20,7 @@ claim decisions the user actually made.
 - Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
 - The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
 - The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md`, this session's copy of the
-  work so far, saved at steps 3, 4 and 5 ([work-file.md](references/work-file.md)).
+  work so far, saved after steps 3 and 4 and at step 5 ([work-file.md](references/work-file.md)).
 
 ## Decisions that belong to the user
 
@@ -82,13 +82,16 @@ off (`- [x] N.`) in your reply text as you go.
 **Save the work as it goes.** After step 3 and after step 4, and at step 5 before its question, write
 the whole work file (*Inputs*) with the Write tool, in the shape
 [work-file.md](references/work-file.md) gives: `id: BRN-000`, every disposition `open`, step 5's
-proposals as a table. Never write it under `docs/specs/`, never run the validator on it, and never
-delete it: the progress tracker removes it once the BRN validates.
+proposals as a table. Before the first save, when `devforgeai/drafts/.gitignore` is missing, write it
+holding the single line `*`. Never write the work file under `docs/specs/`, never run the validator on
+it, never delete it (the progress tracker removes it once the BRN validates), and don't save it again
+once the BRN is written.
 
 **Continuing an earlier run.** When this text ends with the progress tracker's line "This run
 continues the earlier brainstorm run …", follow that line and
-[work-file.md](references/work-file.md#continuing-a-run): read the work file it names, unless it
-continues past step 6, copy it to this session's path first, and work from its items, scores and IDs.
+[work-file.md](references/work-file.md#continuing-a-run): unless it continues past step 6, copy the
+last work file it names to this session's path right after creating the task list, then work from its
+topic, items, scores and IDs; with no readable work file, continue without one.
 
 ### 1. Intake
 
