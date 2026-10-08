@@ -1617,7 +1617,8 @@ Drafter's choices in version 17, for Bryan to accept or challenge:
   totals, which would count the main loop's turns twice.
 - **Status.** Version 17's change was approved on 2026-10-06 while version 16 was in review, so the status stayed
   in-review until version 16 was approved and merged (PR #99, `51571ce`); it became approved on 2026-10-08, and the
-  links citing SPEC-012 (SPEC-001, SPEC-003, SPEC-013, SPEC-016) moved to version 17 then.
+  links citing SPEC-012 v16 (SPEC-001, SPEC-003) moved to version 17 then; SPEC-013 and SPEC-016 cited
+  version 17 from their own drafts.
 - **The new rules' links to PRD-001 are `informed_by`**, not `satisfies`, because NFR-004 to NFR-007 name "the
   progress evaluator" and "the progress state" and the two scripts are neither. PRD-001's next real version could
   widen their wording to say "the progress tracker's scripts"; until then QR-05 to QR-07 stand on their own.
