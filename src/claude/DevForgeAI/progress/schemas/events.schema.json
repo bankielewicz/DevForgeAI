@@ -31,7 +31,8 @@
         "reply",
         "turn",
         "run-end",
-        "step"
+        "step",
+        "usage"
       ]
     }
   },
@@ -311,6 +312,53 @@
               "stopped",
               "returned"
             ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "kind": {
+            "const": "usage"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "turn",
+          "model",
+          "input",
+          "output",
+          "cacheRead",
+          "cacheWrite"
+        ],
+        "properties": {
+          "turn": {
+            "type": "string",
+            "minLength": 1,
+            "description": "version 17: the host's ID of the main-loop turn these counts are for; the evaluator counts each turn ID once (BEH-25)"
+          },
+          "model": {
+            "type": "string",
+            "minLength": 1
+          },
+          "input": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "the turn's input tokens, cache reads and writes not included"
+          },
+          "output": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "cacheRead": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "cacheWrite": {
+            "type": "integer",
+            "minimum": 0
           }
         }
       }
