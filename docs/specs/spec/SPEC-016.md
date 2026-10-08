@@ -2,10 +2,10 @@
 id: SPEC-016
 type: spec
 title: "DevForgeAI Dashboard: the planning chain, the run and the session in one pane"
-status: approved      # draft | in-review | approved | superseded | deprecated
-version: 1
+status: in-review      # draft | in-review | approved | superseded | deprecated
+version: 2
 created: 2026-10-06
-updated: 2026-10-06
+updated: 2026-10-08
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -20,8 +20,8 @@ upstream:
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 12, hash: null, note: "the dashboard is a view of the progress tracker; it shows a run's progress and changes none of the tracker's rules"}
   - {id: PRD-001, item: FR-003, relation: constrains, version: 12, hash: null, note: "decisions stay the user's: a tile starts work only on the user's answer, and nothing on the dashboard sets a disposition, status, priority or approval"}
   - {id: ADR-006, relation: constrains, version: 2, hash: null, note: "D1 (fails open; a confirmation is not a gate), D3 (the mode button), D6 (display settings in the host's own mechanism)"}
-  - {id: SPEC-013, relation: constrains, version: 24, hash: null, note: "the adapter this dashboard lives in (one hooks module per plugin), its mode switch (BEH-13), the offer to continue (BEH-31, with version 24's dashboard start), the precompact row and run in fuel terms (BEH-35, BEH-36, version 23), the usage events (BEH-40, version 24), the carve-out for the dashboard command with tracking off (BEH-01, version 24)"}
-  - {id: SPEC-012, relation: constrains, version: 17, hash: null, note: "the per-run figures in state.json (active time, steps reached, PACE's inputs), chain_state.py, history.py and the odometer ledger's format (version 17)"}
+  - {id: SPEC-013, relation: constrains, version: 25, hash: null, note: "the adapter this dashboard lives in (one hooks module per plugin), its mode switch (BEH-13), the offer to continue (BEH-31, with version 24's dashboard start), the precompact row and run in fuel terms (BEH-35, BEH-36, version 23), the usage events (BEH-40, version 24), the carve-out for the dashboard command with tracking off (BEH-01, version 24), the Bash write guard whose refusals the last hold shows (BEH-38, version 22)"}
+  - {id: SPEC-012, relation: constrains, version: 18, hash: null, note: "the per-run figures in state.json (active time, steps reached, PACE's inputs), chain_state.py, history.py and the odometer ledger's format (version 17)"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -31,12 +31,13 @@ components: ["src/claude/DevForgeAI/hooks/progress.tsx", "src/claude/DevForgeAI/
 
 # SPEC-016 — DevForgeAI Dashboard: the planning chain, the run and the session in one pane
 
-> **Status:** version 1, approved 2026-10-06, not built. The design and its reasoning are in `docs/specs/devforgeai-dashboard.md`
-> (proposal; cited below as "the design"), with Bryan's decisions quoted in its §1 and §16. The working prototype is
-> `src/tools/dashboard-probe/`. The plan is `tmp/plans/2026-10-06-dashboard.md` (local). This spec is stacked on
-> SPEC-013 versions 21 to 24 and SPEC-012 versions 16 and 17, all approved; SPEC-012 version 16 and SPEC-013
-> version 22 are built (PR #99, plugin 0.27.0), the rest not yet. The drafts review's fixes
-> (`tmp/plans/dashboard/review-specs.md`) are applied.
+> **Status:** version 2, in review (Bryan's approval of version 2 not yet given; version 1 was approved 2026-10-06), not
+> built. The design and its reasoning are in `docs/specs/devforgeai-dashboard.md` (proposal; cited below as "the
+> design"), with Bryan's decisions quoted in its §1 and §16. The working prototype is `src/tools/dashboard-probe/`. The
+> plan is `tmp/plans/2026-10-06-dashboard.md` (local). This spec is stacked on SPEC-013 versions 21 to 25 and SPEC-012
+> versions 16 to 18: SPEC-013 versions 21 to 24 and SPEC-012 versions 16 and 17 are approved, SPEC-012 version 16 and
+> SPEC-013 version 22 are built (PR #99, plugin 0.27.0), SPEC-013 version 25 and SPEC-012 version 18 are drafts in
+> review, and the rest is not built. The drafts review's fixes (`tmp/plans/dashboard/review-specs.md`) are applied.
 
 ## 1. Overview
 
@@ -52,6 +53,8 @@ imported files, and every call on `$` stays in `progress.tsx`'s top-level functi
 Everything here is a view and a launcher. The dashboard adds nothing to the model's context, refuses no tool call, and
 adds no event of its own to a run: the `usage` events in a run are the tracker's (SPEC-013 BEH-40), counts and no
 evidence. Its one write outside the pane is the session's odometer file, which is outside every run (BEH-10).
+
+**Version 2** (2026-10-08) follows the review of the merge of main into the dashboard specs (`tmp/plans/dashboard/review-merge-v22.md`) and Bryan's answers of 2026-10-08 (S1, "Add a Bash guard row (Recommended)"; S5, "Accept as proposed (Recommended)"). The guardrails panel gains a sixth row, for SPEC-013 BEH-38's Bash write guard, and its last hold also shows that guard's refusals (BEH-13, VER-09, DM-01, §4). The status notes read as current facts (SPEC-012 version 16 and SPEC-013 version 22 are approved and built, PR #99), and the links move to SPEC-013 version 25 and SPEC-012 version 18. Nothing else changes.
 
 ## 2. Constraints
 
@@ -138,7 +141,7 @@ flowchart LR
   `minPerStep`, `wheelSpin` (true or false), `odometer` (a whole number, history.py's total, or none until its first
   run);
 - `trip`: cache hit rate, dollars per hour, time to first token, session tokens, session cost; each may be none;
-- `agents`: the tree (BEH-12); `guardrails`: the mode, the five rows of BEH-13 and the last hold;
+- `agents`: the tree (BEH-12); `guardrails`: the mode, the six rows of BEH-13 (version 2) and the last hold;
 - `status`: the current skill and step, the mode, the flag count and the fuel chip's text.
 
 Values that can't be read are none, and BEH-19 says what draws for each.
@@ -237,7 +240,7 @@ fuel chip), and a controls row naming the keys of BEH-14.
 | Dials | RPM, FUEL and PACE side by side with the odometer, and the trip computer's line under them | the three dials and the odometer; the trip line | the same, with more room |
 | Character | the 14×4 sprite in the header | the 16×6 scene beside the dials | the 16×6 scene beside the dials |
 | Agents | the tree below the dials | the tree beside the dials | the tree beside the dials |
-| Guardrails | one line: the mode and the last hold | the five rows across the width | the five rows across the width |
+| Guardrails | one line: the mode and the last hold | the six rows across the width | the six rows across the width |
 
 Not in version 1: the log panel (Default, Night drive) and the telemetry panel (Race telemetry) of the wide layout,
 the start and ship markers and per-phase times under the navigation, and a done tile's steps and time. The wide
@@ -294,7 +297,7 @@ behaviors:
     rule: "The agents window (the design §7). The adapter keeps, in module memory and only while the session runs, a tree of the session's subagents: from agent.spawn (description, parent; the hook awaits next(e), since the agent's ID is in the call's result and not in its input), tool.call with an agentId (its last calls, at most 3 kept per agent), turn.complete with an agentId (its end: done, or failed when the turn ended in an error), and $.agent.list() when the pane opens (agents started before the module loaded). Each agent shows a glyph and a colour (◐ running, ✓ done, ✗ failed) and its elapsed time; a finished agent stays 30 seconds. None of this is written to a run (SPEC-013 DM-01 stays)."
   - id: BEH-13
     status: active
-    rule: "The guardrails panel and the mode button. The panel lists the write gate (SPEC-013 BEH-08), the question gate (BEH-21), the exit confirmation (BEH-28), the other-mods filter (BEH-33) and precompact at fuel (BEH-35, BEH-36), each with what it does in the session's mode (the design §8), the mode as ENFORCE or OBSERVE, and the last hold: the text of the last adapter.log line of kind refused, which the adapter keeps in module memory when it writes the line (nothing is read back from the file, so a hold written before a reload shows only once another is). The 'Switch to observe' / 'Switch to enforce' Button (key m) runs SPEC-013 BEH-13's switch, no other code; the chips redraw from the mode it sets. Guards that don't exist aren't drawn."
+    rule: "The guardrails panel and the mode button. The panel lists the write gate (SPEC-013 BEH-08), the question gate (BEH-21), the exit confirmation (BEH-28), the other-mods filter (BEH-33), precompact at fuel (BEH-35, BEH-36) and, from version 2 (Bryan, 2026-10-08: 'Add a Bash guard row (Recommended)'), the Bash write guard (SPEC-013 BEH-38), six rows, each with what it does in the session's mode (the design §8), the mode as ENFORCE or OBSERVE, and the last hold: the text of the last adapter.log line of kind refused, or of kind bash whose text starts 'refused' (SPEC-013 BEH-38 (a)), which the adapter keeps in module memory when it writes the line (nothing is read back from the file, so a hold written before a reload shows only once another is). The sixth row is named 'Bash write guard': in enforce mode it refuses a Bash command that names a document the run writes at its write gate before the command runs, and in both modes it checks the gated folders after every Bash call (SPEC-013 BEH-38 (a) and (b)); in observe mode it refuses nothing. The 'Switch to observe' / 'Switch to enforce' Button (key m) runs SPEC-013 BEH-13's switch, no other code; the chips redraw from the mode it sets. Guards that don't exist aren't drawn."
   - id: BEH-14
     status: active
     rule: "Keys (the design §9): 1 to 7 open the tiles' menus (BEH-15), t switches the look (BEH-16), m the mode (BEH-13), a pauses or resumes the animation and the repaints, q closes the pane. Each is a Button's hotkey, so it works while the pane holds the focus; a click on a Button does the same where the terminal reports clicks."
@@ -445,7 +448,7 @@ verifications:
     covers: [BEH-12]
   - id: VER-09
     status: active
-    obligation: "Kit tests of the guardrails panel and keys: the five rows with their observe and enforce text; the last hold from the text the adapter kept when it wrote a 'refused' line, with no read of adapter.log; the m Button runs BEH-13's switch (a stubbed IF-02) and the chips change; keys 1 to 7, t, m, a and q each press their Button; a pauses repaints (no blit) and dashIsAnimating follows; q closes the pane."
+    obligation: "Kit tests of the guardrails panel and keys: the six rows with their observe and enforce text, the sixth being the Bash write guard (version 2: in enforce mode it reads as refusing before the command runs and checking after every Bash call, in observe mode as checking after); the last hold from the text the adapter kept when it wrote a 'refused' line or a line of kind bash whose text starts 'refused', so a Bash refusal shows as the last hold and a kind bash line that doesn't start so (SPEC-013 ERR-23's, for example) does not, with no read of adapter.log; the m Button runs BEH-13's switch (a stubbed IF-02) and the chips change; keys 1 to 7, t, m, a and q each press their Button; a pauses repaints (no blit) and dashIsAnimating follows; q closes the pane."
     level: integration
     covers: [BEH-13, BEH-14]
   - id: VER-10
@@ -477,8 +480,10 @@ verifications:
 
 ## 10. Rollout, migration and rollback
 
-- **Ships with** SPEC-013 versions 21 to 24 and SPEC-012 versions 16 and 17, in the plugin's next free minor version
-  at merge. Approval of this spec needs those versions approved too, SPEC-013 version 22 (still a draft) included.
+- **Ships with** SPEC-013 versions 21 to 25 and SPEC-012 versions 16 to 18, in the plugin's next free minor version
+  at merge. Approval of this spec's version 2 needs those versions approved too: SPEC-013 versions 21 to 24 and SPEC-012
+  versions 16 and 17 are approved (SPEC-013 version 22 and SPEC-012 version 16 are built, PR #99), and SPEC-013 version 25
+  and SPEC-012 version 18 wait for Bryan's approval.
   Nothing to migrate: the settings are new, the odometer folder starts empty, and the scripts are new.
 - **Later versions:** the desktop app's `Svg` renderer from the same view model (Bryan: "the design should include an
   svg version for the desktop app"; terminal first), `progress.html` for VS Code's browser (Bryan: "Both"), the
@@ -491,7 +496,7 @@ verifications:
 ## 11. Implementation plan
 
 After approval, through the built-in `plugin-authoring` skill and `/plugin-dev:create-plugin`, on a branch in a
-worktree (ADR-001), after SPEC-013 versions 21 to 24 and SPEC-012 versions 16 and 17 are built or with them:
+worktree (ADR-001), after SPEC-013 versions 21 to 25 and SPEC-012 versions 16 to 18 are built or with them:
 1. Port the prototype's engine into `dashboard-core.ts` and `dashboard-art.ts` against DM-01, DM-03, DM-06, DM-07 and
    DM-05; write VER-01 and VER-12's tests first.
 2. The tests of VER-02 to VER-11 and VER-14 first, seen failing; then the hooks in `progress.tsx`, the command file and
@@ -515,6 +520,25 @@ worktree (ADR-001), after SPEC-013 versions 21 to 24 and SPEC-012 versions 16 an
 | An odometer total kept in module memory on top of history.py's | A reload would lose it and the same lines could count twice; history.py's total is the only one |
 
 ## 13. Open questions
+
+Decided by Bryan on 2026-10-08, for version 2 (the review of the merge of main into the dashboard specs,
+`tmp/plans/dashboard/review-merge-v22.md`; plan `tmp/plans/2026-10-08-dashboard-build.md`, Step 1): "Merge #101, fix first
+in build (Recommended)"; for S1, "Add a Bash guard row (Recommended)"; for S5, "Accept as proposed (Recommended)"; the
+notes of the review are recorded as open where they concern this spec.
+
+- Version 2's change approved: not yet. The frontmatter keeps version 1's `approved_by` and `approved_on`, as earlier drafts
+  of the other specs did, and the status stays in-review until Bryan approves version 2, with SPEC-013 version 25 and
+  SPEC-012 version 18.
+- Drafter's choice (version 2), for Bryan's accept or challenge: the last hold reads a kind bash line only when its text
+  starts 'refused' (SPEC-013 BEH-38 (a) writes 'refused <word>'), so a kind bash line that reports a failure (SPEC-013 ERR-23) or a
+  skipped pattern is not shown as a hold. A Bash command refused by mistake for a read (the open findings of SPEC-013
+  version 22, §13) shows in the panel as a hold like any other.
+- Open (the review's N4): IF-03 and VER-12 state as a limit that a Bash write under `docs/specs/` doesn't trigger
+  chain_state.py. Since SPEC-013 version 22 the adapter records a Bash-written gated document as a `wrote` event
+  (`docs/specs/brainstorm/BRN-*.md` and the other write patterns), so it could trigger the refresh; whether it should is
+  undecided. Also, §3 says a Write or Edit under `docs/specs/` reaches the dashboard 'through the adapter's own recording
+  of tool results (SPEC-013 BEH-04)', but BEH-04 records nothing while no run is open and SPEC-013 version 24 adds no
+  refresh call, so the no-run case (BEH-19) has no stated trigger.
 
 Decided by Bryan, 2026-10-05 and 2026-10-06: the decisions the design quotes in its §1 and §16.
 
@@ -576,3 +600,4 @@ to build it as a choice; whether it ships in a published plugin is his call at r
 | 1 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Before approval, the drafts review's fixes (tmp/plans/dashboard/review-specs.md): the odometer is one file for each session with BEH-10 as its writer and history.py's total as the display; the dashboard adds no event beyond SPEC-013 BEH-40's; the tracking-off and stopped cases agree with SPEC-013 BEH-01; the phase table (DM-06) and the layouts' content (DM-07); one log line for each failure and kind dashboard throughout; the fuel chip uses BEH-35's text and the dial follows the settings; no session.measure hook; the scripts run only with the pane open; the look's fallback key; menu N and the plugin origin as the types document them; the turn.step hook's failure (ERR-08); wheel-spin and the cache hit rate defined; the drafter's choices completed | frontmatter, §1 to §3, DM-01 to DM-07, IF-01 to IF-03, BEH-01 to BEH-19, ERR-01 to ERR-08, QR-01, QR-02, VER-01 to VER-14, §10 to §13 |
 | 1 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Bryan's answers in the approval round: 'Ignore retired docs (Recommended)' (DM-06: superseded and deprecated documents left out of Context's and Epic's counts and done rule); 'Only after a run (Recommended)' (BEH-10's ledger written only under a run's root, as drafted) | DM-06, §13 |
 | 1 | 2026-10-06 | Bryan | Approved ('Approve all four (Recommended)', with the drafters' choices shown in its preview) | status |
+| 2 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, from the review of the merge of main into the dashboard specs (`tmp/plans/dashboard/review-merge-v22.md`) and Bryan's decisions of 2026-10-08 ("Merge #101, fix first in build (Recommended)"; S1, "Add a Bash guard row (Recommended)"; S5, "Accept as proposed (Recommended)"): the guardrails panel gains a sixth row, the Bash write guard (SPEC-013 BEH-38), and its last hold reads adapter.log lines of kind refused and of kind bash whose text starts 'refused' (BEH-13, VER-09, DM-01, §4; S1); the status banner and §10 and §11 read as current facts (S5); the upstream links move to SPEC-013 version 25 and SPEC-012 version 18; §13 records the review's N4 as open; status in-review, Bryan's approval not yet given | frontmatter, status banner, §1, DM-01, §4, BEH-13, VER-09, §10, §11, §13 |

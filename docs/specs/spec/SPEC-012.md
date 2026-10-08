@@ -2,8 +2,8 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: approved       # draft | in-review | approved | superseded | deprecated
-version: 17
+status: in-review       # draft | in-review | approved | superseded | deprecated
+version: 18
 created: 2026-10-02
 updated: 2026-10-08
 owner: "Bryan"
@@ -20,10 +20,10 @@ upstream:
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
   - {id: ADR-006, relation: constrains, version: 2, hash: null, note: "each rule's class, manifest layers that only add rules, project skills' manifests as custom-workflow checks, and the tracker failing open"}
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "D5 places the context step after Architecture Definition and before epics and stories"}
-  - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "skills leave decisions to the user; the content rules check that none was written without the user's answer"}
-  - {id: PRD-001, item: FR-004, relation: informed_by, version: 11, hash: null, note: "each handoff names the next step; the state's next field reports the chain's next step"}
-  - {id: PRD-001, item: FR-011, relation: informed_by, version: 11, hash: null, note: "custom workflows declare their required checks; a project skill's manifest is one (ADR-006 D4)"}
-  - {id: PRD-001, item: FR-021, relation: informed_by, version: 11, hash: null, note: "the requirement whose core this spec builds; built on a spec branch, as no story exists"}
+  - {id: PRD-001, item: FR-003, relation: informed_by, version: 12, hash: null, note: "skills leave decisions to the user; the content rules check that none was written without the user's answer"}
+  - {id: PRD-001, item: FR-004, relation: informed_by, version: 12, hash: null, note: "each handoff names the next step; the state's next field reports the chain's next step"}
+  - {id: PRD-001, item: FR-011, relation: informed_by, version: 12, hash: null, note: "custom workflows declare their required checks; a project skill's manifest is one (ADR-006 D4)"}
+  - {id: PRD-001, item: FR-021, relation: informed_by, version: 12, hash: null, note: "the requirement whose core this spec builds; built on a spec branch, as no story exists"}
   - {id: PRD-001, item: FR-022, relation: informed_by, version: 12, hash: null, note: "the dashboard (version 17): the per-run figures, the chain listing, the history figures and the odometer ledger files it draws"}
   - {id: SPEC-001, item: VER-02, relation: informed_by, version: 17, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
   - {id: SPEC-003, relation: informed_by, version: 11, hash: null, note: "the architecture skill's checklist; ADRs are accepted one by one when the user picks at step 7; the ARCH's outcome is written only when the user confirms it at step 8"}
@@ -166,6 +166,8 @@ here: the dashboard computes it from the run's steps reached and active time (SP
 scale needs no version of this spec. The 30-minute gap that defines active time is new in this spec; until now the
 number was only the adapter's stuck-notice timer (proposed, §13). The decisions behind the figures are the
 dashboard's (Bryan, 2026-10-06: "Pace (Recommended)", "All tokens, incl. agents"; the design §16).
+
+**Version 18** (2026-10-08) follows the review of the merge of main (SPEC-012 version 16, SPEC-013 version 22) into the dashboard specs (`tmp/plans/dashboard/review-merge-v22.md`) and Bryan's answers of 2026-10-08 ("Accept as proposed (Recommended)" for S4 to S8; N5 to N7 fixed in passing). BEH-24 and DM-03 say that `steps[].reached` serves the run's figures and the dashboard only, so BEH-07's reached and SPEC-013's 'every step reached' keep their meaning (S8). DM-03's `workFiles.files` description names the carried draft and the `wrote` paths (N5), §4's file list names `sessions/<session>/current.json` (N6), and §13 reads in version order (N7). The PRD-001 links move from version 11 to 12 (S6), and §13 records the review's N8 and N13. Nothing else changes.
 
 ## 2. Constraints
 
@@ -362,7 +364,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
     "workFiles": {
       "type": "object", "required": ["files", "due"], "additionalProperties": false,
       "description": "version 15: present only when the manifest applies (matched or unverified) and names workFiles (BEH-21)",
-      "properties": {"files": {"type": "array", "items": {"type": "string"}, "uniqueItems": true, "description": "the paths of the run's Write and Edit calls that didn't fail and match a work-file pattern, each once, in the order first written"},
+      "properties": {"files": {"type": "array", "items": {"type": "string"}, "uniqueItems": true, "description": "each once, in the order first written: the skill-loaded event's draft when it matches a work-file pattern (version 16), then the paths of the run's Write and Edit calls and of its tool events with wrote (version 16, BEH-21) that didn't fail and match a work-file pattern"},
                      "due": {"type": "boolean", "description": "true when the manifest has a step proved by a script run on a written file and every such step is done: the work files' cleanup is due (SPEC-013 BEH-32)"}}
     },
     "timing": {
@@ -421,7 +423,7 @@ A `prompt` event records only that the user sent a prompt; its text is never log
                   "properties": {"seq": {"type": "integer"}, "state": {"enum": ["done", "skipped"]}, "reason": {"type": ["string", "null"]}}},
         "note": {"type": "string"},
         "reached": {"type": ["object", "null"], "additionalProperties": false, "required": ["seq", "time", "activeSeconds"],
-                    "description": "version 17: when this run first reached the step (BEH-24), or null when it never did or the step is carried",
+                    "description": "version 17: when this run first reached the step (BEH-24), or null when it never did or the step is carried; version 18: serves the run's figures and the dashboard only, BEH-07's 'reached' and SPEC-013's 'every step reached' are unchanged and don't read it",
                     "properties": {"seq": {"type": "integer"}, "time": {"type": "string", "description": "that event's time, as the event gave it"},
                                    "activeSeconds": {"type": "integer", "minimum": 0, "description": "the run's active time up to that event (BEH-23)"}}}
       }
@@ -611,7 +613,7 @@ skill). The tracker answers at three levels:
 **Operational files.** A host adapter writes a run's files under the project root's `devforgeai/` folder:
 - `devforgeai/progress/runs/<run>/events.jsonl`: the event log (DM-02), appended by the adapter;
 - `devforgeai/progress/runs/<run>/state.json`: the evaluator's output (DM-03), written through `--out`;
-- `devforgeai/progress/current.json`: a copy of the active run's state, for renderers;
+- `devforgeai/progress/sessions/<session>/current.json`: a copy of the session's open run's state, for renderers; the last run's stays after it ends. SPEC-013 moved it there in its version 3 (DM-02), since sessions sharing one checkout would overwrite one copy;
 - `devforgeai/progress/odometer/<session-id>.jsonl`: the odometer ledger (DM-04, version 17), one file for each session, one line per turn of the session, the main loop's and subagents' alike. Only that session's adapter writes it, by reading its own file and writing it whole (SPEC-016 BEH-10; `$.fs` has no append, and one writer for each file means two sessions never overwrite each other); `history.py` totals every file in the folder (BEH-28). `$.fs` reads and writes at most 4 MiB, about 20,000 turns at 200 bytes a line, so a session's file is the most one session can record (SPEC-016 ERR-06). It is outside every run, so pruning a run doesn't remove its tokens from the total; SPEC-013 version 24 makes `prune.py` keep the folder and its files.
 
 `devforgeai/progress/` is gitignored by default (Bryan, 2026-10-02): its files are per session working data. The adapter writes the `.gitignore` entry (its spec). `devforgeai/manifests/` stays tracked.
@@ -704,7 +706,7 @@ behaviors:
     rule: "Active time (version 17; Bryan, 2026-10-06: 'Pace (Recommended)'; the 30-minute gap is proposed, §13). The evaluator reads the time of each evaluated event, those after a run-end left out (BEH-12), and an event's time reads when it is an ISO 8601 date-time with a Z or a UTC offset, to the millisecond (ERR-12 when it doesn't). The run's timed events are the evaluated events whose time reads, in seq order, of every kind: any event shows the session was at work. The gap between two consecutive timed events is the later time less the earlier, in milliseconds; a gap below 0, when the log's times run backward, counts as 0. A gap of more than 1,800,000 ms (30 minutes) is an idle gap and is left out; every other gap, one of exactly 30 minutes included, is active. timing.activeSeconds is the sum of the active gaps in whole seconds, rounded down, and 0 with fewer than two timed events; timing.started and timing.lastEvent are the first and last timed event's time as the event gave it, null when none reads. Every time comes from the log and none from a clock, so BEH-01 and QR-02 hold: the same log gives the same figures whenever it is evaluated."
   - id: BEH-24
     status: active
-    rule: "Steps reached, and when (version 17). A step is first reached in this run at the lowest seq, among the evaluated events, of: its first evidence of a type other than carried or waiver (BEH-06; BEH-19 says a waiver doesn't make a step reached, and BEH-20's carried evidence is the earlier run's); its first claim of any kind (BEH-05: a tick, a skipped line or a step event with state done); and its first step event of either state, so a step marked started counts when it starts although BEH-07's reached doesn't include a started mark. A claim or step event for a step the checklist doesn't have counts for nothing (ERR-06). The state's steps[].reached then holds that event's seq, its time as the event gave it and the run's active time up to it: BEH-23's sum over the gaps up to that event, taken at the last timed event at or before it when its own time doesn't read; it is null when the step is never reached. A step with carried evidence (BEH-20) has reached null whatever else happens to it in this run, since the earlier run reached it. Several steps reached at one event each hold that event and each counts once. timing.stepsReached is the number of steps whose reached isn't null, and timing.stepsCarried the number with carried evidence. In a run whose manifest is stale or none (BEH-04) the figures come from claims and step events alone. The evaluator computes no rate: PACE, the steps reached per hour of active time and its scale, is the dashboard's (SPEC-016 BEH-08), from the state's stepsReached and activeSeconds; and none of these figures changes any step's state, flag or gate."
+    rule: "Steps reached, and when (version 17). A step is first reached in this run at the lowest seq, among the evaluated events, of: its first evidence of a type other than carried or waiver (BEH-06; BEH-19 says a waiver doesn't make a step reached, and BEH-20's carried evidence is the earlier run's); its first claim of any kind (BEH-05: a tick, a skipped line or a step event with state done); and its first step event of either state, so a step marked started counts when it starts although BEH-07's reached doesn't include a started mark. A claim or step event for a step the checklist doesn't have counts for nothing (ERR-06). The state's steps[].reached then holds that event's seq, its time as the event gave it and the run's active time up to it: BEH-23's sum over the gaps up to that event, taken at the last timed event at or before it when its own time doesn't read; it is null when the step is never reached. A step with carried evidence (BEH-20) has reached null whatever else happens to it in this run, since the earlier run reached it. Several steps reached at one event each hold that event and each counts once. timing.stepsReached is the number of steps whose reached isn't null, and timing.stepsCarried the number with carried evidence. In a run whose manifest is stale or none (BEH-04) the figures come from claims and step events alone. The evaluator computes no rate: PACE, the steps reached per hour of active time and its scale, is the dashboard's (SPEC-016 BEH-08), from the state's stepsReached and activeSeconds; and none of these figures changes any step's state, flag or gate. (Version 18; Bryan, 2026-10-08: 'Accept as proposed (Recommended)') steps[].reached serves the run's figures and the dashboard only: BEH-07's 'reached' and SPEC-013's 'every step reached' are unchanged and don't read this field."
   - id: BEH-25
     status: active
     rule: "Usage (version 17; Bryan, 2026-10-06: 'All tokens, incl. agents'). A usage event (DM-02) is the adapter's record of one main-loop turn's token counts (SPEC-013 version 24); the adapter writes none for a subagent's turn, whose counts go to the odometer ledger only (BEH-28). It is no evidence, claim, answer or gate: it starts or ends no answer window and moves no step, current, flag, gate or next, so a state's steps, flags, gate and next are the same with the usage events removed. It is an event: it counts in counts.events and moves through, and a usage event after the run-end is ignored and counted in counts.afterEnd (BEH-12), as every event after it is. The state's usage totals every usage event evaluated: input, output, cacheRead and cacheWrite are the sums of the events' counts; turns counts the distinct turn IDs; models lists the distinct model names the counted events named, sorted by byte order. A usage event whose turn ID an earlier evaluated usage event named is left out of every total and counted in usage.duplicates, so an adapter that writes a turn twice counts it once. A run with no usage event has all counts 0, models [] and duplicates 0. The evaluator prices nothing and adds no dollar figure: a price table isn't a function of the log."
@@ -814,44 +816,44 @@ quality_responses:
     response: "evaluate.py imports only the Python standard library and runs under python3 -S. The JSON Schemas are for tests and other tools; the evaluator checks the keys it needs by itself (ERR-04)."
     measured_by: "VER-18: the test cases pass when evaluate.py runs under python3 -S."
     upstream:
-      - {id: PRD-001, item: NFR-004, relation: satisfies, version: 11, hash: null}
+      - {id: PRD-001, item: NFR-004, relation: satisfies, version: 12, hash: null}
   - id: QR-02
     status: active
     response: "The same inputs give byte-identical output: sorted keys, no time of its own, no absolute paths, and no order taken from a set or a folder listing."
     measured_by: "VER-18: two runs over every case produce identical bytes."
     upstream:
-      - {id: PRD-001, item: NFR-005, relation: satisfies, version: 11, hash: null}
+      - {id: PRD-001, item: NFR-005, relation: satisfies, version: 12, hash: null}
   - id: QR-03
     status: active
     response: "An adapter calls the evaluator on gates and on events that match an evidence rule, so a call must be quick: one pass over the events, with patterns compiled once."
     measured_by: "VER-19: a 500-event log evaluates in under 1 second in the test; the time measured on the owner's machine is recorded in §9, against a target of 200 ms."
     upstream:
-      - {id: PRD-001, item: NFR-006, relation: satisfies, version: 11, hash: null}
+      - {id: PRD-001, item: NFR-006, relation: satisfies, version: 12, hash: null}
   - id: QR-04
     status: active
     response: "The evaluator reads only the files its command names and, with --root, files under the root that write events name. It writes only --out, through a temporary file in the same folder. It opens no network connection and runs no other program."
     measured_by: "Code review at build time, recorded in §9; VER-15 checks that nothing but --out is written."
     upstream:
-      - {id: PRD-001, item: NFR-007, relation: satisfies, version: 11, hash: null}
+      - {id: PRD-001, item: NFR-007, relation: satisfies, version: 12, hash: null}
   - id: QR-05
     status: active
     response: "chain_state.py and history.py import only the Python standard library and run under python3 -S. The same files under --root always give byte-identical output: sorted keys, no clock, no absolute path, and no order taken from a set, a hash or a folder listing."
     measured_by: "VER-53: both scripts run under python3 -S, an import scan finds only standard-library modules, and two runs under different PYTHONHASHSEED values over every fixture give identical bytes."
     upstream:
-      - {id: PRD-001, item: NFR-004, relation: informed_by, version: 11, hash: null, note: "the NFR names the evaluator; version 17's scripts follow it by this item"}
-      - {id: PRD-001, item: NFR-005, relation: informed_by, version: 11, hash: null, note: "the NFR names the progress state; version 17's scripts follow it by this item"}
+      - {id: PRD-001, item: NFR-004, relation: informed_by, version: 12, hash: null, note: "the NFR names the evaluator; version 17's scripts follow it by this item"}
+      - {id: PRD-001, item: NFR-005, relation: informed_by, version: 12, hash: null, note: "the NFR names the progress state; version 17's scripts follow it by this item"}
   - id: QR-06
     status: active
     response: "chain_state.py reads only Markdown files under DIR/docs/specs/, and each only up to its frontmatter's closing line. history.py reads only DIR/devforgeai/progress/runs/<run>/state.json files and the .jsonl files in DIR/devforgeai/progress/odometer/. Neither follows a symbolic link, writes any file, opens a network connection or runs another program; both print to stdout and report an error on stderr."
     measured_by: "Code review at build time, recorded in §9; VER-53 runs both over a tree made read-only and finds every file's content and the folder listings unchanged."
     upstream:
-      - {id: PRD-001, item: NFR-007, relation: informed_by, version: 11, hash: null, note: "the NFR names the evaluator; this item is its counterpart for the two scripts of version 17 (SPEC-013 version 24 relies on it)"}
+      - {id: PRD-001, item: NFR-007, relation: informed_by, version: 12, hash: null, note: "the NFR names the evaluator; this item is its counterpart for the two scripts of version 17 (SPEC-013 version 24 relies on it)"}
   - id: QR-07
     status: active
     response: "The adapter runs each script with a 5-second limit (SPEC-016 IF-03), so each is quick: chain_state.py reads a document's frontmatter only, and history.py reads each file once."
     measured_by: "VER-54: a generated project of 500 documents, 500 run folders and a ledger of 20 files and 20,000 lines in all runs each script in under 1 second in the test; the time measured on the owner's machine is recorded in §9."
     upstream:
-      - {id: PRD-001, item: NFR-006, relation: informed_by, version: 11, hash: null, note: "the NFR names the evaluator's 200 ms; the scripts' target is the adapter's limit"}
+      - {id: PRD-001, item: NFR-006, relation: informed_by, version: 12, hash: null, note: "the NFR names the evaluator's 200 ms; the scripts' target is the adapter's limit"}
 ```
 
 ## 9. Verification
@@ -1571,6 +1573,34 @@ The specs that follow, in the design proposal's order: the Claude Code adapter (
 
 ## 13. Open questions
 
+Decided by Bryan on 2026-10-08, for version 18 (the review of the merge of main into the dashboard specs,
+`tmp/plans/dashboard/review-merge-v22.md`; plan `tmp/plans/2026-10-08-dashboard-build.md`, Step 1): "Merge #101, fix first
+in build (Recommended)"; for S2 and S4 to S8, "Accept as proposed (Recommended)"; N5 to N7 fixed in passing, the other
+notes recorded as open. SPEC-013 version 25 and SPEC-016 version 2 are drafted with this version.
+
+- Version 18's change approved: not yet. The frontmatter keeps version 17's `approved_by` and `approved_on`, as earlier
+  drafts did, and the status stays in-review until Bryan approves version 18, with SPEC-013 version 25 and SPEC-016 version
+  2. The upstream links that cite SPEC-012 (SPEC-001, SPEC-003, SPEC-013) and CLAUDE.md move then; SPEC-016 version 2
+  already cites version 18.
+- Drafter's choice (version 18), for Bryan's accept or challenge: the one sentence about `steps[].reached` is in BEH-24
+  and in DM-03's description, not a renamed field (the review's alternative was `firstSeen`), so the built schema and the
+  state files keep their name. BEH-07's 'reached' (evidence or a claim, whatever the state) and SPEC-013's 'every step
+  reached' (BEH-26, BEH-30 (c), BEH-31, BEH-38) read the steps' evidence and claims, not this field; a builder who read
+  `steps.every(s => s.reached !== null)` for them would get a window that never closes in a continued run, whose carried
+  steps have `reached` null.
+- Drafter's choice (version 18): the PRD-001 links move from version 11 to 12 here and in SPEC-013, since nothing they
+  cite changed and PRD-001 §12 moves links at each document's next real bump, which this is for SPEC-012 (version 17) and
+  SPEC-013 (version 24) already; the review (S6) found them left at 11 in the two bumps.
+- Note (the review's N13), wording only: SPEC-013 BEH-38's window for a live run (an events.jsonl modified in the last 30
+  minutes) and BEH-23's gap of 30 minutes that defines active time are separate constants, with no shared name. §1 and
+  the version 17 notes below say the 30-minute gap 'is new in this spec' and that before it, 30 minutes was only the
+  adapter's `IDLE_MS`; SPEC-013 version 22's BEH-38 now uses 30 minutes too, for an unrelated test. Whether the two
+  constants should share a name is undecided.
+- Open (the review's N8): BEH-27's medians are over the run folders that survive pruning (`retentionDays`, 30 days by
+  default with a floor of 7; SPEC-013 BEH-19), while the odometer deliberately outlives pruning (BEH-28). A skill run fewer
+  than two times in that window shows 'ETA -'. The specs don't say that the ETA's window is the retention period, and
+  whether it should be is undecided.
+
 Decided by Bryan on 2026-10-06, for version 17 (the dashboard, SPEC-016; the design `docs/specs/devforgeai-dashboard.md`
 §16), already recorded there: "Pace (Recommended)" for the third dial, whose inputs this version gives; "All tokens,
 incl. agents" for the odometer, which the ledger and `usage` events carry; "Accept 120 / 3 min" for wheel-spin, the
@@ -1627,6 +1657,8 @@ Drafter's choices in version 17, for Bryan to accept or challenge:
   compact it into daily totals, losing the duplicate check for old turns, is SPEC-013 version 24's and Bryan's call.
   Also open: PACE's scale and wheel-spin's numbers are still to be checked against the recorded runs
   (`devforgeai/progress/runs/`), now computable from the states' `timing` once the evaluator is built.
+
+Version 16, recorded at its end-of-workflow summary (PR 3 of "Save the work too"):
 
 - Accepted (Bryan, 2026-10-06, end-of-workflow summary of PR 3, "Accept all (Recommended)"): version 16's builders' readings and VER-46's gate.reason departure
   (§9's Build (v16) row; tmp/plans/save-work/build-evaluator-v16.md).
@@ -1878,3 +1910,4 @@ Still open, or notes:
 | 17 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Before approval, the drafts review's fixes (tmp/plans/dashboard/review-specs.md): the odometer ledger is one file for each session, `odometer/<session-id>.jsonl`, written whole by its session's adapter and totalled by `history.py` over the folder, with SPEC-016 BEH-10 as its writer (DM-04, §4, IF-04, BEH-28, ERR-16, QR-06, QR-07, VER-52, VER-54); the usage field names mapped to the host's; §10, §12 and §13 follow | DM-04, §4, IF-04, BEH-28, ERR-16, QR-06, QR-07, VER-52, VER-54, §10, §12, §13 |
 | 17 | 2026-10-06 | Bryan | Approved version 17's change ('Approve all four (Recommended)', with the drafters' choices shown in its preview). The document's status stays in-review until version 16, which it is stacked on, is approved; the links that cite SPEC-012 move then | Change Log |
 | 17 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Status in-review to approved, as the row above set out: version 16 was approved (2026-10-06) and merged in PR #99 (`51571ce`). Merging main brought version 16's final text (BEH-22 with 'Own files only', §13's accepted readings) under this version's additions, which are unchanged; the links citing SPEC-012 (SPEC-001, SPEC-003) moved to version 17 | status |
+| 18 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, from the review of the merge of main into the dashboard specs (`tmp/plans/dashboard/review-merge-v22.md`) and Bryan's decisions of 2026-10-08 ("Merge #101, fix first in build (Recommended)"; S2 and S4 to S8, "Accept as proposed (Recommended)"; N5 to N7 fixed in passing): `steps[].reached` serves the run's figures and the dashboard only, and BEH-07's reached and SPEC-013's 'every step reached' are unchanged (BEH-24, DM-03; S8); DM-03's `workFiles.files` description names the carried draft and the `wrote` paths (N5); §4's file list names sessions/<session>/current.json (N6); §13 reads in version order (N7) and records N8 (open) and N13; the PRD-001 links move from version 11 to 12 (S6); SPEC-013 version 25 and SPEC-016 version 2 are drafted with it; status in-review, Bryan's approval not yet given | frontmatter, §1, §4, BEH-24, DM-03, §13 |
