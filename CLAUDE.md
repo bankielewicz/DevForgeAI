@@ -9,7 +9,7 @@ work.
 
 ## What this workspace is
 
-DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.26.0 in
+DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.27.0 in
 `src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
 Brainstorm → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
 Architecture and Epic are built; `context` writes the project context documents between Architecture
@@ -20,7 +20,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 
 | Skill | Record (provenance) | Spec | Evals on the current version | Merged |
 |---|---|---|---|---|
-| `brainstorm` | SKL-001 v8, approved | SPEC-001 v16, approved (v15 built) | 1 run, 9 of 9; 3-run qualification waived by Bryan | PR #83 (0.21.0) |
+| `brainstorm` | SKL-001 v10, in-review | SPEC-001 v17, approved | v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #99 (0.27.0) |
 | `prd` | SKL-002 v5, approved | SPEC-002 v5, approved | 3 runs, 35 of 35 at ≥ 0.8 | PR #57 (0.11.0) |
 | `architecture` | SKL-003 v9, approved | SPEC-003 v11, approved | 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #83 (0.21.0) |
 | `epic` | SKL-004 v4, approved | SPEC-004 v4, approved | 3 runs, 25 of 25 at ≥ 0.8 | PR #62 (0.12.1) |
@@ -37,8 +37,8 @@ Change Log holds the history. Read those, not this file, for any number or date.
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
 - `spec-lookup` also ships a plugin agent, `agents/spec-lookup.md` (`devforgeai:spec-lookup`), which
   runs the lookup script for another skill's workflow.
-- The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v15, the evaluator; v15, work files and their cleanup, approved 2026-10-06, not built; v14, carried steps for a run that continues an earlier one, merged in PR #91 (`f128047`), deployed 0.25.0; v13, the run-end `returned`, merged in PR #89 (`9fdda66`), deployed 0.24.0; v12, the run-end `stopped`, merged in PR #85 (`4daa7c4`), deployed 0.22.0)
-  and `hooks/progress.tsx` (SPEC-013 v21, the Claude Code adapter; v21, other mods' tool calls unrecorded, `/progress`, and a warning at 70% of the context window that `/devforgeai:precompact` runs at 80%, approved 2026-10-06, not built; v20, deleting a run's work files through prune.py, approved 2026-10-06, not built; v18 and v19, untracked skills (a plugin skill whose
+- The progress tracker is part of the plugin, not a skill: `progress/` (SPEC-012 v16, the evaluator; v16, question forms, Bash writes and the carried draft, and v15, work files and their cleanup, merged in PR #99 (`51571ce`), deployed 0.27.0; v14, carried steps for a run that continues an earlier one, merged in PR #91 (`f128047`), deployed 0.25.0; v13, the run-end `returned`, merged in PR #89 (`9fdda66`), deployed 0.24.0; v12, the run-end `stopped`, merged in PR #85 (`4daa7c4`), deployed 0.22.0)
+  and `hooks/progress.tsx` (SPEC-013 v22, the Claude Code adapter; v22, forms recorded, Bash writes refused and checked, the line on continuing states the draft, merged in PR #99 (`51571ce`), deployed 0.27.0, built before v21; v21, other mods' tool calls unrecorded, `/progress`, and a warning at 70% of the context window that `/devforgeai:precompact` runs at 80%, approved 2026-10-06, not built (its BEH-33 origin check is built for Bash only, with v22); v20, deleting a run's work files through prune.py, merged in PR #99 (`51571ce`), deployed 0.27.0; v18 and v19, untracked skills (a plugin skill whose
   SKILL.md metadata says `devforgeai-tracked: "false"`, precompact the first: its load and its turn's tool calls and replies
   are recorded in no run), merged in PR #93 (`909a252`), deployed 0.26.0; v16 and v17, the offer to continue an earlier unfinished run, merged in PR #91 (`f128047`), deployed 0.25.0; v14 and v15, nested runs paused and resumed,
   merged in PR #89 (`9fdda66`), deployed 0.24.0; v13, the trail of return points for skills Claude loads mid-run,
@@ -47,7 +47,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
   merged in PR #83 (`ab8301c`), deployed 0.21.0). It records each tracked skill run
   (brainstorm and architecture have manifests) and shows its checklist steps in the status line and
   a band above the prompt. Its detail is in `.claude/rules/progress.md`.
-- **The dashboard** (PRD-001 v12 FR-022; SPEC-016 v1, approved 2026-10-06, not built; design `docs/specs/devforgeai-dashboard.md`; prototype `src/tools/dashboard-probe/`) is a pane of the tracker's mod, `/devforgeai:dashboard`. It needs SPEC-012 v17 and SPEC-013 v24 (their changes approved 2026-10-06, stacked on the save-the-work drafts SPEC-012 v16 and SPEC-013 v22, and on SPEC-013 v23's fuel wording), none built.
+- **The dashboard** (PRD-001 v12 FR-022; SPEC-016 v1, approved 2026-10-06, not built; design `docs/specs/devforgeai-dashboard.md`; prototype `src/tools/dashboard-probe/`) is a pane of the tracker's mod, `/devforgeai:dashboard`. It needs SPEC-012 v17 and SPEC-013 v23 (the precompact row counted by fuel left) and v24, approved 2026-10-06 (status approved 2026-10-08, after SPEC-012 v16 and SPEC-013 v22), not built.
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels.
 - ADR-001 to ADR-006 in `docs/specs/adr/` are accepted. PRD-001 (DevForgeAI itself) and PRD-002

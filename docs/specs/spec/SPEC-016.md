@@ -31,10 +31,11 @@ components: ["src/claude/DevForgeAI/hooks/progress.tsx", "src/claude/DevForgeAI/
 
 # SPEC-016 — DevForgeAI Dashboard: the planning chain, the run and the session in one pane
 
-> **Status:** version 1, in review. The design and its reasoning are in `docs/specs/devforgeai-dashboard.md`
+> **Status:** version 1, approved 2026-10-06, not built. The design and its reasoning are in `docs/specs/devforgeai-dashboard.md`
 > (proposal; cited below as "the design"), with Bryan's decisions quoted in its §1 and §16. The working prototype is
 > `src/tools/dashboard-probe/`. The plan is `tmp/plans/2026-10-06-dashboard.md` (local). This spec is stacked on
-> SPEC-013 versions 21 to 24 and SPEC-012 versions 16 and 17, none of them built yet. The drafts review's fixes
+> SPEC-013 versions 21 to 24 and SPEC-012 versions 16 and 17, all approved; SPEC-012 version 16 and SPEC-013
+> version 22 are built (PR #99, plugin 0.27.0), the rest not yet. The drafts review's fixes
 > (`tmp/plans/dashboard/review-specs.md`) are applied.
 
 ## 1. Overview

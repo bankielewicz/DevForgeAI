@@ -1,4 +1,4 @@
-// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v19).
+// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v22).
 //
 // It records each run of a tracked skill as SPEC-012's event log, runs SPEC-012's evaluator on a timer, and shows
 // the run in the status line, a two-row band above the prompt and toasts. In enforce mode it refuses the write
@@ -7,23 +7,28 @@
 // A tracked skill Claude loads mid-run pauses the open run on a trail, which unwinds when Claude goes back (BEH-29,
 // BEH-30). A plugin skill whose SKILL.md metadata says devforgeai-tracked "false" is untracked: its load changes nothing
 // and the turn it loads in records no tool events and no replies (BEH-02, versions 18 and 19). It fails open:
-// when it can't run, the work goes on and the user is told (ADR-006 D1). Old run and session folders are pruned
+// when it can't run, the work goes on and the user is told (ADR-006 D1). Version 22: an answer event records the form Claude
+// asked (BEH-37); a Bash command naming a document the run writes at its write gate is refused in enforce mode, and the
+// documents a Bash call wrote are recorded after it (BEH-38); the line on continuing states the draft, the ask and the forms
+// (BEH-39). Old run and session folders are pruned
 // by progress/prune.py, which the adapter starts once per session and root (BEH-19).
 //
 // Every use of `$` stays in top-level functions of this file (claude plugin validate's rule); progress-core.ts
 // holds the pure helpers.
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
-import type { ProgressMode, ProgressModeSource, ProgressPaused, ProgressReturned, ProgressRun, ProgressSummary } from '../types'
+import type { ProgressMode, ProgressModeSource, ProgressPaused, ProgressReturned, ProgressRun, ProgressSummary, ProgressWroteSeen } from '../types'
 import {
   adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
   hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, isUntrackedSkill, isWaiverQuestion, keptContent, markedStep, newFlagToasts,
   questionRefusal, questionTag, refusalCause, refusalText, replyText, reportContext, retentionOf, reviewItems, reviewQuestion,
   runId, runName, skillName, statusText, stepLabel, waiverAnswer, returnLine, pausedWith, keptTrail, endReason, hasRoom, trailNote, TRAIL_NOTE_START, stopsRun,
   exitQuestion, keptText, nestedExitQuestion, nestedKeptText, isDismissal, CONFIRMED, resumePlan, resumeQuestion, resumeLine,
-  removeArgv, resumesOf, workFilePaths, workFilesDue, workFilesProblem, stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
+  removeArgv, resumesOf, workFilePaths, workFilesDue, workFilesProblem, formOf, gatedOf, outsideWord, outsideRefusal, outsideMessage,
+  folderOf, folderOfFile, changedFiles, signature, logNames, windowClosed, wroteText, withContext, ruleMatches, pathMatches,
+  OUTSIDE_WRITE_TYPE, OUTSIDE_ADVICE, WROTE_CONTEXT_ROUTE, stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
 } from './progress-core'
-import type { Fields, ProgressState, Refused, ReviewItem, ToolOutcome } from './progress-core'
+import type { Fields, Gated, Listed, ProgressState, Refused, ReviewItem, ToolOutcome } from './progress-core'
 
 type E = EngineInterface
 
@@ -46,6 +51,8 @@ const REVIEWED = atom({ plugin: 'devforgeai', key: 'reviewed' } as const, null a
 const TRAIL = atom({ plugin: 'devforgeai', key: 'trail' } as const, [] as ProgressPaused[])
 const RETURNED = atom({ plugin: 'devforgeai', key: 'returned' } as const, [] as ProgressReturned[])
 const CLEANED = atom({ plugin: 'devforgeai', key: 'cleaned' } as const, [] as string[])
+const WROTE_SEEN = atom({ plugin: 'devforgeai', key: 'wroteSeen' } as const, {} as ProgressWroteSeen)
+const CLOSED = atom({ plugin: 'devforgeai', key: 'closedFor' } as const, null as string | null)
 
 // The open run's values, as the module holds them (version 14): every hook reads and writes these, never a $.state
 // snapshot, since each dispatch's $.state reads one moment of its own (a hook that awaits across another's write would
@@ -57,13 +64,18 @@ type Live = {
   returned: ProgressReturned[]
   /** The runs whose work files' cleanup was started (BEH-32), newest last, the last 50. */
   cleaned: string[]
+  /** For each run, the documents a Bash call wrote that were recorded, by path: their size and mtimeMs as listed (BEH-38 (b);
+   *  version 22), so an unchanged recorded file isn't recorded twice. The last 20 runs. */
+  wroteSeen: ProgressWroteSeen
+  /** The run whose last evaluation closed BEH-38's window (every step reached, ended, or its validator's step done), or null. */
+  closedFor: string | null
 }
 let live: Live | null = null
 let mirrorChain: Promise<unknown> = Promise.resolve()
 
 function emptyLive(): Live {
   return { run: null, summary: null, lastEventAt: 0, marked: false, shown: [], contextSent: [], tasks: {}, todos: {},
-    adhered: null, refusals: {}, refused: [], reviewed: null, trail: [], returned: [], cleaned: [] }
+    adhered: null, refusals: {}, refused: [], reviewed: null, trail: [], returned: [], cleaned: [], wroteSeen: {}, closedFor: null }
 }
 
 /** The module's values, read once from $.state after a load or a reload (BEH-17). */
@@ -78,7 +90,7 @@ async function hydrate($: E): Promise<Live> {
     // An entry without its run, version 13's shape, is dropped (BEH-30); the mirror catches up at the next change.
     // A reload between the mirror's writes of a push can leave the open run on the trail too: it is dropped.
     trail: keptTrail(await read($, TRAIL)).filter(t => t.run!.id !== run?.id), returned: await read($, RETURNED),
-    cleaned: await read($, CLEANED),
+    cleaned: await read($, CLEANED), wroteSeen: await read($, WROTE_SEEN), closedFor: await read($, CLOSED),
   }
   if (live === null) live = got
   return live
@@ -142,6 +154,8 @@ async function mirror($: E, key: keyof Live): Promise<void> {
     case 'trail': await $.state.set({ plugin: 'devforgeai', key: 'trail' } as const, l.trail); break
     case 'returned': await $.state.set({ plugin: 'devforgeai', key: 'returned' } as const, l.returned); break
     case 'cleaned': await $.state.set({ plugin: 'devforgeai', key: 'cleaned' } as const, l.cleaned); break
+    case 'wroteSeen': await $.state.set({ plugin: 'devforgeai', key: 'wroteSeen' } as const, l.wroteSeen); break
+    case 'closedFor': await $.state.set({ plugin: 'devforgeai', key: 'closedFor' } as const, l.closedFor); break
   }
 }
 
@@ -185,6 +199,11 @@ let modeRoot: string | null = null
 let pluginSkills: string[] | null = null
 let lastStatus: string | undefined
 let pendingReport: { seq: number; text: string; run: string } | null = null
+/** BEH-38 (b)'s enforce-mode texts waiting for the user's next prompt: the fallback of the P14 switch (WROTE_CONTEXT_ROUTE),
+ *  and the route for a call whose answer is a deny. A separate slot from the report's, so neither clobbers the other. */
+let pendingWrote: { run: string; text: string }[] = []
+/** A run's manifests' gated rules, read once at its first Bash call (BEH-38), by run ID; the last 20. */
+const gatedCache = new Map<string, Gated>()
 // The open run's event lines: in the module and events.jsonl, since a $.state value holds at most 4,194,304
 // characters (see types/index.d.ts); read back from the file after a reload.
 let held: { id: string; lines: string[] } | null = null
@@ -424,6 +443,7 @@ function onSwitch(): void {
   tenure += 1
   worked = false
   pendingReport = null
+  pendingWrote = []
 }
 
 /** Append one event to the open run (BEH-04); `mark` asks the timer to evaluate (BEH-06). Events are recorded one
@@ -722,6 +742,10 @@ async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; te
   if (l.run?.id === run.id) {
     pendingReport = report !== null && !l.contextSent.includes(report.seq) && got.state.ended === null ? { ...report, run: run.id } : null
   }
+  // BEH-38's window, from the last evaluated state (version 22): closed once every step is reached, the run has ended, or a
+  // step with a script rule of target written is done; open again if a later evaluation says otherwise.
+  const closed = windowClosed(got.state, (await gatedFor($, run)).scriptSteps)
+  await putFor($, run.id, l => (closed === (l.closedFor === run.id) ? {} : { closedFor: closed ? run.id : null }))
   if (cleanup) await startCleanup($, run, got.state)
   await refreshStatus($)
 }
@@ -976,21 +1000,26 @@ async function noteRefusal($: E, state: ProgressState, seq: number, run: Progres
     if (cause === null) return
     // Every refusal is kept for the run's review: a refused question leaves no event (BEH-25, BEH-26). Kept in the run
     // the check judged, while it is still the open run (version 14).
-    const gate = state.gate.kind ?? 'write'
-    let count = 0
-    const kept = await putFor($, run.id, l => {
-      count = (l.refusals[cause.key] ?? 0) + 1
-      return { refused: [...l.refused, { gate, seq, step: cause.step, type: cause.type, message: cause.message }],
-        refusals: { ...l.refusals, [cause.key]: count } }
-    })
-    if (!kept || count !== 2) return
-    const text = stuckText(run.skill, cause.step, cause.message, stuckAdvice(cause.type, cause.userOwned))
-    await notify($, text)
-    await adapterLog($, 'stuck', text)
+    await countRefusal($, run, state.gate.kind ?? 'write', seq, cause.key, cause.step, cause.type, cause.message,
+      stuckAdvice(cause.type, cause.userOwned))
   } catch (err) {
     // The notice is the user's; failing to give it never lets a refused call through (review N1).
     await recover($, 'tool.call', err)
   }
+}
+
+/** Count one refusal by its cause, keep it for the review, and tell the user once when the cause reaches 2 (BEH-25, BEH-26). */
+async function countRefusal($: E, run: ProgressRun, gate: string, seq: number, key: string, step: number, type: string,
+  text: string, advice: string): Promise<void> {
+  let count = 0
+  const kept = await putFor($, run.id, l => {
+    count = (l.refusals[key] ?? 0) + 1
+    return { refused: [...l.refused, { gate, seq, step, type, message: text }], refusals: { ...l.refusals, [key]: count } }
+  })
+  if (!kept || count !== 2) return
+  const notice = stuckText(run.skill, step, text, advice)
+  await notify($, notice)
+  await adapterLog($, 'stuck', notice)
 }
 
 /** The deliberate stop (BEH-27, version 12): an answer of 'Write nothing' to one question tagged with a step the latest
@@ -1196,6 +1225,14 @@ async function resumeOffer($: E, r: string, name: string): Promise<{ extra: Fiel
   }
   const plan = resumePlan(latest, got.state, lines, await writeGateOf($, r, name), await $.clock.now())
   if (plan === null) return null
+  // BEH-39's <draft>: the work file the state names, while it still exists (a rejection counts as missing).
+  if (plan.draftCandidate !== null) {
+    try {
+      if (await $.fs.exists(`${r}/${plan.draftCandidate}`)) plan.draft = plan.draftCandidate
+    } catch {
+      plan.draft = null
+    }
+  }
   await adapterLog($, 'resume', `offered ${latest} at step ${plan.step}`)
   let answer: string
   try {
@@ -1210,7 +1247,8 @@ async function resumeOffer($: E, r: string, name: string): Promise<{ extra: Fiel
     return null
   }
   await adapterLog($, 'resume', `continued ${latest} at step ${plan.step}, carried ${plan.carried.join(', ')}`)
-  return { extra: { resumes: latest, carried: plan.carried, answered: plan.answered }, line: resumeLine(name, plan) }
+  return { extra: { resumes: latest, carried: plan.carried, answered: plan.answered, ...(plan.draft === null ? {} : { draft: plan.draft }) },
+    line: resumeLine(name, plan) }
 }
 
 /** The compaction's last message names the trail while it isn't empty and a run is open (BEH-29); an earlier one goes. */
@@ -1334,6 +1372,184 @@ async function askReview($: E, run: ProgressRun, items: ReviewItem[], ended?: 'r
     await adapterLog($, 'review', `${whose}${i + 1}/${items.length} ${answer}: ${item.step} ${item.type}${why}`)
   }
   await notify($, `${run.skill}: your review is in devforgeai/progress/runs/${run.id}/review.jsonl`)
+}
+
+// ---- Bash writes (BEH-38, version 22) ----
+
+/** The gated rules of a run's skill, from its manifests in the evaluator's layer order (plugin, organization, project), read
+ *  once per run and kept: the union of the layers' write rules, script rules and work-file patterns. A layer that can't be
+ *  read adds nothing (the evaluator reports it on its own, ERR-09). A write pattern with a wildcard before its last / is
+ *  skipped with one adapter.log line of kind bash when first read (BEH-38 (b)). */
+async function gatedFor($: E, run: ProgressRun): Promise<Gated> {
+  const kept = gatedCache.get(run.id)
+  if (kept !== undefined) return kept
+  const r = rootOf(run)
+  const layers: unknown[] = []
+  for (const path of [`${$.plugin.root}/progress/manifests/${run.skill}.json`, `${r}/devforgeai/manifests/organization/${run.skill}.json`,
+    `${r}/devforgeai/manifests/${run.skill}.json`]) {
+    try {
+      if (await $.fs.exists(path)) layers.push(JSON.parse(await $.fs.read(path)))
+    } catch {
+      // an unreadable layer adds no rule
+    }
+  }
+  const gated = gatedOf(layers)
+  gatedCache.set(run.id, gated)
+  for (const id of [...gatedCache.keys()].slice(0, -20)) gatedCache.delete(id)
+  for (const w of gated.writes) {
+    if (folderOf(w.pattern) === null) await adapterLog($, 'bash', `${w.pattern}: a wildcard before its last /, not listed`, run.id)
+  }
+  return gated
+}
+
+/** What BEH-38 watches for one Bash call: the open run, its root, its gated rules, its own draft paths and the folders to list. */
+type Watch = { run: ProgressRun; root: string; gated: Gated; drafts: string[]; folders: string[] }
+
+/** The run's own draft paths (BEH-38): this session's devforgeai/drafts/<skill>/<session ID>.md and the skill-loaded event's
+ *  draft, each only when it matches a workFiles pattern of the manifest. */
+async function ownDrafts($: E, run: ProgressRun, gated: Gated): Promise<string[]> {
+  const out: string[] = []
+  const add = (p: unknown) => {
+    if (typeof p === 'string' && !out.includes(p) && gated.workFiles.some(w => pathMatches(p, w))) out.push(p)
+  }
+  try {
+    const id = await $.session.id()
+    if (typeof id === 'string' && SESSION_ID.test(id)) add(`devforgeai/drafts/${run.skill}/${id}.md`)
+  } catch {
+    // no session ID: no session draft
+  }
+  try {
+    add((JSON.parse((await linesOf($, run))[0] ?? '{}') as Fields).draft)
+  } catch {
+    // no first line to read
+  }
+  return out
+}
+
+/** Whether BEH-38 applies to this Bash call: Claude Code's own call in the main loop (`engine` origin; the Bash-only slice of
+ *  version 21's BEH-33, whose filter for every tool is built with that version and can take this over), a run open and its
+ *  window not closed (before the first evaluation it is open). */
+async function bashWatch($: E, input: Fields, origin: unknown): Promise<Watch | null> {
+  if (!isEngine(origin) || typeof input.command !== 'string') return null
+  const l = await hydrate($)
+  const run = l.run
+  if (run === null || disabled || l.closedFor === run.id) return null
+  const gated = await gatedFor($, run)
+  const drafts = await ownDrafts($, run, gated)
+  if (!gated.writes.length && !drafts.length) return null
+  const folders: string[] = []
+  for (const f of [...gated.writes.map(w => folderOf(w.pattern)), ...drafts.map(folderOfFile)]) {
+    if (f !== null && !folders.includes(f)) folders.push(f)
+  }
+  return { run, root: rootOf(run), gated, drafts, folders }
+}
+
+type Listing = { files: Map<string, Listed>; failed: string[] }
+
+/** BEH-38 (b)'s listing: each folder of the run's root, joined to the project-relative folder (never a bare path, since a
+ *  command's cd moves Claude Code's own directory), as name, kind, size and mtimeMs. A missing folder lists as empty; any
+ *  other failure skips that folder and writes an ERR-23 line. */
+async function listFolders($: E, w: Watch): Promise<Listing> {
+  const out: Listing = { files: new Map(), failed: [] }
+  for (const folder of w.folders) {
+    const dir = folder === '' ? w.root : `${w.root}/${folder.replace(/\/+$/, '')}`
+    try {
+      for (const e of await $.fs.list(dir)) out.files.set(`${folder}${e.name}`, { kind: e.kind, size: e.size, mtimeMs: e.mtimeMs })
+    } catch (err) {
+      let missing = false
+      try {
+        missing = !(await $.fs.exists(dir))
+      } catch {
+        missing = false
+      }
+      if (!missing) {
+        out.failed.push(folder)
+        await adapterLog($, 'bash', `${folder || '.'}: ${firstLine(message(err))}`, w.run.id)
+      }
+    }
+  }
+  return out
+}
+
+/** The paths among `paths` that another live run's log names (BEH-38 (b)): a folder under runs/ other than this run's and the
+ *  run it continues, with no run-end and an events.jsonl modified in the last 30 minutes, whose log holds the path in a tool
+ *  event. Read only for the candidates a listing found, never on every call. */
+async function namedByLiveRuns($: E, w: Watch, paths: readonly string[]): Promise<Set<string>> {
+  const named = new Set<string>()
+  const runs = `${progressDir(w.root)}/runs`
+  let dirs: string[]
+  try {
+    dirs = (await $.fs.list(runs)).filter(x => x.kind === 'dir').map(x => x.name)
+  } catch {
+    return named
+  }
+  const continued = resumesOf((await linesOf($, w.run))[0])
+  const now = await $.clock.now()
+  for (const id of dirs) {
+    if (id === w.run.id || id === continued) continue
+    let lines: string[]
+    try {
+      const mtime = (await $.fs.list(`${runs}/${id}`)).find(x => x.name === 'events.jsonl')?.mtimeMs
+      if (typeof mtime !== 'number' || now - mtime > IDLE_MS) continue
+      lines = (await $.fs.read(`${runs}/${id}/events.jsonl`)).split('\n').filter(Boolean)
+    } catch {
+      continue
+    }
+    for (const p of paths) {
+      const got = logNames(lines, p)
+      if (got.names && !got.ended) named.add(p)
+    }
+  }
+  return named
+}
+
+/** BEH-38 (b): the documents the call created or changed, read, in order of path; the signatures to remember with them. */
+async function wroteFiles($: E, w: Watch, before: Listing): Promise<{ path: string; content: string | undefined; sig: string }[]> {
+  const after = await listFolders($, w)
+  const changed = changedFiles(before.files, after.files, [...before.failed, ...after.failed])
+    .filter(p => w.drafts.includes(p) || w.gated.writes.some(r => ruleMatches(p, r.pattern)))
+  const seen = (await hydrate($)).wroteSeen[w.run.id] ?? {}
+  const fresh = changed.filter(p => seen[p] !== signature(after.files.get(p)!))
+  if (!fresh.length) return []
+  const other = await namedByLiveRuns($, w, fresh)
+  const out: { path: string; content: string | undefined; sig: string }[] = []
+  for (const path of fresh) {
+    if (other.has(path)) continue
+    let content: string | undefined
+    try {
+      content = await $.fs.read(`${w.root}/${path}`)
+    } catch (err) {
+      await adapterLog($, 'bash', `${path}: ${firstLine(message(err))}`, w.run.id)
+    }
+    out.push({ path, content, sig: signature(after.files.get(path)!) })
+  }
+  return out
+}
+
+/** Enforce mode's immediate evaluation after a Bash call recorded documents (BEH-38 (b)): IF-03 on the run's recorded lines,
+ *  into pending.json (never state.json, which the timer's evaluation writes), the flags raised at the wrote events' seqs, and
+ *  the text for the model; null when there are none or the evaluation fails (ERR-23: it fails open). */
+async function wroteCheck($: E, w: Watch, seqs: readonly number[], paths: readonly string[]): Promise<string | null> {
+  if (!python) return null
+  try {
+    const got = await evaluate($, w.root, `${w.run.dir}/events.jsonl`, `${w.run.dir}/pending.json`, EVALUATOR_TIMEOUT)
+    if (typeof got === 'string') {
+      await adapterLog($, 'bash', `evaluation: ${got}`, w.run.id)
+      return null
+    }
+    const flags = got.state.flags.filter(f => seqs.includes(f.seq))
+    return flags.length ? wroteText(paths, flags.map(f => f.message)) : null
+  } catch (err) {
+    await adapterLog($, 'bash', `evaluation: ${firstLine(message(err))}`, w.run.id).catch(() => undefined)
+    return null
+  }
+}
+
+/** An answer event's fields (BEH-37, version 22): answered, the question's tag, and the form Claude asked, unless the tag says the
+ *  question isn't the checklist's (outside). Never the user's answer. */
+function formed(input: Fields, answered: boolean, logBytes: number): Fields {
+  const tag = questionTag(input)
+  return tag.outside === true ? { answered, ...tag } : { answered, ...tag, questions: formOf(input, logBytes) }
 }
 
 /** Enforce mode's write-gate check (BEH-08): the refusal text, or null to let the call go on. */
@@ -1547,7 +1763,7 @@ export const register: Register = (on, options) => {
             const outcome = result as unknown as ToolOutcome
             await record($, 'answer', isWaiverQuestion(input)
               ? { answered: isAnswered(outcome), waiver: waiverAnswer(input, outcome) }
-              : { answered: isAnswered(outcome), ...questionTag(input) }, true, began)
+              : formed(input, isAnswered(outcome), await logBytes($)), true, began)
             if (!isWaiverQuestion(input)) await stopIfAsked($, input, outcome)
           }
         } catch (err) {
@@ -1563,6 +1779,26 @@ export const register: Register = (on, options) => {
         path: toolPath(r, tool, input),
         command: tool === 'Bash' && typeof input.command === 'string' ? input.command : undefined,
       }
+      // Bash writes (BEH-38, version 22): the call's own run, window and rules, for Claude Code's own calls only.
+      const watch = tool === 'Bash' ? await bashWatch($, input, next.origin) : null
+      if (watch !== null && (await read($, MODE)) === 'enforce') {
+        const hit = outsideWord(String(input.command), watch.gated, watch.root)
+        if (hit !== null) {
+          const text = outsideRefusal(hit.word)
+          // The refused call is recorded as an error, which is never evidence; its entry counts for BEH-25 and BEH-26.
+          await chained(async () => {
+            const into = await recordNow($, 'tool', { ...fields, exit: null, error: true }, true, began)
+            const run = await get($, 'run')
+            if (into !== null && run !== null && run.id === into) {
+              await countRefusal($, run, 'write', run.seq, `write:${OUTSIDE_WRITE_TYPE}:${hit.step}`, hit.step, OUTSIDE_WRITE_TYPE,
+                outsideMessage(hit.word), OUTSIDE_ADVICE)
+            }
+          })
+          await adapterLog($, 'bash', `refused ${hit.word}`)
+          if (!(await hasSurface($))) await $.ui.log(text)
+          return { deny: text }
+        }
+      }
       if ((tool === 'Write' || tool === 'Edit') && (await read($, MODE)) === 'enforce' && python) {
         const refusal = await enforceCheck($, fields, content)
         if (refusal !== null) {
@@ -1570,6 +1806,15 @@ export const register: Register = (on, options) => {
           await adapterLog($, 'refused', firstLine(refusal.split('\n')[1] ?? refusal))
           if (!(await hasSurface($))) await $.ui.log(refusal)
           return { deny: refusal }
+        }
+      }
+      // BEH-38 (b): the listing before the call, in a recorded turn only.
+      let before: Listing | null = null
+      if (watch !== null && !unrecorded) {
+        try {
+          before = await listFolders($, watch)
+        } catch (err) {
+          await recover($, 'tool.call', err)
         }
       }
       const result = await next(e)
@@ -1582,6 +1827,16 @@ export const register: Register = (on, options) => {
         const outcome = result as unknown as ToolOutcome
         const done: Fields = { ...fields, exit: exitOf(outcome), error: isFailed(outcome), content: keptContent(content, await logBytes($)) }
         let resumed = false
+        // The documents the call wrote (BEH-38 (b)); a failure here records the call itself all the same.
+        let wrote: { path: string; content: string | undefined; sig: string }[] = []
+        if (watch !== null && before !== null) {
+          try {
+            wrote = await wroteFiles($, watch, before)
+          } catch (err) {
+            await adapterLog($, 'bash', firstLine(message(err)), watch.run.id)
+          }
+        }
+        const wroteSeqs: number[] = []
         // One chain item: the unwind a TaskUpdate shows (BEH-30 (a)), before its own events, then its tool event, step
         // events and task map, all in the run open when they land.
         await chained(async () => {
@@ -1593,8 +1848,36 @@ export const register: Register = (on, options) => {
           }
           const into = await recordNow($, 'tool', done, true, began)
           if (into !== null && TASK_TOOLS.includes(tool)) await taskStepsNow($, into, tool, input, outcome)
+          // Right after the call's own event, in order of path: one event with wrote for each document (BEH-38 (b)); error is
+          // false whatever the exit, since the file is on disk.
+          if (into !== null && watch !== null && into === watch.run.id) {
+            for (const f of wrote) {
+              const at = await recordNow($, 'tool', { tool, path: f.path, command: fields.command, exit: done.exit, error: false,
+                content: keptContent(f.content, await logBytes($)), wrote: true }, true, began)
+              const run = await get($, 'run')
+              if (at !== null && run !== null) wroteSeqs.push(run.seq)
+            }
+            if (wroteSeqs.length) {
+              await putFor($, into, l => ({ wroteSeen: { ...l.wroteSeen, [into]: { ...(l.wroteSeen[into] ?? {}),
+                ...Object.fromEntries(wrote.map(f => [f.path, f.sig])) } } }))
+              await putMany($, l => {
+                const ids = Object.keys(l.wroteSeen)
+                return ids.length > 20 ? { wroteSeen: Object.fromEntries(ids.slice(-20).map(id => [id, l.wroteSeen[id]])) } : null
+              })
+            }
+          }
         })
         if (resumed) await refreshStatus($)
+        // In enforce mode the evaluation runs at once and the model is told what the flags say (BEH-38 (b), probe P14).
+        if (wroteSeqs.length && watch !== null && (await read($, MODE)) === 'enforce') {
+          const text = await wroteCheck($, watch, wroteSeqs, wrote.map(f => f.path))
+          if (text !== null) {
+            const carried = WROTE_CONTEXT_ROUTE === 'result' ? withContext(result, text) : null
+            if (carried !== null) return carried as typeof result
+            pendingWrote = [...pendingWrote, { run: watch.run.id, text }]
+            await adapterLog($, 'context', `wrote flags at seq ${wroteSeqs.join(', ')}`)
+          }
+        }
       } catch (err) {
         await recover($, 'tool.call', err)
       }
@@ -1621,14 +1904,25 @@ export const register: Register = (on, options) => {
     // arrives here after skill.prompt has opened the run (VER-15's dogfood run found it counted for step 5).
     if (isPersonPrompt(e.origin) && isEngine(next.origin) && !e.text.trimStart().startsWith('/')) await record($, 'prompt', {})
     const report = pendingReport
-    if (report !== null && report.run === (await get($, 'run'))?.id && (await read($, MODE)) === 'enforce'
-      && !e.text.trimStart().startsWith('/')) {
+    const open = (await get($, 'run'))?.id
+    const enforcing = (await read($, MODE)) === 'enforce' && !e.text.trimStart().startsWith('/')
+    const extra: string[] = []
+    if (report !== null && report.run === open && enforcing) {
       pendingReport = null
       await putFor($, report.run, l => ({ contextSent: [...l.contextSent, report.seq] }))
       await adapterLog($, 'context', `report gate at seq ${report.seq}`)
-      return next({ ...e, context: [...(e.context ?? []), report.text] })
+      extra.push(report.text)
     }
-    return next(e)
+    // BEH-38 (b)'s text of an earlier Bash call, once: a prompt that starts with '/' keeps it for the next one, and a run that
+    // has changed drops it (the user has moved on).
+    if (pendingWrote.length) {
+      const mine = pendingWrote.filter(x => x.run === open)
+      if (enforcing) {
+        pendingWrote = []
+        extra.push(...mine.map(x => x.text))
+      } else if (mine.length !== pendingWrote.length) pendingWrote = mine
+    }
+    return extra.length ? next({ ...e, context: [...(e.context ?? []), ...extra] }) : next(e)
   }).catch(async ($, e, next) => {
     if (!next.called) await recover($, 'prompt.submit', next.error)
     return next(e)
@@ -1801,6 +2095,7 @@ export const register: Register = (on, options) => {
     } finally {
       // The session's values go whatever happened above: /clear, /resume and /branch start a new one (DM-03).
       pendingReport = null
+      pendingWrote = []
       lastStatus = undefined
       turnOpen = false
       live = emptyLive()

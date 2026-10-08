@@ -16,7 +16,7 @@ reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:
-  - {id: SPEC-001, item: BEH-07, relation: informed_by, version: 16, hash: null, note: "Change Log rows name the session that wrote each BRN version; the IDs only resolve while the transcripts exist"}
+  - {id: SPEC-001, item: BEH-07, relation: informed_by, version: 17, hash: null, note: "Change Log rows name the session that wrote each BRN version; the IDs only resolve while the transcripts exist"}
 supersedes: []
 superseded_by: null
 blocked_by: []
