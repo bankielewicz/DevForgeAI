@@ -2,7 +2,7 @@
 id: SPEC-016
 type: spec
 title: "DevForgeAI Dashboard: the planning chain, the run and the session in one pane"
-status: in-review      # draft | in-review | approved | superseded | deprecated
+status: approved      # draft | in-review | approved | superseded | deprecated
 version: 2
 created: 2026-10-06
 updated: 2026-10-08
@@ -14,7 +14,7 @@ generated_by:
   session: "7637882f-b2ec-465e-988a-9602340d1023"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-06
+approved_on: 2026-10-08
 upstream:
   - {id: PRD-001, item: FR-022, relation: implements, version: 12, hash: null}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 12, hash: null, note: "the dashboard is a view of the progress tracker; it shows a run's progress and changes none of the tracker's rules"}
@@ -526,9 +526,10 @@ Decided by Bryan on 2026-10-08, for version 2 (the review of the merge of main i
 in build (Recommended)"; for S1, "Add a Bash guard row (Recommended)"; for S5, "Accept as proposed (Recommended)". In the plan's
 words, not a quoted answer: the notes of the review are recorded as open where they concern this spec.
 
-- Version 2's change approved: not yet. The frontmatter keeps version 1's `approved_by` and `approved_on`, as earlier drafts
-  of the other specs did, and the status stays in-review until Bryan approves version 2, with SPEC-013 version 25 and
-  SPEC-012 version 18.
+- Version 2's change approved by Bryan on 2026-10-08 ('Approve all three (Recommended)'), with SPEC-013 version 25 and
+  SPEC-012 version 18, after the drafts review's fixes (tmp/plans/dashboard/review-drafts-v25.md) and his F1 and F2
+  answers. Its build stays held until the design skill's place in the chain is decided (Bryan, 2026-10-08, 'Build the
+  rest, hold the dashboard (Recommended)').
 - Drafter's choice (version 2), for Bryan's accept or challenge: the last hold is kept at the site where SPEC-013 BEH-38
   (a) writes its 'refused <word>' line, and is not found by testing the text of kind bash lines, so a kind bash line that
   reports a failure (SPEC-013 ERR-23) or a skipped pattern is never a hold, even when a host error's text begins 'refused'. A Bash command refused by mistake for a read (the open findings of SPEC-013
@@ -601,3 +602,4 @@ to build it as a choice; whether it ships in a published plugin is his call at r
 | 1 | 2026-10-06 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Bryan's answers in the approval round: 'Ignore retired docs (Recommended)' (DM-06: superseded and deprecated documents left out of Context's and Epic's counts and done rule); 'Only after a run (Recommended)' (BEH-10's ledger written only under a run's root, as drafted) | DM-06, §13 |
 | 1 | 2026-10-06 | Bryan | Approved ('Approve all four (Recommended)', with the drafters' choices shown in its preview) | status |
 | 2 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, from the review of the merge of main into the dashboard specs (`tmp/plans/dashboard/review-merge-v22.md`) and Bryan's decisions of 2026-10-08 ("Merge #101, fix first in build (Recommended)"; S1, "Add a Bash guard row (Recommended)"; S5, "Accept as proposed (Recommended)"): the guardrails panel gains a sixth row, the Bash write guard (SPEC-013 BEH-38), with BEH-38's scope and its observe-mode wording, and its last hold reads the kind refused lines and the 'refused <word>' line of kind bash that BEH-38 (a) writes (BEH-13, VER-09, DM-01, §4; S1, and the drafts review's N-b and N-c); the status banner and §10 and §11 read as current facts (S5); the upstream links move to SPEC-013 version 25 and SPEC-012 version 18; §13 records the review's N4 as open; status in-review, Bryan's approval not yet given | frontmatter, status banner, §1, DM-01, §4, BEH-13, VER-09, §10, §11, §13 |
+| 2 | 2026-10-08 | Bryan | Approved ('Approve all three (Recommended)', with the drafts review's fixes and his F1 and F2 answers shown in its preview), with SPEC-013 version 25 and SPEC-012 version 18 | status |

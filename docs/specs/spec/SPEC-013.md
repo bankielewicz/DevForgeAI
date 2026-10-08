@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review   # draft | in-review | approved | superseded | deprecated
+status: approved   # draft | in-review | approved | superseded | deprecated
 version: 25
 created: 2026-10-02
 updated: 2026-10-08
@@ -14,7 +14,7 @@ generated_by:
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-06
+approved_on: 2026-10-08
 upstream:
   - {id: ADR-006, relation: constrains, version: 2, hash: null, note: "D1 (a hook blocks only at a gate, only in enforce mode; the tracker fails open), D3 (progress.mode, resolved at session start, and the button that switches it) and D6 (the local preference file); its follow-up gives D1, D3 and D6 to this spec"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "A3's local preference format, in which progress.mode is one entry; an entry that can't be used is ignored and reported, never fatal"}
@@ -1729,10 +1729,10 @@ as proposed (Recommended)"; for the drafts review's F1, "A set of names (Recomme
 merge (Recommended)". In the plan's words, not quoted answers: N5 to N7 fixed in passing (SPEC-012 version 18), and the
 other notes recorded below as open.
 
-- Version 25's change approved: not yet. The frontmatter keeps version 24's `approved_by` and `approved_on`, as earlier
-  drafts did, and the status stays in-review until Bryan approves version 25, with SPEC-012 version 18 and SPEC-016 version
-  2. The upstream links that cite SPEC-013 (SPEC-001, SPEC-014, SPEC-015) and CLAUDE.md move then; SPEC-016 version 2 already
-  cites version 25.
+- Version 25's change approved by Bryan on 2026-10-08 ('Approve all three (Recommended)'), with SPEC-012 version 18
+  and SPEC-016 version 2, after the drafts review's fixes (tmp/plans/dashboard/review-drafts-v25.md) and his F1 and F2
+  answers. The upstream links citing SPEC-013 v24 (SPEC-001, SPEC-014, SPEC-015) and CLAUDE.md moved to version 25
+  then; SPEC-016 version 2 cited version 25 from its draft.
 - Drafter's reading of S3, checked against the build on `main` (plugin 0.27.0, `hooks/progress.tsx`): the command.run hook
   sets the kept name (`typedName`) only for a person's prompt (`isPersonPrompt`), and the skill.prompt of an untracked skill
   marks the turn only when that name equals the skill's or BEH-29's in-flight set holds it. A plugin-origin command.run
@@ -2246,3 +2246,4 @@ Drafter's choices in version 24, for Bryan to accept or challenge (the dashboard
 | 24 | 2026-10-06 | Bryan | Approved version 24's change ('Approve all four (Recommended)', with the drafters' choices shown in its preview). The document's status stays in-review until version 22, which versions 23 and 24 are stacked on, is approved; the links that cite SPEC-013 move then | Change Log |
 | 24 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Status in-review to approved, as the rows for versions 23 and 24 set out: version 22 was approved (2026-10-06) and merged in PR #99 (`51571ce`), with version 21's spec. Merging main brought version 22's final text (BEH-39, ERR-23 and the review fixes) under versions 23's and 24's additions, which are unchanged; the links citing SPEC-013 (SPEC-001, SPEC-014, SPEC-015) moved to version 24 | status |
 | 25 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, from the review of the merge of main into the dashboard specs (`tmp/plans/dashboard/review-merge-v22.md`) and the drafts review (`tmp/plans/dashboard/review-drafts-v25.md`) and Bryan's decisions of 2026-10-08 ("Merge #101, fix first in build (Recommended)"; S3, "BEH-36 sets the mark (Recommended)"; S1, "Add a Bash guard row (Recommended)"; S2 and S4 to S8, "Accept as proposed (Recommended)"; F1, "A set of names (Recommended)"; F2, "Probe now, gate the merge (Recommended)"): BEH-36 adds precompact to BEH-41's set of pending names before its $.command.run, a tile's Start adds its skill's name, each command.run removes only its own name and so do ERR-22 and ERR-24, so BEH-02 marks the handoff's turn and its tool calls and replies stay out of the open run (BEH-02, BEH-35, BEH-36, BEH-41, ERR-22, ERR-24, VER-56, VER-57, VER-64); VER-57 (b) run live gates the merge of the build that ships this version and VER-64's live check gates the dashboard's build (F2); VER-11 asserts no capture of fs.read calls and QR-03's measure counts writes only (C1); VER-66 names the kind argument (F5); DM-02's adapter.log kinds gain `bash` and VER-66 names a structure test of the kinds (S2); BEH-15, QR-03 and VER-11 name the odometer ledger and the dashboard's scripts (S4); BEH-33 limits BEH-38's refusal and check to Claude Code's own Bash calls (S7); the PRD-001 links move from version 11 to 12 (S6); §13's stale notes read as current facts (S5), records the wording note on SPEC-015 (N9) and the review's open notes N1, N2, N3, N10, N11 and N12; SPEC-012 version 18 and SPEC-016 version 2 are drafted with it; status in-review, Bryan's approval not yet given | frontmatter, §1, DM-02, BEH-02, BEH-15, BEH-33, BEH-35, BEH-36, BEH-41, ERR-22, ERR-24, QR-03, VER-11, VER-56, VER-57, VER-64, VER-66, §13 |
+| 25 | 2026-10-08 | Bryan | Approved ('Approve all three (Recommended)', with the drafts review's fixes and his F1 and F2 answers shown in its preview), with SPEC-012 version 18 and SPEC-016 version 2 | status |

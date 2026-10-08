@@ -2,7 +2,7 @@
 id: SPEC-012
 type: spec
 title: "Progress tracker core: formats, manifests and evaluator"
-status: in-review       # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 18
 created: 2026-10-02
 updated: 2026-10-08
@@ -14,7 +14,7 @@ generated_by:
   session: "a4f2ade8-0127-4b96-bc22-b3498b2ab3a9"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-06
+approved_on: 2026-10-08
 upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain's order, which the state's next step follows"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
@@ -1578,10 +1578,10 @@ Decided by Bryan on 2026-10-08, for version 18 (the review of the merge of main 
 in build (Recommended)"; for S2 and S4 to S8, "Accept as proposed (Recommended)". In the plan's words, not a quoted answer: N5 to N7 fixed in passing, the other
 notes recorded as open. SPEC-013 version 25 and SPEC-016 version 2 are drafted with this version.
 
-- Version 18's change approved: not yet. The frontmatter keeps version 17's `approved_by` and `approved_on`, as earlier
-  drafts did, and the status stays in-review until Bryan approves version 18, with SPEC-013 version 25 and SPEC-016 version
-  2. The upstream links that cite SPEC-012 (SPEC-001, SPEC-003, SPEC-013) and CLAUDE.md move then; SPEC-016 version 2
-  already cites version 18.
+- Version 18's change approved by Bryan on 2026-10-08 ('Approve all three (Recommended)'), with SPEC-013 version 25
+  and SPEC-016 version 2, after the drafts review's fixes (tmp/plans/dashboard/review-drafts-v25.md) and his F1 and F2
+  answers. The upstream links citing SPEC-012 v17 (SPEC-001, SPEC-003) and CLAUDE.md moved to version 18 then;
+  SPEC-013 version 25 and SPEC-016 version 2 cited version 18 from their drafts.
 - Drafter's choice (version 18), for Bryan's accept or challenge: the one sentence about `steps[].reached` is in BEH-24
   and in DM-03's description, not a renamed field (the review's alternative was `firstSeen`), so the built schema and the
   state files keep their name. BEH-07's 'reached' (evidence or a claim, whatever the state) and SPEC-013's 'every step
@@ -1911,3 +1911,4 @@ Still open, or notes:
 | 17 | 2026-10-06 | Bryan | Approved version 17's change ('Approve all four (Recommended)', with the drafters' choices shown in its preview). The document's status stays in-review until version 16, which it is stacked on, is approved; the links that cite SPEC-012 move then | Change Log |
 | 17 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Status in-review to approved, as the row above set out: version 16 was approved (2026-10-06) and merged in PR #99 (`51571ce`). Merging main brought version 16's final text (BEH-22 with 'Own files only', §13's accepted readings) under this version's additions, which are unchanged; the links citing SPEC-012 (SPEC-001, SPEC-003) moved to version 17 | status |
 | 18 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, from the review of the merge of main into the dashboard specs (`tmp/plans/dashboard/review-merge-v22.md`) and Bryan's decisions of 2026-10-08 ("Merge #101, fix first in build (Recommended)"; S2 and S4 to S8, "Accept as proposed (Recommended)"; in the plan's words, N5 to N7 fixed in passing): `steps[].reached` serves the run's figures and the dashboard only, and BEH-07's reached and SPEC-013's 'every step reached' are unchanged (BEH-24, DM-03; S8); DM-03's `workFiles.files` description names the carried draft and the `wrote` paths (N5); §4's file list names sessions/<session>/current.json (N6); §13 reads in version order (N7) and records N8 (open) and N13; the PRD-001 links move from version 11 to 12 (S6); SPEC-013 version 25 and SPEC-016 version 2 are drafted with it; status in-review, Bryan's approval not yet given | frontmatter, §1, §4, BEH-24, DM-03, §13 |
+| 18 | 2026-10-08 | Bryan | Approved ('Approve all three (Recommended)', with the drafts review's fixes and his F1 and F2 answers shown in its preview), with SPEC-013 version 25 and SPEC-016 version 2 | status |
