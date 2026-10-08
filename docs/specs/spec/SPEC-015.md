@@ -21,7 +21,7 @@ upstream:
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "decisions stay the user's: the handoff records who decided what, in their words, and never turns outstanding work into a decision"}
-  - {id: SPEC-013, relation: informed_by, version: 22, hash: null, note: "BEH-02 (versions 18 and 19): an untracked skill opens no run, and the turn that loads it records no further tool event or reply in the open run, so the handoff can be written in the middle of a tracked run"}
+  - {id: SPEC-013, relation: informed_by, version: 24, hash: null, note: "BEH-02 (versions 18 and 19): an untracked skill opens no run, and the turn that loads it records no further tool event or reply in the open run, so the handoff can be written in the middle of a tracked run"}
 supersedes: []
 superseded_by: null
 blocked_by: []
