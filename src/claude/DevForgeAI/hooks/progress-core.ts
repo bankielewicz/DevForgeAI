@@ -1,7 +1,7 @@
 // Pure helpers of the progress tracker adapter (SPEC-013 v7). No `$` here: claude plugin validate lets `$` reach
 // only top-level functions of hooks/progress.tsx, so this file turns plain data into plain data, and its tests
 // (core.test.ts) call it directly.
-import type { ProgressMode, ProgressPaused, ProgressRefused, ProgressSummary } from '../types'
+import type { ProgressMode, ProgressPaused, ProgressPrecompact, ProgressRefused, ProgressSummary } from '../types'
 
 export type Fields = Record<string, unknown>
 
@@ -29,6 +29,7 @@ const ORDER: Record<string, readonly string[]> = {
   turn: ['phase'],
   'run-end': ['reason'],
   step: ['step', 'state'],
+  usage: ['turn', 'model', 'input', 'output', 'cacheRead', 'cacheWrite'],
 }
 
 /** UTC time as ISO 8601 to the second. */
@@ -220,6 +221,23 @@ export function isPersonPrompt(origin: unknown): boolean {
 /** An event Claude Code itself fired, not a mod (next.origin; BEH-04). */
 export function isEngine(origin: unknown): boolean {
   return !!origin && typeof origin === 'object' && (origin as Fields).plugin === 'engine'
+}
+
+/** A command.run this plugin made itself with $.command.run: origin { kind: 'plugin', name } with this plugin's name (BEH-41,
+ *  version 25; the shape claude-code.d.ts documents, which the probe of 2026-10-08 confirmed for a run started in session.measure). */
+export function isOwnRun(origin: unknown, pluginName: string): boolean {
+  if (!origin || typeof origin !== 'object') return false
+  const o = origin as Fields
+  return o.kind === 'plugin' && typeof o.name === 'string' && o.name === pluginName
+}
+
+/** A tool call another plugin's mod made through $.tool.call (BEH-33, version 21): next.origin.plugin is a string other than
+ *  'engine'. A missing origin, a plugin that isn't a string and 'engine' itself count as Claude Code's (only a test double
+ *  builds the first two), so nothing that was recorded stops being recorded. BEH-38 and BEH-04 still ask for 'engine'. */
+export function isFromMod(origin: unknown): boolean {
+  if (!origin || typeof origin !== 'object') return false
+  const plugin = (origin as Fields).plugin
+  return typeof plugin === 'string' && plugin !== 'engine'
 }
 
 // The parts of SPEC-012's progress state (DM-03) the adapter reads.
@@ -1322,4 +1340,100 @@ export function withContext(result: unknown, text: string): Fields | null {
   if (result === null || typeof result !== 'object' || (result as Fields).deny !== undefined) return null
   const r = result as Fields
   return { ...r, context: [...(Array.isArray(r.context) ? (r.context as unknown[]) : []), text] }
+}
+
+// ---- versions 21 to 25: the fuel row and the automatic precompact run, usage, the odometer ledger, /progress, the start names ----
+
+/** The precompact row's values before anything has been measured, and after a compaction (BEH-35). */
+export const NO_PRECOMPACT: ProgressPrecompact = { percent: null, hidden: false, ran: false, failed: false }
+
+/** A fuel setting (DM-07, DM-08): a whole number from 0 to 95, checked with typeof so no null or empty string reads as 0;
+ *  anything else counts as the default, and `invalid` says so (an adapter.log line of kind setting). A missing value is the
+ *  default and not invalid. */
+export function fuelSetting(value: unknown, fallback: number): { value: number; invalid: boolean } {
+  if (value === undefined) return { value: fallback, invalid: false }
+  if (typeof value === 'number' && Number.isInteger(value) && value >= 0 && value <= 95) return { value, invalid: false }
+  return { value: fallback, invalid: true }
+}
+
+/** The share of the context window measured (session.measure's context.percent): a whole number from 0 to 100, else none
+ *  (a fresh session, or one just compacted, has none; BEH-35). */
+export function measuredShare(percent: unknown): number | null {
+  return typeof percent === 'number' && Number.isInteger(percent) && percent >= 0 && percent <= 100 ? percent : null
+}
+
+/** The precompact row's text (BEH-35; fuel is 100 minus the measured share, version 23), or null when no row is due: nothing
+ *  measured, the row hidden by the skill's load, the warning share 0, or the fuel above the warning share. While the run
+ *  share is not 0 and is below the fuel and no automatic run has started, it says when the skill will run; with the run share
+ *  0, that it can be run; after a failed run (ERR-22), that the person should run it. At or below the run share, before the
+ *  run has started, and after it has started without failing, the row has no text. */
+export function precompactRow(view: ProgressPrecompact, warnFuel: number, runFuel: number): string | null {
+  if (view.percent === null || view.hidden || warnFuel === 0) return null
+  const fuel = 100 - view.percent
+  if (fuel > warnFuel) return null
+  if (view.failed) return `● Fuel ${fuel}% · run /devforgeai:precompact now`
+  if (runFuel === 0) return `▲ Fuel ${fuel}% · consider /devforgeai:precompact before /compact`
+  if (runFuel < fuel && !view.ran) return `▲ Fuel ${fuel}% · precompact runs at ${runFuel}%`
+  return null
+}
+
+/** Whether the automatic run (BEH-36) is due: the fuel at or below the run share, which isn't 0, the row not hidden and no run
+ *  started since the last compaction. A failed run has started (ERR-22 keeps the run mark), so it is never tried again. */
+export function precompactDue(view: ProgressPrecompact, runFuel: number): boolean {
+  if (view.percent === null || runFuel === 0 || view.hidden || view.ran || view.failed) return false
+  return 100 - view.percent <= runFuel
+}
+
+/** A compaction: a result with messages, not a skip (BEH-24, BEH-35). */
+export function isCompaction(out: unknown): boolean {
+  return !!out && typeof out === 'object' && Array.isArray((out as Fields).messages)
+}
+
+/** BEH-41's set of pending command names (version 25): each is a command's name without its '<plugin>:' prefix. A name is added
+ *  before the adapter's own $.command.run, and taken, and only it, when the plugin's own command.run hook sees that run. */
+export function addStart(set: Set<string>, command: string): void {
+  set.add(skillName(command))
+}
+
+/** True when the command's name was in the set, and removes that name only; a failure of the run removes its own name the same way. */
+export function takeStart(set: Set<string>, command: string): boolean {
+  return set.delete(skillName(command))
+}
+
+/** A usage event's fields from a turn.complete's turnId and usage (BEH-40, SPEC-012 version 17's DM-02): the turn ID and the
+ *  model are non-empty strings and the four counts whole numbers of 0 or more (a boolean isn't one), else null. The host's
+ *  input_tokens, output_tokens, cache_read_input_tokens and cache_creation_input_tokens are input, output, cacheRead, cacheWrite. */
+export function usageFields(turnId: unknown, usage: unknown): { turn: string; model: string; input: number; output: number; cacheRead: number; cacheWrite: number } | null {
+  if (typeof turnId !== 'string' || turnId === '' || !usage || typeof usage !== 'object') return null
+  const u = usage as Fields
+  if (typeof u.model !== 'string' || u.model === '') return null
+  const count = (v: unknown): number | null => (typeof v === 'number' && Number.isInteger(v) && v >= 0 ? v : null)
+  const input = count(u.input_tokens)
+  const output = count(u.output_tokens)
+  const cacheRead = count(u.cache_read_input_tokens)
+  const cacheWrite = count(u.cache_creation_input_tokens)
+  if (input === null || output === null || cacheRead === null || cacheWrite === null) return null
+  return { turn: turnId, model: u.model, input, output, cacheRead, cacheWrite }
+}
+
+/** One line of the odometer ledger (SPEC-012 DM-04; SPEC-016 BEH-10): session, turn, source ('main' or the subagent's ID), the
+ *  four counts and the time to the second. */
+export function ledgerLine(session: string, turn: string, source: string,
+  counts: { input: number; output: number; cacheRead: number; cacheWrite: number }, ms: number): string {
+  return JSON.stringify({ session, turn, source, input: counts.input, output: counts.output, cacheRead: counts.cacheRead,
+    cacheWrite: counts.cacheWrite, time: isoTime(ms) })
+}
+
+/** What /progress prints (BEH-34). While a run is open (a summary that hasn't ended): the status line's text, then the band's
+ *  two rows without the button, row 2 reading the mode and the newest flag's message, or 'no flags'. Otherwise the sentence, and
+ *  after it, while the summary of a run that ended is kept, the status line's text for it. Built from the functions that build
+ *  the status line and the band, so the three never disagree. */
+export function progressReport(summary: ProgressSummary | null, hasRun: boolean, mode: ProgressMode, idle: boolean, off: string | null,
+  trail: readonly Beneath[] = []): string {
+  if (summary !== null && hasRun && summary.ended === null) {
+    const band = bandRows(summary, mode, trail)
+    return [statusText(summary, mode, idle, off, trail) ?? '', band.row1, `${band.mode}  ${band.flag}`].join('\n')
+  }
+  const none = 'No DevForgeAI run is open in this session.'
+  return summary !== null && summary.ended !== null ? `${none}\n${statusText(summary, mode, idle, off, trail) ?? ''}` : none
 }

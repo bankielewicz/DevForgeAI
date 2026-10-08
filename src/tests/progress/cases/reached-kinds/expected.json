@@ -1,0 +1,181 @@
+{
+  "counts": {
+    "afterEnd": 0,
+    "duplicates": 0,
+    "events": 10,
+    "malformed": 0,
+    "outOfOrder": 0,
+    "stepEvents": 2,
+    "unknownClaims": 0,
+    "unmarkedQuestions": 0
+  },
+  "current": 4,
+  "ended": null,
+  "flags": [],
+  "format": "devforgeai-progress/1",
+  "gate": {
+    "kind": null,
+    "reason": null,
+    "refuse": false,
+    "seq": null
+  },
+  "manifest": {
+    "checklistHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
+    "layers": [
+      "src/claude/DevForgeAI/progress/manifests/brainstorm.json"
+    ],
+    "manifestHash": "sha256:e3ba73ab7f99076b9b2bd02d134049737380e82e16e0f76ceb314693f3aa3129",
+    "state": "matched"
+  },
+  "next": null,
+  "run": "20261002T120000Z-brainstorm-0000abcd",
+  "skill": "brainstorm",
+  "steps": [
+    {
+      "claim": null,
+      "evidence": [
+        {
+          "detail": "Glob docs/specs/brainstorm/BRN-*.md",
+          "seq": 5,
+          "strength": "medium",
+          "type": "read"
+        }
+      ],
+      "kind": "read",
+      "n": 1,
+      "need": "required",
+      "note": "",
+      "reached": {
+        "activeSeconds": 4,
+        "seq": 5,
+        "time": "2026-10-02T12:00:05Z"
+      },
+      "state": "done",
+      "title": "Intake: topic, existing BRNs, clarifying questions",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 8,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 2,
+      "need": "text-only",
+      "note": "",
+      "reached": {
+        "activeSeconds": 7,
+        "seq": 8,
+        "time": "2026-10-02T12:00:08Z"
+      },
+      "state": "done",
+      "title": "Select a framework",
+      "userOwned": false
+    },
+    {
+      "claim": {
+        "reason": null,
+        "seq": 10,
+        "state": "done"
+      },
+      "evidence": [],
+      "kind": "think",
+      "n": 3,
+      "need": "text-only",
+      "note": "",
+      "reached": {
+        "activeSeconds": 8,
+        "seq": 9,
+        "time": "2026-10-02T12:00:09Z"
+      },
+      "state": "done",
+      "title": "Diverge: problems, ideas, assumptions",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "think",
+      "n": 4,
+      "need": "text-only",
+      "note": "",
+      "reached": null,
+      "state": "current",
+      "title": "Evaluate with the framework",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "ask",
+      "n": 5,
+      "need": "required",
+      "note": "",
+      "reached": null,
+      "state": "pending",
+      "title": "Propose dispositions and ask the user to confirm",
+      "userOwned": true
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "forge",
+      "n": 6,
+      "need": "required",
+      "note": "",
+      "reached": null,
+      "state": "pending",
+      "title": "Write the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "inspect",
+      "n": 7,
+      "need": "required",
+      "note": "",
+      "reached": null,
+      "state": "pending",
+      "title": "Validate the BRN",
+      "userOwned": false
+    },
+    {
+      "claim": null,
+      "evidence": [],
+      "kind": "report",
+      "n": 8,
+      "need": "required",
+      "note": "",
+      "reached": null,
+      "state": "pending",
+      "title": "Report and hand off",
+      "userOwned": false
+    }
+  ],
+  "through": 10,
+  "timing": {
+    "activeSeconds": 9,
+    "lastEvent": "2026-10-02T12:00:10Z",
+    "started": "2026-10-02T12:00:01Z",
+    "stepsCarried": 0,
+    "stepsReached": 3,
+    "untimed": 0
+  },
+  "usage": {
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "duplicates": 0,
+    "input": 0,
+    "models": [],
+    "output": 0,
+    "turns": 0
+  },
+  "waiver": null,
+  "workFiles": {
+    "due": false,
+    "files": []
+  }
+}

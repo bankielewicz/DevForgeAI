@@ -1,4 +1,4 @@
-// The progress tracker adapter's $.state contract (SPEC-013 v22 DM-03). $.state survives a reload of the module
+// The progress tracker adapter's $.state contract (SPEC-013 v25 DM-03). $.state survives a reload of the module
 // and empties on /clear, /resume and /branch; whether the session is interactive and the evaluation timer are
 // module variables instead (BEH-01, BEH-06).
 
@@ -60,6 +60,11 @@ export type ProgressReturned = {
 /** The documents a Bash call wrote that were recorded, by run ID and path, with their size and mtimeMs as listed (BEH-38 (b); version 22). */
 export type ProgressWroteSeen = { [run: string]: { [path: string]: string } }
 
+/** The precompact row's values (SPEC-013 BEH-35, BEH-36, ERR-22; versions 21, 23 and 25): the measured share of the context
+ *  window (a whole number from 0 to 100) or null; the row hidden by a load of the precompact skill; BEH-36's run mark (an
+ *  automatic run has started since the last compaction); and ERR-22's failure. A compaction, /clear, /resume and /branch empty them. */
+export type ProgressPrecompact = { percent: number | null; hidden: boolean; ran: boolean; failed: boolean }
+
 export type ProgressMode = 'observe' | 'enforce'
 
 export type ProgressModeSource = 'framework-default' | 'local'
@@ -101,6 +106,8 @@ declare module 'claude-code' {
       wroteSeen: ProgressWroteSeen
       /** The run whose last evaluation closed BEH-38's window (every step reached, ended, or its validator's step done), or null (version 22). */
       closedFor: string | null
+      /** The precompact row's values and BEH-36's run mark (SPEC-013 BEH-35, BEH-36, ERR-22; versions 21, 23 and 25). */
+      precompact: ProgressPrecompact
     }
   }
 }

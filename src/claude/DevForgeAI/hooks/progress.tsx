@@ -1,4 +1,4 @@
-// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v22).
+// DevForgeAI's progress tracker adapter for Claude Code (SPEC-013 v25).
 //
 // It records each run of a tracked skill as SPEC-012's event log, runs SPEC-012's evaluator on a timer, and shows
 // the run in the status line, a two-row band above the prompt and toasts. In enforce mode it refuses the write
@@ -11,13 +11,18 @@
 // asked (BEH-37); a Bash command naming a document the run writes at its write gate is refused in enforce mode, and the
 // documents a Bash call wrote are recorded after it (BEH-38); the line on continuing states the draft, the ask and the forms
 // (BEH-39). Old run and session folders are pruned
-// by progress/prune.py, which the adapter starts once per session and root (BEH-19).
+// by progress/prune.py, which the adapter starts once per session and root (BEH-19). Versions 21 to 25: another mod's tool
+// calls change nothing of the tracker (BEH-33); /progress prints the run (BEH-34); a row above the prompt warns that
+// /devforgeai:precompact will run, and the adapter runs it once as if typed (BEH-35, BEH-36, BEH-41); a turn's tokens are a
+// usage event (BEH-40) and a line of the session's odometer ledger (SPEC-016 BEH-10, ERR-06). Held with the dashboard, and not
+// built here: the pane /progress will open (BEH-34), the tile that starts a skill (BEH-41's other setter, ERR-24) and
+// BEH-01's /devforgeai:dashboard answer with tracking off.
 //
 // Every use of `$` stays in top-level functions of this file (claude plugin validate's rule); progress-core.ts
 // holds the pure helpers.
 import { atom, read, update } from 'claude-code'
 import type { EngineInterface, Register } from 'claude-code'
-import type { ProgressMode, ProgressModeSource, ProgressPaused, ProgressReturned, ProgressRun, ProgressSummary, ProgressWroteSeen } from '../types'
+import type { ProgressMode, ProgressModeSource, ProgressPaused, ProgressPrecompact, ProgressReturned, ProgressRun, ProgressSummary, ProgressWroteSeen } from '../types'
 import {
   adherenceText, bandRows, byteSize, compactTexts, editResult, eventLine, exitOf, finalTimeout, fit, followsTaskList, hasTaskList,
   hintText, isAnswered, isEngine, isFailed, isPersonPrompt, isTracked, isUntrackedSkill, isWaiverQuestion, keptContent, markedStep, newFlagToasts,
@@ -27,6 +32,8 @@ import {
   removeArgv, resumesOf, workFilePaths, workFilesDue, workFilesProblem, formOf, gatedOf, outsideWord, outsideRefusal, outsideMessage,
   folderOf, folderOfFile, changedFiles, signature, logNames, windowClosed, wroteText, withContext, ruleMatches, pathMatches,
   OUTSIDE_WRITE_TYPE, OUTSIDE_ADVICE, WROTE_CONTEXT_ROUTE, stepOfTask, stepStateOf, stuckAdvice, stuckText, summaryOf, taskIdOf, todoSteps, toolPath, FORMAT, IDLE_MS, LOG_LIMIT, NOTE_START, TASK_TAG,
+  isFromMod, isOwnRun, fuelSetting, measuredShare, precompactRow, precompactDue, NO_PRECOMPACT, usageFields, ledgerLine, progressReport,
+  addStart, takeStart, isCompaction,
 } from './progress-core'
 import type { Fields, Gated, Listed, ProgressState, Refused, ReviewItem, ToolOutcome } from './progress-core'
 
@@ -53,6 +60,9 @@ const RETURNED = atom({ plugin: 'devforgeai', key: 'returned' } as const, [] as 
 const CLEANED = atom({ plugin: 'devforgeai', key: 'cleaned' } as const, [] as string[])
 const WROTE_SEEN = atom({ plugin: 'devforgeai', key: 'wroteSeen' } as const, {} as ProgressWroteSeen)
 const CLOSED = atom({ plugin: 'devforgeai', key: 'closedFor' } as const, null as string | null)
+// The precompact row's values and BEH-36's run mark (versions 21, 23 and 25). They belong to the session, not to a run, so they
+// are not part of the open run's Live values: the host empties them at /clear, /resume and /branch.
+const PRECOMPACT = atom({ plugin: 'devforgeai', key: 'precompact' } as const, NO_PRECOMPACT as ProgressPrecompact)
 
 // The open run's values, as the module holds them (version 14): every hook reads and writes these, never a $.state
 // snapshot, since each dispatch's $.state reads one moment of its own (a hook that awaits across another's write would
@@ -229,6 +239,22 @@ let followsFor: { id: string; value: boolean } | null = null
 const taskWork = new Set<Promise<void>>()
 const TASK_WAIT_MS = 2000
 const TASK_TOOLS = ['TaskCreate', 'TaskUpdate', 'TodoWrite']
+
+// Versions 21 to 25. The fuel settings (DM-07, DM-08) are read when the module loads, as retentionDays is, and the notes of a
+// setting that was out of range wait here for session.start, which has the `$` that register lacks.
+let warnFuel = 30
+let runFuel = 20
+let settingNotes: string[] = []
+/** Whether this session's latest registration of /progress succeeded (BEH-34, ERR-21). */
+let progressOk = false
+/** BEH-36's run mark in memory (BEH-36, BEH-35): $.state's precompact.ran is the copy a reload reads. The check and the set
+ *  happen with no await between them, so two overlapping measurements start one run. */
+let autoRun = false
+/** BEH-41's set of pending command names (version 25), in the adapter's own memory and not in $.state: BEH-36's run adds
+ *  precompact before its $.command.run, and a tile's Start (held with the dashboard) will add its skill's name. The plugin's own
+ *  command.run hook takes a name when it sees that run; a failure takes its own name only; a reload, /clear, /resume, /branch
+ *  and the session's end empty the set (not a turn's end: the run starts once the session is idle, after the turn). */
+const starts = new Set<string>()
 
 /** Register a task-tool call as under way; the function returned ends it. */
 function startTaskWork(): () => void {
@@ -1426,9 +1452,10 @@ async function ownDrafts($: E, run: ProgressRun, gated: Gated): Promise<string[]
   return out
 }
 
-/** Whether BEH-38 applies to this Bash call: Claude Code's own call in the main loop (`engine` origin; the Bash-only slice of
- *  version 21's BEH-33, whose filter for every tool is built with that version and can take this over), a run open and its
- *  window not closed (before the first evaluation it is open). */
+/** Whether BEH-38 applies to this Bash call: Claude Code's own call in the main loop (`engine` origin), a run open and its window
+ *  not closed (before the first evaluation it is open). This is the one Bash-only origin check, BEH-38's own (version 25, BEH-33:
+ *  its refusal and its check after cover Claude Code's own Bash calls only, so a call with no origin gets neither); BEH-33's
+ *  filter for every tool (isFromMod, in the tool.call hook) returns before this for another mod's call and repeats nothing of it. */
 async function bashWatch($: E, input: Fields, origin: unknown): Promise<Watch | null> {
   if (!isEngine(origin) || typeof input.command !== 'string') return null
   const l = await hydrate($)
@@ -1552,13 +1579,14 @@ function formed(input: Fields, answered: boolean, logBytes: number): Fields {
   return tag.outside === true ? { answered, ...tag } : { answered, ...tag, questions: formOf(input, logBytes) }
 }
 
-/** Enforce mode's write-gate check (BEH-08): the refusal text, or null to let the call go on. */
-async function enforceCheck($: E, fields: Fields, content: string | null): Promise<string | null> {
+/** Enforce mode's write-gate check (BEH-08): the refusal text, or null to let the call go on. `count` is false for another mod's
+ *  Write or Edit (BEH-33): it meets the gate all the same, but the refusal is nobody's of Claude's to count (BEH-25, BEH-26). */
+async function enforceCheck($: E, fields: Fields, content: string | null, count = true): Promise<string | null> {
   const got = await pendingState($, 'tool', { ...fields, exit: 0, error: false, content: keptContent(content, await logBytes($)) })
   const run = await get($, 'run')
   if (got === null) return null
   const refusal = refusalText(got.state, got.seq, run !== null && (await follows($, run)) ? got.lines : null)
-  if (refusal !== null) await noteRefusal($, got.state, got.seq, got.run)
+  if (refusal !== null && count) await noteRefusal($, got.state, got.seq, got.run)
   return refusal
 }
 
@@ -1624,14 +1652,197 @@ async function recording($: E, agentId: unknown): Promise<boolean> {
   return interactive === true && !disabled && agentId === undefined && (await get($, 'run')) !== null
 }
 
+// ---- /progress (BEH-34, ERR-21; version 21) ----
+
+/** Register /progress (immediate, so it answers while Claude works) at session.start and after /clear, /resume and /branch, which
+ *  fire none; registering a name again replaces it. A name the host refuses is logged (held until the session's first run, as every
+ *  earlier line is) and marks the registration failed, so the command.run hook passes the command on (ERR-21). */
+async function registerProgress($: E): Promise<void> {
+  try {
+    await $.command.register({ name: 'progress', description: 'Show the DevForgeAI run in progress', immediate: true })
+    progressOk = true
+  } catch (err) {
+    progressOk = false
+    await adapterLog($, 'command', firstLine(message(err)))
+  }
+}
+
+/** What /progress prints (BEH-34): from the functions that build the status line and the band, so the three never disagree. */
+async function progressNow($: E): Promise<string> {
+  const now = await $.clock.now()
+  const mode = await read($, MODE)
+  const off = await read($, OFF)
+  const l = await hydrate($)
+  const idle = !turnOpen && l.lastEventAt > 0 && now - l.lastEventAt > IDLE_MS
+  // A run is open but its first evaluation isn't in yet (the status line and the band show nothing either): BEH-34 gives no text
+  // for it, and "no run is open" would be false. A builder's reading, for Bryan.
+  if (l.run !== null && l.summary === null) return `${l.run.skill} run just started; its first evaluation isn't in yet.`
+  return progressReport(l.summary, l.run !== null, mode, idle, off, l.trail)
+}
+
+// ---- the precompact row and the automatic run (BEH-35, BEH-36, BEH-41, ERR-22; versions 21, 23 and 25) ----
+
+/** The settings of DM-07 and DM-08, read when the module loads; a value that is not a whole number from 0 to 95 counts as its
+ *  default and leaves a note for adapter.log (kind setting). */
+function readFuelSettings(options: Fields | undefined): void {
+  settingNotes = []
+  const warn = fuelSetting(options?.precompactWarnFuel, 30)
+  const run = fuelSetting(options?.precompactRunFuel, 20)
+  warnFuel = warn.value
+  runFuel = run.value
+  if (warn.invalid) settingNotes.push(`precompactWarnFuel: ${String(options?.precompactWarnFuel)} is not a whole number from 0 to 95; using 30`)
+  if (run.invalid) settingNotes.push(`precompactRunFuel: ${String(options?.precompactRunFuel)} is not a whole number from 0 to 95; using 20`)
+}
+
+/** What a session start announces: the notes of settings that were out of range, and /progress. */
+async function announce($: E): Promise<void> {
+  const notes = settingNotes
+  settingNotes = []
+  for (const note of notes) await adapterLog($, 'setting', note)
+  await registerProgress($)
+}
+
+/** session.measure (BEH-35, BEH-36): keep the measured share, or clear it when the measurement has none; then, at or below the
+ *  run share, start the run once. The mark is set in memory and in $.state before the command is asked for, so a second
+ *  measurement or a reload starts none; BEH-41's set gets precompact first, so the plugin's own command.run hook takes the run for
+ *  the person's typed one (BEH-02 then marks the handoff's turn). The command runs once the session is idle, so the hook does not
+ *  wait for it (probe, 2026-10-08). */
+async function measured($: E, raw: unknown): Promise<void> {
+  const percent = measuredShare(raw)
+  const was = await read($, PRECOMPACT)
+  if (was.percent !== percent) await update($, PRECOMPACT, p => ({ ...p, percent }))
+  if (percent === null || !precompactDue({ ...was, percent }, runFuel) || autoRun) return
+  autoRun = true
+  await update($, PRECOMPACT, p => ({ ...p, ran: true }))
+  const fuel = 100 - percent
+  await notify($, `Fuel ${fuel}%: running /devforgeai:precompact`)
+  await adapterLog($, 'precompact', `fuel ${fuel}%: started /devforgeai:precompact`)
+  addStart(starts, 'devforgeai:precompact')
+  try {
+    void Promise.resolve($.command.run({ command: 'devforgeai:precompact' })).then(
+      () => undefined,
+      err => failedPrecompact($, err),
+    ).catch(() => undefined)
+  } catch (err) {
+    await failedPrecompact($, err)
+  }
+}
+
+/** ERR-22: the run mark stays (nothing is tried again before the next compaction), precompact, and only it, leaves BEH-41's set,
+ *  and the row asks the person to run the skill. */
+async function failedPrecompact($: E, err: unknown): Promise<void> {
+  takeStart(starts, 'devforgeai:precompact')
+  await adapterLog($, 'precompact', `could not run /devforgeai:precompact: ${firstLine(message(err))}`)
+  await update($, PRECOMPACT, p => (p.failed ? p : { ...p, failed: true }))
+}
+
+/** A load of the plugin's own precompact skill hides the row until a compaction (BEH-35). */
+async function hidePrecompact($: E): Promise<void> {
+  if (!(await read($, PRECOMPACT)).hidden) await update($, PRECOMPACT, p => ({ ...p, hidden: true }))
+}
+
+/** Whether BEH-36 has started a run since the last compaction: in memory, or in $.state after a reload. */
+async function precompactStarted($: E): Promise<boolean> {
+  return autoRun || (await read($, PRECOMPACT)).ran
+}
+
+/** A compaction empties the row's values and the run mark (BEH-35), and so do /clear, /resume and /branch. */
+async function resetPrecompact($: E): Promise<void> {
+  autoRun = false
+  const was = await read($, PRECOMPACT)
+  // Written only when something changes (BEH-35), which redraws the band.
+  if (was.percent !== null || was.hidden || was.ran || was.failed) await update($, PRECOMPACT, () => NO_PRECOMPACT)
+}
+
+// ---- the odometer ledger (SPEC-016 BEH-10, ERR-06; built with version 25) ----
+
+/** The session's file as the module knows it: the lines it holds (read back once, then its own), or stopped (ERR-06). */
+type LedgerFile = { path: string; lines: string[]; stopped: boolean }
+let ledgerFile: LedgerFile | null = null
+/** Lines not yet in the file: they wait for a root (BEH-15: no run has opened one) or for a write that failed. */
+let ledgerHeld: string[] = []
+let ledgerChain: Promise<unknown> = Promise.resolve()
+const ledgerNoted = new Set<string>()
+/** At most this many lines wait in memory with no root to write to; a file holds about as many in 4 MiB. */
+const LEDGER_HELD_LIMIT = 20000
+
+/** One adapter.log line of kind dashboard for each session and cause (ERR-06). */
+async function ledgerNote($: E, session: string, cause: string, text: string): Promise<void> {
+  const key = `${session}\n${cause}`
+  if (ledgerNoted.has(key)) return
+  ledgerNoted.add(key)
+  await adapterLog($, 'dashboard', `odometer: ${text}`)
+}
+
+/** One turn's line for the session's ledger, in the order the turns end. */
+async function ledgerTurn($: E, turn: string, source: string, counts: { input: number; output: number; cacheRead: number; cacheWrite: number }): Promise<void> {
+  const session = await $.session.id()
+  const line = ledgerLine(session, turn, source, counts, await $.clock.now())
+  const step = ledgerChain.then(() => ledgerAdd($, session, line)).catch(() => undefined)
+  ledgerChain = step
+  await step
+}
+
+/** Add a line and write the file whole, with $.fs having no append (SPEC-016 BEH-10): only the root of the latest run, only once
+ *  a run has opened one (logRoot, BEH-15), reading the session's own file back once at the first write. A failed write keeps the
+ *  lines for the next turn; a file that can't be read back, or would pass 4 MiB, is left alone for the session (ERR-06). */
+async function ledgerAdd($: E, session: string, line: string): Promise<void> {
+  if (typeof session !== 'string' || !SESSION_ID.test(session)) {
+    await ledgerNote($, String(session), 'session', 'the session ID makes no path, so no line is kept')
+    return
+  }
+  if (ledgerHeld.length >= LEDGER_HELD_LIMIT) {
+    await ledgerNote($, session, 'held', 'no run has opened a root and the held lines are full: later lines are dropped')
+    return
+  }
+  ledgerHeld = [...ledgerHeld, line]
+  const root = logRoot
+  if (root === null) return
+  const path = `${progressDir(root)}/odometer/${session}.jsonl`
+  if (ledgerFile === null || ledgerFile.path !== path) {
+    const fresh: LedgerFile = { path, lines: [], stopped: false }
+    ledgerFile = fresh
+    try {
+      if (await $.fs.exists(path)) fresh.lines = (await $.fs.read(path)).split('\n').filter(Boolean)
+    } catch (err) {
+      fresh.stopped = true
+      await ledgerNote($, session, 'read', `${path} can't be read back, so it is not written this session: ${firstLine(message(err))}`)
+    }
+  }
+  const file = ledgerFile as LedgerFile
+  if (file.stopped) {
+    ledgerHeld = []
+    return
+  }
+  const lines = [...file.lines, ...ledgerHeld]
+  const text = lines.join('\n') + '\n'
+  if (byteSize(text) > LOG_LIMIT) {
+    file.stopped = true
+    ledgerHeld = []
+    await ledgerNote($, session, 'full', `${path} would pass 4 MiB, so it is not written any more this session`)
+    return
+  }
+  try {
+    await $.fs.write(path, text)
+    file.lines = lines
+    ledgerHeld = []
+  } catch (err) {
+    await ledgerNote($, session, 'write', `${path} can't be written; the lines wait for the next turn: ${firstLine(message(err))}`)
+  }
+}
+
 export const register: Register = (on, options) => {
   // With tracking off, the adapter does nothing at all (BEH-01, DM-05).
   if ((options as Fields | undefined)?.tracking === 'off') return
   retentionDays = retentionOf((options as Fields | undefined)?.retentionDays)
+  readFuelSettings(options as Fields | undefined)
 
   on('session.start', async ($, e, next) => {
     interactive = e.isInteractive
-    if (interactive) await setup($)
+    if (interactive) {
+      await setup($)
+      await announce($)
+    }
     return next(e)
   }).catch(async ($, e, next) => {
     if (!next.called) await recover($, 'session.start', next.error)
@@ -1643,6 +1854,10 @@ export const register: Register = (on, options) => {
     if (interactive === true && !disabled) {
       await resolveMode($, await $.session.root())
       ensureTimer($)
+      // The new session starts with no row, no run mark and no pending name (BEH-35, BEH-41), and registers /progress again (BEH-34).
+      starts.clear()
+      await resetPrecompact($)
+      await registerProgress($)
     }
     return next(e)
   }).catch(async ($, e, next) => {
@@ -1668,6 +1883,11 @@ export const register: Register = (on, options) => {
       const r = await $.session.root()
       const kind = await skillKind($, r, name)
       if (kind === 'other') return out
+      // A load of the plugin's own precompact skill hides the row until a compaction (BEH-35): the person's, Claude's, or the one
+      // BEH-36 started (its run mark, which a reload keeps in $.state, so the hide never depends on BEH-41's set of names); a
+      // subagent's load is none of these.
+      if (name === 'precompact' && (pluginSkills ?? []).includes(name)
+        && (typedName === name || skillsLoading.has(name) || (await precompactStarted($)))) await hidePrecompact($)
       if (kind === 'untracked') {
         // An untracked skill's load opens no run, ends, pauses or unwinds nothing, offers nothing and changes no display
         // (BEH-02, version 18). The person's load (the typed name BEH-31 keeps) or Claude's (BEH-29's in-flight set) marks
@@ -1729,6 +1949,24 @@ export const register: Register = (on, options) => {
     const unrecorded = untrackedTurn
     const input = e as unknown as Fields
     const tool = String(input.tool)
+    // Another plugin's mod (BEH-33, version 21): the call changes nothing of the tracker, and gives no event of any kind, no
+    // step event, no task map entry, no Skill load for the trail, no question for BEH-21's check, no work for BEH-30 and no call for
+    // BEH-02's marked turn; and it is no refusal of Claude's to count (BEH-25, BEH-26). It still meets the enforce-mode write gate
+    // (BEH-08): where a call comes from relaxes no gate. BEH-38's two parts are Claude Code's own Bash calls only (its check in
+    // bashWatch), so this return comes before them. A missing origin counts as Claude Code's (isFromMod).
+    if (isFromMod(next.origin)) {
+      if ((tool === 'Write' || tool === 'Edit') && (await recording($, input.agentId)) && (await read($, MODE)) === 'enforce' && python) {
+        const open = await get($, 'run')
+        const r = open !== null ? rootOf(open) : await $.session.root()
+        const refusal = await enforceCheck($, { tool, path: toolPath(r, tool, input) }, await contentOf($, r, tool, input), false)
+        if (refusal !== null) {
+          await adapterLog($, 'refused', firstLine(refusal.split('\n')[1] ?? refusal))
+          if (!(await hasSurface($))) await $.ui.log(refusal)
+          return { deny: refusal }
+        }
+      }
+      return await next(e)
+    }
     // Registered before any await, so a question in the same batch finds it (BEH-21).
     const finish = TASK_TOOLS.includes(tool) ? startTaskWork() : null
     // The skills the main loop's Skill calls in flight are loading (BEH-29): skill.prompt fires inside the call.
@@ -1967,9 +2205,26 @@ export const register: Register = (on, options) => {
     // The main loop's turn ends the mark of an untracked load, whatever its reason and whether or not a run is open (BEH-02).
     if (e.agentId === undefined) untrackedTurn = false
     const main = await recording($, e.agentId)
+    // The turn's tokens (BEH-40, SPEC-012 version 17's usage kind): valid counts only, else none.
+    const usage = usageFields(e.turnId, e.usage)
     if (main) {
       turnOpen = false
-      await record($, 'turn', { phase: 'end' }, false)
+      if (usage === null) await record($, 'turn', { phase: 'end' }, false)
+      else {
+        // One chain item, so the usage event is the one right after the turn's end event (BEH-40). A count and no evidence: no mark.
+        await chained(async () => {
+          await recordNow($, 'turn', { phase: 'end' }, false)
+          await recordNow($, 'usage', usage, false)
+        })
+      }
+    }
+    // The odometer ledger (SPEC-016 BEH-10): the main loop's turn and a subagent's alike, in an interactive session with tracking on.
+    if (usage !== null && interactive === true) {
+      try {
+        await ledgerTurn($, usage.turn, e.agentId ?? 'main', usage)
+      } catch (err) {
+        await recover($, 'turn.complete', err)
+      }
     }
     const result = await next(e)
     // Only a turn Claude answered is reviewed: after Esc, a refusal or an error the next answered turn asks (BEH-26).
@@ -1993,7 +2248,10 @@ export const register: Register = (on, options) => {
   // first, in Claude Code's own dialog. A confirmation, not a gate: it refuses nothing Claude does (ADR-006 D1 v2).
   on('command.run', async ($, e, next) => {
     const verb = CONFIRMED[e.command]
-    if (verb === undefined && interactive === true && !disabled && isPersonPrompt(e.origin)) {
+    // BEH-41 (version 25): this plugin's own $.command.run of a name in the set (BEH-36's precompact; a tile's skill, held with the
+    // dashboard) counts as the person's typed command. The name leaves the set at once, and only it, so each name serves one run.
+    const own = verb === undefined && interactive === true && !disabled && isOwnRun(e.origin, $.plugin.name) && takeStart(starts, e.command)
+    if (verb === undefined && interactive === true && !disabled && (isPersonPrompt(e.origin) || own)) {
       // The person's command, kept while it runs: a typed skill's skill.prompt fires inside next(e) (BEH-31).
       const name = skillName(e.command)
       typedName = name
@@ -2045,28 +2303,69 @@ export const register: Register = (on, options) => {
     return next(e)
   })
 
+  // /progress (BEH-34; version 21): answers only while this session's latest registration succeeded and the tracker hasn't
+  // stopped; otherwise the command goes on untouched, so whatever else owns the name runs. It records nothing, opens and ends
+  // no run, asks nothing and works in both modes. (Opening the dashboard pane, version 24, is held with the dashboard.)
+  on('command.run', { command: 'progress' }, async ($, e, next) => {
+    if (!progressOk || interactive !== true || disabled) return next(e)
+    return { text: await progressNow($) }
+  }).catch(async ($, e, next) => {
+    if (!next.called) await recover($, 'command.run', next.error)
+    return next(e)
+  })
+
+  // The precompact row and the automatic run (BEH-35, BEH-36): the measured share, kept or cleared; at or below the run share the
+  // skill is started once, as if typed. Only in an interactive session with tracking on and not stopped; both modes.
+  on('session.measure', async ($, e, next) => {
+    const out = await next(e)
+    if (interactive === true && !disabled) {
+      try {
+        await measured($, (e.context as { percent?: unknown } | undefined)?.percent)
+      } catch (err) {
+        await recover($, 'session.measure', err)
+      }
+    }
+    return out
+  }).catch(async ($, e, next) => {
+    if (!next.called) await recover($, 'session.measure', next.error)
+    return next(e)
+  })
+
   // A compaction of a run that follows the task list keeps its marked step in the summary and ends with a note asking
   // Claude to bring the list in step (BEH-24). Anything after next(e) is caught here, so the compaction stands.
   on('session.compact', async ($, e, next) => {
-    const run = await get($, 'run')
-    if (interactive === true && !disabled && run !== null && e.agentId === undefined && !(await follows($, run))) {
-      return withTrailNote($, run, await next(e))
+    const carried = async () => {
+      const run = await get($, 'run')
+      if (interactive === true && !disabled && run !== null && e.agentId === undefined && !(await follows($, run))) {
+        return withTrailNote($, run, await next(e))
+      }
+      if (interactive !== true || disabled || run === null || e.agentId !== undefined) return next(e)
+      const keep = await compactNotes($, run)
+      const out = await next({ ...e, instructions: e.instructions ? `${e.instructions}\n\n${keep.instruction}` : keep.instruction })
+      try {
+        if (!('messages' in out) || !Array.isArray(out.messages)) return out
+        await adapterLog($, 'compact', (keep.marked === null ? 'no step marked' : `step ${keep.marked} marked`)
+          + (keep.reached ? ', every step reached: no note' : ''))
+        // An earlier note, as a summary made ahead of time or a second compaction carries, goes: never two (version 8).
+        const kept = out.messages.filter(m => !(typeof m.text === 'string' && m.text.startsWith(NOTE_START)))
+        if (keep.reached) return withTrailNote($, run, kept.length ? { ...out, messages: kept } : out)
+        return withTrailNote($, run, { ...out, messages: [...kept, { role: 'user' as const, text: keep.note, toolUses: [] }] })
+      } catch (err) {
+        await recover($, 'session.compact', err)
+        return out
+      }
     }
-    if (interactive !== true || disabled || run === null || e.agentId !== undefined) return next(e)
-    const keep = await compactNotes($, run)
-    const out = await next({ ...e, instructions: e.instructions ? `${e.instructions}\n\n${keep.instruction}` : keep.instruction })
-    try {
-      if (!('messages' in out) || !Array.isArray(out.messages)) return out
-      await adapterLog($, 'compact', (keep.marked === null ? 'no step marked' : `step ${keep.marked} marked`)
-        + (keep.reached ? ', every step reached: no note' : ''))
-      // An earlier note, as a summary made ahead of time or a second compaction carries, goes: never two (version 8).
-      const kept = out.messages.filter(m => !(typeof m.text === 'string' && m.text.startsWith(NOTE_START)))
-      if (keep.reached) return withTrailNote($, run, kept.length ? { ...out, messages: kept } : out)
-      return withTrailNote($, run, { ...out, messages: [...kept, { role: 'user' as const, text: keep.note, toolUses: [] }] })
-    } catch (err) {
-      await recover($, 'session.compact', err)
-      return out
+    const out = await carried()
+    // A compaction of the main conversation (a result with messages, not a skip, and not the one made ahead of time) clears the
+    // precompact row's values and the run mark, so the row and the run can happen again (BEH-35).
+    if (interactive === true && !disabled && e.agentId === undefined && e.trigger !== 'precompute' && isCompaction(out)) {
+      try {
+        await resetPrecompact($)
+      } catch (err) {
+        await recover($, 'session.compact', err)
+      }
     }
+    return out
   }).catch(async ($, e, next) => {
     if (!next.called) await recover($, 'session.compact', next.error)
     return next(e)
@@ -2103,6 +2402,11 @@ export const register: Register = (on, options) => {
       untrackedTurn = false
       // A new session ID follows /clear, /resume and /branch: its lines wait for its first run (DM-02).
       logRoot = null
+      // The pending names (BEH-41) and the ledger's lines (SPEC-016 BEH-10) are the session's; its row and run mark go too.
+      starts.clear()
+      ledgerFile = null
+      ledgerHeld = []
+      await resetPrecompact($).catch(() => undefined)
     }
     return next(e)
   }).catch(async ($, e, next) => {
@@ -2121,19 +2425,22 @@ export const register: Register = (on, options) => {
       const summary = await read($, SUMMARY)
       const props = e.props as unknown as { hasSurvey?: boolean; maxRows?: number; bodyColumns?: number }
       const rows = props.maxRows ?? 2
-      if (interactive !== true || disabled || summary === null || (await read($, RUN)) === null || props.hasSurvey || rows < 1) {
-        return next(e)
-      }
-      const band = bandRows(summary, await read($, MODE), keptTrail(await read($, TRAIL)))
+      if (interactive !== true || disabled || props.hasSurvey || rows < 1) return next(e)
+      // The band while a run is open (BEH-11), and the precompact row while it is due (BEH-35): the band's row 1, then row 2,
+      // then the row, so with too few rows the row goes first. With no run open the row is drawn alone.
+      const hasBand = summary !== null && (await read($, RUN)) !== null
+      const fuel = precompactRow(await read($, PRECOMPACT), warnFuel, runFuel)
+      if (!hasBand && fuel === null) return next(e)
+      const band = hasBand && summary !== null ? bandRows(summary, await read($, MODE), keptTrail(await read($, TRAIL))) : null
       const width = Math.max(10, props.bodyColumns ?? 80)
       const { Box, Text, Button } = await $.ui.resolve(e)
       const rest = await next(e)
-      const left = `${band.mode}  `
-      const right = fit(`  ${band.flag}`, Math.max(0, width - left.length - band.button.length - 4))
+      const left = band === null ? '' : `${band.mode}  `
+      const right = band === null ? '' : fit(`  ${band.flag}`, Math.max(0, width - left.length - band.button.length - 4))
       return (
         <Box flexDirection="column">
-          <Text>{fit(band.row1, width)}</Text>
-          {rows >= 2 ? (
+          {band !== null ? <Text>{fit(band.row1, width)}</Text> : null}
+          {band !== null && rows >= 2 ? (
             <Box flexDirection="row">
               <Text>{left}</Text>
               <Button key="progress-mode" label={band.button} onPress={() => {
@@ -2142,6 +2449,7 @@ export const register: Register = (on, options) => {
               <Text dimColor>{right}</Text>
             </Box>
           ) : null}
+          {fuel !== null && rows >= (band !== null ? 3 : 1) ? <Text>{fit(fuel, width)}</Text> : null}
           {rest}
         </Box>
       )

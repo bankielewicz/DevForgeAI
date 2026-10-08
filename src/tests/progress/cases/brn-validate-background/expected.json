@@ -67,6 +67,11 @@
       "n": 1,
       "need": "required",
       "note": "",
+      "reached": {
+        "activeSeconds": 1,
+        "seq": 2,
+        "time": "2026-10-02T12:00:02Z"
+      },
       "state": "done",
       "title": "Intake: topic, existing BRNs, clarifying questions",
       "userOwned": false
@@ -82,6 +87,11 @@
       "n": 2,
       "need": "text-only",
       "note": "",
+      "reached": {
+        "activeSeconds": 2,
+        "seq": 3,
+        "time": "2026-10-02T12:00:03Z"
+      },
       "state": "done",
       "title": "Select a framework",
       "userOwned": false
@@ -97,6 +107,11 @@
       "n": 3,
       "need": "text-only",
       "note": "",
+      "reached": {
+        "activeSeconds": 2,
+        "seq": 3,
+        "time": "2026-10-02T12:00:03Z"
+      },
       "state": "done",
       "title": "Diverge: problems, ideas, assumptions",
       "userOwned": false
@@ -112,6 +127,11 @@
       "n": 4,
       "need": "text-only",
       "note": "",
+      "reached": {
+        "activeSeconds": 2,
+        "seq": 3,
+        "time": "2026-10-02T12:00:03Z"
+      },
       "state": "done",
       "title": "Evaluate with the framework",
       "userOwned": false
@@ -123,6 +143,7 @@
       "n": 5,
       "need": "required",
       "note": "no answer; left open",
+      "reached": null,
       "state": "not-applicable",
       "title": "Propose dispositions and ask the user to confirm",
       "userOwned": true
@@ -145,6 +166,11 @@
       "n": 6,
       "need": "required",
       "note": "",
+      "reached": {
+        "activeSeconds": 3,
+        "seq": 4,
+        "time": "2026-10-02T12:00:04Z"
+      },
       "state": "done",
       "title": "Write the BRN",
       "userOwned": false
@@ -156,6 +182,7 @@
       "n": 7,
       "need": "required",
       "note": "",
+      "reached": null,
       "state": "skipped",
       "title": "Validate the BRN",
       "userOwned": false
@@ -171,12 +198,34 @@
       "n": 8,
       "need": "required",
       "note": "",
+      "reached": {
+        "activeSeconds": 6,
+        "seq": 7,
+        "time": "2026-10-02T12:00:07Z"
+      },
       "state": "done",
       "title": "Report and hand off",
       "userOwned": false
     }
   ],
   "through": 7,
+  "timing": {
+    "activeSeconds": 6,
+    "lastEvent": "2026-10-02T12:00:07Z",
+    "started": "2026-10-02T12:00:01Z",
+    "stepsCarried": 0,
+    "stepsReached": 6,
+    "untimed": 0
+  },
+  "usage": {
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "duplicates": 0,
+    "input": 0,
+    "models": [],
+    "output": 0,
+    "turns": 0
+  },
   "waiver": null,
   "workFiles": {
     "due": false,
