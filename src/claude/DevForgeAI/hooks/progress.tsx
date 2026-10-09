@@ -281,6 +281,9 @@ let rollFailures = 0
 let rollStopped = false
 /** BEH-44: the text copied onto adapter.1.log by a rollover whose last step, the new adapter.log, failed: the retry does not shift again. */
 let rollShifted: string | null = null
+/** The outcome of the timer's latest firing that was traced, or of the latest skipped evaluation (BEH-43 (c) 7): a firing is traced
+ *  only when its outcome differs from the one before, and always when it starts an evaluation. A reload starts it over. */
+let timerOutcome: string | null = null
 const noticed = new Set<string>()
 // The session IDs and roots already pruned (BEH-19), and the retentionDays setting (DM-06).
 const pruned = new Set<string>()
@@ -1080,7 +1083,11 @@ async function settle($: E, why = 'review'): Promise<void> {
     inFlight = evaluateMarked($, why)
     await inFlight
   } else if (runHold !== null || disabled) {
-    trace($, `evaluate skipped why=${runHold !== null ? 'hold' : 'stop'}`)
+    const why = runHold !== null ? 'hold' : 'stop'
+    if (timerOutcome !== why) {
+      timerOutcome = why
+      trace($, `evaluate skipped why=${why}`)
+    }
   }
 }
 
@@ -1339,13 +1346,16 @@ async function absorbNow($: E, run: ProgressRun, got: { state: ProgressState; te
 /** The timer's work (BEH-06): it catches every error itself, since one it let escape reaches only the debug log (ERR-10). */
 async function tick($: E): Promise<void> {
   try {
-    trace($, 'timer fired')
     await refreshStatus($)
     // While the run's log is held the timer starts no evaluation and clears no mark (BEH-06, BEH-42 (d)).
-    if (evaluating || disabled || runHold !== null || !(await get($, 'marked'))) {
-      if (evaluating || disabled || runHold !== null) trace($, `evaluate skipped why=${runHold !== null ? 'hold' : disabled ? 'stop' : 'running'}`)
-      return
+    const skipped = evaluating || disabled || runHold !== null
+    const outcome = evaluating && !disabled && runHold === null ? 'running' : runHold !== null ? 'hold' : disabled ? 'stop' : !(await get($, 'marked')) ? 'idle' : 'evaluate'
+    if (outcome === 'evaluate' || outcome !== timerOutcome) {
+      trace($, 'timer fired')
+      if (skipped && outcome !== timerOutcome) trace($, `evaluate skipped why=${outcome}`)
     }
+    timerOutcome = outcome
+    if (skipped || outcome === 'idle') return
     inFlight = evaluateMarked($)
     await inFlight
   } catch (err) {

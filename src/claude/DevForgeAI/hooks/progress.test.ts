@@ -8985,3 +8985,48 @@ test('review fuzz: level changes among flaky writes and rollovers lose and repea
   expect(between).toEqual([true, true, true, true])
   expect(/MK5[2-9]/.test(union) || union.includes('END')).toBe(false)   // nothing generated after the change to off
 })
+
+// ---- version 28, live VER-78: the timer's trace line only on a change of outcome (BEH-43 (c) 7) ----
+
+test('live VER-78: 1,200 idle timer ticks in one turn leave at most two timer lines, and the turn\'s earlier trace lines are all still in the log', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const { w } = await hOpen($, on)
+  await w.clock.advance(600000)                                     // 1,200 ticks of 500 ms, no turn end between
+  await done($, 't2', null)
+  await lSettle(w)
+  const t = lTrace(w)
+  expect(t.filter(x => x === 'timer fired').length).toBeLessThanOrEqual(3)   // the evaluation's firing, then the first idle one
+  expect(t).toContain('event skill-loaded seq=1 lines=1')           // not pushed out of the newest 1,000
+  expect(t.some(x => /^hook skill\.prompt origin=/.test(x))).toBe(true)
+})
+
+test('live VER-78: idle, hold, idle gives one timer line and one skipped line for the hold, not one per tick', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  await w.clock.advance(5000)                                       // idle
+  f.broken = true
+  await $.tool.call(READ('b.md'))                                   // the hold
+  await w.clock.advance(5000)                                       // 10 ticks in the hold
+  await $.tool.call(READ('c.md'))
+  await w.clock.advance(5000)
+  f.broken = false
+  await done($, 't2', null)
+  await w.clock.advance(5000)                                       // idle again
+  await lSettle(w)
+  const t = lTrace(w)
+  expect(t.filter(x => x === 'evaluate skipped why=hold').length).toBe(1)
+  expect(t.filter(x => x === 'timer fired').length).toBeLessThanOrEqual(6)   // 40 ticks in all
+})
+
+test('live VER-78: a tick that starts an evaluation always traces, also twice in a row', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const { w } = await hOpen($, on)                                  // the first evaluation
+  await $.tool.call(READ('c.md'))
+  await w.clock.advance(600)                                        // the second
+  await $.tool.call(READ('d.md'))
+  await w.clock.advance(600)                                        // the third
+  await done($, 't2', null)
+  await lSettle(w)
+  const t = lTrace(w)
+  const starts = t.filter(x => x === 'evaluate start why=timer').length
+  expect(starts).toBeGreaterThanOrEqual(3)
+  expect(t.filter(x => x === 'timer fired').length).toBeGreaterThanOrEqual(starts)
+  t.forEach((x, i) => { if (x === 'evaluate start why=timer') expect(t.slice(0, i).lastIndexOf('timer fired')).toBeGreaterThan(t.slice(0, i).lastIndexOf('evaluate exit=0 0ms') - 1) })
+})
