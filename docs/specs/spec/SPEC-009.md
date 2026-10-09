@@ -25,7 +25,6 @@ upstream:
   - {id: PRD-001, item: FR-016, relation: informed_by, version: 13, hash: null, note: "the requirement this skill implements; no story specifies it yet"}
   - {id: SPEC-004, relation: informed_by, version: 4, hash: null, note: "consumes the epic skill's downstream contract (SPEC-004 §5)"}
   - {id: SPEC-003, relation: informed_by, version: 11, hash: null, note: "reads the ARCH's components (CMP) and deployment units (SPEC-003 §4, §5)"}
-  - {id: SPEC-011, relation: informed_by, version: 3, hash: null, note: "§4 fixes the approved-design line that BEH-12 now writes, and BEH-11 there indexes it in ui-mockups.md"}
   - {id: ADR-007, relation: informed_by, version: 1, hash: null, note: "proposed: the ui step and the DSN; story-level design stays with this skill (D6)"}
   - {id: SPEC-017, relation: informed_by, version: 1, hash: null, note: "the ui skill, which writes the DSN that the PRD's section 8 links and BEH-11 reads"}
 supersedes: []
@@ -43,8 +42,9 @@ components: ["src/claude/DevForgeAI/skills/story"]
 >
 > **Version 3 (2026-10-09, cycle A of ADR-007, which is proposed).** BEH-11 and BEH-12 stay. BEH-12 adopts the
 > approved-design line that SPEC-011 §4 fixes, and checks each export's path; BEH-11 reads the DSN that the PRD's
-> section 8 links (SPEC-017). Story-level design stays with this skill. The new text depends on ADR-007, so
-> `blocked_by` names it until it is accepted.
+> section 8 links (SPEC-017). Story-level design stays with this skill. Version 3's text rests on ADR-007, so `blocked_by`
+> names it for the whole draft until it is accepted; the earlier text didn't need it. SPEC-011 is named in prose (§2, §4), not
+> linked, so that its citation of this spec forms no two-way pair.
 
 ## 1. Overview
 
@@ -89,6 +89,8 @@ The skill is recorded as `SKL-008` in its `provenance.yaml`.
   - progressive disclosure: only the documents for the components a story touches;
   - read-only;
   - the ambiguities log as the pressure relief valve (ADR-004 D8).
+- **SPEC-011 §4 (named, not linked):** the approved-design line this skill writes (§4) is the one SPEC-011 BEH-11 reads to
+  build `ui-mockups.md` section 3. SPEC-011 cites this spec, so this spec does not cite it back (SPEC-017 §13, z).
 - **ADR-007 (proposed):** the ui skill writes a DSN for the release before the PRD, from board files
   committed to the repository (SPEC-017). It leaves story-level design here (D6): the design gate, the
   design record and the check of each export. The DSN is reached through the PRD's section 8.
@@ -125,6 +127,7 @@ src/claude/DevForgeAI/skills/story/
 └── references/
     ├── slicing.md               # vertical slicing patterns, the walking-skeleton rule, spec_mode criteria
     ├── context.md               # which context documents to open for which component kinds (ADR-004 D2, D4)
+    ├── design-record.md         # shared: byte-identical to a section of the context skill's documents.md (§4)
     └── output-rules.md          # story frontmatter, links, AC rules, Definition of Done, the export-path check
                                  # (checkExports, BEH-12), the self-check list
 src/claude/DevForgeAI/evals/story/<case>/   # one case per automated VER item (§9)
@@ -149,16 +152,17 @@ flowchart LR
 **Inputs** (all read-only):
 - `docs/specs/epic/EPIC-NNN.md`: the `refines` links (requirements at the PRD version), the DW items, the
   ARCH link and the status;
-- the PRD at the version the epic links: each refined FR or NFR's statement, priority and release;
+- the PRD at the version the epic links: each refined FR or NFR's statement, priority, release and `upstream` links (their
+  `derives` links to BRN ideas, for BEH-11's match), and its section 8 (User experience);
 - the ARCH the epic links: CMP items with their `kinds` (SPEC-003 §4), DEC state, deployment;
 - accepted ADRs the ARCH or the context documents cite, when a story needs the decision's detail;
 - the context documents (ADR-004): `docs/specs/context/index.md` first, then only the documents BEH-04
   selects;
 - existing stories: `docs/specs/story/STORY-*.md`;
 - approved design exports under `docs/specs/story/design/STORY-NNN/`;
-- the DSNs that the PRD's section 8 links: each `DSN-NNN` that section names (the PRD at the version the epic
-  links) is read from `docs/specs/design/DSN-NNN.md`, for its active boards' flows, surfaces and ideas
-  (BEH-11). A DSN is context for the brief, never an approval.
+- the DSNs that the PRD's section 8 links: each `DSN-NNN` that appears in that section (any `DSN-\d{3}` until SPEC-002
+  version 6 defines the section's form) is read from `docs/specs/design/DSN-NNN.md`, for its active boards' flows, surfaces,
+  ideas and answers (BEH-11). A DSN is context for the brief, never an approval.
 
 **Outputs:**
 - new stories at `docs/specs/story/STORY-NNN.md` from `assets/story.md`, valid against
@@ -171,8 +175,11 @@ this epic has an AC with a `satisfies` link to it, at any version. The items are
 refined NFR and each DW item. The skill writes new stories only for uncovered items, so rerunning with
 unchanged inputs writes nothing (ERR-05).
 
-**The approved-design record** (BEH-12). One record for each story: one line in section 3, in this form
-(SPEC-011 §4 fixes it, and its BEH-11 reads it):
+**The approved-design record** (BEH-12). One record for each story: one line in section 3, in this form. The form and the
+path rule are written once, in the context skill's `references/documents.md`, section `## ui-mockups.md and approved-design
+records` (its master); `references/design-record.md` holds that section byte for byte, and a test (`src/tests/story/`, written
+with the skill, modelled on `src/tests/prd/test_shared_files.py`) fails when the two differ, so the writer and the reader
+(SPEC-011 BEH-11) cannot drift. The context skill and SPEC-011 do not change until this skill is built (§13). The form:
 
 `- **Approved design:** <screen or flow>; <export path>[, <export path>…]; approved <YYYY-MM-DD>; bundle <link or none>`
 
@@ -300,7 +307,7 @@ behaviors:
     rule: "Write each confirmed story to the next free docs/specs/story/STORY-NNN.md, creating the folder if it is missing, from ${CLAUDE_SKILL_DIR}/assets/story.md. Number the walking skeleton first, then the rest in the confirmed order. Frontmatter: status draft; estimate null unless the user gave one; spec_mode as confirmed; components as ARCH-NNN#CMP-NN IDs; blocked_by as confirmed; upstream with one refines link to the epic at its version and constrains links to the context documents and ADRs the story relies on (BEH-04). Fill sections 1 to 4 and 6 to 7. In section 3 Scope, name each component with what the story changes in it. Section 5 keeps the template's GENERATED line when spec_mode is separate; when it is embedded, section 5 says the spec step writes the embedded specification."
   - id: BEH-11
     status: active
-    rule: "Design gate. For a story that touches a user-facing component (web, desktop, mobile or CLI) and whose ACs describe a screen, flow or output that no approved design covers (neither one indexed in docs/specs/context/ui-mockups.md nor one recorded in an existing story under BEH-12): write a brief to docs/specs/story/design/STORY-NNN/brief.md from ${CLAUDE_SKILL_DIR}/assets/design-brief.md (the goal, the users, the flows and states to show, the ACs it illustrates, and the constraints from front-end.md and the design system), and add to section 7 [NEEDS CLARIFICATION: approved design for <screen or flow>; brief at <path>]. The marker keeps the story from becoming ready. Never call /design, and never describe a design as approved. When the PRD's section 8 links a DSN (§4), also list in the brief, as starting points and under their IDs, the DSN's active boards that bear on this story: a board whose ideas include an idea that one of the epic's refined requirements derives from (that requirement's upstream link to the BRN), a board whose answers name one of those requirements (as PRD-NNN#FR-NNN), or one the user names. A DSN board is never a story's approved design: it clears no marker, and the brief still asks for the story's own design and its export. A DSN that is draft or in-review makes the list a proposal, and the brief says so."
+    rule: "Design gate. For a story that touches a user-facing component (web, desktop, mobile or CLI) and whose ACs describe a screen, flow or output that no approved design covers (neither one indexed in docs/specs/context/ui-mockups.md nor one recorded in an existing story under BEH-12): write a brief to docs/specs/story/design/STORY-NNN/brief.md from ${CLAUDE_SKILL_DIR}/assets/design-brief.md (the goal, the users, the flows and states to show, the ACs it illustrates, and the constraints from front-end.md and the design system), and add to section 7 [NEEDS CLARIFICATION: approved design for <screen or flow>; brief at <path>]. The marker keeps the story from becoming ready. Never call /design, and never describe a design as approved. When the PRD's section 8 links a DSN (§4), also list in the brief, as starting points and under their IDs, the DSN's active boards that bear on this story: a board whose ideas include an idea IDEA-NN such that one of the epic's refined requirements has a derives link to that same idea of the same BRN (the pair BRN ID and idea ID, matched against the DSN's own link to its BRN, since IDEA-NN is unique only within one BRN), a board whose answers name one of those requirements (as PRD-NNN#FR-NNN), or one the user names. A DSN board is never a story's approved design: it clears no marker, and the brief still asks for the story's own design and its export. A DSN that is draft or in-review makes the list a proposal, and the brief says so."
   - id: BEH-12
     status: active
     rule: "Design record. When run again for an epic, and a story's design folder holds exported PNG or PDF files that the user approves in this run on explicit words that name the screen or flow (for example 'approve this design: the Mission Control home'), with the paths the user names or confirms: check each path as §4 says (it exists, ends in .png or .pdf and lies under docs/specs/story/design/STORY-NNN/) and record none that fails (ERR-09). Then add to section 3 the one line of §4's fixed form with the screen or flow as the user named it, the export paths, the approval date and the Claude Design handoff-bundle link (or none); remove that design marker from section 7, which then reads '- None.' when no item is left; raise the story's version by one, update the date and add one Change Log row. Name /devforgeai:context ui-mockups as the next step, which indexes the design in ui-mockups.md. This is the only change the skill makes to an existing story: section 3, section 7 and the Change Log, with the version and updated date in the frontmatter. Without the user's explicit words it changes nothing."
@@ -411,7 +418,7 @@ quality_responses:
 | Structural: frontmatter and item blocks against `spec.schema.json` | See the Change Log row for the check at drafting |
 | Behavioural: automated VER items, one eval case each | Not run: the skill isn't built |
 | Behavioural: manual VER items (VER-16, VER-17) | Not run |
-| Version 3 (VER-07 changed; VER-18 to VER-20 new) | Not built, so not run. Structural: checked against `spec.schema.json` with every BEH, ERR and QR item covered (2026-10-09) |
+| Version 3 (VER-07 changed; VER-18 to VER-21 new) | Not built, so not run. Structural: checked against `spec.schema.json` with every BEH, ERR and QR item covered (2026-10-09) |
 
 **Shared fixture.** Nothing upstream exists in this repository, so each case's scaffold seeds its own
 documents, each checked against its schema:
@@ -558,7 +565,7 @@ verifications:
       - BEH-12
   - id: VER-19
     status: active
-    obligation: "Shared fixture plus a PRD whose section 8 links DSN-001, and a DSN-001.md (draft) with an active board whose ideas include IDEA-02, which FR-002 of the PRD derives from, and EPIC-001 refining FR-002; the slicing gives one story a new CLI output that ui-mockups.md doesn't list. That story's brief names DSN-001 and the board by its BRD ID and file, says the DSN is a draft proposal, and still asks for the story's own design; the story keeps the [NEEDS CLARIFICATION: approved design … marker in section 7 and status draft; no story's section 3 holds an Approved design line. Eval case dsn-boards-in-brief: regex on the files."
+    obligation: "Shared fixture plus a PRD whose section 8 links DSN-001, and a DSN-001.md (draft) with an active board whose ideas include IDEA-02, which FR-002 of the PRD derives from, and EPIC-001 refining FR-002; the slicing gives one story a new CLI output that ui-mockups.md doesn't list. A second story's epic refines FR-003, which derives from IDEA-02 of BRN-002 (not the DSN's BRN): the board naming IDEA-02 is not listed for it. The first story's brief names DSN-001 and the board by its BRD ID and file, says the DSN is a draft proposal, and still asks for the story's own design; the story keeps the [NEEDS CLARIFICATION: approved design … marker in section 7 and status draft; no story's section 3 holds an Approved design line. Eval case dsn-boards-in-brief: regex on the files."
     level: e2e
     covers:
       - BEH-11
@@ -568,6 +575,12 @@ verifications:
     level: e2e
     covers:
       - ERR-10
+  - id: VER-21
+    status: active
+    obligation: "When the skill is built: src/tests/story/ holds a test, modelled on src/tests/prd/test_shared_files.py, that the story skill's references/design-record.md equals, byte for byte, the section of the context skill's references/documents.md that starts at the line '## ui-mockups.md and approved-design records' and ends before the next '## ' line, and that the section holds the fixed form and the path rule of §4. It fails when either text changes alone."
+    level: unit
+    covers:
+      - BEH-12
 ```
 
 ## 10. Rollout, migration and rollback
@@ -640,10 +653,17 @@ rest):
   requirements a board answers, and the gate is unchanged. A missing DSN never stops the run (ERR-10).
 - **The fixed line form** in BEH-12 (SPEC-011 §4 left it for this version) with the screen or flow named by the user, and one
   record for each story, replaced on a revision.
+- **The shared approved-design rule** (§4, VER-21): the page's 'Shared file' proposal, adopted. The form and the path rule live in
+  the context skill's `documents.md` (master) and in this skill's `references/design-record.md`, byte-identical with a test; no
+  SPEC-011 change until this skill is built. Alternative: two prose copies that can drift.
+- **One direction of citation:** this spec cites SPEC-017 and ADR-007 and names SPEC-011 in prose, so no two-way pair forms
+  (SPEC-017 §13, z).
+- **The DSN match** (BEH-11): by the pair BRN ID and idea ID, so an `IDEA-NN` of another BRN never matches; and any `DSN-\d{3}`
+  in the PRD's section 8 until SPEC-002 version 6 defines it.
 - **The path check's reach** (§4): any depth under the story's folder, `.png` or `.pdf`, no `..` segment.
 - **The next step of a design-record run** (BEH-12): `/devforgeai:context ui-mockups`, as the page's trace shows.
-- **`blocked_by: [ADR-007]`,** as SPEC-009 version 1 named ADR-004 while it was proposed; the whole spec is not blocked, only
-  version 3's DSN text. The two links the version moves to current versions (PRD-001 version 13 for NFR-001 to NFR-003 and
+- **`blocked_by: [ADR-007]`,** as SPEC-009 version 1 named ADR-004 while it was proposed; it blocks the whole draft, whose
+  version 3 text rests on ADR-007. The two links the version moves to current versions (PRD-001 version 13 for NFR-001 to NFR-003 and
   FR-016, and SPEC-004 version 4, whose §5 downstream contract is unchanged) were re-read for this bump.
 
 ## Change Log
@@ -655,3 +675,4 @@ rest):
 | 2 | 2026-09-29 | claude-code (session a2b1015f-3340-4c70-80ed-b674d486fadd) | Aligned with Bryan's decisions of 2026-09-29: component kinds from SPEC-003 version 2 (BEH-03, §4; ERR-08 kept for ARCH files written before it); the ambiguities log per story (BEH-14, §4, §13); PRD-001 FR-016 names this skill (informed_by link); §11 and §13 updated. Links re-reviewed: PRD-001 v10, ADR-004 v2, SPEC-003 v2 | frontmatter, §4, BEH-03, BEH-14, ERR-08, §11, §13 |
 | 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Cycle A of ADR-007 (proposed), from Bryan's decisions of 2026-10-08 and 2026-10-09 (story-level design stays in this skill) and the Krepion session's spec page, claim 2: BEH-11 and BEH-12 kept; BEH-12 adopts the approved-design line of SPEC-011 §4, records only on the user's explicit words naming the screen or flow, checks each export path (exists, .png or .pdf, under the story's design folder; new ERR-09), clears the design marker and names /devforgeai:context ui-mockups; BEH-11 reads the DSN the PRD's section 8 links and lists its boards in the brief (new ERR-10); §4 gains the design record and the design's states; VER-07 changed, VER-18 to VER-20 new. Links re-reviewed and moved: PRD-001 v13, SPEC-004 v4; new links to SPEC-011 v3, ADR-007 and SPEC-017; blocked_by ADR-007 | frontmatter, blockquote, §1, §2, §4, BEH-11, BEH-12, ERR-09, ERR-10, VER-07, VER-18 to VER-20, §9, §10, §12, §13 |
 | 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Before review: BEH-11's list of a DSN's boards also matches a board whose `answers` (SPEC-017 DM-02) name one of the epic's refined requirements, besides the match on ideas | BEH-11, §13 |
+| 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | After the independent review: the link to SPEC-011 is prose now, one direction in each pair of citations (S1); the approved-design form and path rule are shared byte for byte with the context skill's documents.md, with a test (S5, VER-21); BEH-11 matches a board by the pair BRN ID and idea ID, §4 reads the refined requirements' upstream links and the PRD's section 8 for any DSN ID (N14, N17); the blockquote and §13 say one thing about blocked_by (N11) | frontmatter, blockquote, §2, §3, §4, BEH-11, VER-19, VER-21, §13 |
