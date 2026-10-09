@@ -9,7 +9,10 @@ sessions/<name> whose name is a session ID (a UUID), when the newest entry in it
 modified more than N days ago, other than the kept session's and run's folders. A session ID of another shape is
 left alone. It never follows a symbolic link: every folder is opened by a descriptor without following one and
 everything beneath it is reached through that descriptor, so a folder swapped for a link meanwhile is never entered;
-it skips a link, and leaves any folder that holds one. It deletes nothing else. A folder that changes or vanishes
+it skips a link, and leaves any folder that holds one. From version 28 it also removes the project's diagnostic log
+(SPEC-013 BEH-44): the regular files adapter.log and adapter.1.log to adapter.10.log directly under devforgeai/progress/,
+together, when adapter.log was last modified more than N days ago (a rollover writes every rolled file again, so their own
+ages say nothing); with no adapter.log, each rolled file by its own age. It deletes nothing else. A folder that changes or vanishes
 while it works, as another session's prune or an active run makes it, is skipped. A platform without descriptor
 support (Windows) is refused rather than walked by path.
 
@@ -133,6 +136,43 @@ def prune_kind(kind_fd, kind, pattern, keep, cutoff):
             continue
         except OSError as err:
             failure = failure or "%s/%s: %s" % (kind, name, err.strerror or err)
+    return removed, failure
+
+
+LOG_FILE = re.compile(r"adapter\.(?:[1-9]|10)\.log")
+
+
+def regular_age(name, dir_fd):
+    """A regular file's last modification time, or None when it is missing, a link or something else."""
+    try:
+        info = os.stat(name, dir_fd=dir_fd, follow_symlinks=False)
+    except OSError:
+        return None
+    return info.st_mtime if stat.S_ISREG(info.st_mode) else None
+
+
+def prune_logs(progress_fd, cutoff):
+    """IF-04 (version 28): (removed, the first failure or None). adapter.log with adapter.1.log to adapter.10.log goes as a
+    set once adapter.log itself is older than cutoff; with no live adapter.log each rolled file goes by its own age. The
+    files are regular files of this folder only, reached through its descriptor: a link, a folder or another name stays."""
+    live = regular_age("adapter.log", progress_fd)
+    names = sorted(entry.name for entry in os.scandir(progress_fd) if LOG_FILE.fullmatch(entry.name))
+    if live is not None:
+        if live >= cutoff:
+            return 0, None
+        names.append("adapter.log")
+    removed, failure = 0, None
+    for name in names:
+        when = regular_age(name, progress_fd)
+        if when is None or (live is None and when >= cutoff):
+            continue
+        try:
+            os.unlink(name, dir_fd=progress_fd)
+            removed += 1
+        except FileNotFoundError:
+            continue
+        except OSError as err:
+            failure = failure or "%s: %s" % (name, err.strerror or err)
     return removed, failure
 
 
@@ -387,6 +427,8 @@ def prune_all(root, days, keep_session, keep_run, now, manifests=None):
                     os.close(kind_fd)
                 setattr(result, kind, removed)
                 result.failure = result.failure or failed
+            _, failed = prune_logs(fds[-1], cutoff)
+            result.failure = result.failure or failed
         if manifests is not None:
             patterns, result.ignored = work_patterns(manifests)
             if patterns:

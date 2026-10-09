@@ -2,7 +2,7 @@
 
 - hooks/hooks.json names one module, and it exists;
 - .claude-plugin/plugin.json names the $.state contract (types), the tracking setting (DM-05), the
-  retentionDays setting (DM-06) and the two fuel settings (DM-07, DM-08), and its version is 0.29.0;
+  retentionDays setting (DM-06) and the two fuel settings (DM-07, DM-08), and its version is 0.30.0;
 - CLAUDE.md's deploy command and its source-and-deploy check leave the module's tests and the engine's generated
   files out of the deployed copy;
 - VER-04's expected event lines, kept in hooks/progress.test.ts between marker comments, validate against
@@ -46,7 +46,7 @@ def expected_events():
 
 def dm02_kinds():
     """The adapter.log kinds SPEC-013's DM-02 lists: the backticked words between 'kind one of' and the end of that list."""
-    rows = [l for l in SPEC.read_text(encoding="utf-8").splitlines() if l.startswith("| `sessions/<session>/adapter.log`")]
+    rows = [l for l in SPEC.read_text(encoding="utf-8").splitlines() if l.startswith("| `adapter.log` |")]
     assert len(rows) == 1, "DM-02 has one adapter.log row"
     text = rows[0]
     text = text[text.index("kind one of"):text.index("a line's text is one line")]
@@ -94,10 +94,10 @@ class AdapterStructure(unittest.TestCase):
         self.assertIn("`--file=${p}`", body)
         self.assertNotIn("'--file'", body)
 
-    # SPEC-013 version 23 (DM-07, DM-08) and version 27's plugin version (Bryan, 2026-10-09: '0.29.0 for v27').
+    # SPEC-013 version 23 (DM-07, DM-08) and version 28's plugin version (Bryan, 2026-10-09: '0.30.0 (Recommended)').
     def test_plugin_json_has_the_fuel_settings_and_the_new_version(self):
         manifest = json.loads((PLUGIN / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "0.29.0")
+        self.assertEqual(manifest["version"], "0.30.0")
         warn = manifest["userConfig"]["precompactWarnFuel"]
         run = manifest["userConfig"]["precompactRunFuel"]
         self.assertEqual((warn["type"], warn["default"], warn["min"], warn["max"]), ("number", 30, 0, 95))
@@ -108,6 +108,22 @@ class AdapterStructure(unittest.TestCase):
                          "saying when /devforgeai:precompact will run. 0 turns the row off.")
         self.assertEqual(run["description"], "Run /devforgeai:precompact once when this little of the context window is left. "
                          "0 never runs it.")
+
+    # SPEC-013 version 28 (DM-09, DM-10; VER-76): the two logging settings.
+    def test_plugin_json_has_the_logging_settings(self):
+        manifest = json.loads((PLUGIN / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
+        level = manifest["userConfig"]["logLevel"]
+        size = manifest["userConfig"]["logRolloverMiB"]
+        self.assertEqual((level["type"], level["default"], level["options"]), ("string", "normal", ["off", "normal", "verbose"]))
+        self.assertEqual(level["title"], "Progress log detail")
+        self.assertEqual(level["description"], "How much the progress tracker writes to adapter.log in devforgeai/progress/. "
+                         "off writes nothing; normal writes notices and failures; verbose (debug) adds a line for each hook, decision, "
+                         "write and evaluation, with times, IDs and timings; its added lines never carry the text of a prompt, a reply "
+                         "or a file.")
+        self.assertEqual((size["type"], size["default"], size["min"], size["max"]), ("number", 1, 1, 3))
+        self.assertEqual(size["title"], "Roll over the progress log at (MiB)")
+        self.assertEqual(size["description"], "Start a new adapter.log when the current one reaches this size (whole MiB, 1 to 3), "
+                         "or when the UTC day changes, whichever comes first. The old file stays beside it as adapter.<n>.log.")
 
     # VER-66 (version 25): a kind the adapter writes to adapter.log must be one DM-02 lists (a kind listed for a behaviour not
     # yet built needs no call in the code, so the check goes from the code to the list and not back).
@@ -122,9 +138,12 @@ class AdapterStructure(unittest.TestCase):
         self.assertIn("bash", listed)
         self.assertEqual(sorted(set(literal) - listed), [])
         # the kinds the dashboard cycle's adapter adds are among the calls, and version 27's `write` (BEH-42, ERR-03)
-        for kind in ("command", "setting", "precompact", "dashboard", "write"):
+        for kind in ("command", "setting", "precompact", "dashboard", "write", "log"):
             self.assertIn(kind, literal)
         self.assertIn("write", listed)
+        # version 28: DM-02 lists the root-level kinds `log` (BEH-44) and `trace` (BEH-43)
+        self.assertTrue({"log", "trace"} <= listed)
+        self.assertRegex(tsx, r"\btrace\(\$,")
 
     # VER-67 (version 24): the button rule in §2, §12 and the FR-003 link note.
     def test_the_button_rule_reads_as_version_24_words_it(self):

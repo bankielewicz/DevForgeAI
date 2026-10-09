@@ -13,6 +13,7 @@ import {
   addStart, takeStart, isCompaction, isOwnRun,
   HOLD_TRIES, RETRYING, STOPPED_LINE, NOTHING_TO_RETRY, STOP_TOAST, errorLine, remedyRow, heldToast, recoveredToast, heldLog, recoveredLog,
   gaveUpLog, savedAnswer, stillAnswer, liftedAnswer, stillStoppedAnswer, odometerOnAnswer, odometerStillAnswer, odometerGaveUpToast,
+  logLevelOf, rolloverMiBOf, logStamp, traceCut, rollReason, chunkLines, mergeByTime, logCommand, TRACE_LIMIT, EARLY_LIMIT, TRACE_CUT,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
 
@@ -907,4 +908,76 @@ test('VER-73 (BEH-34): /progress while a hold lasts ends with the remedy row\'s 
     .toBe('No DevForgeAI run is open in this session.\nbrainstorm ended · odometer retrying\n' + row)
   // without a hold the report is as before
   expect(progressReport(SUMMARY, true, 'observe', false, null, [], null, null)).toBe('brainstorm 2/2\nbrainstorm  ●◆  step 2 of 2: Pick\nobserve mode  no flags')
+})
+
+// ---- version 28: the log level and the rollover (BEH-43, BEH-44, DM-09, DM-10) ----
+
+test('DM-09: logLevel is off, normal or verbose; anything else counts as normal, never as off, and is flagged', () => {
+  expect(logLevelOf('off')).toEqual({ level: 'off', invalid: false })
+  expect(logLevelOf('normal')).toEqual({ level: 'normal', invalid: false })
+  expect(logLevelOf('verbose')).toEqual({ level: 'verbose', invalid: false })
+  expect(logLevelOf(undefined)).toEqual({ level: 'normal', invalid: false })   // missing: the default, as fuelSetting treats one
+  for (const bad of [null, 0, 1, 'debug', 'Verbose', 'OFF', '', {}, true]) expect(logLevelOf(bad)).toEqual({ level: 'normal', invalid: true })
+})
+
+test('DM-10: logRolloverMiB is a whole number from 1 to 3; 1.5, 0, 4, a string and null count as 1 and are flagged', () => {
+  for (const v of [1, 2, 3]) expect(rolloverMiBOf(v)).toEqual({ value: v, invalid: false })
+  expect(rolloverMiBOf(undefined)).toEqual({ value: 1, invalid: false })
+  for (const bad of [null, 0, 4, 1.5, '2', NaN, -1, {}]) expect(rolloverMiBOf(bad)).toEqual({ value: 1, invalid: true })
+})
+
+test('DM-02: a line\'s time is to the second at normal and to the millisecond at verbose', () => {
+  expect(logStamp(T0 + 123, false)).toBe('2026-10-02T12:00:00Z')
+  expect(logStamp(T0 + 123, true)).toBe('2026-10-02T12:00:00.123Z')
+  expect(logStamp(T0, true)).toBe('2026-10-02T12:00:00.000Z')
+})
+
+test('BEH-43 (e): a trace line is one line and is cut to 300 characters', () => {
+  expect(traceCut('a\n  b\r\nc')).toBe('a b c')
+  expect(traceCut('x'.repeat(500)).length).toBe(TRACE_CUT)
+  expect(TRACE_CUT).toBe(300)
+  expect(TRACE_LIMIT).toBe(1000)
+  expect(EARLY_LIMIT).toBe(200)
+})
+
+test('BEH-44: the rollover is due by size (the file passes the cap) or by day (its first line is earlier than the batch\'s), size first', () => {
+  const MIB = 1024 * 1024
+  const line = (day: string) => `${day}T10:00:00Z s1 - mode: x\n`
+  expect(rollReason(line('2026-10-02'), line('2026-10-02'), 1)).toBeNull()
+  expect(rollReason(line('2026-10-01'), line('2026-10-02'), 1)).toBe('day')
+  expect(rollReason(line('2026-10-03'), line('2026-10-02'), 1)).toBeNull()         // a clock set back rolls nothing
+  expect(rollReason('no date here\n', line('2026-10-02'), 1)).toBeNull()           // no date, no day check
+  expect(rollReason('', line('2026-10-02'), 1)).toBeNull()                         // an empty file rolls nothing
+  const big = line('2026-10-02') + 'y'.repeat(MIB)
+  expect(rollReason(big, line('2026-10-02'), 1)).toBe('size')
+  expect(rollReason(big, line('2026-10-02'), 2)).toBeNull()
+  expect(rollReason(line('2026-10-01') + 'y'.repeat(MIB), line('2026-10-02'), 1)).toBe('size')   // both: it says size
+  expect(rollReason(line('2026-10-02') + 'y'.repeat(2 * MIB), line('2026-10-02'), 3)).toBeNull()
+})
+
+test('BEH-44: a batch larger than the cap is split between lines, each piece under the cap', () => {
+  const lines = Array.from({ length: 10 }, (_, i) => `line ${i} ${'z'.repeat(90)}\n`).join('')
+  const pieces = chunkLines(lines, 300)
+  expect(pieces.join('')).toBe(lines)
+  expect(pieces.length).toBeGreaterThan(1)
+  for (const p of pieces) expect(new TextEncoder().encode(p).length).toBeLessThanOrEqual(300)
+  expect(chunkLines('short\n', 300)).toEqual(['short\n'])
+  expect(chunkLines('', 300)).toEqual([])
+})
+
+test('BEH-43 (f): waiting lines and buffered trace lines merge by time, then by order', () => {
+  const a = [{ t: 5, n: 1, line: 'a' }, { t: 9, n: 4, line: 'd' }]
+  const b = [{ t: 5, n: 2, line: 'b' }, { t: 7, n: 3, line: 'c' }]
+  expect(mergeByTime(a, b).map(x => x.line)).toEqual(['a', 'b', 'c', 'd'])
+  expect(mergeByTime([], []).length).toBe(0)
+})
+
+test('BEH-34 (version 28): /progress log reads exactly one word after log; the answers are the spec\'s', () => {
+  expect(logCommand('log verbose', 'normal', 'normal')).toEqual({ level: 'verbose', text: 'Log level is now verbose for this session. The default in /config is normal.' })
+  expect(logCommand('  log   off ', 'verbose', 'normal')).toEqual({ level: 'off', text: 'Log level is now off for this session. The default in /config is normal.' })
+  expect(logCommand('log normal', 'normal', 'off')).toEqual({ level: null, text: 'Log level is already normal for this session. The default in /config is off.' })
+  for (const bad of ['log', 'log loud', 'log Verbose', 'log verbose now', 'log off off', 'log ']) {
+    expect(logCommand(bad, 'normal', 'normal')).toEqual({ level: null, text: 'Usage: /progress log off|normal|verbose. The level is normal.' })
+  }
+  for (const other of ['', 'retry', 'logs', 'x log verbose', 'ignored']) expect(logCommand(other, 'normal', 'normal')).toBeNull()
 })

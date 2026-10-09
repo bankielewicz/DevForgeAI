@@ -113,7 +113,8 @@ class PruneRules(Base):
 
     def test_files_beside_the_folders_and_outside_progress_stay(self):
         self.progress.mkdir(parents=True)
-        loose = [self.progress / "current.json", self.progress / "adapter.log", self.progress / ".gitignore"]
+        # version 28: adapter.log and adapter.<n>.log are the one kind of file beside the folders that IF-04 removes (LogFiles below)
+        loose = [self.progress / "current.json", self.progress / ".gitignore", self.progress / "adapter.log.bak", self.progress / "adapter.11.log"]
         (self.progress / "runs").mkdir()
         loose.append(self.progress / "runs" / "stray.txt")
         doc = self.root / "docs/specs/brainstorm/BRN-001.md"
@@ -1042,6 +1043,93 @@ class OdometerKept(AgeBase):
 
 
 class OdometerKeptUnderS(OdometerKept):
+    INTERPRETER = (sys.executable, "-S", "-B")
+
+
+LOG_NAMES = ["adapter.log"] + ["adapter.%d.log" % n for n in range(1, 11)]
+
+
+class LogFiles(Base):
+    """VER-76 (version 28, BEH-19, IF-04): the root's adapter.log and its ten rolled files go together once adapter.log
+    itself is older than --days; only without an adapter.log is a rolled file judged by its own age."""
+
+    def logs(self, ages, names=None):
+        """Create the files named (all eleven by default) with ages in days given by name; the rest take 400."""
+        self.progress.mkdir(parents=True, exist_ok=True)
+        made = {}
+        for name in names or LOG_NAMES:
+            path = self.progress / name
+            path.write_text("2026-09-01T00:00:00Z s - mode: x\n")
+            self.age(path, ages.get(name, 400))
+            made[name] = path
+        return made
+
+    def test_the_set_goes_together_when_adapter_log_is_older_than_the_days(self):
+        made = self.logs({"adapter.log": 40})
+        self.assert_pruned(self.prune("--root", self.root, "--days", 30), 0, 0)
+        for name, path in made.items():
+            self.assertFalse(path.exists(), name)
+
+    def test_the_set_stays_when_adapter_log_is_newer_even_if_the_rolled_files_are_old(self):
+        made = self.logs({"adapter.log": 2})
+        self.assert_pruned(self.prune("--root", self.root, "--days", 30), 0, 0)
+        for name, path in made.items():
+            self.assertTrue(path.exists(), name)
+
+    def test_a_new_rolled_file_does_not_save_an_old_adapter_log_and_its_set(self):
+        made = self.logs({"adapter.log": 40, "adapter.1.log": 1})
+        self.assert_pruned(self.prune("--root", self.root, "--days", 30), 0, 0)
+        for name, path in made.items():
+            self.assertFalse(path.exists(), name)
+
+    def test_without_an_adapter_log_each_rolled_file_goes_by_its_own_age(self):
+        names = LOG_NAMES[1:]
+        made = self.logs({"adapter.1.log": 2, "adapter.2.log": 40}, names)
+        self.assert_pruned(self.prune("--root", self.root, "--days", 30), 0, 0)
+        self.assertTrue(made["adapter.1.log"].exists())
+        for name in names[1:]:
+            self.assertFalse(made[name].exists(), name)
+
+    def test_other_names_and_links_stay_and_the_keep_session_flag_does_not_spare_the_set(self):
+        stay = []
+        for name in ("adapter.11.log", "adapter.0.log", "adapter.log.bak", "adapter.01.log", "xadapter.log"):
+            path = self.progress / name
+            self.progress.mkdir(parents=True, exist_ok=True)
+            path.write_text("x\n")
+            self.age(path, 400)
+            stay.append(path)
+        target = Path(self._tmp.name) / "elsewhere.log"
+        target.write_text("precious\n")
+        self.age(target, 400)
+        link = self.progress / "adapter.3.log"
+        os.symlink(target, link)
+        made = self.logs({"adapter.log": 40}, ["adapter.log", "adapter.1.log", "adapter.10.log"])
+        proc = self.prune("--root", self.root, "--days", 30, "--keep-session", OLD_SESSION, "--keep-run", OLD_RUN)
+        self.assert_pruned(proc, 0, 0)
+        for path in stay:
+            self.assertTrue(path.exists(), path)
+        self.assertTrue(link.is_symlink())
+        self.assertEqual(target.read_text(), "precious\n")
+        for path in made.values():
+            self.assertFalse(path.exists(), path)
+
+    def test_a_folder_named_like_a_log_stays(self):
+        folder = self.folder(self.progress / "adapter.2.log", 400, files=("x.txt",))
+        self.logs({"adapter.log": 40}, ["adapter.log"])
+        self.assert_pruned(self.prune("--root", self.root, "--days", 30), 0, 0)
+        self.assertTrue((folder / "x.txt").exists())
+
+    def test_the_odometer_stays_beside_a_pruned_log(self):
+        ledger = self.progress / "odometer"
+        ledger.mkdir(parents=True)
+        (ledger / "S.jsonl").write_text("{}\n")
+        self.age(ledger / "S.jsonl", 400)
+        self.logs({"adapter.log": 40}, ["adapter.log"])
+        self.assert_pruned(self.prune("--root", self.root, "--days", 30), 0, 0)
+        self.assertTrue((ledger / "S.jsonl").exists())
+
+
+class LogFilesUnderS(LogFiles):
     INTERPRETER = (sys.executable, "-S", "-B")
 
 
