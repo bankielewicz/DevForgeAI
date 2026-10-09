@@ -22,7 +22,7 @@ upstream:
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "leave decisions to the user; this skill applies it to what Claude proposes, not to a document it writes"}
   - {id: ADR-004, relation: informed_by, version: 2, hash: null, note: "skills read project documents and never edit them; the precedent for a read-only skill"}
-  - {id: SPEC-013, relation: informed_by, version: 25, hash: null, note: "BEH-02 and BEH-03: loading any tracked plugin skill ends the open tracked run (version 18: a skill marked untracked in its SKILL.md doesn't); DM-01: a subagent's tool calls aren't recorded, so lookups during a run go through a subagent (BEH-01)"}
+  - {id: SPEC-013, relation: informed_by, version: 26, hash: null, note: "BEH-02 and BEH-03: loading any tracked plugin skill ends the open tracked run (version 18: a skill marked untracked in its SKILL.md doesn't); DM-01: a subagent's tool calls aren't recorded, so lookups during a run go through a subagent (BEH-01)"}
 supersedes: []
 superseded_by: null
 blocked_by: []

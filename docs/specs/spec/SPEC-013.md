@@ -2,7 +2,7 @@
 id: SPEC-013
 type: spec
 title: "Progress tracker adapter for Claude Code: events, gates, modes and the status line"
-status: in-review   # draft | in-review | approved | superseded | deprecated
+status: approved   # draft | in-review | approved | superseded | deprecated
 version: 26
 created: 2026-10-02
 updated: 2026-10-08
@@ -1741,9 +1741,10 @@ whose option read: "Each live run then shows which path marked the turn, and one
 for one of the three gate runs to repeat the failing session's start: /plugin enable and /reload-plugins, the warning row
 shown first.) None of these answers is his approval of this text, which comes later.
 
-- Version 26's change approved: not yet. The frontmatter keeps version 25's `approved_by` and `approved_on`, as earlier
-  drafts did, and the status stays in-review until Bryan approves version 26. The upstream links that cite SPEC-013
-  (SPEC-001, SPEC-014, SPEC-015, SPEC-016) and CLAUDE.md move then.
+- Version 26's change approved by Bryan on 2026-10-08 ('Approve v26 (Recommended)'), with the drafter's choices (the
+  turn-ID rule, its guards and limits, the log lines, the three different live runs, R1, R3, R5 and `cleaned` in v26)
+  shown in its preview. The upstream links citing SPEC-013 v25 (SPEC-001, SPEC-014, SPEC-015, SPEC-016) and CLAUDE.md
+  moved to version 26 then.
 - What failed (VER-57 (b), 2026-10-08): the first live run on the 0.28.0 build. The automatic /devforgeai:precompact started
   at fuel 90% after the warning row, but its turn was not marked: 32 tool and 7 reply events, seq 35 to 76, were recorded in
   the open brainstorm run, while a typed /devforgeai:precompact later in the same session was marked correctly. Six later
@@ -2404,3 +2405,4 @@ Drafter's choices in version 24, for Bryan to accept or challenge (the dashboard
 | 25 | 2026-10-08 | Bryan | Approved ('Approve all three (Recommended)', with the drafts review's fixes and his F1 and F2 answers shown in its preview), with SPEC-012 version 18 and SPEC-016 version 2 | status |
 | 25 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Record-only update, with no version bump: §9 records the build of versions 21, 23, 24 and 25 on branch `feat/dashboard-build` (draft PR #102, commits 6e417d7, c01f285 and 0203355; plugin 0.28.0; not merged) with its results, what is held with the dashboard (0.29.0), the reviews and the adapter builder's readings, and VER-57 (b)'s live check as pending; §13 records Bryan's answers to the build review (R1, R2, R4 and the rest), whose text reconciliations wait for the next version | §9, §13 |
 | 26 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, on Bryan's decisions of 2026-10-08, 'Harden now, then re-gate (Recommended)' (its option: 'A small SPEC-013 v26 inside PR #102: the $.state pending mark. Drafts, review, your approval, code with tests first, then 3 live runs of VER-57 (b). The R4 retry design moves to v27, right after the merge.'), 'option2 sounds reasonable.  let's seek guidance from /advisor' (on the drafter's choice of the mark's end) and 'Both (Recommended)' (on the gate and the log line), after VER-57 (b) failed once in seven live runs of the 0.28.0 build (the automatic precompact's turn was not marked), and the drafts review (`tmp/plans/dashboard/review-drafts-v26.md`): BEH-36 sets a one-shot pending mark in $.state with its run mark, BEH-02 marks the plugin's own precompact load while it is set and the load consumes it, and ERR-22, a compaction (BEH-35) and the clearing points clear it (BEH-02, BEH-35, BEH-36, BEH-41, ERR-22); the drafter's turn-ID rule, for Bryan's approval: a mark is bound to a turn and ends at the turn.complete with that turn's ID or a later turn's, Claude's own load to the open turn and a self-started load to the next turn.start, a compaction clearing only an unbound mark (BEH-02); two adapter.log lines of kind precompact say which path marked the turn and when it ended (BEH-02, DM-02); VER-56 gains the kit tests and VER-57 (b) becomes three different live runs, all of which must pass (the drafter's reading); R1's BEH-35 text, R3's BEH-34 text (with VER-55's case) and R5's DM-03 keys, with `cleaned`, are made here; record-only parts, with no bump of their own: §9's VER-57 (b) row records the failure, and §13's R4 lines name version 27, not 26 (SPEC-016 §13 the same); status in-review, Bryan's approval not yet given | frontmatter, §1, DM-02, DM-03, BEH-02, BEH-34, BEH-35, BEH-36, BEH-41, ERR-22, VER-55, VER-56, VER-57, §9, §13 |
+| 26 | 2026-10-08 | Bryan | Approved ('Approve v26 (Recommended)', with the drafter's choices and both reviews' fixes shown in its preview) | status |

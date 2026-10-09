@@ -22,7 +22,7 @@ upstream:
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: SPEC-012, relation: constrains, version: 18, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
-  - {id: SPEC-013, relation: constrains, version: 25, hash: null, note: "BEH-31's and BEH-39's line on continuing, which names the draft a continued run keeps (BEH-14)"}
+  - {id: SPEC-013, relation: constrains, version: 26, hash: null, note: "BEH-31's and BEH-39's line on continuing, which names the draft a continued run keeps (BEH-14)"}
 supersedes: []
 superseded_by: null
 blocked_by: []
