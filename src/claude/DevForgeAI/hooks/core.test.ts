@@ -708,7 +708,7 @@ test('BEH-35: the measured share is a whole number from 0 to 100, and none other
 const view = (o: Partial<typeof NO_PRECOMPACT> = {}) => ({ ...NO_PRECOMPACT, ...o })
 
 test('BEH-35: the row\'s text by fuel, the warning share, the run share and what has happened', () => {
-  expect(NO_PRECOMPACT).toEqual({ percent: null, hidden: false, ran: false, failed: false })
+  expect(NO_PRECOMPACT).toEqual({ percent: null, hidden: false, ran: false, failed: false, pending: false })
   expect(precompactRow(view(), 30, 20)).toBeNull()                                  // no measurement: no row
   expect(precompactRow(view({ percent: 69 }), 30, 20)).toBeNull()                   // fuel 31
   expect(precompactRow(view({ percent: 70 }), 30, 20)).toBe('▲ Fuel 30% · precompact runs at 20%')

@@ -1,4 +1,4 @@
-// The progress tracker adapter's $.state contract (SPEC-013 v25 DM-03). $.state survives a reload of the module
+// The progress tracker adapter's $.state contract (SPEC-013 v26 DM-03). $.state survives a reload of the module
 // and empties on /clear, /resume and /branch; whether the session is interactive and the evaluation timer are
 // module variables instead (BEH-01, BEH-06).
 
@@ -62,8 +62,10 @@ export type ProgressWroteSeen = { [run: string]: { [path: string]: string } }
 
 /** The precompact row's values (SPEC-013 BEH-35, BEH-36, ERR-22; versions 21, 23 and 25): the measured share of the context
  *  window (a whole number from 0 to 100) or null; the row hidden by a load of the precompact skill; BEH-36's run mark (an
- *  automatic run has started since the last compaction); and ERR-22's failure. A compaction, /clear, /resume and /branch empty them. */
-export type ProgressPrecompact = { percent: number | null; hidden: boolean; ran: boolean; failed: boolean }
+ *  automatic run has started since the last compaction); ERR-22's failure; and `pending` (version 26), BEH-36's one-shot mark that
+ *  the plugin's own precompact skill is about to load, set in the same write as `ran`, consumed by that load, cleared by ERR-22.
+ *  A compaction, /clear, /resume and /branch empty them. */
+export type ProgressPrecompact = { percent: number | null; hidden: boolean; ran: boolean; failed: boolean; pending: boolean }
 
 export type ProgressMode = 'observe' | 'enforce'
 

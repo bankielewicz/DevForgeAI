@@ -1345,7 +1345,7 @@ export function withContext(result: unknown, text: string): Fields | null {
 // ---- versions 21 to 25: the fuel row and the automatic precompact run, usage, the odometer ledger, /progress, the start names ----
 
 /** The precompact row's values before anything has been measured, and after a compaction (BEH-35). */
-export const NO_PRECOMPACT: ProgressPrecompact = { percent: null, hidden: false, ran: false, failed: false }
+export const NO_PRECOMPACT: ProgressPrecompact = { percent: null, hidden: false, ran: false, failed: false, pending: false }
 
 /** A fuel setting (DM-07, DM-08): a whole number from 0 to 95, checked with typeof so no null or empty string reads as 0;
  *  anything else counts as the default, and `invalid` says so (an adapter.log line of kind setting). A missing value is the

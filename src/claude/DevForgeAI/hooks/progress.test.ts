@@ -49,7 +49,19 @@ type Over = {
   register?: (e: Any) => Any
   /** An fs.read that rejects, by path (version 25: the odometer ledger's read-back, SPEC-016 ERR-06). */
   failRead?: (path: string) => boolean
+  /** $.state answered by the test (version 26): the values, a count of writes to reject, and every write seen. Without it the
+   *  kit answers $.state itself, and the test can neither read it nor reject a write. */
+  state?: StateStub
 }
+
+/** The test's $.state (version 26): the kit's own answers can't be read or made to fail, so the tests that must do either
+ *  stub state.get and state.set with this map. `rejects` writes are refused (the call rejects), then writes land again. */
+type StateStub = { values: Map<string, { value: Any; version: number }>; rejects: number; sets: Array<{ key: string; value: Any }> }
+function newState(seed: Record<string, Any> = {}): StateStub {
+  return { values: new Map(Object.entries(seed).map(([k, v]) => [`devforgeai/${k}`, { value: v, version: 1 }])), rejects: 0, sets: [] }
+}
+/** The precompact value as the module holds it in $.state. */
+const pstate = (st: StateStub): Any => st.values.get('devforgeai/precompact')?.value
 
 type World = {
   files: Map<string, string>
@@ -158,6 +170,26 @@ function world(on: Any, over: Over = {}): World {
     return over.register?.(e) ?? { value: undefined }
   })
   on('session.measure', (_$: Any, e: Any) => ({ changed: e.changed }))
+  if (over.state !== undefined) {
+    const st = over.state
+    on('state.get', (_$: Any, e: Any) => {
+      const held = st.values.get(`${e.plugin}/${e.key}`)
+      return { value: { value: held?.value, version: held?.version ?? 0 } }
+    })
+    on('state.set', (_$: Any, e: Any) => {
+      if (st.rejects > 0) {
+        st.rejects -= 1
+        return { deny: 'the state write was refused' }
+      }
+      const key = `${e.plugin}/${e.key}`
+      const held = st.values.get(key)
+      if (e.ifVersion !== undefined && e.ifVersion !== (held?.version ?? 0)) return { value: { isSet: false, version: held?.version ?? 0 } }
+      const version = (held?.version ?? 0) + 1
+      st.values.set(key, { value: e.value, version })
+      st.sets.push({ key: e.key, value: e.value })
+      return { value: { isSet: true, version } }
+    })
+  }
   on('skill.prompt', (_$: Any, e: Any) => ({ text: e.text }))
   on('prompt.compose', () => ({ sections: [] }))
   on('prompt.submit', (_$: Any, e: Any) => {
@@ -1865,8 +1897,8 @@ function reviewWorld(on: Any, state: () => Any, script: Array<string | null>, as
   return w
 }
 
-async function turnEnd($: Any) {
-  await $.turn.complete({ turnId: 't', answer: '', durationMs: 1, isAborted: false, reason: 'answer', usage: null })
+async function turnEnd($: Any, id = 't') {
+  await $.turn.complete({ turnId: id, answer: '', durationMs: 1, isAborted: false, reason: 'answer', usage: null })
 }
 
 function reviewLines(w: World): Any[] {
@@ -2513,7 +2545,7 @@ test('VER-44: /clear while nested asks the nested question and keeps with the ne
 // ---- version 14, the clauses of VER-43 and VER-44 the first thirteen tests leave out ----
 // Helpers are prefixed x so they can't clash with the drafted file's.
 
-const xSettle = async () => { for (let i = 0; i < 50; i++) await Promise.resolve() }
+const xSettle = async () => { for (let i = 0; i < 400; i++) await Promise.resolve() }   // version 26: the load now awaits more (state, log)
 
 const xReturn = (skill: string, step: number) =>
   `This skill was loaded by ${skill} at step ${step}. When this skill's work is done, mark ${skill}'s step ${step} task in progress again and continue ${skill} at step ${step}.`
@@ -3856,7 +3888,9 @@ async function uBand($: Any): Promise<string> {
 /** What the person sees and what adapter.log holds: the status line (and how often it was sent), the band and the log. */
 async function uSnap($: Any, w: World) {
   await w.clock.advance(600)
-  return { status: w.statuses.filter(Boolean).slice(-1)[0], sent: w.statuses.length, band: await uBand($), log: w.files.get(`${SESSION}/adapter.log`) ?? '' }
+  // A load of the precompact skill writes a `precompact:` load line (version 26), which is no change of the display.
+  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => !l.includes(' precompact: ')).join('\n')
+  return { status: w.statuses.filter(Boolean).slice(-1)[0], sent: w.statuses.length, band: await uBand($), log }
 }
 
 const uKinds = (w: World, skill: string, from = 0): string[] => logOf(w, skill).slice(from).map(e => e.kind)
@@ -3921,7 +3955,7 @@ test('VER-50 (c): in the turn of a typed load, tool calls begun after it are rec
   await $.tool.call({ tool: 'TaskUpdate', taskId: '9', status: 'in_progress' } as Any)
   expect(uKinds(r.w, 'brainstorm', count)).toEqual(['answer'])
   expect(runsOf(r.w, 'precompact')).toEqual([])
-  await turnEnd($)
+  await turnEnd($, 't1')   // the turn the typed or Claude's load is bound to (version 26)
   expect(uKinds(r.w, 'brainstorm', count)).toEqual(['answer', 'turn'])
   // the next turn: tool events are recorded again, and task 9 was never mapped
   await ($ as Any).turn.start({ turnId: 't2' })
@@ -3942,7 +3976,7 @@ test('VER-50 (h): in the marked turn a reply is recorded in no run, its numbered
   await respond($, [{ type: 'text', text: 'Writing the handoff.\n- [x] 2. Header row' }])
   expect(uKinds(r.w, 'brainstorm', count)).toEqual([])
   expect(runsOf(r.w, 'precompact')).toEqual([])
-  await turnEnd($)
+  await turnEnd($, 't1')   // the turn the typed or Claude's load is bound to (version 26)
   await ($ as Any).turn.start({ turnId: 't2' })
   await respond($, [{ type: 'text', text: 'Back to the brainstorm.' }])
   expect(uKinds(r.w, 'brainstorm', count)).toEqual(['turn', 'turn', 'reply'])
@@ -3987,7 +4021,7 @@ test('VER-50 (c) (d): in the turn of Claude\'s load, a TaskUpdate naming a pause
   expect(during.band).toBe(before.band)
   expect(during.band).toContain('(paused: brainstorm at step 4)')
   // the turn ends; the next turn's calls are recorded, and the same TaskUpdate now unwinds to brainstorm
-  await turnEnd($)
+  await turnEnd($, 't1')   // the turn the typed or Claude's load is bound to (version 26)
   await ($ as Any).turn.start({ turnId: 't2' })
   await $.tool.call(READ('b.md'))
   expect(logOf(r.w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/b.md' })
@@ -4081,7 +4115,8 @@ test('VER-50: with no run open an untracked load writes nothing, and a tracked l
   await rType($, 'precompact')
   await $.tool.call(READ('a.md'))
   expect(r.w.writes).toEqual([])
-  await turnEnd($)
+  await ($ as Any).turn.start({ turnId: 't1' })
+  await turnEnd($, 't1')   // a typed load binds to the next turn.start (version 26)
   await load($, 'devforgeai:brainstorm', TAGGED)
   await $.tool.call(READ('b.md'))
   expect(uKinds(r.w, 'brainstorm')).toEqual(['skill-loaded', 'tool'])
@@ -4113,7 +4148,7 @@ test('VER-50 (e): afterwards /compact still carries the marked step and the note
   await uOpen($, r)
   await uTyped($, r)
   await $.tool.call(U_WRITE)
-  await turnEnd($)
+  await turnEnd($, 't1')   // the turn the typed or Claude's load is bound to (version 26)
   const out = (await ($ as Any).session.compact({ trigger: 'manual', instructions: 'keep the plan', messages: TALK })) as Any
   expect(r.w.compactIn[0].instructions).toBe("keep the plan\n\nKeep, for DevForgeAI's progress tracker: in the brainstorm run, the task list marks step 4 (Step 4) in progress.")
   expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('step 4 (Step 4)')])
@@ -6004,7 +6039,7 @@ test('VER-56: at fuel 20 exactly one $.command.run of devforgeai:precompact star
   await xSettle()
   expect(p.ran).toEqual([{ command: 'devforgeai:precompact', origin: { kind: 'plugin', name: 'devforgeai' } }])
   expect(p.w.toasts).toContain('Fuel 20%: running /devforgeai:precompact')
-  expect(uLog(p.w, 'precompact').length).toBe(1)
+  expect(pLog(p.w).filter(l => !l.startsWith('load:')).length).toBe(1)   // the start (the load line is version 26's)
   await measure($, 85)
   await start($)                                                   // as after a reload (the kit can't reload the module itself)
   await measure($, 85)
@@ -6332,13 +6367,17 @@ const holder: Plugin = {
 } as Plugin
 
 test('VER-56 (version 25): while precompact waits in the set another command.run neither takes it nor is typed; when the held run arrives, it is typed and the turn is marked', { plugins: [holder] }, async ($, on) => {
-  const p = pWorld($, on)
+  const st = newState()
+  const p = pWorld($, on, { over: { state: st } })
   await start($)
   await load($, 'devforgeai:brainstorm', TAGGED)
   await p.w.clock.advance(600)
   await measure($, 80)
   await xSettle()
   expect(p.ran).toEqual([])                                        // held: the plugin's own hook hasn't seen it yet
+  // version 26 added a second path: any precompact load marks while the pending mark is set. This test is about the set path alone,
+  // so the pending mark is cleared here.
+  st.values.set('devforgeai/precompact', { value: { ...pstate(st), pending: false }, version: 99 })
   await $.command.run({ command: 'devforgeai:nothing', args: '', origin: { kind: 'plugin', name: 'devforgeai' } } as Any)
   expect(p.ran.map(r => r.command)).toEqual(['devforgeai:nothing'])
   // another plugin's run of the same skill is not this plugin's own: it takes no name and marks no turn
@@ -6658,4 +6697,363 @@ test('SPEC-016 BEH-10: after /clear the new session writes its own file and leav
   await done($, 't2')
   expect(w.files.get(ODO)).toBe(first)
   expect(odo(w, `${PROGRESS}/odometer/s2.jsonl`)).toEqual([LEDGER('t2', 'main', { session: 's2' })])
+})
+
+// ======================================================================================================================
+// ---- version 26 (SPEC-013, approved 2026-10-08): the pending mark and the turn-ID rule of BEH-02's marked turn, the precompact
+//      `load:` and `cleared:` lines, BEH-35's R1/hide wording. The state is stubbed (newState) where a test reads or rejects it. ----
+
+const PRE = (o: Any = {}): Any => ({ percent: 80, hidden: false, ran: true, failed: false, pending: true, ...o })
+/** The adapter.log lines of kind precompact, without their time and run. */
+const pLog = (w: World): string[] => uLog(w, 'precompact').map(l => l.split(' precompact: ')[1])
+const LOAD = (typed: boolean, set: boolean, claude: boolean, pending: boolean, turn: string, marked = true): string =>
+  `load: marked=${marked} typed=${typed} set=${set} claude=${claude} pending=${pending} turn=${turn}`
+/** The tool and reply events a skill's latest run gained from index `from` on. */
+const worked = (w: World, from: number, skill = 'brainstorm'): string[] => logOf(w, skill).slice(from).map(e => e.kind).filter(k => k === 'tool' || k === 'reply')
+
+/** A brainstorm run open, with the state stubbed (seeded with a precompact value when given). */
+async function vOpen($: Any, on: Any, o: { seed?: Any; load?: boolean; over?: Over } = {}) {
+  const st = newState(o.seed === undefined ? {} : { precompact: o.seed })
+  const p = pWorld($, on, { over: { state: st, ...(o.over ?? {}) }, load: o.load ?? true })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  return { st, p, n: (): number => logOf(p.w, 'brainstorm').length }
+}
+
+/** One turn of work: its start, a Read and a reply, and (unless told not to) its complete. */
+async function turnWork($: Any, id: string, complete = true) {
+  await ($ as Any).turn.start({ turnId: id })
+  await $.tool.call(READ(`${id}.md`))
+  await respond($, [{ type: 'text', text: `reply ${id}` }])
+  if (complete) await done($, id, null)
+}
+
+// -- BEH-36: the pending mark --
+
+test('VER-56 (v26): BEH-36\'s one $.state write sets the run mark and the pending mark together', async ($, on) => {
+  const v = await vOpen($, on, { load: false })
+  await measure($, 80)
+  await xSettle()
+  const writes = v.st.sets.filter(s => s.key === 'precompact')
+  const first = writes.find(s => s.value.ran === true)
+  expect(first).toBeDefined()
+  expect(first!.value.pending).toBe(true)                          // never ran true without pending true
+  expect(pstate(v.st)).toMatchObject({ ran: true, pending: true, failed: false })
+})
+
+test('VER-56 (v26): the precompact load marks the turn on the pending mark alone: the set lost, no kept name, nothing in flight', async ($, on) => {
+  const v = await vOpen($, on, { load: false })
+  await measure($, 80)
+  await xSettle()                                                  // the command ran and loaded nothing: the set was consumed, no kept name stands
+  const n0 = v.n()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  expect(pLog(v.p.w)).toContain(LOAD(false, false, false, true, 'next'))
+  await handoffTurn($, 'h1')
+  expect(logOf(v.p.w, 'brainstorm').slice(n0).map(e => e.kind)).toEqual(['turn', 'turn', 'usage'])   // no tool, answer or reply event
+  expect(pstate(v.st)).toMatchObject({ hidden: true, pending: false, ran: true })
+})
+
+test('VER-56 (v26): the normal path, the kept name from BEH-41\'s set with pending set, marks and consumes pending too; both are in $.state', async ($, on) => {
+  const v = await vOpen($, on)
+  const n0 = v.n()
+  await measure($, 80)
+  await xSettle()
+  expect(pLog(v.p.w)).toContain(LOAD(false, true, false, true, 'next'))
+  expect(pstate(v.st)).toMatchObject({ hidden: true, pending: false, ran: true })
+  await handoffTurn($, 'h1')
+  expect(logOf(v.p.w, 'brainstorm').slice(n0).map(e => e.kind)).toEqual(['turn', 'turn', 'usage'])
+})
+
+test('VER-56 (v26): a second precompact skill.prompt, with no set, kept name, in-flight load or pending mark, marks nothing', async ($, on) => {
+  const v = await vOpen($, on)
+  await measure($, 80)
+  await xSettle()
+  await handoffTurn($, 'h1')
+  const n0 = v.n()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  expect(pLog(v.p.w).slice(-1)[0]).toBe(LOAD(false, false, false, false, '-', false))
+  await turnWork($, 'h2')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+  expect(pstate(v.st)).toMatchObject({ hidden: true, pending: false })
+})
+
+test('VER-56 (v26): a reload between BEH-36\'s write and the load (fresh module memory, $.state kept) still marks the turn', async ($, on) => {
+  const v = await vOpen($, on, { seed: PRE(), load: false })
+  const n0 = v.n()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  await handoffTurn($, 'h1')
+  expect(logOf(v.p.w, 'brainstorm').slice(n0).map(e => e.kind)).toEqual(['turn', 'turn', 'usage'])
+  expect(pstate(v.st)).toMatchObject({ hidden: true, pending: false, ran: true })
+})
+
+test('VER-56 (v26): a skill.prompt of another skill while pending is set marks nothing and leaves pending set', async ($, on) => {
+  const v = await vOpen($, on, { seed: PRE(), load: false })
+  await $.skill.prompt({ skill: 'other:unknown', text: 'x' })      // neither tracked nor untracked: no run, no mark
+  const n0 = v.n()
+  await turnWork($, 'a')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+  expect(pstate(v.st)).toMatchObject({ pending: true, hidden: false })
+})
+
+test('VER-56 (v26): a mod\'s Skill call of precompact while pending is set (BEH-33) neither marks nor consumes', { plugins: [modder] }, async ($, on) => {
+  const held = heldSkill()
+  const v = await vOpen($, on, { seed: PRE(), load: false, over: { tool: held.tool } })
+  const call = modCalls($, [{ tool: 'Skill', skill: 'devforgeai:precompact' }])
+  await xSettle()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  held.release()
+  expect(await call).toBe('ok')
+  const n0 = v.n()
+  await turnWork($, 'a')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+  expect(pstate(v.st)).toMatchObject({ pending: true, hidden: false })
+  expect(pLog(v.p.w).filter(l => l.startsWith('load:'))).toEqual([])   // and no line for it
+})
+
+test('VER-56 (v26): Claude\'s own Skill load of precompact while pending is set marks, consumes pending, and is bound to the open turn', async ($, on) => {
+  const sk = skillCalls()
+  const v = await vOpen($, on, { seed: PRE(), load: false, over: { tool: sk.tool } })
+  await ($ as Any).turn.start({ turnId: 'T' })
+  await sk.load($, 'devforgeai:precompact')
+  expect(pLog(v.p.w)).toContain(LOAD(false, false, true, true, 'T'))
+  expect(pstate(v.st)).toMatchObject({ pending: false, hidden: true })
+  const n0 = v.n()
+  await $.tool.call(READ('a.md'))
+  await respond($, [{ type: 'text', text: 'still the handoff' }])
+  expect(worked(v.p.w, n0)).toEqual([])
+  await done($, 'T', null)
+  await turnWork($, 'U')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26): a rejected $.state write in the load (the hide or the consumption) still marks the turn', async ($, on) => {
+  const v = await vOpen($, on, { seed: PRE(), load: false })
+  v.st.rejects = 1                                                 // the load's write is refused once
+  const n0 = v.n()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  await handoffTurn($, 'h1')
+  expect(logOf(v.p.w, 'brainstorm').slice(n0).map(e => e.kind)).toEqual(['turn', 'turn', 'usage'])
+  expect(pLog(v.p.w)).toContain(LOAD(false, false, false, true, 'next'))
+})
+
+test('VER-56 (v26): ERR-22 clears pending (the run mark stays), so a later load is not marked for a run that never started', async ($, on) => {
+  const v = await vOpen($, on, { load: false })
+  v.p.reject = 'unknown command'
+  await measure($, 80)
+  for (let i = 0; i < 5; i++) await xSettle()
+  expect(pstate(v.st)).toMatchObject({ ran: true, failed: true, pending: false })
+  const n0 = v.n()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })   // the person runs it some other way: nothing is pending
+  await turnWork($, 'a')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26): a compaction with a result clears pending; a skipped one, a precompute one and a subagent\'s leave it; /clear, /resume and /branch clear it', async ($, on) => {
+  let result: Any = { skip: 'blocked' }
+  const v = await vOpen($, on, { seed: PRE(), load: false, over: { compact: () => result } })
+  const compact = (e: Any) => ($ as Any).session.compact({ messages: TALK, ...e })
+  await compact({ trigger: 'manual' })                             // skipped
+  result = { messages: TALK }
+  await compact({ trigger: 'precompute' })
+  await compact({ trigger: 'manual', agentId: 'a1' })
+  expect(pstate(v.st).pending).toBe(true)
+  await compact({ trigger: 'manual' })
+  expect(pstate(v.st)).toMatchObject({ pending: false, ran: false, percent: null })
+  for (const source of ['clear', 'resume', 'fork']) {
+    v.st.values.set('devforgeai/precompact', { value: PRE(), version: 5 })
+    await $.classic.SessionStart({ source })
+    expect(pstate(v.st).pending, source).toBe(false)
+  }
+})
+
+// -- the turn-ID rule --
+
+test('VER-56 (v26, turn-ID rule): a self-started load binds to the next turn.start; an earlier turn\'s complete, before or after it, ends nothing; the bound turn\'s does', async ($, on) => {
+  const v = await vOpen($, on)
+  await ($ as Any).turn.start({ turnId: 'old' })
+  await rType($, 'precompact')                                     // typed, while the turn before is still to complete
+  expect(pLog(v.p.w)).toContain(LOAD(true, false, false, false, 'next'))
+  const n0 = v.n()
+  await done($, 'old', null)                                       // the late complete of the turn before: nothing is bound yet
+  await ($ as Any).turn.start({ turnId: 'A' })                     // binds
+  await done($, 'old', null)                                       // and again, after the bound turn's start
+  await $.tool.call(READ('a.md'))
+  await respond($, [{ type: 'text', text: 'the handoff' }])
+  expect(worked(v.p.w, n0)).toEqual([])
+  await done($, 'A', null)
+  expect(pLog(v.p.w)).toContain('cleared: by=turn.complete turn=A bound=A')
+  await turnWork($, 'B')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26, turn-ID rule): if the bound turn\'s complete never comes the mark ends at the complete of the next turn that started after it; another ID ends nothing', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  const n0 = v.n()
+  await ($ as Any).turn.start({ turnId: 'A' })
+  await $.tool.call(READ('a.md'))
+  await ($ as Any).turn.start({ turnId: 'B' })                     // A's complete never comes
+  await $.tool.call(READ('b.md'))
+  await done($, 'Z', null)                                         // an ID that was never started: nothing
+  await $.tool.call(READ('z.md'))
+  expect(worked(v.p.w, n0)).toEqual([])                            // the bound turn's remainder and that next turn are unrecorded
+  await done($, 'B', null)                                         // B started after A: the mark ends
+  expect(pLog(v.p.w)).toContain('cleared: by=turn.complete turn=B bound=A')
+  await turnWork($, 'C')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26, turn-ID rule): a load that starts no turn leaves the mark until the next turn, which it binds to; that one turn goes unrecorded', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  const n0 = v.n()
+  await turnWork($, 'N')
+  expect(worked(v.p.w, n0)).toEqual([])
+  await turnWork($, 'M')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26, turn-ID rule): Claude\'s own load is bound to its open turn and ends at that turn\'s complete; an earlier turn\'s complete ends nothing', async ($, on) => {
+  const sk = skillCalls()
+  const v = await vOpen($, on, { over: { tool: sk.tool } })
+  await ($ as Any).turn.start({ turnId: 'T' })
+  await sk.load($, 'devforgeai:precompact')
+  expect(pLog(v.p.w)).toContain(LOAD(false, false, true, false, 'T'))
+  const n0 = v.n()
+  await done($, 'E', null)                                         // an earlier turn's complete
+  await $.tool.call(READ('a.md'))
+  expect(worked(v.p.w, n0)).toEqual([])
+  await done($, 'T', null)
+  expect(pLog(v.p.w)).toContain('cleared: by=turn.complete turn=T bound=T')
+  await turnWork($, 'U')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26, turn-ID rule): with no turn ID known the next main-loop turn.complete ends the mark, whatever its ID, or none', async ($, on) => {
+  const sk = skillCalls()
+  const v = await vOpen($, on, { over: { tool: sk.tool } })
+  await sk.load($, 'devforgeai:precompact')                        // no turn.start was seen: the open turn's ID is not known
+  expect(pLog(v.p.w)).toContain(LOAD(false, false, true, false, 'any'))
+  const n0 = v.n()
+  await $.tool.call(READ('a.md'))
+  expect(worked(v.p.w, n0)).toEqual([])
+  await done($, 'whatever', null)
+  expect(pLog(v.p.w)).toContain('cleared: by=turn.complete turn=whatever bound=-')
+  await $.tool.call(READ('b.md'))
+  expect(worked(v.p.w, n0)).toEqual(['tool'])
+  await sk.load($, 'devforgeai:precompact')
+  await doneRaw($, {})                                             // the host gave no ID at all
+  expect(pLog(v.p.w).slice(-1)[0]).toBe('cleared: by=turn.complete turn=- bound=-')
+})
+
+test('VER-56 (v26, turn-ID rule): a turn.complete the host gave no ID ends a bound mark as well', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  await ($ as Any).turn.start({ turnId: 'A' })
+  const n0 = v.n()
+  await $.tool.call(READ('a.md'))
+  expect(worked(v.p.w, n0)).toEqual([])
+  await doneRaw($, {})
+  expect(pLog(v.p.w)).toContain('cleared: by=turn.complete turn=- bound=A')
+  await turnWork($, 'B')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26): a reset clears a pending mark that stands alone (a compaction with a result, and /resume)', async ($, on) => {
+  const v = await vOpen($, on, { seed: { percent: null, hidden: false, ran: false, failed: false, pending: true }, load: false })
+  await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })
+  expect(pstate(v.st).pending).toBe(false)
+  v.st.values.set('devforgeai/precompact', { value: { percent: null, hidden: false, ran: false, failed: false, pending: true }, version: 9 })
+  await $.classic.SessionStart({ source: 'resume' })
+  expect(pstate(v.st).pending).toBe(false)
+})
+
+test('VER-56 (v26, turn-ID rule): a compaction clears a mark no turn.start has bound yet, and leaves a bound one to end at its own turn\'s complete', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })
+  expect(pLog(v.p.w)).toContain('cleared: by=compaction turn=- bound=-')
+  const n0 = v.n()
+  await turnWork($, 'N')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])             // the unbound mark is gone
+  await rType($, 'precompact')
+  await ($ as Any).turn.start({ turnId: 'A' })
+  await ($ as Any).session.compact({ trigger: 'auto', messages: TALK })   // in the middle of the handoff turn
+  const n1 = v.n()
+  await $.tool.call(READ('a.md'))
+  await respond($, [{ type: 'text', text: 'the rest of the handoff' }])
+  expect(worked(v.p.w, n1)).toEqual([])
+  await done($, 'A', null)
+  expect(pLog(v.p.w).filter(l => l.startsWith('cleared:')).slice(-1)[0]).toBe('cleared: by=turn.complete turn=A bound=A')
+  await turnWork($, 'B')
+  expect(worked(v.p.w, n1)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26, turn-ID rule): a subagent\'s turn.complete counts for nothing', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  await ($ as Any).turn.start({ turnId: 'A' })
+  const n0 = v.n()
+  await done($, 'A', null, { agentId: 'a1' })                      // a subagent's turn with the bound ID
+  await $.tool.call(READ('a.md'))
+  expect(worked(v.p.w, n0)).toEqual([])
+  await done($, 'A', null)
+  await turnWork($, 'B')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+for (const reason of ['clear', 'resume', 'logout', 'prompt_input_exit', 'other']) {
+  test(`VER-56 (v26): session.end (${reason}) clears any mark and writes the cleared line before the session's values are reset`, async ($, on) => {
+    const v = await vOpen($, on)
+    await rType($, 'precompact')
+    await ($ as Any).session.end({ reason, sessionId: 's1', resume: { id: 's1' } })
+    expect(pLog(v.p.w)).toContain(`cleared: by=${reason} turn=- bound=-`)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    await $.tool.call(READ('a.md'))
+    expect(logOf(v.p.w, 'brainstorm', 1).map(e => e.kind)).toEqual(['skill-loaded', 'tool'])   // the new run records its first Read
+  })
+}
+
+test('VER-56 (v26): session.end with a bound mark names the bound turn; the reset at /clear, /resume and /branch clears a mark', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  await ($ as Any).turn.start({ turnId: 'A' })
+  await ($ as Any).session.end({ reason: 'other', sessionId: 's1', resume: { id: 's1' } })
+  expect(pLog(v.p.w)).toContain('cleared: by=other turn=- bound=A')
+  await rType($, 'precompact')
+  await $.classic.SessionStart({ source: 'resume' })               // the reset alone, with no session.end before it
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const n0 = logOf(v.p.w, 'brainstorm', 1).length
+  await turnWork($, 'N')
+  expect(logOf(v.p.w, 'brainstorm', 1).slice(n0).map(e => e.kind).filter(k => k === 'tool' || k === 'reply')).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26): a load whose SKILL.md can\'t be read is tracked (ERR-18): no load line, no mark, nothing consumed', async ($, on) => {
+  const v = await vOpen($, on, { seed: PRE(), over: { skillMd: (name: string) => (name === 'precompact' ? { deny: 'EACCES' } : undefined) } })
+  await rType($, 'precompact')
+  expect(pLog(v.p.w).filter(l => l.startsWith('load:'))).toEqual([])
+  expect(pstate(v.st).pending).toBe(true)
+})
+
+// -- BEH-35 (R1 and the hide) --
+
+test('VER-56 (R1): with precompactWarnFuel 0 a failed run draws nothing', { options: { precompactWarnFuel: 0 } } as Any, async ($: Any, on: Any) => {
+  const p = pWorld($, on, { reject: 'no such command' })
+  await start($)
+  await measure($, 80)
+  for (let i = 0; i < 5; i++) await xSettle()
+  expect(p.ran.length).toBe(1)
+  expect(await fuelRow($)).toBeNull()
+})
+
+test('VER-56 (P-C): a subagent\'s load of precompact hides the row after BEH-36\'s run mark, and only then', async ($, on) => {
+  const sk = skillCalls()
+  const st = newState({ precompact: PRE({ failed: true, pending: false }) })
+  const p = pWorld($, on, { over: { tool: sk.tool, state: st }, load: false })
+  await start($)
+  expect(await fuelRow($)).toBe('● Fuel 20% · run /devforgeai:precompact now')
+  await sk.load($, 'devforgeai:precompact', 'a1')
+  expect(await fuelRow($)).toBeNull()
+  void p
 })

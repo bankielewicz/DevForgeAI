@@ -201,11 +201,22 @@ let tenure = 0
 let typedName: string | null = null
 /** The open run has recorded the event of a tool call or an answer whose hook began after it opened (BEH-30 (a)). */
 let worked = false
-/** The turn is marked (BEH-02, version 18): an untracked skill was loaded in it, by the person (the typed name) or by
- *  Claude's Skill call (the in-flight set). Set at that skill.prompt; the main loop's next turn.complete clears it, and
- *  turn.start doesn't, since a typed load's skill.prompt comes before its turn starts. A tool call whose hook began while
+/** The turn is marked (BEH-02, version 18): an untracked skill was loaded in it, by the person (the typed name), by Claude's
+ *  Skill call (the in-flight set) or, from version 26, as the plugin's own precompact skill while BEH-36's pending mark is set.
+ *  Set at that skill.prompt; turn.start doesn't clear it, since a typed load's skill.prompt comes before its turn starts. From
+ *  version 26 it is bound to a turn (markBind) and ends by the turn-ID rule (markEndsAt). A tool call whose hook began while
  *  it was set records no tool event, and a reply arriving while it is set isn't recorded (version 19). */
 let untrackedTurn = false
+/** What the mark is bound to (BEH-02, version 26): a turn (its ID, and the IDs of the main-loop turns started since); 'next',
+ *  a load bound to the next main-loop turn.start; or 'any', when no turn ID can be bound, so the next turn.complete ends it. */
+type MarkBind = { kind: 'turn'; id: string; since: string[] } | { kind: 'next' } | { kind: 'any' }
+let markBind: MarkBind | null = null
+/** Whether the mark was set at a load of the plugin's own precompact skill, which is when its end is written to adapter.log. */
+let markIsPrecompact = false
+/** The main loop's current turn: the turnId of its latest turn.start, or null when none is known (version 26). */
+let currentTurn: string | null = null
+/** Where the kept name came from: the person's own command, or BEH-41's set (the adapter's own $.command.run). The load line says. */
+let typedSource: 'person' | 'set' | null = null
 let disabled = false
 let modeSession: string | null = null
 // The root the mode was resolved for: the local preference file is per checkout (BEH-16).
@@ -1717,7 +1728,7 @@ async function measured($: E, raw: unknown): Promise<void> {
   if (was.percent !== percent) await update($, PRECOMPACT, p => ({ ...p, percent }))
   if (percent === null || !precompactDue({ ...was, percent }, runFuel) || autoRun) return
   autoRun = true
-  await update($, PRECOMPACT, p => ({ ...p, ran: true }))
+  await update($, PRECOMPACT, p => ({ ...p, ran: true, pending: true }))   // one write: the run mark and the pending mark (version 26)
   const fuel = 100 - percent
   await notify($, `Fuel ${fuel}%: running /devforgeai:precompact`)
   await adapterLog($, 'precompact', `fuel ${fuel}%: started /devforgeai:precompact`)
@@ -1737,7 +1748,7 @@ async function measured($: E, raw: unknown): Promise<void> {
 async function failedPrecompact($: E, err: unknown): Promise<void> {
   takeStart(starts, 'devforgeai:precompact')
   await adapterLog($, 'precompact', `could not run /devforgeai:precompact: ${firstLine(message(err))}`)
-  await update($, PRECOMPACT, p => (p.failed ? p : { ...p, failed: true }))
+  await update($, PRECOMPACT, p => (p.failed && !p.pending ? p : { ...p, failed: true, pending: false }))   // and the pending mark (version 26)
 }
 
 /** A load of the plugin's own precompact skill hides the row until a compaction (BEH-35). */
@@ -1750,12 +1761,86 @@ async function precompactStarted($: E): Promise<boolean> {
   return autoRun || (await read($, PRECOMPACT)).ran
 }
 
-/** A compaction empties the row's values and the run mark (BEH-35), and so do /clear, /resume and /branch. */
+/** A compaction empties the row's values, the run mark and the pending mark (BEH-35), and so do /clear, /resume and /branch. */
 async function resetPrecompact($: E): Promise<void> {
   autoRun = false
   const was = await read($, PRECOMPACT)
   // Written only when something changes (BEH-35), which redraws the band.
-  if (was.percent !== null || was.hidden || was.ran || was.failed) await update($, PRECOMPACT, () => NO_PRECOMPACT)
+  if (was.percent !== null || was.hidden || was.ran || was.failed || was.pending) await update($, PRECOMPACT, () => NO_PRECOMPACT)
+}
+
+// ---- the marked turn (BEH-02; versions 18, 19 and 26) ----
+
+/** A turn ID the host gave: a non-empty string; anything else is no ID. */
+function turnIdOf(id: unknown): string | null {
+  return typeof id === 'string' && id !== '' ? id : null
+}
+
+/** Mark the turn (BEH-02), in module memory and before anything that can fail: Claude's own load is bound to the turn already
+ *  open (or to 'any' when its ID isn't known), any other marked load to the next main-loop turn.start. The tag for the load line. */
+function markTurn(claude: boolean, precompact: boolean): string {
+  untrackedTurn = true
+  markIsPrecompact = precompact
+  if (claude) {
+    markBind = currentTurn !== null ? { kind: 'turn', id: currentTurn, since: [] } : { kind: 'any' }
+    return currentTurn ?? 'any'
+  }
+  markBind = { kind: 'next' }
+  return 'next'
+}
+
+/** A main-loop turn.start (version 26): it is the main loop's current turn; it binds a mark waiting for the next turn.start, and a
+ *  bound mark keeps the IDs of the turns started since. */
+function turnStarted(id: string | null): void {
+  currentTurn = id
+  if (markBind === null) return
+  if (markBind.kind === 'next') markBind = id !== null ? { kind: 'turn', id, since: [] } : { kind: 'any' }
+  else if (markBind.kind === 'turn' && id !== null) markBind = { ...markBind, since: [...markBind.since, id] }
+}
+
+/** The end of the mark, at the entry of a main-loop turn.complete (synchronously, before any await): it ends when the complete is
+ *  of the bound turn or of a turn started after it, or the host gave no ID, or no ID could be bound ('any'); the complete of an
+ *  earlier turn, and of any turn while the mark waits for its turn.start, ends nothing. The cleared line's fields, or null. */
+function markEndsAt(id: string | null): { turn: string; bound: string } | null {
+  const bind = markBind
+  if (!untrackedTurn || bind === null) return null
+  const ends = id === null || bind.kind === 'any' || (bind.kind === 'turn' && (id === bind.id || bind.since.includes(id)))
+  if (!ends) return null
+  const out = markIsPrecompact ? { turn: id ?? '-', bound: bind.kind === 'turn' ? bind.id : '-' } : null
+  untrackedTurn = false
+  markBind = null
+  markIsPrecompact = false
+  return out
+}
+
+/** A compaction (BEH-35) clears only a mark no turn.start has bound yet; a bound one ends at its own turn's complete. The cleared
+ *  line is written when the mark was a precompact load's. */
+async function markEndsAtCompaction($: E): Promise<void> {
+  if (!untrackedTurn || markBind === null || markBind.kind !== 'next') return
+  const logged = markIsPrecompact
+  untrackedTurn = false
+  markBind = null
+  markIsPrecompact = false
+  if (logged) await adapterLog($, 'precompact', 'cleared: by=compaction turn=- bound=-')
+}
+
+/** The session's end clears any mark and the turn IDs; the cleared line, naming the host's reason, is written before they are
+ *  reset (version 26). /branch reports resume. */
+async function markEndsAtSessionEnd($: E, reason: unknown): Promise<void> {
+  if (untrackedTurn && markIsPrecompact) {
+    const by = reason === 'clear' || reason === 'resume' || reason === 'logout' || reason === 'prompt_input_exit' ? reason : 'other'
+    const bound = markBind !== null && markBind.kind === 'turn' ? markBind.id : '-'
+    await adapterLog($, 'precompact', `cleared: by=${by} turn=- bound=${bound}`)
+  }
+  clearMarkMemory()
+}
+
+/** The mark and the turn IDs, emptied: the session's end, and the reset at /clear, /resume and /branch. */
+function clearMarkMemory(): void {
+  untrackedTurn = false
+  markBind = null
+  markIsPrecompact = false
+  currentTurn = null
 }
 
 // ---- the odometer ledger (SPEC-016 BEH-10, ERR-06; built with version 25) ----
@@ -1861,6 +1946,7 @@ export const register: Register = (on, options) => {
       ensureTimer($)
       // The new session starts with no row, no run mark and no pending name (BEH-35, BEH-41), and registers /progress again (BEH-34).
       starts.clear()
+      clearMarkMemory()
       await resetPrecompact($)
       await registerProgress($)
     }
@@ -1891,18 +1977,46 @@ export const register: Register = (on, options) => {
       const r = await $.session.root()
       const kind = await skillKind($, r, name)
       if (kind === 'other') return out
-      // A load of the plugin's own precompact skill hides the row until a compaction (BEH-35): the person's, Claude's, or the one
-      // BEH-36 started (its run mark, which a reload keeps in $.state, so the hide never depends on BEH-41's set of names); a
-      // subagent's load is none of these.
-      if (name === 'precompact' && (pluginSkills ?? []).includes(name)
-        && (typedName === name || skillsLoading.has(name) || (await precompactStarted($)))) await hidePrecompact($)
+      const precompact = name === 'precompact' && (pluginSkills ?? []).includes(name)
+      const claude = skillsLoading.has(name)
+      const kept = typedName === name
+      let pending = false
       if (kind === 'untracked') {
         // An untracked skill's load opens no run, ends, pauses or unwinds nothing, offers nothing and changes no display
-        // (BEH-02, version 18). The person's load (the typed name BEH-31 keeps) or Claude's (BEH-29's in-flight set) marks
-        // the turn; a subagent's marks nothing.
-        if (typedName === name || skillsLoading.has(name)) untrackedTurn = true
-        return out
+        // (BEH-02, version 18). The turn is marked by the person's load (the typed name BEH-31 keeps), BEH-41's set (the same
+        // kept name), Claude's (BEH-29's in-flight set) or, from version 26, the plugin's own precompact skill while BEH-36's
+        // pending mark is set (read from $.state, so a kept name or a set lost before the load loses nothing); a subagent's
+        // load marks nothing. The mark is set first, before the hide and the consumption, so a rejected $.state write in either
+        // skips nothing of it.
+        if (precompact) {
+          try {
+            pending = (await read($, PRECOMPACT)).pending === true
+          } catch {
+            pending = false
+          }
+        }
+        const typed = kept && typedSource !== 'set'
+        const set = kept && typedSource === 'set'
+        const marked = typed || set || claude || pending
+        const tag = marked ? markTurn(claude, precompact) : '-'
+        if (precompact) {
+          await adapterLog($, 'precompact', `load: marked=${marked} typed=${typed} set=${set} claude=${claude} pending=${pending} turn=${tag}`)
+        }
       }
+      // A load of the plugin's own precompact skill hides the row until a compaction (BEH-35): the person's, Claude's, or one that
+      // comes after BEH-36's run mark (which a reload keeps in $.state, so the hide depends on neither BEH-41's set nor the pending
+      // mark); a subagent's load hides it only by the run mark. The load also consumes the pending mark, whichever path marked.
+      // One write for both; a refused write is logged and skips nothing else.
+      if (precompact) {
+        try {
+          const hide = kept || claude || (await precompactStarted($))
+          const consume = kind === 'untracked' && pending
+          if (hide || consume) await update($, PRECOMPACT, p => ({ ...p, hidden: p.hidden || hide, pending: consume ? false : p.pending }))
+        } catch (err) {
+          await adapterLog($, 'error', `precompact: ${firstLine(message(err))}`)
+        }
+      }
+      if (kind === 'untracked') return out
       ensureTimer($)
       // A load that isn't Claude's (typed, or a subagent's) ends the open run and every paused run (BEH-03, BEH-29).
       if (!skillsLoading.has(name)) {
@@ -2190,6 +2304,8 @@ export const register: Register = (on, options) => {
     if ((e as unknown as Fields).agentId === undefined) {
       skillsLoading.clear()
       switchedIn.clear()
+      // The main loop's current turn, which binds a waiting mark and joins a bound one's later turns (BEH-02, version 26).
+      turnStarted(turnIdOf((e as unknown as Fields).turnId))
     }
     if (await recording($, (e as unknown as Fields).agentId)) {
       turnOpen = true
@@ -2222,8 +2338,11 @@ export const register: Register = (on, options) => {
   })
 
   on('turn.complete', async ($, e, next) => {
-    // The main loop's turn ends the mark of an untracked load, whatever its reason and whether or not a run is open (BEH-02).
-    if (e.agentId === undefined) untrackedTurn = false
+    // The main loop's turn ends the mark of an untracked load, whatever its reason and whether or not a run is open (BEH-02): from
+    // version 26 when it is the bound turn's complete, or a later-started turn's, or none is bound; ended here synchronously, as
+    // before any await, and the cleared line follows.
+    const ended = e.agentId === undefined ? markEndsAt(turnIdOf(e.turnId)) : null
+    if (ended !== null) await adapterLog($, 'precompact', `cleared: by=turn.complete turn=${ended.turn} bound=${ended.bound}`)
     const main = await recording($, e.agentId)
     // The turn's tokens (BEH-40, SPEC-012 version 17's usage kind): valid counts only, else none.
     const usage = usageFields(e.turnId, e.usage)
@@ -2275,10 +2394,14 @@ export const register: Register = (on, options) => {
       // The person's command, kept while it runs: a typed skill's skill.prompt fires inside next(e) (BEH-31).
       const name = skillName(e.command)
       typedName = name
+      typedSource = own ? 'set' : 'person'
       try {
         return await next(e)
       } finally {
-        if (typedName === name) typedName = null
+        if (typedName === name) {
+          typedName = null
+          typedSource = null
+        }
       }
     }
     if (verb === undefined || interactive !== true || disabled || !isPersonPrompt(e.origin)) return next(e)
@@ -2380,6 +2503,8 @@ export const register: Register = (on, options) => {
     // precompact row's values and the run mark, so the row and the run can happen again (BEH-35).
     if (interactive === true && !disabled && e.agentId === undefined && e.trigger !== 'precompute' && isCompaction(out)) {
       try {
+        // A mark no turn.start has bound yet goes with the compaction; a bound one ends at its own turn's complete (version 26).
+        await markEndsAtCompaction($)
         await resetPrecompact($)
       } catch (err) {
         await recover($, 'session.compact', err)
@@ -2417,9 +2542,12 @@ export const register: Register = (on, options) => {
       pendingWrote = []
       lastStatus = undefined
       turnOpen = false
+      // The mark's end is logged before the session's values are reset (version 26).
+      await markEndsAtSessionEnd($, e.reason).catch(() => undefined)
       live = emptyLive()
       typedName = null
-      untrackedTurn = false
+      typedSource = null
+      clearMarkMemory()
       // A new session ID follows /clear, /resume and /branch: its lines wait for its first run (DM-02).
       logRoot = null
       // The pending names (BEH-41) and the ledger's lines (SPEC-016 BEH-10) are the session's; its row and run mark go too.
