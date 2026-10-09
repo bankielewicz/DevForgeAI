@@ -1363,15 +1363,17 @@ export function measuredShare(percent: unknown): number | null {
 }
 
 /** The precompact row's text (BEH-35; fuel is 100 minus the measured share, version 23), or null when no row is due: nothing
- *  measured, the row hidden by the skill's load, the warning share 0, or the fuel above the warning share. While the run
- *  share is not 0 and is below the fuel and no automatic run has started, it says when the skill will run; with the run share
- *  0, that it can be run; after a failed run (ERR-22), that the person should run it. At or below the run share, before the
- *  run has started, and after it has started without failing, the row has no text. */
+ *  measured, the row hidden by the skill's load, the warning share 0, or (unless the run failed) the fuel above the warning
+ *  share. After a failed run (ERR-22) the row asks the person to run the skill at once, whatever the fuel and the warning share
+ *  (Bryan, 2026-10-08, "Show it at once": DM-08, "the row shows only when the run fails"; the warning share 0 still turns the row
+ *  off). While the run share is not 0 and is below the fuel and no automatic run has started, it says when the skill will run;
+ *  with the run share 0, that it can be run. At or below the run share, before the run has started, and after it has started
+ *  without failing, the row has no text. */
 export function precompactRow(view: ProgressPrecompact, warnFuel: number, runFuel: number): string | null {
   if (view.percent === null || view.hidden || warnFuel === 0) return null
   const fuel = 100 - view.percent
-  if (fuel > warnFuel) return null
   if (view.failed) return `● Fuel ${fuel}% · run /devforgeai:precompact now`
+  if (fuel > warnFuel) return null
   if (runFuel === 0) return `▲ Fuel ${fuel}% · consider /devforgeai:precompact before /compact`
   if (runFuel < fuel && !view.ran) return `▲ Fuel ${fuel}% · precompact runs at ${runFuel}%`
   return null

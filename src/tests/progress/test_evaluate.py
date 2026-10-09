@@ -1725,6 +1725,39 @@ class SpecRules(Base):
         # The last line is malformed and sets no time: the run's last event is the second good usage event.
         self.assertEqual((state["through"], state["timing"]["lastEvent"]), (8, self.at(8)))
 
+    # The review of the build (review-build-028.md, S1) asked whether evaluate.py's write shares history.py's pattern: it
+    # does. A lone surrogate (legal JSON, written as the escape \\ud800) in the skill name, in an event's time (which
+    # version 17 echoes in timing and reached) or in a path a rule matches reached the state, and the write died with a
+    # traceback (exit 1, no state, a .state-*.tmp left in the folder). The state is now written with its non-ASCII text
+    # escaped, so it is valid JSON that holds the same value.
+    def test_ver47_a_lone_surrogate_in_a_log_still_gives_a_state(self):
+        def skill(log):
+            log.events[0]["skill"] = "\ud800x"
+
+        def time(log):
+            log.events[1]["time"] = "\ud800"
+
+        def path(log):
+            log.tool("Read", path="docs/specs/brainstorm/\ud800.md")
+
+        for name, mutate in (("skill", skill), ("time", time), ("path", path)):
+            with self.subTest(name), tempfile.TemporaryDirectory() as tmp:
+                log = mc.Log("brainstorm").tick(1)
+                mutate(log)
+                events, out = Path(tmp) / "events.jsonl", Path(tmp) / "state.json"
+                events.write_text("\n".join(json.dumps(e, sort_keys=True) for e in log.events) + "\n", encoding="utf-8")
+                proc = self.run_cli("evaluate", "--manifests", mc.PLUGIN_MANIFESTS, "--events", events, "--out", out)
+                self.assertEqual(proc.returncode, 0, proc.stderr)
+                self.assertEqual(sorted(p.name for p in Path(tmp).iterdir()), ["events.jsonl", "state.json"])
+                raw = out.read_bytes()
+                raw.decode("ascii")  # escaped: a state that holds a surrogate is written as ASCII
+                state = json.loads(raw)
+                self.assertEqual([e.message for e in schema_validator("progress").iter_errors(state)], [])
+                self.assertIn("\ud800", json.dumps(state, ensure_ascii=False))
+                again = Path(tmp) / "again.json"
+                self.run_cli("evaluate", "--manifests", mc.PLUGIN_MANIFESTS, "--events", events, "--out", again)
+                self.assertEqual(again.read_bytes(), raw)
+
     def state_of_lines(self, lines):
         with tempfile.TemporaryDirectory() as tmp:
             events, out = Path(tmp) / "events.jsonl", Path(tmp) / "state.json"

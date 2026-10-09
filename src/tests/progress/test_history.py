@@ -157,6 +157,23 @@ class RunRules(Base):
         self.assertEqual(out["runs"], {"read": 1, "skipped": len(bad)})
         self.assertEqual(out["skills"], {"brainstorm": {"runs": 1, "complete": 1, "medianActiveSeconds": None}})
 
+    # The review of the build (review-build-028.md, S1): a state of the right format whose skill holds a lone surrogate
+    # ("\\ud800x" is legal JSON) can't be printed as UTF-8. It is skipped under ERR-15 like any state that isn't a run's,
+    # so one bad state never hides the history (exit 0, never a traceback).
+    def test_ver51_a_state_whose_skill_cannot_be_printed_is_skipped(self):
+        good = json.loads(self.state(fx.brainstorm_run(600)))
+        self.add(self.run_names("brainstorm", 1)[0], json.dumps(good))
+        fx.put_run(self.root, "bad-surrogate", json.dumps(dict(good, skill="\ud800x")))  # written as the escape \ud800
+        fx.put_run(self.root, "bad-surrogate-mid", json.dumps(dict(good, skill="a\udfffb")))
+        out = self.figures()
+        self.assertEqual(out["runs"], {"read": 1, "skipped": 2})
+        self.assertEqual(sorted(out["skills"]), ["brainstorm"])
+
+    def test_ver52_a_lone_surrogate_in_a_ledger_line_is_a_string_like_any_other(self):
+        fx.ledger(self.root, "S1.jsonl", [json.dumps(fx.line("\ud800", "\udfff", "main", 1, 2, 3, 4))])  # escapes, as written
+        out = self.figures()["odometer"]
+        self.assertEqual((out["turns"], out["malformed"], out["tokens"]), (1, 0, 10))
+
     def test_ver51_what_is_ignored_and_what_is_a_link(self):
         self.add(self.run_names("brainstorm", 1)[0], fx.brainstorm_run(600))
         (self.root / "devforgeai/progress/runs/no-state-json").mkdir()  # a run folder with no state.json: uncounted

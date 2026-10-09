@@ -5694,15 +5694,44 @@ test('VER-54: a mod\'s tool calls give no event, no step event, no task map entr
   expect(logOf(w, 'brainstorm').slice(-1)[0]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/c.md' })
 })
 
+/** A tool stub whose Skill call is held open until released, so skill.prompt fires inside it, as the host does (probe, 2026-10-05). */
+function heldSkill() {
+  const inner = taskTools()
+  let release: (() => void) | null = null
+  return {
+    tool: (e: Any): Any => (e.tool === 'Skill' ? new Promise(r => { release = () => r({ result: 'Launching skill' }) }) : inner(e)),
+    release: () => release?.(),
+  }
+}
+
 test('VER-54: a mod\'s Skill call of the precompact skill marks no turn: a Read after its skill.prompt is recorded', { plugins: [modder] }, async ($, on) => {
-  const w = world(on, { tool: taskTools() })
+  const held = heldSkill()
+  const w = world(on, { tool: held.tool })
   await start($)
   await load($, 'devforgeai:brainstorm', TAGGED)
   const count = eventsOf(w).length
-  await modCalls($, [{ tool: 'Skill', skill: 'devforgeai:precompact' }])
-  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })     // a load nobody typed and Claude didn't make
+  const call = modCalls($, [{ tool: 'Skill', skill: 'devforgeai:precompact' }])
+  await xSettle()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })     // inside the mod's call
+  held.release()
+  expect(await call).toBe('ok')
   await $.tool.call(READ('a.md'))
   expect(eventsOf(w).length).toBe(count + 1)
+})
+
+test('VER-54 (R2): a mod\'s Skill call of the precompact skill hides no row', { plugins: [modder] }, async ($, on) => {
+  const held = heldSkill()
+  const p = pWorld($, on, { over: { tool: held.tool }, load: false })
+  await start($)
+  await measure($, 72)
+  expect(await fuelRow($)).toBe(ROW(28))
+  const call = modCalls($, [{ tool: 'Skill', skill: 'devforgeai:precompact' }])
+  await xSettle()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  held.release()
+  expect(await call).toBe('ok')
+  expect(await fuelRow($)).toBe(ROW(28))
+  void p
 })
 
 test('VER-54: in enforce mode a mod\'s Write that the gate\'s flags refuse is still refused, and leaves no line, no refusal count and no stuck notice', { plugins: [modder] }, async ($, on) => {
@@ -5730,23 +5759,49 @@ test('VER-54: a mod\'s Write the gate does not refuse goes on in enforce mode, r
   expect(kinds(eventsOf(w))).toEqual(['skill-loaded'])
 })
 
-test('VER-54: a mod\'s Skill call is no load of Claude\'s: the open run ends as for a load nobody typed, and nothing is pushed on the trail', { plugins: [modder] }, async ($, on) => {
-  const inner = taskTools()
-  let release: (() => void) | null = null
-  const w = world(on, { tool: (e: Any) => (e.tool === 'Skill' ? new Promise(r => { release = () => r({ result: 'Launching skill' }) }) : inner(e)) })
+test('VER-54 (R2, Bryan 2026-10-08 "Leave the run open"): a mod\'s Skill call of a tracked skill leaves the open run open and records nothing: its skill.prompt ends no run, opens none and pushes nothing', { plugins: [modder] }, async ($, on) => {
+  const held = heldSkill()
+  const w = world(on, { tool: held.tool })
   await start($)
   await load($, 'devforgeai:architecture', TAGGED)
   await taskList($, 11, 7)
   await w.clock.advance(600)
+  const before = logOf(w, 'architecture')
   const call = modCalls($, [{ tool: 'Skill', skill: 'devforgeai:spec-lookup' }])
   await xSettle()
-  await $.skill.prompt({ skill: 'devforgeai:spec-lookup', text: TAGGED })
-  release?.()
+  const out = (await $.skill.prompt({ skill: 'devforgeai:spec-lookup', text: TAGGED })) as Any
+  held.release()
   expect(await call).toBe('ok')
+  expect(out.text).toBe(TAGGED)                                    // the skill's text is never changed
   expect(trailLog(w)).toEqual([])
-  expect(logOf(w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
-  expect(logOf(w, 'architecture').filter(e => e.tool === 'Skill')).toEqual([])
-  expect(logOf(w, 'spec-lookup').map(e => e.kind)).toEqual(['skill-loaded'])
+  expect(runsOf(w, 'spec-lookup')).toEqual([])                     // no run opened
+  expect(logOf(w, 'architecture')).toEqual(before)                 // nothing recorded, no run-end
+  // the open run goes on: Claude's next Read lands in it
+  await $.tool.call(READ('b.md'))
+  expect(logOf(w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/b.md' })
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)
+})
+
+test('VER-54 (R2, control): Claude\'s own Skill call of the same skill still pushes the open run on the trail', async ($, on) => {
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => skState('spec-lookup', 5, 2) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  await sk.load($, 'devforgeai:spec-lookup')
+  expect(trailLog(w)).toEqual(['push architecture at step 7 (1 on the trail)'])
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)
+  expect(runsOf(w, 'spec-lookup').length).toBe(1)
+})
+
+test('VER-54 (R2, control): the person\'s typed load of the same skill still ends the open run and opens its own', async ($, on) => {
+  const r = rWorld($, on, { control: false })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await rType($, 'spec-lookup')
+  expect(logOf(r.w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(runsOf(r.w, 'spec-lookup').length).toBe(1)
 })
 
 test('VER-54: a mod\'s Bash call naming a gated document gets neither of BEH-38\'s parts; Claude Code\'s is refused', { plugins: [modder] }, async ($, on) => {
@@ -6033,6 +6088,54 @@ test('VER-56 / ERR-22: a rejected $.command.run leaves the failed row, keeps the
   expect(uLog(p.w, 'precompact').length).toBe(2)                   // the start, and the failure
   expect(uLog(p.w, 'precompact')[1].split(' precompact: ')[1].length > 0).toBe(true)
   expect(logOf(p.w, 'brainstorm').some(e => e.kind === 'run-end')).toBe(false)
+})
+
+test('VER-56 (R1, Bryan 2026-10-08 "Show it at once"): with the run share above the warning share a failed run draws the failed row at once, at fuel 40, 35 and 30', { options: { precompactRunFuel: 40 } } as Any, async ($: Any, on: Any) => {
+  const p = pWorld($, on, { reject: 'no such command' })
+  await start($)
+  await measure($, 60)                                             // fuel 40: the run starts and is rejected
+  for (let i = 0; i < 5; i++) await xSettle()                      // the failure lands some ticks later with no run open
+  expect(p.ran.length).toBe(1)
+  expect(await fuelRow($)).toBe('● Fuel 40% · run /devforgeai:precompact now')
+  await measure($, 65)
+  expect(await fuelRow($)).toBe('● Fuel 35% · run /devforgeai:precompact now')
+  await measure($, 70)
+  expect(await fuelRow($)).toBe('● Fuel 30% · run /devforgeai:precompact now')
+  await xSettle()
+  expect(p.ran.length).toBe(1)                                     // and nothing is tried again
+})
+
+test('VER-56 (R1, unchanged): a failed row still goes with a hidden row, a compaction and a warning share of 0', async ($, on) => {
+  const p = pWorld($, on, { reject: 'no such command' })
+  await start($)
+  await measure($, 80)
+  for (let i = 0; i < 5; i++) await xSettle()
+  expect(await fuelRow($)).toBe('● Fuel 20% · run /devforgeai:precompact now')
+  p.reject = null
+  await rType($, 'precompact')                                     // the person runs it themselves: hidden until a compaction
+  expect(await fuelRow($)).toBeNull()
+  void p
+})
+
+test('VER-56 (P-A): Claude\'s own load of the precompact skill hides the row', async ($, on) => {
+  const sk = skillCalls()
+  const p = pWorld($, on, { over: { tool: sk.tool }, load: false })
+  await start($)
+  await measure($, 72)
+  expect(await fuelRow($)).toBe(ROW(28))
+  await sk.load($, 'devforgeai:precompact')
+  expect(await fuelRow($)).toBeNull()
+  void p
+})
+
+test('VER-56 (P-B): a subagent\'s load of the precompact skill, with no automatic run started, does not hide the row', async ($, on) => {
+  const sk = skillCalls()
+  const p = pWorld($, on, { over: { tool: sk.tool }, load: false })
+  await start($)
+  await measure($, 72)
+  await sk.load($, 'devforgeai:precompact', 'a1')
+  expect(await fuelRow($)).toBe(ROW(28))
+  void p
 })
 
 test('VER-56: a load of the precompact skill hides the row and opens no run; after a compaction the share and the mark are cleared, and the run happens again at fuel 20', async ($, on) => {
@@ -6467,6 +6570,23 @@ test('VER-11 (version 25): once a turn.complete carries usage the writes also na
   ].sort())
   expect(w.writes.includes(`${ROOT}/.gitignore`)).toBe(false)
   expect(w.writes.every(p => p.startsWith(`${PROGRESS}/`))).toBe(true)
+})
+
+test('SPEC-016 BEH-10 (K4): the held-lines cap of 20,000 applies only while no run has opened a root: the lines held are written when one does', { timeoutMs: 180000 }, async ($, on) => {
+  const w = world(on)
+  await start($)
+  for (let i = 0; i < 20005; i++) await done($, `n${i}`)           // 5 past the cap are dropped, with one log line once a run exists
+  expect(w.writes).toEqual([])
+  await load($)
+  await done($, 'last')                                            // a root now: this turn writes everything held
+  const turns = odo(w).map(l => l.turn)
+  expect(turns.length).toBe(20001)
+  expect(turns[0]).toBe('n0')
+  expect(turns[19999]).toBe('n19999')
+  expect(turns[20000]).toBe('last')
+  expect(uLog(w, 'dashboard').length).toBe(1)
+  await done($, 'after')
+  expect(odo(w).length).toBe(20002)                                // and it goes on writing: the cap is for the wait only
 })
 
 test('SPEC-016 BEH-10: the module reads its own file back once, at its first write, and writes the old lines and the new', async ($, on) => {

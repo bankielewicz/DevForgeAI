@@ -723,7 +723,11 @@ test('BEH-35: the row\'s text by fuel, the warning share, the run share and what
   expect(precompactRow(view({ percent: 80, failed: true, ran: true }), 30, 20)).toBe('● Fuel 20% · run /devforgeai:precompact now')
   expect(precompactRow(view({ percent: 90, failed: true, ran: true }), 30, 20)).toBe('● Fuel 10% · run /devforgeai:precompact now')
   expect(precompactRow(view({ percent: 80, failed: true, ran: true }), 0, 20)).toBeNull()      // the warning off: no row
-  expect(precompactRow(view({ percent: 60, failed: true, ran: true }), 30, 40)).toBeNull()      // fuel 40: above the warning share
+  // R1 (Bryan, 2026-10-08, "Show it at once"): a failed run draws the failed row at once, above the warning share too
+  expect(precompactRow(view({ percent: 60, failed: true, ran: true }), 30, 40)).toBe('● Fuel 40% · run /devforgeai:precompact now')
+  expect(precompactRow(view({ percent: 65, failed: true, ran: true }), 30, 40)).toBe('● Fuel 35% · run /devforgeai:precompact now')
+  expect(precompactRow(view({ percent: 10, failed: true, ran: true }), 95, 20)).toBe('● Fuel 90% · run /devforgeai:precompact now')
+  expect(precompactRow(view({ percent: 60, ran: true }), 30, 40)).toBeNull()                     // not failed: still no row above the warning share
   expect(precompactRow(view({ percent: 70, failed: true, ran: true, hidden: true }), 30, 20)).toBeNull()
   // a run share at or above the warning share: the run starts first, so the row appears only when the run fails
   expect(precompactRow(view({ percent: 75 }), 20, 25)).toBeNull()

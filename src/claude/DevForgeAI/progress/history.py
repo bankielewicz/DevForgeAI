@@ -93,6 +93,10 @@ def read_state(folder):
     if not (isinstance(state, dict) and state.get("format") == STATE_FORMAT and isinstance(state.get("skill"), str)
             and isinstance(timing, dict) and type(timing.get("activeSeconds")) is int):
         return None, True
+    try:
+        state["skill"].encode("utf-8")  # a lone surrogate (legal JSON) can't be printed: one bad state hides nothing
+    except UnicodeEncodeError:
+        return None, True
     return state, False
 
 

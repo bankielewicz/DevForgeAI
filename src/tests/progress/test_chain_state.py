@@ -269,6 +269,45 @@ class ChainRules(Base):
                 self.assertEqual(len(proc.stderr.splitlines()), 1, proc.stderr)
                 self.assertTrue(proc.stderr.startswith("chain_state: "), proc.stderr)
 
+    # The review of the build (tmp/plans/dashboard/review-build-028.md, S2): a version of 5,000 digits is all digits, but
+    # no integer this script can hold under Python's default limit of 4,300 digits for int(); BEH-26 and DM-05 give
+    # "the text" for a value that isn't an integer, so it is listed as the text as written, never a traceback.
+    def test_ver50_a_version_too_long_for_an_integer_is_kept_as_text(self):
+        fx.write(self.root, SPEC + "big.md", "---\nid: BIG-1\ntype: spec\nversion: %s\n---\n" % ("9" * 5000))
+        fx.write(self.root, SPEC + "ok.md", "---\nid: OK-1\ntype: spec\nversion: 7\n---\n")
+        env = dict(os.environ, PYTHONINTMAXSTRDIGITS="4300")  # the default, so the test doesn't depend on the host's
+        proc = fx.run_script(fx.CHAIN_STATE, ["--root", self.root], self.INTERPRETER, env=env)
+        self.assertEqual((proc.returncode, proc.stderr), (0, ""))
+        listing = json.loads(proc.stdout)
+        self.assertEqual({d["id"]: d["version"] for d in listing["documents"]}, {"BIG-1": "9" * 5000, "OK-1": 7})
+        self.assertEqual(listing["skipped"], 0)
+
+    # S3: a list line's ID is read from `{id: <ID>` or `- id: <ID>` at the line's start (BEH-26), never out of a quoted
+    # note. The reviewer's probe up.md; an entry whose id is not first (`{relation: x, ..., id: SPEC-002}`) has neither
+    # form, so it is not read (builder's reading, kept: BEH-26 names only those two forms).
+    UP_MD = ('---\nid: UP-1\ntype: spec\nupstream:\n  - id: ADR-001\n    relation: constrains\n'
+             '    note: "see also - id: ADR-999"\n  - {relation: x, note: "{id: EVIL-1}", id: SPEC-002}\n'
+             'status: approved\n---\nbody\n')
+
+    def test_ver50_upstream_ids_are_not_read_out_of_quoted_notes(self):
+        fx.write(self.root, SPEC + "up.md", self.UP_MD)
+        (up,) = self.listing()["documents"]
+        self.assertEqual(up["upstream"], ["ADR-001"])
+
+    def test_ver50_upstream_lines_that_have_neither_form_are_not_read(self):
+        text = ("---\nid: UP-2\ntype: spec\nupstream:\n"
+                "  - {id: A-1, relation: x, note: \"- id: NOTE-1 and {id: NOTE-2}\"}\n"
+                "# - id: COMMENT-1\n"
+                "  - relation: informed_by\n    id: NOFIRST-1\n"
+                "  -{id: A-2}\n"
+                "- id: \"A-3\"\n"
+                "  - {relation: x, id: NOFIRST-2}\n"
+                "    note: \"x {id: INNER-1}\"\n"
+                "---\n")
+        fx.write(self.root, SPEC + "up2.md", text)
+        (up,) = self.listing()["documents"]
+        self.assertEqual(up["upstream"], ["A-1", "A-2", "A-3"])
+
     def test_ver50_the_listing_of_this_repositorys_specs(self):
         listing = self.listing(root=fx.ROOT)
         validator = Draft202012Validator(json.loads((fx.SCHEMAS / "chain.schema.json").read_text(encoding="utf-8")))

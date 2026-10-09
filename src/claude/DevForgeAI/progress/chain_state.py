@@ -23,7 +23,9 @@ import sys
 
 FORMAT = "devforgeai-chain/1"
 VALUE = re.compile(r"[ \t]*[\"']?([^\s\"'#,}]+)")  # after `key:`: an optional quote, then up to whitespace, a quote, #, , or }
-UPSTREAM_ID = re.compile(r"(?:\{|-)\s*id:\s*[\"']?([A-Za-z0-9-]+)")  # `{id: <ID>` or `- id: <ID>`
+# A list line gives its ID from `{id: <ID>` or `- id: <ID>` at the start of the line (BEH-26), after an optional `-` for
+# the flow form: never from the text of a note, a comment or a key that isn't first in its entry.
+UPSTREAM_ID = re.compile(r"\s*(?:-\s+id:|(?:-\s*)?\{\s*id:)\s*[\"']?([A-Za-z0-9-]+)")
 
 
 class Fail(Exception):
@@ -87,7 +89,7 @@ def upstream_ids(lines):
             continue
         if line.strip() and not line[0].isspace() and line[0] not in "#-":
             break
-        found = UPSTREAM_ID.search(line)
+        found = UPSTREAM_ID.match(line)
         if found and found.group(1) not in ids:
             ids.append(found.group(1))
     return ids
@@ -100,7 +102,10 @@ def document(lines, path):
         return None
     version = top_level(lines, "version")
     if version is not None and re.fullmatch(r"[0-9]+", version):
-        version = int(version)
+        try:
+            version = int(version)
+        except ValueError:  # all digits, but more than int() takes (4,300 under Python's default): the text as written
+            pass
     return {"id": ident, "type": top_level(lines, "type"), "status": top_level(lines, "status"), "version": version,
             "updated": top_level(lines, "updated"), "path": path, "upstream": upstream_ids(lines)}
 

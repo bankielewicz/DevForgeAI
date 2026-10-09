@@ -1300,6 +1300,12 @@ def write_state(state, out):
     if not os.path.isdir(folder):
         raise Fail("%s: the folder %s doesn't exist" % (out, os.path.dirname(out) or "."))
     text = json.dumps(state, sort_keys=True, indent=2, ensure_ascii=False) + "\n"
+    try:
+        text.encode("utf-8")
+    except UnicodeEncodeError:
+        # A lone surrogate (legal JSON) in the skill name, an event's time or a path can't be written as UTF-8: the
+        # state is written with its non-ASCII text escaped, valid JSON that holds the same values.
+        text = json.dumps(state, sort_keys=True, indent=2) + "\n"
     tmp = None
     try:
         fd, tmp = tempfile.mkstemp(dir=folder, prefix=".state-", suffix=".tmp")
@@ -1328,7 +1334,9 @@ def cmd_evaluate(args):
     if args.phases:
         state["phases"] = phases
     write_state(state, args.out)
-    print(summary(state))
+    # The summary names the skill: a lone surrogate in it is written as its escape, never a traceback after the state
+    # is on disk.
+    print(summary(state).encode("utf-8", "backslashreplace").decode("utf-8"))
     return 0
 
 

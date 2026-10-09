@@ -186,6 +186,10 @@ let inFlight: Promise<void> | null = null
 let turnOpen = false
 /** The skills the main loop's Skill tool calls in flight are loading, by name (BEH-29); emptied at each main-loop turn. */
 const skillsLoading = new Map<string, number>()
+/** The skills another plugin's mod is loading with a Skill tool call in flight, by name (BEH-33, Bryan 2026-10-08, "Leave the run
+ *  open"): a skill.prompt for one of these, with no Claude's call and no typed command running the same name, is the mod's load
+ *  and changes nothing of the tracker. */
+const modLoading = new Map<string, number>()
 /** Skills whose load inside a Skill call changed the open run (a push, an unwind, a switch): that call records nothing
  *  when it returns, in either run (BEH-29). */
 const switchedIn = new Set<string>()
@@ -1791,12 +1795,13 @@ async function ledgerAdd($: E, session: string, line: string): Promise<void> {
     await ledgerNote($, String(session), 'session', 'the session ID makes no path, so no line is kept')
     return
   }
-  if (ledgerHeld.length >= LEDGER_HELD_LIMIT) {
+  const root = logRoot
+  // The cap is for the wait only: once a run has opened a root the held lines are written, whatever their number.
+  if (root === null && ledgerHeld.length >= LEDGER_HELD_LIMIT) {
     await ledgerNote($, session, 'held', 'no run has opened a root and the held lines are full: later lines are dropped')
     return
   }
-  ledgerHeld = [...ledgerHeld, line]
-  const root = logRoot
+  ledgerHeld.push(line)
   if (root === null) return
   const path = `${progressDir(root)}/odometer/${session}.jsonl`
   if (ledgerFile === null || ledgerFile.path !== path) {
@@ -1879,6 +1884,9 @@ export const register: Register = (on, options) => {
     if (interactive !== true || disabled) return out
     try {
       const name = skillName(e.skill)
+      // A load made inside another plugin's mod's Skill call (BEH-33): no run ends, opens or pauses, nothing is offered, marked
+      // or hidden, and the text goes on unchanged. Claude's own call and the person's typed command for the same name come first.
+      if (modLoading.has(name) && !skillsLoading.has(name) && typedName !== name) return out
       // One read of the root serves every decision as the run opens (BEH-03): tracked, the folder, the mode.
       const r = await $.session.root()
       const kind = await skillKind($, r, name)
@@ -1955,17 +1963,29 @@ export const register: Register = (on, options) => {
     // (BEH-08): where a call comes from relaxes no gate. BEH-38's two parts are Claude Code's own Bash calls only (its check in
     // bashWatch), so this return comes before them. A missing origin counts as Claude Code's (isFromMod).
     if (isFromMod(next.origin)) {
-      if ((tool === 'Write' || tool === 'Edit') && (await recording($, input.agentId)) && (await read($, MODE)) === 'enforce' && python) {
-        const open = await get($, 'run')
-        const r = open !== null ? rootOf(open) : await $.session.root()
-        const refusal = await enforceCheck($, { tool, path: toolPath(r, tool, input) }, await contentOf($, r, tool, input), false)
-        if (refusal !== null) {
-          await adapterLog($, 'refused', firstLine(refusal.split('\n')[1] ?? refusal))
-          if (!(await hasSurface($))) await $.ui.log(refusal)
-          return { deny: refusal }
+      // A Skill call of a mod keeps its skill's name in modLoading while it is in flight, so the skill.prompt that fires inside it
+      // is not taken for a load nobody typed (which would end the open run): it changes nothing (BEH-33; skill.prompt).
+      const modLoad = tool === 'Skill' && typeof input.skill === 'string' ? skillName(input.skill) : null
+      if (modLoad !== null) modLoading.set(modLoad, (modLoading.get(modLoad) ?? 0) + 1)
+      try {
+        if ((tool === 'Write' || tool === 'Edit') && (await recording($, input.agentId)) && (await read($, MODE)) === 'enforce' && python) {
+          const open = await get($, 'run')
+          const r = open !== null ? rootOf(open) : await $.session.root()
+          const refusal = await enforceCheck($, { tool, path: toolPath(r, tool, input) }, await contentOf($, r, tool, input), false)
+          if (refusal !== null) {
+            await adapterLog($, 'refused', firstLine(refusal.split('\n')[1] ?? refusal))
+            if (!(await hasSurface($))) await $.ui.log(refusal)
+            return { deny: refusal }
+          }
+        }
+        return await next(e)
+      } finally {
+        if (modLoad !== null) {
+          const n = (modLoading.get(modLoad) ?? 1) - 1
+          if (n > 0) modLoading.set(modLoad, n)
+          else modLoading.delete(modLoad)
         }
       }
-      return await next(e)
     }
     // Registered before any await, so a question in the same batch finds it (BEH-21).
     const finish = TASK_TOOLS.includes(tool) ? startTaskWork() : null
@@ -2404,6 +2424,7 @@ export const register: Register = (on, options) => {
       logRoot = null
       // The pending names (BEH-41) and the ledger's lines (SPEC-016 BEH-10) are the session's; its row and run mark go too.
       starts.clear()
+      modLoading.clear()
       ledgerFile = null
       ledgerHeld = []
       await resetPrecompact($).catch(() => undefined)
