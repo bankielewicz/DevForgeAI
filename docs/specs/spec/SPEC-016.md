@@ -2,7 +2,7 @@
 id: SPEC-016
 type: spec
 title: "DevForgeAI Dashboard: the planning chain, the run and the session in one pane"
-status: in-review      # draft | in-review | approved | superseded | deprecated
+status: approved      # draft | in-review | approved | superseded | deprecated
 version: 3
 created: 2026-10-06
 updated: 2026-10-09
@@ -14,7 +14,7 @@ generated_by:
   session: "7637882f-b2ec-465e-988a-9602340d1023"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-08
+approved_on: 2026-10-09
 upstream:
   - {id: PRD-001, item: FR-022, relation: implements, version: 12, hash: null}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 12, hash: null, note: "the dashboard is a view of the progress tracker; it shows a run's progress and changes none of the tracker's rules"}
@@ -531,7 +531,7 @@ Decided by Bryan on 2026-10-08, for version 3 (R4; the same words as SPEC-013 §
 
 - What version 3 changes here: BEH-10 (the gate 'tracking on and not stopped', the 20,000-line wait before a root, and that a failed write is SPEC-013 BEH-42's hold), ERR-06 (the hold, the retry points, the 10 failed turn tries and 4 MiB bounds, the stop with the tracker's, the log lines), IF-02, BEH-01, BEH-19, VER-02, VER-07 and VER-14 (the stopped and holding tracker). The ledger is in `progress.tsx`, so the build is SPEC-013's.
 - Drafter's choices in version 3, for his accept or reject (the rest are SPEC-013 §13's, (a) to (aa)): (a) the ledger has the same K (10 failed turn tries) and the same cap (the file's 4 MiB, about 20,000 lines) as the tracker's log, where Bryan's words name 'a retry cycle' and 'an option to remedy' for the writes without numbers; (b) a ledger-only hold shows ' · odometer retrying' and its own row and toast, and leaves the run's summary on the status line; (c) the tracker's stop (ERR-03) stops the ledger and the tracker's other stops (ERR-11's full log, a missing Python) do not, which settles the review's note N10 below; (d) the ledger's log lines stay kind `dashboard` with the prefix 'odometer:'; (e) `/progress retry` lifts a stop made by 10 failed tries and the tracker's stop, not the stops for a file that can't be read back or would pass 4 MiB; (f) the pane treats a held run log as it does a stopped tracker, with its own line (BEH-19); (g) at 10 failed turn tries the ledger drops its held lines and stops, as the tracker's log does; the alternative, to keep them until the file's 4 MiB cap, is SPEC-013 §13 (z)'s.
-- Version 3's change approved: not yet.
+- Version 3's change approved by Bryan on 2026-10-09 ('Approve as drafted (Recommended)', with his answers 'Typed /progress retry (Recommended)', 'Drop at K, as drafted (Recommended)' and '0.29.0 for v27 (Recommended)'), with the drafter's choices shown in its preview; the links citing it moved to version 3 then.
 
 Decided by Bryan on 2026-10-08, for the 0.28.0 build, which includes this spec's ledger writer (BEH-10, ERR-06; the
 adversarial review of the build, `tmp/plans/dashboard/review-build-028.md`; plan
@@ -638,3 +638,4 @@ to build it as a choice; whether it ships in a published plugin is his call at r
 | 2 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Record-only update, with no version bump: §13 names SPEC-013 version 27, not 26, for R4's hold, retry and remedy, since SPEC-013 version 26 (in review) takes the pending mark of the automatic precompact run | §13 |
 | 2 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Record-only update, with no version bump: §9 records the merge in PR #102 (`7e5e3c7`) and the deploy as plugin 0.28.0 | §9 |
 | 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, with SPEC-013 version 27, on Bryan's words of 2026-10-08, R4: "Add a retry “cycle” if it fails as well as option to remedy. Let’s ask /advisor for guidance and best approach", "v26 right after 0.28.0 (Recommended)" (renumbered version 27 in SPEC-013) and "Tracker writes only (Recommended)": the odometer ledger follows the tracker's hold, retry and stop for a write that fails (SPEC-013 BEH-42): lines held in order, tried again at the end of each main-loop turn and on `/progress retry`, shown in the status line, a toast and a row, bounded by 10 failed turn tries and 4 MiB, then stopped for the session (BEH-10, ERR-06); the ledger stops with the tracker's stop and not with its other stops, and the 20,000-line wait before a root is written into BEH-10; the stopped tracker's `/progress` answer and the pane's lines for a stopped or holding tracker are aligned (IF-02, BEH-01, BEH-19, VER-02, VER-07, VER-14); every number, text and rule beyond Bryan's words is the drafter's, for his accept or reject (§13); status in-review, Bryan's approval not yet given | frontmatter, status banner, §1, IF-02, BEH-01, BEH-10, BEH-19, ERR-06, VER-02, VER-07, VER-14, §9, §10, §13 |
+| 3 | 2026-10-09 | Bryan | Approved ('Approve as drafted (Recommended)', with the drafter's choices and the review's fixes shown in its preview; with his answers 'Typed /progress retry (Recommended)', 'Drop at K, as drafted (Recommended)' and '0.29.0 for v27 (Recommended)') | status |
