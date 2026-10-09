@@ -127,7 +127,7 @@ src/claude/DevForgeAI/skills/story/
 └── references/
     ├── slicing.md               # vertical slicing patterns, the walking-skeleton rule, spec_mode criteria
     ├── context.md               # which context documents to open for which component kinds (ADR-004 D2, D4)
-    ├── design-record.md         # shared: byte-identical to a section of the context skill's documents.md (§4)
+    ├── design-record.md         # shared: byte-identical to a subsection of the context skill's documents.md (§4)
     └── output-rules.md          # story frontmatter, links, AC rules, Definition of Done, the export-path check
                                  # (checkExports, BEH-12), the self-check list
 src/claude/DevForgeAI/evals/story/<case>/   # one case per automated VER item (§9)
@@ -176,10 +176,14 @@ refined NFR and each DW item. The skill writes new stories only for uncovered it
 unchanged inputs writes nothing (ERR-05).
 
 **The approved-design record** (BEH-12). One record for each story: one line in section 3, in this form. The form and the
-path rule are written once, in the context skill's `references/documents.md`, section `## ui-mockups.md and approved-design
-records` (its master); `references/design-record.md` holds that section byte for byte, and a test (`src/tests/story/`, written
-with the skill, modelled on `src/tests/prd/test_shared_files.py`) fails when the two differ, so the writer and the reader
-(SPEC-011 BEH-11) cannot drift. The context skill and SPEC-011 do not change until this skill is built (§13). The form:
+export-path definition are written once, in a subsection `### The approved-design line` of the context skill's
+`references/documents.md`, inside its section `## ui-mockups.md and approved-design records` (the master). The subsection holds
+only those two things: the fixed form line and the definition of an export path (it exists, ends in `.png` or `.pdf`, lies under
+`docs/specs/story/design/STORY-NNN/` at any depth, and has no `..` segment). It holds none of the reader's rules (building the
+table, reading today's form). `references/design-record.md` holds the subsection byte for byte, and a test (`src/tests/story/`,
+written with the skill, modelled on `src/tests/prd/test_shared_files.py`) fails when the two differ, so the writer and the
+reader (SPEC-011 BEH-11) cannot drift. The subsection does not exist yet: the story skill's build adds it to the context skill,
+which is a SKL-010 bump with its suite requalified (§10, §11). The form:
 
 `- **Approved design:** <screen or flow>; <export path>[, <export path>…]; approved <YYYY-MM-DD>; bundle <link or none>`
 
@@ -577,7 +581,7 @@ verifications:
       - ERR-10
   - id: VER-21
     status: active
-    obligation: "When the skill is built: src/tests/story/ holds a test, modelled on src/tests/prd/test_shared_files.py, that the story skill's references/design-record.md equals, byte for byte, the section of the context skill's references/documents.md that starts at the line '## ui-mockups.md and approved-design records' and ends before the next '## ' line, and that the section holds the fixed form and the path rule of §4. It fails when either text changes alone."
+    obligation: "When the skill is built: src/tests/story/ holds a test, modelled on src/tests/prd/test_shared_files.py, that the story skill's references/design-record.md equals, byte for byte, the subsection of the context skill's references/documents.md that starts at the line '### The approved-design line' and ends before the next heading of level 2 or 3, and that the subsection holds the fixed form line and an export-path definition with the words exists, .png, .pdf, STORY-NNN, any depth and ..; and that it holds no sentence of the reader's table-building rules. It fails when either text changes alone."
     level: unit
     covers:
       - BEH-12
@@ -594,7 +598,8 @@ and the `upstream` rule in §5.
   story step.
 - **Version 3 takes the line form SPEC-011 §10 left for it:** BEH-12 now writes SPEC-011 §4's fixed
   approved-design line, so the context skill indexes every record with the screen or flow and no
-  `(not recorded)` fallback. Two earlier findings that SPEC-011 §10 said the same revision could take are left
+  `(not recorded)` fallback. The shared subsection `### The approved-design line` is added to the context skill's
+  `documents.md` by the story skill's build, as a SKL-010 bump with the context suite requalified (§11). Two earlier findings that SPEC-011 §10 said the same revision could take are left
   for a later version: its fixture omits `ui-mockups.md`, and proposed roots should count as named roots for
   the greenfield check (§13).
 
@@ -607,12 +612,15 @@ and the `upstream` rule in §5.
 - story template and schema changes (M7);
 - the design-brief format and the approved-export location (M9);
 - the ambiguities template's schema (the `AMB` and `ENT` prefixes, M13);
-- PRD-001 FR-016 names this skill (M6, done in PRD-001 version 10).
+- PRD-001 FR-016 names this skill (M6, done in PRD-001 version 10);
+- the subsection `### The approved-design line` in the context skill's `references/documents.md` (§4): a SKL-010 bump with the
+  context suite requalified, done in the story skill's build (build step 2).
 
 **Build steps:**
 1. Create a worktree for the story skill's story, following ADR-001.
 2. `git mv src/templates/story.md` into `skills/story/assets/`, update the templates README row, and add
-   `assets/design-brief.md`.
+   `assets/design-brief.md`. Add the subsection `### The approved-design line` to the context skill's `references/documents.md`
+   (a SKL-010 bump, requalified), copy it to `references/design-record.md`, and write the byte-identity test (VER-21).
 3. Write `references/slicing.md`, `references/context.md` and `references/output-rules.md` from §4,
    BEH-04 to BEH-14 and the story schema.
 4. Write `SKILL.md` from §5–§7, and `provenance.yaml` as SKL-008 implementing SPEC-009.
@@ -653,9 +661,13 @@ rest):
   requirements a board answers, and the gate is unchanged. A missing DSN never stops the run (ERR-10).
 - **The fixed line form** in BEH-12 (SPEC-011 §4 left it for this version) with the screen or flow named by the user, and one
   record for each story, replaced on a revision.
-- **The shared approved-design rule** (§4, VER-21): the page's 'Shared file' proposal, adopted. The form and the path rule live in
-  the context skill's `documents.md` (master) and in this skill's `references/design-record.md`, byte-identical with a test; no
-  SPEC-011 change until this skill is built. Alternative: two prose copies that can drift.
+- **The shared approved-design line** (§4, VER-21): the page's 'Shared file' proposal, adopted for the two things both skills must
+  agree on, the fixed form line and the export-path definition, as a subsection `### The approved-design line` of the context
+  skill's `documents.md` (master) and this skill's `references/design-record.md`, byte-identical with a test. The reader's
+  rules of that section (building the table, today's form) do not bind this skill and stay out of the copy. The story build adds
+  the subsection to the context skill, a SKL-010 bump with a context requalification (§10, §11); SPEC-011 itself does not change.
+  Alternatives: share the whole section (it carries the reader's rules and lacks 'exists', 'any depth' and 'no ..'); two prose
+  copies that can drift.
 - **One direction of citation:** this spec cites SPEC-017 and ADR-007 and names SPEC-011 in prose, so no two-way pair forms
   (SPEC-017 §13, z).
 - **The DSN match** (BEH-11): by the pair BRN ID and idea ID, so an `IDEA-NN` of another BRN never matches; and any `DSN-\d{3}`
@@ -676,3 +688,4 @@ rest):
 | 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Cycle A of ADR-007 (proposed), from Bryan's decisions of 2026-10-08 and 2026-10-09 (story-level design stays in this skill) and the Krepion session's spec page, claim 2: BEH-11 and BEH-12 kept; BEH-12 adopts the approved-design line of SPEC-011 §4, records only on the user's explicit words naming the screen or flow, checks each export path (exists, .png or .pdf, under the story's design folder; new ERR-09), clears the design marker and names /devforgeai:context ui-mockups; BEH-11 reads the DSN the PRD's section 8 links and lists its boards in the brief (new ERR-10); §4 gains the design record and the design's states; VER-07 changed, VER-18 to VER-20 new. Links re-reviewed and moved: PRD-001 v13, SPEC-004 v4; new links to SPEC-011 v3, ADR-007 and SPEC-017; blocked_by ADR-007 | frontmatter, blockquote, §1, §2, §4, BEH-11, BEH-12, ERR-09, ERR-10, VER-07, VER-18 to VER-20, §9, §10, §12, §13 |
 | 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Before review: BEH-11's list of a DSN's boards also matches a board whose `answers` (SPEC-017 DM-02) name one of the epic's refined requirements, besides the match on ideas | BEH-11, §13 |
 | 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | After the independent review: the link to SPEC-011 is prose now, one direction in each pair of citations (S1); the approved-design form and path rule are shared byte for byte with the context skill's documents.md, with a test (S5, VER-21); BEH-11 matches a board by the pair BRN ID and idea ID, §4 reads the refined requirements' upstream links and the PRD's section 8 for any DSN ID (N14, N17); the blockquote and §13 say one thing about blocked_by (N11) | frontmatter, blockquote, §2, §3, §4, BEH-11, VER-19, VER-21, §13 |
+| 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | After the independent re-review: the shared unit is a new subsection `### The approved-design line` of the context skill's documents.md holding only the fixed form line and the export-path definition, which the story build adds (a SKL-010 bump with a context requalification, listed in §10 and §11), and VER-21 asserts that subsection | §3, §4, §10, §11, VER-21, §13 |
