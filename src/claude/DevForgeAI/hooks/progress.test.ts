@@ -54,6 +54,8 @@ type Over = {
   /** $.state answered by the test (version 26): the values, a count of writes to reject, and every write seen. Without it the
    *  kit answers $.state itself, and the test can neither read it nor reject a write. */
   state?: StateStub
+  /** A write held open (version 28): the promise a write of the path waits for before it lands, or undefined for none. */
+  gate?: (path: string) => Promise<void> | undefined
 }
 
 /** The test's $.state (version 26): the kit's own answers can't be read or made to fail, so the tests that must do either
@@ -241,8 +243,10 @@ function world(on: Any, over: Over = {}): World {
     return { deny: `ENOENT: ${e.path}` }
   })
   on('ui.invalidate', (_$: Any, e: Any) => { w.invalidates.push(e.event); return { value: undefined } })
-  on('fs.write', (_$: Any, e: Any) => {
+  on('fs.write', async (_$: Any, e: Any) => {
     w.attempts.push(e.path)
+    const held = over.gate?.(e.path)
+    if (held !== undefined) await held
     if (over.failWrite?.(e.path)) return { deny: over.failMessage?.(e.path) ?? `EACCES: permission denied, open '${e.path}'` }
     w.files.set(e.path, e.text)
     w.writes.push(e.path)
@@ -465,7 +469,7 @@ test('VER-10: where nothing draws, the adapter records as usual and notices also
   expect(w.logs.some(l => l.includes('python not found'))).toBe(true)
 })
 
-test('VER-11: the files written are the progress folder\'s .gitignore, the run\'s log, and the session\'s current.json and adapter.log', async ($, on) => {
+test('VER-11: the files written are the progress folder\'s .gitignore, the run\'s log, the root\'s adapter.log and the session\'s current.json', async ($, on) => {
   const w = world(on, { files: { [`${ROOT}/.gitignore`]: 'node_modules\n' } })
   await start($)
   await load($)
@@ -473,7 +477,7 @@ test('VER-11: the files written are the progress folder\'s .gitignore, the run\'
   await w.clock.advance(600)
   const written = new Set(w.writes.map(p => p.replace(/runs\/[^/]+\//, 'runs/RUN/')))
   expect([...written].sort()).toEqual([
-    `${PROGRESS}/.gitignore`, `${PROGRESS}/runs/RUN/events.jsonl`, `${SESSION}/adapter.log`, `${SESSION}/current.json`,
+    `${PROGRESS}/.gitignore`, `${PROGRESS}/adapter.log`, `${PROGRESS}/runs/RUN/events.jsonl`, `${SESSION}/current.json`,
   ])
   expect(w.files.get(`${PROGRESS}/.gitignore`)).toBe('*\n')
   expect(w.files.get(`${ROOT}/.gitignore`)).toBe('node_modules\n')
@@ -765,7 +769,7 @@ for (const [name, over, status] of FAILURES) {
     expect(w.statuses.includes(status)).toBe(true)
     const reason = status.slice('progress: off ('.length, -1)
     expect(w.toasts.filter(t => t.includes(reason)).length).toBe(1)
-    expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(`fail-open: ${reason}`)).toBe(true)
+    expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes(`fail-open: ${reason}`)).toBe(true)
   })
 }
 
@@ -775,7 +779,7 @@ test('VER-09 / ERR-10: a timer callback that throws is caught, logged and treate
   await start($)
   await load($)
   await w.clock.advance(600)
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes('fail-open: timer:')).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes('fail-open: timer:')).toBe(true)
   expect(w.statuses.some(s => (s ?? '').startsWith('progress: off (timer:'))).toBe(true)
 })
 
@@ -811,7 +815,7 @@ test('BEH-15: the .gitignore is the first file written under devforgeai/progress
   await load($)
   const ours = w.writes.filter(p => p.startsWith(PROGRESS))
   expect(ours[0]).toBe(`${PROGRESS}/.gitignore`)
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
 })
 
 test('BEH-04: two overlapping tool calls are both recorded, each with its own seq', async ($, on) => {
@@ -854,22 +858,25 @@ async function clearTo($: Any, w: World, id: string) {
   await $.classic.SessionStart({ source: 'clear' })
 }
 
-test('VER-18: current.json and adapter.log are the session\'s, and a new session ID starts a new folder', async ($, on) => {
+test('VER-18: current.json is the session\'s and adapter.log the root\'s (version 28); a new session ID starts a new folder and its lines carry the new ID', async ($, on) => {
   const w = world(on)
   await start($)
   await load($)
   await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
   await w.clock.advance(600)
   expect(w.files.has(`${SESSION}/current.json`)).toBe(true)
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
   await clearTo($, w, 's2')
   expect([...w.files.keys()].some(k => k.startsWith(`${PROGRESS}/sessions/s2/`))).toBe(false)
   await load($)
   await $.tool.call({ tool: 'Read', file_path: `${ROOT}/b.md` } as Any)
   await w.clock.advance(600)
   expect(w.files.has(`${PROGRESS}/sessions/s2/current.json`)).toBe(true)
-  expect((w.files.get(`${PROGRESS}/sessions/s2/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
-  expect(w.files.has(`${PROGRESS}/current.json`) || w.files.has(`${PROGRESS}/adapter.log`)).toBe(false)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
+  expect(w.files.has(`${PROGRESS}/current.json`)).toBe(false)
+  const ids = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' mode: ')).map(l => l.split(' ')[1])
+  expect(ids).toEqual(['s1', 's2'])
+  expect(w.files.has(`${PROGRESS}/sessions/s1/adapter.log`) || w.files.has(`${PROGRESS}/sessions/s2/adapter.log`)).toBe(false)
 })
 
 test('VER-18: pruning starts once per session ID, after the first run\'s folder exists, with 30 days by default', async ($, on) => {
@@ -905,7 +912,7 @@ test('VER-18 / ERR-12: a prune that exits 2 leaves one adapter.log line, and tra
   await load($)
   await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
   await w.clock.advance(600)
-  const lines = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' prune: '))
+  const lines = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' prune: '))
   expect(lines.length).toBe(1)
   expect(lines[0].endsWith('prune: prune: /work: not a folder')).toBe(true)
   expect(w.toasts.some(t => t.includes('prune'))).toBe(false)
@@ -917,7 +924,7 @@ test('VER-18 / ERR-12: a prune that can\'t start leaves one adapter.log line and
   await start($)
   await load($)
   await w.clock.advance(600)
-  const lines = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' prune: '))
+  const lines = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' prune: '))
   expect(lines.length).toBe(1)
   expect(lines[0].includes('failed to start')).toBe(true)
   expect(w.toasts.some(t => t.includes('prune') || t.includes('failed to start'))).toBe(false)
@@ -936,7 +943,7 @@ test('VER-18: no hook or tool call waits for pruning', async ($, on) => {
   expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool'])
   release()
   await w.clock.advance(600)
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes('prune: pruned 1 runs, 0 sessions')).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes('prune: pruned 1 runs, 0 sessions')).toBe(true)
 })
 
 test('VER-18: a run opens under the root it reads, and the mode and pruning follow a new root', async ($, on) => {
@@ -957,7 +964,7 @@ test('VER-18: a run opens under the root it reads, and the mode and pruning foll
   expect(JSON.parse(eventsOf(w).slice(-1)[0])).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
   expect(w.runs.filter(a => a[2] === 'mode').map(a => argOf(a, '--root'))).toEqual([ROOT, tree])
   expect(prunes(w).map(a => argOf(a, '--root'))).toEqual([ROOT, tree])
-  expect((w.files.get(`${treeProgress}/sessions/s1/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
+  expect((w.files.get(`${treeProgress}/adapter.log`) ?? '').includes('mode: observe (framework-default)')).toBe(true)
 })
 
 // ---- After the plugin-validator's review of version 3 ----
@@ -1047,7 +1054,7 @@ test('VER-20: TaskCreate, TaskUpdate and TodoWrite give step events after their 
     'TaskUpdate', 'step 1 started', 'TaskUpdate', 'step 1 done', 'TaskUpdate', 'TaskUpdate', 'TaskUpdate',
     'TodoWrite', 'step 5 started', 'step 6 done',
   ])
-  const log = w.files.get(`${SESSION}/adapter.log`) ?? ''
+  const log = w.files.get(`${PROGRESS}/adapter.log`) ?? ''
   expect(log.split('\n').filter(l => l.includes(' task: ')).length).toBe(2)
   expect(log.includes('Tidy up')).toBe(true)
   expect(log.includes('4. Wrap')).toBe(true)
@@ -1084,7 +1091,7 @@ test('VER-21: in enforce mode a question at the question gate is refused before 
   expect(w.writes.filter(p => p.endsWith('/pending.jsonl')).length).toBe(1)
   expect(JSON.parse((w.files.get(w.writes.filter(p => p.endsWith('/pending.jsonl'))[0]) ?? '').trim().split('\n').slice(-1)[0]))
     .toMatchObject({ seq: 2, kind: 'answer', answered: true })
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' refused: ')).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes(' refused: ')).toBe(true)
   expect(w.toasts.filter(t => t === QUESTION_REFUSAL + QUESTION_TAG).length).toBe(1)
 })
 
@@ -1148,7 +1155,7 @@ for (const mode of ['observe framework-default', 'enforce local']) {
     await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
     await w.clock.advance(600)
     expect(w.toasts.filter(t => t === ADHERENCE(4, 2)).length).toBe(1)
-    const log = w.files.get(`${SESSION}/adapter.log`) ?? ''
+    const log = w.files.get(`${PROGRESS}/adapter.log`) ?? ''
     expect(log.split('\n').filter(l => l.includes(` adherence: ${ADHERENCE(4, 2)}`)).length).toBe(1)
   })
 }
@@ -1192,7 +1199,7 @@ for (const [name, toolList, expected] of TOOL_LISTS) {
     await start($)
     await load($, 'devforgeai:brainstorm', TAGGED)
     expect(JSON.parse(eventsOf(w)[0]).taskList).toBe(expected)
-    const tools = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' tools: '))
+    const tools = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' tools: '))
     expect(tools.length).toBe(toolList === 'reject' ? 1 : 0)
     // A list that can't be read shows nothing (ERR-14): the hint would blame tools the session may well have.
     if (toolList === 'reject') expect(w.toasts.some(t => t.includes('has no task list'))).toBe(false)
@@ -1220,7 +1227,7 @@ for (const mode of ['observe framework-default', 'enforce local']) {
     await load($, 'devforgeai:brainstorm', TAGGED)
     await load($, 'devforgeai:brainstorm', TAGGED)
     expect(w.toasts.filter(t => t === HINT).length).toBe(1)
-    const log = w.files.get(`${SESSION}/adapter.log`) ?? ''
+    const log = w.files.get(`${PROGRESS}/adapter.log`) ?? ''
     expect(log.split('\n').filter(l => l.includes(' tools-hint: ')).length).toBe(1)
   })
 }
@@ -1273,7 +1280,7 @@ test('VER-20 / ERR-13: a task subject of several lines gives one adapter.log lin
   await start($)
   await load($)
   await $.tool.call({ tool: 'TaskCreate', subject: 'Tidy up\n2026-10-02T12:00:00Z - refused: forged', description: 'd' } as Any)
-  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n')
+  const log = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n')
   expect(log.filter(l => l.includes(' task: ')).length).toBe(1)
   expect(log.some(l => l.includes('refused: forged'))).toBe(false)
 })
@@ -1282,8 +1289,8 @@ test('VER-20 / ERR-13: a task subject of several lines gives one adapter.log lin
 
 /** Every adapter.log line is one entry: '<UTC time> <run or -> <kind>: <text>' (DM-02). */
 function oneLineEntries(w: World): boolean {
-  const lines = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(Boolean)
-  return lines.length > 0 && lines.every(l => /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ \S+ [a-z-]+: /.test(l))
+  const lines = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(Boolean)
+  return lines.length > 0 && lines.every(l => /^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ \S+ \S+ [a-z-]+: /.test(l))
 }
 
 test('VER-26: a TodoWrite is compared with the list it replaced, so an earlier run\'s completed todo claims nothing', async ($, on) => {
@@ -1312,8 +1319,8 @@ test('VER-26: the adherence notice is once per run, keyed by the run; another ru
   await load($, 'devforgeai:brainstorm', TAGGED)
   await w.clock.advance(600)
   expect(w.toasts.filter(t => t === ADHERENCE(0, 1)).length).toBe(2)
-  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' adherence: '))
-  expect(new Set(log.map(l => l.split(' ')[1])).size).toBe(2)
+  const log = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' adherence: '))
+  expect(new Set(log.map(l => l.split(' ')[2])).size).toBe(2)
 })
 
 test('VER-26: task, adherence, tools and tools-hint lines are one line each, whatever the text', async ($, on) => {
@@ -1322,7 +1329,7 @@ test('VER-26: task, adherence, tools and tools-hint lines are one line each, wha
   await load($, 'devforgeai:brainstorm', TAGGED)
   await $.tool.call({ tool: 'TaskCreate', subject: 'Tidy up\nand a second line', description: 'd' } as Any)
   await w.clock.advance(600)
-  const log = w.files.get(`${SESSION}/adapter.log`) ?? ''
+  const log = w.files.get(`${PROGRESS}/adapter.log`) ?? ''
   expect(log.includes(' task: ')).toBe(true)
   expect(log.includes(' adherence: ')).toBe(true)
   expect(oneLineEntries(w)).toBe(true)
@@ -1332,7 +1339,7 @@ test('VER-26: the tools and tools-hint lines are one line each', async ($, on) =
   const w = world(on, { toolList: 'reject' })
   await start($)
   await load($, 'devforgeai:brainstorm', TAGGED)
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' tools: ')).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes(' tools: ')).toBe(true)
   expect(oneLineEntries(w)).toBe(true)
 })
 
@@ -1340,7 +1347,7 @@ test('VER-26: the tools-hint line is one line', async ($, on) => {
   const w = world(on, { toolList: ['Read'] })
   await start($)
   await load($, 'devforgeai:brainstorm', TAGGED)
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' tools-hint: ')).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes(' tools-hint: ')).toBe(true)
   expect(oneLineEntries(w)).toBe(true)
 })
 
@@ -1394,7 +1401,7 @@ test('VER-28: a compaction keeps the marked step in the summary and ends with th
   expect(w.compactIn[0].instructions).toBe("keep the plan\n\nKeep, for DevForgeAI's progress tracker: in the architecture run, the task list marks step 2 (Pick) in progress.")
   expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('step 2 (Pick)')])
   expect(out.messages[1].role).toBe('user')
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' compact: ')).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes(' compact: ')).toBe(true)
 })
 
 test('VER-28: with no step marked the note says so', async ($, on) => {
@@ -1581,7 +1588,7 @@ const STUCK = (skill: string, step: number, message: string, advice = TASK_ADVIC
   + `refused Claude twice at step ${step} for the same reason: ${message}. ${advice}`
 
 function stuckLines(w: World): string[] {
-  return (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' stuck: '))
+  return (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' stuck: '))
 }
 
 test('VER-32: two question refusals for the same cause tell the user once; a third tells nothing more', async ($, on) => {
@@ -1741,7 +1748,7 @@ test('VER-33: once every step is reached the instruction is kept but no note is 
   const out = (await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })) as Any
   expect(w.compactIn[0].instructions).toBe("Keep, for DevForgeAI's progress tracker: in the architecture run, the task list marks step 2 (Pick) in progress.")
   expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary'])
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' compact: ')).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes(' compact: ')).toBe(true)
 })
 
 // ---- version 8 review (2026-10-03): fixes and coverage the plugin-validator review asked for ----
@@ -1938,7 +1945,7 @@ test('VER-35: a finished run with a refusal and a flag is reviewed, refusals fir
     [1, 'question', 2, 'unmarked-question', 1, 'accept', null],
     [2, 'write', 8, 'skipped', 0, 'challenge', 'I did answer it'],
   ])
-  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' review: '))
+  const log = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' review: '))
   expect(log.length).toBe(2)
   expect(w.toasts.some(t => t.startsWith('architecture: your review is in devforgeai/progress/runs/'))).toBe(true)
   // Nothing reaches Claude: the next prompt carries no added context.
@@ -2168,7 +2175,7 @@ test('VER-39: /clear while a run is unfinished asks; Keep working keeps it, Clea
   expect(asked).toEqual(['architecture run is at step 3 of 11 and unfinished. Clear anyway?'])
   expect(kept.text).toBe('Kept working: the architecture run is still at step 3.')
   expect(ran).toEqual([])
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' exit: ')).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes(' exit: ')).toBe(true)
   answer = 'Clear anyway'
   await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)
   expect(ran).toEqual(['clear'])
@@ -2190,7 +2197,7 @@ test('VER-39: exit and resume ask with their verbs; a dismissal keeps; a failed 
   expect(ran).toEqual(['resume'])
   expect(asked).toEqual(['architecture run is at step 3 of 11 and unfinished. Exit anyway?',
     'architecture run is at step 3 of 11 and unfinished. Resume anyway?'])
-  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' exit: '))
+  const log = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' exit: '))
   expect(log.length).toBe(2)
   expect(log[0]).toContain('kept /exit: dismissed')
   expect(log[1]).toContain('ran /resume: the dialog failed')
@@ -2296,7 +2303,7 @@ function skillCalls(): { tool: (e: Any) => Any; load: ($: Any, skill: string, ag
 }
 
 function trailLog(w: World): string[] {
-  return (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' trail: ')).map(l => l.split(' trail: ')[1])
+  return (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' trail: ')).map(l => l.split(' trail: ')[1])
 }
 const RETURN_7 = "This skill was loaded by architecture at step 7. When this skill's work is done, mark architecture's step 7 task in progress again and continue architecture at step 7."
 
@@ -3447,7 +3454,7 @@ const rControlLines = new WeakMap<World, number>()
 
 /** adapter.log's lines of kind resume. */
 function rLog(w: World): string[] {
-  return (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' resume: ')).map(l => l.split(' resume: ')[1])
+  return (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' resume: ')).map(l => l.split(' resume: ')[1])
 }
 
 /** adapter.log's resume lines, less the control's. */
@@ -3914,14 +3921,14 @@ async function uBand($: Any): Promise<string> {
 async function uSnap($: Any, w: World) {
   await w.clock.advance(600)
   // A load of the precompact skill writes a `precompact:` load line (version 26), which is no change of the display.
-  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => !l.includes(' precompact: ')).join('\n')
+  const log = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => !l.includes(' precompact: ')).join('\n')
   return { status: w.statuses.filter(Boolean).slice(-1)[0], sent: w.statuses.length, band: await uBand($), log }
 }
 
 const uKinds = (w: World, skill: string, from = 0): string[] => logOf(w, skill).slice(from).map(e => e.kind)
 const uCount = (w: World, skill: string): number => logOf(w, skill).length
 const uLog = (w: World, kind: string): string[] =>
-  (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(` ${kind}: `))
+  (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(` ${kind}: `))
 
 /** The person's typed load: command.run, the skill's text with its skill.prompt inside next(e), the prompt it submits, the turn's start. */
 async function uTyped($: Any, r: RW, skill = 'precompact') {
@@ -4330,7 +4337,7 @@ function removes(w: World): string[][] {
 }
 
 function wfLog(w: World): string[] {
-  return (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' workfiles: '))
+  return (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' workfiles: '))
 }
 
 const evaluations = (w: World): number => w.runs.filter(a => a[2] === 'evaluate').length
@@ -4389,7 +4396,7 @@ test('VER-52: the output line reaches adapter.log as kind workfiles, with the ru
   await w.clock.advance(600)
   const lines = wfLog(w)
   expect(lines.length).toBe(1)
-  expect(lines[0]).toMatch(new RegExp(`^\\S+ ${runId} workfiles: removed 1 work files, skipped 0$`))
+  expect(lines[0]).toMatch(new RegExp(`^\\S+ \\S+ ${runId} workfiles: removed 1 work files, skipped 0$`))
 })
 
 /** Load brainstorm and return its run's ID. */
@@ -4750,7 +4757,7 @@ test('VER-52: IF-04\'s output line, work files included, goes to adapter.log as 
   await start($)
   await load($)
   await w.clock.advance(600)
-  const lines = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' prune: '))
+  const lines = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' prune: '))
   expect(lines.map(l => l.split(' prune: ')[1])).toEqual(['pruned 1 runs, 2 sessions, 3 work files'])
 })
 
@@ -5007,7 +5014,7 @@ test('VER-59: the refusal counts for BEH-25: the second one for the cause toasts
   const stuck = w.toasts.filter(t => t.includes('refused Claude twice'))
   expect(stuck.length).toBe(1)
   expect(stuck[0]).toBe(`brainstorm: the progress tracker refused Claude twice at step 6 for the same reason: ${OUTSIDE_REFUSAL(BRN_ONE).split('. ')[0]}. ${OUTSIDE_ADVICE}`)
-  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n')
+  const log = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n')
   expect(log.filter(l => l.includes(` bash: refused ${BRN_ONE}`)).length).toBe(3)
   expect(log.filter(l => l.includes(' stuck: ')).length).toBe(1)
 })
@@ -5310,7 +5317,7 @@ test('VER-60: a read that rejects records the event with no content and an ERR-2
   expect(wrote.map(e => e.path)).toEqual([BRN_ONE])
   expect(wrote[0].content).toBeUndefined()
   expect(wrote[0].error).toBe(false)
-  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' bash: '))
+  const log = (w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').filter(l => l.includes(' bash: '))
   expect(log.length).toBe(3)  // the folder's listing before and after, and the read
   expect(log.some(l => l.includes(BRN_ONE))).toBe(true)
 })
@@ -5321,7 +5328,7 @@ test('VER-60: a folder that doesn\'t exist lists as empty, so the document the c
   await load($)
   await $.tool.call(bash('mkdir -p docs/specs/brainstorm && make') as Any)
   expect(eventsParsed(w).filter(e => e.wrote === true).map(e => e.path)).toEqual([BRN_ONE])
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').includes(' bash: ')).toBe(false)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').includes(' bash: ')).toBe(false)
 })
 
 test('VER-60: a content over 64 KiB is recorded without content', async ($, on) => {
@@ -5486,7 +5493,7 @@ test('VER-60: an evaluation that fails or times out adds no text and writes an E
   expect(r.deny).toBeUndefined()
   expect(r.context).toBeUndefined()
   expect(eventsParsed(w).filter(e => e.wrote === true).length).toBe(1)
-  expect((w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').some(l => l.includes(' bash: '))).toBe(true)
+  expect((w.files.get(`${PROGRESS}/adapter.log`) ?? '').split('\n').some(l => l.includes(' bash: '))).toBe(true)
 })
 
 test('VER-60: when the call\'s answer is a deny the text goes to the next prompt\'s context instead', async ($, on) => {
@@ -5977,7 +5984,7 @@ test('VER-55: when the registration fails (ERR-21) the command is passed on, ada
   on('command.run', () => ({ text: 'whatever owns the name' }))
   await start($)                                               // tracking and everything else go on
   expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toBe('whatever owns the name')
-  expect(w.files.has(`${SESSION}/adapter.log`)).toBe(false)    // held, as every earlier line is (BEH-15)
+  expect(w.files.has(`${PROGRESS}/adapter.log`)).toBe(false)    // held, as every earlier line is (BEH-15)
   await load($)
   expect(uLog(w, 'command').length).toBe(1)
   expect(uLog(w, 'command')[0]).toContain('progress is a built-in command')
@@ -6636,7 +6643,7 @@ test('VER-11 (version 25): once a turn.complete carries usage the writes also na
   await w.clock.advance(600)
   const written = new Set(w.writes.map(p => p.replace(/runs\/[^/]+\//, 'runs/RUN/')))
   expect([...written].sort()).toEqual([
-    `${PROGRESS}/.gitignore`, ODO, `${PROGRESS}/runs/RUN/events.jsonl`, `${SESSION}/adapter.log`, `${SESSION}/current.json`,
+    `${PROGRESS}/.gitignore`, ODO, `${PROGRESS}/adapter.log`, `${PROGRESS}/runs/RUN/events.jsonl`, `${SESSION}/current.json`,
   ].sort())
   expect(w.writes.includes(`${ROOT}/.gitignore`)).toBe(false)
   expect(w.writes.every(p => p.startsWith(`${PROGRESS}/`))).toBe(true)
@@ -7236,7 +7243,7 @@ for (const [name, match] of [['the .gitignore', (p: string) => p.endsWith('/.git
     expect(hEvals(w)).toBe(1)
     expect(hStatus(w)).toBe('brainstorm 2/2')
     expect(hLog(w, 'write')[1]).toContain('recovered after 0 tries')
-    expect(w.files.get(`${SESSION}/adapter.log`)).toContain(' mode: observe (framework-default)')   // the lines that waited are in the log
+    expect(w.files.get(`${PROGRESS}/adapter.log`)).toContain(' mode: observe (framework-default)')   // the lines that waited are in the log
   })
 }
 
@@ -7292,12 +7299,14 @@ test('VER-69 (f) / QR-05: a failing session writes nothing for each event, one w
   f.broken = true
   const from = w.attempts.length
   for (const name of ['b', 'c', 'd', 'e', 'f']) await $.tool.call(READ(`${name}.md`))
-  expect(w.attempts.slice(from)).toEqual([hPath(w)])                // the first failure only
+  const own = (): string[] => w.attempts.slice(from).filter(p => p !== LOG)
+  expect(own()).toEqual([hPath(w)])                                 // the first failure only
   for (let i = 0; i < 3; i++) await done($, `t${i}`, null)
-  expect(w.attempts.slice(from).length).toBe(4)
-  expect(w.attempts.slice(from).every(EVENTS)).toBe(true)           // no adapter.log, no .gitignore (it exists), no current.json
+  expect(own().length).toBe(4)
+  expect(own().every(EVENTS)).toBe(true)                            // no .gitignore (it exists), no current.json
+  expect(w.attempts.slice(from).filter(p => p === LOG).length).toBe(1)   // adapter.log: the hold's own line, logged as it starts (version 28), which fails here
   await w.clock.advance(2000)
-  expect(w.attempts.slice(from).length).toBe(4)
+  expect(own().length).toBe(4)
   expect(w.toasts.filter(t => t.startsWith('DevForgeAI progress: cannot write ')).length).toBe(1)
   f.broken = false
   await done($, 't3', null)
@@ -7335,9 +7344,11 @@ async function hStop($: Any, w: World, f: HF) {
 
 test('VER-70: nine failed turn tries leave the run open and retrying; the tenth stops tracking as earlier versions did and drops the run and its held lines', async ($, on) => {
   const { w, f, st } = await hOpen($, on, { match: EVENTS })
-  const logPath = `${SESSION}/adapter.log`
-  const logBefore = w.files.get(logPath)
+  const logPath = `${PROGRESS}/adapter.log`
   await hStop($, w, f)
+  const logAfterStop = w.files.get(logPath)                         // the hold's own line is in it (version 28); the rest waited
+  expect(logAfterStop).toContain(' write: held 1 lines: ')
+  expect(logAfterStop).not.toContain(' write: gave up')
   expect(hStatus(w)).toBe(H_OFF)
   expect(hOff(st)).toBe('cannot write devforgeai/progress')
   expect(w.toasts.filter(t => t === H_STOP_TOAST).length).toBe(1)
@@ -7347,7 +7358,7 @@ test('VER-70: nine failed turn tries leave the run open and retrying; the tenth 
   await done($, 'tz', null)
   await w.clock.advance(600)
   expect(w.attempts.length).toBe(n)
-  expect(w.files.get(logPath)).toBe(logBefore)                      // and adapter.log waited for the hold, and waits after the stop
+  expect(w.files.get(logPath)).toBe(logAfterStop)                   // and adapter.log waited for the hold, and waits after the stop
   expect(await hText($)).toBe(H_STOPPED)
   expect(await hRow($)).toBeNull()                                  // no row after the stop
   expect(w.invalidates.length).toBe(2)                              // the hold's start, then the stop
@@ -7913,10 +7924,10 @@ test('VER-72: while devforgeai/progress/ itself can\'t be created only the run\'
   expect(await hRow($)).toContain(' lines held · cannot write ')
   expect((await hRow($))!.includes('odometer')).toBe(false)
   expect(w.files.has(ODO)).toBe(false)
-  expect(w.files.has(`${SESSION}/adapter.log`)).toBe(false)
+  expect(w.files.has(`${PROGRESS}/adapter.log`)).toBe(false)
   f.broken = false
   await done($, 't3')                                               // the folder is made; the ledger's lines go with the next turn
-  expect(w.files.has(`${SESSION}/adapter.log`)).toBe(true)
+  expect(w.files.has(`${PROGRESS}/adapter.log`)).toBe(true)
   await done($, 't4')
   expect(odo(w).map(l => l.turn)).toEqual(['t1', 't2', 't3', 't4'])
 })
@@ -7963,12 +7974,12 @@ test('VER-73: where nothing draws the toast text also goes to the transcript', a
 
 test('VER-73: no write of adapter.log is tried while a hold lasts; the first 200 lines wait in order and are written ahead of the next line', async ($, on) => {
   const { w, f } = await hOpen($, on)
-  const logPath = `${SESSION}/adapter.log`
+  const logPath = `${PROGRESS}/adapter.log`
   f.broken = true
   const from = w.attempts.length
   await $.tool.call(READ('b.md'))                                   // the hold: its first line waits
   for (let i = 0; i < 250; i++) await $.tool.call({ tool: 'TaskCreate', subject: `x${i}`, description: 'd' } as Any)   // a line each: no step for the task
-  expect(w.attempts.slice(from).filter(p => p === logPath)).toEqual([])
+  expect(w.attempts.slice(from).filter(p => p === logPath).length).toBe(1)   // the hold's own line is tried as it starts (version 28), and fails here; nothing after
   f.broken = false
   await done($, 't1', null)
   const writes = hLog(w, 'write')
@@ -8253,4 +8264,533 @@ test('S3 (review): the ledger\'s hold born in a turn\'s own end is tried at once
   await done($, 't9')
   expect(hStatus(w)).toBe('brainstorm 2/2')
   expect(hLog(w, 'dashboard').some(l => l.startsWith('odometer: gave up after 10 tries'))).toBe(true)
+})
+
+// ---- version 28: the log level and the rollover (BEH-43, BEH-44, DM-09, DM-10; VER-75 to VER-79; plugin 0.30.0) ----
+// Written first and seen failing. Helpers are prefixed l. The root's adapter.log is devforgeai/progress/adapter.log; a trace line
+// is buffered and never awaited, so a test lets the queued work finish (lSettle) before it reads the file.
+
+const LOG = `${PROGRESS}/adapter.log`
+const lRolled = (n: number): string => `${PROGRESS}/adapter.${n}.log`
+const MIB = 1024 * 1024
+const lLines = (w: World): string[] => (w.files.get(LOG) ?? '').split('\n').filter(Boolean)
+const lTrace = (w: World): string[] => lLines(w).filter(l => l.includes(' trace: ')).map(l => l.slice(l.indexOf(' trace: ') + 8))
+const lSettle = async (w: World): Promise<void> => {
+  for (let i = 0; i < 8; i++) {
+    await xSettle()
+    await w.clock.advance(0)
+  }
+}
+const lText = (w: World, kind: string): string[] => lLines(w).filter(l => l.includes(` ${kind}: `)).map(l => l.slice(l.indexOf(` ${kind}: `) + kind.length + 3))
+const lPad = (day = '2026-10-02', bytes = 100): string => `${day}T11:00:00Z s0 - mode: ${'p'.repeat(bytes)}\n`
+/** A log of valid lines dated `day`, at least `bytes` long. */
+const lBig = (day: string, bytes: number): string => lPad(day).repeat(Math.ceil(bytes / lPad(day).length))
+const lTask = (n: string): Any => ({ tool: 'TaskCreate', subject: n, description: 'd' })
+const lMs = (line: string): number => Date.parse(line.split(' ')[0])
+const lWrites = (w: World, path: string): number => w.attempts.filter(p => p === path).length
+
+// -- VER-75: the level --
+
+test('VER-75 (off): nothing is written or kept for adapter.log, errors and holds included; the other files and the gates are as at normal', { options: { logLevel: 'off' } } as Any, async ($: Any, on: Any) => {
+  const { w, f } = await hOpen($, on)
+  await $.tool.call(lTask('no step for this'))
+  await $.tool.call(READ('b.md'))
+  await done($)
+  await lSettle(w)
+  expect(w.attempts.includes(LOG)).toBe(false)
+  expect(w.files.has(LOG)).toBe(false)
+  expect([...w.files.keys()].some(k => k.endsWith('/adapter.log'))).toBe(false)   // not in the session's folder either
+  expect(runFiles(w, 'events.jsonl').length).toBe(1)
+  expect(w.files.has(`${SESSION}/current.json`)).toBe(true)
+  f.broken = true                                                   // a failed write of events.jsonl still holds, with its toast
+  await $.tool.call(READ('c.md'))
+  expect(hStatus(w)).toBe(H_RETRY)
+  expect(w.toasts.some(t => t.startsWith('DevForgeAI progress: cannot write '))).toBe(true)
+  await done($, 't2', null)
+  expect(w.attempts.includes(LOG)).toBe(false)
+})
+
+test('VER-75 (normal): the lines are the earlier kinds, to the second, with the session ID, awaited, and none of kind trace', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  expect(lLines(w).length).toBeGreaterThan(0)                       // awaited: the hook has returned and the line is in the file
+  await $.tool.call(lTask('zz'))
+  expect(lText(w, 'task')).toEqual(['no step for task: zz'])
+  await done($)
+  await lSettle(w)
+  for (const l of lLines(w)) expect(l).toMatch(/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ s1 \S+ [a-z-]+: /)
+  expect(lLines(w).some(l => / s1 - mode: observe \(framework-default\)$/.test(l))).toBe(true)
+  expect(lLines(w).some(l => l.includes(' trace: ') || l.includes(' log: '))).toBe(false)
+})
+
+test('VER-75 / DM-09: a logLevel the host does not know is read by the host as the default, normal, never as off (the module\'s own check is the second guard)', { options: { logLevel: 'loud' } } as Any, async ($: Any, on: Any) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await $.tool.call(lTask('zz'))
+  expect(lText(w, 'task').length).toBe(1)                            // lines are written: it is not off
+  expect(lLines(w).some(l => l.includes(' trace: '))).toBe(false)
+})
+
+test('VER-75 (verbose): times to the millisecond and trace lines for the seven things, in the order of the hooks', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const w = world(on, { mode: 'enforce local', evaluate: refusingAt(2) })
+  await start($)
+  await load($)
+  await $.tool.call(WRITE as Any)                                   // refused at the write gate
+  await $.tool.call(READ('a.md'))
+  await w.clock.advance(600)
+  await done($, 't1', null)
+  await lSettle(w)
+  for (const l of lLines(w)) expect(l).toMatch(/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z s1 \S+ [a-z-]+: /)
+  const t = lTrace(w)
+  const has = (re: RegExp): boolean => t.some(x => re.test(x))
+  expect(has(/^hook skill\.prompt origin=\S+ tool=\S+ turn=\S+ run=\S+$/)).toBe(true)              // (1) the entry
+  expect(has(/^hook skill\.prompt returned in \d+ms$/)).toBe(true)                                // (1) and what it took
+  expect(has(/^hook tool\.call origin=\S+ tool=Read /)).toBe(true)
+  expect(has(/^decision BEH-08 refuse-flag$/)).toBe(true)                                         // (2) a decision, by rule and code
+  expect(has(/^event skill-loaded seq=1 lines=1$/)).toBe(true)                                    // (3) an event recorded
+  expect(has(/^write runs\/\S+\/events\.jsonl bytes=\d+ \d+ms ok$/)).toBe(true)                   // (4) a write, relative to devforgeai/progress/
+  expect(has(/^write \.gitignore bytes=2 \d+ms ok$/)).toBe(true)
+  expect(t.some(x => x.includes('adapter.log') && x.startsWith('write '))).toBe(false)           // a log line makes no other
+  expect(has(/^evaluate start why=timer$/) && has(/^evaluate exit=0 \d+ms$/)).toBe(true)         // (5) an evaluation
+  expect(has(/^evaluate start why=gate$/)).toBe(true)
+  expect(has(/^timer fired$/)).toBe(true)                                                         // (7) the timer
+  expect(t.some(x => /^hook (ui\.render|session\.append|session\.measure)/.test(x))).toBe(false)  // the hooks that fire many times
+  expect(lText(w, 'refused').length).toBe(1)                                                      // and normal's kinds as before
+})
+
+test('VER-75 (verbose): the turn-mark path is traced, each mark added, consumed or cleared, with the turn ID', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const v = await vOpen($, on)
+  await measure($, 80)
+  await xSettle()
+  await handoffTurn($, 'h1')
+  await lSettle(v.p.w)
+  const t = lTrace(v.p.w)
+  expect(t).toContain('mark pending set')                           // BEH-36
+  expect(t).toContain('mark set added precompact')                  // BEH-41
+  expect(t).toContain('mark set taken precompact')
+  expect(t.some(x => /^mark added turn=next precompact=true$/.test(x))).toBe(true)   // BEH-02
+  expect(t).toContain('mark pending consumed')
+  expect(t.some(x => /^mark cleared by=turn\.complete turn=h1$/.test(x))).toBe(true)
+  const order = (re: RegExp): number => t.findIndex(x => re.test(x))
+  expect(order(/^mark pending set$/)).toBeLessThan(order(/^mark added turn=next/))
+  expect(order(/^mark added turn=next/)).toBeLessThan(order(/^mark cleared by=turn\.complete/))
+})
+
+test('VER-75 (verbose): a hold\'s tries are traced with their count and outcome', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await done($, 't1', null)
+  f.broken = false
+  await done($, 't2', null)
+  await lSettle(w)
+  const t = lTrace(w)
+  expect(t.some(x => /^try hold run n=1 failed$/.test(x))).toBe(true)
+  expect(t.some(x => /^try hold run n=1 ok$/.test(x))).toBe(true)
+})
+
+test('VER-75 (verbose): a trace line never carries a prompt, a reply, a question, an answer, a command, a tool input, a file\'s content or a path outside devforgeai/progress/', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const SECRET = 'zq-seeded-phrase-7781'
+  const w = world(on, { mode: 'enforce local', evaluate: refusingAt(2), files: { [`/outside/${SECRET}/in.md`]: `content ${SECRET}` } })
+  await start($)
+  await load($)
+  await $.prompt.submit({ text: `please do ${SECRET}`, wait: false, origin: { kind: 'user' } } as Any)
+  await respond($, [{ type: 'text', text: `a reply with ${SECRET}` }])
+  await $.tool.call({ tool: 'AskUserQuestion', questions: [{ question: `Pick ${SECRET}?`, header: SECRET, options: [], multiSelect: false }] } as Any)
+  await $.tool.call({ tool: 'Write', file_path: `/outside/${SECRET}/x.md`, content: `body ${SECRET}` } as Any)
+  await $.tool.call({ tool: 'Edit', file_path: `/outside/${SECRET}/in.md`, old_string: SECRET, new_string: 'other' } as Any)
+  await $.tool.call({ tool: 'Bash', command: `echo ${SECRET} > /outside/${SECRET}/y` } as Any)
+  await $.tool.call(WRITE as Any)
+  await done($, 't1', null)
+  await lSettle(w)
+  const t = lTrace(w)
+  expect(t.length).toBeGreaterThan(10)
+  for (const x of t) {
+    expect(x).not.toContain(SECRET)
+    expect(x).not.toContain('/outside')
+    expect(x).not.toContain('echo')
+  }
+})
+
+test('VER-75 / QR-06: a trace line adds no await to a hook; a line of normal\'s kinds is still awaited', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  let hold: Promise<void> | undefined
+  const w = world(on, { gate: (p: string) => (p === LOG ? hold : undefined) })
+  await start($)
+  await load($)
+  await lSettle(w)
+  let release = (): void => {}
+  hold = new Promise<void>(resolve => { release = resolve })
+  let traced = false
+  let normal = false
+  void $.tool.call(READ('a.md')).then(() => { traced = true })       // only trace lines are due
+  await lSettle(w)
+  expect(traced).toBe(true)
+  void $.tool.call(lTask('held')).then(() => { normal = true })      // a line of kind task is awaited as built
+  await lSettle(w)
+  expect(normal).toBe(false)
+  release()
+  await lSettle(w)
+  expect(normal).toBe(true)
+})
+
+test('VER-75 (e): trace lines wait in the buffer and are written together at a turn\'s end, in one read and one write', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await lSettle(w)
+  const before = lWrites(w, LOG)
+  const reads = w.reads.filter(p => p === LOG).length
+  await $.tool.call(READ('a.md'))
+  await $.tool.call(READ('b.md'))
+  await lSettle(w)
+  expect(lWrites(w, LOG)).toBe(before)                              // nothing is written for a trace line
+  expect(lTrace(w).some(x => /^event tool seq=2 /.test(x))).toBe(false)
+  await done($, 't1', null)
+  await lSettle(w)
+  expect(lWrites(w, LOG)).toBe(before + 1)
+  expect(w.reads.filter(p => p === LOG).length).toBe(reads + 1)
+  expect(lTrace(w).some(x => /^event tool seq=2 /.test(x))).toBe(true)
+})
+
+test('VER-75 (e): a write line flushes the buffer at once, ahead of itself, so a crash leaves the turn\'s trace lines', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  await lSettle(w)
+  await $.tool.call(READ('a.md'))
+  f.broken = true
+  await $.tool.call(READ('b.md'))                                   // the hold: its line is kind write
+  await lSettle(w)
+  const lines = lLines(w)
+  const held = lines.findIndex(l => l.includes(' write: held 1 lines'))
+  expect(held).toBeGreaterThan(0)
+  expect(lines.slice(0, held).some(l => l.includes(' trace: hook tool.call origin=') && l.includes('tool=Read'))).toBe(true)
+  expect(lines.slice(0, held).some(l => l.includes(' trace: event tool seq='))).toBe(true)
+})
+
+test('VER-75 (e): the buffer keeps the newest 1,000 lines', { options: { logLevel: 'verbose' }, timeoutMs: 120000 } as Any, async ($: Any, on: Any) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  for (let i = 0; i < 650; i++) await $.tool.call(READ(`m${i}.md`))
+  await done($, 't1', null)
+  await lSettle(w)
+  const t = lTrace(w)
+  expect(t.length).toBeGreaterThanOrEqual(1000)
+  expect(t.length).toBeLessThanOrEqual(1010)
+  expect(t.some(x => /^event tool seq=2 /.test(x))).toBe(false)     // the oldest were pushed out
+  expect(t.some(x => /^event tool seq=65\d /.test(x))).toBe(true)
+})
+
+test('VER-75 (f): during a hold the trace lines keep accumulating and are written at the recovery, merged by time, after the held line and before the recovered one', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const { w, f } = await hOpen($, on)
+  f.broken = true                                                   // adapter.log is unwritable too: nothing is lost, everything waits
+  await $.tool.call(READ('b.md'))
+  await w.clock.advance(5)
+  await $.tool.call(READ('c.md'))
+  await done($, 't1', null)
+  expect(lLines(w).some(l => l.includes('write: held'))).toBe(false)
+  f.broken = false
+  await w.clock.advance(5)
+  await done($, 't2', null)
+  await lSettle(w)
+  const lines = lLines(w)
+  const a = lines.findIndex(l => l.includes(' write: held 1 lines'))
+  const b = lines.findIndex(l => l.includes(' write: recovered after'))
+  expect(a).toBeGreaterThanOrEqual(0)
+  expect(b).toBeGreaterThan(a)
+  const segment = lines.slice(a, b + 1)
+  expect(segment.some(l => l.includes(' trace: try hold run n=1 failed'))).toBe(true)
+  expect(segment.some(l => l.includes(' trace: event tool seq='))).toBe(true)
+  const times = segment.map(lMs)
+  expect(times).toEqual([...times].sort((x, y) => x - y))            // merged by their times
+})
+
+// -- VER-76: the rollover --
+
+test('VER-76 (size): past the cap a write returns after one read and one write; the rollover copies the text down and starts a new file with a rolled line', async ($, on) => {
+  const seed = lBig('2026-10-02', MIB + 10)
+  let held: Promise<void> | undefined
+  let release = (): void => {}
+  held = new Promise<void>(resolve => { release = resolve })
+  const w = world(on, { files: { [LOG]: seed }, gate: (p: string) => (p === lRolled(1) ? held : undefined) })
+  await start($)
+  await load($)                                                     // returns while the rollover waits on its first copy
+  await lSettle(w)
+  expect(lWrites(w, LOG)).toBe(1)                                   // the write of the lines, one read and one write
+  expect(w.reads.filter(p => p === LOG).length).toBe(1)
+  expect(w.files.get(LOG)!.startsWith(seed)).toBe(true)             // the file is still the long one
+  await $.tool.call(lTask('arrives meanwhile'))                     // a line that arrives meanwhile waits for the rollover
+  expect(w.files.get(LOG)!.includes('arrives meanwhile')).toBe(false)
+  release()
+  await lSettle(w)
+  expect(w.files.get(lRolled(1))!.startsWith(seed)).toBe(true)      // byte for byte, and the lines the write added
+  const bytes = new TextEncoder().encode(w.files.get(lRolled(1))!).length
+  const lines = lLines(w)
+  expect(lines[0]).toMatch(new RegExp(`^\\S+ s1 \\S+ log: rolled: adapter\\.1\\.log \\(size\\), ${bytes} bytes$`))
+  expect(lines.some(l => l.includes('no step for task: arrives meanwhile'))).toBe(true)
+  expect(w.files.get(LOG)!.length).toBeLessThan(2000)
+  expect(w.files.has(lRolled(2))).toBe(false)
+})
+
+test('VER-76: ten rolled files are kept: the old tenth is overwritten, each existing file is read and written once, oldest first', async ($, on) => {
+  const files: Record<string, string> = { [LOG]: lBig('2026-10-02', MIB + 10) }
+  for (let n = 1; n <= 10; n++) files[lRolled(n)] = `rolled ${n}\n`
+  const w = world(on, { files })
+  await start($)
+  await load($)
+  await lSettle(w)
+  expect(w.files.get(lRolled(10))).toBe('rolled 9\n')               // the old tenth is overwritten
+  expect(w.files.get(lRolled(2))).toBe('rolled 1\n')                // and the first moved to adapter.2.log
+  expect(w.files.get(lRolled(3))).toBe('rolled 2\n')
+  expect(w.files.get(lRolled(1))!.length).toBeGreaterThan(MIB)
+  expect(w.files.has(`${PROGRESS}/adapter.11.log`)).toBe(false)
+  expect([...w.files.keys()].filter(k => /adapter\.\d+\.log$/.test(k)).length).toBe(10)
+  const order = w.attempts.filter(p => /adapter\.\d+\.log$/.test(p))
+  expect(order).toEqual([10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map(lRolled))
+})
+
+test('VER-76 (day): a first line dated before today rolls the file as day', async ($, on) => {
+  const w = world(on, { files: { [LOG]: lPad('2026-10-01') } })
+  await start($)
+  await load($)
+  await lSettle(w)
+  expect(w.files.get(lRolled(1))!.startsWith(lPad('2026-10-01'))).toBe(true)
+  expect(lLines(w)[0]).toMatch(/ s1 \S+ log: rolled: adapter\.1\.log \(day\), \d+ bytes$/)
+})
+
+for (const seed of [lPad('2026-10-03'), 'no date on this line\n']) {
+  test(`VER-76 (day): a file whose first line is ${seed.startsWith('2026') ? 'dated later than the clock' : 'undated'} rolls nothing`, async ($, on) => {
+    const w = world(on, { files: { [LOG]: seed } })
+    await start($)
+    await load($)
+    await lSettle(w)
+    expect(w.files.has(lRolled(1))).toBe(false)
+    expect(w.files.get(LOG)!.startsWith(seed)).toBe(true)
+  })
+}
+
+test('VER-76: when both apply the line says size', async ($, on) => {
+  const w = world(on, { files: { [LOG]: lBig('2026-10-01', MIB + 10) } })
+  await start($)
+  await load($)
+  await lSettle(w)
+  expect(lLines(w)[0]).toContain('(size)')
+})
+
+test('VER-76: a missing file rolls nothing and the first lines start it', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await lSettle(w)
+  expect([...w.files.keys()].some(k => /adapter\.\d+\.log$/.test(k))).toBe(false)
+  expect(lLines(w).length).toBeGreaterThan(0)
+})
+
+test('VER-76 (S3): a copy that fails leaves adapter.log as it was; the rotation is tried at the next write, 3 retries, then stops for the session with one line', async ($, on) => {
+  const seed = lBig('2026-10-02', MIB + 10)
+  const w = world(on, { files: { [LOG]: seed, [lRolled(1)]: 'old 1\n' }, failWrite: (p: string) => p === lRolled(2) })
+  await start($)
+  await load($)                                                     // attempt 1
+  await lSettle(w)
+  expect(w.files.get(LOG)!.startsWith(seed)).toBe(true)             // not overwritten, the lines are added to it
+  expect(lText(w, 'mode').filter(t => t.startsWith('observe')).length).toBe(1)
+  for (let i = 0; i < 8; i++) {
+    await $.tool.call(lTask(`n${i}`))
+    await lSettle(w)
+  }
+  expect(lWrites(w, lRolled(2))).toBe(4)                            // 4 attempts in all, then none
+  expect(lText(w, 'log').filter(t => t.startsWith('rollover stopped for this session: ')).length).toBe(1)
+  expect(lText(w, 'task').length).toBe(8)                           // the live file grew, every line is there
+  expect(w.files.get(lRolled(1))).toBe('old 1\n')
+})
+
+test('VER-76 (S3): a persistent failure at the last copy shifts history at most four times and then stops', async ($, on) => {
+  const files: Record<string, string> = { [LOG]: lBig('2026-10-02', MIB + 10) }
+  for (let n = 1; n <= 6; n++) files[lRolled(n)] = `rolled ${n}\n`
+  const w = world(on, { files, failWrite: (p: string) => p === lRolled(1) })
+  await start($)
+  await load($)
+  for (let i = 0; i < 8; i++) {
+    await $.tool.call(lTask(`n${i}`))
+    await lSettle(w)
+  }
+  expect(lWrites(w, lRolled(1))).toBe(4)
+  expect(lText(w, 'log').filter(t => t.startsWith('rollover stopped for this session: ')).length).toBe(1)
+  expect(w.files.get(LOG)!.startsWith(files[LOG])).toBe(true)
+  expect(w.files.get(lRolled(10))).toBe('rolled 6\n')                 // the history was shifted, not wiped
+})
+
+test('VER-76 / DM-10: the largest valid value, 3, keeps a 1.5 MiB file whole and every write under 4 MiB', { options: { logRolloverMiB: 3 } } as Any, async ($: Any, on: Any) => {
+  const w = world(on, { files: { [LOG]: lBig('2026-10-02', 1.5 * MIB) } })
+  await start($)
+  await load($)
+  await lSettle(w)
+  expect(w.files.has(lRolled(1))).toBe(false)
+  expect(lText(w, 'setting').length).toBe(0)
+  expect(new TextEncoder().encode(w.files.get(LOG)!).length).toBeLessThan(4 * MIB)
+})
+
+test('VER-76 / DM-10: a logRolloverMiB of 1.5 counts as 1 with a setting line', { options: { logRolloverMiB: 1.5 } } as Any, async ($: Any, on: Any) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  expect(lText(w, 'setting').filter(t => t.startsWith('logRolloverMiB')).length).toBe(1)
+})
+
+test('VER-76: a log the host refuses to read is not overwritten: its lines are dropped, nothing throws, nothing is written or shown', async ($, on) => {
+  const seed = lBig('2026-10-02', 2000)
+  const w = world(on, { files: { [LOG]: seed }, failRead: (p: string) => p === LOG })
+  await start($)
+  await load($)
+  await $.tool.call(lTask('lost'))
+  await lSettle(w)
+  expect(w.files.get(LOG)).toBe(seed)
+  expect(lWrites(w, LOG)).toBe(0)
+  expect([...w.files.keys()].filter(k => k.endsWith('/adapter.log'))).toEqual([LOG])   // and no other log appears
+  expect(w.toasts.length).toBe(0)
+  expect(runFiles(w, 'events.jsonl').length).toBe(1)                // the tracker goes on
+})
+
+test('VER-76: a level change rolls nothing', async ($, on) => {
+  const w = world(on, { files: { [LOG]: lPad() } })
+  await start($)
+  await load($)
+  await hText($, 'log verbose')
+  await hText($, 'log normal')
+  await lSettle(w)
+  expect(w.files.has(lRolled(1))).toBe(false)
+})
+
+test('VER-76: the lines of two sessions in one root carry their own IDs', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await clearTo($, w, 's2')
+  await load($)
+  await $.tool.call(lTask('second'))
+  const ids = lLines(w).map(l => l.split(' ')[1])
+  expect(new Set(ids)).toEqual(new Set(['s1', 's2']))
+  expect(lLines(w).find(l => l.includes('no step for task: second'))!.split(' ')[1]).toBe('s2')
+})
+
+// -- VER-77: C1's text, N4, N5 --
+
+test('VER-77 (N4): with /progress refused the stop\'s toast says to start a new session', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS, over: { register: () => ({ deny: 'the name is taken' }) } })
+  await hStop($, w, f)
+  expect(w.toasts.includes('DevForgeAI progress: off (cannot write devforgeai/progress). Fix it, then start a new Claude Code session.')).toBe(true)
+  expect(w.toasts.includes(H_STOP_TOAST)).toBe(false)
+})
+
+test('VER-77 (N4): the hold\'s toast under ERR-21 is unchanged: the adapter tries again at the end of each turn', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS, over: { register: () => ({ deny: 'the name is taken' }) } })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  const path = hPath(w)
+  expect(w.toasts.includes(`DevForgeAI progress: cannot write ${path}: ${hErr(path)}. Events are held in memory; fix it; the adapter tries again at the end of each turn.`)).toBe(true)
+})
+
+test('VER-77 (N5): a .gitignore that cannot be rewritten at an evaluation starts no hold and leaves one line, once for the run; the next events write tries it first', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: p => p === IGNORE })
+  w.files.delete(IGNORE)
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await w.clock.advance(600)                                        // an evaluation: the rewrite fails
+  expect(w.statuses.includes(H_RETRY)).toBe(false)
+  expect(w.toasts.some(t => t.includes('cannot write'))).toBe(false)
+  const lines = hLog(w, 'write').filter(t => t.startsWith('could not rewrite'))
+  expect(lines.length).toBe(1)
+  expect(lines[0]).toContain(`could not rewrite ${IGNORE}: `)
+  // the next write of events.jsonl tries the .gitignore first, and a failure there is a hold
+  await $.tool.call(READ('d.md'))
+  expect(hStatus(w)).toBe(H_RETRY)
+  f.broken = false
+  await done($, 't1', null)
+  expect(w.files.get(IGNORE)).toBe('*\n')
+  expect(hStatus(w)).not.toBe(H_RETRY)
+})
+
+test('VER-77 (C1, version 28): a kept run\'s trail entry stays across a reload, and its resume with no events.jsonl drops it with the reload line', async ($, on) => {
+  const f = { broken: true }
+  const x = xWorld(on, xStates(), undefined, { failWrite: (p: string) => f.broken && p.startsWith(PROGRESS) })
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  await x.load($, 'devforgeai:spec-lookup')                          // architecture opened in memory and is pushed with its lines kept
+  f.broken = false
+  await done($, 't1', null)                                          // the try writes both files
+  const arch = runFiles(w, 'events.jsonl').find(k => k.includes('-architecture-'))!
+  expect(arch).toBeDefined()
+  w.files.delete(arch)                                               // as a reload that lost the lines leaves it: no file
+  await start($)                                                     // the kit's stand-in for a reload
+  await $.tool.call(READ('worked.md'))
+  await $.tool.call(xTaskUpdate('7', 'completed'))                   // the unwind: architecture is resumed
+  expect(hLog(w, 'write')).toContain('dropped the run: no events.jsonl after a reload')
+  expect(await hText($)).toContain('No DevForgeAI run is open in this session.')
+  expect(trailLog(w).some(t => t.startsWith('unwind to architecture'))).toBe(false)
+})
+
+// -- VER-79: /progress log --
+
+test('VER-79: /progress log sets the level at once, with the answers of BEH-34, and the setting line', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  expect(await hText($, 'log verbose')).toBe('Log level is now verbose for this session. The default in /config is normal.')
+  expect(await hText($, 'log verbose')).toBe('Log level is already verbose for this session. The default in /config is normal.')
+  await $.tool.call(READ('a.md'))
+  await done($, 't1', null)
+  await lSettle(w)
+  expect(lText(w, 'setting')).toContain('log level normal -> verbose by /progress log')
+  expect(lTrace(w).some(x => /^event tool seq=2 /.test(x))).toBe(true)
+  await hText($, 'log normal')                                       // buffered trace lines are written first, then none
+  await lSettle(w)
+  const before = lTrace(w).length
+  await $.tool.call(READ('b.md'))
+  await done($, 't2', null)
+  await lSettle(w)
+  expect(lTrace(w).length).toBe(before)
+  expect(lText(w, 'setting')).toContain('log level verbose -> normal by /progress log')
+})
+
+test('VER-79: /progress log off writes its line at the old level and then nothing, errors included; the toast and row of a hold still show', async ($, on) => {
+  const { w, f } = await hOpen($, on)
+  expect(await hText($, 'log off')).toBe('Log level is now off for this session. The default in /config is normal.')
+  await lSettle(w)
+  expect(lText(w, 'setting')).toContain('log level normal -> off by /progress log')
+  const size = (w.files.get(LOG) ?? '').length
+  const n = lWrites(w, LOG)
+  await $.tool.call(lTask('after off'))
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  expect(hStatus(w)).toBe(H_RETRY)
+  expect(w.toasts.some(t => t.startsWith('DevForgeAI progress: cannot write '))).toBe(true)
+  expect(await hRow($)).toContain('Fix devforgeai/progress')
+  expect(lWrites(w, LOG)).toBe(n)
+  expect((w.files.get(LOG) ?? '').length).toBe(size)
+  f.broken = false
+  await done($, 't3', null)                                         // the hold clears
+  expect(await hText($, 'log normal')).toBe('Log level is now normal for this session. The default in /config is normal.')
+  await $.tool.call(lTask('after on'))
+  expect(lText(w, 'task')).toEqual(['no step for task: after on'])    // leaving off writes its line, and the lines go on
+  expect(lText(w, 'setting')).toContain('log level off -> normal by /progress log')
+})
+
+test('VER-79: no level or another word answers the usage line and changes nothing; the level survives /clear', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  const usage = 'Usage: /progress log off|normal|verbose. The level is normal.'
+  for (const args of ['log', 'log loud', 'log Verbose ', 'log verbose now']) expect(await hText($, args)).toBe(usage)
+  await hText($, 'log verbose')
+  expect(await hText($, 'log')).toBe('Usage: /progress log off|normal|verbose. The level is verbose.')
+  await clearTo($, w, 's2')
+  expect(await hText($, 'log verbose')).toBe('Log level is already verbose for this session. The default in /config is normal.')
+  expect(await hText($, 'retry')).toBe('Nothing to retry: no write has failed.')   // the other arguments answer as before
+  const runs = w.runs.length
+  await hText($, 'log normal')
+  expect(w.runs.length).toBe(runs)                                  // no evaluation, no process
 })

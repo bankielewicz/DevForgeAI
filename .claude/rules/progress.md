@@ -26,16 +26,19 @@ each build's results and departures, and their Change Logs the history.
 - `settings.py` resolves `progress.mode` and saves the user's choice in the YAML frontmatter of
   `.claude/devforgeai.local.md` (ADR-003 A3, ADR-006 D6).
 - `prune.py` removes run and session folders older than the `retentionDays` setting, once per session
-  and project root, at the session's first tracked run. It never touches `odometer/`.
+  and project root, at the session's first tracked run. From SPEC-013 v28 it also removes the root's
+  `adapter.log` with its `adapter.1.log` to `adapter.10.log` together, once `adapter.log` is older than the
+  setting (per file by age only with no live log). It never touches `odometer/`.
 - Tests: `src/tests/progress/` covers every evaluator rule, the same results under `python3 -S`, the
   goldens, `settings.py`, `prune.py` and the adapter's structure.
 
 ## Adapter (`src/claude/DevForgeAI/hooks/`, SPEC-013)
 
 - `hooks.json` declares one module, `./progress.tsx`, a Claude Code mod. It records each tracked skill
-  run in `devforgeai/progress/` of the root the run opened in: `runs/<run>/`, and per session
-  `sessions/<session-id>/current.json` and `adapter.log`. It evaluates the run and shows it in the
-  status line and a band above the prompt.
+  run in `devforgeai/progress/` of the root the run opened in: `runs/<run>/`, per session
+  `sessions/<session-id>/current.json`, and one `adapter.log` for the root (v28: each line carries its session ID;
+  rolled at `logRolloverMiB` or at a new UTC day into `adapter.1.log` to `adapter.10.log` by copying text, since
+  `$.fs` has no remove or rename). It evaluates the run and shows it in the status line and a band above the prompt.
 - Observe mode is the default; the band's button switches to enforce mode through `settings.py`.
 - Another plugin's `$.tool.call` is not recorded and ends no run (BEH-33). `/progress` prints the open
   run's progress (BEH-34). A row above the prompt warns when the context window's fuel is at or below
@@ -46,12 +49,15 @@ each build's results and departures, and their Change Logs the history.
   opened a root, the adapter also writes the session's odometer ledger,
   `devforgeai/progress/odometer/<session-id>.jsonl`, whole at each turn (SPEC-016 BEH-10, ERR-06); the
   dashboard pane itself is not built.
-- Every use of `$` stays in `progress.tsx`'s top-level functions; `progress-core.ts` is pure.
+- Every use of `$` stays in `progress.tsx`'s top-level functions; `progress-core.ts` is pure. A hook must be a function
+  literal passed to `on(...)` (`claude plugin validate` refuses a wrapper), so the verbose hook trace is `entered()` at the top
+  of each hook body. Trace lines go to a buffer and are never awaited; normal's lines are awaited as before (BEH-43).
   `claude plugin validate src/claude/DevForgeAI` checks what Claude Code reads from the module.
 - Kit tests: `hooks/*.test.ts`, run by `claude plugin test src/claude/DevForgeAI`. They are not
   deployed.
 - Plugin settings (`.claude-plugin/plugin.json` `userConfig`): `tracking` (`on` or `off`, default
-  `on`), `retentionDays` (default 30, from 7 to 3650), and `precompactWarnFuel` (default 30) and
+  `on`), `retentionDays` (default 30, from 7 to 3650), `logLevel` (`off`, `normal` or `verbose`, default `normal`;
+  `/progress log <level>` sets it for the session) and `logRolloverMiB` (1 to 3, default 1), and `precompactWarnFuel` (default 30) and
   `precompactRunFuel` (default 20), the share of the context window left, from 0 to 95 (0 turns the row
   off, or never runs the skill). A setting applies after `/reload-plugins`.
 

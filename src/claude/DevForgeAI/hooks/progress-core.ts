@@ -1457,6 +1457,8 @@ export const STOPPED_LINE = 'progress: off (cannot write devforgeai/progress). F
 export const NOTHING_TO_RETRY = 'Nothing to retry: no write has failed.'
 /** The toast at the stop (BEH-42 (f)). */
 export const STOP_TOAST = 'DevForgeAI progress: off (cannot write devforgeai/progress). Fix it, then /progress retry.'
+/** The same when /progress isn't registered (ERR-21): no command lifts the stop, so a new session is the way (version 28, N4). */
+export const STOP_TOAST_NO_COMMAND = 'DevForgeAI progress: off (cannot write devforgeai/progress). Fix it, then start a new Claude Code session.'
 
 /** Which write is held: the run's events.jsonl (with its folder and .gitignore), or the session's odometer file. */
 export type HoldKind = 'run' | 'odometer'
@@ -1509,3 +1511,94 @@ export const liftedAnswer = (): string =>
 export const stillStoppedAnswer = (path: string, error: string): string => `Still cannot write ${path}: ${error}. Tracking stays off.`
 export const odometerOnAnswer = (): string => 'The odometer is writing again.'
 export const odometerStillAnswer = (path: string, error: string): string => `Still cannot write ${path}: ${error}. The odometer stays off.`
+
+// ---- version 28: the log level and the rollover (SPEC-013 BEH-43, BEH-44, DM-09, DM-10) ----
+
+export type LogLevel = 'off' | 'normal' | 'verbose'
+/** An entry of the log waiting to be written: its time (ms), its order, its text (a whole line, newline included). */
+export type LogEntry = { t: number; n: number; line: string; trace?: boolean }
+
+/** At most this many lines of normal's kinds wait in memory (BEH-15, BEH-42 (c)), the first ones. */
+export const EARLY_LIMIT = 200
+/** The buffer keeps the newest trace lines (BEH-43 (e)). */
+export const TRACE_LIMIT = 1000
+/** A trace line's text is cut to this many characters (BEH-43 (e)). */
+export const TRACE_CUT = 300
+/** The most one $.fs.write holds (BEH-44). */
+export const FILE_LIMIT = 4 * 1024 * 1024
+/** The rolled files kept beside adapter.log (BEH-44). */
+export const ROLLED_FILES = 10
+/** A rollover that failed is tried again at the next write at most this many times, then stopped for the session (BEH-44). */
+export const ROLL_RETRIES = 3
+
+/** The logLevel setting (DM-09): off, normal or verbose; anything else counts as normal, never as off. A missing value is the default
+ *  and not invalid, as fuelSetting treats one (the host fills a userConfig default, so a session that lacks it is a test's). */
+export function logLevelOf(value: unknown): { level: LogLevel; invalid: boolean } {
+  if (value === undefined) return { level: 'normal', invalid: false }
+  return value === 'off' || value === 'normal' || value === 'verbose' ? { level: value, invalid: false } : { level: 'normal', invalid: true }
+}
+
+/** The logRolloverMiB setting (DM-10): a whole number from 1 to 3, else 1 (a missing value is the default, not invalid). */
+export function rolloverMiBOf(value: unknown): { value: number; invalid: boolean } {
+  if (value === undefined) return { value: 1, invalid: false }
+  return typeof value === 'number' && Number.isInteger(value) && value >= 1 && value <= 3 ? { value, invalid: false } : { value: 1, invalid: true }
+}
+
+/** A line's time (DM-02): to the second, or at verbose to the millisecond. */
+export function logStamp(ms: number, verbose: boolean): string {
+  const iso = new Date(ms).toISOString()
+  return verbose ? iso : iso.replace(/\.\d{3}Z$/, 'Z')
+}
+
+/** A trace line's text: one line, cut to TRACE_CUT characters (BEH-43 (e)). */
+export function traceCut(text: string): string {
+  return Array.from(text.replace(/\s*[\r\n]+\s*/g, ' ')).slice(0, TRACE_CUT).join('')
+}
+
+/** Whether adapter.log is due for a rollover after a write (BEH-44): 'size' when the file now passes the cap, 'day' when its
+ *  first line's UTC date is earlier than the date of the batch's first line, else null; size is said when both apply. A file whose
+ *  first line has no date, an empty one and a first line dated later (a clock set back) get no day check. */
+export function rollReason(file: string, batch: string, mib: number): 'size' | 'day' | null {
+  if (file === '') return null
+  if (byteSize(file) > mib * 1024 * 1024) return 'size'
+  const fileDay = file.slice(0, 10)
+  const batchDay = batch.slice(0, 10)
+  const dated = /^\d{4}-\d\d-\d\d$/
+  return dated.test(fileDay) && dated.test(batchDay) && fileDay < batchDay ? 'day' : null
+}
+
+/** A batch split between lines into pieces of at most `cap` bytes (a line longer than the cap is a piece of its own). */
+export function chunkLines(text: string, cap: number): string[] {
+  const out: string[] = []
+  let piece = ''
+  for (const line of text.split(/(?<=\n)/)) {
+    if (line === '') continue
+    if (piece !== '' && byteSize(piece) + byteSize(line) > cap) {
+      out.push(piece)
+      piece = ''
+    }
+    piece += line
+  }
+  if (piece !== '') out.push(piece)
+  return out
+}
+
+/** Two lists of entries merged by their times, then by their order (BEH-43 (f)). */
+export function mergeByTime<T extends { t: number; n: number }>(a: readonly T[], b: readonly T[]): T[] {
+  return [...a, ...b].sort((x, y) => x.t - y.t || x.n - y.n)
+}
+
+/** `/progress log <level>` (BEH-34, BEH-43 (h)): null when the argument is no `log` command, else the level to set (null for none)
+ *  and the answer. The level is exactly one word after `log`. */
+export function logCommand(args: string, level: LogLevel, base: LogLevel): { level: LogLevel | null; text: string } | null {
+  const words = args.trim().split(/\s+/)
+  if (words[0] !== 'log') return null
+  const tail = `The default in /config is ${base}.`
+  if (words.length === 2 && (words[1] === 'off' || words[1] === 'normal' || words[1] === 'verbose')) {
+    const want = words[1]
+    return want === level
+      ? { level: null, text: `Log level is already ${want} for this session. ${tail}` }
+      : { level: want, text: `Log level is now ${want} for this session. ${tail}` }
+  }
+  return { level: null, text: `Usage: /progress log off|normal|verbose. The level is ${level}.` }
+}
