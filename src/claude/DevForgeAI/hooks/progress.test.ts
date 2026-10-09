@@ -32,6 +32,8 @@ type Over = {
   evaluate?: (argv: readonly string[]) => Any
   tool?: (e: Any) => Any
   failWrite?: (path: string) => boolean
+  /** The text a rejected write carries (version 27): the host's error for the path; the default is an EACCES line. */
+  failMessage?: (path: string) => string
   files?: Record<string, string>
   prune?: (argv: readonly string[]) => Any
   /** prune.py's remove command (IF-05); the default removes every --file and says so. */
@@ -83,6 +85,10 @@ type World = {
   reads: string[]
   /** Every $.command.register call (versions 21 and 25). */
   registered: Any[]
+  /** Every fs.write call, the rejected ones too (version 27: the writes a failing session makes are counted, QR-05). */
+  attempts: string[]
+  /** Every $.ui.invalidate call's event (version 27: a hold's start and clear, a stop and its lift redraw the band). */
+  invalidates: string[]
 }
 
 const STATE = {
@@ -152,7 +158,7 @@ function world(on: Any, over: Over = {}): World {
     files: new Map(Object.entries(over.files ?? {})), writes: [], toasts: [], logs: [], statuses: [], runs: [],
     contexts: [], tools: [],
     clock: mock.clock(on, { now: T0 }),
-    root: ROOT, sessionId: 's1', inits: [], pruneSawRun: [], compactIn: [], lists: [], reads: [], registered: [],
+    root: ROOT, sessionId: 's1', inits: [], pruneSawRun: [], compactIn: [], lists: [], reads: [], registered: [], attempts: [], invalidates: [],
   }
   on('session.root', () => ({ value: w.root }))
   on('session.id', () => (over.failSessionId ? { deny: 'no session id' } : { value: w.sessionId }))
@@ -234,8 +240,10 @@ function world(on: Any, over: Over = {}): World {
     }
     return { deny: `ENOENT: ${e.path}` }
   })
+  on('ui.invalidate', (_$: Any, e: Any) => { w.invalidates.push(e.event); return { value: undefined } })
   on('fs.write', (_$: Any, e: Any) => {
-    if (over.failWrite?.(e.path)) return { deny: `EACCES: ${e.path}` }
+    w.attempts.push(e.path)
+    if (over.failWrite?.(e.path)) return { deny: over.failMessage?.(e.path) ?? `EACCES: permission denied, open '${e.path}'` }
     w.files.set(e.path, e.text)
     w.writes.push(e.path)
     return { value: undefined }
@@ -497,13 +505,19 @@ test('VER-11 / ERR-11: past 3 MiB no content is kept, and at 4 MiB the run stops
   expect(w.statuses.includes('progress: off (event log full)')).toBe(true)
 })
 
-test('VER-11 / ERR-03: when devforgeai/progress/ can\'t be written, tracking stops for the session', async ($, on) => {
+test('VER-11 / ERR-03 (version 27): when devforgeai/progress/ can\'t be written the run stays open and retrying, and the tenth failed turn try stops tracking for the session', async ($, on) => {
   const w = world(on, { failWrite: p => p.startsWith(PROGRESS) })
   await start($)
   await load($)
   await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
-  expect(w.statuses.includes('progress: off (cannot write devforgeai/progress)')).toBe(true)
-  expect(w.toasts.filter(t => t.includes('cannot write devforgeai/progress')).length).toBe(1)
+  expect(w.statuses.includes('progress: off (cannot write devforgeai/progress)')).toBe(false)
+  expect(w.statuses[w.statuses.length - 1]).toBe('progress: retrying (cannot write devforgeai/progress)')
+  expect(w.toasts.filter(t => t.startsWith('DevForgeAI progress: cannot write ')).length).toBe(1)
+  for (let i = 0; i < 9; i++) await done($, `t${i}`, null)
+  expect(w.statuses[w.statuses.length - 1]).toBe('progress: retrying (cannot write devforgeai/progress)')
+  await done($, 't9', null)                                         // the tenth failed try
+  expect(w.statuses[w.statuses.length - 1]).toBe('progress: off (cannot write devforgeai/progress)')
+  expect(w.toasts.filter(t => t.startsWith('DevForgeAI progress: off (cannot write devforgeai/progress)')).length).toBe(1)
 })
 
 test('VER-13: a second session.start, as after a reload, keeps the open run and its seq', async ($, on) => {
@@ -2770,17 +2784,26 @@ test('VER-43: a second session.start keeps the trail and the open run, and the u
   expect(trailLog(w).slice(-1)[0]).toBe('unwind to architecture at step 7 (1 returned, 0 on the trail)')
 })
 
-test('VER-43: a load whose new run\'s log can\'t be written stops tracking (ERR-03): no push, no run-end, the trail emptied', async ($, on) => {
-  const x = xWorld(on, xStates(), undefined, { failWrite: p => p.includes('-spec-lookup-') })
+test('VER-43 (version 27, BEH-29): a load whose new run\'s first line can\'t be written opens the run in memory and goes on as any nested load: the push, no run-end, the hold shown', async ($, on) => {
+  let broken = true
+  const x = xWorld(on, xStates(), undefined, { failWrite: p => broken && p.includes('-spec-lookup-') })
   const { w } = x
   await start($)
   await load($, 'devforgeai:architecture', TAGGED)
   await taskList($, 11, 7)
   await w.clock.advance(600)
-  await x.load($, 'devforgeai:spec-lookup')
+  const text = await x.load($, 'devforgeai:spec-lookup')
+  expect(text.endsWith('\n\n' + RETURN_7)).toBe(true)                  // the push went on
   expect(xRuleEnds(w, 'architecture')).toEqual([])
-  expect(trailLog(w).some(l => l.startsWith('push'))).toBe(false)
-  expect(w.statuses.includes('progress: off (cannot write devforgeai/progress)')).toBe(true)
+  expect(w.statuses.includes('progress: off (cannot write devforgeai/progress)')).toBe(false)
+  expect(w.statuses[w.statuses.length - 1]).toBe('progress: retrying (cannot write devforgeai/progress)')
+  expect(runsOf(w, 'spec-lookup')).toEqual([])                       // nothing of the new run is in a file yet
+  expect(trailLog(w)).toEqual([])                                    // adapter.log waits while the hold lasts
+  broken = false
+  await done($, 't1', null)                                          // the turn's end: the try works
+  expect(kinds(eventsOf(w, 'spec-lookup'))).toEqual(['skill-loaded', 'turn'])
+  expect(trailLog(w)[0]).toBe('push architecture at step 7 (1 on the trail)')
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
 })
 
 // -- unwinding --
@@ -3331,6 +3354,8 @@ type RCfg = {
   control?: boolean
   /** Other files of the world (version 22): a work file the line names. */
   files?: Record<string, string>
+  /** Writes that are rejected (version 27: the offer is not made while the run's log is held). */
+  failWrite?: Over['failWrite']
 }
 
 const R_CONTINUE = (q: Any): string => q.options[0].label
@@ -3354,7 +3379,7 @@ function rWorld($top: Any, on: Any, cfg: RCfg = {}) {
     ids: (cfg.earlier ?? []).map(rIdOf), sk, cfg, over: {} as Over, w: null as unknown as World,
   }
   const over: Over = {
-    files, surfaces: cfg.surfaces, mode: cfg.mode,
+    files, surfaces: cfg.surfaces, mode: cfg.mode, failWrite: cfg.failWrite,
     tool: (e: Any): Any => {
       const q = e.questions?.[0]
       if (e.tool === 'AskUserQuestion' && q?.header === 'Progress' && String(q.question).startsWith('prd: ')) {
@@ -5085,10 +5110,11 @@ function diskList(disk: Disk, o: { listFail?: (folder: string) => boolean; missi
 
 /** A world whose folders are a table the Bash stub changes during next(e): listings come from it, file texts from the world. */
 function diskWorld(on: Any, o: { mode?: string; disk?: Disk; during?: (e: Any, w: World, disk: Disk) => Any; evaluate?: Over['evaluate'];
-  files?: Record<string, string>; listFail?: (folder: string) => boolean; missing?: string[]; surfaces?: string[]; runMtimes?: Record<string, number> } = {}) {
+  files?: Record<string, string>; listFail?: (folder: string) => boolean; missing?: string[]; surfaces?: string[]; runMtimes?: Record<string, number>;
+  failWrite?: Over['failWrite'] } = {}) {
   const disk: Disk = o.disk ?? {}
   const world0 = world(on, {
-    mode: o.mode, manifests: { brainstorm: BRAINSTORM_MANIFEST }, files: o.files, evaluate: o.evaluate, surfaces: o.surfaces,
+    mode: o.mode, manifests: { brainstorm: BRAINSTORM_MANIFEST }, files: o.files, evaluate: o.evaluate, surfaces: o.surfaces, failWrite: o.failWrite,
     list: diskList(disk, o),
     tool: (e: Any) => {
       if (e.tool === 'Bash') {
@@ -5961,14 +5987,18 @@ test('VER-55: when the registration fails (ERR-21) the command is passed on, ada
   expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toContain('brainstorm run just started')   // ours again
 })
 
-test('VER-55: when the tracker has stopped (ERR-03) the command is passed on untouched', async ($, on) => {
+test('VER-55 (version 27): when the tracker has stopped (ERR-03, after ten failed turn tries) the command answers the one stopped line, and passes nothing on', async ($, on) => {
   const w = world(on, { failWrite: p => p.startsWith(PROGRESS) })
   on('command.run', () => ({ text: 'whatever owns the name' }))
   await start($)
   await load($)
   await $.tool.call(READ('a.md'))
-  expect(w.statuses.includes('progress: off (cannot write devforgeai/progress)')).toBe(true)
-  expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toBe('whatever owns the name')
+  expect(w.statuses[w.statuses.length - 1]).toBe('progress: retrying (cannot write devforgeai/progress)')
+  expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toContain('brainstorm run just started')   // ours, while it retries
+  for (let i = 0; i < 10; i++) await done($, `t${i}`, null)
+  expect(w.statuses[w.statuses.length - 1]).toBe('progress: off (cannot write devforgeai/progress)')
+  expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text)
+    .toBe('progress: off (cannot write devforgeai/progress). Fix the folder, then /progress retry.')
 })
 
 // ---- BEH-35, BEH-36, BEH-41: the precompact row and the automatic run (VER-56) ----
@@ -6263,11 +6293,12 @@ test('VER-56: a headless session draws no row and runs nothing', async ($, on) =
   expect(p.ran).toEqual([])
 })
 
-test('VER-56: a stopped tracker (ERR-03) draws no row and runs nothing', async ($, on) => {
+test('VER-56 (version 27): a stopped tracker (ERR-03, after ten failed turn tries) draws no row and runs nothing', async ($, on) => {
   const p = pWorld($, on, { over: { failWrite: path => path.startsWith(PROGRESS) } })
   await start($)
   await load($)
   await $.tool.call(READ('a.md'))
+  for (let i = 0; i < 10; i++) await done($, `t${i}`, null)
   expect(p.w.statuses.includes('progress: off (cannot write devforgeai/progress)')).toBe(true)
   await measure($, 90)
   await xSettle()
@@ -6640,7 +6671,7 @@ test('SPEC-016 BEH-10: the module reads its own file back once, at its first wri
   expect(odo(w)[0].time).toBe('2026-10-01T09:00:00Z')
 })
 
-test('SPEC-016 ERR-06: a failed write keeps the lines and writes the whole file at the next turn; one adapter.log line of kind dashboard for the cause', async ($, on) => {
+test('SPEC-016 ERR-06 (version 3): a failed write holds the lines and writes the whole file at the next turn that works; adapter.log gets the hold\'s lines of kind dashboard', async ($, on) => {
   let fail = true
   const w = world(on, { failWrite: p => fail && p === ODO })
   await start($)
@@ -6651,8 +6682,9 @@ test('SPEC-016 ERR-06: a failed write keeps the lines and writes the whole file 
   fail = false
   await done($, 't3')
   expect(odo(w).map(l => l.turn)).toEqual(['t1', 't2', 't3'])
-  expect(uLog(w, 'dashboard').length).toBe(1)
-  expect(uLog(w, 'dashboard')[0]).toContain('odometer')
+  expect(uLog(w, 'dashboard').length).toBe(2)                      // held, then recovered (the log waited for the hold to end)
+  expect(uLog(w, 'dashboard')[0]).toContain('odometer: held 1 lines')
+  expect(uLog(w, 'dashboard')[1]).toContain('odometer: recovered after 2 tries')
   expect(kinds(eventsOf(w)).includes('usage')).toBe(true)          // tracking went on
 })
 
@@ -7056,4 +7088,1169 @@ test('VER-56 (P-C): a subagent\'s load of precompact hides the row after BEH-36\
   await sk.load($, 'devforgeai:precompact', 'a1')
   expect(await fuelRow($)).toBeNull()
   void p
+})
+
+// ======================================================================================================================
+// ---- version 27 (SPEC-013, approved 2026-10-09; SPEC-016 version 3): a write of the tracker's that fails is a hold, a retry and a
+//      remedy, not a stop (BEH-42, ERR-03, QR-05). VER-69 to VER-73, written first and seen failing. The kit cannot reload the module:
+//      a second session.start stands for the reload, and setup() starts the module's own memory over as a reload does. ----
+
+const H_RETRY = 'progress: retrying (cannot write devforgeai/progress)'
+const H_OFF = 'progress: off (cannot write devforgeai/progress)'
+const H_STOPPED = 'progress: off (cannot write devforgeai/progress). Fix the folder, then /progress retry.'
+const H_STOP_TOAST = 'DevForgeAI progress: off (cannot write devforgeai/progress). Fix it, then /progress retry.'
+const EVENTS = (p: string): boolean => p.endsWith('/events.jsonl')
+const IGNORE = `${PROGRESS}/.gitignore`
+const hStatus = (w: World): string | undefined => w.statuses[w.statuses.length - 1]
+// What the module reads of a rejected write: the host puts the plugin's name and the call in front of the stub's text.
+const hErr = (path: string): string => `devforgeai: $.fs.write: EACCES: permission denied, open '${path}'`
+
+/** A world in which the writes `match` names are rejected while `f.broken` is on; $.state is stubbed, so a test can read it. */
+function hWorld(on: Any, cfg: { match?: (p: string) => boolean; over?: Over; broken?: boolean } = {}) {
+  const f = { broken: cfg.broken ?? false, match: cfg.match ?? ((p: string) => p.startsWith(PROGRESS)) }
+  const st = newState()
+  const w = world(on, { state: st, ...(cfg.over ?? {}), failWrite: (p: string) => f.broken && f.match(p) })
+  return { w, f, st }
+}
+type HF = { broken: boolean; match: (p: string) => boolean }
+
+const hOff = (st: StateStub): Any => st.values.get('devforgeai/off')?.value ?? null
+const hSeqs = (w: World, skill = 'brainstorm'): number[] => eventsOf(w, skill).map(l => JSON.parse(l).seq)
+const hRange = (n: number): number[] => Array.from({ length: n }, (_, i) => i + 1)
+/** The texts of adapter.log's lines of a kind, after the kind and its colon. */
+const hLog = (w: World, kind: string): string[] => uLog(w, kind).map(l => l.slice(l.indexOf(` ${kind}: `) + kind.length + 3))
+const hEvals = (w: World): number => w.runs.filter(a => a[2] === 'evaluate').length
+const hAttempts = (w: World, match: (p: string) => boolean): number => w.attempts.filter(match).length
+/** The path of the run's events.jsonl the adapter last tried to write. */
+const hPath = (w: World): string => w.attempts.filter(EVENTS).slice(-1)[0]
+const hText = async ($: Any, args = ''): Promise<string> => String(((await $.command.run({ command: 'progress', args } as Any)) as Any).text)
+const hKnownKeys = ['run', 'mode', 'modeSource', 'summary', 'lastEventAt', 'marked', 'shown', 'contextSent', 'off', 'tasks', 'todos', 'hinted', 'adhered',
+  'refusals', 'refused', 'reviewed', 'trail', 'returned', 'cleaned', 'wroteSeen', 'closedFor', 'precompact']
+
+/** The remedy row the band draws (BEH-11), or null; `props` and `maxRows` as the host gives them. */
+async function hRow($: Any, maxRows = 3, props: Any = {}): Promise<string | null> {
+  const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, maxRows, bodyColumns: 400, ...props } })
+  const found = await ui.find({ type: 'Text', text: /Fix devforgeai\/progress/ })
+  const text = found === undefined ? null : String(found.children.join(''))
+  await ui.unmount()
+  return text
+}
+
+/** The texts of the Text elements the band draws, in order. */
+async function hTexts($: Any, maxRows = 4, props: Any = {}): Promise<string[]> {
+  const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, maxRows, bodyColumns: 400, ...props } })
+  const outer = await ui.find({ type: 'Box' })
+  const found = JSON.stringify(outer?.children ?? []).match(/(step \d+ of \d+|observe mode|enforce mode|Fix devforgeai\/progress|▲ Fuel \d+%|drawn by the mods after it)/g) ?? []
+  await ui.unmount()
+  return found
+}
+
+/** An opened, evaluated brainstorm run in a world whose writes fail from `f.broken` on. */
+async function hOpen($: Any, on: Any, cfg: Parameters<typeof hWorld>[2] = {}, skill = 'devforgeai:brainstorm') {
+  const h = hWorld(on, cfg)
+  await start($)
+  await load($, skill)
+  await $.tool.call(READ('a.md'))
+  await h.w.clock.advance(600)
+  return h
+}
+
+// -- VER-69: the hold --
+
+test('VER-69 (a): a failed write of the run\'s log is a hold, not a stop: the run stays open, the status line says retrying, and events take their seq with no write', async ($, on) => {
+  const { w, f, st } = await hOpen($, on, { match: EVENTS })
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+  f.broken = true
+  const before = hAttempts(w, EVENTS)
+  await $.tool.call(READ('b.md'))                                   // this write is rejected
+  expect(hAttempts(w, EVENTS) - before).toBe(1)
+  expect(hStatus(w)).toBe(H_RETRY)
+  expect(hOff(st)).toBeNull()
+  await $.tool.call(READ('c.md'))
+  await ($ as Any).turn.start({ turnId: 'tt' })
+  await respond($, [{ type: 'text', text: 'working' }])
+  expect(hAttempts(w, EVENTS) - before).toBe(1)                     // none for each event after the first failure
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool'])      // the file is as it was
+  const report = (await hText($)).split('\n')                       // the run, its mode and its summary are kept
+  expect(report.slice(0, 3)).toEqual([H_RETRY, 'brainstorm  ●◆  step 2 of 2: Pick', 'observe mode  no flags'])
+  f.broken = false
+  await done($, 't2', null)                                         // a main-loop turn ends: the try works
+  expect(hSeqs(w)).toEqual(hRange(7))                               // every event, in order, with no gap
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool', 'tool', 'tool', 'turn', 'reply', 'turn'])
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+  expect(w.toasts.includes('DevForgeAI progress: writing again; 5 held lines saved.')).toBe(true)
+})
+
+test('VER-69 (b): each main-loop turn end tries once and a subagent\'s none; a failed try keeps the first line of the host\'s error; the recovery brings the file level and evaluates once', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS, over: { failMessage: p => `EACCES: permission denied, open '${p}'\nsecond line of the reason` } })
+  f.broken = true
+  await $.tool.call(READ('b.md'))                                   // the hold starts: 1 line held
+  const path = hPath(w)
+  const a0 = hAttempts(w, EVENTS)
+  const e0 = hEvals(w)
+  await done($, 'u1', USAGE, { agentId: 'agent-7' })               // a subagent's turn end
+  expect(hAttempts(w, EVENTS)).toBe(a0)
+  await done($, 't1', null)                                         // the main loop's: one try, which fails
+  expect(hAttempts(w, EVENTS)).toBe(a0 + 1)
+  await done($, 't2', null)
+  expect(hAttempts(w, EVENTS)).toBe(a0 + 2)
+  await w.clock.advance(1200)                                       // the run is marked, but the timer starts no evaluation
+  expect(hEvals(w)).toBe(e0)
+  expect(await hRow($)).toBe(`▲ Fix devforgeai/progress, then /progress retry · 3 lines held · cannot write ${path}: ${hErr(path)}`)
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool'])
+  f.broken = false
+  // The third try works; the turn is an aborted one, so no settle follows it and the timer's next tick is the first evaluation.
+  await ($ as Any).turn.complete({ turnId: 't3', answer: '', durationMs: 1, isAborted: true, reason: 'aborted', usage: null })
+  expect(hSeqs(w)).toEqual(hRange(6))
+  expect(hEvals(w)).toBe(e0)                                        // not before the next tick
+  await w.clock.advance(600)
+  expect(hEvals(w)).toBe(e0 + 1)                                    // once, over the whole file
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+  expect(await hRow($)).toBeNull()
+  expect(hLog(w, 'write')).toEqual([`held 1 lines: ${path}: ${hErr(path)}`, `recovered after 2 tries: ${path}; wrote 4 lines`])
+})
+
+for (const [name, match] of [['the .gitignore', (p: string) => p.endsWith('/.gitignore')], ['the first line of the log', EVENTS]] as const) {
+  test(`VER-69 (c): with ${name} rejected the run opens in memory: retrying, no band, the row alone, /progress says it has just started, pruning waits for the write that works`, async ($, on) => {
+    const { w, f } = hWorld(on, { match, broken: true })
+    await start($)
+    await load($)
+    await w.clock.advance(600)
+    expect(hStatus(w)).toBe(H_RETRY)
+    expect(hAttempts(w, EVENTS)).toBe(match === EVENTS ? 1 : 0)       // a folder without its .gitignore is written nothing under (BEH-15)
+    expect(prunes(w)).toEqual([])
+    expect(hEvals(w)).toBe(0)                                         // the run has no evaluation
+    const none = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, maxRows: 3 } })
+    expect(await none.find({ text: /step \d+ of \d+/ })).toBeUndefined()   // no band
+    expect(await none.find({ text: /Fix devforgeai\/progress/ })).toBeDefined()
+    await none.unmount()
+    const row = await hRow($)
+    expect(row).toContain('▲ Fix devforgeai/progress, then /progress retry · 1 lines held · cannot write ')
+    expect((await hText($)).split('\n')).toEqual(['brainstorm run just started; its first evaluation isn\'t in yet.', row])
+    f.broken = false
+    await done($, 't1', null)                                         // the write that works creates the folder
+    expect(w.files.get(IGNORE)).toBe('*\n')
+    expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'turn'])
+    expect(prunes(w).length).toBe(1)
+    await w.clock.advance(600)
+    expect(hEvals(w)).toBe(1)
+    expect(hStatus(w)).toBe('brainstorm 2/2')
+    expect(hLog(w, 'write')[1]).toContain('recovered after 0 tries')
+    expect(w.files.get(`${SESSION}/adapter.log`)).toContain(' mode: observe (framework-default)')   // the lines that waited are in the log
+  })
+}
+
+test('VER-69 (d): a rejected write of adapter.log, current.json or pending.jsonl starts no hold: the work goes on as before', async ($, on) => {
+  const { w } = hWorld(on, { match: p => /\/(adapter\.log|current\.json|pending\.jsonl)$/.test(p), broken: true,
+    over: { mode: 'enforce local', evaluate: refusingAt(2) } })
+  await start($)
+  await load($)
+  const r = (await $.tool.call(WRITE as Any)) as Any
+  expect(r.deny).toBeUndefined()                                    // pending.jsonl can't be written: the check fails open, as before
+  expect(w.tools.includes('Write')).toBe(true)
+  await w.clock.advance(600)
+  expect(hStatus(w)).toBe('brainstorm 2/2 · enforce')
+  expect(w.statuses.some(s => (s ?? '').includes('retrying'))).toBe(false)
+  expect(w.toasts.filter(t => t.includes('cannot write'))).toEqual([])
+  expect(w.invalidates).toEqual([])
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool'])
+})
+
+test('VER-69 (d): a rejected write of review.jsonl starts no hold either', async ($, on) => {
+  const asked: string[] = []
+  let state: Any = STATE
+  const w = reviewWorld(on, () => state, ['Accept'], asked, { failWrite: p => p.endsWith('/review.jsonl') })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await $.tool.call(QUESTION as Any)                                // refused: unmarked-question at step 2
+  state = reached([])
+  await w.clock.advance(600)
+  await turnEnd($)
+  expect(asked.length).toBe(1)
+  expect(w.statuses.some(s => (s ?? '').includes('retrying'))).toBe(false)
+  expect(w.toasts.some(t => t.startsWith('architecture: your review is in'))).toBe(true)
+  expect(w.invalidates).toEqual([])
+})
+
+test('VER-69 (e): a failing-and-recovering session starts no process beyond python and the adapter\'s own scripts, and no $.fs call but write, exists, read and list', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: p => p.startsWith(PROGRESS) })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await done($, 't1', null)
+  await $.command.run({ command: 'progress', args: 'retry' } as Any)
+  f.broken = false
+  await done($, 't2', null)
+  await w.clock.advance(600)
+  for (const a of w.runs) {
+    expect(a[0] === 'python3' && (a[1] === '--version' || /\/progress\/(settings|evaluate|prune)\.py$/.test(a[1])), a.join(' ')).toBe(true)
+  }
+  expect(w.toasts.filter(t => t.includes('no implementation'))).toEqual([])   // any other $.fs call would have no stub to answer it
+})
+
+test('VER-69 (f) / QR-05: a failing session writes nothing for each event, one write for the hold at each main-loop turn end and none of adapter.log; a second hold toasts again', async ($, on) => {
+  const { w, f } = await hOpen($, on)
+  f.broken = true
+  const from = w.attempts.length
+  for (const name of ['b', 'c', 'd', 'e', 'f']) await $.tool.call(READ(`${name}.md`))
+  expect(w.attempts.slice(from)).toEqual([hPath(w)])                // the first failure only
+  for (let i = 0; i < 3; i++) await done($, `t${i}`, null)
+  expect(w.attempts.slice(from).length).toBe(4)
+  expect(w.attempts.slice(from).every(EVENTS)).toBe(true)           // no adapter.log, no .gitignore (it exists), no current.json
+  await w.clock.advance(2000)
+  expect(w.attempts.slice(from).length).toBe(4)
+  expect(w.toasts.filter(t => t.startsWith('DevForgeAI progress: cannot write ')).length).toBe(1)
+  f.broken = false
+  await done($, 't3', null)
+  expect(w.toasts.filter(t => t.startsWith('DevForgeAI progress: writing again')).length).toBe(1)
+  f.broken = true
+  await $.tool.call(READ('g.md'))                                   // a second hold in the same session
+  expect(w.toasts.filter(t => t.startsWith('DevForgeAI progress: cannot write ')).length).toBe(2)
+  expect(hStatus(w)).toBe(H_RETRY)
+})
+
+test('VER-69: a main-loop turn end whatever its reason tries; an aborted turn does too', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  const a0 = hAttempts(w, EVENTS)
+  await ($ as Any).turn.complete({ turnId: 'x', answer: '', durationMs: 1, isAborted: true, reason: 'aborted', usage: null })
+  expect(hAttempts(w, EVENTS)).toBe(a0 + 1)
+  f.broken = false
+  await ($ as Any).turn.complete({ turnId: 'y', answer: '', durationMs: 1, isAborted: false, reason: 'error', usage: null })
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+})
+
+// -- VER-70: the bounds, /progress retry and the stop --
+
+/** A run held from its first events and driven to the stop: ten main-loop turn ends with the write rejecting at every try. */
+async function hStop($: Any, w: World, f: HF) {
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  for (let i = 0; i < 9; i++) {
+    await done($, `t${i}`, null)
+    expect(hStatus(w)).toBe(H_RETRY)
+  }
+  await done($, 't9', null)
+}
+
+test('VER-70: nine failed turn tries leave the run open and retrying; the tenth stops tracking as earlier versions did and drops the run and its held lines', async ($, on) => {
+  const { w, f, st } = await hOpen($, on, { match: EVENTS })
+  const logPath = `${SESSION}/adapter.log`
+  const logBefore = w.files.get(logPath)
+  await hStop($, w, f)
+  expect(hStatus(w)).toBe(H_OFF)
+  expect(hOff(st)).toBe('cannot write devforgeai/progress')
+  expect(w.toasts.filter(t => t === H_STOP_TOAST).length).toBe(1)
+  expect(w.statuses.includes('progress: off (event log full)')).toBe(false)
+  const n = w.attempts.length
+  await $.tool.call(READ('z.md'))                                   // nothing more is recorded or written
+  await done($, 'tz', null)
+  await w.clock.advance(600)
+  expect(w.attempts.length).toBe(n)
+  expect(w.files.get(logPath)).toBe(logBefore)                      // and adapter.log waited for the hold, and waits after the stop
+  expect(await hText($)).toBe(H_STOPPED)
+  expect(await hRow($)).toBeNull()                                  // no row after the stop
+  expect(w.invalidates.length).toBe(2)                              // the hold's start, then the stop
+})
+
+test('VER-70: a held log that would pass 4 MiB stops the same way, with its own log line, and never reads event log full', { timeoutMs: 120000 }, async ($, on) => {
+  const { w, f, st } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  for (let i = 0; i < 200 && hStatus(w) !== H_OFF; i++) await $.tool.call({ tool: 'Bash', command: 'z'.repeat(30 * 1024) } as Any)
+  expect(hStatus(w)).toBe(H_OFF)
+  expect(w.statuses.includes('progress: off (event log full)')).toBe(false)
+  expect(hOff(st)).toBe('cannot write devforgeai/progress')
+  f.broken = false
+  await $.command.run({ command: 'progress', args: 'retry' } as Any)       // the lift writes the log's waiting lines
+  expect(hLog(w, 'write').some(l => /^gave up at 4 MiB: .*\/events\.jsonl; dropped \d+ lines$/.test(l))).toBe(true)
+})
+
+test('VER-70: between 3 and 4 MiB a held log loses event content as ERR-11 says', { timeoutMs: 120000 }, async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  const chunk = 'y'.repeat(60 * 1024)
+  for (let i = 0; i < 60; i++) await $.tool.call({ tool: 'Write', file_path: `${ROOT}/c${i}.md`, content: chunk } as Any)
+  expect(hStatus(w)).toBe(H_RETRY)
+  f.broken = false
+  await done($, 't1', null)
+  const lines = eventsOf(w)
+  const withContent = lines.filter(l => JSON.parse(l).content !== undefined).length
+  expect(withContent > 40 && withContent < 60).toBe(true)
+})
+
+test('VER-70: /progress retry while the log is held tries at once and adds nothing to the count; when it works the answer says what was saved', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await done($, 't1', null)                                         // one failed turn try; 2 lines held
+  const path = hPath(w)
+  const a0 = hAttempts(w, EVENTS)
+  const still = `Still cannot write ${path}: ${hErr(path)}. 2 lines are held; the adapter also tries at the end of each turn (try 1 of 10 used).`
+  for (let i = 0; i < 10; i++) expect(await hText($, i % 2 ? ' retry ' : 'retry')).toBe(still)   // typed ten times, the count stays
+  expect(hAttempts(w, EVENTS)).toBe(a0 + 10)
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool'])      // it records no event
+  f.broken = false
+  expect(await hText($, 'retry')).toBe(`Writing again: 2 held lines saved to ${path}.`)
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool', 'tool', 'turn'])
+  expect(await hText($, 'retry')).toBe('Nothing to retry: no write has failed.')
+  expect(hLog(w, 'write')[1]).toBe(`recovered after 1 tries: ${path}; wrote 2 lines`)
+})
+
+test('VER-70: with no python the recovery by /progress retry needs no evaluation, and the status line and the band go back at once', async ($, on) => {
+  const { w, f } = hWorld(on, { match: EVENTS, over: { python3: false } })
+  await start($)
+  await load($)
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  expect(hStatus(w)).toBe(H_RETRY)
+  const inv = w.invalidates.length
+  f.broken = false
+  expect((await hText($, 'retry')).startsWith('Writing again: ')).toBe(true)
+  expect(w.invalidates.length).toBe(inv + 1)
+  expect(hStatus(w)).toBe('progress: off (python not found)')
+})
+
+test('VER-70: after the stop /progress retry writes the .gitignore unconditionally: a failing write changes nothing, a working one lifts the stop for the next run', async ($, on) => {
+  const { w, f, st } = await hOpen($, on, { match: EVENTS })
+  await hStop($, w, f)
+  expect(hStatus(w)).toBe(H_OFF)
+  f.match = p => EVENTS(p) || p === IGNORE                          // the .gitignore exists, and now rejects a write
+  expect(await hText($, 'retry')).toBe(`Still cannot write ${IGNORE}: ${hErr(IGNORE)}. Tracking stays off.`)
+  expect(hStatus(w)).toBe(H_OFF)
+  expect(hOff(st)).toBe('cannot write devforgeai/progress')
+  await load($, 'devforgeai:prd')                                   // a skill load before the retry opens none
+  expect(runsOf(w, 'prd')).toEqual([])
+  expect(await hText($, 'anything else')).toBe(H_STOPPED)           // any other argument, and none
+  expect(await hText($)).toBe(H_STOPPED)
+  f.broken = false
+  const inv = w.invalidates.length
+  expect(await hText($, 'retry')).toBe('Tracking is on again: the next DevForgeAI skill you run opens a run. The run that was dropped is not revived.')
+  expect(hOff(st)).toBeNull()
+  expect(w.invalidates.length).toBe(inv + 1)
+  await load($, 'devforgeai:prd')
+  expect(runsOf(w, 'prd').length).toBe(1)
+  expect(kinds(eventsOf(w, 'prd'))).toEqual(['skill-loaded'])      // none of the dropped run's lines
+  const lines = hLog(w, 'write')
+  const at = (re: RegExp): number => lines.findIndex(l => re.test(l))
+  expect([at(/^held 1 lines/), at(/^gave up after 10 tries: .*\/events\.jsonl: .*EACCES.*; dropped 11 lines$/), at(/^retry failed: /),
+    at(/^stop lifted by \/progress retry$/)]).toEqual([0, 1, 2, 3])
+  // a stop after a lift toasts again
+  f.broken = true
+  await $.tool.call(READ('q.md'))
+  for (let i = 0; i < 10; i++) await done($, `u${i}`, null)
+  expect(hStatus(w)).toBe(H_OFF)
+  expect(w.toasts.filter(t => t === H_STOP_TOAST).length).toBe(2)
+})
+
+test('VER-70: a /clear while stopped leaves the stop standing; /progress is registered again and /progress retry answers', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  await hStop($, w, f)
+  const registered = w.registered.length
+  await clearTo($, w, 's2')
+  expect(w.registered.length).toBe(registered + 1)
+  expect(await hText($)).toBe(H_STOPPED)
+  await load($, 'devforgeai:prd')
+  expect(runsOf(w, 'prd')).toEqual([])
+  f.broken = false
+  expect(await hText($, 'retry')).toContain('Tracking is on again')
+  await load($, 'devforgeai:prd')
+  expect(runsOf(w, 'prd').length).toBe(1)
+})
+
+test('VER-70: with no write failed, or tracking off for another reason, /progress retry changes nothing', async ($, on) => {
+  const { w } = hWorld(on, { over: { python3: false } })
+  await start($)
+  await load($)
+  const writes = w.writes.length
+  expect(hStatus(w)).toBe('progress: off (python not found)')
+  expect(await hText($, 'retry')).toBe('Nothing to retry: no write has failed.')
+  expect(w.writes.length).toBe(writes)
+  expect(w.invalidates).toEqual([])
+})
+
+test('VER-70 (ERR-21): when /progress can\'t be registered the toast and the row say the adapter tries again at the end of each turn', async ($, on) => {
+  const { w, f } = hWorld(on, { match: EVENTS, over: { register: () => ({ deny: 'progress is a built-in command' }) } })
+  await start($)
+  await load($)
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  const path = hPath(w)
+  expect(w.toasts.includes(`DevForgeAI progress: cannot write ${path}: ${hErr(path)}. Events are held in memory; fix it; the adapter tries again at the end of each turn.`)).toBe(true)
+  expect(await hRow($)).toBe(`▲ Fix devforgeai/progress; the adapter tries again at the end of each turn · 1 lines held · cannot write ${path}: ${hErr(path)}`)
+})
+
+test('VER-70: a headless session, and a session with tracking off, hold, retry and register nothing', async ($, on) => {
+  const { w } = hWorld(on, { broken: true })
+  await start($, false)
+  await load($)
+  await done($, 't1')
+  expect(w.attempts).toEqual([])
+  expect(w.registered).toEqual([])
+  expect(w.invalidates).toEqual([])
+})
+
+test('VER-70: with tracking off nothing is held, retried or registered', { options: { tracking: 'off' } } as Any, async ($: Any, on: Any) => {
+  const { w } = hWorld(on, { broken: true })
+  await start($)
+  await load($)
+  await done($, 't1')
+  expect(w.attempts).toEqual([])
+  expect(w.registered).toEqual([])
+})
+
+// -- VER-71: what pauses while the run's log is held, and a run that leaves memory --
+
+/** An evaluator that refuses every pending check: a Write at the write gate, a question at the question gate. */
+function hRefusing(files: () => Map<string, string>): Over['evaluate'] {
+  return (argv: readonly string[]) => {
+    const ev = argv[argv.indexOf('--events') + 1]
+    if (!ev.endsWith('/pending.jsonl')) return { state: STATE }
+    const last = JSON.parse((files().get(ev) ?? '').trim().split('\n').pop()!)
+    const gate = last.kind === 'answer' ? 'question' : 'write'
+    const type = gate === 'question' ? 'unmarked-question' : 'skipped'
+    const message = gate === 'question' ? MESSAGES[type] : 'step 1 had no answer from you'
+    return { state: { ...STATE, gate: { kind: gate, seq: last.seq, refuse: true, reason: 'x' }, flags: [{ gate, seq: last.seq, step: 1, type, message }] } }
+  }
+}
+
+test('VER-71: in enforce mode a held log lets the write gate and the question gate proceed, with no pending file and no evaluation; once the write works they refuse again', async ($, on) => {
+  let ww!: World
+  const { w, f } = hWorld(on, { match: EVENTS, over: { mode: 'enforce local', evaluate: hRefusing(() => ww.files) } })
+  ww = w
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await $.tool.call(READ('a.md'))
+  await w.clock.advance(600)
+  expect(typeof ((await $.tool.call(WRITE as Any)) as Any).deny).toBe('string')
+  expect(typeof ((await $.tool.call(QUESTION as Any)) as Any).deny).toBe('string')
+  const pending = (): number => hAttempts(w, p => p.endsWith('/pending.jsonl'))
+  const p0 = pending()
+  const e0 = hEvals(w)
+  expect(p0 > 0).toBe(true)
+  f.broken = true
+  await $.tool.call(READ('b.md'))                                   // the hold
+  const tools = w.tools.length
+  expect((await $.tool.call(WRITE as Any) as Any).deny).toBeUndefined()
+  expect((await $.tool.call(QUESTION as Any) as Any).deny).toBeUndefined()
+  expect(w.tools.slice(tools)).toEqual(['Write', 'AskUserQuestion'])   // both went on
+  expect(pending()).toBe(p0)                                        // no pending file was tried
+  expect(hEvals(w)).toBe(e0)                                        // and no evaluator ran
+  expect(await hRow($)).toContain('· enforce mode checks nothing until then ·')
+  f.broken = false
+  await done($, 't1', null)
+  expect(typeof ((await $.tool.call(WRITE as Any)) as Any).deny).toBe('string')
+  expect(typeof ((await $.tool.call(QUESTION as Any)) as Any).deny).toBe('string')
+  expect(pending() > p0).toBe(true)
+  expect(await hRow($)).toBeNull()
+})
+
+test('VER-71: BEH-38 (a) still refuses a Bash command that names the document while the log is held, and (b) still records what a call wrote, with no evaluation and no text', async ($, on) => {
+  let ww!: World
+  let broken = false
+  const { w } = diskWorld(on, { mode: 'enforce local', evaluate: flaggingWrote(() => ww), failWrite: p => broken && EVENTS(p),
+    during: (e, w, d) => { if (String(e.command).includes('sed -n p')) putFile(w, d, BRN_ONE, BRN_TEXT, 1000) } })
+  ww = w
+  await start($)
+  await load($)
+  await $.tool.call(READ('a.md'))
+  broken = true
+  await $.tool.call(READ('b.md'))                                   // the hold
+  const e0 = hEvals(w)
+  expect((await $.tool.call(bash(`cat ${BRN_ONE}`) as Any) as Any).deny).toBe(OUTSIDE_REFUSAL(BRN_ONE))
+  const r = (await $.tool.call(bash('cd docs/specs/brainstorm && sed -n p ../../../d.md > BRN-001.md') as Any)) as Any
+  expect(r.deny).toBeUndefined()
+  expect(r.context).toBeUndefined()
+  expect(hEvals(w)).toBe(e0)
+  broken = false
+  await done($, 't1', null)
+  const ev = eventsParsed(w)
+  expect(ev.filter(e => e.wrote === true).map(e => e.path)).toEqual([BRN_ONE])
+  expect(ev.filter(e => e.error === true).map(e => e.command)).toEqual([`cat ${BRN_ONE}`])
+})
+
+test('VER-71: while the log is held the timer starts no evaluation and a main-loop turn end asks no review, leaving reviewed as it was; the turn whose try works asks it', async ($, on) => {
+  const asked: string[] = []
+  let state: Any = STATE
+  let broken = false
+  const w = reviewWorld(on, () => state, ['Accept'], asked, { failWrite: p => broken && EVENTS(p) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await $.tool.call(QUESTION as Any)                                // refused: unmarked-question at step 2
+  state = reached([])
+  await w.clock.advance(600)
+  broken = true
+  await $.tool.call(READ('b.md'))                                   // the hold
+  await turnEnd($)                                                  // answered, and still failing: nothing is asked
+  expect(asked.length).toBe(0)
+  expect(runFiles(w, 'review.jsonl').length).toBe(0)
+  const e0 = hEvals(w)
+  await w.clock.advance(2000)
+  expect(hEvals(w)).toBe(e0)
+  broken = false
+  await turnEnd($)                                                  // the try works, then the review
+  expect(asked.length).toBe(1)
+  expect(reviewLines(w).map(l => l.answer)).toEqual(['accept'])
+})
+
+test('VER-71: while the log is held the exit confirmation is asked from the last evaluation, and no evaluation is started', async ($, on) => {
+  const asked: string[] = []
+  const ran: string[] = []
+  let cur = 3
+  let broken = false
+  const w = world(on, { evaluate: () => ({ state: archState(cur) }), tool: (e: Any) => confirming('Keep working', asked)(e), failWrite: p => broken && EVENTS(p) })
+  commands(on, ran)
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await w.clock.advance(600)
+  broken = true
+  await $.tool.call(READ('b.md'))
+  cur = 5
+  const e0 = hEvals(w)
+  const kept = (await $.command.run({ command: 'clear', args: '', origin: COMPOSER } as Any)) as Any
+  expect(asked).toEqual(['architecture run is at step 3 of 11 and unfinished. Clear anyway?'])
+  expect(kept.text).toBe('Kept working: the architecture run is still at step 3.')
+  expect(hEvals(w)).toBe(e0)
+})
+
+test('VER-71 (ERR-17): while the log is held no offer to continue is made: nothing is asked and the skill loads', async ($, on) => {
+  let broken = false
+  const r = rWorld($, on, { earlier: [rBrn(4)], failWrite: p => broken && EVENTS(p) })
+  await start($)
+  await load($, 'devforgeai:prd')
+  await $.tool.call(READ('a.md'))
+  broken = true
+  await $.tool.call(READ('b.md'))                                   // the hold
+  await rType($)                                                    // typed: /devforgeai:brainstorm
+  expect(r.asked).toEqual([])
+  expect(r.texts.slice(-1)[0]).toBe(TAGGED)                         // no continue line
+  broken = false
+  await done($, 't1', null)
+  expect(rLog(r.w).some(l => l.startsWith('no offer: ') && l.includes('held'))).toBe(true)
+})
+
+test('VER-71: a tracked skill\'s load while the log is held gives the old run one write of its whole log with its run-end; when it works the hold is lifted and the run is evaluated once more', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await done($, 't1', null)
+  f.broken = false
+  const e0 = hEvals(w)
+  await load($, 'devforgeai:prd')
+  const old = eventsOf(w, 'brainstorm').map(l => JSON.parse(l))
+  expect(old.map(e => e.seq)).toEqual(hRange(5))
+  expect(old[4]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(hEvals(w) - e0).toBe(1)                                    // the ended run's final evaluation
+  expect(await hRow($)).toBeNull()
+  expect(kinds(eventsOf(w, 'prd'))).toEqual(['skill-loaded'])
+  expect(hLog(w, 'write').map(l => l.replace(/ .*/, ''))).toEqual(['held', 'recovered'])
+})
+
+test('VER-71: if that write fails the old run\'s unwritten lines are dropped with one line, the new run opens in memory with its first line held, and the hold goes on', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await done($, 't1', null)                                         // 2 lines held, one failed try
+  const e0 = hEvals(w)
+  await load($, 'devforgeai:prd')                                   // still failing
+  expect(hEvals(w)).toBe(e0)                                        // no final evaluation
+  expect(hStatus(w)).toBe(H_RETRY)
+  expect(runsOf(w, 'prd')).toEqual([])
+  expect(kinds(eventsOf(w, 'brainstorm'))).toEqual(['skill-loaded', 'tool'])   // no run-end in its file
+  expect(w.toasts.filter(t => t.startsWith('DevForgeAI progress: cannot write ')).length).toBe(1)   // the same hold: no second toast
+  f.broken = false
+  await done($, 't2', null)
+  expect(kinds(eventsOf(w, 'prd'))).toEqual(['skill-loaded', 'turn'])
+  const lines = hLog(w, 'write')
+  expect(lines.length).toBe(3)
+  expect(lines[1]).toMatch(/^dropped 3 lines of \d{8}T\d{6}Z-brainstorm-[0-9a-f]{8}: .*\/events\.jsonl: .*EACCES/)
+  expect(lines[2]).toMatch(/^recovered after 1 tries: .*-prd-[0-9a-f]{8}\/events\.jsonl; wrote 2 lines$/)
+})
+
+for (const broken of [false, true]) {
+  test(`VER-71: a nested load (BEH-29) while the log is held pauses the run with one write ${broken ? 'that fails: its unwritten lines are dropped' : 'that works'}, and the push goes on; the trail is not emptied`, async ($, on) => {
+    let down = false
+    const x = xWorld(on, xStates(), undefined, { failWrite: p => down && EVENTS(p) })
+    const { w } = x
+    await start($)
+    await load($, 'devforgeai:architecture', TAGGED)
+    await taskList($, 11, 7)
+    await w.clock.advance(600)
+    down = true
+    await $.tool.call(READ('held.md'))                              // the hold on architecture's log
+    down = broken
+    const text = await x.load($, 'devforgeai:spec-lookup')
+    expect(text.endsWith('\n\n' + RETURN_7)).toBe(true)
+    expect(xRuleEnds(w, 'architecture')).toEqual([])                // paused, not ended
+    const arch = logOf(w, 'architecture').map(e => e.kind === 'tool' ? e.path : e.kind)
+    expect(arch.includes('docs/held.md')).toBe(!broken)
+    down = false
+    await done($, 't1', null)
+    expect(kinds(eventsOf(w, 'spec-lookup'))).toEqual(['skill-loaded', 'turn'])
+    expect(trailLog(w)[0]).toBe('push architecture at step 7 (1 on the trail)')
+    expect(trailLog(w).some(l => l.startsWith('empty'))).toBe(false)
+    expect(hLog(w, 'write').some(l => l.startsWith('dropped 1 lines of '))).toBe(broken)
+  })
+}
+
+test('VER-71: /clear adds the run-end to the held lines and tries one write; when it works the file ends with the run-end and the final evaluation runs', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await done($, 't1', null)
+  f.broken = false
+  const e0 = hEvals(w)
+  await clearTo($, w, 's2')
+  const events = eventsOf(w).map(l => JSON.parse(l))
+  expect(events.map(e => e.seq)).toEqual(hRange(5))
+  expect(events[4]).toMatchObject({ kind: 'run-end', reason: 'clear' })
+  expect(hEvals(w) - e0).toBe(1)
+  expect(await hRow($)).toBeNull()
+})
+
+test('VER-71: /clear with the folder still failing leaves no run-end in the file', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await done($, 't1', null)
+  expect(hStatus(w)).toBe(H_RETRY)
+  const e0 = hEvals(w)
+  await clearTo($, w, 's2')
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded', 'tool'])
+  expect(hEvals(w)).toBe(e0)
+  expect(await hRow($)).toBeNull()                                  // the hold ended with the session
+})
+
+test('VER-71: a paused run\'s run-end whose write fails is dropped with a line and starts no hold of its own', async ($, on) => {
+  let down = false
+  const x = xWorld(on, xStates(), undefined, { failWrite: p => down && EVENTS(p) && p.includes('-architecture-') })
+  const { w } = x
+  await xNested($, x)
+  down = true
+  await ($ as Any).session.end({ reason: 'clear', sessionId: w.sessionId, resume: { id: w.sessionId } })
+  expect(hStatus(w)).not.toBe(H_RETRY)
+  expect(w.toasts.filter(t => t.startsWith('DevForgeAI progress: cannot write ')).length).toBe(0)
+  expect(hLog(w, 'write').length).toBe(1)
+  expect(hLog(w, 'write')[0]).toMatch(/^dropped 1 lines of \d{8}T\d{6}Z-architecture-[0-9a-f]{8}: .*-architecture-.*\/events\.jsonl: .*EACCES/)
+  expect(xRuleEnds(w, 'spec-lookup').map(e => e.reason)).toEqual(['clear'])
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
+})
+
+test('VER-71: a reload in the middle of a hold loses the held lines; the run goes on from the lines the file holds with its seq continuing, and a write that fails again starts a hold again', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await $.tool.call(READ('c.md'))                                   // two lines held
+  await start($)                                                    // the reload: session.start again, the module's memory starts over
+  await w.clock.advance(600)
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+  expect(await hRow($)).toBeNull()
+  f.broken = false
+  await $.tool.call(READ('d.md'))
+  expect(hSeqs(w)).toEqual([1, 2, 3])                               // the lines held before the reload are gone; no seq repeats in the file
+  expect(eventsOf(w).map(l => JSON.parse(l).path)[2]).toBe('docs/d.md')
+  f.broken = true
+  await $.tool.call(READ('e.md'))                                   // fails again: a hold again
+  expect(hStatus(w)).toBe(H_RETRY)
+  expect(w.toasts.filter(t => t.startsWith('DevForgeAI progress: cannot write ')).length).toBe(2)
+})
+
+test('VER-71: a reload when the run was opened in memory finds no events.jsonl: the run is dropped and a line says so, no later hook raises an error, and the next tracked skill opens a run', async ($, on) => {
+  const { w, f, st } = hWorld(on, { match: EVENTS, broken: true })
+  await start($)
+  await load($)
+  expect(hStatus(w)).toBe(H_RETRY)
+  await start($)                                                    // the reload
+  expect(st.values.get('devforgeai/run')?.value).toBeNull()
+  await $.tool.call(READ('b.md'))
+  await done($, 't1', null)
+  expect(w.toasts.filter(t => /^DevForgeAI progress: [a-z.]+: /.test(t))).toEqual([])
+  expect(hLog(w, 'write')).toContain('dropped the run: no events.jsonl after a reload')
+  f.broken = false
+  await load($, 'devforgeai:prd')
+  expect(kinds(eventsOf(w, 'prd'))).toEqual(['skill-loaded'])
+})
+
+// -- VER-72: the odometer ledger under the same rule --
+
+test('VER-72: an odometer file that can\'t be written is held: lines in order, one write for the hold at each main-loop turn end, none at a subagent\'s; the status line ends with odometer retrying; the recovery writes the whole file', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: p => p === ODO })
+  f.broken = true
+  await done($, 't1')
+  expect(hStatus(w)).toBe('brainstorm 2/2 · odometer retrying')
+  expect(await hRow($)).toBe(`▲ Fix devforgeai/progress, then /progress retry · 1 odometer lines held · cannot write ${ODO}: ${hErr(ODO)}`)
+  expect(w.toasts.filter(t => t.startsWith(`DevForgeAI progress: cannot write ${ODO}`)).length).toBe(1)
+  const a0 = hAttempts(w, p => p === ODO)
+  await done($, 'u1', USAGE, { agentId: 'agent-7' })               // a subagent's turn end: its line is added, nothing is written
+  expect(hAttempts(w, p => p === ODO)).toBe(a0)
+  await done($, 't2')                                               // a main-loop turn end: one try
+  expect(hAttempts(w, p => p === ODO)).toBe(a0 + 1)
+  expect(await hRow($)).toContain('· 3 odometer lines held ·')
+  expect(w.files.has(ODO)).toBe(false)
+  expect(await hText($, 'retry')).toBe(`Still cannot write ${ODO}: ${hErr(ODO)}. 3 lines are held; the adapter also tries at the end of each turn (try 2 of 10 used).`)
+  f.broken = false
+  await done($, 't3')
+  expect(odo(w).map(l => l.turn)).toEqual(['t1', 'u1', 't2', 't3'])
+  expect(odo(w).map(l => l.source)).toEqual(['main', 'agent-7', 'main', 'main'])
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+  expect(await hRow($)).toBeNull()
+  expect(hLog(w, 'dashboard')).toEqual([`odometer: held 1 lines: ${ODO}: ${hErr(ODO)}`, `odometer: recovered after 2 tries: ${ODO}; wrote 4 lines`])
+  expect(w.toasts.includes('DevForgeAI progress: writing again; 4 held lines saved.')).toBe(true)
+  expect(kinds(eventsOf(w)).includes('usage')).toBe(true)          // the run went on untouched
+})
+
+test('VER-72: at the tenth failed turn try the ledger stops for the session: held lines dropped, no more writes, one toast, the run untouched; /progress retry lifts that stop', async ($, on) => {
+  const { w, f, st } = await hOpen($, on, { match: p => p === ODO })
+  f.broken = true
+  await done($, 't0')                                               // the hold, and its own turn end's try
+  for (let i = 1; i < 9; i++) {
+    await done($, `t${i}`)
+    expect(hStatus(w)).toBe('brainstorm 2/2 · odometer retrying')
+  }
+  await done($, 't9')                                               // the tenth failed try
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+  expect(hOff(st)).toBeNull()
+  expect(w.toasts.includes(`DevForgeAI progress: the odometer is off for this session (cannot write ${ODO}). Fix it, then /progress retry.`)).toBe(true)
+  expect(hLog(w, 'dashboard').slice(-1)[0]).toBe(`odometer: gave up after 10 tries: ${ODO}: ${hErr(ODO)}; dropped 10 lines`)
+  const a0 = hAttempts(w, p => p === ODO)
+  await done($, 't10')                                              // nothing is held, nothing is written
+  expect(hAttempts(w, p => p === ODO)).toBe(a0)
+  expect(await hRow($)).toBeNull()
+  expect(await hText($, 'retry')).toBe(`Still cannot write ${ODO}: ${hErr(ODO)}. The odometer stays off.`)
+  f.broken = false
+  expect(await hText($, 'retry')).toBe('The odometer is writing again.')
+  await done($, 't12')
+  expect(odo(w).map(l => l.turn)).toEqual(['t12'])                  // the dropped lines are gone
+  expect(kinds(eventsOf(w)).filter(k => k === 'usage').length).toBe(12)
+  expect(hLog(w, 'dashboard').some(l => l === 'odometer: stop lifted by /progress retry')).toBe(true)
+})
+
+test('VER-72: a file that would pass 4 MiB or can\'t be read back stays stopped; no retry lifts it', async ($, on) => {
+  const w = world(on, { files: { [ODO]: `${JSON.stringify(LEDGER('old'))}\n` }, failRead: p => p === ODO })
+  await start($)
+  await load($)
+  await done($, 't1')
+  expect(await hText($, 'retry')).toBe('Nothing to retry: no write has failed.')
+  await done($, 't2')
+  expect(w.writes.includes(ODO)).toBe(false)
+  expect(uLog(w, 'dashboard').length).toBe(1)
+})
+
+test('VER-72: when the run\'s log gives up the ledger writes nothing and its held lines are dropped; /progress retry lifts both stops', async ($, on) => {
+  const { w, f } = await hOpen($, on)
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  for (let i = 0; i < 10; i++) await done($, `t${i}`)               // both holds; the run\'s log reaches its tenth try first
+  expect(hStatus(w)).toBe(H_OFF)
+  const n = w.attempts.length
+  await done($, 'tx')
+  expect(w.attempts.length).toBe(n)                                 // not a write of any file
+  f.broken = false
+  expect(await hText($, 'retry')).toContain('Tracking is on again')
+  await done($, 'ty')
+  expect(odo(w).map(l => l.turn)).toEqual(['ty'])
+  expect(hLog(w, 'dashboard')).toContain('odometer: dropped 10 lines: the tracker stopped')
+})
+
+test('VER-72: a missing Python leaves the ledger writing', async ($, on) => {
+  const w = world(on, { python3: false })
+  await start($)
+  await load($)
+  await done($, 't1')
+  expect(odo(w).map(l => l.turn)).toEqual(['t1'])
+})
+
+test('VER-72: ERR-11\'s full log leaves the ledger writing; an odometer hold with no run open draws the row alone', { timeoutMs: 180000 }, async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: p => p === ODO })
+  for (let i = 0; i < 200 && !w.statuses.includes('progress: off (event log full)'); i++) {
+    await $.tool.call({ tool: 'Bash', command: 'z'.repeat(30 * 1024) } as Any)
+  }
+  expect(w.statuses.includes('progress: off (event log full)')).toBe(true)
+  await done($, 't1')
+  expect(odo(w).map(l => l.turn)).toEqual(['t1'])                   // still writing
+  f.broken = true
+  await done($, 't2')                                               // a hold with no run open
+  expect(hStatus(w)).toBe('progress: off (event log full)')
+  const row = await hRow($)
+  expect(row).toBe(`▲ Fix devforgeai/progress, then /progress retry · 1 odometer lines held · cannot write ${ODO}: ${hErr(ODO)}`)
+  const none = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, maxRows: 1, bodyColumns: 400 } })
+  expect(await none.find({ text: /step \d+ of \d+/ })).toBeUndefined()
+  await none.unmount()
+  expect(w.invalidates.length).toBe(1)
+})
+
+test('VER-72: with both holds at once the row and the status line are the run\'s, and each recovers on its own', async ($, on) => {
+  const { w, f } = await hOpen($, on)
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await done($, 't1')                                               // the run's hold, and the ledger's
+  expect(hStatus(w)).toBe(H_RETRY)
+  expect(await hRow($)).toContain(' lines held · cannot write ')
+  expect((await hRow($))!.includes('odometer lines')).toBe(false)
+  const answer = (await hText($, 'retry')).split('\n')            // one sentence for each hold
+  expect(answer.length).toBe(2)
+  expect(answer[0]).toMatch(/^Still cannot write .*\/events\.jsonl: .*\. \d+ lines are held; the adapter also tries at the end of each turn \(try 1 of 10 used\)\.$/)
+  expect(answer[1]).toContain(`Still cannot write ${ODO}: `)
+  f.match = p => p === ODO                                          // the run\'s folder works again, the ledger\'s file doesn\'t
+  await done($, 't2')
+  expect(kinds(eventsOf(w)).length).toBe(7)                         // the run recovered at that turn end
+  expect(hStatus(w)).toBe('brainstorm 2/2 · odometer retrying')
+  expect(await hRow($)).toContain('· 2 odometer lines held ·')
+  f.broken = false
+  await done($, 't3')
+  expect(odo(w).map(l => l.turn)).toEqual(['t1', 't2', 't3'])
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+})
+
+test('VER-72: while devforgeai/progress/ itself can\'t be created only the run\'s hold shows, and the ledger\'s and adapter.log\'s lines wait for a root', async ($, on) => {
+  const { w, f } = hWorld(on, { match: p => p.endsWith('/.gitignore'), broken: true })
+  await start($)
+  await load($)
+  await done($, 't1')
+  await done($, 't2')
+  expect(hStatus(w)).toBe(H_RETRY)
+  expect(await hRow($)).toContain(' lines held · cannot write ')
+  expect((await hRow($))!.includes('odometer')).toBe(false)
+  expect(w.files.has(ODO)).toBe(false)
+  expect(w.files.has(`${SESSION}/adapter.log`)).toBe(false)
+  f.broken = false
+  await done($, 't3')                                               // the folder is made; the ledger's lines go with the next turn
+  expect(w.files.has(`${SESSION}/adapter.log`)).toBe(true)
+  await done($, 't4')
+  expect(odo(w).map(l => l.turn)).toEqual(['t1', 't2', 't3', 't4'])
+})
+
+// -- VER-73: what the person sees --
+
+test('VER-73: the row stands after the band\'s rows and before BEH-35\'s row; with too few rows the precompact row goes first and then this one', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  await measure($, 72)                                              // BEH-35's row is due: fuel 28%
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  const after = 'drawn by the mods after it'
+  expect(await hTexts($, 4)).toEqual(['step 2 of 2', 'observe mode', 'Fix devforgeai/progress', '▲ Fuel 28%', after])
+  expect(await hTexts($, 3)).toEqual(['step 2 of 2', 'observe mode', 'Fix devforgeai/progress', after])
+  expect(await hTexts($, 2)).toEqual(['step 2 of 2', 'observe mode', after])
+  expect(await hTexts($, 1)).toEqual(['step 2 of 2', after])
+  expect(await hTexts($, 4, { hasSurvey: true })).toEqual([])        // nothing of its own: only what the mods after it draw
+  expect(await hRow($, 3, { hasSurvey: true })).toBeNull()
+})
+
+test('VER-73: the row is cut at its end to the width, so the action stays; in enforce mode it says that enforce mode checks nothing until then', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS, over: { mode: 'enforce local' } })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  const path = hPath(w)
+  expect(await hRow($)).toBe(`▲ Fix devforgeai/progress, then /progress retry · 1 lines held · enforce mode checks nothing until then · cannot write ${path}: ${hErr(path)}`)
+  const narrow = await hRow($, 3, { bodyColumns: 40 })
+  expect(narrow!.startsWith('▲ Fix devforgeai/progress, then /pro')).toBe(true)
+  expect(Array.from(narrow!).length <= 40).toBe(true)
+  expect(w.statuses[w.statuses.length - 1]).toBe(H_RETRY)
+})
+
+test('VER-73: where nothing draws the toast text also goes to the transcript', async ($, on) => {
+  const { w, f } = hWorld(on, { match: EVENTS, over: { surfaces: [] } })
+  await start($)
+  await load($)
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  const path = hPath(w)
+  const toast = `DevForgeAI progress: cannot write ${path}: ${hErr(path)}. Events are held in memory; fix it, then /progress retry.`
+  expect(w.toasts.includes(toast)).toBe(true)
+  expect(w.logs.includes(toast)).toBe(true)
+})
+
+test('VER-73: no write of adapter.log is tried while a hold lasts; the first 200 lines wait in order and are written ahead of the next line', async ($, on) => {
+  const { w, f } = await hOpen($, on)
+  const logPath = `${SESSION}/adapter.log`
+  f.broken = true
+  const from = w.attempts.length
+  await $.tool.call(READ('b.md'))                                   // the hold: its first line waits
+  for (let i = 0; i < 250; i++) await $.tool.call({ tool: 'TaskCreate', subject: `x${i}`, description: 'd' } as Any)   // a line each: no step for the task
+  expect(w.attempts.slice(from).filter(p => p === logPath)).toEqual([])
+  f.broken = false
+  await done($, 't1', null)
+  const writes = hLog(w, 'write')
+  expect(writes[0]).toMatch(/^held 1 lines: /)
+  expect(writes[writes.length - 1]).toMatch(/^recovered after \d+ tries: /)
+  const tasks = hLog(w, 'task')
+  expect(tasks.length).toBe(199)                                    // 200 waited, the hold's own line the first
+  expect(tasks[0]).toBe('no step for task: x0')
+  expect(tasks[198]).toBe('no step for task: x198')
+  const all = (w.files.get(logPath) ?? '').split('\n')
+  expect(all.findIndex(l => l.includes(' write: held 1 lines')) < all.findIndex(l => l.includes(' task: no step for task: x0'))).toBe(true)
+})
+
+test('VER-73: each start and clear of a hold, each fall back to the stop and each lift of it calls $.ui.invalidate once, and no $.state key is added', async ($, on) => {
+  const { w, f, st } = await hOpen($, on)
+  expect(w.invalidates).toEqual([])
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  expect(w.invalidates).toEqual(['ui.render'])                      // the hold starts
+  await done($, 't1', null)
+  expect(w.invalidates.length).toBe(1)
+  f.broken = false
+  await done($, 't2', null)
+  expect(w.invalidates).toEqual(['ui.render', 'ui.render'])         // it clears
+  await $.tool.call(READ('c.md'))
+  await w.clock.advance(600)
+  expect(w.invalidates.length).toBe(2)
+  f.broken = true
+  await hStop($, w, f)
+  expect(w.invalidates.length).toBe(4)                              // a hold again, and the fall back to the stop
+  f.broken = false
+  await hText($, 'retry')
+  expect(w.invalidates.length).toBe(5)                              // the lift
+  expect(st.sets.every(s => hKnownKeys.includes(s.key))).toBe(true)
+})
+
+test('VER-69 (review, S3): a hold that starts in a turn\'s own end is tried in it too; its count is 1 after it', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  const a0 = hAttempts(w, EVENTS)
+  f.broken = true
+  await done($, 't1', null)                                         // the turn end's own write fails: the hold starts, and is tried
+  expect(hAttempts(w, EVENTS) - a0).toBe(2)
+  const path = hPath(w)
+  expect(await hText($, 'retry')).toBe(`Still cannot write ${path}: ${hErr(path)}. 1 lines are held; the adapter also tries at the end of each turn (try 1 of 10 used).`)
+})
+
+test('VER-70: the stop empties the trail and its paused runs get no run-end', async ($, on) => {
+  let down = false
+  const x = xWorld(on, xStates(), undefined, { failWrite: p => down && EVENTS(p) })
+  const { w } = x
+  await xNested($, x)
+  down = true
+  await $.tool.call(READ('held.md'))
+  for (let i = 0; i < 10; i++) await done($, `t${i}`, null)
+  expect(hStatus(w)).toBe(H_OFF)
+  down = false
+  expect(await hText($, 'retry')).toContain('Tracking is on again')
+  expect(xRuleEnds(w, 'architecture')).toEqual([])
+  expect(xRuleEnds(w, 'spec-lookup')).toEqual([])
+  expect(trailLog(w).some(l => l === 'empty (tracking stopped: cannot write devforgeai/progress)')).toBe(true)
+})
+
+test('VER-72: a held file that would pass 4 MiB stops the ledger as in version 25: the hold ends, nothing more is written, and no retry lifts it', async ($, on) => {
+  const big = 'x'.repeat(4 * 1024 * 1024 - 200) + '\n'
+  const { w, f } = hWorld(on, { match: p => p === ODO, over: { files: { [ODO]: big } } })
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  f.broken = true
+  await done($, 't1')                                               // the file would still fit: the write fails and the hold starts
+  expect(hStatus(w)).toBe('brainstorm 2/2 · odometer retrying')
+  await done($, 't2')                                               // now it would pass 4 MiB
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+  expect(await hRow($)).toBeNull()
+  expect(uLog(w, 'dashboard').some(l => l.includes('would pass 4 MiB'))).toBe(true)
+  const a0 = hAttempts(w, p => p === ODO)
+  await done($, 't3')
+  expect(hAttempts(w, p => p === ODO)).toBe(a0)
+  expect(await hText($, 'retry')).toBe('Nothing to retry: no write has failed.')
+})
+
+test('VER-69 (review, S3): a run hold that starts in a turn\'s own end is tried in it, with the odometer\'s hold', async ($, on) => {
+  const { w, f } = await hOpen($, on)
+  f.match = p => p === ODO
+  f.broken = true
+  await done($, 't1')                                               // the ledger's hold starts
+  f.match = p => p === ODO || EVENTS(p)
+  const a0 = hAttempts(w, EVENTS)
+  await done($, 't2')                                               // the turn end's own write fails (the run's hold starts); both are tried
+  expect(hAttempts(w, EVENTS) - a0).toBe(2)
+  expect(hAttempts(w, p => p === ODO)).toBe(3)                      // t1's write and its try, and t2's try
+  const path = hPath(w)
+  expect((await hText($, 'retry')).split('\n')[0]).toBe(`Still cannot write ${path}: ${hErr(path)}. 2 lines are held; the adapter also tries at the end of each turn (try 1 of 10 used).`)
+})
+
+test('VER-71: a run that returns (BEH-30 (a)) while its log is held gets one write of its whole log with its run-end', async ($, on) => {
+  let down = false
+  const x = xWorld(on, xStates(), undefined, { failWrite: p => down && EVENTS(p) })
+  const { w } = x
+  await xNested($, x)
+  down = true
+  await $.tool.call(READ('held.md'))                                // the hold, on spec-lookup's log
+  down = false
+  await $.tool.call(xTaskUpdate('7', 'in_progress'))                // Claude goes back to architecture: spec-lookup returns
+  const events = logOf(w, 'spec-lookup')
+  expect(events.map(e => e.seq)).toEqual(hRange(events.length))
+  expect(events.some(e => e.kind === 'tool' && e.path === 'docs/held.md')).toBe(true)
+  expect(events.filter(e => e.kind === 'run-end').map(e => e.reason)).toEqual(['returned'])
+  expect(hStatus(w)).not.toBe(H_RETRY)
+})
+
+test('VER-71: while the log is held a returned run is not reviewed either; the answered turn whose try works asks', async ($, on) => {
+  let down = false
+  const asked: string[] = []
+  const states = { architecture: () => archState(7), 'spec-lookup': () => skState('spec-lookup', 5, null, null, [FLAG8]) }
+  const inner = taskTools()
+  const route = (e: Any): Any => (e.tool === 'AskUserQuestion' && e.questions?.[0]?.header === 'Review' ? reviewing(['Accept'], asked)(e) : inner(e))
+  const x = xWorld(on, states, route, { failWrite: p => down && EVENTS(p) })
+  const { w } = x
+  await xNested($, x)
+  await w.clock.advance(600)                                        // spec-lookup is evaluated: every step reached
+  down = true
+  await $.tool.call(READ('held.md'))                                // the hold
+  await turnEnd($, 'a1')                                            // answered: spec-lookup returns, and nothing is asked while the log is held
+  expect(asked).toEqual([])
+  down = false
+  await turnEnd($, 'a2')                                            // the try works; the returned run is asked about
+  expect(asked.length).toBe(1)
+  expect(asked[0]).toContain('spec-lookup')
+})
+
+test('VER-69 (e): a recovery marks the run, so the first evaluation since the hold runs even when only unmarking events were held', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  const e0 = hEvals(w)
+  f.broken = true
+  await done($, 't1', null)                                         // a turn end marks nothing for evaluation
+  await w.clock.advance(1200)
+  expect(hEvals(w)).toBe(e0)
+  f.broken = false
+  expect((await hText($, 'retry')).startsWith('Writing again: 1 held lines saved to ')).toBe(true)
+  await w.clock.advance(600)
+  expect(hEvals(w)).toBe(e0 + 1)                                    // over the whole file, once
+})
+
+test('VER-72: /progress retry after both the ledger\'s own stop and the tracker\'s stop lifts both: the ledger writes again', async ($, on) => {
+  const { w, f } = await hOpen($, on)
+  f.match = p => p === ODO
+  f.broken = true
+  for (let i = 0; i < 10; i++) await done($, `a${i}`)               // the ledger gives up at its tenth failed try
+  expect(hLog(w, 'dashboard').some(l => l.includes('gave up after 10 tries'))).toBe(true)
+  f.match = p => p.startsWith(PROGRESS)
+  await $.tool.call(READ('b.md'))
+  for (let i = 0; i < 10; i++) await done($, `b${i}`, null)         // and then the run's log gives up
+  expect(hStatus(w)).toBe(H_OFF)
+  f.broken = false
+  expect(await hText($, 'retry')).toContain('Tracking is on again')
+  await done($, 'tz')
+  expect(odo(w).map(l => l.turn)).toEqual(['tz'])
+})
+
+test('VER-69 (review, S3): an odometer hold that starts in a turn\'s own end is tried in it, with the run\'s hold', async ($, on) => {
+  const { w, f } = await hOpen($, on)
+  f.match = EVENTS
+  f.broken = true
+  await $.tool.call(READ('b.md'))                                   // the run's hold starts
+  f.match = p => p.startsWith(PROGRESS)
+  const a0 = hAttempts(w, p => p === ODO)
+  await done($, 't1')                                               // the ledger's write fails (its hold starts); both are tried
+  expect(hAttempts(w, p => p === ODO) - a0).toBe(2)
+  const answer = (await hText($, 'retry')).split('\n')
+  expect(answer.length).toBe(2)
+  expect(answer[1]).toContain(`Still cannot write ${ODO}: `)
+  expect(answer[1]).toContain('(try 1 of 10 used)')
+})
+
+// ---- the build's adversarial review (2026-10-09): C1, S1, S2, S3, written first and seen failing ----
+
+/** Architecture at step 7 opened with devforgeai/progress unwritable, then spec-lookup loaded: the paused run never had a file. */
+async function cNested($: Any, on: Any, fixBeforeUnwind: boolean) {
+  const f = { broken: true }
+  const x = xWorld(on, xStates(), undefined, { failWrite: (p: string) => f.broken && p.startsWith(PROGRESS) })
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  await x.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('worked.md'))
+  if (fixBeforeUnwind) f.broken = false
+  await $.tool.call(xTaskUpdate('7', 'completed'))                  // the unwind
+  return { w, f, x }
+}
+
+test('C1 (review, Bryan 2026-10-09): a run opened in memory and paused by a nested load keeps its lines; resumed with the folder still broken it is still held, no hook errors, and /progress retry answers', async ($, on) => {
+  const { w, f } = await cNested($, on, false)
+  expect(hStatus(w)).toBe(H_RETRY)
+  await $.tool.call(READ('more.md'))                                // the resumed run records into its held lines
+  await done($, 't1', null)
+  await done($, 't2', null)
+  expect(w.toasts.filter(t => t.includes('ENOENT'))).toEqual([])
+  expect(hStatus(w)).toBe(H_RETRY)
+  const still = await hText($, 'retry')                             // answers, and does not throw
+  expect(still).toContain('Still cannot write ')
+  expect(still).toContain('(try 2 of 10 used)')                     // K counts as usual
+  f.broken = false
+  expect(await hText($, 'retry')).toMatch(/^Writing again: \d+ held lines saved to /)
+  expect(hStatus(w)).not.toBe(H_RETRY)
+  const arch = logOf(w, 'architecture')
+  expect(arch.map(e => e.seq)).toEqual(hRange(arch.length))         // the whole log, in order, no gap
+  expect(arch.some(e => e.kind === 'tool' && e.path === 'docs/more.md')).toBe(true)
+  expect(arch.some(e => e.kind === 'step' && e.step === 7 && e.state === 'done')).toBe(true)
+})
+
+test('C1 (review): the folder fixed after the push and before the unwind: the paused run\'s lines are written, it resumes from its file, and nothing goes silent', async ($, on) => {
+  const { w } = await cNested($, on, true)
+  expect(hStatus(w)).not.toBe(H_RETRY)
+  expect(await hText($, 'retry')).toContain('Nothing to retry')
+  await $.tool.call(READ('more.md'))
+  await done($, 't1', null)
+  await w.clock.advance(600)
+  expect(hStatus(w)).not.toContain('off')
+  expect(w.toasts.filter(t => t.includes('ENOENT'))).toEqual([])
+  const arch = logOf(w, 'architecture')
+  expect(arch.map(e => e.seq)).toEqual(hRange(arch.length))
+  expect(arch.some(e => e.kind === 'tool' && e.path === 'docs/more.md')).toBe(true)
+})
+
+test('S1 (review): a stop lifted by /progress retry leaves no summary of the dropped run in the status line, /progress or the band', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  for (let i = 0; i < 10; i++) await done($, `t${i}`, null)
+  expect(hStatus(w)).toBe(H_OFF)
+  f.broken = false
+  await hText($, 'retry')
+  expect(hStatus(w) ?? '').not.toContain('brainstorm')
+  await w.clock.advance(1000)
+  expect(hStatus(w) ?? '').not.toContain('brainstorm')
+  expect(await hText($)).toContain('No DevForgeAI run is open')
+})
+
+for (const how of ['end', 'load'] as const) {
+  test(`S2 (review): a run already ended by a deliberate stop still gets BEH-42 (h)'s last write at ${how === 'end' ? 'session.end' : 'a tracked load'}`, async ($, on) => {
+    const f = { broken: false }
+    const w = world(on, { evaluate: () => ({ state: archState(8) }), tool: answering({ 'Outcome?': 'Write nothing' }), failWrite: (p: string) => f.broken && EVENTS(p) })
+    await start($)
+    await load($, 'devforgeai:architecture', TAGGED)
+    await w.clock.advance(600)
+    f.broken = true
+    await $.tool.call(READ('b.md'))                                 // the hold
+    await $.tool.call(stepQuestion('Outcome?') as Any)              // Write nothing: stopped, the run-end joins the held lines
+    f.broken = false                                                // fixed, and no turn end came
+    if (how === 'end') await $.session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } } as Any)
+    else await load($, 'devforgeai:architecture', TAGGED)
+    const first = logOf(w, 'architecture').map(e => e.kind)
+    expect(first.includes('run-end')).toBe(true)                    // the held lines were written
+    expect(first.includes('tool')).toBe(true)
+})
+}
+
+for (const usage of [null, USAGE] as const) {
+  test(`S3 (review, Bryan 2026-10-09): a hold born in a turn's own records (usage ${usage === null ? 'none' : 'counted'}) is tried at that turn's end: the stop comes at exactly the tenth turn end`, async ($, on) => {
+    const { w, f } = await hOpen($, on, { match: EVENTS })
+    f.broken = true
+    const a0 = hAttempts(w, EVENTS)
+    for (let i = 0; i < 9; i++) await done($, `t${i}`, usage)
+    expect(hStatus(w)).toBe(H_RETRY)
+    await done($, 't9', usage)
+    expect(hStatus(w)).toBe(H_OFF)
+    expect(hAttempts(w, EVENTS) - a0).toBe(11)                       // the originating write, then ten tries
+})
+}
+
+test('S3 (review): the ledger\'s hold born in a turn\'s own end is tried at once; it stops at the tenth turn end', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: p => p === ODO })
+  f.broken = true
+  const a0 = hAttempts(w, p => p === ODO)
+  await done($, 't0')
+  expect(hAttempts(w, p => p === ODO) - a0).toBe(2)                 // its own write, and the try
+  for (let i = 1; i < 9; i++) await done($, `t${i}`)
+  expect(hStatus(w)).toBe('brainstorm 2/2 · odometer retrying')
+  await done($, 't9')
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+  expect(hLog(w, 'dashboard').some(l => l.startsWith('odometer: gave up after 10 tries'))).toBe(true)
 })

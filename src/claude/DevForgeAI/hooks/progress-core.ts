@@ -338,9 +338,12 @@ export function isDismissal(err: unknown): boolean {
  *  the number of steps of its saved summary, if it had one. */
 export type Beneath = { skill: string; step: number; summary: { steps: number } | null }
 
-/** The status line's text (BEH-10), or undefined when there is nothing to show; `trail`, the paused runs, bottom first. */
+/** The status line's text (BEH-10), or undefined when there is nothing to show; `trail`, the paused runs, bottom first. From version 27
+ *  `hold` says which write of the tracker's is held (BEH-42): the run's log replaces the summary and any evaluator reason; the
+ *  odometer's file alone ends the summary. */
 export function statusText(summary: ProgressSummary | null, mode: ProgressMode, idle: boolean, off: string | null,
-  trail: readonly Beneath[] = []): string | undefined {
+  trail: readonly Beneath[] = [], hold: HoldKind | null = null): string | undefined {
+  if (hold === 'run') return RETRYING
   if (off !== null) return `progress: off (${off})`
   if (summary === null) return undefined
   const stoppedAt = stopStep(summary)
@@ -359,6 +362,7 @@ export function statusText(summary: ProgressSummary | null, mode: ProgressMode, 
   if (summary.manifest === 'stale' || summary.manifest === 'none') text += ' · ticks only'
   if (idle && summary.ended === null) text += ' · idle'
   if (mode === 'enforce') text += ' · enforce'
+  if (hold === 'odometer') text += ' · odometer retrying'
   return text
 }
 
@@ -1431,11 +1435,77 @@ export function ledgerLine(session: string, turn: string, source: string,
  *  after it, while the summary of a run that ended is kept, the status line's text for it. Built from the functions that build
  *  the status line and the band, so the three never disagree. */
 export function progressReport(summary: ProgressSummary | null, hasRun: boolean, mode: ProgressMode, idle: boolean, off: string | null,
-  trail: readonly Beneath[] = []): string {
+  trail: readonly Beneath[] = [], hold: HoldKind | null = null, remedy: string | null = null): string {
+  // While a hold lasts (BEH-42, version 27) the remedy row's text is the last line.
+  const tail = remedy === null ? '' : `\n${remedy}`
   if (summary !== null && hasRun && summary.ended === null) {
     const band = bandRows(summary, mode, trail)
-    return [statusText(summary, mode, idle, off, trail) ?? '', band.row1, `${band.mode}  ${band.flag}`].join('\n')
+    return [statusText(summary, mode, idle, off, trail, hold) ?? '', band.row1, `${band.mode}  ${band.flag}`].join('\n') + tail
   }
   const none = 'No DevForgeAI run is open in this session.'
-  return summary !== null && summary.ended !== null ? `${none}\n${statusText(summary, mode, idle, off, trail) ?? ''}` : none
+  return (summary !== null && summary.ended !== null ? `${none}\n${statusText(summary, mode, idle, off, trail, hold) ?? ''}` : none) + tail
 }
+
+// ---- version 27: the hold, the retry and the remedy for a write of the tracker's that fails (SPEC-013 BEH-42, ERR-03; SPEC-016 version 3) ----
+
+/** K: a hold gives up when its count of failed turn tries reaches this (BEH-42 (f)); a constant of the adapter, not a setting. */
+export const HOLD_TRIES = 10
+/** The status line while the run's log is held (BEH-10). */
+export const RETRYING = 'progress: retrying (cannot write devforgeai/progress)'
+/** What /progress answers while the tracker has stopped (BEH-34). */
+export const STOPPED_LINE = 'progress: off (cannot write devforgeai/progress). Fix the folder, then /progress retry.'
+export const NOTHING_TO_RETRY = 'Nothing to retry: no write has failed.'
+/** The toast at the stop (BEH-42 (f)). */
+export const STOP_TOAST = 'DevForgeAI progress: off (cannot write devforgeai/progress). Fix it, then /progress retry.'
+
+/** Which write is held: the run's events.jsonl (with its folder and .gitignore), or the session's odometer file. */
+export type HoldKind = 'run' | 'odometer'
+/** What the row, the toast and /progress say of a hold: the lines the file lacks, the path the failed write named, the host's error. */
+export type HoldView = { kind: HoldKind; lines: number; path: string; error: string }
+
+/** The first line of what the host said, cut to 200 characters (BEH-42 (a)). */
+export function errorLine(text: string): string {
+  const first = text.split('\n').map(l => l.trim()).filter(Boolean)[0] ?? ''
+  return Array.from(first).slice(0, 200).join('')
+}
+
+/** The row above the prompt while a hold lasts (BEH-11): the action first, so a narrow width cuts the diagnosis. Without /progress
+ *  (ERR-21) the action says when the adapter tries again. */
+export function remedyRow(h: HoldView, enforce: boolean, registered: boolean): string {
+  const action = registered ? 'Fix devforgeai/progress, then /progress retry' : 'Fix devforgeai/progress; the adapter tries again at the end of each turn'
+  const count = h.kind === 'run' ? `${h.lines} lines held` : `${h.lines} odometer lines held`
+  const warning = enforce && h.kind === 'run' ? ' · enforce mode checks nothing until then' : ''
+  return `▲ ${action} · ${count}${warning} · cannot write ${h.path}: ${h.error}`
+}
+
+/** The toast at the start of a hold: once for each hold (BEH-42 (c)). */
+export function heldToast(h: HoldView, registered: boolean): string {
+  const what = h.kind === 'run' ? 'Events are' : 'Odometer lines are'
+  const retry = registered ? 'fix it, then /progress retry.' : 'fix it; the adapter tries again at the end of each turn.'
+  return `DevForgeAI progress: cannot write ${h.path}: ${h.error}. ${what} held in memory; ${retry}`
+}
+
+export function recoveredToast(lines: number): string {
+  return `DevForgeAI progress: writing again; ${lines} held lines saved.`
+}
+
+/** The toast when the odometer's hold gives up and the ledger stops for the session (SPEC-016 ERR-06). */
+export function odometerGaveUpToast(path: string): string {
+  return `DevForgeAI progress: the odometer is off for this session (cannot write ${path}). Fix it, then /progress retry.`
+}
+
+// adapter.log's texts of a hold (DM-02): the run's are kind write; the odometer's carry the prefix 'odometer: ' and are kind dashboard.
+export const heldLog = (lines: number, path: string, error: string): string => `held ${lines} lines: ${path}: ${error}`
+export const recoveredLog = (tries: number, path: string, wrote: number): string => `recovered after ${tries} tries: ${path}; wrote ${wrote} lines`
+export const gaveUpLog = (tries: number, path: string, error: string, dropped: number): string =>
+  `gave up after ${tries} tries: ${path}: ${error}; dropped ${dropped} lines`
+
+// What `/progress retry` answers (BEH-34).
+export const savedAnswer = (lines: number, path: string): string => `Writing again: ${lines} held lines saved to ${path}.`
+export const stillAnswer = (path: string, error: string, lines: number, tries: number): string =>
+  `Still cannot write ${path}: ${error}. ${lines} lines are held; the adapter also tries at the end of each turn (try ${tries} of ${HOLD_TRIES} used).`
+export const liftedAnswer = (): string =>
+  'Tracking is on again: the next DevForgeAI skill you run opens a run. The run that was dropped is not revived.'
+export const stillStoppedAnswer = (path: string, error: string): string => `Still cannot write ${path}: ${error}. Tracking stays off.`
+export const odometerOnAnswer = (): string => 'The odometer is writing again.'
+export const odometerStillAnswer = (path: string, error: string): string => `Still cannot write ${path}: ${error}. The odometer stays off.`

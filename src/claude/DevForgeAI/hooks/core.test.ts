@@ -11,6 +11,8 @@ import {
   OUTSIDE_ADVICE,
   isFromMod, fuelSetting, measuredShare, precompactRow, precompactDue, NO_PRECOMPACT, usageFields, ledgerLine, progressReport,
   addStart, takeStart, isCompaction, isOwnRun,
+  HOLD_TRIES, RETRYING, STOPPED_LINE, NOTHING_TO_RETRY, STOP_TOAST, errorLine, remedyRow, heldToast, recoveredToast, heldLog, recoveredLog,
+  gaveUpLog, savedAnswer, stillAnswer, liftedAnswer, stillStoppedAnswer, odometerOnAnswer, odometerStillAnswer, odometerGaveUpToast,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
 
@@ -824,4 +826,85 @@ test('BEH-35: a compaction is a result with messages; a skip is not', () => {
   expect(isCompaction({ messages: 'x' })).toBe(false)
   expect(isCompaction(undefined)).toBe(false)
   expect(isCompaction(null)).toBe(false)
+})
+
+// ---- version 27 (SPEC-013 BEH-42, BEH-10, BEH-11, BEH-34; SPEC-016 version 3): the hold, its texts, the remedy row ----
+
+test('VER-73 (BEH-10): the run\'s hold replaces the summary and any evaluator reason; the odometer\'s alone ends the summary', () => {
+  expect(RETRYING).toBe('progress: retrying (cannot write devforgeai/progress)')
+  expect(statusText(SUMMARY, 'observe', false, null, [], 'run')).toBe('progress: retrying (cannot write devforgeai/progress)')
+  expect(statusText(SUMMARY, 'enforce', true, 'python not found', [], 'run')).toBe('progress: retrying (cannot write devforgeai/progress)')
+  expect(statusText(null, 'observe', false, null, [], 'run')).toBe('progress: retrying (cannot write devforgeai/progress)')
+  expect(statusText(SUMMARY, 'observe', false, null, [], null)).toBe('brainstorm 2/2')
+  expect(statusText(SUMMARY, 'observe', false, null, [], 'odometer')).toBe('brainstorm 2/2 · odometer retrying')
+  expect(statusText({ ...SUMMARY, flags: 2 }, 'enforce', false, null, [], 'odometer')).toBe('brainstorm 2/2 · 2 flags · enforce · odometer retrying')
+  expect(statusText({ ...SUMMARY, ended: 'session-end' }, 'observe', false, null, [], 'odometer')).toBe('brainstorm ended · odometer retrying')
+  expect(statusText(SUMMARY, 'observe', false, 'python not found', [], 'odometer')).toBe('progress: off (python not found)')
+  expect(statusText(null, 'observe', false, null, [], 'odometer')).toBe(undefined)
+  // the stop's text is the earlier versions' (no hold any more)
+  expect(statusText(SUMMARY, 'observe', false, 'cannot write devforgeai/progress', [], null)).toBe('progress: off (cannot write devforgeai/progress)')
+})
+
+test('BEH-42 (c): an error is the first line of what the host said, cut to 200 characters', () => {
+  expect(errorLine("EACCES: permission denied, open '/w/x'\nsecond line")).toBe("EACCES: permission denied, open '/w/x'")
+  expect(errorLine('\n  \n  EIO: boom  \nmore')).toBe('EIO: boom')
+  expect(errorLine('x'.repeat(250))).toBe('x'.repeat(200))
+  expect(errorLine('x'.repeat(200))).toBe('x'.repeat(200))
+  expect(errorLine('')).toBe('')
+})
+
+test('VER-73 (BEH-11): the remedy row puts the action first, then the count, enforce mode\'s warning for the run\'s log, then the diagnosis', () => {
+  const run = { kind: 'run' as const, lines: 12, path: '/work/devforgeai/progress/runs/r1/events.jsonl', error: 'EACCES: permission denied' }
+  expect(remedyRow(run, false, true)).toBe('▲ Fix devforgeai/progress, then /progress retry · 12 lines held · cannot write '
+    + '/work/devforgeai/progress/runs/r1/events.jsonl: EACCES: permission denied')
+  expect(remedyRow(run, true, true)).toBe('▲ Fix devforgeai/progress, then /progress retry · 12 lines held · enforce mode checks nothing until then · cannot write '
+    + '/work/devforgeai/progress/runs/r1/events.jsonl: EACCES: permission denied')
+  const odo = { kind: 'odometer' as const, lines: 3, path: '/work/devforgeai/progress/odometer/s1.jsonl', error: 'EIO' }
+  expect(remedyRow(odo, false, true)).toBe('▲ Fix devforgeai/progress, then /progress retry · 3 odometer lines held · cannot write '
+    + '/work/devforgeai/progress/odometer/s1.jsonl: EIO')
+  expect(remedyRow(odo, true, true)).toBe(remedyRow(odo, false, true))   // enforce mode is the run\'s log only
+  // without /progress (ERR-21) the action says when the adapter tries again
+  expect(remedyRow(run, false, false)).toBe('▲ Fix devforgeai/progress; the adapter tries again at the end of each turn · 12 lines held · cannot write '
+    + '/work/devforgeai/progress/runs/r1/events.jsonl: EACCES: permission denied')
+  // cut to a narrow width, its end goes first, which is the diagnosis
+  expect(fit(remedyRow(run, false, true), 50)).toBe('▲ Fix devforgeai/progress, then /progress retry ·…')
+})
+
+test('VER-73 (BEH-42 (c)): the toasts for a hold, a recovery and a stop', () => {
+  const run = { kind: 'run' as const, lines: 2, path: '/w/p/runs/r/events.jsonl', error: 'EACCES' }
+  expect(heldToast(run, true)).toBe('DevForgeAI progress: cannot write /w/p/runs/r/events.jsonl: EACCES. Events are held in memory; fix it, then /progress retry.')
+  expect(heldToast(run, false)).toBe('DevForgeAI progress: cannot write /w/p/runs/r/events.jsonl: EACCES. Events are held in memory; fix it; the adapter tries again at the end of each turn.')
+  const odo = { kind: 'odometer' as const, lines: 2, path: '/w/p/odometer/s1.jsonl', error: 'EIO' }
+  expect(heldToast(odo, true)).toBe('DevForgeAI progress: cannot write /w/p/odometer/s1.jsonl: EIO. Odometer lines are held in memory; fix it, then /progress retry.')
+  expect(recoveredToast(7)).toBe('DevForgeAI progress: writing again; 7 held lines saved.')
+  expect(STOP_TOAST).toBe('DevForgeAI progress: off (cannot write devforgeai/progress). Fix it, then /progress retry.')
+  expect(odometerGaveUpToast('/w/p/odometer/s1.jsonl')).toBe('DevForgeAI progress: the odometer is off for this session (cannot write /w/p/odometer/s1.jsonl). Fix it, then /progress retry.')
+  expect(HOLD_TRIES).toBe(10)
+})
+
+test('VER-69 / VER-70 (DM-02): the adapter.log texts of a hold, and /progress retry\'s answers', () => {
+  expect(heldLog(3, '/w/e.jsonl', 'EACCES')).toBe('held 3 lines: /w/e.jsonl: EACCES')
+  expect(recoveredLog(2, '/w/e.jsonl', 5)).toBe('recovered after 2 tries: /w/e.jsonl; wrote 5 lines')
+  expect(gaveUpLog(10, '/w/e.jsonl', 'EACCES', 9)).toBe('gave up after 10 tries: /w/e.jsonl: EACCES; dropped 9 lines')
+  expect(savedAnswer(4, '/w/e.jsonl')).toBe('Writing again: 4 held lines saved to /w/e.jsonl.')
+  expect(stillAnswer('/w/e.jsonl', 'EACCES', 6, 3)).toBe('Still cannot write /w/e.jsonl: EACCES. 6 lines are held; the adapter also tries at the end of each turn (try 3 of 10 used).')
+  expect(liftedAnswer()).toBe('Tracking is on again: the next DevForgeAI skill you run opens a run. The run that was dropped is not revived.')
+  expect(stillStoppedAnswer('/w/.gitignore', 'EACCES')).toBe('Still cannot write /w/.gitignore: EACCES. Tracking stays off.')
+  expect(odometerOnAnswer()).toBe('The odometer is writing again.')
+  expect(odometerStillAnswer('/w/o.jsonl', 'EIO')).toBe('Still cannot write /w/o.jsonl: EIO. The odometer stays off.')
+  expect(NOTHING_TO_RETRY).toBe('Nothing to retry: no write has failed.')
+  expect(STOPPED_LINE).toBe('progress: off (cannot write devforgeai/progress). Fix the folder, then /progress retry.')
+})
+
+test('VER-73 (BEH-34): /progress while a hold lasts ends with the remedy row\'s text', () => {
+  const row = '▲ Fix devforgeai/progress, then /progress retry · 2 lines held · cannot write /w/e: EACCES'
+  expect(progressReport(SUMMARY, true, 'observe', false, null, [], 'run', row)).toBe('progress: retrying (cannot write devforgeai/progress)\n'
+    + 'brainstorm  ●◆  step 2 of 2: Pick\nobserve mode  no flags\n' + row)
+  expect(progressReport(SUMMARY, true, 'observe', false, null, [], 'odometer', row)).toBe('brainstorm 2/2 · odometer retrying\n'
+    + 'brainstorm  ●◆  step 2 of 2: Pick\nobserve mode  no flags\n' + row)
+  expect(progressReport(null, false, 'observe', false, null, [], 'odometer', row)).toBe('No DevForgeAI run is open in this session.\n' + row)
+  expect(progressReport({ ...SUMMARY, ended: 'session-end' }, true, 'observe', false, null, [], 'odometer', row))
+    .toBe('No DevForgeAI run is open in this session.\nbrainstorm ended · odometer retrying\n' + row)
+  // without a hold the report is as before
+  expect(progressReport(SUMMARY, true, 'observe', false, null, [], null, null)).toBe('brainstorm 2/2\nbrainstorm  ●◆  step 2 of 2: Pick\nobserve mode  no flags')
 })

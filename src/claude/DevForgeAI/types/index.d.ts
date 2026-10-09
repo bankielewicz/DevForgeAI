@@ -1,4 +1,5 @@
-// The progress tracker adapter's $.state contract (SPEC-013 v26 DM-03). $.state survives a reload of the module
+// The progress tracker adapter's $.state contract (SPEC-013 v27 DM-03; version 27 adds no key: a hold of BEH-42 lives in the module's
+// memory with the lines it keeps, since a reload loses those lines and a count that outlived them would describe nothing). $.state survives a reload of the module
 // and empties on /clear, /resume and /branch; whether the session is interactive and the evaluation timer are
 // module variables instead (BEH-01, BEH-06).
 
