@@ -2,7 +2,7 @@
 
 - hooks/hooks.json names one module, and it exists;
 - .claude-plugin/plugin.json names the $.state contract (types), the tracking setting (DM-05), the
-  retentionDays setting (DM-06) and the two fuel settings (DM-07, DM-08), and its version is 0.28.0;
+  retentionDays setting (DM-06) and the two fuel settings (DM-07, DM-08), and its version is 0.29.0;
 - CLAUDE.md's deploy command and its source-and-deploy check leave the module's tests and the engine's generated
   files out of the deployed copy;
 - VER-04's expected event lines, kept in hooks/progress.test.ts between marker comments, validate against
@@ -94,10 +94,10 @@ class AdapterStructure(unittest.TestCase):
         self.assertIn("`--file=${p}`", body)
         self.assertNotIn("'--file'", body)
 
-    # SPEC-013 version 23 (DM-07, DM-08) and version 25's plugin version.
+    # SPEC-013 version 23 (DM-07, DM-08) and version 27's plugin version (Bryan, 2026-10-09: '0.29.0 for v27').
     def test_plugin_json_has_the_fuel_settings_and_the_new_version(self):
         manifest = json.loads((PLUGIN / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
-        self.assertEqual(manifest["version"], "0.28.0")
+        self.assertEqual(manifest["version"], "0.29.0")
         warn = manifest["userConfig"]["precompactWarnFuel"]
         run = manifest["userConfig"]["precompactRunFuel"]
         self.assertEqual((warn["type"], warn["default"], warn["min"], warn["max"]), ("number", 30, 0, 95))
@@ -121,9 +121,10 @@ class AdapterStructure(unittest.TestCase):
         listed = dm02_kinds()
         self.assertIn("bash", listed)
         self.assertEqual(sorted(set(literal) - listed), [])
-        # the kinds the dashboard cycle's adapter adds are among the calls
-        for kind in ("command", "setting", "precompact", "dashboard"):
+        # the kinds the dashboard cycle's adapter adds are among the calls, and version 27's `write` (BEH-42, ERR-03)
+        for kind in ("command", "setting", "precompact", "dashboard", "write"):
             self.assertIn(kind, literal)
+        self.assertIn("write", listed)
 
     # VER-67 (version 24): the button rule in §2, §12 and the FR-003 link note.
     def test_the_button_rule_reads_as_version_24_words_it(self):
