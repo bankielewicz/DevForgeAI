@@ -398,6 +398,7 @@ quality_responses:
 
 | Kind | Status |
 | --- | --- |
+| Build (BEH-10, ERR-06) | The odometer ledger writer is built with plugin 0.28.0 on branch `feat/dashboard-build` (draft PR #102), 2026-10-08, not merged: BEH-10 says 'the adapter', so it is in `hooks/progress.tsx` (one hooks module), built with SPEC-013 versions 21, 23, 24 and 25 (Bryan, 2026-10-08, 'Build the rest, hold the dashboard (Recommended)'), so lifetime tokens count from 0.28.0. Kit tests first, seen failing (the ledger half of VER-07; commits `c01f285` and `0203355`): a main-loop or subagent turn.complete with usage rewrites the session's `odometer/<session-id>.jsonl` whole and every line validates against SPEC-012's DM-04; lines wait for a root; the file is read back once; a failed write is kept and written again; an unreadable file is never overwritten; the 4 MiB stop; /clear starts a new file; a headless session writes none. Results: kit 463 pass at `c01f285` and 471 at `0203355`; in the adversarial review a kit session (main turns, a repeated turn ID, a subagent's turn) written by the adapter and totalled by `history.py` gave 4 turns, 1 duplicate and the subagent's line counted. **Not built, held for 0.29.0 with the dashboard pane** (after the design skill's place in the chain is decided): everything else in this spec (the route, tiles, layouts, looks, characters, the agents window, the guardrails panel, `/devforgeai:dashboard`, BEH-11's trip computer); VER-07's trip computer half is not run. **Builder's reading 10** (the adapter builder's number; Bryan's answers in §13): the ledger is written for an interactive session with a known root (the latest run's), not gated on ERR-03's stop (R4); `time` is to the second; a change of root re-reads that root's file; lines held in memory are lost at a reload or the session's end; before a root is known, held lines were capped at 20,000 (BEH-10 says unbounded), and since `0203355` the cap applies only then. |
 | Structural: this spec against `spec.schema.json` and its coverage | valid and fully covered after the drafts review's fixes (2026-10-06) |
 | Prototype evidence | `src/tools/dashboard-probe/` (kit 16 of 16) and the live probes of 2026-10-06 (the design §14) |
 
@@ -521,6 +522,25 @@ worktree (ADR-001), after SPEC-013 versions 21 to 25 and SPEC-012 versions 16 to
 
 ## 13. Open questions
 
+Decided by Bryan on 2026-10-08, for the 0.28.0 build, which includes this spec's ledger writer (BEH-10, ERR-06; the
+adversarial review of the build, `tmp/plans/dashboard/review-build-028.md`; plan
+`tmp/plans/2026-10-08-dashboard-build.md`, Step 2), recorded without a version bump.
+
+- R4 (the ledger and ERR-03), open as Bryan worded it: "Add a retry “cycle” if it fails as well as option to remedy.
+  Let’s ask /advisor for guidance and best approach". Then he chose "v26 right after 0.28.0 (Recommended)" and
+  "Tracker writes only (Recommended)": SPEC-013 version 26, with SPEC-016 version 3 to align, designs the hold, retry
+  and remedy for the tracker's writes when they fail (SPEC-013 ERR-03) and for the ledger. 0.28.0 ships the ledger as
+  built: written for an interactive session with a known root, not gated on ERR-03's stop, with ERR-06's retry of a
+  failed write. The review's probe: with writes to `events.jsonl` failing after the root was known, the adapter still
+  wrote `odometer/<session>.jsonl` at each turn; BEH-10 gates it on 'tracking on' (the setting only). BEH-10's text is
+  reconciled with the build at the next version: its gate and its unbounded held lines (the build caps them at 20,000
+  while no root is known).
+- Accepted ("Accept as proposed (Recommended)"): the adapter builder's reading 10, apart from its gating (R4)
+  (SPEC-013 §9). Also accepted, SPEC-012 §13's R6: runs written before 0.28.0 have no `timing`, so `history.py` counts
+  them in `runs.skipped` and not in its medians (SPEC-012 ERR-15, BEH-27); a dashboard that shows the skipped count
+  shows a large one after the upgrade, and the ETA (BEH-05) has no median for a skill until two of its runs written
+  with 0.28.0 or later have ended complete.
+
 Decided by Bryan on 2026-10-08, for version 2 (the review of the merge of main into the dashboard specs,
 `tmp/plans/dashboard/review-merge-v22.md`; plan `tmp/plans/2026-10-08-dashboard-build.md`, Step 1): "Merge #101, fix first
 in build (Recommended)"; for S1, "Add a Bash guard row (Recommended)"; for S5, "Accept as proposed (Recommended)". In the plan's
@@ -603,3 +623,4 @@ to build it as a choice; whether it ships in a published plugin is his call at r
 | 1 | 2026-10-06 | Bryan | Approved ('Approve all four (Recommended)', with the drafters' choices shown in its preview) | status |
 | 2 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Draft, from the review of the merge of main into the dashboard specs (`tmp/plans/dashboard/review-merge-v22.md`) and Bryan's decisions of 2026-10-08 ("Merge #101, fix first in build (Recommended)"; S1, "Add a Bash guard row (Recommended)"; S5, "Accept as proposed (Recommended)"): the guardrails panel gains a sixth row, the Bash write guard (SPEC-013 BEH-38), with BEH-38's scope and its observe-mode wording, and its last hold reads the kind refused lines and the 'refused <word>' line of kind bash that BEH-38 (a) writes (BEH-13, VER-09, DM-01, §4; S1, and the drafts review's N-b and N-c); the status banner and §10 and §11 read as current facts (S5); the upstream links move to SPEC-013 version 25 and SPEC-012 version 18; §13 records the review's N4 as open; status in-review, Bryan's approval not yet given | frontmatter, status banner, §1, DM-01, §4, BEH-13, VER-09, §10, §11, §13 |
 | 2 | 2026-10-08 | Bryan | Approved ('Approve all three (Recommended)', with the drafts review's fixes and his F1 and F2 answers shown in its preview), with SPEC-013 version 25 and SPEC-012 version 18 | status |
+| 2 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Record-only update, with no version bump: §9 records the odometer ledger writer (BEH-10, ERR-06) built with plugin 0.28.0 on branch `feat/dashboard-build` (draft PR #102; not merged) and that the rest of the spec is held for 0.29.0; §13 records Bryan's R4 answers and the ledger reading accepted, whose text reconciliation waits for the next version | §9, §13 |

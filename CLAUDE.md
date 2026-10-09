@@ -46,8 +46,9 @@ Change Log holds the history. Read those, not this file, for any number or date.
   confirmation, merged in PR #85 (`4daa7c4`), deployed 0.22.0; v11, the review only after an answered turn,
   merged in PR #83 (`ab8301c`), deployed 0.21.0). It records each tracked skill run
   (brainstorm and architecture have manifests) and shows its checklist steps in the status line and
-  a band above the prompt. Its detail is in `.claude/rules/progress.md`.
-- **The dashboard** (PRD-001 v12 FR-022; SPEC-016 v2, approved 2026-10-08, not built; design `docs/specs/devforgeai-dashboard.md`; prototype `src/tools/dashboard-probe/`) is a pane of the tracker's mod, `/devforgeai:dashboard`. It needs SPEC-012 v17 and v18 and SPEC-013 v23 (the precompact row counted by fuel left) to v25 (the automatic precompact run's turn marked through BEH-41's set of names), all approved (v18, v25 and SPEC-016 v2 on 2026-10-08), not built. Plugin 0.28.0 builds the evaluator and adapter parts; the pane waits for the design skill's place in the chain (0.29.0).
+  a band above the prompt. SPEC-012 v17 and v18 and SPEC-013 v21 and v23 to v25 are built on branch
+  `feat/dashboard-build` (PR #102, plugin 0.28.0), not merged. Its detail is in `.claude/rules/progress.md`.
+- **The dashboard** (PRD-001 v12 FR-022; SPEC-016 v2, approved 2026-10-08, not built; design `docs/specs/devforgeai-dashboard.md`; prototype `src/tools/dashboard-probe/`) is a pane of the tracker's mod, `/devforgeai:dashboard`. It needs SPEC-012 v17 and v18 and SPEC-013 v23 (the precompact row counted by fuel left) to v25 (the automatic precompact run's turn marked through BEH-41's set of names), all approved (v18, v25 and SPEC-016 v2 on 2026-10-08), not built. Plugin 0.28.0 builds the evaluator and adapter parts (SPEC-012 v17 and v18, SPEC-013 v21 and v23 to v25, and the odometer ledger writer of SPEC-016 BEH-10), built on branch `feat/dashboard-build` (PR #102), not merged; the pane waits for the design skill's place in the chain (0.29.0).
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels.
 - ADR-001 to ADR-006 in `docs/specs/adr/` are accepted. PRD-001 (DevForgeAI itself) and PRD-002
