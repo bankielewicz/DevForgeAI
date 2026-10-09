@@ -6684,7 +6684,7 @@ test('SPEC-016 ERR-06 (version 3): a failed write holds the lines and writes the
   expect(odo(w).map(l => l.turn)).toEqual(['t1', 't2', 't3'])
   expect(uLog(w, 'dashboard').length).toBe(2)                      // held, then recovered (the log waited for the hold to end)
   expect(uLog(w, 'dashboard')[0]).toContain('odometer: held 1 lines')
-  expect(uLog(w, 'dashboard')[1]).toContain('odometer: recovered after 1 tries')
+  expect(uLog(w, 'dashboard')[1]).toContain('odometer: recovered after 2 tries')
   expect(kinds(eventsOf(w)).includes('usage')).toBe(true)          // tracking went on
 })
 
@@ -7788,14 +7788,14 @@ test('VER-72: an odometer file that can\'t be written is held: lines in order, o
   expect(hAttempts(w, p => p === ODO)).toBe(a0 + 1)
   expect(await hRow($)).toContain('· 3 odometer lines held ·')
   expect(w.files.has(ODO)).toBe(false)
-  expect(await hText($, 'retry')).toBe(`Still cannot write ${ODO}: ${hErr(ODO)}. 3 lines are held; the adapter also tries at the end of each turn (try 1 of 10 used).`)
+  expect(await hText($, 'retry')).toBe(`Still cannot write ${ODO}: ${hErr(ODO)}. 3 lines are held; the adapter also tries at the end of each turn (try 2 of 10 used).`)
   f.broken = false
   await done($, 't3')
   expect(odo(w).map(l => l.turn)).toEqual(['t1', 'u1', 't2', 't3'])
   expect(odo(w).map(l => l.source)).toEqual(['main', 'agent-7', 'main', 'main'])
   expect(hStatus(w)).toBe('brainstorm 2/2')
   expect(await hRow($)).toBeNull()
-  expect(hLog(w, 'dashboard')).toEqual([`odometer: held 1 lines: ${ODO}: ${hErr(ODO)}`, `odometer: recovered after 1 tries: ${ODO}; wrote 4 lines`])
+  expect(hLog(w, 'dashboard')).toEqual([`odometer: held 1 lines: ${ODO}: ${hErr(ODO)}`, `odometer: recovered after 2 tries: ${ODO}; wrote 4 lines`])
   expect(w.toasts.includes('DevForgeAI progress: writing again; 4 held lines saved.')).toBe(true)
   expect(kinds(eventsOf(w)).includes('usage')).toBe(true)          // the run went on untouched
 })
@@ -7803,18 +7803,18 @@ test('VER-72: an odometer file that can\'t be written is held: lines in order, o
 test('VER-72: at the tenth failed turn try the ledger stops for the session: held lines dropped, no more writes, one toast, the run untouched; /progress retry lifts that stop', async ($, on) => {
   const { w, f, st } = await hOpen($, on, { match: p => p === ODO })
   f.broken = true
-  await done($, 't0')                                               // the hold
-  for (let i = 1; i < 10; i++) {
+  await done($, 't0')                                               // the hold, and its own turn end's try
+  for (let i = 1; i < 9; i++) {
     await done($, `t${i}`)
     expect(hStatus(w)).toBe('brainstorm 2/2 · odometer retrying')
   }
-  await done($, 't10')                                              // the tenth failed try
+  await done($, 't9')                                               // the tenth failed try
   expect(hStatus(w)).toBe('brainstorm 2/2')
   expect(hOff(st)).toBeNull()
   expect(w.toasts.includes(`DevForgeAI progress: the odometer is off for this session (cannot write ${ODO}). Fix it, then /progress retry.`)).toBe(true)
-  expect(hLog(w, 'dashboard').slice(-1)[0]).toBe(`odometer: gave up after 10 tries: ${ODO}: ${hErr(ODO)}; dropped 11 lines`)
+  expect(hLog(w, 'dashboard').slice(-1)[0]).toBe(`odometer: gave up after 10 tries: ${ODO}: ${hErr(ODO)}; dropped 10 lines`)
   const a0 = hAttempts(w, p => p === ODO)
-  await done($, 't11')                                              // nothing is held, nothing is written
+  await done($, 't10')                                              // nothing is held, nothing is written
   expect(hAttempts(w, p => p === ODO)).toBe(a0)
   expect(await hRow($)).toBeNull()
   expect(await hText($, 'retry')).toBe(`Still cannot write ${ODO}: ${hErr(ODO)}. The odometer stays off.`)
@@ -7822,7 +7822,7 @@ test('VER-72: at the tenth failed turn try the ledger stops for the session: hel
   expect(await hText($, 'retry')).toBe('The odometer is writing again.')
   await done($, 't12')
   expect(odo(w).map(l => l.turn)).toEqual(['t12'])                  // the dropped lines are gone
-  expect(kinds(eventsOf(w)).filter(k => k === 'usage').length).toBe(13)
+  expect(kinds(eventsOf(w)).filter(k => k === 'usage').length).toBe(12)
   expect(hLog(w, 'dashboard').some(l => l === 'odometer: stop lifted by /progress retry')).toBe(true)
 })
 
@@ -8005,14 +8005,14 @@ test('VER-73: each start and clear of a hold, each fall back to the stop and eac
   expect(st.sets.every(s => hKnownKeys.includes(s.key))).toBe(true)
 })
 
-test('VER-69: a hold that starts in a turn\'s own end is not tried in it; the count starts at 0', async ($, on) => {
+test('VER-69 (review, S3): a hold that starts in a turn\'s own end is tried in it too; its count is 1 after it', async ($, on) => {
   const { w, f } = await hOpen($, on, { match: EVENTS })
   const a0 = hAttempts(w, EVENTS)
   f.broken = true
-  await done($, 't1', null)                                         // the turn end's own write fails: the hold starts
-  expect(hAttempts(w, EVENTS) - a0).toBe(1)
+  await done($, 't1', null)                                         // the turn end's own write fails: the hold starts, and is tried
+  expect(hAttempts(w, EVENTS) - a0).toBe(2)
   const path = hPath(w)
-  expect(await hText($, 'retry')).toBe(`Still cannot write ${path}: ${hErr(path)}. 1 lines are held; the adapter also tries at the end of each turn (try 0 of 10 used).`)
+  expect(await hText($, 'retry')).toBe(`Still cannot write ${path}: ${hErr(path)}. 1 lines are held; the adapter also tries at the end of each turn (try 1 of 10 used).`)
 })
 
 test('VER-70: the stop empties the trail and its paused runs get no run-end', async ($, on) => {
@@ -8050,18 +8050,18 @@ test('VER-72: a held file that would pass 4 MiB stops the ledger as in version 2
   expect(await hText($, 'retry')).toBe('Nothing to retry: no write has failed.')
 })
 
-test('VER-69: a run hold that starts in a turn\'s own end is not tried in it, even when the odometer\'s hold is tried there', async ($, on) => {
+test('VER-69 (review, S3): a run hold that starts in a turn\'s own end is tried in it, with the odometer\'s hold', async ($, on) => {
   const { w, f } = await hOpen($, on)
   f.match = p => p === ODO
   f.broken = true
   await done($, 't1')                                               // the ledger's hold starts
   f.match = p => p === ODO || EVENTS(p)
   const a0 = hAttempts(w, EVENTS)
-  await done($, 't2')                                               // the turn end's own write fails (the run's hold starts); the ledger's hold is tried
-  expect(hAttempts(w, EVENTS) - a0).toBe(1)
-  expect(hAttempts(w, p => p === ODO)).toBe(2)                      // t1's write and t2's try
+  await done($, 't2')                                               // the turn end's own write fails (the run's hold starts); both are tried
+  expect(hAttempts(w, EVENTS) - a0).toBe(2)
+  expect(hAttempts(w, p => p === ODO)).toBe(3)                      // t1's write and its try, and t2's try
   const path = hPath(w)
-  expect((await hText($, 'retry')).split('\n')[0]).toBe(`Still cannot write ${path}: ${hErr(path)}. 2 lines are held; the adapter also tries at the end of each turn (try 0 of 10 used).`)
+  expect((await hText($, 'retry')).split('\n')[0]).toBe(`Still cannot write ${path}: ${hErr(path)}. 2 lines are held; the adapter also tries at the end of each turn (try 1 of 10 used).`)
 })
 
 test('VER-71: a run that returns (BEH-30 (a)) while its log is held gets one write of its whole log with its run-end', async ($, on) => {
@@ -8117,7 +8117,7 @@ test('VER-72: /progress retry after both the ledger\'s own stop and the tracker\
   const { w, f } = await hOpen($, on)
   f.match = p => p === ODO
   f.broken = true
-  for (let i = 0; i < 11; i++) await done($, `a${i}`)               // the ledger gives up at its tenth failed try
+  for (let i = 0; i < 10; i++) await done($, `a${i}`)               // the ledger gives up at its tenth failed try
   expect(hLog(w, 'dashboard').some(l => l.includes('gave up after 10 tries'))).toBe(true)
   f.match = p => p.startsWith(PROGRESS)
   await $.tool.call(READ('b.md'))
@@ -8129,17 +8129,128 @@ test('VER-72: /progress retry after both the ledger\'s own stop and the tracker\
   expect(odo(w).map(l => l.turn)).toEqual(['tz'])
 })
 
-test('VER-69: an odometer hold that starts in a turn\'s own end is not tried in it, even when the run\'s hold is tried there', async ($, on) => {
+test('VER-69 (review, S3): an odometer hold that starts in a turn\'s own end is tried in it, with the run\'s hold', async ($, on) => {
   const { w, f } = await hOpen($, on)
   f.match = EVENTS
   f.broken = true
   await $.tool.call(READ('b.md'))                                   // the run's hold starts
   f.match = p => p.startsWith(PROGRESS)
   const a0 = hAttempts(w, p => p === ODO)
-  await done($, 't1')                                               // the ledger's write fails (its hold starts); the run's hold is tried
-  expect(hAttempts(w, p => p === ODO) - a0).toBe(1)
+  await done($, 't1')                                               // the ledger's write fails (its hold starts); both are tried
+  expect(hAttempts(w, p => p === ODO) - a0).toBe(2)
   const answer = (await hText($, 'retry')).split('\n')
   expect(answer.length).toBe(2)
   expect(answer[1]).toContain(`Still cannot write ${ODO}: `)
-  expect(answer[1]).toContain('(try 0 of 10 used)')
+  expect(answer[1]).toContain('(try 1 of 10 used)')
+})
+
+// ---- the build's adversarial review (2026-10-09): C1, S1, S2, S3, written first and seen failing ----
+
+/** Architecture at step 7 opened with devforgeai/progress unwritable, then spec-lookup loaded: the paused run never had a file. */
+async function cNested($: Any, on: Any, fixBeforeUnwind: boolean) {
+  const f = { broken: true }
+  const x = xWorld(on, xStates(), undefined, { failWrite: (p: string) => f.broken && p.startsWith(PROGRESS) })
+  const { w } = x
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  await x.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('worked.md'))
+  if (fixBeforeUnwind) f.broken = false
+  await $.tool.call(xTaskUpdate('7', 'completed'))                  // the unwind
+  return { w, f, x }
+}
+
+test('C1 (review, Bryan 2026-10-09): a run opened in memory and paused by a nested load keeps its lines; resumed with the folder still broken it is still held, no hook errors, and /progress retry answers', async ($, on) => {
+  const { w, f } = await cNested($, on, false)
+  expect(hStatus(w)).toBe(H_RETRY)
+  await $.tool.call(READ('more.md'))                                // the resumed run records into its held lines
+  await done($, 't1', null)
+  await done($, 't2', null)
+  expect(w.toasts.filter(t => t.includes('ENOENT'))).toEqual([])
+  expect(hStatus(w)).toBe(H_RETRY)
+  const still = await hText($, 'retry')                             // answers, and does not throw
+  expect(still).toContain('Still cannot write ')
+  expect(still).toContain('(try 2 of 10 used)')                     // K counts as usual
+  f.broken = false
+  expect(await hText($, 'retry')).toMatch(/^Writing again: \d+ held lines saved to /)
+  expect(hStatus(w)).not.toBe(H_RETRY)
+  const arch = logOf(w, 'architecture')
+  expect(arch.map(e => e.seq)).toEqual(hRange(arch.length))         // the whole log, in order, no gap
+  expect(arch.some(e => e.kind === 'tool' && e.path === 'docs/more.md')).toBe(true)
+  expect(arch.some(e => e.kind === 'step' && e.step === 7 && e.state === 'done')).toBe(true)
+})
+
+test('C1 (review): the folder fixed after the push and before the unwind: the paused run\'s lines are written, it resumes from its file, and nothing goes silent', async ($, on) => {
+  const { w } = await cNested($, on, true)
+  expect(hStatus(w)).not.toBe(H_RETRY)
+  expect(await hText($, 'retry')).toContain('Nothing to retry')
+  await $.tool.call(READ('more.md'))
+  await done($, 't1', null)
+  await w.clock.advance(600)
+  expect(hStatus(w)).not.toContain('off')
+  expect(w.toasts.filter(t => t.includes('ENOENT'))).toEqual([])
+  const arch = logOf(w, 'architecture')
+  expect(arch.map(e => e.seq)).toEqual(hRange(arch.length))
+  expect(arch.some(e => e.kind === 'tool' && e.path === 'docs/more.md')).toBe(true)
+})
+
+test('S1 (review): a stop lifted by /progress retry leaves no summary of the dropped run in the status line, /progress or the band', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  for (let i = 0; i < 10; i++) await done($, `t${i}`, null)
+  expect(hStatus(w)).toBe(H_OFF)
+  f.broken = false
+  await hText($, 'retry')
+  expect(hStatus(w) ?? '').not.toContain('brainstorm')
+  await w.clock.advance(1000)
+  expect(hStatus(w) ?? '').not.toContain('brainstorm')
+  expect(await hText($)).toContain('No DevForgeAI run is open')
+})
+
+for (const how of ['end', 'load'] as const) {
+  test(`S2 (review): a run already ended by a deliberate stop still gets BEH-42 (h)'s last write at ${how === 'end' ? 'session.end' : 'a tracked load'}`, async ($, on) => {
+    const f = { broken: false }
+    const w = world(on, { evaluate: () => ({ state: archState(8) }), tool: answering({ 'Outcome?': 'Write nothing' }), failWrite: (p: string) => f.broken && EVENTS(p) })
+    await start($)
+    await load($, 'devforgeai:architecture', TAGGED)
+    await w.clock.advance(600)
+    f.broken = true
+    await $.tool.call(READ('b.md'))                                 // the hold
+    await $.tool.call(stepQuestion('Outcome?') as Any)              // Write nothing: stopped, the run-end joins the held lines
+    f.broken = false                                                // fixed, and no turn end came
+    if (how === 'end') await $.session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } } as Any)
+    else await load($, 'devforgeai:architecture', TAGGED)
+    const first = logOf(w, 'architecture').map(e => e.kind)
+    expect(first.includes('run-end')).toBe(true)                    // the held lines were written
+    expect(first.includes('tool')).toBe(true)
+})
+}
+
+for (const usage of [null, USAGE] as const) {
+  test(`S3 (review, Bryan 2026-10-09): a hold born in a turn's own records (usage ${usage === null ? 'none' : 'counted'}) is tried at that turn's end: the stop comes at exactly the tenth turn end`, async ($, on) => {
+    const { w, f } = await hOpen($, on, { match: EVENTS })
+    f.broken = true
+    const a0 = hAttempts(w, EVENTS)
+    for (let i = 0; i < 9; i++) await done($, `t${i}`, usage)
+    expect(hStatus(w)).toBe(H_RETRY)
+    await done($, 't9', usage)
+    expect(hStatus(w)).toBe(H_OFF)
+    expect(hAttempts(w, EVENTS) - a0).toBe(11)                       // the originating write, then ten tries
+})
+}
+
+test('S3 (review): the ledger\'s hold born in a turn\'s own end is tried at once; it stops at the tenth turn end', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: p => p === ODO })
+  f.broken = true
+  const a0 = hAttempts(w, p => p === ODO)
+  await done($, 't0')
+  expect(hAttempts(w, p => p === ODO) - a0).toBe(2)                 // its own write, and the try
+  for (let i = 1; i < 9; i++) await done($, `t${i}`)
+  expect(hStatus(w)).toBe('brainstorm 2/2 · odometer retrying')
+  await done($, 't9')
+  expect(hStatus(w)).toBe('brainstorm 2/2')
+  expect(hLog(w, 'dashboard').some(l => l.startsWith('odometer: gave up after 10 tries'))).toBe(true)
 })

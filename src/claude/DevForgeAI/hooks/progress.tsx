@@ -241,6 +241,10 @@ let held: { id: string; lines: string[]; written: number } | null = null
 /** A hold (BEH-42, version 27): a write of the tracker's that failed, kept in the module's memory and not in $.state, since a reload
  *  loses the lines it keeps and a count that outlived them would describe nothing. `path` and `error` are the latest failed write's. */
 type Hold = { path: string; error: string; firstAt: number; tries: number }
+/** Paused runs whose first write never worked (Bryan, 2026-10-09, the review of 0.29.0, C1): a nested load pushed the run while its log
+ *  was held and the push's write failed, so the file does not exist. Their lines stay in memory, in the hold, until a try writes them;
+ *  the resume takes them back. */
+const parked = new Map<string, { run: ProgressRun; lines: string[]; written: number }>()
 /** The open run's log: `held`'s lines run ahead of its events.jsonl (the folder and its .gitignore included). */
 let runHold: Hold | null = null
 /** The session's odometer file: `ledgerHeld` runs ahead of it. */
@@ -403,10 +407,11 @@ async function stopTracking($: E, reason: string): Promise<void> {
   held = null
   runHold = null
   odoHold = null
+  parked.clear()
   pendingPrune = null
   const dropped = ledgerHeld.length
   ledgerHeld = []
-  await putMany($, () => ({ run: null, trail: [], returned: [] }))
+  await putMany($, () => ({ run: null, trail: [], returned: [], summary: null }))
   if (had) await adapterLog($, 'trail', `empty (tracking stopped: ${reason})`)
   if (dropped > 0) await adapterLog($, 'dashboard', `odometer: dropped ${dropped} lines: the tracker stopped`)
   await update($, OFF, () => reason)
@@ -432,7 +437,9 @@ function holdKind(): HoldKind | null {
 
 /** The lines of the open run's log that the file lacks. */
 function heldLacks(): number {
-  return held === null ? 0 : Math.max(0, held.lines.length - held.written)
+  let n = held === null ? 0 : Math.max(0, held.lines.length - held.written)
+  for (const p of parked.values()) n += Math.max(0, p.lines.length - p.written)
+  return n
 }
 
 /** What the row, the toast and /progress say of the hold shown, or null. */
@@ -523,6 +530,13 @@ async function ensureDir($: E, r: string): Promise<Failed | null> {
  *  throws, and nothing is cached: writing a fresh log over the real one would lose the run's events. */
 async function linesOf($: E, run: ProgressRun): Promise<string[]> {
   if (held !== null && held.id === run.id) return held.lines
+  const kept = parked.get(run.id)
+  if (kept !== undefined) {
+    // The run resumes after a push whose write failed: its lines come back from memory, not from a file that was never written.
+    parked.delete(run.id)
+    held = { id: run.id, lines: kept.lines, written: kept.written }
+    return kept.lines
+  }
   const lines = (await $.fs.read(`${run.dir}/events.jsonl`)).split('\n').filter(Boolean)
   held = { id: run.id, lines, written: lines.length }
   return lines
@@ -572,10 +586,18 @@ async function writeLog($: E, run: ProgressRun, lines: string[], open = true): P
   const failed = await putLog($, run, text)
   if (failed === null) {
     if (open) held = { id: run.id, lines, written: lines.length }
-    else if (held !== null && held.id === run.id) held = null
+    else {
+      parked.delete(run.id)
+      if (held !== null && held.id === run.id) held = null
+    }
     return true
   }
   if (!open) {
+    const kept = parked.get(run.id)
+    if (kept !== undefined) {
+      kept.lines = lines  // a parked run keeps its lines, the run-end included, for the next try
+      return true
+    }
     await adapterLog($, 'write', `dropped 1 lines of ${run.id}: ${failed.path}: ${errorLine(message(failed.err))}`)
     return false
   }
@@ -628,7 +650,8 @@ async function appendEvent($: E, run: ProgressRun, kind: string, fields: Fields,
   const now = await $.clock.now()
   // The seq comes from the run's own lines: a $.state read inside one dispatch sees that dispatch's moment, so
   // overlapping hooks would read the same seq from it.
-  const lines = open ? await linesOf($, run) : (await $.fs.read(`${run.dir}/events.jsonl`)).split('\n').filter(Boolean)
+  const kept = open ? undefined : parked.get(run.id)
+  const lines = open ? await linesOf($, run) : kept !== undefined ? kept.lines : (await $.fs.read(`${run.dir}/events.jsonl`)).split('\n').filter(Boolean)
   // A run already ended (a deliberate stop, BEH-27) gets no second run-end, checked inside the chain (BEH-05, v12);
   // events after the stop (the turn's end) may follow it, so any run-end in the log counts.
   if (kind === 'run-end' && lines.some(l => l.includes('"kind":"run-end"'))) return null
@@ -683,32 +706,51 @@ async function runRecovered($: E, run: ProgressRun, wrote: number): Promise<void
   redraw($)
 }
 
+/** The lines of the parked runs, written whole each into its own file (C1): the failed write, or null; `wrote` counts the lines saved. */
+async function flushParked($: E, count: { wrote: number }): Promise<Failed | null> {
+  for (const [id, p] of [...parked]) {
+    const failed = (await ensureIgnore($, rootOf(p.run))) ?? (await putLog($, p.run, p.lines.join('\n') + '\n'))
+    if (failed !== null) return failed
+    parked.delete(id)
+    count.wrote += Math.max(0, p.lines.length - p.written)
+  }
+  return null
+}
+
 /** One try at the run's hold: the folder and its .gitignore if missing (BEH-15), then the whole log. `how` is 'turn' at a main-loop
  *  turn's end (a failure adds 1 to the count, and the tenth gives up), 'command' for /progress retry (it adds nothing), and 'leave'
- *  when the open run leaves memory (BEH-42 (h)): a failure then drops the run's unwritten lines with one line, and the hold goes on. */
-async function tryRun($: E, how: 'turn' | 'command' | 'leave'): Promise<Tried | null> {
+ *  when the open run leaves memory (BEH-42 (h)): a failure then drops the run's unwritten lines with one line, and the hold goes on.
+ *  'park' is a push (BEH-29): a run that never had a file keeps its lines for its resume instead (C1), the others are dropped as 'leave'. */
+async function tryRun($: E, how: 'turn' | 'command' | 'leave' | 'park'): Promise<Tried | null> {
   const hold = runHold
   if (hold === null) return null
   const run = (await hydrate($)).run
   if (run === null) {
     // The run is gone (a stale hold): nothing is left to write.
     runHold = null
+    parked.clear()
     await refreshStatus($)
     redraw($)
     return null
   }
   const lines = await linesOf($, run)
   const lacks = held !== null && held.id === run.id ? Math.max(0, held.lines.length - held.written) : 0
-  const failed = (await ensureIgnore($, rootOf(run))) ?? (await putLog($, run, lines.join('\n') + '\n'))
+  const count = { wrote: 0 }
+  const failed = (await ensureIgnore($, rootOf(run))) ?? (await flushParked($, count)) ?? (await putLog($, run, lines.join('\n') + '\n'))
   if (failed === null) {
     held = { id: run.id, lines, written: lines.length }
-    await runRecovered($, run, lacks)
-    return { kind: 'run', ok: true, saved: lacks, path: `${run.dir}/events.jsonl`, error: '', lines: 0, tries: hold.tries }
+    await runRecovered($, run, lacks + count.wrote)
+    return { kind: 'run', ok: true, saved: lacks + count.wrote, path: `${run.dir}/events.jsonl`, error: '', lines: 0, tries: hold.tries }
   }
   const error = errorLine(message(failed.err))
   hold.path = failed.path
   hold.error = error
-  if (how === 'leave') {
+  if (how === 'park' && held !== null && held.id === run.id && held.written === 0) {
+    // The run never had a file: its lines stay in memory, in the hold, for its resume or the next try that works.
+    parked.set(run.id, { run, lines, written: 0 })
+    return null
+  }
+  if (how === 'leave' || how === 'park') {
     // The run's unwritten lines are written off: they stay in the cache, so that the run's run-end is still seen as written when a
     // second chain item ends the same run (finishSwitch), and nothing will write them; the next run's lines replace the cache.
     held = { id: run.id, lines, written: lines.length }
@@ -773,16 +815,16 @@ async function odometerGivesUp($: E, hold: Hold, path: string, error: string): P
 }
 
 /** Try the holds once, in the record chain, so a try never races an event being recorded (BEH-42 (b)): the run's log first, then the
- *  odometer's file. `only` limits it to the holds that existed before this turn's own writes (a hold that starts in the turn's end is
- *  not tried in it). */
-function retryHolds($: E, how: 'turn' | 'command', only?: { run: Hold | null; odo: Hold | null }): Promise<Tried[]> {
+ *  odometer's file. A hold that starts in a turn's own records is
+ *  tried at that turn's end too, so a hold stops after exactly 10 failed turn tries (BEH-42 (b), QR-05). */
+function retryHolds($: E, how: 'turn' | 'command'): Promise<Tried[]> {
   return chained(async () => {
     const out: Tried[] = []
-    if (runHold !== null && (only === undefined || only.run === runHold)) {
+    if (runHold !== null) {
       const tried = await tryRun($, how)
       if (tried !== null) out.push(tried)
     }
-    if (odoHold !== null && (only === undefined || only.odo === odoHold)) {
+    if (odoHold !== null) {
       const tried = await tryOdometer($, how)
       if (tried !== null) out.push(tried)
     }
@@ -1111,6 +1153,7 @@ async function setup($: E): Promise<void> {
   held = null
   runHold = null
   odoHold = null
+  parked.clear()
   odoGaveUp = false
   pendingPrune = null
   const run = await get($, 'run')
@@ -1180,7 +1223,15 @@ async function afterOpen($: E, o: Opening): Promise<void> {
   } else {
     pendingPrune = null
     // The new run's first write worked while a hold lasted: the hold is lifted (BEH-42 (h)).
-    if (runHold !== null) await runRecovered($, o.run, 1)
+    if (runHold !== null) {
+      const count = { wrote: 0 }
+      const failed = await flushParked($, count)  // the paused runs' lines go with it, or the hold stays
+      if (failed === null) await runRecovered($, o.run, 1 + count.wrote)
+      else {
+        runHold.path = failed.path
+        runHold.error = errorLine(message(failed.err))
+      }
+    }
   }
   if ((await read($, OFF)) === LOG_FULL) await update($, OFF, () => null)
   // A skill that follows the convention, in a session with no task tools, is placed by guessing: say so once (BEH-23).
@@ -1199,9 +1250,11 @@ async function afterOpen($: E, o: Opening): Promise<void> {
 async function endOpenNow($: E, reason: string, leaving = true): Promise<ProgressRun | null> {
   const run = await get($, 'run')
   if (run === null) return null
-  const into = await recordNow($, 'run-end', { reason }, true)
+  await recordNow($, 'run-end', { reason }, true)
   pendingReport = null
-  if (leaving && into !== null && runHold !== null) await tryRun($, 'leave')
+  // Also for a run a deliberate stop ended already: its held lines (tool, answer, the stop's run-end) get their last write (BEH-42 (h)).
+  // A run whose last write was tried already (a second item ends it again, finishSwitch) has no line left to write.
+  if (leaving && runHold !== null && held !== null && held.id === run.id && held.lines.length > held.written) await tryRun($, 'leave')
   return (await get($, 'run')) ?? run
 }
 
@@ -1414,7 +1467,7 @@ async function claudeLoadNow($: E, r: string, name: string, checklist: string): 
   // A run that can't nest (no task IDs, no known step) ends, and the paused runs stay paused (BEH-03 for the open run).
   if (open === null || step === null) return { kind: 'cannot', ended: await endOpenNow($, 'another-skill') }
   // The open run is paused beneath another: while its log is held it gets one write of its whole log first (BEH-42 (h)).
-  if (runHold !== null) await tryRun($, 'leave')
+  if (runHold !== null) await tryRun($, 'park')
   const o = await prepareRun($, r, name, checklist)
   const pushed = await putMany($, x => {
     if (x.run === null || x.run.id !== open.id) return null
@@ -2729,8 +2782,6 @@ export const register: Register = (on, options) => {
     const main = await recording($, e.agentId)
     // The turn's tokens (BEH-40, SPEC-012 version 17's usage kind): valid counts only, else none.
     const usage = usageFields(e.turnId, e.usage)
-    // The holds that exist as this turn ends: only they are tried at its end (BEH-42 (b)); one that starts in it is not.
-    const holds = { run: runHold, odo: odoHold }
     if (main) {
       turnOpen = false
       if (usage === null) await record($, 'turn', { phase: 'end' }, false)
@@ -2753,9 +2804,9 @@ export const register: Register = (on, options) => {
     }
     // The retry point (BEH-42 (b)): a main-loop turn's end, whatever its reason, tries each hold once, the run's log first, after the
     // turn's own events are recorded and before the review below; a subagent's turn end tries nothing.
-    if (interactive === true && !disabled && e.agentId === undefined && (holds.run !== null || holds.odo !== null)) {
+    if (interactive === true && !disabled && e.agentId === undefined && (runHold !== null || odoHold !== null)) {
       try {
-        await retryHolds($, 'turn', holds)
+        await retryHolds($, 'turn')
       } catch (err) {
         await recover($, 'turn.complete', err)
       }
@@ -2953,6 +3004,7 @@ export const register: Register = (on, options) => {
       held = null
       runHold = null
       odoHold = null
+      parked.clear()
       odoGaveUp = false  // the ledger's own stop is for the session whose file it was (SPEC-016 ERR-06)
       pendingPrune = null
       if (hadHold) redraw($)
