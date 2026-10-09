@@ -5,7 +5,7 @@ title: "Pre-compaction handoff skill: save what the session learned and write a 
 status: approved      # draft | in-review | approved | superseded | deprecated
 version: 2
 created: 2026-10-05
-updated: 2026-10-05
+updated: 2026-10-08
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -21,7 +21,7 @@ upstream:
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 11, hash: null, note: "decisions stay the user's: the handoff records who decided what, in their words, and never turns outstanding work into a decision"}
-  - {id: SPEC-013, relation: informed_by, version: 24, hash: null, note: "BEH-02 (versions 18 and 19): an untracked skill opens no run, and the turn that loads it records no further tool event or reply in the open run, so the handoff can be written in the middle of a tracked run"}
+  - {id: SPEC-013, relation: informed_by, version: 26, hash: null, note: "BEH-02 (versions 18 and 19): an untracked skill opens no run, and the turn that loads it records no further tool event or reply in the open run, so the handoff can be written in the middle of a tracked run"}
 supersedes: []
 superseded_by: null
 blocked_by: []
@@ -469,6 +469,8 @@ Recorded for later: running the skill, or a check that the handoff is current, f
 BEH-24). Whether PRD-001 gains a requirement for the handoff (§2). Whether spec-lookup, marked untracked, could load in
 the main conversation during a run instead of its agent (SPEC-014 §13).
 
+- Record (2026-10-08, no version bump): SPEC-013 version 21 (BEH-36; counted as fuel from version 23) runs this skill automatically, once between two compactions and as if the person had typed it, when the context window's fuel left falls to `precompactRunFuel` (20% by default, which is 80% of the window used), and with version 25's set of pending names (BEH-41, approved) the handoff's turn is marked as SPEC-013 BEH-02 says; version 26 (in review) adds a one-shot pending mark in $.state (BEH-36, BEH-02) as a second path to that mark. That is the 'eventually, it may run with the precompact hook' item recorded above for later. Versions 21 and 23 to 25 are built on branch `feat/dashboard-build` (plugin 0.28.0, not merged); version 26 will be built there too.
+
 Drafter's choices, for Bryan's accept or challenge: the seven START-HERE sections and their line shapes (DM-01), taken
 from this session's own handoff of 2026-10-05; the 40-line limit and about 15 lines for the resume prompt; the 20 done
 entries kept in TASKS.md before archiving (it changes "progress checkpoints" kept forever into a recent list plus an
@@ -487,3 +489,5 @@ named in BEH-06.
 | 2 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | The build's structure test found that §5's description holds `<branch>`, which skill-frontmatter.schema.json refuses (a description holds no < or >; PRD-001 NFR-002, §2): it now says 'in devforgeai/handoff/, one folder per branch'. Writing the no-git eval case (VER-05) found §4's project root (the git top level when a parent of the working directory) contradicting ERR-01 (a parent repository the user didn't name means git isn't used): the root is now the folder the session started in, or a folder holding it that the user names; status in-review; on a side note Bryan relayed (sessions on main that edit worktrees with git -C would share main's folder), he chose 'Folder follows the work's branch': the folder and the state checks follow the branch of the worktree the session's work is in; §1 names it and its worktree; the resume prompt checks that worktree's branch; IF-01 states the checker's readings that the build's reviews settled (only the three files read; `[[fill:` outside code; a §2 bullet's own text before a nested list; `- None.` under Decided; `Nothing outstanding` with a note; items over blank lines and fences; `:LINE:COL`, URL-decoded and root-relative links; a relative path beside its file too; the markers on any line of a §4 item; unset variables skipped; the resume path matched whole; an unreadable folder exits 2) | §4, §5, IF-01, DM-01, DM-03, §13 |
 | 2 | 2026-10-05 | Bryan | Approved ('Approve v2 (Recommended)', with the four changes shown in its preview); the SPEC-013 link moved to version 19 on his 'Fix now as SPEC-013 v19' | status, §2, §10 |
 | 2 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: SKL-012 v1 approved, merged in PR #93 (`909a252`) and deployed as plugin 0.26.0 (§9, blockquote) | §9, blockquote |
+| 2 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Record-only update, with no version bump: §13 records that SPEC-013 version 21 (BEH-36), with version 25's set of pending names, runs this skill automatically at precompactRunFuel (20% fuel left by default), the 'eventually, it may run with the precompact hook' item §13 recorded for later; to be built with the dashboard (SPEC-016) | §13 |
+| 2 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Record-only update, with no version bump: §13's note on the automatic run points to SPEC-013 version 26's pending mark (in review) and says versions 21 and 23 to 25 are built on branch `feat/dashboard-build` (plugin 0.28.0, not merged) | §13 |

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v16).
+"""Progress evaluator for DevForgeAI skill runs (SPEC-012 v18).
 
 Run from the project root:
     python3 evaluate.py evaluate --manifests DIR [--manifests DIR ...] --events FILE --out FILE
@@ -13,7 +13,8 @@ on stderr. `check` (IF-02) compares a skill's checklist with its manifest: exit 
 1 when the manifest is stale, missing or names invalid workFiles, 2 when it can't run.
 
 The evaluator is a pure function of its inputs (BEH-01): each call reads the whole event log, keeps
-nothing between calls, and reads no clock. It uses the Python standard library only (QR-01), reads
+nothing between calls, and reads no clock; the figures of version 17 (active time, the steps a run reached and when, the
+tokens its usage events carry) come from the log's own times and counts alone (BEH-23 to BEH-25). It uses the Python standard library only (QR-01), reads
 only the files its command names and, with --root, the files a run wrote (QR-04), and writes only
 --out.
 """
@@ -24,6 +25,7 @@ import os
 import re
 import sys
 import tempfile
+from datetime import datetime, timedelta, timezone
 from fnmatch import fnmatchcase
 from pathlib import PurePosixPath
 
@@ -45,7 +47,13 @@ EVENT_FIELDS = {  # the fields each kind of event must carry (DM-02)
     "turn": {"phase": str},
     "run-end": {"reason": str},
     "step": {"step": int, "state": str},
+    "usage": {"turn": str, "model": str, "input": int, "output": int, "cacheRead": int, "cacheWrite": int},
 }
+USAGE_COUNTS = ("input", "output", "cacheRead", "cacheWrite")  # a usage event's counts (DM-02, version 17)
+IDLE_MS = 1800 * 1000  # a gap of more than this between consecutive timed events is idle (BEH-23)
+TIME = re.compile(r"([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})(?:\.([0-9]+))?"
+                  r"(?:Z|([+-])([0-9]{2}):([0-9]{2}))")  # an ISO 8601 date-time with a Z or a UTC offset (ERR-12)
+EPOCH = datetime(1970, 1, 1, tzinfo=timezone.utc)
 STEP_STATES = ("started", "done")
 WAIVERS = ("proceed", "ask", "other")  # the waiver answer's values (DM-02, version 11)
 TASK_TAG = "devforgeai_step"  # a skill whose text names it follows the task-list convention (§4, BEH-18)
@@ -331,7 +339,11 @@ def well_formed(e):
     if e["kind"] == "step" and (isinstance(e.get("step"), bool) or not isinstance(e.get("step"), int)
                                 or e["step"] < 1 or e.get("state") not in STEP_STATES):
         return False
-    return all(isinstance(e.get(k), t) for k, t in fields.items())
+    if not all(isinstance(e.get(k), t) for k, t in fields.items()):
+        return False
+    # ERR-11: a usage event names its turn and model, and its counts are integers of 0 or more (a boolean is none)
+    return e["kind"] != "usage" or (bool(e["turn"]) and bool(e["model"])
+                                    and all(not isinstance(e[k], bool) and e[k] >= 0 for k in USAGE_COUNTS))
 
 
 def read_events(path):
@@ -377,6 +389,72 @@ def read_events(path):
         else:
             events.append(e)
     return events, counts
+
+
+# ---- figures from the log alone (BEH-23 to BEH-25, version 17) ---------------------------------
+
+def time_ms(text):
+    """An event's time as milliseconds since the epoch, or None when it doesn't read (ERR-12): an ISO 8601 date-time
+    with a Z or a UTC offset (+hh:mm), to the millisecond (any further digits of the second are dropped). A time with no
+    offset isn't read, since that would take a guess about the zone."""
+    m = TIME.fullmatch(text)
+    if m is None:
+        return None
+    year, month, day, hour, minute, second = (int(g) for g in m.groups()[:6])
+    offset = timedelta(0)
+    if m.group(8):
+        if int(m.group(10)) > 59:
+            return None
+        offset = timedelta(hours=int(m.group(9)), minutes=int(m.group(10))) * (-1 if m.group(8) == "-" else 1)
+    try:
+        when = datetime(year, month, day, hour, minute, second, tzinfo=timezone(offset))
+        return (when - EPOCH) // timedelta(milliseconds=1) + int(((m.group(7) or "") + "000")[:3])
+    except (ValueError, OverflowError):
+        return None
+
+
+def timeline(events):
+    """(the timing figures that come from times alone, active seconds at each event's seq) for the evaluated events
+    (BEH-23). The run's timed events are those whose time reads, in seq order; the gap between consecutive ones is the
+    later time less the earlier, below 0 counted as 0, and a gap of more than 30 minutes is idle and left out. The active
+    time is the sum of the other gaps in milliseconds, in whole seconds rounded down; an event whose time doesn't read
+    has the active time of the last timed event before it, and 0 before the first."""
+    started = last = None
+    previous, total, untimed, active_at = None, 0, 0, {}
+    for e in events:
+        ms = time_ms(e["time"])
+        if ms is None:
+            untimed += 1
+        else:
+            if previous is None:
+                started = e["time"]
+            else:
+                gap = max(ms - previous, 0)
+                if gap <= IDLE_MS:
+                    total += gap
+            previous, last = ms, e["time"]
+        active_at[e["seq"]] = total // 1000
+    return {"started": started, "lastEvent": last, "activeSeconds": total // 1000, "untimed": untimed}, active_at
+
+
+def usage_totals(events):
+    """The state's usage (BEH-25): the sums of the usage events' counts, each turn ID counted once, the first event
+    naming it standing, the distinct model names counted sorted, and the events left out as repeats."""
+    totals = {"turns": 0, "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0, "duplicates": 0}
+    turns, models = set(), set()
+    for e in events:
+        if e["kind"] != "usage":
+            continue
+        if e["turn"] in turns:
+            totals["duplicates"] += 1
+            continue
+        turns.add(e["turn"])
+        models.add(e["model"])
+        totals["turns"] += 1
+        for key in USAGE_COUNTS:
+            totals[key] += e[key]
+    totals["models"] = sorted(models)
+    return totals
 
 
 # ---- the progress state -----------------------------------------------------------------------
@@ -1109,9 +1187,33 @@ class Run:
             first = self.steps[0]
             first.note = self.manifest_note + ("; " + first.note if first.note else "")
 
-    def step_records(self, current):
-        last = self.events[-1]
+    def first_reached(self):
+        """{step number: the seq at which this run first reached it} (BEH-24, version 17): the lowest seq of the step's
+        first evidence of a type other than carried or waiver, its first claim of any kind and its first step event of
+        either state; a step with carried evidence (BEH-20) is absent, since the earlier run reached it. This serves the
+        run's figures only: BEH-07's reached, the gates and BEH-18's 'every step reached' never read it (version 18)."""
+        marked = {}
+        for seq, n, _ in self.step_events:  # in seq order: the first mark of each step
+            marked.setdefault(n, seq)
+        reached = {}
+        for step in self.steps:
+            if any(x["type"] == "carried" for x in step.evidence):
+                continue
+            seqs = [x["seq"] for x in step.evidence if x["type"] != "waiver"]
+            seqs += [c["seq"] for c in step.claims]
+            if step.n in marked:
+                seqs.append(marked[step.n])
+            if seqs:
+                reached[step.n] = min(seqs)
+        return reached
+
+    def step_records(self, current, active_at):
+        # A usage event is no turn: the user's turn is judged from the last event that isn't one (BEH-25), since the
+        # adapter writes a turn's usage right after the turn's end.
+        last = next(e for e in reversed(self.events) if e["kind"] != "usage")
         waiting = last["kind"] == "turn" and last.get("phase") == "end"
+        reached = self.first_reached()
+        times = {e["seq"]: e["time"] for e in self.events}
         records = []
         for step in self.steps:
             state = self.final_state(step)
@@ -1121,7 +1223,10 @@ class Run:
             records.append({"n": step.n, "title": step.title, "kind": step.kind, "need": step.need,
                             "userOwned": step.user_owned, "state": state,
                             "evidence": sorted(step.evidence, key=lambda x: x["seq"]),
-                            "claim": dict(claim) if claim else None, "note": step.note})
+                            "claim": dict(claim) if claim else None, "note": step.note,
+                            "reached": ({"seq": reached[step.n], "time": times[reached[step.n]],
+                                         "activeSeconds": active_at[reached[step.n]]}
+                                        if step.n in reached else None)})
             if step.stoppable:
                 records[-1]["stoppable"] = True  # version 12: only a stoppable step carries the field (DM-03)
         return records
@@ -1148,6 +1253,10 @@ def build_state(events, counts, manifest, layers, root=None):
                   stepEvents=len(run.step_events))  # the step events naming a step the checklist has
     current = run.current()
     run.step_notes(current)
+    timing, active_at = timeline(events)
+    steps = run.step_records(current, active_at)
+    timing["stepsReached"] = sum(1 for step in steps if step["reached"] is not None)
+    timing["stepsCarried"] = sum(1 for step in run.steps if any(x["type"] == "carried" for x in step.evidence))
     state = {
         "format": "devforgeai-progress/1",
         "run": loaded["run"],
@@ -1158,12 +1267,14 @@ def build_state(events, counts, manifest, layers, root=None):
         "through": events[-1]["seq"],
         "ended": events[-1]["reason"] if events[-1]["kind"] == "run-end" else None,
         "current": current,
-        "steps": run.step_records(current),
+        "steps": steps,
         "flags": run.flags,
         "gate": run.gate,
         "next": run.next_step(skill),
         "counts": counts,
         "waiver": run.waiver,
+        "timing": timing,
+        "usage": usage_totals(events),
     }
     if manifest_state in ("matched", "unverified") and manifest.get("workFiles"):
         state["workFiles"] = run.work_files(manifest["workFiles"])  # version 15
@@ -1189,6 +1300,12 @@ def write_state(state, out):
     if not os.path.isdir(folder):
         raise Fail("%s: the folder %s doesn't exist" % (out, os.path.dirname(out) or "."))
     text = json.dumps(state, sort_keys=True, indent=2, ensure_ascii=False) + "\n"
+    try:
+        text.encode("utf-8")
+    except UnicodeEncodeError:
+        # A lone surrogate (legal JSON) in the skill name, an event's time or a path can't be written as UTF-8: the
+        # state is written with its non-ASCII text escaped, valid JSON that holds the same values.
+        text = json.dumps(state, sort_keys=True, indent=2) + "\n"
     tmp = None
     try:
         fd, tmp = tempfile.mkstemp(dir=folder, prefix=".state-", suffix=".tmp")
@@ -1217,7 +1334,9 @@ def cmd_evaluate(args):
     if args.phases:
         state["phases"] = phases
     write_state(state, args.out)
-    print(summary(state))
+    # The summary names the skill: a lone surrogate in it is written as its escape, never a traceback after the state
+    # is on disk.
+    print(summary(state).encode("utf-8", "backslashreplace").decode("utf-8"))
     return 0
 
 

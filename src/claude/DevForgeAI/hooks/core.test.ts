@@ -9,6 +9,8 @@ import {
   formOf, formsText, draftCandidate, gatedOf, fnmatchcase, pathMatches, ruleMatches, scriptWord, runsScript, commandParts, pathToken,
   outsideWord, outsideRefusal, outsideMessage, folderOf, folderOfFile, changedFiles, logNames, windowClosed, wroteText, withContext,
   OUTSIDE_ADVICE,
+  isFromMod, fuelSetting, measuredShare, precompactRow, precompactDue, NO_PRECOMPACT, usageFields, ledgerLine, progressReport,
+  addStart, takeStart, isCompaction, isOwnRun,
 } from './progress-core'
 import type { ProgressState } from './progress-core'
 
@@ -662,4 +664,164 @@ test('draftCandidate: the last work file while due is false and the step is at o
   expect(draftCandidate(st({ files: ['../x'], due: false }), 5, 6)).toBeNull()
   expect(draftCandidate(st({ files: ['a'], due: false }), 5, null)).toBeNull()
   expect(draftCandidate(st(undefined), 5, 6)).toBeNull()
+})
+
+// ---- versions 21, 23, 24 and 25: other mods' calls, the fuel row, usage, the ledger, /progress and the start names ----
+
+test('VER-54: an origin is another mod\'s only when its plugin is a string other than engine; a missing or odd origin is Claude Code\'s', () => {
+  expect(isFromMod({ plugin: 'engine', tier: 'core' })).toBe(false)
+  expect(isFromMod(undefined)).toBe(false)
+  expect(isFromMod(null)).toBe(false)
+  expect(isFromMod({})).toBe(false)
+  expect(isFromMod('engine')).toBe(false)
+  expect(isFromMod({ plugin: 3 })).toBe(false)
+  expect(isFromMod({ plugin: null })).toBe(false)
+  expect(isFromMod({ plugin: 'modder' })).toBe(true)
+  expect(isFromMod({ plugin: 'devforgeai', tier: 'user' })).toBe(true)
+  expect(isEngine({ plugin: 'modder' })).toBe(false)  // BEH-38 and BEH-04 still ask for engine itself
+  expect(isEngine(undefined)).toBe(false)
+})
+
+test('BEH-41: a command.run is this plugin\'s own when its origin is a plugin of this plugin\'s name', () => {
+  expect(isOwnRun({ kind: 'plugin', name: 'devforgeai' }, 'devforgeai')).toBe(true)
+  expect(isOwnRun({ kind: 'plugin', name: 'other' }, 'devforgeai')).toBe(false)
+  expect(isOwnRun({ kind: 'composer' }, 'devforgeai')).toBe(false)
+  expect(isOwnRun({ kind: 'plugin' }, 'devforgeai')).toBe(false)
+  expect(isOwnRun({ kind: 'plugin', name: 7 }, 'devforgeai')).toBe(false)
+  expect(isOwnRun(undefined, 'devforgeai')).toBe(false)
+  expect(isOwnRun(null, 'devforgeai')).toBe(false)
+})
+
+test('DM-07 / DM-08: a fuel setting is a whole number from 0 to 95; anything else counts as its default and is reported', () => {
+  expect(fuelSetting(undefined, 30)).toEqual({ value: 30, invalid: false })
+  for (const ok of [0, 1, 20, 30, 95]) expect(fuelSetting(ok, 30)).toEqual({ value: ok, invalid: false })
+  for (const bad of [96, 100, -1, 25.5, NaN, Infinity, null, '', '30', '0', true, false, [], {}]) {
+    expect(fuelSetting(bad, 20), String(bad)).toEqual({ value: 20, invalid: true })
+  }
+})
+
+test('BEH-35: the measured share is a whole number from 0 to 100, and none otherwise', () => {
+  for (const ok of [0, 1, 70, 100]) expect(measuredShare(ok)).toBe(ok)
+  for (const bad of [undefined, null, NaN, -1, 101, 50.5, '70', true]) expect(measuredShare(bad), String(bad)).toBeNull()
+})
+
+const view = (o: Partial<typeof NO_PRECOMPACT> = {}) => ({ ...NO_PRECOMPACT, ...o })
+
+test('BEH-35: the row\'s text by fuel, the warning share, the run share and what has happened', () => {
+  expect(NO_PRECOMPACT).toEqual({ percent: null, hidden: false, ran: false, failed: false, pending: false })
+  expect(precompactRow(view(), 30, 20)).toBeNull()                                  // no measurement: no row
+  expect(precompactRow(view({ percent: 69 }), 30, 20)).toBeNull()                   // fuel 31
+  expect(precompactRow(view({ percent: 70 }), 30, 20)).toBe('▲ Fuel 30% · precompact runs at 20%')
+  expect(precompactRow(view({ percent: 72 }), 30, 20)).toBe('▲ Fuel 28% · precompact runs at 20%')
+  expect(precompactRow(view({ percent: 79 }), 30, 20)).toBe('▲ Fuel 21% · precompact runs at 20%')
+  expect(precompactRow(view({ percent: 80 }), 30, 20)).toBeNull()                   // the run share: the run starts, no text of its own
+  expect(precompactRow(view({ percent: 85, ran: true }), 30, 20)).toBeNull()        // a run has started
+  expect(precompactRow(view({ percent: 72, hidden: true }), 30, 20)).toBeNull()     // the skill loaded
+  expect(precompactRow(view({ percent: 72 }), 30, 0)).toBe('▲ Fuel 28% · consider /devforgeai:precompact before /compact')
+  expect(precompactRow(view({ percent: 99 }), 30, 0)).toBe('▲ Fuel 1% · consider /devforgeai:precompact before /compact')
+  expect(precompactRow(view({ percent: 72 }), 0, 20)).toBeNull()                    // the warning off
+  expect(precompactRow(view({ percent: 80, failed: true, ran: true }), 30, 20)).toBe('● Fuel 20% · run /devforgeai:precompact now')
+  expect(precompactRow(view({ percent: 90, failed: true, ran: true }), 30, 20)).toBe('● Fuel 10% · run /devforgeai:precompact now')
+  expect(precompactRow(view({ percent: 80, failed: true, ran: true }), 0, 20)).toBeNull()      // the warning off: no row
+  // R1 (Bryan, 2026-10-08, "Show it at once"): a failed run draws the failed row at once, above the warning share too
+  expect(precompactRow(view({ percent: 60, failed: true, ran: true }), 30, 40)).toBe('● Fuel 40% · run /devforgeai:precompact now')
+  expect(precompactRow(view({ percent: 65, failed: true, ran: true }), 30, 40)).toBe('● Fuel 35% · run /devforgeai:precompact now')
+  expect(precompactRow(view({ percent: 10, failed: true, ran: true }), 95, 20)).toBe('● Fuel 90% · run /devforgeai:precompact now')
+  expect(precompactRow(view({ percent: 60, ran: true }), 30, 40)).toBeNull()                     // not failed: still no row above the warning share
+  expect(precompactRow(view({ percent: 70, failed: true, ran: true, hidden: true }), 30, 20)).toBeNull()
+  // a run share at or above the warning share: the run starts first, so the row appears only when the run fails
+  expect(precompactRow(view({ percent: 75 }), 20, 25)).toBeNull()
+  expect(precompactRow(view({ percent: 80, ran: true }), 20, 25)).toBeNull()
+  expect(precompactRow(view({ percent: 80, ran: true, failed: true }), 20, 25)).toBe('● Fuel 20% · run /devforgeai:precompact now')
+})
+
+test('BEH-36: the automatic run is due at or below the run share, once, not hidden, and never with the run share 0', () => {
+  expect(precompactDue(view({ percent: 80 }), 20)).toBe(true)
+  expect(precompactDue(view({ percent: 99 }), 20)).toBe(true)
+  expect(precompactDue(view({ percent: 79 }), 20)).toBe(false)
+  expect(precompactDue(view({ percent: 80, ran: true }), 20)).toBe(false)
+  expect(precompactDue(view({ percent: 80, hidden: true }), 20)).toBe(false)
+  expect(precompactDue(view({ percent: 80, failed: true }), 20)).toBe(false)
+  expect(precompactDue(view({ percent: 100 }), 0)).toBe(false)
+  expect(precompactDue(view(), 20)).toBe(false)
+})
+
+test('BEH-40: a usage event\'s fields come from a turn ID, a model and four whole counts of 0 or more, and from nothing less', () => {
+  const usage = { input_tokens: 1200, output_tokens: 340, cache_read_input_tokens: 5000, cache_creation_input_tokens: 0, model: 'claude-opus-5-5', extra: 1 }
+  expect(usageFields('t1', usage)).toEqual({ turn: 't1', model: 'claude-opus-5-5', input: 1200, output: 340, cacheRead: 5000, cacheWrite: 0 })
+  expect(usageFields(undefined, usage)).toBeNull()
+  expect(usageFields('', usage)).toBeNull()
+  expect(usageFields(7, usage)).toBeNull()
+  for (const bad of [null, undefined, 'x', 3, []]) expect(usageFields('t1', bad)).toBeNull()
+  expect(usageFields('t1', { ...usage, model: '' })).toBeNull()
+  expect(usageFields('t1', { ...usage, model: 4 })).toBeNull()
+  const { model: _m, ...noModel } = usage
+  expect(usageFields('t1', noModel)).toBeNull()
+  for (const key of ['input_tokens', 'output_tokens', 'cache_read_input_tokens', 'cache_creation_input_tokens']) {
+    for (const bad of [-1, 1.5, '7', true, null, undefined, NaN, Infinity]) {
+      expect(usageFields('t1', { ...usage, [key]: bad }), `${key}=${String(bad)}`).toBeNull()
+    }
+  }
+})
+
+test('BEH-40: a usage event line holds turn, model, input, output, cacheRead and cacheWrite in DM-02\'s order', () => {
+  const fields = { cacheWrite: 4, cacheRead: 3, output: 2, input: 1, model: 'm', turn: 't1', extra: 9 }
+  expect(eventLine(RUN, 5, T0 + 5000, 'usage', fields)).toBe('{"run":"' + RUN + '","seq":5,"time":"2026-10-02T12:00:05Z","kind":"usage",'
+    + '"turn":"t1","model":"m","input":1,"output":2,"cacheRead":3,"cacheWrite":4}')
+})
+
+test('SPEC-016 BEH-10: a ledger line is DM-04\'s object, in its field order, with the time to the second', () => {
+  const fields = { turn: 't1', model: 'm', input: 1, output: 2, cacheRead: 3, cacheWrite: 4 }
+  expect(ledgerLine('s1', 't1', 'main', fields, T0 + 7000)).toBe('{"session":"s1","turn":"t1","source":"main","input":1,"output":2,'
+    + '"cacheRead":3,"cacheWrite":4,"time":"2026-10-02T12:00:07Z"}')
+  expect(JSON.parse(ledgerLine('s1', 't9', 'agent-7', fields, T0)).source).toBe('agent-7')
+})
+
+const SUMMARY = {
+  skill: 'brainstorm', current: 2, steps: 2, flags: 0, yourTurn: false, ended: null as string | null, manifest: 'matched' as const,
+  states: ['done', 'current'], currentTitle: 'Pick', lastFlag: null as string | null,
+}
+
+test('BEH-34: /progress prints the status line and the band\'s two rows without the button; with no run, the sentence and an ended run\'s status', () => {
+  expect(progressReport(SUMMARY, true, 'observe', false, null, [])).toBe('brainstorm 2/2\nbrainstorm  ●◆  step 2 of 2: Pick\nobserve mode  no flags')
+  expect(progressReport({ ...SUMMARY, flags: 1, lastFlag: 'step 1 was skipped' }, true, 'enforce', true, null, []))
+    .toBe('brainstorm 2/2 · 1 flag · idle · enforce\nbrainstorm  ●◆  step 2 of 2: Pick\nenforce mode  step 1 was skipped')
+  const paused = [{ skill: 'architecture', step: 7, summary: { steps: 11 } }]
+  const text = progressReport(SUMMARY, true, 'observe', false, null, paused).split('\n')
+  expect(text[0]).toBe('brainstorm 2/2 · in architecture 7/11')
+  expect(text[1]).toBe('brainstorm  ●◆  step 2 of 2: Pick (paused: architecture at step 7)')
+  expect(progressReport(null, false, 'observe', false, null, [])).toBe('No DevForgeAI run is open in this session.')
+  expect(progressReport({ ...SUMMARY, ended: 'session-end' }, true, 'observe', false, null, []))
+    .toBe('No DevForgeAI run is open in this session.\nbrainstorm ended')
+  expect(progressReport({ ...SUMMARY, ended: 'stopped', current: null, stoppedAt: 8 }, true, 'enforce', false, null, []))
+    .toBe('No DevForgeAI run is open in this session.\nbrainstorm stopped at step 8 · enforce')
+  expect(progressReport(SUMMARY, false, 'observe', false, null, [])).toBe('No DevForgeAI run is open in this session.')
+})
+
+// VER-64 (the tile half is STUBBED): the tile setter isn't built (held with the dashboard), so a made-up second setter adds
+// a name to the set directly; BEH-36's setter adds precompact. The set's operations are the module's own.
+test('VER-56 / VER-64 (STUB second setter): two setters don\'t erase each other in either order; each command.run takes only its own name; a failure drops only its own', () => {
+  for (const order of [['devforgeai:precompact', 'brainstorm'], ['brainstorm', 'devforgeai:precompact']]) {
+    const set = new Set<string>()
+    for (const command of order) addStart(set, command)
+    expect([...set].sort()).toEqual(['brainstorm', 'precompact'])
+    expect(takeStart(set, 'devforgeai:precompact')).toBe(true)
+    expect([...set]).toEqual(['brainstorm'])
+    expect(takeStart(set, 'devforgeai:precompact')).toBe(false)     // a second command.run of the name is not typed
+    expect(takeStart(set, 'devforgeai:spec-lookup')).toBe(false)    // a name that was never added
+    expect(takeStart(set, 'brainstorm')).toBe(true)
+    expect(set.size).toBe(0)
+  }
+  const set = new Set(['precompact', 'brainstorm'])
+  takeStart(set, 'devforgeai:brainstorm')                           // ERR-24's removal of the tile's name only
+  expect([...set]).toEqual(['precompact'])
+})
+
+test('BEH-35: a compaction is a result with messages; a skip is not', () => {
+  expect(isCompaction({ messages: [] })).toBe(true)
+  expect(isCompaction({ messages: [{ role: 'user', text: 'x', toolUses: [] }], tokensBefore: 10 })).toBe(true)
+  expect(isCompaction({ skip: 'blocked' })).toBe(false)
+  expect(isCompaction({ messages: 'x' })).toBe(false)
+  expect(isCompaction(undefined)).toBe(false)
+  expect(isCompaction(null)).toBe(false)
 })

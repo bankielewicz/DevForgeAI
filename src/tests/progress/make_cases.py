@@ -57,21 +57,39 @@ class Log:
     """Builds one run's events with fixed run ID, seq and times."""
 
     def __init__(self, skill, checklist=None, run_suffix="0000abcd", task_list=None, resumes=None, carried=None,
-                 answered=None, draft=None):
+                 answered=None, draft=None, times=None):
         self.run = "20261002T120000Z-%s-%s" % (skill, run_suffix)
+        self.times = list(times or [])  # version 17: the nth event's time, if given (see stamp); else T0 + seq seconds
         self.events = []
         self.add("skill-loaded", format="devforgeai-events/1", skill=skill,
                  checklist=checklist if checklist is not None else checklist_block(skill),
                  host="claude-code 2.1.287", taskList=task_list, resumes=resumes, carried=carried,
                  answered=answered, draft=draft)
 
+    def stamp(self, seq):
+        """The time of the event with this seq: its entry in `times` when there is one (a text is used as written, a
+        number is seconds after T0, to the millisecond), else T0 + seq seconds, as every case before version 17 has it."""
+        if seq <= len(self.times):
+            given = self.times[seq - 1]
+            if isinstance(given, str):
+                return given
+            when = T0 + timedelta(milliseconds=round(given * 1000))
+            if when.microsecond:
+                return when.strftime("%Y-%m-%dT%H:%M:%S.") + "%03dZ" % (when.microsecond // 1000)
+            return when.strftime("%Y-%m-%dT%H:%M:%SZ")
+        return (T0 + timedelta(seconds=seq)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
     def add(self, kind, **fields):
         seq = len(self.events) + 1
-        event = {"run": self.run, "seq": seq, "kind": kind,
-                 "time": (T0 + timedelta(seconds=seq)).strftime("%Y-%m-%dT%H:%M:%SZ")}
+        event = {"run": self.run, "seq": seq, "kind": kind, "time": self.stamp(seq)}
         event.update({k: v for k, v in fields.items() if v is not None})
         self.events.append(event)
         return self
+
+    def usage(self, turn, model="claude-opus-5-5", input=10, output=5, cache_read=0, cache_write=0):
+        """The adapter's record of one main-loop turn's tokens (version 17, DM-02)."""
+        return self.add("usage", turn=turn, model=model, input=input, output=output, cacheRead=cache_read,
+                        cacheWrite=cache_write)
 
     def tool(self, tool, path=None, command=None, exit_code=None, error=None, content=None, wrote=None):
         return self.add("tool", tool=tool, path=path, command=command, exit=exit_code, error=error,
@@ -1153,6 +1171,178 @@ def brn_forms(forms):
 @case("brn-forms")  # VER-46: questions on the answer event change nothing: the state equals the same log's without them
 def _():
     return brn_forms(True), plugin_only(), {}
+
+
+# ---- version 17: timing, steps reached and usage (VER-47, VER-48, VER-49) ------------------------------
+# Times are seconds after T0 (a number), or a text used as written. Cases before version 17 have T0 + seq seconds.
+
+TIMING_CASES = ("timing-basic", "timing-single", "timing-backward", "timing-millis", "timing-offset",
+                "timing-untimed", "timing-after-end", "timing-usage-gap")
+REACHED_CASES = ("reached-kinds", "reached-same-event", "reached-idle", "reached-skipped-tick", "reached-unknown",
+                 "reached-waiver", "reached-carried", "reached-carried-all", "reached-stale",
+                 "reached-untimed-step")
+USAGE_CASES = ("usage-totals", "usage-duplicate-turn", "usage-neutral", "usage-after-end", "usage-malformed",
+               "usage-none")
+INVALID_EVENT_CASES = ("messy-log", "usage-malformed")  # their malformed lines are the point of the case
+
+
+@case("timing-basic")  # VER-47: gaps of 60 and 1,800 s are active, 1,801 s is idle: 1,860 s
+def _():
+    return Log("brainstorm", times=[0, 60, 1860, 3661]).tick(1).tick(2).tick(3), plugin_only(), {}
+
+
+@case("timing-single")  # VER-47: one event: no gap
+def _():
+    return Log("brainstorm", times=[5]), plugin_only(), {}
+
+
+@case("timing-backward")  # VER-47: a time before its predecessor adds 0, and the next gap is measured from it
+def _():
+    return Log("brainstorm", times=[0, 100, 40, 90]).tick(1).tick(2).tick(3), plugin_only(), {}
+
+
+@case("timing-millis")  # VER-47: gaps of 1.5 s and 1.4 s add to 2.9 s: 2
+def _():
+    return Log("brainstorm", times=[0, 1.5, 2.9]).tick(1).tick(2), plugin_only(), {}
+
+
+@case("timing-offset")  # VER-47: 14:00:10+02:00 is the instant 12:00:10Z
+def _():
+    return Log("brainstorm", times=[0, "2026-10-02T14:00:10+02:00", 20]).tick(1).tick(2), plugin_only(), {}
+
+
+@case("timing-untimed")  # VER-47: two times that don't read, left out of the gaps; the gap is measured across them
+def _():
+    times = [0, 10, "yesterday", "2026-10-02T12:00:15", 30]
+    return Log("brainstorm", times=times).tick(1).tick(2).tick(3).tick(4), plugin_only(), {}
+
+
+@case("timing-after-end")  # VER-47: events after the run-end add nothing
+def _():
+    return Log("brainstorm", times=[0, 10, 20, 5000, 6000]).tick(1).end("session-end").tick(2).tick(3), plugin_only(), {}
+
+
+@case("timing-usage-gap")  # VER-47: a turn and two usage events are timed events: three 20-minute gaps stay active
+def _():
+    log = Log("brainstorm", times=[0, 10, 1210, 2410, 3610]).tick(1).turn("end")
+    return log.usage("t1").usage("t2"), plugin_only(), {}
+
+
+@case("reached-kinds")  # VER-48: a tool event (seq 5), a tick (8), a started step event (9) and its done event
+def _():
+    log = following("brainstorm").prompt().turn("start").reply("Let me look.")
+    log.glob("docs/specs/brainstorm/BRN-*.md").turn("end").prompt().tick(2).started(3).done(3)
+    return log, plugin_only(), {}
+
+
+@case("reached-same-event")  # VER-48: one reply ticking steps 2 to 4: each holds that event
+def _():
+    return Log("brainstorm").tick(2, 3, 4), plugin_only(), {}
+
+
+@case("reached-idle")  # VER-48: step 2 is reached after a 40-minute gap, which its activeSeconds leaves out
+def _():
+    return Log("brainstorm", times=[0, 10, 2410]).tick(1).tick(2), plugin_only(), {}
+
+
+@case("reached-skipped-tick")  # VER-48: a skipped claim reaches the step
+def _():
+    return Log("brainstorm").reply("- [ ] 2. Think about the problem (skipped: nothing to ask)"), plugin_only(), {}
+
+
+@case("reached-unknown")  # VER-48, ERR-06: claims for a step the checklist hasn't reach nothing
+def _():
+    return Log("brainstorm").tick(40).started(40), plugin_only(), {}
+
+
+@case("reached-waiver")  # VER-48, BEH-19: step 8 is done by the waiver's evidence alone: reached null
+def _():
+    log = arch_to_six(Log("architecture")).answer(waiver="proceed").write(ARCH_PATH, arch("amend"))
+    return log, plugin_only(), {}
+
+
+@case("reached-carried")  # VER-48, BEH-20: steps 1 to 7 carried (a read of step 4's folder doesn't reach it); step 8 is
+def _():  # reached in this run
+    log = carrying("architecture", [1, 2, 3, 4, 5, 6, 7]).glob("docs/specs/arch/ARCH-*.md").started(8)
+    return log, plugin_only(), {}
+
+
+@case("reached-carried-all")  # VER-48, version 18: carried steps still count as reached for the gates (BEH-07, BEH-18):
+def _():  # every step carried, so a later untagged question is no question gate, whatever steps[].reached holds
+    log = carrying("architecture", list(range(1, 12))).started(8).answer()
+    return log, plugin_only(), {}
+
+
+@case("reached-stale")  # VER-48: a stale manifest: reached from claims and step events alone
+def _():
+    stale = checklist_block("brainstorm").replace("6. Write the BRN", "6. Write the BRN file")
+    return Log("brainstorm", checklist=stale).tick(1, 2).started(3), plugin_only(), {}
+
+
+@case("reached-untimed-step")  # VER-48, ERR-12: step 2 is reached at an event whose time doesn't read
+def _():
+    return Log("brainstorm", times=[0, 10, "noon", 25]).tick(1).tick(2).tick(3), plugin_only(), {}
+
+
+@case("usage-totals")  # VER-49: three events from two models, one turn each
+def _():
+    log = Log("brainstorm").usage("t1", "claude-opus-5-5", 100, 20, 1000, 300)
+    log.usage("t2", "claude-sonnet-5-5", 50, 10, 500, 0).usage("t3", "claude-opus-5-5", 7, 3, 0, 40)
+    return log, plugin_only(), {}
+
+
+@case("usage-duplicate-turn")  # VER-49: the same turn ID twice with different counts: the first stands
+def _():
+    log = Log("brainstorm").usage("t1", "claude-opus-5-5", 100, 20, 1000, 300)
+    log.usage("t1", "claude-sonnet-5-5", 999, 999, 999, 999).usage("t2", "claude-opus-5-5", 1, 2, 3, 4)
+    return log, plugin_only(), {}
+
+
+def usage_neutral(with_usage):
+    """An architecture run in two turns, a usage event after each turn's end when with_usage: the run ends the second
+    turn with step 8 current, user-owned and unanswered, so the state reads your-turn (VER-05) only while the turn's end,
+    and not its usage event, is what the adapter wrote last."""
+    log = Log("architecture").turn("start")
+    arch_to_six(log).turn("end")
+    if with_usage:
+        log.usage("turn-1")
+    log.turn("start").answer().answer().tick(7).turn("end")
+    if with_usage:
+        log.usage("turn-2")
+    return log
+
+
+@case("usage-neutral")  # VER-49: usage events change no step, flag, gate, current or next
+def _():
+    return usage_neutral(True), plugin_only(), {}
+
+
+@case("usage-after-end")  # VER-49, BEH-12: a usage event after the run-end is ignored and counted in afterEnd
+def _():
+    return Log("brainstorm").tick(1).usage("t1").end("session-end").usage("t2"), plugin_only(), {}
+
+
+@case("usage-malformed")  # VER-49, ERR-11: five usage lines that are no event, the last of them the log's last line
+def _():
+    def drop(key):
+        return lambda e: e.pop(key)
+
+    def put(key, value):
+        return lambda e: e.update({key: value})
+
+    log = Log("brainstorm").tick(1).usage("ok-1", input=1, output=2, cache_read=3, cache_write=4)
+    for mutate in (drop("turn"), drop("model"), put("input", -1), put("output", "5")):
+        log.usage("bad")
+        mutate(log.events[-1])
+    log.usage("ok-2", input=10, output=20, cache_read=30, cache_write=40)
+    log.usage("bad")
+    log.events[-1]["cacheRead"] = True  # a boolean is no integer
+    return log.lines(), plugin_only(), {}
+
+
+@case("usage-none")  # VER-49: no usage event: zeros
+def _():
+    return Log("brainstorm").tick(1), plugin_only(), {}
 
 
 # ---- writing ------------------------------------------------------------------------------------

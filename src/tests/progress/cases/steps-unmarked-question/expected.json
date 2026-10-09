@@ -71,6 +71,11 @@
       "n": 1,
       "need": "required",
       "note": "",
+      "reached": {
+        "activeSeconds": 1,
+        "seq": 2,
+        "time": "2026-10-02T12:00:02Z"
+      },
       "state": "done",
       "title": "Resolve policy (R1, R2)",
       "userOwned": false
@@ -99,6 +104,11 @@
       "n": 2,
       "need": "required",
       "note": "",
+      "reached": {
+        "activeSeconds": 4,
+        "seq": 5,
+        "time": "2026-10-02T12:00:05Z"
+      },
       "state": "done",
       "title": "Select the PRD",
       "userOwned": false
@@ -127,6 +137,11 @@
       "n": 3,
       "need": "required",
       "note": "",
+      "reached": {
+        "activeSeconds": 5,
+        "seq": 6,
+        "time": "2026-10-02T12:00:06Z"
+      },
       "state": "done",
       "title": "Read the PRD; apply R3 and R4",
       "userOwned": false
@@ -149,6 +164,11 @@
       "n": 4,
       "need": "required",
       "note": "",
+      "reached": {
+        "activeSeconds": 10,
+        "seq": 11,
+        "time": "2026-10-02T12:00:11Z"
+      },
       "state": "done",
       "title": "Select or create the ARCH",
       "userOwned": false
@@ -164,6 +184,11 @@
       "n": 5,
       "need": "conditional",
       "note": "the user named paths to inspect",
+      "reached": {
+        "activeSeconds": 13,
+        "seq": 14,
+        "time": "2026-10-02T12:00:14Z"
+      },
       "state": "not-applicable",
       "title": "Inspect within the scope",
       "userOwned": false
@@ -179,6 +204,11 @@
       "n": 6,
       "need": "text-only",
       "note": "",
+      "reached": {
+        "activeSeconds": 15,
+        "seq": 16,
+        "time": "2026-10-02T12:00:16Z"
+      },
       "state": "done",
       "title": "Identify the architectural questions and components",
       "userOwned": false
@@ -190,6 +220,7 @@
       "n": 7,
       "need": "conditional",
       "note": "not seen yet",
+      "reached": null,
       "state": "pending",
       "title": "Resolve each question explicitly",
       "userOwned": true
@@ -201,6 +232,7 @@
       "n": 8,
       "need": "required",
       "note": "",
+      "reached": null,
       "state": "skipped",
       "stoppable": true,
       "title": "Propose and confirm the outcome",
@@ -220,6 +252,11 @@
       "n": 9,
       "need": "required",
       "note": "",
+      "reached": {
+        "activeSeconds": 18,
+        "seq": 19,
+        "time": "2026-10-02T12:00:19Z"
+      },
       "state": "rule-broken",
       "title": "Write the ARCH and ADRs",
       "userOwned": false
@@ -231,6 +268,7 @@
       "n": 10,
       "need": "required",
       "note": "",
+      "reached": null,
       "state": "pending",
       "title": "Validate every file written",
       "userOwned": false
@@ -242,11 +280,29 @@
       "n": 11,
       "need": "required",
       "note": "",
+      "reached": null,
       "state": "pending",
       "title": "Compute readiness, report and hand off",
       "userOwned": false
     }
   ],
   "through": 20,
+  "timing": {
+    "activeSeconds": 19,
+    "lastEvent": "2026-10-02T12:00:20Z",
+    "started": "2026-10-02T12:00:01Z",
+    "stepsCarried": 0,
+    "stepsReached": 7,
+    "untimed": 0
+  },
+  "usage": {
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "duplicates": 0,
+    "input": 0,
+    "models": [],
+    "output": 0,
+    "turns": 0
+  },
   "waiver": null
 }

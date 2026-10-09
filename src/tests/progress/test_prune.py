@@ -924,5 +924,126 @@ class AgePassRaces(AgeBase):
         self.assertFalse(file.exists() or run.exists())
 
 
+LEDGER_LINE = ('{"session": "%s", "turn": "t1", "source": "main", "input": 1, "output": 2, "cacheRead": 3, '
+               '"cacheWrite": 4, "time": "2026-01-01T00:00:00Z"}\n')
+
+
+class OdometerKept(AgeBase):
+    """SPEC-013 VER-65 (version 24), SPEC-012 BEH-28: prune.py never removes, truncates or rewrites the odometer folder or
+    a file in it, whatever its age, by either command, and never follows a link to or from it. The pass only ever
+    enters runs/, sessions/ and drafts/, so these tests could not fail first; they pin the promise against a later
+    change (SPEC-012 section 9 records the same of version 13's)."""
+
+    def ledger(self, name=NEW_SESSION + ".jsonl", age_days=400):
+        folder = self.progress / "odometer"
+        folder.mkdir(parents=True, exist_ok=True)
+        path = folder / name
+        path.write_text(LEDGER_LINE % name)
+        self.age(path, age_days)
+        self.age(folder, age_days)
+        return folder
+
+    @staticmethod
+    def snapshot(folder):
+        """Every entry under a folder, the folder included: its bytes, size and modification time."""
+        seen = {}
+        for dirpath, dirnames, filenames in os.walk(folder, followlinks=False):
+            for name in dirnames + filenames:
+                path = Path(dirpath) / name
+                info = path.lstat()
+                seen[str(path.relative_to(folder))] = (path.read_bytes() if path.is_file() and not path.is_symlink()
+                                                       else os.readlink(path) if path.is_symlink() else None,
+                                                       info.st_size, info.st_mtime_ns)
+        info = Path(folder).lstat()
+        seen["."] = (None, 0, info.st_mtime_ns)
+        return seen
+
+    def old_things(self):
+        """An old run, an old session and an old work file: everything prune is for."""
+        return [self.run_dir(OLD_RUN, 40), self.session_dir(OLD_SESSION, 40), self.work(age_days=40)]
+
+    def test_prune_removes_the_old_things_and_leaves_the_ledger_with_its_bytes_sizes_and_times(self):
+        for manifests in (False, True):
+            with self.subTest(manifests=manifests):
+                folder = self.ledger()
+                self.ledger("S-old.jsonl", age_days=2)
+                self.age(folder, 400)
+                things = self.old_things()
+                before = self.snapshot(folder)
+                proc = self.age_pass(days=1) if manifests else self.prune("--root", self.root, "--days", 1)
+                self.assertEqual(proc.returncode, 0, proc.stderr)
+                self.assertEqual(proc.stdout, "pruned 1 runs, 1 sessions%s\n" % (", 1 work files" if manifests else ""))
+                self.assertFalse(things[0].exists() or things[1].exists())
+                self.assertEqual(things[2].exists(), not manifests)
+                self.assertEqual(self.snapshot(folder), before)
+
+    def test_a_ledger_of_any_age_is_in_no_count(self):
+        folder = self.ledger(age_days=4000)
+        self.assertEqual(self.prune("--root", self.root, "--days", 1).stdout, "pruned 0 runs, 0 sessions\n")
+        self.assertEqual(self.age_pass(days=1).stdout, "pruned 0 runs, 0 sessions, 0 work files\n")
+        self.assertEqual(self.prune("--root", self.root, "--days", 1, "--keep-session", NEW_SESSION).stdout,
+                         "pruned 0 runs, 0 sessions\n")
+        self.assertTrue((folder / (NEW_SESSION + ".jsonl")).exists())
+
+    def test_a_folder_in_the_ledger_folder_named_like_a_run_or_a_session_stays(self):
+        folder = self.ledger()
+        for name in (OLD_RUN, OLD_SESSION):
+            self.folder(folder / name, 400, files=("S.jsonl",))
+        self.age(folder, 400)
+        before = self.snapshot(folder)
+        self.assertEqual(self.age_pass(days=1).stdout, "pruned 0 runs, 0 sessions, 0 work files\n")
+        self.assertEqual(self.snapshot(folder), before)
+
+    def test_remove_leaves_the_ledger_alone_and_skips_a_path_into_it(self):
+        folder = self.ledger()
+        file = self.work()
+        before = self.snapshot(folder)
+        ledger_path = "devforgeai/progress/odometer/%s.jsonl" % NEW_SESSION
+        proc = self.command("remove", "--root", self.root, "--manifests", self.manifests, "--file=%s" % WORK,
+                            "--file=%s" % ledger_path, "--file=devforgeai/progress/odometer")
+        self.assertEqual((proc.returncode, proc.stdout), (0, "removed 1 work files, skipped 2\n"))
+        self.assertFalse(file.exists())
+        self.assertEqual(self.snapshot(folder), before)
+
+    def test_a_ledger_file_that_is_a_link_is_untouched_with_its_target(self):
+        folder = self.ledger(age_days=2)
+        outside = Path(self._tmp.name) / "outside.jsonl"
+        outside.write_text(LEDGER_LINE % "outside")
+        self.age(outside, 400)
+        link = folder / "linked.jsonl"
+        os.symlink(outside, link)
+        os.utime(link, (self.now - 400 * DAY,) * 2, follow_symlinks=False)
+        self.old_things()
+        before, target = self.snapshot(folder), (outside.read_bytes(), outside.stat().st_mtime_ns)
+        for proc in (self.prune("--root", self.root, "--days", 1), self.age_pass(days=1)):
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertEqual(self.snapshot(folder), before)
+        self.assertTrue(link.is_symlink())
+        self.assertEqual((outside.read_bytes(), outside.stat().st_mtime_ns), target)
+
+    def test_a_ledger_folder_that_is_a_link_is_untouched_with_its_target(self):
+        victim = self.ledger_in(Path(self._tmp.name) / "elsewhere")
+        link = self.progress / "odometer"
+        self.progress.mkdir(parents=True, exist_ok=True)
+        os.symlink(victim, link)
+        self.old_things()
+        before = self.snapshot(victim)
+        for proc in (self.prune("--root", self.root, "--days", 1), self.age_pass(days=1)):
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+        self.assertTrue(link.is_symlink())
+        self.assertEqual(self.snapshot(victim), before)
+
+    def ledger_in(self, folder):
+        folder.mkdir(parents=True)
+        (folder / "S.jsonl").write_text(LEDGER_LINE % "S")
+        self.age(folder / "S.jsonl", 400)
+        self.age(folder, 400)
+        return folder
+
+
+class OdometerKeptUnderS(OdometerKept):
+    INTERPRETER = (sys.executable, "-S", "-B")
+
+
 if __name__ == "__main__":
     unittest.main()

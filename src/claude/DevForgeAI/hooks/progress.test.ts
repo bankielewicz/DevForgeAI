@@ -45,7 +45,23 @@ type Over = {
   list?: (path: string) => Any[] | { deny: string } | undefined
   /** The plugin's manifests, by skill name, served for any '<root>/progress/manifests/<skill>.json' (version 22). */
   manifests?: Record<string, Any>
+  /** $.command.register's answer (versions 21 and 25): a { deny } for a name the host refuses; undefined for the default. */
+  register?: (e: Any) => Any
+  /** An fs.read that rejects, by path (version 25: the odometer ledger's read-back, SPEC-016 ERR-06). */
+  failRead?: (path: string) => boolean
+  /** $.state answered by the test (version 26): the values, a count of writes to reject, and every write seen. Without it the
+   *  kit answers $.state itself, and the test can neither read it nor reject a write. */
+  state?: StateStub
 }
+
+/** The test's $.state (version 26): the kit's own answers can't be read or made to fail, so the tests that must do either
+ *  stub state.get and state.set with this map. `rejects` writes are refused (the call rejects), then writes land again. */
+type StateStub = { values: Map<string, { value: Any; version: number }>; rejects: number; sets: Array<{ key: string; value: Any }> }
+function newState(seed: Record<string, Any> = {}): StateStub {
+  return { values: new Map(Object.entries(seed).map(([k, v]) => [`devforgeai/${k}`, { value: v, version: 1 }])), rejects: 0, sets: [] }
+}
+/** The precompact value as the module holds it in $.state. */
+const pstate = (st: StateStub): Any => st.values.get('devforgeai/precompact')?.value
 
 type World = {
   files: Map<string, string>
@@ -65,6 +81,8 @@ type World = {
   /** Every fs.list path and every fs.read path (version 22). */
   lists: string[]
   reads: string[]
+  /** Every $.command.register call (versions 21 and 25). */
+  registered: Any[]
 }
 
 const STATE = {
@@ -134,7 +152,7 @@ function world(on: Any, over: Over = {}): World {
     files: new Map(Object.entries(over.files ?? {})), writes: [], toasts: [], logs: [], statuses: [], runs: [],
     contexts: [], tools: [],
     clock: mock.clock(on, { now: T0 }),
-    root: ROOT, sessionId: 's1', inits: [], pruneSawRun: [], compactIn: [], lists: [], reads: [],
+    root: ROOT, sessionId: 's1', inits: [], pruneSawRun: [], compactIn: [], lists: [], reads: [], registered: [],
   }
   on('session.root', () => ({ value: w.root }))
   on('session.id', () => (over.failSessionId ? { deny: 'no session id' } : { value: w.sessionId }))
@@ -146,6 +164,32 @@ function world(on: Any, over: Over = {}): World {
     : { value: (over.toolList ?? ['Read', 'Write', 'TaskCreate', 'TaskUpdate', 'ToolSearch']).map(name => ({ name, description: '', mcp: false })) }))
   on('session.start', (_$: Any, e: Any) => ({ cwd: e.cwd }))
   on('classic.SessionStart', () => ({}))
+  // /progress is registered at every session start (BEH-34), and the precompact row follows the measured share (BEH-35).
+  on('command.register', (_$: Any, e: Any) => {
+    w.registered.push(e)
+    return over.register?.(e) ?? { value: undefined }
+  })
+  on('session.measure', (_$: Any, e: Any) => ({ changed: e.changed }))
+  if (over.state !== undefined) {
+    const st = over.state
+    on('state.get', (_$: Any, e: Any) => {
+      const held = st.values.get(`${e.plugin}/${e.key}`)
+      return { value: { value: held?.value, version: held?.version ?? 0 } }
+    })
+    on('state.set', (_$: Any, e: Any) => {
+      if (st.rejects > 0) {
+        st.rejects -= 1
+        return { deny: 'the state write was refused' }
+      }
+      const key = `${e.plugin}/${e.key}`
+      const held = st.values.get(key)
+      if (e.ifVersion !== undefined && e.ifVersion !== (held?.version ?? 0)) return { value: { isSet: false, version: held?.version ?? 0 } }
+      const version = (held?.version ?? 0) + 1
+      st.values.set(key, { value: e.value, version })
+      st.sets.push({ key: e.key, value: e.value })
+      return { value: { isSet: true, version } }
+    })
+  }
   on('skill.prompt', (_$: Any, e: Any) => ({ text: e.text }))
   on('prompt.compose', () => ({ sections: [] }))
   on('prompt.submit', (_$: Any, e: Any) => {
@@ -177,6 +221,7 @@ function world(on: Any, over: Over = {}): World {
   }))
   on('fs.read', (_$: Any, e: Any) => {
     w.reads.push(e.path)
+    if (over.failRead?.(e.path)) return { deny: `EIO: ${e.path}` }
     if (w.files.has(e.path)) return { value: w.files.get(e.path) }
     if (manifestOf(e.path) !== undefined) return { value: JSON.stringify(manifestOf(e.path)) }
     const skill = /\/skills\/([^/]+)\/SKILL\.md$/.exec(e.path)?.[1]
@@ -1852,8 +1897,8 @@ function reviewWorld(on: Any, state: () => Any, script: Array<string | null>, as
   return w
 }
 
-async function turnEnd($: Any) {
-  await $.turn.complete({ turnId: 't', answer: '', durationMs: 1, isAborted: false, reason: 'answer', usage: null })
+async function turnEnd($: Any, id = 't') {
+  await $.turn.complete({ turnId: id, answer: '', durationMs: 1, isAborted: false, reason: 'answer', usage: null })
 }
 
 function reviewLines(w: World): Any[] {
@@ -2500,7 +2545,7 @@ test('VER-44: /clear while nested asks the nested question and keeps with the ne
 // ---- version 14, the clauses of VER-43 and VER-44 the first thirteen tests leave out ----
 // Helpers are prefixed x so they can't clash with the drafted file's.
 
-const xSettle = async () => { for (let i = 0; i < 50; i++) await Promise.resolve() }
+const xSettle = async () => { for (let i = 0; i < 400; i++) await Promise.resolve() }   // version 26: the load now awaits more (state, log)
 
 const xReturn = (skill: string, step: number) =>
   `This skill was loaded by ${skill} at step ${step}. When this skill's work is done, mark ${skill}'s step ${step} task in progress again and continue ${skill} at step ${step}.`
@@ -3843,7 +3888,9 @@ async function uBand($: Any): Promise<string> {
 /** What the person sees and what adapter.log holds: the status line (and how often it was sent), the band and the log. */
 async function uSnap($: Any, w: World) {
   await w.clock.advance(600)
-  return { status: w.statuses.filter(Boolean).slice(-1)[0], sent: w.statuses.length, band: await uBand($), log: w.files.get(`${SESSION}/adapter.log`) ?? '' }
+  // A load of the precompact skill writes a `precompact:` load line (version 26), which is no change of the display.
+  const log = (w.files.get(`${SESSION}/adapter.log`) ?? '').split('\n').filter(l => !l.includes(' precompact: ')).join('\n')
+  return { status: w.statuses.filter(Boolean).slice(-1)[0], sent: w.statuses.length, band: await uBand($), log }
 }
 
 const uKinds = (w: World, skill: string, from = 0): string[] => logOf(w, skill).slice(from).map(e => e.kind)
@@ -3908,7 +3955,7 @@ test('VER-50 (c): in the turn of a typed load, tool calls begun after it are rec
   await $.tool.call({ tool: 'TaskUpdate', taskId: '9', status: 'in_progress' } as Any)
   expect(uKinds(r.w, 'brainstorm', count)).toEqual(['answer'])
   expect(runsOf(r.w, 'precompact')).toEqual([])
-  await turnEnd($)
+  await turnEnd($, 't1')   // the turn the typed or Claude's load is bound to (version 26)
   expect(uKinds(r.w, 'brainstorm', count)).toEqual(['answer', 'turn'])
   // the next turn: tool events are recorded again, and task 9 was never mapped
   await ($ as Any).turn.start({ turnId: 't2' })
@@ -3929,7 +3976,7 @@ test('VER-50 (h): in the marked turn a reply is recorded in no run, its numbered
   await respond($, [{ type: 'text', text: 'Writing the handoff.\n- [x] 2. Header row' }])
   expect(uKinds(r.w, 'brainstorm', count)).toEqual([])
   expect(runsOf(r.w, 'precompact')).toEqual([])
-  await turnEnd($)
+  await turnEnd($, 't1')   // the turn the typed or Claude's load is bound to (version 26)
   await ($ as Any).turn.start({ turnId: 't2' })
   await respond($, [{ type: 'text', text: 'Back to the brainstorm.' }])
   expect(uKinds(r.w, 'brainstorm', count)).toEqual(['turn', 'turn', 'reply'])
@@ -3974,7 +4021,7 @@ test('VER-50 (c) (d): in the turn of Claude\'s load, a TaskUpdate naming a pause
   expect(during.band).toBe(before.band)
   expect(during.band).toContain('(paused: brainstorm at step 4)')
   // the turn ends; the next turn's calls are recorded, and the same TaskUpdate now unwinds to brainstorm
-  await turnEnd($)
+  await turnEnd($, 't1')   // the turn the typed or Claude's load is bound to (version 26)
   await ($ as Any).turn.start({ turnId: 't2' })
   await $.tool.call(READ('b.md'))
   expect(logOf(r.w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/b.md' })
@@ -4068,7 +4115,8 @@ test('VER-50: with no run open an untracked load writes nothing, and a tracked l
   await rType($, 'precompact')
   await $.tool.call(READ('a.md'))
   expect(r.w.writes).toEqual([])
-  await turnEnd($)
+  await ($ as Any).turn.start({ turnId: 't1' })
+  await turnEnd($, 't1')   // a typed load binds to the next turn.start (version 26)
   await load($, 'devforgeai:brainstorm', TAGGED)
   await $.tool.call(READ('b.md'))
   expect(uKinds(r.w, 'brainstorm')).toEqual(['skill-loaded', 'tool'])
@@ -4100,7 +4148,7 @@ test('VER-50 (e): afterwards /compact still carries the marked step and the note
   await uOpen($, r)
   await uTyped($, r)
   await $.tool.call(U_WRITE)
-  await turnEnd($)
+  await turnEnd($, 't1')   // the turn the typed or Claude's load is bound to (version 26)
   const out = (await ($ as Any).session.compact({ trigger: 'manual', instructions: 'keep the plan', messages: TALK })) as Any
   expect(r.w.compactIn[0].instructions).toBe("keep the plan\n\nKeep, for DevForgeAI's progress tracker: in the brainstorm run, the task list marks step 4 (Step 4) in progress.")
   expect(out.messages.map((m: Any) => m.text)).toEqual(['the summary', NOTE('step 4 (Step 4)')])
@@ -5606,4 +5654,1406 @@ test('VER-61: a wrote event\'s path is among the files the question and the line
   await start($)
   await rType($)
   expect(r.asked.map(a => a.question)).toEqual([rQuestion('brainstorm', 'ended at step 7 of 8 on 2026-09-30 (session end)', BRN)])
+})
+
+// ======================================================================================================================
+// ---- versions 21, 23, 24 and 25 (the dashboard cycle's adapter, built for 0.28.0): BEH-33 to BEH-36, BEH-40, BEH-41,
+//      ERR-21, ERR-22 and SPEC-016 BEH-10, ERR-06 (the odometer ledger). Held with the dashboard: BEH-01's /devforgeai:dashboard
+//      carve-out (VER-68), /progress opening the pane (BEH-34, VER-66), the tile setter of BEH-41 and ERR-24's trigger. ----
+
+const USAGE = { input_tokens: 1200, output_tokens: 340, cache_read_input_tokens: 5000, cache_creation_input_tokens: 700, model: 'claude-opus-5-5' }
+
+/** A main-loop turn's end (or a subagent's, with agentId) carrying usage, as the host reports it. */
+const done = ($: Any, turnId = 't1', usage: Any = USAGE, extra: Any = {}): Promise<Any> =>
+  ($ as Any).turn.complete({ turnId, answer: '', durationMs: 1, isAborted: false, reason: 'answer', usage, ...extra })
+/** The same with exactly the fields given (a missing turn ID or usage, which a default parameter would fill). */
+const doneRaw = ($: Any, fields: Any): Promise<Any> =>
+  ($ as Any).turn.complete({ answer: '', durationMs: 1, isAborted: false, reason: 'answer', ...fields })
+
+const MEASURE = (percent?: number): Any => ({ context: percent === undefined ? { window: 200000 } : { window: 200000, percent }, rateLimits: [], changed: ['context'] })
+const measure = ($: Any, percent?: number): Promise<Any> => ($ as Any).session.measure(MEASURE(percent))
+
+/** The text of the precompact row the band draws (BEH-35), or null when it draws none. */
+async function fuelRow($: Any, maxRows = 3, props: Any = {}): Promise<string | null> {
+  const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, maxRows, ...props } })
+  const found = await ui.find({ type: 'Text', text: /Fuel \d+%/ })
+  const text = found === undefined ? null : String(found.children.join(''))
+  await ui.unmount()
+  return text
+}
+
+// ---- BEH-33: other mods' tool calls (VER-54) ----
+
+/** A second plugin whose mod makes the tool calls named in a command's args through $.tool.call (BEH-33). */
+const modder: Plugin = {
+  name: 'modder',
+  register(on) {
+    on('command.run', { command: 'mod-calls' }, async ($, e) => {
+      const results: string[] = []
+      for (const call of JSON.parse(e.args) as Any[]) {
+        const r = (await $.tool.call(call).catch((err: Any) => ({ failed: String(err) }))) as Any
+        results.push(r.deny !== undefined ? 'deny' : r.failed !== undefined ? `failed ${r.failed}` : 'ok')
+      }
+      return { text: results.join(',') }
+    })
+  },
+}
+const modCalls = async ($: Any, calls: Any[]): Promise<string> =>
+  (((await $.command.run({ command: 'mod-calls', args: JSON.stringify(calls) })) as Any).text as string)
+
+test('VER-54: a mod\'s tool calls give no event, no step event, no task map entry; the same calls Claude Code fires are recorded', { plugins: [modder] }, async ($, on) => {
+  const w = world(on, { tool: taskTools() })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await taskList($, 3, 1)                       // tasks 1 to 3, task 1 marked in progress
+  const before = eventsOf(w)
+  expect(stepsOf(before)).toEqual([[1, 'started']])
+  const calls = w.tools.length
+  const out = await modCalls($, [
+    { tool: 'Write', file_path: `${ROOT}/docs/m.md`, content: 'x' }, bash('ls'), READ('m.md'),
+    { tool: 'TaskUpdate', taskId: '3', status: 'in_progress' },
+    { tool: 'TaskCreate', subject: '9. Nine', description: 'd', metadata: { devforgeai_step: 9 } },
+    { tool: 'Skill', skill: 'devforgeai:spec-lookup' },
+  ])
+  expect(out).toBe('ok,ok,ok,ok,ok,ok')
+  expect(w.tools.slice(calls)).toEqual(['Write', 'Bash', 'Read', 'TaskUpdate', 'TaskCreate', 'Skill'])   // they went on
+  expect(eventsOf(w)).toEqual(before)           // and left no line of any kind
+  // the task the mod created (id 4) is mapped to no step: Claude's update of it gives no step event
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '4', status: 'in_progress' } as Any)
+  expect(stepsOf(eventsOf(w))).toEqual([[1, 'started']])
+  expect(eventsOf(w).length).toBe(before.length + 1)   // only Claude's own tool event
+  // the same TaskUpdate fired by Claude Code is recorded, with its step event
+  await $.tool.call({ tool: 'TaskUpdate', taskId: '3', status: 'in_progress' } as Any)
+  expect(stepsOf(eventsOf(w))).toEqual([[1, 'started'], [3, 'started']])
+  await $.tool.call(READ('c.md'))
+  expect(logOf(w, 'brainstorm').slice(-1)[0]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/c.md' })
+})
+
+/** A tool stub whose Skill call is held open until released, so skill.prompt fires inside it, as the host does (probe, 2026-10-05). */
+function heldSkill() {
+  const inner = taskTools()
+  let release: (() => void) | null = null
+  return {
+    tool: (e: Any): Any => (e.tool === 'Skill' ? new Promise(r => { release = () => r({ result: 'Launching skill' }) }) : inner(e)),
+    release: () => release?.(),
+  }
+}
+
+test('VER-54: a mod\'s Skill call of the precompact skill marks no turn: a Read after its skill.prompt is recorded', { plugins: [modder] }, async ($, on) => {
+  const held = heldSkill()
+  const w = world(on, { tool: held.tool })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const count = eventsOf(w).length
+  const call = modCalls($, [{ tool: 'Skill', skill: 'devforgeai:precompact' }])
+  await xSettle()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })     // inside the mod's call
+  held.release()
+  expect(await call).toBe('ok')
+  await $.tool.call(READ('a.md'))
+  expect(eventsOf(w).length).toBe(count + 1)
+})
+
+test('VER-54 (R2): a mod\'s Skill call of the precompact skill hides no row', { plugins: [modder] }, async ($, on) => {
+  const held = heldSkill()
+  const p = pWorld($, on, { over: { tool: held.tool }, load: false })
+  await start($)
+  await measure($, 72)
+  expect(await fuelRow($)).toBe(ROW(28))
+  const call = modCalls($, [{ tool: 'Skill', skill: 'devforgeai:precompact' }])
+  await xSettle()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  held.release()
+  expect(await call).toBe('ok')
+  expect(await fuelRow($)).toBe(ROW(28))
+  void p
+})
+
+test('VER-54: in enforce mode a mod\'s Write that the gate\'s flags refuse is still refused, and leaves no line, no refusal count and no stuck notice', { plugins: [modder] }, async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: refusingAt(2) })
+  await start($)
+  await load($)
+  expect(await modCalls($, [WRITE])).toBe('deny')
+  expect(await modCalls($, [WRITE])).toBe('deny')
+  expect(w.tools.includes('Write')).toBe(false)
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded'])         // no error event for a refused call either
+  expect(stuckLines(w)).toEqual([])                            // the refusals are not Claude's
+  expect(w.toasts.some(t => t.includes('refused Claude'))).toBe(false)
+  // the same call from Claude Code is refused and recorded as an error
+  const r = (await $.tool.call(WRITE as Any)) as Any
+  expect(r.deny).toContain('step 1 had no answer from you')
+  expect(JSON.parse(eventsOf(w).slice(-1)[0])).toMatchObject({ kind: 'tool', tool: 'Write', exit: null, error: true })
+})
+
+test('VER-54: a mod\'s Write the gate does not refuse goes on in enforce mode, recorded nowhere', { plugins: [modder] }, async ($, on) => {
+  const w = world(on, { mode: 'enforce local', evaluate: refusingAt(7) })
+  await start($)
+  await load($)
+  expect(await modCalls($, [WRITE])).toBe('ok')
+  expect(w.tools.includes('Write')).toBe(true)
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded'])
+})
+
+test('VER-54 (R2, Bryan 2026-10-08 "Leave the run open"): a mod\'s Skill call of a tracked skill leaves the open run open and records nothing: its skill.prompt ends no run, opens none and pushes nothing', { plugins: [modder] }, async ($, on) => {
+  const held = heldSkill()
+  const w = world(on, { tool: held.tool })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  const before = logOf(w, 'architecture')
+  const call = modCalls($, [{ tool: 'Skill', skill: 'devforgeai:spec-lookup' }])
+  await xSettle()
+  const out = (await $.skill.prompt({ skill: 'devforgeai:spec-lookup', text: TAGGED })) as Any
+  held.release()
+  expect(await call).toBe('ok')
+  expect(out.text).toBe(TAGGED)                                    // the skill's text is never changed
+  expect(trailLog(w)).toEqual([])
+  expect(runsOf(w, 'spec-lookup')).toEqual([])                     // no run opened
+  expect(logOf(w, 'architecture')).toEqual(before)                 // nothing recorded, no run-end
+  // the open run goes on: Claude's next Read lands in it
+  await $.tool.call(READ('b.md'))
+  expect(logOf(w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/b.md' })
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)
+})
+
+test('VER-54 (R2, control): Claude\'s own Skill call of the same skill still pushes the open run on the trail', async ($, on) => {
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => skState('spec-lookup', 5, 2) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  await sk.load($, 'devforgeai:spec-lookup')
+  expect(trailLog(w)).toEqual(['push architecture at step 7 (1 on the trail)'])
+  expect(logOf(w, 'architecture').some(e => e.kind === 'run-end')).toBe(false)
+  expect(runsOf(w, 'spec-lookup').length).toBe(1)
+})
+
+test('VER-54 (R2, control): the person\'s typed load of the same skill still ends the open run and opens its own', async ($, on) => {
+  const r = rWorld($, on, { control: false })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await rType($, 'spec-lookup')
+  expect(logOf(r.w, 'architecture').slice(-1)[0]).toMatchObject({ kind: 'run-end', reason: 'another-skill' })
+  expect(runsOf(r.w, 'spec-lookup').length).toBe(1)
+})
+
+test('VER-54: a mod\'s Bash call naming a gated document gets neither of BEH-38\'s parts; Claude Code\'s is refused', { plugins: [modder] }, async ($, on) => {
+  const w = world(on, enforcing)
+  await start($)
+  await load($)
+  expect(await modCalls($, [bash(`cat ${BRN_ONE}`)])).toBe('ok')
+  expect(w.lists.filter(p => p.endsWith('/brainstorm'))).toEqual([])
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded'])
+  const r = (await $.tool.call(bash(`cat ${BRN_ONE}`) as Any)) as Any
+  expect(r.deny).toBe(OUTSIDE_REFUSAL(BRN_ONE))
+})
+
+// ---- BEH-34: /progress (VER-55) ----
+
+test('VER-55: session.start registers progress (immediate) in an interactive session; clear, resume and fork register it again, nothing else does', async ($, on) => {
+  const w = world(on)
+  await start($)
+  expect(w.registered).toEqual([{ name: 'progress', description: 'Show the DevForgeAI run in progress', immediate: true }])
+  await $.classic.SessionStart({ source: 'clear' })
+  await $.classic.SessionStart({ source: 'resume' })
+  await $.classic.SessionStart({ source: 'fork' })
+  await $.classic.SessionStart({ source: 'startup' })
+  await $.classic.SessionStart({ source: 'compact' })
+  expect(w.registered.length).toBe(4)
+})
+
+test('VER-55: a headless session registers nothing', async ($, on) => {
+  const w = world(on)
+  await start($, false)
+  expect(w.registered).toEqual([])
+  await $.classic.SessionStart({ source: 'clear' })
+  expect(w.registered).toEqual([])
+})
+
+test('VER-55: with tracking off the module is not loaded, so progress is not registered', { options: { tracking: 'off' } } as Any, async ($: Any, on: Any) => {
+  const w = world(on)
+  await start($)
+  expect(w.registered).toEqual([])
+})
+
+const PROGRESS_BOTH = (mode: string, flag: string) => `brainstorm  ●◆  step 2 of 2: Pick\n${mode}  ${flag}`
+
+test('VER-55: with a run open /progress prints the status line and the band\'s two rows without the button, and records nothing', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  const before = eventsOf(w)
+  const out = (await $.command.run({ command: 'progress', args: 'ignored', origin: COMPOSER } as Any)) as Any
+  expect(out.text).toBe(`brainstorm 2/2\n${PROGRESS_BOTH('observe mode', 'no flags')}`)
+  expect(eventsOf(w)).toEqual(before)
+  expect(w.toasts).toEqual([])
+  expect(w.logs).toEqual([])                                     // the command's output is its text, not a $.ui.log line
+})
+
+test('VER-55: in enforce mode, with a flag, /progress reads the same text as the status line and the band', async ($, on) => {
+  const flagged = { ...STATE, flags: [{ gate: 'write', seq: 2, step: 1, type: 'skipped', message: 'step 1 had no answer' }] }
+  const w = world(on, { mode: 'enforce local', evaluate: () => ({ state: flagged }) })
+  await start($)
+  await load($)
+  await w.clock.advance(600)
+  const out = (await $.command.run({ command: 'progress', args: '' } as Any)) as Any
+  const status = w.statuses[w.statuses.length - 1]
+  expect(status).toBe('brainstorm 2/2 · 1 flag · enforce')
+  expect(out.text).toBe(`${status}\n${PROGRESS_BOTH('enforce mode', 'step 1 had no answer')}`)
+})
+
+test('VER-55: with a paused run beneath, the status line and row 1 name it as they already do', async ($, on) => {
+  const { w, sk } = nestWorld(on, { architecture: () => archState(7), 'spec-lookup': () => skState('spec-lookup', 5, 2) })
+  await start($)
+  await load($, 'devforgeai:architecture', TAGGED)
+  await taskList($, 11, 7)
+  await w.clock.advance(600)
+  await sk.load($, 'devforgeai:spec-lookup')
+  await $.tool.call(READ('a.md'))
+  await w.clock.advance(600)
+  const lines = (((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text as string).split('\n')
+  expect(lines[0]).toBe('spec-lookup 2/5 · in architecture 7/11')
+  expect(lines[1]).toBe('spec-lookup  ●◆○○○  step 2 of 5: Step 2 (paused: architecture at step 7)')
+  expect(lines[2]).toBe('observe mode  no flags')
+})
+
+test('VER-55: with no run it says so, and after a run ended it adds that run\'s status line; /clear empties it', async ($, on) => {
+  let ended = false
+  const w = world(on, { evaluate: () => ({ state: ended ? { ...STATE, ended: 'session-end' } : STATE }) })
+  await start($)
+  const none = 'No DevForgeAI run is open in this session.'
+  expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toBe(none)
+  await load($)
+  await w.clock.advance(600)
+  ended = true
+  await $.tool.call(READ('a.md'))
+  await w.clock.advance(600)
+  expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toBe(`${none}\nbrainstorm ended`)
+  await clearTo($, w, 's2')
+  expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toBe(none)
+})
+
+test('VER-55 (reading): a run open before its first evaluation prints that it just started, not that no run is open', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)                                                // the timer hasn't evaluated yet: no summary
+  expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toBe("brainstorm run just started; its first evaluation isn't in yet.")
+  await w.clock.advance(600)
+  expect((((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text as string).startsWith('brainstorm 2/2')).toBe(true)
+})
+
+test('VER-55: when the registration fails (ERR-21) the command is passed on, adapter.log gets a command line once a run opens, and a later registration that works takes it back', async ($, on) => {
+  let refuse = true
+  const w = world(on, { register: () => (refuse ? { deny: 'progress is a built-in command' } : undefined) })
+  on('command.run', () => ({ text: 'whatever owns the name' }))
+  await start($)                                               // tracking and everything else go on
+  expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toBe('whatever owns the name')
+  expect(w.files.has(`${SESSION}/adapter.log`)).toBe(false)    // held, as every earlier line is (BEH-15)
+  await load($)
+  expect(uLog(w, 'command').length).toBe(1)
+  expect(uLog(w, 'command')[0]).toContain('progress is a built-in command')
+  expect(kinds(eventsOf(w))).toEqual(['skill-loaded'])
+  refuse = false
+  await $.classic.SessionStart({ source: 'clear' })
+  expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toContain('brainstorm run just started')   // ours again
+})
+
+test('VER-55: when the tracker has stopped (ERR-03) the command is passed on untouched', async ($, on) => {
+  const w = world(on, { failWrite: p => p.startsWith(PROGRESS) })
+  on('command.run', () => ({ text: 'whatever owns the name' }))
+  await start($)
+  await load($)
+  await $.tool.call(READ('a.md'))
+  expect(w.statuses.includes('progress: off (cannot write devforgeai/progress)')).toBe(true)
+  expect(((await $.command.run({ command: 'progress', args: '' } as Any)) as Any).text).toBe('whatever owns the name')
+})
+
+// ---- BEH-35, BEH-36, BEH-41: the precompact row and the automatic run (VER-56) ----
+
+/** A world with a command.run stub beneath the module: it records each command and its origin, fires a skill's skill.prompt
+ *  inside next(e) as the host does (probe, 2026-10-08), and can be told to reject. */
+function pWorld($top: Any, on: Any, cfg: { over?: Over; reject?: string | null; load?: boolean } = {}) {
+  const over: Over = { ...(cfg.over ?? {}) }
+  const inner = over.tool ?? taskTools()
+  const p = {
+    ran: [] as Array<{ command: string; origin: Any }>, texts: [] as string[], asked: [] as string[],
+    reject: (cfg.reject ?? null) as string | null, over, w: null as unknown as World,
+    /** The commands run with this plugin's own origin: BEH-36's (and, later, a tile's). */
+    own: (): string[] => p.ran.filter(r => r.origin?.kind === 'plugin' && r.origin.name === 'devforgeai').map(r => r.command),
+  }
+  over.tool = (e: Any): Any => {
+    if (e.tool === 'AskUserQuestion') p.asked.push(String(e.questions?.[0]?.question))
+    return inner(e)
+  }
+  p.w = world(on, over)
+  on('command.run', async (_$: Any, e: Any) => {
+    p.ran.push({ command: e.command, origin: e.origin })
+    if (p.reject !== null) throw new Error(p.reject)
+    if (cfg.load !== false && String(e.command).startsWith('devforgeai:') && e.command !== 'devforgeai:nothing') {
+      p.texts.push(((await $top.skill.prompt({ skill: e.command, text: TAGGED })) as Any).text)
+    }
+    return { text: `ran ${e.command}` }
+  })
+  return p
+}
+
+const ROW = (fuel: number, run = 20) => `▲ Fuel ${fuel}% · precompact runs at ${run}%`
+
+for (const [label, mode, open] of [
+  ['observe, no run', 'observe framework-default', false], ['observe, a run open', 'observe framework-default', true],
+  ['enforce, no run', 'enforce local', false], ['enforce, a run open', 'enforce local', true],
+] as Array<[string, string, boolean]>) {
+  test(`VER-56 (${label}): fuel 31 draws no row, fuel 30 draws the warning and runs nothing, the row follows the fuel and goes with the measurement`, async ($, on) => {
+    const p = pWorld($, on, { over: { mode } })
+    await start($)
+    if (open) {
+      await load($, 'devforgeai:brainstorm', TAGGED)
+      await p.w.clock.advance(600)
+    }
+    await measure($, 69)
+    expect(await fuelRow($)).toBeNull()
+    await measure($, 70)
+    expect(await fuelRow($)).toBe(ROW(30))
+    await xSettle()
+    expect(p.ran).toEqual([])
+    await measure($, 72)
+    expect(await fuelRow($)).toBe(ROW(28))
+    await measure($, 79)
+    expect(await fuelRow($)).toBe(ROW(21))
+    await measure($)                                               // a measurement without a share removes the row
+    expect(await fuelRow($)).toBeNull()
+    expect(p.ran).toEqual([])
+  })
+}
+
+test('VER-56: at fuel 20 exactly one $.command.run of devforgeai:precompact starts, with its toast and log line; no second measure, session start or reload starts another', async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  const events = eventsOf(p.w)
+  await measure($, 80)
+  await xSettle()
+  expect(p.ran).toEqual([{ command: 'devforgeai:precompact', origin: { kind: 'plugin', name: 'devforgeai' } }])
+  expect(p.w.toasts).toContain('Fuel 20%: running /devforgeai:precompact')
+  expect(pLog(p.w).filter(l => !l.startsWith('load:')).length).toBe(1)   // the start (the load line is version 26's)
+  await measure($, 85)
+  await start($)                                                   // as after a reload (the kit can't reload the module itself)
+  await measure($, 85)
+  await xSettle()
+  expect(p.ran.length).toBe(1)
+  // starting the run adds nothing to the run's log and leaves the tracked run open
+  expect(eventsOf(p.w)).toEqual(events)
+  expect(logOf(p.w, 'brainstorm').some(e => e.kind === 'run-end')).toBe(false)
+  expect(await fuelRow($)).toBeNull()                              // the skill loaded: the row stays hidden
+})
+
+test('VER-56: with no run open the automatic run starts all the same, in a session that tracks nothing yet, and writes nothing', async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await measure($, 83)
+  await xSettle()
+  expect(p.ran.length).toBe(1)
+  expect(p.w.toasts).toContain('Fuel 17%: running /devforgeai:precompact')
+  expect(p.w.writes).toEqual([])
+})
+
+test('VER-56: precompactRunFuel 0 draws the consider row and never runs', { options: { precompactRunFuel: 0 } } as Any, async ($: Any, on: Any) => {
+  const p = pWorld($, on)
+  await start($)
+  await measure($, 72)
+  expect(await fuelRow($)).toBe('▲ Fuel 28% · consider /devforgeai:precompact before /compact')
+  await measure($, 95)
+  expect(await fuelRow($)).toBe('▲ Fuel 5% · consider /devforgeai:precompact before /compact')
+  await xSettle()
+  expect(p.ran).toEqual([])
+})
+
+test('VER-56: precompactWarnFuel 0 draws no row but still runs at fuel 20', { options: { precompactWarnFuel: 0 } } as Any, async ($: Any, on: Any) => {
+  const p = pWorld($, on)
+  await start($)
+  await measure($, 72)
+  expect(await fuelRow($)).toBeNull()
+  await measure($, 80)
+  await xSettle()
+  expect(p.own()).toEqual(['devforgeai:precompact'])
+})
+
+test('VER-56: a run share at or above the warning share runs at the run share and draws no warning row', { options: { precompactRunFuel: 40 } } as Any, async ($: Any, on: Any) => {
+  const p = pWorld($, on)
+  await start($)
+  await measure($, 55)
+  expect(await fuelRow($)).toBeNull()
+  await xSettle()
+  expect(p.ran).toEqual([])
+  await measure($, 60)                                             // fuel 40
+  await xSettle()
+  expect(p.own()).toEqual(['devforgeai:precompact'])
+  await measure($, 71)
+  expect(await fuelRow($)).toBeNull()
+})
+
+test('VER-56 / DM-07 / DM-08: a setting that isn\'t a whole number from 0 to 95 counts as its default, with an adapter.log line of kind setting each', { options: { precompactWarnFuel: 25.5, precompactRunFuel: 20.25 } } as Any, async ($: Any, on: Any) => {
+  const p = pWorld($, on)
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  expect(uLog(p.w, 'setting').length).toBe(2)
+  expect(uLog(p.w, 'setting')[0]).toContain('precompactWarnFuel')
+  expect(uLog(p.w, 'setting')[1]).toContain('precompactRunFuel')
+  await measure($, 70)
+  expect(await fuelRow($)).toBe(ROW(30))                           // the defaults, 30 and 20
+})
+
+test('VER-56 / ERR-22: a rejected $.command.run leaves the failed row, keeps the run mark so nothing is retried at fuel 10, and logs the host\'s error', async ($, on) => {
+  const p = pWorld($, on, { reject: 'unknown command' })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  await measure($, 80)
+  await xSettle()
+  expect(p.ran.length).toBe(1)
+  expect(await fuelRow($)).toBe('● Fuel 20% · run /devforgeai:precompact now')
+  await measure($, 90)
+  await xSettle()
+  expect(p.ran.length).toBe(1)
+  expect(await fuelRow($)).toBe('● Fuel 10% · run /devforgeai:precompact now')
+  expect(uLog(p.w, 'precompact').length).toBe(2)                   // the start, and the failure
+  expect(uLog(p.w, 'precompact')[1].split(' precompact: ')[1].length > 0).toBe(true)
+  expect(logOf(p.w, 'brainstorm').some(e => e.kind === 'run-end')).toBe(false)
+})
+
+test('VER-56 (R1, Bryan 2026-10-08 "Show it at once"): with the run share above the warning share a failed run draws the failed row at once, at fuel 40, 35 and 30', { options: { precompactRunFuel: 40 } } as Any, async ($: Any, on: Any) => {
+  const p = pWorld($, on, { reject: 'no such command' })
+  await start($)
+  await measure($, 60)                                             // fuel 40: the run starts and is rejected
+  for (let i = 0; i < 5; i++) await xSettle()                      // the failure lands some ticks later with no run open
+  expect(p.ran.length).toBe(1)
+  expect(await fuelRow($)).toBe('● Fuel 40% · run /devforgeai:precompact now')
+  await measure($, 65)
+  expect(await fuelRow($)).toBe('● Fuel 35% · run /devforgeai:precompact now')
+  await measure($, 70)
+  expect(await fuelRow($)).toBe('● Fuel 30% · run /devforgeai:precompact now')
+  await xSettle()
+  expect(p.ran.length).toBe(1)                                     // and nothing is tried again
+})
+
+test('VER-56 (R1, unchanged): a failed row still goes with a hidden row, a compaction and a warning share of 0', async ($, on) => {
+  const p = pWorld($, on, { reject: 'no such command' })
+  await start($)
+  await measure($, 80)
+  for (let i = 0; i < 5; i++) await xSettle()
+  expect(await fuelRow($)).toBe('● Fuel 20% · run /devforgeai:precompact now')
+  p.reject = null
+  await rType($, 'precompact')                                     // the person runs it themselves: hidden until a compaction
+  expect(await fuelRow($)).toBeNull()
+  void p
+})
+
+test('VER-56 (P-A): Claude\'s own load of the precompact skill hides the row', async ($, on) => {
+  const sk = skillCalls()
+  const p = pWorld($, on, { over: { tool: sk.tool }, load: false })
+  await start($)
+  await measure($, 72)
+  expect(await fuelRow($)).toBe(ROW(28))
+  await sk.load($, 'devforgeai:precompact')
+  expect(await fuelRow($)).toBeNull()
+  void p
+})
+
+test('VER-56 (P-B): a subagent\'s load of the precompact skill, with no automatic run started, does not hide the row', async ($, on) => {
+  const sk = skillCalls()
+  const p = pWorld($, on, { over: { tool: sk.tool }, load: false })
+  await start($)
+  await measure($, 72)
+  await sk.load($, 'devforgeai:precompact', 'a1')
+  expect(await fuelRow($)).toBe(ROW(28))
+  void p
+})
+
+test('VER-56: a load of the precompact skill hides the row and opens no run; after a compaction the share and the mark are cleared, and the run happens again at fuel 20', async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await measure($, 72)
+  expect(await fuelRow($)).toBe(ROW(28))
+  await rType($, 'precompact')                                     // typed, as the person would
+  expect(runsOf(p.w, 'precompact')).toEqual([])
+  expect(await fuelRow($)).toBeNull()
+  await measure($, 80)
+  await xSettle()
+  expect(p.own()).toEqual([])                                      // hidden: nothing runs until a compaction
+  const out = (await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })) as Any
+  expect(Array.isArray(out.messages)).toBe(true)
+  expect(await fuelRow($)).toBeNull()                              // the share was cleared with the compaction
+  await measure($, 72)
+  expect(await fuelRow($)).toBe(ROW(28))
+  await measure($, 80)
+  await xSettle()
+  expect(p.own()).toEqual(['devforgeai:precompact'])               // runs again once the share is reached again
+})
+
+test('VER-56: a skipped compaction, a precompute one and a subagent\'s change nothing; a manual, automatic or plugin one clears', async ($, on) => {
+  let result: Any = { skip: 'blocked' }
+  const p = pWorld($, on, { over: { compact: () => result } })
+  await start($)
+  await measure($, 72)
+  await rType($, 'precompact')                                     // hides
+  const compact = (e: Any) => ($ as Any).session.compact({ messages: TALK, ...e })
+  await compact({ trigger: 'manual' })                             // skipped
+  result = { messages: TALK }
+  await compact({ trigger: 'precompute' })
+  await compact({ trigger: 'manual', agentId: 'a1' })
+  await measure($, 80)
+  await xSettle()
+  expect(p.own()).toEqual([])                                      // still hidden: nothing ran
+  for (const trigger of ['auto', 'plugin']) {
+    await measure($, 72)
+    await rType($, 'precompact')
+    expect(await fuelRow($)).toBeNull()
+    await compact({ trigger })
+    await measure($, 72)
+    expect(await fuelRow($), trigger).toBe(ROW(28))
+  }
+})
+
+test('VER-56: hasSurvey draws none; with a run open maxRows 3 draws both band rows and the row, 2 the band only, 1 row 1 only; with no run the row alone; and it is cut to the columns', async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await measure($, 72)
+  expect(await fuelRow($, 1)).toBe(ROW(28))                        // no run: the row alone, in one row
+  expect(await fuelRow($, 3, { hasSurvey: true })).toBeNull()
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  const has = async (maxRows: number, re: RegExp): Promise<boolean> => {
+    const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, maxRows } })
+    const found = await ui.find({ type: 'Text', text: re })
+    await ui.unmount()
+    return found !== undefined
+  }
+  expect([await has(3, /step 2 of 2/), await has(3, /observe mode/), await has(3, /Fuel 28%/)]).toEqual([true, true, true])
+  expect([await has(2, /step 2 of 2/), await has(2, /observe mode/), await has(2, /Fuel 28%/)]).toEqual([true, true, false])
+  expect([await has(1, /step 2 of 2/), await has(1, /observe mode/), await has(1, /Fuel 28%/)]).toEqual([true, false, false])
+  const narrow = await fuelRow($, 3, { bodyColumns: 20 })
+  expect(narrow !== null && Array.from(narrow).length <= 20).toBe(true)
+  // the row sits after the band's rows and before what the next mod draws
+  const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, maxRows: 3 } })
+  const outer = await ui.find({ type: 'Box' })
+  const texts = JSON.stringify(outer.children).match(/(step 2 of 2|observe mode|Fuel 28%|drawn by the mods after it)/g) ?? []
+  expect(texts).toEqual(['step 2 of 2', 'observe mode', 'Fuel 28%', 'drawn by the mods after it'])
+  await ui.unmount()
+})
+
+test('VER-56: /clear removes the row', async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await measure($, 72)
+  expect(await fuelRow($)).toBe(ROW(28))
+  await clearTo($, p.w, 's2')
+  expect(await fuelRow($)).toBeNull()
+})
+
+test('VER-56: a headless session draws no row and runs nothing', async ($, on) => {
+  const p = pWorld($, on)
+  await start($, false)
+  await measure($, 90)
+  await xSettle()
+  expect(await fuelRow($)).toBeNull()
+  expect(p.ran).toEqual([])
+})
+
+test('VER-56: a stopped tracker (ERR-03) draws no row and runs nothing', async ($, on) => {
+  const p = pWorld($, on, { over: { failWrite: path => path.startsWith(PROGRESS) } })
+  await start($)
+  await load($)
+  await $.tool.call(READ('a.md'))
+  expect(p.w.statuses.includes('progress: off (cannot write devforgeai/progress)')).toBe(true)
+  await measure($, 90)
+  await xSettle()
+  expect(await fuelRow($)).toBeNull()
+  expect(p.ran).toEqual([])
+})
+
+// -- version 25: BEH-36 sets BEH-41's mark, so the handoff's turn is a typed load's (VER-56, VER-64) --
+
+/** The scripted handoff turn of the precompact skill (the skill's skill.prompt has fired): a Read, a Write and a Bash call, two
+ *  response rows with a numbered tick, and a turn.complete that carries usage. */
+async function handoffTurn($: Any, turnId = 'h1') {
+  await ($ as Any).turn.start({ turnId })
+  await $.tool.call(READ('a.md'))
+  await $.tool.call({ tool: 'Write', file_path: `${ROOT}/devforgeai/handoff/docs-x/START-HERE.md`, content: '# Start here\n' } as Any)
+  await $.tool.call({ tool: 'Bash', command: 'git status --short' } as Any)
+  await respond($, [{ type: 'text', text: 'Writing the handoff.\n- [x] 2. Header row' }])
+  await respond($, [{ type: 'text', text: 'The handoff is written.' }])
+  await done($, turnId)
+}
+
+for (const mode of ['observe framework-default', 'enforce local']) {
+  test(`VER-56 (version 25, ${mode.split(' ')[0]}): the automatic run's handoff turn is a typed load's: the open run gains only its turn events and the count-only usage event`, async ($, on) => {
+    const p = pWorld($, on, { over: { mode } })
+    await start($)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    await p.w.clock.advance(600)
+    const before = logOf(p.w, 'brainstorm').length
+    await measure($, 80)
+    await xSettle()
+    expect(p.ran).toEqual([{ command: 'devforgeai:precompact', origin: { kind: 'plugin', name: 'devforgeai' } }])
+    await handoffTurn($)
+    const gained = logOf(p.w, 'brainstorm').slice(before)
+    expect(gained.map(e => e.kind)).toEqual(['turn', 'turn', 'usage'])      // no tool, answer or reply event
+    expect(gained[2]).toMatchObject({ turn: 'h1', model: 'claude-opus-5-5', input: 1200, output: 340, cacheRead: 5000, cacheWrite: 700 })
+    // no run opens, ends or pauses; BEH-31 offers nothing; the run mark is unchanged
+    expect(runsOf(p.w, 'precompact')).toEqual([])
+    expect(logOf(p.w, 'brainstorm').some(e => e.kind === 'run-end')).toBe(false)
+    expect(trailLog(p.w)).toEqual([])
+    expect(p.asked).toEqual([])
+    expect(uLog(p.w, 'resume')).toEqual([])
+    await measure($, 85)
+    await xSettle()
+    expect(p.own().length).toBe(1)
+    // the next turn is recorded as usual
+    await ($ as Any).turn.start({ turnId: 'h2' })
+    await $.tool.call(READ('b.md'))
+    await respond($, [{ type: 'text', text: 'Back to the brainstorm.' }])
+    expect(logOf(p.w, 'brainstorm').slice(before + 3).map(e => e.kind)).toEqual(['turn', 'tool', 'reply'])
+  })
+}
+
+test('VER-56 / VER-64 (version 25): a name serves one command.run: a second run of the plugin\'s own for precompact, after its name was used, is not the typed one', async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  await measure($, 80)
+  await xSettle()
+  await handoffTurn($)
+  const before = logOf(p.w, 'brainstorm').length
+  await $.command.run({ command: 'devforgeai:precompact', args: '', origin: { kind: 'plugin', name: 'devforgeai' } } as Any)
+  expect(p.own()).toEqual(['devforgeai:precompact', 'devforgeai:precompact'])
+  await ($ as Any).turn.start({ turnId: 'h2' })
+  await $.tool.call(READ('b.md'))
+  expect(logOf(p.w, 'brainstorm').slice(before).map(e => e.kind)).toEqual(['turn', 'tool'])   // not marked: the Read is recorded
+})
+
+test('VER-56 / VER-64 (version 25): a command.run of origin plugin whose name is not in the set is not typed: no kept name, no offer', async ($, on) => {
+  const r = rWorld($, on, { control: false, earlier: [rBrn(4)] })
+  await start($)
+  // another plugin's command and this plugin's own, neither in the set: no kept name, so no offer for the tracked skill
+  await $.command.run({ command: 'devforgeai:brainstorm', args: '', origin: { kind: 'plugin', name: 'other' } } as Any)
+  await $.command.run({ command: 'devforgeai:brainstorm', args: '', origin: { kind: 'plugin', name: 'devforgeai' } } as Any)
+  expect(r.asked).toEqual([])
+})
+
+test('VER-56 / VER-64 (version 25, control): the same earlier run is offered to the person\'s own typed command', async ($, on) => {
+  const r = rWorld($, on, { control: false, earlier: [rBrn(4)] })
+  await start($)
+  await rType($)
+  expect(r.asked.length).toBe(1)
+})
+
+const HOLD_MS = 60000
+/** An outer plugin that holds this plugin's own command.run of the precompact skill for HOLD_MS on the mock clock: the host runs a
+ *  plugin's $.command.run only once the session is idle, which the kit does at once, so the set's pending window is made here. */
+const holder: Plugin = {
+  name: 'holder',
+  tier: 'prepend',
+  register(on) {
+    on('command.run', async ($, e, next) => {
+      if (e.command === 'devforgeai:precompact' && e.origin?.kind === 'plugin' && e.origin.name === 'devforgeai') await $.clock.sleep(60000)
+      return next(e)
+    })
+  },
+} as Plugin
+
+test('VER-56 (version 25): while precompact waits in the set another command.run neither takes it nor is typed; when the held run arrives, it is typed and the turn is marked', { plugins: [holder] }, async ($, on) => {
+  const st = newState()
+  const p = pWorld($, on, { over: { state: st } })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  await measure($, 80)
+  await xSettle()
+  expect(p.ran).toEqual([])                                        // held: the plugin's own hook hasn't seen it yet
+  // version 26 added a second path: any precompact load marks while the pending mark is set. This test is about the set path alone,
+  // so the pending mark is cleared here.
+  st.values.set('devforgeai/precompact', { value: { ...pstate(st), pending: false }, version: 99 })
+  await $.command.run({ command: 'devforgeai:nothing', args: '', origin: { kind: 'plugin', name: 'devforgeai' } } as Any)
+  expect(p.ran.map(r => r.command)).toEqual(['devforgeai:nothing'])
+  // another plugin's run of the same skill is not this plugin's own: it takes no name and marks no turn
+  await $.command.run({ command: 'devforgeai:precompact', args: '', origin: { kind: 'plugin', name: 'other' } } as Any)
+  expect(p.ran.map(r => r.origin.name)).toEqual(['devforgeai', 'other'])
+  const before = logOf(p.w, 'brainstorm').length
+  await ($ as Any).turn.start({ turnId: 'h0' })
+  await $.tool.call(READ('x.md'))
+  expect(logOf(p.w, 'brainstorm').slice(before).map(e => e.kind)).toEqual(['turn', 'tool'])   // recorded: no mark
+  await done($, 'h0', null)
+  const held = logOf(p.w, 'brainstorm').length
+  await p.w.clock.advance(HOLD_MS)
+  await xSettle()
+  expect(p.own()).toEqual(['devforgeai:nothing', 'devforgeai:precompact'])         // the name was still there for the held run
+  await ($ as Any).turn.start({ turnId: 'h1' })
+  await $.tool.call(READ('a.md'))
+  await respond($, [{ type: 'text', text: 'Handoff.' }])
+  expect(logOf(p.w, 'brainstorm').slice(held).map(e => e.kind)).toEqual(['turn'])   // the turn is marked: nothing else recorded
+})
+
+test('VER-56 (version 25, limit): a /clear while the run waits empties the set, so the handoff\'s turn is not marked and is recorded as before version 25', { plugins: [holder] }, async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  await measure($, 80)
+  await xSettle()
+  await clearTo($, p.w, 's2')
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(HOLD_MS)
+  await xSettle()
+  expect(p.own()).toEqual(['devforgeai:precompact'])
+  await ($ as Any).turn.start({ turnId: 'h1' })
+  await $.tool.call(READ('a.md'))
+  const run = logOf(p.w, 'brainstorm', 1)
+  expect(run.slice(-1)[0]).toMatchObject({ kind: 'tool', tool: 'Read', path: 'docs/a.md' })
+})
+
+test('VER-56 (version 25): session.end alone, with no classic.SessionStart, empties the pending names, the row and the run mark', { plugins: [holder] }, async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  await measure($, 80)
+  await xSettle()
+  await ($ as Any).session.end({ reason: 'clear', sessionId: 's1', resume: { id: 's1' } })
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  await measure($, 72)
+  expect(await fuelRow($)).toBe(ROW(28))                           // the run mark and the share of the old session are gone
+  await p.w.clock.advance(HOLD_MS)
+  await xSettle()
+  expect(p.own()).toEqual(['devforgeai:precompact'])
+  const before = logOf(p.w, 'brainstorm', 1).length
+  await ($ as Any).turn.start({ turnId: 'h1' })
+  await $.tool.call(READ('a.md'))
+  expect(logOf(p.w, 'brainstorm', 1).slice(before).map(e => e.kind)).toEqual(['turn', 'tool'])   // not marked: the name was emptied
+})
+
+test('VER-56 (version 25): classic.SessionStart alone (clear, resume, fork) removes the row and the pending names', { plugins: [holder] }, async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await measure($, 72)
+  expect(await fuelRow($)).toBe(ROW(28))
+  await $.classic.SessionStart({ source: 'fork' })
+  expect(await fuelRow($)).toBeNull()
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  await measure($, 80)
+  await xSettle()
+  await $.classic.SessionStart({ source: 'resume' })
+  await p.w.clock.advance(HOLD_MS)
+  await xSettle()
+  expect(p.own()).toEqual(['devforgeai:precompact'])
+  const before = logOf(p.w, 'brainstorm').length
+  await ($ as Any).turn.start({ turnId: 'h1' })
+  await $.tool.call(READ('a.md'))
+  expect(logOf(p.w, 'brainstorm').slice(before).map(e => e.kind)).toEqual(['turn', 'tool'])
+})
+
+test('VER-56: two measurements at once start one run: the run mark is set in memory before anything awaits', async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await Promise.all([measure($, 80), measure($, 81), measure($, 85)])
+  await xSettle()
+  expect(p.own()).toEqual(['devforgeai:precompact'])
+})
+
+test('VER-56: once the run has started, a fuel back above the run share draws no "runs at" row until a compaction (the mark is in $.state too)', async ($, on) => {
+  const p = pWorld($, on, { load: false })
+  await start($)
+  await measure($, 80)
+  await xSettle()
+  expect(p.own()).toEqual(['devforgeai:precompact'])
+  await measure($, 75)                                             // fuel 25, above the run share, the skill never loaded
+  expect(await fuelRow($)).toBeNull()
+  await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })
+  await measure($, 75)
+  expect(await fuelRow($)).toBe(ROW(25))
+})
+
+test('VER-64 (version 25): BEH-28\'s confirmation still passes a plugin\'s /clear untouched, this plugin\'s own included', async ($, on) => {
+  const asked: string[] = []
+  const w = world(on, { tool: confirming(null, asked) })
+  const ran: string[] = []
+  commands(on, ran)
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await w.clock.advance(600)
+  await $.command.run({ command: 'clear', args: '', origin: { kind: 'plugin', name: 'devforgeai' } } as Any)
+  expect(asked).toEqual([])
+  expect(ran).toEqual(['clear'])
+})
+
+// ---- VER-67 (kit half): the mode button, the band's controls and the precompact row send nothing ----
+
+test('VER-67: drawing the band and the precompact row and pressing the mode button call no $.command.run, $.prompt.submit or $.ui.ask beyond BEH-13\'s own', async ($, on) => {
+  const p = pWorld($, on)
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  await measure($, 72)
+  const ui = await ($ as Any).ui.mount({ ...BAND, surface: 'terminal', props: { ...BAND.props, maxRows: 3 } })
+  expect(await ui.find({ text: /Fuel 28%/ })).toBeDefined()
+  await ui.press({ key: 'progress-mode' })
+  await ui.unmount()
+  await xSettle()
+  expect(p.ran).toEqual([])                                        // no $.command.run
+  expect(p.w.contexts).toEqual([])                                 // no $.prompt.submit
+  expect(p.w.tools.includes('AskUserQuestion')).toBe(false)        // no $.ui.ask
+  expect(p.w.runs.filter(a => a[2] === 'set-mode').length).toBe(1) // BEH-13's own process, and only it
+})
+
+// ---- BEH-40: usage events (VER-63) ----
+
+// EXPECTED-USAGE-EVENT-BEGIN (VER-63; test_adapter_structure.py validates this line against events.schema.json)
+const EXPECTED_USAGE_EVENT = '{"run":"20261002T120000Z-brainstorm-RANDOM8","seq":3,"time":"2026-10-02T12:00:00Z","kind":"usage","turn":"t1","model":"claude-opus-5-5","input":1200,"output":340,"cacheRead":5000,"cacheWrite":700}'
+// EXPECTED-USAGE-EVENT-END
+
+for (const mode of ['observe framework-default', 'enforce local']) {
+  test(`VER-63 (${mode.split(' ')[0]}): a main-loop turn.complete with usage gives, right after its turn event, one usage event with the next seq`, async ($, on) => {
+    const w = world(on, { mode })
+    await start($)
+    await load($)
+    await done($, 't1')
+    const lines = eventsOf(w)
+    expect(kinds(lines)).toEqual(['skill-loaded', 'turn', 'usage'])
+    expect(lines.map(l => JSON.parse(l).seq)).toEqual([1, 2, 3])
+    expect(lines[1]).toContain('"phase":"end"')
+    expect(lines[2]).toBe(EXPECTED_USAGE_EVENT)
+  })
+}
+
+test('VER-63: no usage, or usage that DM-02 would refuse, gives none; a subagent\'s turn and a turn with no run give none', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await done($, 'idle')                                            // no run open
+  await load($)
+  await done($, 'a', null)
+  await doneRaw($, { turnId: 'b' })
+  for (const bad of [{ input_tokens: -1 }, { input_tokens: 1.5 }, { output_tokens: '7' }, { cache_read_input_tokens: true },
+    { cache_creation_input_tokens: null }, { model: '' }, { model: 5 }]) await done($, 'c', { ...USAGE, ...bad })
+  const { cache_read_input_tokens: _gone, ...missing } = USAGE
+  await done($, 'd', missing)
+  await done($, '', USAGE)
+  await doneRaw($, { usage: USAGE })
+  await done($, 'e', USAGE, { agentId: 'a1' })                     // a subagent's
+  expect(kinds(eventsOf(w)).filter(k => k === 'usage')).toEqual([])
+  expect(kinds(eventsOf(w)).filter(k => k === 'turn').length).toBe(12)   // a, b, seven c, d, the two with no turn ID or usage
+  await done($, 'f')
+  expect(kinds(eventsOf(w)).filter(k => k === 'usage')).toEqual(['usage'])
+})
+
+test('VER-63: an untracked skill\'s marked turn records its turn events and its usage event, and no tool call', async ($, on) => {
+  const r = uWorld($, on)
+  await uOpen($, r)
+  await uTyped($, r)
+  const count = uCount(r.w, 'brainstorm')
+  await $.tool.call(READ('a.md'))
+  await done($, 't1')
+  expect(uKinds(r.w, 'brainstorm', count)).toEqual(['turn', 'usage'])
+})
+
+// ---- SPEC-016 BEH-10, ERR-06: the odometer ledger (VER-11) ----
+
+const ODO = `${PROGRESS}/odometer/s1.jsonl`
+const odo = (w: World, path = ODO): Any[] => (w.files.get(path) ?? '').split('\n').filter(Boolean).map(l => JSON.parse(l))
+const LEDGER = (turn: string, source = 'main', extra: Any = {}): Any =>
+  ({ session: 's1', turn, source, input: 1200, output: 340, cacheRead: 5000, cacheWrite: 700, time: '2026-10-02T12:00:00Z', ...extra })
+
+test('SPEC-016 BEH-10: each turn.complete with usage, the main loop\'s and a subagent\'s, writes the session\'s file whole; none without usage', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await done($, 't1')
+  await done($, 'u1', { ...USAGE, input_tokens: 5 }, { agentId: 'agent-7' })
+  await done($, 't2')
+  expect(odo(w)).toEqual([LEDGER('t1'), LEDGER('u1', 'agent-7', { input: 5 }), LEDGER('t2')])
+  expect(w.writes.filter(p => p === ODO).length).toBe(3)             // whole each time
+  await done($, 't3', null)
+  await done($, 't4', { ...USAGE, output_tokens: -1 })
+  expect(odo(w).length).toBe(3)
+  expect(w.writes.filter(p => p === ODO).length).toBe(3)
+})
+
+test('SPEC-016 BEH-10: before any run has opened a root the lines wait in memory and nothing is written; the first write after one writes them all', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await done($, 't1')
+  await done($, 'u1', USAGE, { agentId: 'agent-7' })
+  expect(w.writes).toEqual([])
+  await load($)
+  expect(w.files.has(ODO)).toBe(false)                              // the run opening writes none of it
+  await done($, 't2')
+  expect(odo(w).map(l => l.turn)).toEqual(['t1', 'u1', 't2'])
+  expect(odo(w).map(l => l.source)).toEqual(['main', 'agent-7', 'main'])
+})
+
+test('VER-11 (version 25): once a turn.complete carries usage the writes also name the session\'s odometer file, and nothing outside devforgeai/progress/', async ($, on) => {
+  const w = world(on, { files: { [`${ROOT}/.gitignore`]: 'node_modules\n' } })
+  await start($)
+  await load($)
+  await $.tool.call({ tool: 'Read', file_path: `${ROOT}/a.md` } as Any)
+  await done($, 't1')
+  await w.clock.advance(600)
+  const written = new Set(w.writes.map(p => p.replace(/runs\/[^/]+\//, 'runs/RUN/')))
+  expect([...written].sort()).toEqual([
+    `${PROGRESS}/.gitignore`, ODO, `${PROGRESS}/runs/RUN/events.jsonl`, `${SESSION}/adapter.log`, `${SESSION}/current.json`,
+  ].sort())
+  expect(w.writes.includes(`${ROOT}/.gitignore`)).toBe(false)
+  expect(w.writes.every(p => p.startsWith(`${PROGRESS}/`))).toBe(true)
+})
+
+test('SPEC-016 BEH-10 (K4): the held-lines cap of 20,000 applies only while no run has opened a root: the lines held are written when one does', { timeoutMs: 180000 }, async ($, on) => {
+  const w = world(on)
+  await start($)
+  for (let i = 0; i < 20005; i++) await done($, `n${i}`)           // 5 past the cap are dropped, with one log line once a run exists
+  expect(w.writes).toEqual([])
+  await load($)
+  await done($, 'last')                                            // a root now: this turn writes everything held
+  const turns = odo(w).map(l => l.turn)
+  expect(turns.length).toBe(20001)
+  expect(turns[0]).toBe('n0')
+  expect(turns[19999]).toBe('n19999')
+  expect(turns[20000]).toBe('last')
+  expect(uLog(w, 'dashboard').length).toBe(1)
+  await done($, 'after')
+  expect(odo(w).length).toBe(20002)                                // and it goes on writing: the cap is for the wait only
+})
+
+test('SPEC-016 BEH-10: the module reads its own file back once, at its first write, and writes the old lines and the new', async ($, on) => {
+  const old = JSON.stringify(LEDGER('old', 'main', { time: '2026-10-01T09:00:00Z' }))
+  const w = world(on, { files: { [ODO]: `${old}\n` } })
+  await start($)
+  await load($)
+  await done($, 't1')
+  await done($, 't2')
+  expect(w.reads.filter(p => p === ODO)).toEqual([ODO])
+  expect(odo(w).map(l => l.turn)).toEqual(['old', 't1', 't2'])
+  expect(odo(w)[0].time).toBe('2026-10-01T09:00:00Z')
+})
+
+test('SPEC-016 ERR-06: a failed write keeps the lines and writes the whole file at the next turn; one adapter.log line of kind dashboard for the cause', async ($, on) => {
+  let fail = true
+  const w = world(on, { failWrite: p => fail && p === ODO })
+  await start($)
+  await load($)
+  await done($, 't1')
+  await done($, 't2')
+  expect(w.files.has(ODO)).toBe(false)
+  fail = false
+  await done($, 't3')
+  expect(odo(w).map(l => l.turn)).toEqual(['t1', 't2', 't3'])
+  expect(uLog(w, 'dashboard').length).toBe(1)
+  expect(uLog(w, 'dashboard')[0]).toContain('odometer')
+  expect(kinds(eventsOf(w)).includes('usage')).toBe(true)          // tracking went on
+})
+
+test('SPEC-016 ERR-06: a file that can\'t be read back is never overwritten, and no more is written for the session; one log line', async ($, on) => {
+  const w = world(on, { files: { [ODO]: `${JSON.stringify(LEDGER('old'))}\n` }, failRead: p => p === ODO })
+  await start($)
+  await load($)
+  await done($, 't1')
+  await done($, 't2')
+  expect(w.writes.includes(ODO)).toBe(false)
+  expect(odo(w).map(l => l.turn)).toEqual(['old'])
+  expect(uLog(w, 'dashboard').length).toBe(1)
+})
+
+test('SPEC-016 ERR-06: a file that would pass 4 MiB stops being written for the session; its bytes are left as they were; one log line', async ($, on) => {
+  const big = 'x'.repeat(4 * 1024 * 1024 - 100) + '\n'
+  const w = world(on, { files: { [ODO]: big } })
+  await start($)
+  await load($)
+  await done($, 't1')
+  await done($, 't2')
+  expect(w.writes.includes(ODO)).toBe(false)
+  expect(w.files.get(ODO)).toBe(big)
+  expect(uLog(w, 'dashboard').length).toBe(1)
+})
+
+test('SPEC-016 BEH-10: a headless session writes no ledger', async ($, on) => {
+  const w = world(on)
+  await start($, false)
+  await done($, 't1')
+  expect(w.writes).toEqual([])
+})
+
+test('SPEC-016 BEH-10: after /clear the new session writes its own file and leaves the old one as it was', async ($, on) => {
+  const w = world(on)
+  await start($)
+  await load($)
+  await done($, 't1')
+  const first = w.files.get(ODO)
+  await clearTo($, w, 's2')
+  await load($)
+  await done($, 't2')
+  expect(w.files.get(ODO)).toBe(first)
+  expect(odo(w, `${PROGRESS}/odometer/s2.jsonl`)).toEqual([LEDGER('t2', 'main', { session: 's2' })])
+})
+
+// ======================================================================================================================
+// ---- version 26 (SPEC-013, approved 2026-10-08): the pending mark and the turn-ID rule of BEH-02's marked turn, the precompact
+//      `load:` and `cleared:` lines, BEH-35's R1/hide wording. The state is stubbed (newState) where a test reads or rejects it. ----
+
+const PRE = (o: Any = {}): Any => ({ percent: 80, hidden: false, ran: true, failed: false, pending: true, ...o })
+/** The adapter.log lines of kind precompact, without their time and run. */
+const pLog = (w: World): string[] => uLog(w, 'precompact').map(l => l.split(' precompact: ')[1])
+const LOAD = (typed: boolean, set: boolean, claude: boolean, pending: boolean, turn: string, marked = true): string =>
+  `load: marked=${marked} typed=${typed} set=${set} claude=${claude} pending=${pending} turn=${turn}`
+/** The tool and reply events a skill's latest run gained from index `from` on. */
+const worked = (w: World, from: number, skill = 'brainstorm'): string[] => logOf(w, skill).slice(from).map(e => e.kind).filter(k => k === 'tool' || k === 'reply')
+
+/** A brainstorm run open, with the state stubbed (seeded with a precompact value when given). */
+async function vOpen($: Any, on: Any, o: { seed?: Any; load?: boolean; over?: Over } = {}) {
+  const st = newState(o.seed === undefined ? {} : { precompact: o.seed })
+  const p = pWorld($, on, { over: { state: st, ...(o.over ?? {}) }, load: o.load ?? true })
+  await start($)
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  await p.w.clock.advance(600)
+  return { st, p, n: (): number => logOf(p.w, 'brainstorm').length }
+}
+
+/** One turn of work: its start, a Read and a reply, and (unless told not to) its complete. */
+async function turnWork($: Any, id: string, complete = true) {
+  await ($ as Any).turn.start({ turnId: id })
+  await $.tool.call(READ(`${id}.md`))
+  await respond($, [{ type: 'text', text: `reply ${id}` }])
+  if (complete) await done($, id, null)
+}
+
+// -- BEH-36: the pending mark --
+
+test('VER-56 (v26): BEH-36\'s one $.state write sets the run mark and the pending mark together', async ($, on) => {
+  const v = await vOpen($, on, { load: false })
+  await measure($, 80)
+  await xSettle()
+  const writes = v.st.sets.filter(s => s.key === 'precompact')
+  const first = writes.find(s => s.value.ran === true)
+  expect(first).toBeDefined()
+  expect(first!.value.pending).toBe(true)                          // never ran true without pending true
+  expect(pstate(v.st)).toMatchObject({ ran: true, pending: true, failed: false })
+})
+
+test('VER-56 (v26): the precompact load marks the turn on the pending mark alone: the set lost, no kept name, nothing in flight', async ($, on) => {
+  const v = await vOpen($, on, { load: false })
+  await measure($, 80)
+  await xSettle()                                                  // the command ran and loaded nothing: the set was consumed, no kept name stands
+  const n0 = v.n()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  expect(pLog(v.p.w)).toContain(LOAD(false, false, false, true, 'next'))
+  await handoffTurn($, 'h1')
+  expect(logOf(v.p.w, 'brainstorm').slice(n0).map(e => e.kind)).toEqual(['turn', 'turn', 'usage'])   // no tool, answer or reply event
+  expect(pstate(v.st)).toMatchObject({ hidden: true, pending: false, ran: true })
+})
+
+test('VER-56 (v26): the normal path, the kept name from BEH-41\'s set with pending set, marks and consumes pending too; both are in $.state', async ($, on) => {
+  const v = await vOpen($, on)
+  const n0 = v.n()
+  await measure($, 80)
+  await xSettle()
+  expect(pLog(v.p.w)).toContain(LOAD(false, true, false, true, 'next'))
+  expect(pstate(v.st)).toMatchObject({ hidden: true, pending: false, ran: true })
+  await handoffTurn($, 'h1')
+  expect(logOf(v.p.w, 'brainstorm').slice(n0).map(e => e.kind)).toEqual(['turn', 'turn', 'usage'])
+})
+
+test('VER-56 (v26): a second precompact skill.prompt, with no set, kept name, in-flight load or pending mark, marks nothing', async ($, on) => {
+  const v = await vOpen($, on)
+  await measure($, 80)
+  await xSettle()
+  await handoffTurn($, 'h1')
+  const n0 = v.n()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  expect(pLog(v.p.w).slice(-1)[0]).toBe(LOAD(false, false, false, false, '-', false))
+  await turnWork($, 'h2')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+  expect(pstate(v.st)).toMatchObject({ hidden: true, pending: false })
+})
+
+test('VER-56 (v26): a reload between BEH-36\'s write and the load (fresh module memory, $.state kept) still marks the turn', async ($, on) => {
+  const v = await vOpen($, on, { seed: PRE(), load: false })
+  const n0 = v.n()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  await handoffTurn($, 'h1')
+  expect(logOf(v.p.w, 'brainstorm').slice(n0).map(e => e.kind)).toEqual(['turn', 'turn', 'usage'])
+  expect(pstate(v.st)).toMatchObject({ hidden: true, pending: false, ran: true })
+})
+
+test('VER-56 (v26): a skill.prompt of another skill while pending is set marks nothing and leaves pending set', async ($, on) => {
+  const v = await vOpen($, on, { seed: PRE(), load: false })
+  await $.skill.prompt({ skill: 'other:unknown', text: 'x' })      // neither tracked nor untracked: no run, no mark
+  const n0 = v.n()
+  await turnWork($, 'a')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+  expect(pstate(v.st)).toMatchObject({ pending: true, hidden: false })
+})
+
+test('VER-56 (v26): a mod\'s Skill call of precompact while pending is set (BEH-33) neither marks nor consumes', { plugins: [modder] }, async ($, on) => {
+  const held = heldSkill()
+  const v = await vOpen($, on, { seed: PRE(), load: false, over: { tool: held.tool } })
+  const call = modCalls($, [{ tool: 'Skill', skill: 'devforgeai:precompact' }])
+  await xSettle()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  held.release()
+  expect(await call).toBe('ok')
+  const n0 = v.n()
+  await turnWork($, 'a')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+  expect(pstate(v.st)).toMatchObject({ pending: true, hidden: false })
+  expect(pLog(v.p.w).filter(l => l.startsWith('load:'))).toEqual([])   // and no line for it
+})
+
+test('VER-56 (v26): Claude\'s own Skill load of precompact while pending is set marks, consumes pending, and is bound to the open turn', async ($, on) => {
+  const sk = skillCalls()
+  const v = await vOpen($, on, { seed: PRE(), load: false, over: { tool: sk.tool } })
+  await ($ as Any).turn.start({ turnId: 'T' })
+  await sk.load($, 'devforgeai:precompact')
+  expect(pLog(v.p.w)).toContain(LOAD(false, false, true, true, 'T'))
+  expect(pstate(v.st)).toMatchObject({ pending: false, hidden: true })
+  const n0 = v.n()
+  await $.tool.call(READ('a.md'))
+  await respond($, [{ type: 'text', text: 'still the handoff' }])
+  expect(worked(v.p.w, n0)).toEqual([])
+  await done($, 'T', null)
+  await turnWork($, 'U')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26): a rejected $.state write in the load (the hide or the consumption) still marks the turn', async ($, on) => {
+  const v = await vOpen($, on, { seed: PRE(), load: false })
+  v.st.rejects = 1                                                 // the load's write is refused once
+  const n0 = v.n()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })
+  await handoffTurn($, 'h1')
+  expect(logOf(v.p.w, 'brainstorm').slice(n0).map(e => e.kind)).toEqual(['turn', 'turn', 'usage'])
+  expect(pLog(v.p.w)).toContain(LOAD(false, false, false, true, 'next'))
+})
+
+test('VER-56 (v26): ERR-22 clears pending (the run mark stays), so a later load is not marked for a run that never started', async ($, on) => {
+  const v = await vOpen($, on, { load: false })
+  v.p.reject = 'unknown command'
+  await measure($, 80)
+  for (let i = 0; i < 5; i++) await xSettle()
+  expect(pstate(v.st)).toMatchObject({ ran: true, failed: true, pending: false })
+  const n0 = v.n()
+  await $.skill.prompt({ skill: 'devforgeai:precompact', text: TAGGED })   // the person runs it some other way: nothing is pending
+  await turnWork($, 'a')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26): a compaction with a result clears pending; a skipped one, a precompute one and a subagent\'s leave it; /clear, /resume and /branch clear it', async ($, on) => {
+  let result: Any = { skip: 'blocked' }
+  const v = await vOpen($, on, { seed: PRE(), load: false, over: { compact: () => result } })
+  const compact = (e: Any) => ($ as Any).session.compact({ messages: TALK, ...e })
+  await compact({ trigger: 'manual' })                             // skipped
+  result = { messages: TALK }
+  await compact({ trigger: 'precompute' })
+  await compact({ trigger: 'manual', agentId: 'a1' })
+  expect(pstate(v.st).pending).toBe(true)
+  await compact({ trigger: 'manual' })
+  expect(pstate(v.st)).toMatchObject({ pending: false, ran: false, percent: null })
+  for (const source of ['clear', 'resume', 'fork']) {
+    v.st.values.set('devforgeai/precompact', { value: PRE(), version: 5 })
+    await $.classic.SessionStart({ source })
+    expect(pstate(v.st).pending, source).toBe(false)
+  }
+})
+
+// -- the turn-ID rule --
+
+test('VER-56 (v26, turn-ID rule): a self-started load binds to the next turn.start; an earlier turn\'s complete, before or after it, ends nothing; the bound turn\'s does', async ($, on) => {
+  const v = await vOpen($, on)
+  await ($ as Any).turn.start({ turnId: 'old' })
+  await rType($, 'precompact')                                     // typed, while the turn before is still to complete
+  expect(pLog(v.p.w)).toContain(LOAD(true, false, false, false, 'next'))
+  const n0 = v.n()
+  await done($, 'old', null)                                       // the late complete of the turn before: nothing is bound yet
+  await ($ as Any).turn.start({ turnId: 'A' })                     // binds
+  await done($, 'old', null)                                       // and again, after the bound turn's start
+  await $.tool.call(READ('a.md'))
+  await respond($, [{ type: 'text', text: 'the handoff' }])
+  expect(worked(v.p.w, n0)).toEqual([])
+  await done($, 'A', null)
+  expect(pLog(v.p.w)).toContain('cleared: by=turn.complete turn=A bound=A')
+  await turnWork($, 'B')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26, turn-ID rule): if the bound turn\'s complete never comes the mark ends at the complete of the next turn that started after it; another ID ends nothing', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  const n0 = v.n()
+  await ($ as Any).turn.start({ turnId: 'A' })
+  await $.tool.call(READ('a.md'))
+  await ($ as Any).turn.start({ turnId: 'B' })                     // A's complete never comes
+  await $.tool.call(READ('b.md'))
+  await done($, 'Z', null)                                         // an ID that was never started: nothing
+  await $.tool.call(READ('z.md'))
+  expect(worked(v.p.w, n0)).toEqual([])                            // the bound turn's remainder and that next turn are unrecorded
+  await done($, 'B', null)                                         // B started after A: the mark ends
+  expect(pLog(v.p.w)).toContain('cleared: by=turn.complete turn=B bound=A')
+  await turnWork($, 'C')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26, turn-ID rule): a load that starts no turn leaves the mark until the next turn, which it binds to; that one turn goes unrecorded', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  const n0 = v.n()
+  await turnWork($, 'N')
+  expect(worked(v.p.w, n0)).toEqual([])
+  await turnWork($, 'M')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26, turn-ID rule): Claude\'s own load is bound to its open turn and ends at that turn\'s complete; an earlier turn\'s complete ends nothing', async ($, on) => {
+  const sk = skillCalls()
+  const v = await vOpen($, on, { over: { tool: sk.tool } })
+  await ($ as Any).turn.start({ turnId: 'T' })
+  await sk.load($, 'devforgeai:precompact')
+  expect(pLog(v.p.w)).toContain(LOAD(false, false, true, false, 'T'))
+  const n0 = v.n()
+  await done($, 'E', null)                                         // an earlier turn's complete
+  await $.tool.call(READ('a.md'))
+  expect(worked(v.p.w, n0)).toEqual([])
+  await done($, 'T', null)
+  expect(pLog(v.p.w)).toContain('cleared: by=turn.complete turn=T bound=T')
+  await turnWork($, 'U')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26, turn-ID rule): with no turn ID known the next main-loop turn.complete ends the mark, whatever its ID, or none', async ($, on) => {
+  const sk = skillCalls()
+  const v = await vOpen($, on, { over: { tool: sk.tool } })
+  await sk.load($, 'devforgeai:precompact')                        // no turn.start was seen: the open turn's ID is not known
+  expect(pLog(v.p.w)).toContain(LOAD(false, false, true, false, 'any'))
+  const n0 = v.n()
+  await $.tool.call(READ('a.md'))
+  expect(worked(v.p.w, n0)).toEqual([])
+  await done($, 'whatever', null)
+  expect(pLog(v.p.w)).toContain('cleared: by=turn.complete turn=whatever bound=-')
+  await $.tool.call(READ('b.md'))
+  expect(worked(v.p.w, n0)).toEqual(['tool'])
+  await sk.load($, 'devforgeai:precompact')
+  await doneRaw($, {})                                             // the host gave no ID at all
+  expect(pLog(v.p.w).slice(-1)[0]).toBe('cleared: by=turn.complete turn=- bound=-')
+})
+
+test('VER-56 (v26, turn-ID rule): a turn.complete the host gave no ID ends a bound mark as well', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  await ($ as Any).turn.start({ turnId: 'A' })
+  const n0 = v.n()
+  await $.tool.call(READ('a.md'))
+  expect(worked(v.p.w, n0)).toEqual([])
+  await doneRaw($, {})
+  expect(pLog(v.p.w)).toContain('cleared: by=turn.complete turn=- bound=A')
+  await turnWork($, 'B')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26): a reset clears a pending mark that stands alone (a compaction with a result, and /resume)', async ($, on) => {
+  const v = await vOpen($, on, { seed: { percent: null, hidden: false, ran: false, failed: false, pending: true }, load: false })
+  await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })
+  expect(pstate(v.st).pending).toBe(false)
+  v.st.values.set('devforgeai/precompact', { value: { percent: null, hidden: false, ran: false, failed: false, pending: true }, version: 9 })
+  await $.classic.SessionStart({ source: 'resume' })
+  expect(pstate(v.st).pending).toBe(false)
+})
+
+test('VER-56 (v26, turn-ID rule): a compaction clears a mark no turn.start has bound yet, and leaves a bound one to end at its own turn\'s complete', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  await ($ as Any).session.compact({ trigger: 'manual', messages: TALK })
+  expect(pLog(v.p.w)).toContain('cleared: by=compaction turn=- bound=-')
+  const n0 = v.n()
+  await turnWork($, 'N')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])             // the unbound mark is gone
+  await rType($, 'precompact')
+  await ($ as Any).turn.start({ turnId: 'A' })
+  await ($ as Any).session.compact({ trigger: 'auto', messages: TALK })   // in the middle of the handoff turn
+  const n1 = v.n()
+  await $.tool.call(READ('a.md'))
+  await respond($, [{ type: 'text', text: 'the rest of the handoff' }])
+  expect(worked(v.p.w, n1)).toEqual([])
+  await done($, 'A', null)
+  expect(pLog(v.p.w).filter(l => l.startsWith('cleared:')).slice(-1)[0]).toBe('cleared: by=turn.complete turn=A bound=A')
+  await turnWork($, 'B')
+  expect(worked(v.p.w, n1)).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26, turn-ID rule): a subagent\'s turn.complete counts for nothing', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  await ($ as Any).turn.start({ turnId: 'A' })
+  const n0 = v.n()
+  await done($, 'A', null, { agentId: 'a1' })                      // a subagent's turn with the bound ID
+  await $.tool.call(READ('a.md'))
+  expect(worked(v.p.w, n0)).toEqual([])
+  await done($, 'A', null)
+  await turnWork($, 'B')
+  expect(worked(v.p.w, n0)).toEqual(['tool', 'reply'])
+})
+
+for (const reason of ['clear', 'resume', 'logout', 'prompt_input_exit', 'other']) {
+  test(`VER-56 (v26): session.end (${reason}) clears any mark and writes the cleared line before the session's values are reset`, async ($, on) => {
+    const v = await vOpen($, on)
+    await rType($, 'precompact')
+    await ($ as Any).session.end({ reason, sessionId: 's1', resume: { id: 's1' } })
+    expect(pLog(v.p.w)).toContain(`cleared: by=${reason} turn=- bound=-`)
+    await load($, 'devforgeai:brainstorm', TAGGED)
+    await $.tool.call(READ('a.md'))
+    expect(logOf(v.p.w, 'brainstorm', 1).map(e => e.kind)).toEqual(['skill-loaded', 'tool'])   // the new run records its first Read
+  })
+}
+
+test('VER-56 (v26): session.end with a bound mark names the bound turn; the reset at /clear, /resume and /branch clears a mark', async ($, on) => {
+  const v = await vOpen($, on)
+  await rType($, 'precompact')
+  await ($ as Any).turn.start({ turnId: 'A' })
+  await ($ as Any).session.end({ reason: 'other', sessionId: 's1', resume: { id: 's1' } })
+  expect(pLog(v.p.w)).toContain('cleared: by=other turn=- bound=A')
+  await rType($, 'precompact')
+  await $.classic.SessionStart({ source: 'resume' })               // the reset alone, with no session.end before it
+  await load($, 'devforgeai:brainstorm', TAGGED)
+  const n0 = logOf(v.p.w, 'brainstorm', 1).length
+  await turnWork($, 'N')
+  expect(logOf(v.p.w, 'brainstorm', 1).slice(n0).map(e => e.kind).filter(k => k === 'tool' || k === 'reply')).toEqual(['tool', 'reply'])
+})
+
+test('VER-56 (v26): a load whose SKILL.md can\'t be read is tracked (ERR-18): no load line, no mark, nothing consumed', async ($, on) => {
+  const v = await vOpen($, on, { seed: PRE(), over: { skillMd: (name: string) => (name === 'precompact' ? { deny: 'EACCES' } : undefined) } })
+  await rType($, 'precompact')
+  expect(pLog(v.p.w).filter(l => l.startsWith('load:'))).toEqual([])
+  expect(pstate(v.st).pending).toBe(true)
+})
+
+// -- BEH-35 (R1 and the hide) --
+
+test('VER-56 (R1): with precompactWarnFuel 0 a failed run draws nothing', { options: { precompactWarnFuel: 0 } } as Any, async ($: Any, on: Any) => {
+  const p = pWorld($, on, { reject: 'no such command' })
+  await start($)
+  await measure($, 80)
+  for (let i = 0; i < 5; i++) await xSettle()
+  expect(p.ran.length).toBe(1)
+  expect(await fuelRow($)).toBeNull()
+})
+
+test('VER-56 (P-C): a subagent\'s load of precompact hides the row after BEH-36\'s run mark, and only then', async ($, on) => {
+  const sk = skillCalls()
+  const st = newState({ precompact: PRE({ failed: true, pending: false }) })
+  const p = pWorld($, on, { over: { tool: sk.tool, state: st }, load: false })
+  await start($)
+  expect(await fuelRow($)).toBe('● Fuel 20% · run /devforgeai:precompact now')
+  await sk.load($, 'devforgeai:precompact', 'a1')
+  expect(await fuelRow($)).toBeNull()
+  void p
 })

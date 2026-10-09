@@ -19,6 +19,7 @@ import sys
 import tempfile
 import time
 import unittest
+from datetime import datetime, timedelta
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
@@ -102,7 +103,7 @@ class SpecRules(Base):
         events_v, state_v = schema_validator("events"), schema_validator("progress")
         for name in mc.CASE_BUILDERS:
             with self.subTest(name):
-                if name != "messy-log":  # its malformed lines are the point of that case
+                if name not in mc.INVALID_EVENT_CASES:  # their malformed lines are the point of those cases
                     for line in (mc.CASES / name / "events.jsonl").read_text(encoding="utf-8").splitlines():
                         self.assertEqual([e.message for e in events_v.iter_errors(json.loads(line))], [])
                 state, _, _, _ = self.run_case(name)
@@ -419,11 +420,13 @@ class SpecRules(Base):
 
     # ---- version 2 ----
 
-    # The schemas are DM-01 to DM-03 as the spec writes them.
+    # The schemas are DM-01 to DM-06 as the spec writes them (DM-04 to DM-06 are version 17's).
     def test_schemas_equal_the_spec_blocks(self):
         text = (ROOT / "docs/specs/spec/SPEC-012.md").read_text(encoding="utf-8")
         blocks = re.findall(r"```json\n(.*?)```", text, re.S)
-        for block, name in zip(blocks, ("manifest", "events", "progress")):
+        names = ("manifest", "events", "progress", "odometer", "chain", "history")
+        self.assertEqual(len(blocks), len(names))
+        for block, name in zip(blocks, names):
             with self.subTest(name):
                 self.assertEqual(json.loads((SCHEMAS / (name + ".schema.json")).read_text(encoding="utf-8")),
                                  json.loads(block))
@@ -778,7 +781,7 @@ class SpecRules(Base):
                 self.assertEqual(state["waiver"], "proceed")
         # Every earlier case's state has waiver null.
         for name in mc.CASE_BUILDERS:
-            if not name.startswith("waiver-") and name != "messy-log":
+            if not name.startswith(("waiver-", "reached-waiver")) and name != "messy-log":
                 with self.subTest(name):
                     state, _, _, _ = self.run_case(name)
                     self.assertIsNone(state["waiver"])
@@ -975,7 +978,7 @@ class SpecRules(Base):
         new = {"arch-carried", "brainstorm-carried-owned", "brainstorm-carried-confirmed", "brainstorm-carried-written",
                "brainstorm-carried-written-open", "carried-answered-unknown", "carried-windows", "carried-unknown",
                "carried-then-evidence", "brn-workfiles-carried", "brn-draft-carried", "brn-draft-outside",
-               "brn-draft-listed-first"}
+               "brn-draft-listed-first", "reached-carried", "reached-carried-all"}
         for name in mc.CASE_BUILDERS:
             if name not in new and name != "messy-log":
                 with self.subTest(name):
@@ -1441,6 +1444,327 @@ class SpecRules(Base):
                 with self.subTest(name):
                     state, _, _, _ = self.run_case(name)
                     self.assertNotIn("outside-write", [f["type"] for f in state["flags"]])
+
+
+    # ---- version 17: timing, steps reached and usage (VER-47 to VER-49; BEH-23 to BEH-25, ERR-11, ERR-12) ----
+
+    @staticmethod
+    def at(seconds):
+        """A case time as the generator writes a whole number of seconds after T0."""
+        return (mc.T0 + timedelta(seconds=seconds)).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    def test_ver47_schemas(self):
+        state, _, _, _ = self.run_case("timing-basic")
+        validator = schema_validator("progress")
+        self.assertEqual([e.message for e in validator.iter_errors(state)], [])
+        self.assertEqual(set(state["timing"]), {"started", "lastEvent", "activeSeconds", "untimed", "stepsReached",
+                                                "stepsCarried"})
+        self.assertEqual(set(state["usage"]), {"turns", "input", "output", "cacheRead", "cacheWrite", "models",
+                                               "duplicates"})
+        for step in state["steps"]:
+            self.assertIn("reached", step)
+        # timing, usage and each step's reached are required, and nothing else of theirs is allowed.
+        for mutate in (lambda s: s.pop("timing"), lambda s: s.pop("usage"), lambda s: s["steps"][0].pop("reached"),
+                       lambda s: s["timing"].pop("untimed"), lambda s: s["timing"].update(extra=1),
+                       lambda s: s["timing"].update(activeSeconds=-1), lambda s: s["usage"].update(turns=-1),
+                       lambda s: s["steps"][0].update(reached={"seq": 1, "time": "t"})):
+            with self.subTest(mutate=mutate):
+                bad = json.loads(json.dumps(state))
+                mutate(bad)
+                self.assertNotEqual(list(validator.iter_errors(bad)), [])
+
+    # VER-47: the run's active time, from its events' times alone (BEH-23, ERR-12).
+    def test_ver47_timing_cases(self):
+        at = self.at
+        expected = {
+            "timing-basic": dict(started=at(0), lastEvent=at(3661), activeSeconds=1860, untimed=0, stepsReached=3),
+            "timing-single": dict(started=at(5), lastEvent=at(5), activeSeconds=0, untimed=0, stepsReached=0),
+            "timing-backward": dict(started=at(0), lastEvent=at(90), activeSeconds=150, untimed=0, stepsReached=3),
+            "timing-millis": dict(started=at(0), lastEvent="2026-10-02T12:00:02.900Z", activeSeconds=2, untimed=0,
+                                  stepsReached=2),
+            "timing-offset": dict(started=at(0), lastEvent=at(20), activeSeconds=20, untimed=0, stepsReached=2),
+            "timing-untimed": dict(started=at(0), lastEvent=at(30), activeSeconds=30, untimed=2, stepsReached=4),
+            "timing-after-end": dict(started=at(0), lastEvent=at(20), activeSeconds=20, untimed=0, stepsReached=1),
+            "timing-usage-gap": dict(started=at(0), lastEvent=at(3610), activeSeconds=3610, untimed=0, stepsReached=1),
+        }
+        self.assertEqual(set(expected), set(mc.TIMING_CASES))
+        for name, timing in expected.items():
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                self.assertEqual(state["timing"], dict(timing, stepsCarried=0))
+
+    def test_ver47_the_30_minute_boundary_and_the_ends_of_the_run(self):
+        # basic: the gaps 60 s and 1,800 s (exactly 30 minutes) are active, the gap of 1,801 s is idle.
+        state, _, _, _ = self.run_case("timing-basic")
+        self.assertEqual(state["timing"]["activeSeconds"], 60 + 1800)
+        # after-end: the events after the run-end add nothing to the figures and count in afterEnd (BEH-12).
+        state, _, _, _ = self.run_case("timing-after-end")
+        self.assertEqual((state["counts"]["afterEnd"], state["through"], state["ended"]), (2, 3, "session-end"))
+        # offset: a +02:00 time is the same instant as its Z form; read as a wall-clock time it would be an idle gap.
+        state, _, _, _ = self.run_case("timing-offset")
+        self.assertEqual(state["timing"]["activeSeconds"], 20)
+        # usage-gap: usage and turn events are timed events, so each 20-minute gap stays active.
+        state, _, _, _ = self.run_case("timing-usage-gap")
+        self.assertEqual(state["timing"]["activeSeconds"], 10 + 3 * 1200)
+        self.assertEqual(state["usage"]["turns"], 2)
+
+    # ERR-12: only an ISO 8601 date-time with a Z or a UTC offset reads; the rest is untimed, never guessed.
+    def test_err12_which_times_read(self):
+        reads = ["2026-10-02T12:00:10Z", "2026-10-02T12:00:10.5Z", "2026-10-02T12:00:10.123456789Z",
+                 "2026-10-02T12:00:10+00:00", "2026-10-02T06:30:10-05:30", "2026-10-02T14:00:10+02:00"]
+        reads_not = ["yesterday", "", "2026-10-02T12:00:10", "2026-10-02", "2026-10-02 12:00:10Z", "12:00:10Z",
+                     "2026-13-02T12:00:10Z", "2026-02-30T12:00:10Z", "2026-10-02T25:00:10Z", "2026-10-02T24:00:00Z",
+                     "2026-10-02T12:60:10Z", "2026-10-02T12:00:10+99:00", "2026-10-02T12:00:10z",
+                     "2026-10-02T12:00:10.Z", "2026-10-02T12:00:10 Z"]
+        for text in reads + reads_not:
+            with self.subTest(time=text):
+                state = self.state_of(mc.Log("brainstorm", times=[0, text]).tick(1))
+                self.assertEqual(state["timing"]["untimed"], 0 if text in reads else 1, state["timing"])
+                self.assertEqual(state["timing"]["started"], self.at(0))
+                self.assertEqual(state["timing"]["lastEvent"], text if text in reads else self.at(0))
+                if text in reads:
+                    self.assertEqual(state["timing"]["activeSeconds"], 10, text)
+        # A time that is no string makes the line malformed (ERR-01), not untimed.
+        log = mc.Log("brainstorm").tick(1)
+        log.events[1]["time"] = 1759406410
+        state = self.state_of(log)
+        self.assertEqual((state["counts"]["malformed"], state["timing"]["untimed"]), (1, 0))
+        # A log whose every time fails to read has no start and no end; the figures are zero, not guessed.
+        state = self.state_of(mc.Log("brainstorm", times=["a", "b"]).tick(1))
+        self.assertEqual(state["timing"], dict(started=None, lastEvent=None, activeSeconds=0, untimed=2,
+                                               stepsReached=1, stepsCarried=0))
+        self.assertEqual(self.step(state, 1)["reached"], {"seq": 2, "time": "b", "activeSeconds": 0})
+
+    # The cases' own times fix the figures of every earlier golden: each is checked against a plain reference that
+    # reads the log as the spec does (BEH-23, ERR-01, ERR-02, BEH-12), apart from the evaluator.
+    @staticmethod
+    def reference_timing(lines):
+        events, run = [], None
+        for line in lines:
+            try:
+                e = json.loads(line)
+            except ValueError:
+                continue
+            if not (isinstance(e, dict) and isinstance(e.get("seq"), int) and isinstance(e.get("time"), str)
+                    and isinstance(e.get("run"), str) and isinstance(e.get("kind"), str)):
+                continue
+            if e["kind"] == "usage" and not (e.get("turn") and e.get("model") and all(
+                    type(e.get(k)) is int and e[k] >= 0 for k in ("input", "output", "cacheRead", "cacheWrite"))):
+                continue
+            run = run or e["run"]
+            if e["run"] == run:
+                events.append(e)
+        by_seq = {}
+        for e in events:
+            by_seq.setdefault(e["seq"], e)
+        ordered = [by_seq[k] for k in sorted(by_seq)]
+        cut = next((i for i, e in enumerate(ordered) if e["kind"] == "run-end"), None)
+        ordered = ordered if cut is None else ordered[:cut + 1]
+        timed = [datetime.strptime(e["time"], "%Y-%m-%dT%H:%M:%SZ") for e in ordered
+                 if re.fullmatch(r"\d{4}-\d\d-\d\dT\d\d:\d\d:\d\dZ", e["time"])]
+        gaps = [max((b - a).total_seconds(), 0) for a, b in zip(timed, timed[1:])]
+        return ordered, int(sum(g for g in gaps if g <= 1800))
+
+    def test_ver47_every_case_matches_a_plain_reference(self):
+        for name in mc.CASE_BUILDERS:
+            if name in ("timing-millis", "timing-offset", "timing-untimed", "reached-untimed-step"):
+                continue  # their times aren't whole-second Z times: their figures are asserted case by case
+            with self.subTest(name):
+                state, _, _, _ = self.run_case(name)
+                lines = (mc.CASES / name / "events.jsonl").read_text(encoding="utf-8").splitlines()
+                ordered, active = self.reference_timing(lines)
+                self.assertEqual(state["timing"]["activeSeconds"], active)
+                self.assertEqual(state["timing"]["started"], ordered[0]["time"])
+                self.assertEqual(state["timing"]["lastEvent"], ordered[-1]["time"])
+                self.assertEqual(state["through"], ordered[-1]["seq"])
+                times = {e["seq"]: e["time"] for e in ordered}
+                for step in state["steps"]:
+                    if step["reached"] is not None:
+                        self.assertEqual(step["reached"]["time"], times[step["reached"]["seq"]])
+                        self.assertLessEqual(step["reached"]["activeSeconds"], state["timing"]["activeSeconds"])
+                self.assertEqual(state["timing"]["stepsReached"], sum(s["reached"] is not None for s in state["steps"]))
+                self.assertEqual(state["timing"]["stepsCarried"],
+                                 sum(any(e["type"] == "carried" for e in s["evidence"]) for s in state["steps"]))
+                self.assertEqual(state["timing"]["untimed"], 0)
+
+    # VER-48: when each step was first reached in this run (BEH-24); the judgement is unchanged by it.
+    def reached(self, state, n):
+        return self.step(state, n)["reached"]
+
+    def test_ver48_reached_by_a_tool_event_a_tick_and_a_started_mark(self):
+        state, _, _, _ = self.run_case("reached-kinds")
+        for n, seq in ((1, 5), (2, 8), (3, 9)):  # the events are 1 s apart from the first at T0 + 1
+            self.assertEqual(self.reached(state, n), {"seq": seq, "time": self.at(seq), "activeSeconds": seq - 1})
+        for n in range(4, 9):
+            self.assertIsNone(self.reached(state, n))
+        self.assertEqual((state["timing"]["stepsReached"], state["timing"]["stepsCarried"]), (3, 0))
+        # Step 3's later done event (seq 10) doesn't move it.
+        self.assertEqual(self.step(state, 3)["claim"]["seq"], 10)
+
+    def test_ver48_one_event_reaching_several_steps(self):
+        state, _, _, _ = self.run_case("reached-same-event")
+        for n in (2, 3, 4):
+            self.assertEqual(self.reached(state, n), {"seq": 2, "time": self.at(2), "activeSeconds": 1})
+        self.assertIsNone(self.reached(state, 1))
+        self.assertEqual(state["timing"]["stepsReached"], 3)
+
+    def test_ver48_idle_time_is_left_out_of_a_steps_active_time(self):
+        state, _, _, _ = self.run_case("reached-idle")
+        self.assertEqual(self.reached(state, 1), {"seq": 2, "time": self.at(10), "activeSeconds": 10})
+        self.assertEqual(self.reached(state, 2), {"seq": 3, "time": self.at(2410), "activeSeconds": 10})
+        self.assertEqual(state["timing"]["activeSeconds"], 10)
+
+    def test_ver48_a_skipped_claim_reaches_the_step_and_an_unknown_step_nothing(self):
+        state, _, _, _ = self.run_case("reached-skipped-tick")
+        self.assertEqual(self.step(state, 2)["state"], "skipped-with-reason")
+        self.assertEqual(self.reached(state, 2), {"seq": 2, "time": self.at(2), "activeSeconds": 1})
+        self.assertEqual(state["timing"]["stepsReached"], 1)
+        state, _, _, _ = self.run_case("reached-unknown")
+        self.assertEqual([s["reached"] for s in state["steps"]], [None] * 8)
+        self.assertEqual((state["counts"]["unknownClaims"], state["timing"]["stepsReached"]), (2, 0))
+
+    def test_ver48_a_waiver_never_reaches_a_step(self):
+        state, _, _, _ = self.run_case("reached-waiver")
+        s8 = self.step(state, 8)
+        self.assertEqual((s8["state"], [e["type"] for e in s8["evidence"]]), ("done", ["waiver"]))
+        self.assertIsNone(s8["reached"])
+        self.assertIsNotNone(self.reached(state, 9))  # the ARCH write reaches step 9
+        self.assertEqual(state["timing"]["stepsReached"], sum(s["reached"] is not None for s in state["steps"]))
+
+    def test_ver48_a_carried_step_is_reached_in_the_earlier_run(self):
+        state, _, _, _ = self.run_case("reached-carried")
+        for n in range(1, 8):
+            self.assertIsNone(self.reached(state, n), n)
+            self.assertIn("carried", [e["type"] for e in self.step(state, n)["evidence"]])
+        # Step 4 also got a read of its own in this run, and stays carried and unreached: the earlier run reached it.
+        self.assertEqual(sorted(e["type"] for e in self.step(state, 4)["evidence"]), ["carried", "read"])
+        self.assertEqual(self.step(state, 4)["state"], "done")
+        started = next(e["seq"] for e in self.events_of("reached-carried", "step"))
+        self.assertEqual(self.reached(state, 8)["seq"], started)
+        self.assertEqual(state["timing"]["stepsReached"], 1)
+        self.assertEqual(state["timing"]["stepsCarried"], 7)
+
+    def test_ver48_version_18_the_gates_do_not_read_the_figure(self):
+        # Every step carried: reached is null for all of them, but BEH-07's reached (evidence or a claim) holds for
+        # each, so an untagged question asked after them is no question gate (BEH-18, version 10), and current is null.
+        state, _, _, _ = self.run_case("reached-carried-all")
+        self.assertEqual([s["reached"] for s in state["steps"]][:7], [None] * 7)
+        self.assertEqual(state["timing"]["stepsCarried"], 11)
+        self.assertEqual((state["counts"]["unmarkedQuestions"], state["flags"]), (0, []))
+        self.assertEqual(state["gate"]["kind"], None)
+        self.assertEqual(state["current"], 8)  # the started mark stands; the carried steps are reached for BEH-07
+        self.assertEqual(self.step(state, 8)["state"], "carried")
+
+    def test_ver48_a_stale_manifest_gives_the_figures_from_claims_and_step_events(self):
+        state, _, _, _ = self.run_case("reached-stale")
+        self.assertEqual(state["manifest"]["state"], "stale")
+        self.assertEqual(self.reached(state, 1), {"seq": 2, "time": self.at(2), "activeSeconds": 1})
+        self.assertEqual(self.reached(state, 2), {"seq": 2, "time": self.at(2), "activeSeconds": 1})
+        self.assertEqual(self.reached(state, 3), {"seq": 3, "time": self.at(3), "activeSeconds": 2})
+        self.assertEqual(state["timing"]["stepsReached"], 3)
+
+    def test_ver48_a_step_reached_at_an_untimed_event_keeps_the_active_time_before_it(self):
+        state, _, _, _ = self.run_case("reached-untimed-step")
+        self.assertEqual(self.reached(state, 2), {"seq": 3, "time": "noon", "activeSeconds": 10})
+        self.assertEqual(self.reached(state, 3), {"seq": 4, "time": self.at(25), "activeSeconds": 25})
+        self.assertEqual(state["timing"]["untimed"], 1)
+
+    # VER-49: the run's token counts from its usage events, each turn once (BEH-25, ERR-11).
+    def test_ver49_schemas(self):
+        events_v = schema_validator("events")
+        good = {"run": "20261002T120000Z-brainstorm-0000abcd", "seq": 2, "time": "2026-10-02T12:00:02Z", "kind": "usage",
+                "turn": "t1", "model": "m", "input": 1, "output": 2, "cacheRead": 3, "cacheWrite": 4}
+        self.assertEqual(list(events_v.iter_errors(good)), [])
+        for key, value in (("input", -1), ("output", "2"), ("cacheRead", True), ("cacheWrite", 1.5), ("turn", ""),
+                           ("model", "")):
+            with self.subTest(key=key, value=value):
+                self.assertNotEqual(list(events_v.iter_errors(dict(good, **{key: value}))), [])
+        for key in ("turn", "model", "input", "output", "cacheRead", "cacheWrite"):
+            with self.subTest(missing=key):
+                self.assertNotEqual(list(events_v.iter_errors({k: v for k, v in good.items() if k != key})), [])
+
+    def test_ver49_totals_duplicates_and_models(self):
+        state, _, _, _ = self.run_case("usage-totals")
+        self.assertEqual(state["usage"], {"turns": 3, "input": 157, "output": 33, "cacheRead": 1500, "cacheWrite": 340,
+                                          "models": ["claude-opus-5-5", "claude-sonnet-5-5"], "duplicates": 0})
+        self.assertEqual((state["counts"]["events"], state["through"]), (4, 4))
+        state, _, _, _ = self.run_case("usage-duplicate-turn")
+        self.assertEqual(state["usage"], {"turns": 2, "input": 101, "output": 22, "cacheRead": 1003, "cacheWrite": 304,
+                                          "models": ["claude-opus-5-5"], "duplicates": 1})
+        self.assertEqual(state["counts"]["events"], 4)  # the duplicate is still an event
+        state, _, _, _ = self.run_case("usage-none")
+        self.assertEqual(state["usage"], {"turns": 0, "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0,
+                                          "models": [], "duplicates": 0})
+
+    def test_ver49_usage_changes_no_step_flag_gate_current_or_next(self):
+        with_usage, _, _, _ = self.run_case("usage-neutral")
+        without = self.state_of_lines([line for line in mc.usage_neutral(True).lines() if '"kind": "usage"' not in line])
+        self.assertEqual(without["usage"]["turns"], 0)
+        for key in ("steps", "flags", "gate", "current", "next"):
+            self.assertEqual(with_usage[key], without[key], key)
+        # The usage event after the turn's end must not hide the end: step 8 is still the user's turn (VER-05).
+        self.assertEqual(self.step(with_usage, 8)["state"], "your-turn")
+        self.assertEqual(self.step(without, 8)["state"], "your-turn")
+        self.assertEqual(with_usage["counts"]["events"], without["counts"]["events"] + 2)
+        self.assertGreater(with_usage["through"], without["through"])
+        self.assertEqual(with_usage["usage"]["turns"], 2)
+        self.assertNotEqual(with_usage["timing"], without["timing"])
+
+    def test_ver49_a_usage_event_after_the_run_end_is_ignored(self):
+        state, _, _, _ = self.run_case("usage-after-end")
+        self.assertEqual((state["usage"]["turns"], state["usage"]["duplicates"]), (1, 0))
+        self.assertEqual(state["counts"]["afterEnd"], 1)
+        self.assertEqual((state["ended"], state["through"]), ("session-end", 4))
+
+    def test_ver49_malformed_usage_lines_are_no_events(self):
+        state, _, _, _ = self.run_case("usage-malformed")
+        self.assertEqual(state["counts"]["malformed"], 5)
+        self.assertEqual(state["counts"]["events"], 4)  # the skill-loaded event, the tick and the two good usage events
+        self.assertEqual(state["usage"], {"turns": 2, "input": 11, "output": 22, "cacheRead": 33, "cacheWrite": 44,
+                                          "models": ["claude-opus-5-5"], "duplicates": 0})
+        # The last line is malformed and sets no time: the run's last event is the second good usage event.
+        self.assertEqual((state["through"], state["timing"]["lastEvent"]), (8, self.at(8)))
+
+    # The review of the build (review-build-028.md, S1) asked whether evaluate.py's write shares history.py's pattern: it
+    # does. A lone surrogate (legal JSON, written as the escape \\ud800) in the skill name, in an event's time (which
+    # version 17 echoes in timing and reached) or in a path a rule matches reached the state, and the write died with a
+    # traceback (exit 1, no state, a .state-*.tmp left in the folder). The state is now written with its non-ASCII text
+    # escaped, so it is valid JSON that holds the same value.
+    def test_ver47_a_lone_surrogate_in_a_log_still_gives_a_state(self):
+        def skill(log):
+            log.events[0]["skill"] = "\ud800x"
+
+        def time(log):
+            log.events[1]["time"] = "\ud800"
+
+        def path(log):
+            log.tool("Read", path="docs/specs/brainstorm/\ud800.md")
+
+        for name, mutate in (("skill", skill), ("time", time), ("path", path)):
+            with self.subTest(name), tempfile.TemporaryDirectory() as tmp:
+                log = mc.Log("brainstorm").tick(1)
+                mutate(log)
+                events, out = Path(tmp) / "events.jsonl", Path(tmp) / "state.json"
+                events.write_text("\n".join(json.dumps(e, sort_keys=True) for e in log.events) + "\n", encoding="utf-8")
+                proc = self.run_cli("evaluate", "--manifests", mc.PLUGIN_MANIFESTS, "--events", events, "--out", out)
+                self.assertEqual(proc.returncode, 0, proc.stderr)
+                self.assertEqual(sorted(p.name for p in Path(tmp).iterdir()), ["events.jsonl", "state.json"])
+                raw = out.read_bytes()
+                raw.decode("ascii")  # escaped: a state that holds a surrogate is written as ASCII
+                state = json.loads(raw)
+                self.assertEqual([e.message for e in schema_validator("progress").iter_errors(state)], [])
+                self.assertIn("\ud800", json.dumps(state, ensure_ascii=False))
+                again = Path(tmp) / "again.json"
+                self.run_cli("evaluate", "--manifests", mc.PLUGIN_MANIFESTS, "--events", events, "--out", again)
+                self.assertEqual(again.read_bytes(), raw)
+
+    def state_of_lines(self, lines):
+        with tempfile.TemporaryDirectory() as tmp:
+            events, out = Path(tmp) / "events.jsonl", Path(tmp) / "state.json"
+            events.write_text("\n".join(lines) + "\n", encoding="utf-8")
+            proc = self.run_cli("evaluate", "--manifests", mc.PLUGIN_MANIFESTS, "--events", events, "--out", out)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+            return json.loads(out.read_text(encoding="utf-8"))
 
 
 class SpecRulesUnderS(SpecRules):

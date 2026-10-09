@@ -42,6 +42,11 @@
       "n": 1,
       "need": "text-only",
       "note": "manifest out of date; tracking ticks only",
+      "reached": {
+        "activeSeconds": 1,
+        "seq": 2,
+        "time": "2026-10-02T12:00:02Z"
+      },
       "state": "done",
       "title": "Intake: topic, existing BRNs, clarifying questions",
       "userOwned": false
@@ -57,6 +62,11 @@
       "n": 2,
       "need": "text-only",
       "note": "",
+      "reached": {
+        "activeSeconds": 1,
+        "seq": 2,
+        "time": "2026-10-02T12:00:02Z"
+      },
       "state": "done",
       "title": "Select a framework",
       "userOwned": false
@@ -72,6 +82,11 @@
       "n": 3,
       "need": "text-only",
       "note": "",
+      "reached": {
+        "activeSeconds": 1,
+        "seq": 2,
+        "time": "2026-10-02T12:00:02Z"
+      },
       "state": "done",
       "title": "Diverge: problems, ideas, assumptions",
       "userOwned": false
@@ -83,6 +98,7 @@
       "n": 4,
       "need": "text-only",
       "note": "",
+      "reached": null,
       "state": "current",
       "title": "Evaluate with the framework",
       "userOwned": false
@@ -94,6 +110,7 @@
       "n": 5,
       "need": "text-only",
       "note": "",
+      "reached": null,
       "state": "pending",
       "title": "Propose dispositions and ask the user to confirm",
       "userOwned": false
@@ -105,6 +122,7 @@
       "n": 6,
       "need": "text-only",
       "note": "",
+      "reached": null,
       "state": "pending",
       "title": "Write the BRN file",
       "userOwned": false
@@ -116,6 +134,7 @@
       "n": 7,
       "need": "text-only",
       "note": "",
+      "reached": null,
       "state": "pending",
       "title": "Validate the BRN",
       "userOwned": false
@@ -127,11 +146,29 @@
       "n": 8,
       "need": "text-only",
       "note": "",
+      "reached": null,
       "state": "pending",
       "title": "Report and hand off",
       "userOwned": false
     }
   ],
   "through": 2,
+  "timing": {
+    "activeSeconds": 1,
+    "lastEvent": "2026-10-02T12:00:02Z",
+    "started": "2026-10-02T12:00:01Z",
+    "stepsCarried": 0,
+    "stepsReached": 3,
+    "untimed": 0
+  },
+  "usage": {
+    "cacheRead": 0,
+    "cacheWrite": 0,
+    "duplicates": 0,
+    "input": 0,
+    "models": [],
+    "output": 0,
+    "turns": 0
+  },
   "waiver": null
 }
