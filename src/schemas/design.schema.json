@@ -163,6 +163,7 @@
           "flow",
           "surface",
           "ideas",
+          "answers",
           "sha256"
         ],
         "properties": {
@@ -245,6 +246,14 @@
                 "type": "null"
               }
             ]
+          },
+          "answers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^(PRD-\\d{3}#(FR|NFR)-\\d{3}|ADR-\\d{3})$"
+            },
+            "uniqueItems": true
           },
           "sha256": {
             "type": "string",

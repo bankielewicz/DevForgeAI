@@ -60,8 +60,11 @@ after the brainstorm and before the PRD (ADR-007 D1):
 - it hands off to the PRD, whose section 8 links the DSN instead of a raw canvas URL.
 
 A second run for the same brainstorm **amends** the DSN: boards changed, were added or removed, or a PRD requirement, an
-accepted ADR's consequence or the brainstorm itself now names a screen (the four Krepion cases, ADR-007). An amend run
-bumps the DSN's version, which makes it a suspect upstream for the documents that cite it (§2).
+accepted ADR's consequence or the brainstorm itself now names a screen (the four Krepion cases, ADR-007). The three triggers,
+each with a worked example, are in §6 ("The amend path"). An amend run bumps the DSN's version, which makes it a suspect
+upstream for the documents that cite it (§2). In every case the user draws in Claude Design and copies the boards into the
+repository again: the skill sees only the committed copy, so a board changed on the canvas and not copied again never reaches
+it.
 
 Four rules shape everything else:
 - **It decides nothing the user didn't.** A flow, a surface, an idea mapping and a canvas fact are written only when the
@@ -173,7 +176,7 @@ is a **pending boards folder**; it matters only when it isn't the next free numb
 | Key | Holds |
 |---|---|
 | `canvas` | The Claude Design canvas URL (`https://…`) the boards were copied from, or `null` until the user gives it |
-| `canvas_version` | The canvas version identifier copied, as the user gives it (for example `1791493650-acf3`), or `null` |
+| `canvas_version` | The canvas version identifier of the copy now in `boards/`, as the user gives it (for example `1791493650-acf3`), or `null`. Never carried over from an earlier copy (BEH-10) |
 | `canvas_format` | The `v` of the copied `canvas.json` (an integer; DM-04), read by the script, never asked |
 | `boards_root` | `docs/specs/design/DSN-NNN/boards/` for this document's own ID |
 
@@ -186,7 +189,8 @@ Frontmatter values the skill sets:
   **`approved_by`:** `""` and **`approved_on`:** `null` until BEH-16. **`supersedes`:** `[]`, **`superseded_by`:** `null`,
   **`blocked_by`:** `[]`. Every `hash` is `null`.
 - **`upstream`:** one `derives` link to the BRN, with no `item`, at the BRN's version; and one `derives` link with `item:
-  IDEA-NN` to the same BRN and version for each distinct idea that an active board names (§13, o).
+  IDEA-NN` to the same BRN and version for each distinct idea that an active board names (§13, o). It holds no link to a PRD or
+  an ADR (§13, w).
 
 The body, in this order, with these headings (the template `assets/dsn.md` holds them):
 
@@ -212,6 +216,7 @@ board added later, appended:
 | `flow` | The user's flow for the board, a lowercase slug (`day-to-day`), or `null` until confirmed |
 | `surface` | `web`, `desktop`, `mobile` or `terminal`, or `null` until confirmed (BEH-11) |
 | `ideas` | The promoted BRN ideas the board shows, as `IDEA-NN`: a list, `[]` when the user confirmed none, `null` until confirmed |
+| `answers` | The PRD requirements and accepted ADRs the board answers, written `PRD-NNN#FR-NNN`, `PRD-NNN#NFR-NNN` or `ADR-NNN`: a list, `[]` when none. Plain text, not links: no version, and nothing in `upstream` (§13, w). Written only for a candidate the user confirmed (BEH-07, BEH-09) or a reference the user states |
 | `sha256` | The SHA-256 of the board file's bytes at the run that wrote the item, from the script (IF-02) |
 | `notes` | Free text, or `null`; it holds the marker for each `null` field of the item |
 
@@ -230,6 +235,8 @@ this part of Claude Design's undocumented format:
 - Its member **`boards`** is an object whose keys are the board file names, in the order the file writes them; each value is
   ignored. That order is the canvas order.
 - Every other member (`attachments`, a board's `expand` or `h`) is ignored, and nothing is inferred from it.
+- The folder is a snapshot. The skill never learns that the canvas changed: a board edited on the canvas and not copied into
+  `boards/` again is invisible to it, and the version the report prints is the copy's, never the canvas's current one.
 - Each board file named lies in the same folder as `canvas.json`, is a regular file (not a symbolic link) and is readable. A
   `boards/README.md` that lists digests, or any file `canvas.json` doesn't name, is never read (§13, b).
 - A board file is read as text with Read, its first 150 lines, which is enough for its heading and structure (§13, m). The
@@ -290,12 +297,15 @@ metadata:
     `draft`, `in-review`, `approved`, `superseded`, `deprecated`; `version` an integer of 1 or more; `created` and `updated`
     valid dates, `updated` not before `created`; `boards_root` equals `docs/specs/design/<id>/boards/`; `canvas` an `https://`
     URL or `null`; `canvas_version` a non-empty string or `null`; `canvas_format` equal to the `v` in `canvas.json`;
-  - `boards`: each item has the fields of DM-02 and no others; item IDs are `BRD-NN` and unique; every board `canvas.json`
+  - `boards`: each item has the fields of DM-02, `answers` included, and no others; item IDs are `BRD-NN` and unique; every board `canvas.json`
     names has exactly one active item with that `file`, and every active item's `file` is named by `canvas.json`; a
     deprecated item's file is named by no active item; each active item's `sha256` equals the file's digest;
   - `mapping`: `flow` matches the slug form; `surface` is one of the four or `null`; `ideas` is a list of `IDEA-NN` without
     repeats, `[]` or `null`; an item with a `null` `flow`, `surface` or `ideas` has `[NEEDS CLARIFICATION` in its `notes`; each
-    idea named is a promoted idea of the BRN, or one with a `withdrawn` row in section 3;
+    idea named is a promoted idea of the BRN, or one with a `withdrawn` row in section 3; each `answers` entry has the form of
+    DM-02, and the PRD item (an `FR` or `NFR` of `docs/specs/prd/PRD-NNN.md`) or the ADR it names exists, else an error; a
+    PRD item that is deprecated, or an ADR that is not `accepted` or has a `superseded_by`, is a `warning:` (a suspect
+    reference), never an error;
   - `links`: `upstream` holds exactly one `derives` link without an `item`, to a BRN, and one `derives` link with an `item`
     for each distinct idea an active board names and no other; all at one version. A version below the BRN's current one is
     a `warning:` (a suspect link), never an error;
@@ -340,16 +350,16 @@ behaviors:
     rule: "Read the boards from the committed copy only, as DM-04 says: the script's list of board files in canvas order, then the first 150 lines of each with Read. Take nothing from boards/README.md or any file the script doesn't list, never read a path outside the boards folder, and never fetch from the canvas, open a URL or call /design. Propose each board's title from its first <title>, <h1> or <h2> text, else from its file name without the extension; the proposal is written only when the user confirms it (BEH-09). Draw nothing and edit no board file."
   - id: BEH-07
     status: active
-    rule: "In an amend run, also read the existing DSN, and compare each active item's sha256 with the script's digest for its file: a board is unchanged when they are equal, changed when they differ, new when canvas.json names a file with no active item, and removed when an active item's file is no longer named. Read the PRDs in docs/specs/prd/ and the accepted ADRs in docs/specs/adr/ (read-only, no superseded one), and propose as candidates the requirements and the consequences that name a screen, a flow or a user interface and that no active board's ideas or notes already covers, each with its citation (file, item and version). These are proposals for the user's decision. Search docs/specs/ (with Grep, or ls and grep on that folder) for the documents whose upstream cites this DSN at a lower version than the DSN's new one, to name them in the report (BEH-17); read only their frontmatter."
+    rule: "In an amend run, also read the existing DSN, and compare each active item's sha256 with the script's digest for its file: a board is unchanged when they are equal, changed when they differ, new when canvas.json names a file with no active item, and removed when an active item's file is no longer named. Read the PRDs in docs/specs/prd/ and the accepted ADRs in docs/specs/adr/ (read-only, no superseded one), and propose as candidates the active requirements and the consequences that name a screen, a flow or a user interface and that no active board's answers or notes already covers, each with its citation (file, item and version). These are proposals for the user's decision; a candidate the user confirms for a board is recorded in that board's answers (BEH-09), and the document and version read go into the Change Log row (BEH-13). Warn, in the report, of each answers entry whose PRD item is now deprecated or whose ADR is no longer accepted. Search docs/specs/ (with Grep, or ls and grep on that folder) for the documents whose upstream cites this DSN at a lower version than the DSN's new one, to name them in the report (BEH-17); read only their frontmatter."
   - id: BEH-08
     status: active
     rule: "In an amend run, when the BRN's version is higher than the version of the DSN's links to it, treat those links as suspect: re-read the BRN at its current version, add a coverage row for each promoted idea the table lacks (to be asked about), mark a row withdrawn for an idea that is no longer promoted (and ask what to do with the boards that name only it: keep the mapping, drop the idea from it, or deprecate the board), move the DSN's links to the BRN's current version in this same run, and say so in the Change Log row. The run raises the DSN's version once, not twice."
   - id: BEH-09
     status: active
-    rule: "Draft before asking: from the boards and the promoted ideas, propose each board's title, flow, surface and ideas, and each promoted idea's coverage, without writing any of it. Interview only for what the request doesn't answer, in batches of at most 4 questions per call: first, when the request doesn't state them, the canvas URL and the canvas version copied (BEH-10); then one question for each proposed flow, showing its boards with the proposed title, surface and ideas of each, so the user confirms or changes the group; then one question for the promoted ideas that no board shows (not a screen, or no board yet); in an amend run, one question for each group of changed, new or removed boards and for each candidate of BEH-07. Offer 2 to 4 options with the recommended first, and let the user answer in their own words. Write a flow, surface, idea list, title or coverage status only when the user supplied or confirmed it; otherwise write null (the file name without its extension for a title; no board yet for an idea that names a screen) with a [NEEDS CLARIFICATION: …] marker, in the item's notes or in section 5. Answers stated in the request count. Under 'proceed without questions', ask nothing."
+    rule: "Draft before asking: from the boards and the promoted ideas, propose each board's title, flow, surface and ideas, and each promoted idea's coverage, without writing any of it. Interview only for what the request doesn't answer, in batches of at most 4 questions per call: first, when the request doesn't state them, the canvas URL and the canvas version copied (BEH-10); then one question for each proposed flow, showing its boards with the proposed title, surface and ideas of each, so the user confirms or changes the group; then one question for the promoted ideas that no board shows (not a screen, or no board yet); in an amend run, one question for each group of changed, new or removed boards, showing the candidates of BEH-07 that could bear on each so the user can name the board that answers a candidate, or decline it. Offer 2 to 4 options with the recommended first, and let the user answer in their own words. Write a flow, surface, idea list, title or coverage status only when the user supplied or confirmed it; otherwise write null (the file name without its extension for a title; no board yet for an idea that names a screen) with a [NEEDS CLARIFICATION: …] marker, in the item's notes or in section 5. Answers stated in the request count. Under 'proceed without questions', ask nothing."
   - id: BEH-10
     status: active
-    rule: "Record the canvas facts the user gives: canvas (the URL) and canvas_version, as the user states them, and the date of the copy when the user gives it. Read canvas_format from the script's output, never from the user. A fact the user doesn't give is null, with a [NEEDS CLARIFICATION: canvas URL and version copied] marker in section 4. Never take the version from a file in the boards folder and never infer it."
+    rule: "Record the canvas facts the user gives: canvas (the URL) and canvas_version, as the user states them, and the date of the copy when the user gives it. Read canvas_format from the script's output, never from the user. A fact the user doesn't give is null, with a [NEEDS CLARIFICATION: canvas URL and version copied] marker in section 4. Never take the version from a file in the boards folder and never infer it. In an amend run in which a board changed, was added or was removed, the recorded canvas_version describes the copy that was in boards/ before: ask for the new one with the canvas facts, and when the user gives none write canvas_version null with the marker, never the old value, which would name a copy the skill no longer holds. When no board changed, keep it."
   - id: BEH-11
     status: active
     rule: "Treat graphical and terminal screens alike. Every board gets a surface of web, desktop, mobile or terminal, confirmed by the user (a terminal screen is a command-line or other text-mode screen, designed in Claude Design like any other board); a board whose surface the user hasn't confirmed has surface null and a marker. A terminal board is mapped to flows and ideas, counted and reported exactly as the others are."
@@ -358,7 +368,7 @@ behaviors:
     rule: "Write a new DSN with Write from ${CLAUDE_SKILL_DIR}/assets/dsn.md: delete every author comment and fill DM-01 to DM-03. The ID is the one BEH-05 gave, version 1, status draft, created and updated today. One board item for each board canvas.json names, in canvas order, BRD-01 upward, each with its file, the confirmed or null mapping and the script's sha256. Section 3 follows DM-03, section 4 the canvas facts, section 5 the markers. One Change Log row, authored claude-code (session ${CLAUDE_SESSION_ID}), saying the document was created from the BRN and the boards and ending with the number of markers left. The write is a revision of no earlier document: it overwrites nothing."
   - id: BEH-13
     status: active
-    rule: "Amend an existing DSN only with Edit, starting from its current text. Raise version by one, set updated to today, and add one Change Log row, authored claude-code (session ${CLAUDE_SESSION_ID}), naming the boards changed, added or removed, the ideas and requirements considered, and any link moved (BEH-08). Change only what the user confirmed or what a script fact requires (a digest, a canvas_format, a link version): keep every other line, never delete or renumber an item, deprecate a removed board's item with status deprecated, append a new board's item with the next free BRD number, and update sha256 for every changed board. If the DSN was approved, set status to in-review and clear approved_by and approved_on, so the change is reviewed explicitly; a draft or in-review DSN keeps its status. Keep the existing authors (adding the tool if missing), reviewed_by and every Change Log row."
+    rule: "Amend an existing DSN only with Edit, starting from its current text. Raise version by one whatever the status, a draft DSN's amend included (as SPEC-002 BEH-09 and SPEC-011 BEH-13 do), set updated to today, and add one Change Log row, authored claude-code (session ${CLAUDE_SESSION_ID}), naming the boards changed, added or removed, the canvas_version now recorded, the ideas, requirements and ADRs considered with the document versions read, and any link moved (BEH-08). Update canvas_version as BEH-10 says. Change only what the user confirmed or what a script fact requires (a digest, a canvas_format, a link version): keep every other line, never delete or renumber an item, deprecate a removed board's item with status deprecated, append a new board's item with the next free BRD number, add the confirmed answers entries (never to upstream), and update sha256 for every changed board. If the DSN was approved, set status to in-review and clear approved_by and approved_on, so the change is reviewed explicitly; a draft or in-review DSN keeps its status. Keep the existing authors (adding the tool if missing), reviewed_by and every Change Log row."
   - id: BEH-14
     status: active
     rule: "Keep section 3 equal to DM-03 after every write: one row for each promoted idea of the BRN at the version read, the Boards cell from the active items, and the Status the user confirmed (no board yet, with a section 5 marker, for an idea that names a screen the user has not placed). Never add a row for an idea that is not promoted, other than withdrawn, and never record an idea as not a screen unless the user said so."
@@ -370,7 +380,7 @@ behaviors:
     rule: "Record approval only on the user's explicit words in this run that approve the named DSN (for example 'approve DSN-001'), after the check passed and the DSN holds no [NEEDS CLARIFICATION marker: otherwise say which markers remain and leave the status as it is. approved_by is the name the user gives; when none is given, ask who is approving, offering the document's owner first, and when no answer can arrive don't approve and say the approver wasn't named. On approval, with Edit, set status approved, approved_by, approved_on to today and add a Change Log row 'Approved' authored by the approver, without raising version; then run the check again. Never infer approval from silence, from an earlier run, from a request to write or amend the DSN, or from the DSN being cited by another document."
   - id: BEH-17
     status: active
-    rule: "When the run wrote or checked a DSN, open the final reply with this block, then the findings, then the next step. Block lines: 'Design document: <ID> (v<N>, <status>; new | amended)'; 'Boards: <boards_root> · <number of active boards> · version <canvas_version, or unknown>'; 'Flows: <flow> (<count>), … | none', with each hyphen of a flow shown as a space and 'unconfirmed (<count>)' last for boards with a null flow; 'Boards with no idea: <file>, … | none' (active boards whose ideas is []); 'Ideas with no board: IDEA-NN (<the idea shortened to 60 characters>), … | none' (no board yet); 'Markers left: <ID>: <count> | none'; then the script's last line, 'OK docs/specs/design/<ID>.md'. Findings follow: the suspect-link warnings, the documents that cite the DSN at an older version (amend, BEH-07), the candidates the user declined, and the unconfirmed mappings. A run that stops before writing (ERR-01 to ERR-10, ERR-12, ERR-14, ERR-16) has no block."
+    rule: "When the run wrote or checked a DSN, open the final reply with this block, then the findings, then the next step. Block lines: 'Design document: <ID> (v<N>, <status>; new | amended)'; 'Boards: <boards_root> · <number of active boards> · version <canvas_version, or unknown>', always, in a create and in an amend run, naming the copy in boards/ that the run read; 'Flows: <flow> (<count>), … | none', with each hyphen of a flow shown as a space and 'unconfirmed (<count>)' last for boards with a null flow; 'Boards with no idea: <file>, … | none' (active boards whose ideas and answers are both []); 'Ideas with no board: IDEA-NN (<the idea shortened to 60 characters>), … | none' (no board yet); 'Markers left: <ID>: <count> | none'; then the script's last line, 'OK docs/specs/design/<ID>.md'. Findings follow: the suspect-link warnings, the documents that cite the DSN at an older version (amend, BEH-07), the candidates the user declined, and the unconfirmed mappings. A run that stops before writing (ERR-01 to ERR-10, ERR-12, ERR-14, ERR-16, ERR-17) has no block."
   - id: BEH-18
     status: active
     rule: "Name the next step last, as its own paragraph outside any code block, starting with the words Next step, with nothing after it. After a create run: tell the user to run /devforgeai:prd with the BRN's ID, and that the PRD's section 8 links the DSN, when ${CLAUDE_SKILL_DIR}/../prd/SKILL.md exists; otherwise say the PRD workflow isn't built yet. After an amend run, name each document found by BEH-07 that cites the DSN at an older version and the skill that owns it, in chain order and checking its SKILL.md the same way: the PRD, /devforgeai:prd with the BRN's ID; an architecture description, /devforgeai:architecture with its PRD's ID; a context document, /devforgeai:context with the document's name; and say they re-review the DSN as a suspect upstream. When none cites it, say so. Never start another workflow and never edit those documents."
@@ -381,6 +391,49 @@ behaviors:
     status: active
     rule: "Fill the frontmatter provenance with the actual authoring tool, model and session, as the host provides them (§4). Never guess, copy or fabricate them; when the host can't provide one, write unavailable and disclose it in this write's Change Log row and in the report. A new DSN: authors the owner and the tool, reviewed_by empty. An amend: keep the existing authors, reviewed_by and rows, and say in the Change Log row and the report that the new version hasn't been reviewed. Every hash null."
 ```
+
+### The amend path: three triggers, each with a worked example
+
+An amend run starts the same way whatever prompted it. The user draws in Claude Design, copies `canvas.json` and the boards into
+the DSN's `boards/` folder again, and runs `/devforgeai:ui BRN-NNN`. The skill finds the one active DSN that cites the BRN
+(BEH-04), compares each board's digest with the one the DSN recorded (BEH-07), reads the PRDs and accepted ADRs for candidates,
+asks about each group (BEH-09) and edits the DSN (BEH-13). It draws no board and fetches none, and nothing starts it: the user
+runs it, usually after the prd or architecture skill's report names it (cycle C, §10). A run in which nothing changed writes
+nothing (ERR-17). The canvas versions below are made up.
+
+**(a) A revision right after the brainstorm, before any PRD.**
+- *Start:* DSN-001 is version 1, draft, written from BRN-001 (version 1); no PRD exists. The user redraws the Report board.
+- *The user:* copies the boards again (canvas version `1791580000-c3d4`) and runs `/devforgeai:ui BRN-001`.
+- *The skill:* amends DSN-001. Only `Report.dc.html`'s digest differs, and no PRD or ADR bears on it. It asks for the new canvas
+  version and whether Report's mapping stands; the user gives the version and says it does.
+- *Result:* DSN-001 is version 2 and **still draft**: an amend raises the version of a draft too (§13, u), and a draft keeps its
+  status. Report's `sha256` and `canvas_version` are updated, and one Change Log row says so. No document cites DSN-001, so the
+  report says that and the next step is `/devforgeai:prd BRN-001`. Had the user given no new canvas version, `canvas_version`
+  would be `null` with its marker (BEH-10), not the old value.
+
+**(b) A new or changed screen from a PRD extension.**
+- *Start:* DSN-001 is version 2, approved, and PRD-001 (version 1) cites it in section 8. The prd skill extends PRD-001 to
+  version 2 with FR-024, "The system shall let an administrator set the retention period on a settings screen", and its report
+  (cycle C) says DSN-001 is suspect and names `/devforgeai:ui BRN-001`.
+- *The user:* draws a Settings board, copies the boards again (`1791670000-e5f6`) and runs the skill.
+- *The skill:* amends DSN-001. `Settings.dc.html` is new and the other digests are equal. It reads PRD-001 (version 2), proposes
+  FR-024 as a candidate that names a screen, and asks for Settings' flow, surface and ideas, whether it answers FR-024, and the
+  canvas version.
+- *Result:* DSN-001 is version 3, **in-review**, with `approved_by` and `approved_on` cleared. BRD-05 is Settings, with
+  `answers: ["PRD-001#FR-024"]` and its flow and surface as confirmed. DSN-001's `upstream` still holds only its BRN links (§13,
+  w). The Change Log row names PRD-001 version 2. The report finds PRD-001 citing DSN-001 at version 2 and names
+  `/devforgeai:prd BRN-001`, which re-reviews the DSN as a suspect upstream.
+
+**(c) An accepted ADR's consequence.**
+- *Start:* DSN-001 is version 3, in-review; PRD-001 and ARCH-001 (its evidence record) cite it at version 3. The architecture
+  skill accepts ADR-009, whose consequence reads "the CLI must print a sync conflict and offer to keep the local copy", and its
+  report (cycle C) says DSN-001 is suspect and names `/devforgeai:ui BRN-001`.
+- *The user:* redraws the List board, a terminal screen, copies the boards again (`1791750000-a7b8`) and runs the skill.
+- *The skill:* amends DSN-001. `List.dc.html`'s digest differs. It reads the accepted ADRs and proposes ADR-009's consequence as a
+  candidate. The user says List answers ADR-009 and its flow and ideas stand.
+- *Result:* DSN-001 is version 4 and stays in-review. BRD-02 (List) has `answers: ["ADR-009"]`, a new `sha256` and the new canvas
+  version in the document. The report finds PRD-001 and ARCH-001 citing DSN-001 at version 3 and names `/devforgeai:prd BRN-001`
+  and then `/devforgeai:architecture PRD-001`.
 
 ## 7. Errors and edge cases
 
@@ -466,6 +519,11 @@ errors:
     condition: "No argument was given and no BRN can be selected: docs/specs/brainstorm/ holds no BRN, or none has a promoted idea"
     handling: "Write nothing. With no BRN at all, say that no brainstorm exists yet and point to /devforgeai:brainstorm. Otherwise list each BRN with its status, say that none has a promoted idea, and point to /devforgeai:brainstorm to converge one"
     user_result: "The reason and a handback to the brainstorm step; nothing written"
+  - id: ERR-17
+    status: active
+    condition: "An amend run finds nothing to change: no board changed, new or removed, the DSN's links to the BRN are current, no candidate of BEH-07 bears on a screen without an answering board, and the request names no change"
+    handling: "Write nothing and raise no version. Say that the DSN is current, give its version and the canvas_version it records, and say that a board changed on the canvas must be copied into the boards folder again before the skill can see it"
+    user_result: "A statement that the DSN is current; nothing written"
 ```
 
 ## 8. Non-functional design
@@ -533,7 +591,8 @@ case marks as expected to be invalid. An eval run starts in an empty workspace w
   a marker.
 - **Case limits:** `max_turns: 60` and `timeout_seconds: 900` for a case that writes, `15` and `300` for the stop cases and the
   trigger cases; a pilot run confirms them.
-- **Digests:** `make_evals.py` computes the SHA-256 of each board file and puts it into the graders.
+- **Digests:** `make_evals.py` computes the SHA-256 of each board file and puts it into the graders. Every seeded board item
+  carries `answers: []` unless a case says otherwise.
 - **Documents that cite a DSN** (the PRD-001 of VER-10): until cycle C adds `DSN` to the document ID pattern (§10), such a
   document fails `prd.schema.json` on that one pattern, so the generator marks it as expected to be invalid for that reason
   alone and checks the rest of it.
@@ -707,7 +766,7 @@ verifications:
       - QR-05
   - id: VER-24
     status: active
-    obligation: "src/tests/ui/test_dsn_check.py, subcommand check, every case normally and under python3 -S, with and without PyYAML installed (the verdict is the same). A valid DSN (created, amended, approved, and with null mappings plus markers) exits 0 and prints OK <file>. One failing fixture for each rule label and each part of §5's rules exits 1 with the expected '<file>:<line>: <part>: <message> (<rule>)' line and INVALID: <n> error(s): frontmatter (wrong id for the file name, bad boards_root, canvas_format differing from canvas.json, canvas without https), boards (a duplicate BRD ID, a board in canvas.json with no active item, an active item with a file canvas.json doesn't name, a stale sha256, an extra field), mapping (a bad flow slug, surface cli, a null field without a marker, an idea that is not promoted), links (no document-level derives link, a missing or extra item link, mixed versions), coverage (a missing row, a designed idea with no board, a withdrawn row for an idea still promoted, no board yet without a section 5 marker), approval (approved with a marker, approved with empty approved_by, draft with approved_by set), changelog (no row for the version), placeholder (a comment). A links version below the BRN's current gives a warning and exit 0. A BRN it can't read exits 2. No file is written and no socket is opened."
+    obligation: "src/tests/ui/test_dsn_check.py, subcommand check, every case normally and under python3 -S, with and without PyYAML installed (the verdict is the same). A valid DSN (created, amended, approved, and with null mappings plus markers) exits 0 and prints OK <file>. One failing fixture for each rule label and each part of §5's rules exits 1 with the expected '<file>:<line>: <part>: <message> (<rule>)' line and INVALID: <n> error(s): frontmatter (wrong id for the file name, bad boards_root, canvas_format differing from canvas.json, canvas without https), boards (a duplicate BRD ID, a board in canvas.json with no active item, an active item with a file canvas.json doesn't name, a stale sha256, an extra field), mapping (a bad flow slug, surface cli, a null field without a marker, an idea that is not promoted), links (no document-level derives link, a missing or extra item link, mixed versions), coverage (a missing row, a designed idea with no board, a withdrawn row for an idea still promoted, no board yet without a section 5 marker), approval (approved with a marker, approved with empty approved_by, draft with approved_by set), changelog (no row for the version), placeholder (a comment). A links version below the BRN's current gives a warning and exit 0. Mapping cases for answers: a malformed entry ('FR-006', 'ADR-9') and an entry naming a PRD item or ADR that doesn't exist each exit 1; an entry naming a deprecated PRD item, or an ADR that is not accepted, gives a warning and exit 0; a board item without answers exits 1. A BRN it can't read exits 2. No file is written and no socket is opened."
     level: unit
     covers:
       - IF-03
@@ -722,7 +781,7 @@ verifications:
       - QR-02
   - id: VER-26
     status: active
-    obligation: "QR-03: every automated e2e case (VER-01 to VER-21) at 0.8 or above over 3 runs against the no-plugin baseline, and every VER item's graders at 0.8 or above, unless Bryan's waiver in §9 sets another bar"
+    obligation: "QR-03: every automated e2e case (VER-01 to VER-21 and VER-30 to VER-33) at 0.8 or above over 3 runs against the no-plugin baseline, and every VER item's graders at 0.8 or above, unless Bryan's waiver in §9 sets another bar"
     level: e2e
     covers:
       - QR-03
@@ -749,6 +808,37 @@ verifications:
     covers:
       - ERR-11
       - ERR-14
+  - id: VER-30
+    status: active
+    obligation: "Trigger (a). Shared fixture plus a draft DSN-001 version 1 written from it (four boards matching the folder, board items with answers empty, no PRD), then Report.dc.html's content changed and canvas.json unchanged; the prompt gives the new canvas version 1791580000-c3d4, says Report's mapping stands and says to proceed without questions. DSN-001 is version 2 and still draft; BRD-04's sha256 equals the new digest and the other items are unchanged; canvas_version is 1791580000-c3d4; the Change Log keeps its version 1 row and has a version 2 row; the reply's Boards line ends 'version 1791580000-c3d4', it says no document cites DSN-001, and its last paragraph starts with Next step and names /devforgeai:prd BRN-001. A second case with the same fixture and a prompt that gives no canvas version: canvas_version is null with a [NEEDS CLARIFICATION marker in section 4, never the old value, and the Boards line ends 'version unknown'. Eval cases amend-draft-revision and amend-without-new-version: regex on the file and last_message."
+    level: e2e
+    covers:
+      - BEH-10
+      - BEH-13
+      - BEH-17
+  - id: VER-31
+    status: active
+    obligation: "Trigger (b). Shared fixture plus an approved DSN-001 version 2 (four boards, canvas_version recorded), a PRD-001 version 2 that cites DSN-001 at version 2 in its frontmatter and holds FR-024 'The system shall let an administrator set the retention period on a settings screen', and Settings.dc.html added to the folder and to canvas.json; the prompt gives a new canvas version and says Settings is a web screen in the flow report-and-home that shows no idea and answers PRD-001 FR-024. DSN-001 is version 3, status in-review, approved_by empty, approved_on null; BRD-05 is Settings with answers exactly ['PRD-001#FR-024'], flow, surface web and ideas []; every other item has answers [] and its earlier fields; DSN-001's upstream holds only derives links to BRN-001 (no PRD or ADR link); the Change Log row names PRD-001 version 2; PRD-001, BRN-001 and the board files are byte-identical to their seeded content; the reply lists Settings under neither 'Boards with no idea' nor an error, names PRD-001 as citing DSN-001 at version 2, and its last paragraph starts with Next step and names /devforgeai:prd BRN-001. Eval case amend-prd-requirement: regex on the files and last_message. Graders ver31-."
+    level: e2e
+    covers:
+      - BEH-07
+      - BEH-09
+      - BEH-13
+      - BEH-18
+  - id: VER-32
+    status: active
+    obligation: "Trigger (c). VER-31's start with an in-review DSN-001 version 3 that PRD-001 and ARCH-001 cite at version 3 (ARCH-001's frontmatter upstream, in this fixture's form), an accepted ADR-009 whose consequence reads 'the CLI must print a sync conflict and offer to keep the local copy', and List.dc.html's content changed; the prompt gives a new canvas version and says List answers ADR-009 and its mapping stands. DSN-001 is version 4, still in-review; BRD-02 (List) has answers exactly ['ADR-009'] and a new sha256; no other item changed; no upstream link to ADR-009; ADR-009, PRD-001, ARCH-001 and BRN-001 are byte-identical; the reply names PRD-001 and ARCH-001 as citing DSN-001 at version 3, and its last paragraph, outside any code block, starts with Next step, names /devforgeai:prd BRN-001 and then /devforgeai:architecture PRD-001, and has nothing after it. Eval case amend-adr-consequence: regex on the files and last_message."
+    level: e2e
+    covers:
+      - BEH-07
+      - BEH-13
+      - BEH-18
+  - id: VER-33
+    status: active
+    obligation: "Shared fixture plus a DSN-001 version 1 whose items match the folder (equal digests), a BRN-001 at the version its links cite, and no PRD or ADR; the prompt is 'Update the UI design for BRN-001. Proceed without questions.' Nothing is written and DSN-001 is byte-identical to its seeded content; the reply says DSN-001 is current, gives version 1 and the canvas version it records, and says a board changed on the canvas must be copied into the boards folder again first. Eval case amend-nothing-to-do: regex on the file and last_message."
+    level: e2e
+    covers:
+      - ERR-17
 ```
 
 ## 10. Rollout, migration and rollback
@@ -888,6 +978,23 @@ lines):
   unreadable `canvas.json`, an unknown `v` and a named board file that is absent; the names that aren't plain file names and the
   100-board limit are added.
 - **(t) The approval is a separate step** in the checklist (step 6), after the check, as the context skill's is.
+- **(u) An amend of a draft DSN raises the version too** (BEH-13; §6, worked example a). The alternative, editing a draft in
+  place, was refused for the precedent of SPEC-002 BEH-09 and SPEC-011 BEH-13 (a revision raises the version of a draft
+  too) and because a draft DSN may already be cited by a PRD, whose link then shows as suspect. The cost is a version number
+  for each revision before the PRD.
+- **(v) The report always prints the canvas version of the copy it read** (BEH-17), and an amend never keeps a stale one
+  (BEH-10): the version describes the copy in `boards/`, which the user states, since no file is read for it (b). So a board
+  changed on the canvas and not copied again never reaches the skill (DM-04), and the Boards line shows which copy that was.
+  Added at the lead's request, 2026-10-09.
+- **(w) A board's references to requirements and ADRs are plain `answers` fields,** not `upstream` links (DM-02). Bryan asked
+  (2026-10-09, relayed) how screens found during the PRD or architecture steps reach the design; a board added in an amend may
+  answer a PRD requirement or an accepted ADR's consequence, not only a brainstorm idea. A link from the DSN to the PRD would
+  make a loop: the PRD's section 8 links the DSN (cycle C), so each document's bump would make the other's link suspect for
+  ever (SPEC-011 BEH-11 avoids such a loop). The references therefore carry no version and no suspect tracking. The Change Log
+  row names the versions read, the check errors on a reference to nothing and warns on a deprecated PRD item or an ADR no
+  longer accepted. Alternatives: `informed_by` links (the loop); a one-way link from the PRD only (what cycle C does).
+- **(x) The amend path's three triggers** (§6): a revision before any PRD, a PRD extension and an accepted ADR's consequence,
+  each with an example. No trigger starts the skill; the user does, after drawing and copying the boards (ADR-007 D4).
 
 **Open questions:**
 - [NEEDS CLARIFICATION: how large the real Claude Design boards are, and whether the first 150 lines of a board give its heading and
@@ -907,3 +1014,4 @@ lines):
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
 | 1 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Initial draft, cycle A of ADR-007 (proposed), from Bryan's decisions of 2026-10-08 and 2026-10-09 and the Krepion session's spec page 'A UI Skill for DevForgeAI' (version 6): the create and amend paths, the boards read by contract, the interview, the check and the hand-off. The page's tokens block and its policy step are not carried over; the drafter's choices are in §13 for Bryan's accept or challenge. Awaiting the drafts review and Bryan's decision; it can't be approved before ADR-007 is accepted | all |
+| 1 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Before review, on the lead's additions of the same day (Bryan's question on how screens found during the PRD or architecture steps, and revisions after the brainstorm, reach the design): board items gain `answers` (PRD requirements and accepted ADRs, plain fields, not links; §13 w); the report always prints the canvas version of the copy it read, and an amend never keeps a stale one; §6 gains the amend path with three triggers and an example each (§13 u, x); a draft's amend raises the version; new ERR-17 (nothing to amend); new VER-30 to VER-33; the checker's `mapping` and `boards` rules cover `answers` | §1, DM-01, DM-02, DM-04, IF-03, BEH-07, BEH-09, BEH-10, BEH-13, BEH-17, ERR-17, VER-24, VER-26, VER-30 to VER-33, §6, §9, §13 |
