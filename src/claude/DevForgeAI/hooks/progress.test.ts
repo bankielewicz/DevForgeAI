@@ -31,7 +31,7 @@ type Over = {
   failStatus?: boolean
   evaluate?: (argv: readonly string[]) => Any
   tool?: (e: Any) => Any
-  failWrite?: (path: string) => boolean
+  failWrite?: (path: string, text: string) => boolean
   /** The text a rejected write carries (version 27): the host's error for the path; the default is an EACCES line. */
   failMessage?: (path: string) => string
   files?: Record<string, string>
@@ -247,7 +247,7 @@ function world(on: Any, over: Over = {}): World {
     w.attempts.push(e.path)
     const held = over.gate?.(e.path)
     if (held !== undefined) await held
-    if (over.failWrite?.(e.path)) return { deny: over.failMessage?.(e.path) ?? `EACCES: permission denied, open '${e.path}'` }
+    if (over.failWrite?.(e.path, e.text)) return { deny: over.failMessage?.(e.path) ?? `EACCES: permission denied, open '${e.path}'` }
     w.files.set(e.path, e.text)
     w.writes.push(e.path)
     return { value: undefined }
@@ -8793,4 +8793,195 @@ test('VER-79: no level or another word answers the usage line and changes nothin
   const runs = w.runs.length
   await hText($, 'log normal')
   expect(w.runs.length).toBe(runs)                                  // no evaluation, no process
+})
+
+// ---- version 28, review fixes (review-build-030.md: S1, S2, N4) ----
+// One ordering rule (BEH-34): every normal line generated before a level change is written, in order, then the setting line, and after a
+// change to off nothing more; the same while a rollover runs, during a hold, and with lines waiting for a root.
+
+const lGate = (): { held: Promise<void>; release: () => void } => {
+  let release = (): void => {}
+  const held = new Promise<void>(resolve => { release = resolve })
+  return { held, release }
+}
+const lAt = (w: World, needle: string): number => lLines(w).findIndex(l => l.includes(needle))
+const SET_OFF = 'log level normal -> off by /progress log'
+
+test('review S1: /progress log off during a rollover keeps its setting line, after the earlier lines, and the rollover writes no rolled line', async ($, on) => {
+  const seed = lBig('2026-10-02', MIB + 10)
+  const g = lGate()
+  const w = world(on, { files: { [LOG]: seed }, gate: (p: string) => (p === lRolled(1) ? g.held : undefined) })
+  await start($)
+  await load($)
+  await lSettle(w)
+  await $.tool.call(lTask('before the change'))                     // waits for the rollover
+  await hText($, 'log off')
+  await $.tool.call(lTask('after the change'))
+  g.release()
+  await lSettle(w)
+  expect(lAt(w, 'log: rolled')).toBe(-1)
+  expect(lAt(w, 'before the change')).toBeGreaterThanOrEqual(0)
+  expect(lAt(w, SET_OFF)).toBeGreaterThan(lAt(w, 'before the change'))
+  expect(lAt(w, 'after the change')).toBe(-1)
+  expect(lLines(w)[lLines(w).length - 1]).toContain(SET_OFF)
+  expect(w.files.get(lRolled(1))!.startsWith(seed)).toBe(true)      // the history is as a rollover leaves it
+  expect(w.files.get(LOG)!.length).toBeLessThan(2000)
+})
+
+test('review S1: /progress log off with no root yet keeps its setting line for the first run, and later lines are not written', async ($, on) => {
+  const w = world(on)
+  await start($)
+  expect(await hText($, 'log off')).toContain('off')
+  await load($)
+  await $.tool.call(lTask('after the change'))
+  await lSettle(w)
+  expect(lText(w, 'setting').filter(t => t === 'log level normal -> off by /progress log').length).toBe(1)
+  expect(lLines(w)[lLines(w).length - 1]).toContain(SET_OFF)
+  expect(lAt(w, 'after the change')).toBe(-1)
+})
+
+test('review S1: /progress log off during a hold keeps its setting line with the held lines; nothing written after the change', async ($, on) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))                                   // the hold
+  await $.tool.call(lTask('before the change'))
+  await hText($, 'log off')
+  await $.tool.call(lTask('after the change'))
+  expect(lAt(w, SET_OFF)).toBe(-1)                                  // it waits with the held lines
+  f.broken = false
+  await done($, 't2', null)
+  await lSettle(w)
+  expect(lAt(w, 'before the change')).toBeGreaterThanOrEqual(0)
+  expect(lAt(w, SET_OFF)).toBeGreaterThan(lAt(w, 'before the change'))
+  expect(lAt(w, 'after the change')).toBe(-1)
+  expect(lLines(w)[lLines(w).length - 1]).toContain(SET_OFF)
+})
+
+test('review N4: /progress log normal during a rollover writes the buffered trace lines first', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const g = lGate()
+  const w = world(on, { files: { [LOG]: lBig('2026-10-02', MIB + 10) }, gate: (p: string) => (p === lRolled(1) ? g.held : undefined) })
+  await start($)
+  await load($)
+  await lSettle(w)
+  await $.tool.call(lTask('traced'))
+  await hText($, 'log normal')
+  g.release()
+  await lSettle(w)
+  const set = lAt(w, 'log level verbose -> normal by /progress log')
+  expect(set).toBeGreaterThanOrEqual(0)
+  const traced = lLines(w).map((l, i) => (l.includes(' trace: ') ? i : -1)).filter(i => i >= 0)
+  expect(traced.length).toBeGreaterThan(0)
+  expect(traced.every(i => i < set)).toBe(true)
+})
+
+test('review N4: /progress log normal during a hold writes the buffered trace lines first, at the hold\'s end', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const { w, f } = await hOpen($, on, { match: EVENTS })
+  f.broken = true
+  await $.tool.call(READ('b.md'))
+  await $.tool.call(READ('c.md'))                                   // traced after the hold's own line
+  await hText($, 'log normal')
+  f.broken = false
+  await done($, 't2', null)
+  await lSettle(w)
+  const set = lAt(w, 'log level verbose -> normal by /progress log')
+  expect(set).toBeGreaterThanOrEqual(0)
+  expect(lTrace(w).filter(t => t.startsWith('hook tool.call origin=')).length).toBe(3)   // a.md, b.md and c.md
+  const traced = lLines(w).map((l, i) => (l.includes(' trace: ') ? i : -1)).filter(i => i >= 0)
+  expect(traced.length).toBeGreaterThan(0)
+  expect(traced.every(i => i < set)).toBe(true)
+})
+
+test('review N4: /progress log off during a rollover drops the buffered trace lines but keeps the setting line', { options: { logLevel: 'verbose' } } as Any, async ($: Any, on: Any) => {
+  const g = lGate()
+  const w = world(on, { files: { [LOG]: lBig('2026-10-02', MIB + 10) }, gate: (p: string) => (p === lRolled(1) ? g.held : undefined) })
+  await start($)
+  await load($)
+  await lSettle(w)
+  await $.tool.call(lTask('traced'))
+  await hText($, 'log off')
+  g.release()
+  await lSettle(w)
+  expect(lAt(w, 'log level verbose -> off by /progress log')).toBeGreaterThanOrEqual(0)
+  expect(lTrace(w).length).toBe(0)
+})
+
+test('review S2: a rollover whose last step (the live file) fails does not shift again: .2 is not a copy of .1, and the next write finishes it', async ($, on) => {
+  const seed = lBig('2026-10-02', MIB + 10)
+  let rolled1 = false
+  let n = 0
+  const w = world(on, { files: { [LOG]: seed }, failWrite: (p: string) => {
+    if (p === lRolled(1)) rolled1 = true
+    return p === LOG && rolled1 && n++ === 0
+  } })
+  await start($)
+  await load($)
+  await lSettle(w)
+  await $.tool.call(lTask('after the failure'))
+  await lSettle(w)
+  expect(w.files.has(lRolled(2))).toBe(false)                       // no second shift
+  expect(w.files.get(lRolled(1))!.startsWith(seed)).toBe(true)
+  expect(w.files.get(LOG)!.length).toBeLessThan(3000)
+  expect(lLines(w).filter(l => l.includes(' log: rolled')).length).toBe(1)
+  const all = (w.files.get(lRolled(1)) ?? '') + (w.files.get(LOG) ?? '')
+  expect(all.split('after the failure').length).toBe(2)             // the line that arrived is in one place only
+})
+
+test('review S2: a live overwrite that keeps failing counts toward the three retries, then the rotation stops with one line and shifts nothing', async ($, on) => {
+  const files: Record<string, string> = { [LOG]: lBig('2026-10-02', MIB + 10), [lRolled(1)]: 'old 1\n' }
+  const w = world(on, { files, failWrite: (p: string, text: string) => p === LOG && text.length < 100000 })
+  await start($)
+  await load($)
+  await lSettle(w)
+  for (let i = 0; i < 8; i++) {
+    await $.tool.call(lTask(`n${i}`))
+    await lSettle(w)
+  }
+  expect(lText(w, 'log').filter(t => t.startsWith('rollover stopped for this session: ')).length).toBe(1)
+  expect(w.files.get(lRolled(2))).toBe('old 1\n')                   // shifted once, never again
+  expect(w.files.has(lRolled(3))).toBe(false)
+  const after = lWrites(w, lRolled(1))
+  await $.tool.call(lTask('later'))
+  await lSettle(w)
+  expect(lWrites(w, lRolled(1))).toBe(after)
+})
+
+test('review fuzz: level changes among flaky writes and rollovers lose and repeat no normal line, and keep their order', async ($: Any, on: Any) => {
+  let seed = 4242
+  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff
+  let flaky = false
+  const w = world(on, { files: { [LOG]: lBig('2026-10-02', MIB - 3000) }, failWrite: (p: string) => flaky && /adapter(\.\d+)?\.log$/.test(p) && rnd() < 0.3 })
+  await start($)
+  await load($)
+  await lSettle(w)
+  const sent: string[] = []
+  const changes: Record<number, string> = { 10: 'log verbose', 25: 'log normal', 40: 'log verbose', 52: 'log off' }
+  for (let i = 0; i < 60; i++) {
+    flaky = rnd() < 0.5
+    if (changes[i] !== undefined) { await hText($, changes[i]); await lSettle(w) }
+    const tag = `MK${String(i).padStart(2, '0')}`
+    if (i < 52) sent.push(tag)
+    await $.tool.call(lTask(tag + 'x'.repeat(200)))
+    await lSettle(w)
+    if (i % 7 === 0) { await done($, `tt${i}`, null); await lSettle(w) }
+  }
+  flaky = false
+  for (let i = 0; i < 4; i++) { await $.tool.call(lTask(`END${i}`)); await lSettle(w) }
+  let union = ''
+  for (let n = 10; n >= 1; n--) union += w.files.get(lRolled(n)) ?? ''
+  union += w.files.get(LOG) ?? ''
+  expect(sent.filter(t => !union.includes(`${t}x`))).toEqual([])
+  expect(sent.filter(t => union.split(`${t}x`).length > 2)).toEqual([])
+  const pos = sent.map(t => union.indexOf(`${t}x`))
+  expect(pos).toEqual([...pos].sort((a, b) => a - b))
+  const rows = union.split('\n')
+  const settingAt = rows.map((l, i) => (l.includes(' setting: log level ') ? i : -1)).filter(i => i >= 0)
+  expect(settingAt.map(i => rows[i].slice(rows[i].indexOf('log level ')))).toEqual([
+    'log level normal -> verbose by /progress log', 'log level verbose -> normal by /progress log',
+    'log level normal -> verbose by /progress log', 'log level verbose -> off by /progress log'])
+  const tagAt = (i: number): number => rows.findIndex(l => l.includes(`MK${String(i).padStart(2, '0')}x`))
+  const between = [10, 25, 40, 52].map((i, k) => {                  // each setting line sits between the line before it and the line after
+    return settingAt[k] > tagAt(i - 1) && (i === 52 || settingAt[k] < tagAt(i))
+  })
+  expect(between).toEqual([true, true, true, true])
+  expect(/MK5[2-9]/.test(union) || union.includes('END')).toBe(false)   // nothing generated after the change to off
 })

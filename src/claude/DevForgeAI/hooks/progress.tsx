@@ -279,6 +279,8 @@ const tracePending = new Set<Promise<void>>()
 let rolling = false
 let rollFailures = 0
 let rollStopped = false
+/** BEH-44: the text copied onto adapter.1.log by a rollover whose last step, the new adapter.log, failed: the retry does not shift again. */
+let rollShifted: string | null = null
 const noticed = new Set<string>()
 // The session IDs and roots already pruned (BEH-19), and the retentionDays setting (DM-06).
 const pruned = new Set<string>()
@@ -409,9 +411,14 @@ async function takeTrace(): Promise<LogEntry[]> {
  *  write appends and returns, and a rollover it calls for runs after it, not awaited (BEH-44). While lines wait (no root yet, a hold
  *  or a stop of BEH-42, a rollover) the first 200 wait in memory, and the first write after that writes them, with the buffered
  *  trace lines merged by time, ahead of its own line. A failed write puts its lines back to waiting (BEH-43 (e)). `bypass` is for
- *  the hold's own line, logged as the hold starts (BEH-43 (e)): it is tried although the hold stands. */
-async function adapterLog($: E, kind: string, text: string, runId?: string, bypass = false): Promise<void> {
-  if (logLevel === 'off') return
+ *  the hold's own line, logged as the hold starts (BEH-43 (e)): it is tried although the hold stands. `keep` is for the setting line of
+ *  `/progress log`: it waits even past the 200, so a change of level is never lost. At off, a write only sends on the lines that
+ *  waited when the level was changed (BEH-34). */
+async function adapterLog($: E, kind: string, text: string, runId?: string, bypass = false, keep = false): Promise<void> {
+  if (logLevel === 'off') {
+    if (early.length > 0) await flushTrace($)
+    return
+  }
   const step = logChain.then(async () => {
     if (logLevel === 'off') return
     const run = await get($, 'run')
@@ -423,7 +430,7 @@ async function adapterLog($: E, kind: string, text: string, runId?: string, bypa
     const root = logRoot
     if (root === null || (!bypass && waitingNow()) || (bypass && (disabled || rolling))) {
       // The first lines are kept (the early notices are the ones that matter); past 200, newer ones are dropped.
-      if (early.length < EARLY_LIMIT) early = [...early, entry]
+      if (early.length < EARLY_LIMIT || keep) early = [...early, entry]
       return
     }
     // The waiting lines go ahead of this one, with the trace buffer merged in by time; an error, write or hold line flushes it too.
@@ -462,7 +469,7 @@ async function appendLog($: E, r: string, entries: LogEntry[], rollable = true):
     putBack(entries.slice(done))
     return
   }
-  if (!rollable || rolling || rollStopped) return
+  if (!rollable || rolling || rollStopped || logLevel === 'off') return
   const reason = rollReason(text, batch, rolloverMiB)
   if (reason === null) return
   rolling = true
@@ -479,16 +486,23 @@ async function rollOver($: E, r: string, reason: 'size' | 'day', text: string): 
   let failed: { path: string; err: unknown } | null = null
   let at = live
   try {
-    for (let n = ROLLED_FILES - 1; n >= 1; n--) {
-      const from = `${dir}/adapter.${n}.log`
-      if (await $.fs.exists(from)) {
-        const copy = await $.fs.read(from)
-        at = `${dir}/adapter.${n + 1}.log`
-        await $.fs.write(at, copy)
+    // A rollover whose copies all worked and whose last step failed is not shifted again: that would copy adapter.1.log onto
+    // adapter.2.log and lose a slot. It only writes adapter.1.log again when adapter.log grew since (BEH-44).
+    if (rollShifted === null) {
+      for (let n = ROLLED_FILES - 1; n >= 1; n--) {
+        const from = `${dir}/adapter.${n}.log`
+        if (await $.fs.exists(from)) {
+          const copy = await $.fs.read(from)
+          at = `${dir}/adapter.${n + 1}.log`
+          await $.fs.write(at, copy)
+        }
       }
     }
-    at = `${dir}/adapter.1.log`
-    await $.fs.write(at, text)
+    if (rollShifted !== text) {
+      at = `${dir}/adapter.1.log`
+      await $.fs.write(at, text)
+    }
+    rollShifted = text
   } catch (err) {
     failed = { path: at, err }
   }
@@ -498,15 +512,19 @@ async function rollOver($: E, r: string, reason: 'size' | 'day', text: string): 
     const session = await sessionName($)
     const waiting = early
     early = []
-    const traced = await takeTrace()
+    const off = logLevel === 'off'                                  // after a change to off the rollover writes only what was generated before it
+    const traced = off ? [] : await takeTrace()
     if (failed === null) {
-      const rolled: LogEntry = { t, n: ++lineSeq, line: `${logStamp(t, logLevel === 'verbose')} ${session} ${run?.id ?? '-'} log: rolled: adapter.1.log (${reason}), ${byteSize(text)} bytes\n` }
-      const lines = [rolled, ...mergeByTime(waiting, traced)]
+      const rolled: LogEntry[] = off ? [] : [{ t, n: ++lineSeq, line: `${logStamp(t, logLevel === 'verbose')} ${session} ${run?.id ?? '-'} log: rolled: adapter.1.log (${reason}), ${byteSize(text)} bytes\n` }]
+      const lines = [...rolled, ...mergeByTime(waiting, traced)]
       try {
         await $.fs.write(live, lines.map(e => e.line).join(''))
         rollFailures = 0
-      } catch {
-        putBack(lines.slice(1))
+        rollShifted = null
+      } catch (err) {
+        putBack(lines.slice(rolled.length))
+        rollFailures += 1
+        failed = { path: live, err }
       }
     } else {
       rollFailures += 1
@@ -519,18 +537,19 @@ async function rollOver($: E, r: string, reason: 'size' | 'day', text: string): 
     rollStopped = true
     await adapterLog($, 'log', `rollover stopped for this session: ${failed.path}: ${errorLine(message(failed.err))}`)
   }
+  if (logLevel === 'off' && early.length > 0) await flushTrace($)   // lines that waited for the rollover, the setting line among them
 }
 
 /** Write the waiting lines and the buffered trace lines now (BEH-43 (e)): at a turn's end, queued and not awaited by the hook, and at
  *  session.end, awaited within the budget. Nothing is written while lines wait for a root, a hold, a stop or a rollover. */
 function flushTrace($: E): Promise<void> {
-  if (logLevel === 'off') return Promise.resolve()
+  if (logLevel === 'off' && early.length === 0) return Promise.resolve()   // at off only the lines that waited when the level changed go out
   const step = logChain.then(async () => {
     const root = logRoot
     if (root === null || waitingNow()) return
     const lead = early
     early = []
-    const traced = await takeTrace()
+    const traced = logLevel === 'off' ? [] : await takeTrace()
     await appendLog($, root, mergeByTime(lead, traced))
   }).catch(() => undefined)
   logChain = step
@@ -2402,18 +2421,21 @@ function readLogSettings(options: Fields | undefined): void {
 async function setLogLevel($: E, to: LogLevel): Promise<void> {
   const text = `log level ${logLevel} -> ${to} by /progress log`
   if (to === 'off') {
-    await adapterLog($, 'setting', text)
+    // Every normal line from before the change goes out ahead of the setting line, whenever the lines that wait can be written;
+    // the trace lines are dropped (BEH-34).
+    await adapterLog($, 'setting', text, undefined, false, true)
     logLevel = 'off'
-    early = []
     traceBuf = []
     return
   }
-  if (to !== 'verbose') {
+  if (to === 'normal') {
     await flushTrace($)
-    traceBuf = []
+    // Still waiting (a hold, a rollover, no root): the trace lines go in as ordinary lines, ahead of the setting line, not dropped.
+    const left = await takeTrace()
+    if (left.length) early = mergeByTime(early, left.map(e => ({ ...e, trace: false })))
   }
   logLevel = to
-  await adapterLog($, 'setting', text)
+  await adapterLog($, 'setting', text, undefined, false, true)
 }
 
 /** What a session start announces: the notes of settings that were out of range, and /progress. */
