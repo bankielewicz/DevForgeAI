@@ -393,6 +393,41 @@ class ReplyGraderTests(unittest.TestCase):
             self.assertEqual([True] * 2 + [False] * 3, self.results(case, name, yes + no), name)
 
 
+class ObservedReplyTests(unittest.TestCase):
+    """Wording of correct replies that suite run 1 (2ace6b9) showed the graders to refuse."""
+
+    results = ReplyGraderTests.results
+    grader = ReplyGraderTests.grader
+
+    def test_a_later_run_may_be_an_interactive_run(self):
+        yes = ["Left for a later run: FR-037.", "They wait for an interactive run, and PRD-001 is not yet added to `considered`.",
+               "Six candidates wait for a later session.", "They are left for the next run."]
+        no = ["Next step: run /devforgeai:prd BRN-001.", "Run `/devforgeai:ui BRN-001` again without questions.", "The check is done."]
+        got = self.results("amend-candidates-left", "ver38-says-for-a-later-run", yes + no)
+        self.assertEqual([True] * len(yes) + [False] * len(no), got)
+
+    def test_six_candidates_may_be_called_requirements(self):
+        yes = ["Six candidates from PRD-001 version 2 were left for a later run.",
+               "PRD-001 v2 has 6 requirements that name a screen and that no board answers yet:", "6 candidates remain."]
+        no = ["Report's mapping is unchanged: version 1 -> 2.", "FR-026 (edit) and FR-025 (summary) are not mapped.",
+              "Boards: docs/specs/design/DSN-001/boards/ · 4 · version 1791580000-c3d4"]
+        got = self.results("amend-candidates-left", "ver38-says-six-candidates-were-left", yes + no)
+        self.assertEqual([True] * len(yes) + [False] * len(no), got)
+
+    def test_one_candidate_left_may_be_named_by_its_id(self):
+        yes = ["**Left for a later run:** FR-037, the print screen.", "One candidate (PRD-001 FR-037) was left for a later run.",
+               "FR-037 was left for later."]
+        no = ["FR-037 is a print screen.", "Declined FR-025 to FR-036 as asked."]
+        got = self.results("amend-candidates-capped", "ver38-says-one-candidate-was-left", yes + no)
+        self.assertEqual([True] * len(yes) + [False] * len(no), got)
+
+    def test_a_brainstorm_id_is_the_brn_id(self):
+        yes = ["Which brainstorm ID should I use? If it's BRN-001, run `/devforgeai:ui BRN-001`.", "Which BRN ID should I use?"]
+        no = ["The skill takes a BRN ID, never a path.", "| BRN-001 | Shiftlog: record shifts | converged | 5 | none |"]
+        got = self.results("path-refused", "ver14-asks-for-the-brn-id", yes + no)
+        self.assertEqual([True] * len(yes) + [False] * len(no), got)
+
+
 class DigestTests(unittest.TestCase):
     def test_digests_are_the_sha256_of_the_boards(self):
         import hashlib
