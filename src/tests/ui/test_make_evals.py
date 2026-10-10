@@ -560,6 +560,11 @@ class V2CaseTests(unittest.TestCase):
         self.assertEqual([True, False], self.hits(c, "ver39-says-the-grouping-is-unconfirmed",
                                                   ["The grouping is unconfirmed.", "Here is the grouping."]))
         self.assertEqual([True, False], self.hits(c, "ver39-quotes-an-idea", [BRIEF, "Content: a list of shifts."]))
+        # the surface of a flow may be named without the word "surface" (v2 suite run 3)
+        keyscreen = self.hits(c, "ver39-names-key-screen-and-surface", [
+            "**Proposed grouping:**\n1. `shifts`, terminal: 1. List (key screen), 2. Add.\n2. `weekly-report`, web: 1. Report (key screen).",
+            "shifts: List (key screen), surface terminal", "shifts: List (key screen)", "terminal flow: List, Add"])
+        self.assertEqual([True, True, False, False], keyscreen)
         self.assertEqual([True, False], self.hits(c, "ver39-names-a-state", ["States to show: empty and error.", "Content: a list."]))
 
     BRIEF_JUDGES = ["ver39-brief-context-and-content", "ver39-brief-must-haves-and-no-layout", "ver39-brief-parts-in-order",
@@ -582,12 +587,17 @@ class V2CaseTests(unittest.TestCase):
     def test_the_brief_judges_have_the_facts_they_check_against(self):
         bodies = {n: " ".join(front_matter(GENERATED / "brief-drafted" / "graders" / f"{n}.md")[1].split()) for n in self.BRIEF_JUDGES}
         content = bodies["ver39-brief-context-and-content"]
+        # every section of BRN-001 a brief may quote (v2 suite run 3: the success signal was quoted, and the judge could not find it)
         for fact in ("Workers lose track of the hours they worked each week", "We believe that workers will record shifts every day",
+                     "The hours worked each week are right", "Shift workers record when they start and stop work",
+                     "Shift workers.", "Interview notes", "Shiftlog: record shifts",
                      "Add a shift from the terminal", "List shifts in a table", "A weekly report page",
-                     "A dark theme for the report page", "no shift recorded yet", "need not appear"):
+                     "A dark theme for the report page", "no shift recorded yet", "need not appear", "paraphrase"):
             self.assertIn(fact, content)
         layout = bodies["ver39-brief-must-haves-and-no-layout"]
-        for fact in ("separated by commas or semicolons", "a constraint, not a layout", "monospace cell grid", "keyboard-driven"):
+        # the unit of a constraint: a clause between semicolons; a comma inside a clause lists parts of one constraint
+        for fact in ("a constraint, not a layout", "monospace cell grid", "keyboard-driven", "between semicolons",
+                     "commas inside a clause list parts of one constraint", "text, box-drawing and block characters"):
             self.assertIn(fact, layout)
         status = bodies["ver39-grouping-and-status"]
         for fact in ("IDEA-04", "no Artifact tool", "docs/specs/design/DSN-001/boards/", "unconfirmed", "not a drawing"):
