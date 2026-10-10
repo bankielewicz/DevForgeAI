@@ -1,0 +1,2 @@
+# Board copies are hashed byte for byte (SPEC-017 DM-02 sha256); keep line-ending conversion off them
+docs/specs/design/**/boards/** -text

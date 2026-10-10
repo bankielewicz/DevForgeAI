@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: boards-at-wrong-number
+context:
+  scaffold_script: scaffold.sh
