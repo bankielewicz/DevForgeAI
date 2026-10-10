@@ -855,10 +855,11 @@ verifications:
       - BEH-10
   - id: VER-04
     status: active
-    obligation: "Shared fixture without the boards folder (the prompt names a canvas URL and the run has no Artifact tool). No docs/specs/design/ file is written; the reply says that this session has no Artifact tool, which the import of the canvas the prompt names needs (ERR-19); it names docs/specs/design/DSN-001/boards/ as the folder, says that canvas.json and the board files placed there by hand are recorded when the skill is run again, and holds no drawing of a screen. Eval case no-boards-stops: file_exists false and regex on last_message."
+    obligation: "Shared fixture without the boards folder (the prompt names a canvas URL and the run has no Artifact tool). No docs/specs/design/ file is written; the reply says that this session has no Artifact tool, which the import of the canvas the prompt names needs (ERR-19); it names docs/specs/design/DSN-001/boards/ as the folder, says that canvas.json and the board files placed there by hand are recorded when the skill is run again, and holds no drawing of a screen. A second case, boards-without-canvas-json, seeds the boards folder with the four board files and no canvas.json: nothing is written, and the reply names docs/specs/design/DSN-001/boards/ as the folder that must hold canvas.json and the board files it names (ERR-03). Eval cases no-boards-stops and boards-without-canvas-json: file_exists false and regex on last_message."
     level: e2e
     covers:
       - ERR-19
+      - ERR-03
   - id: VER-05
     status: active
     obligation: "Shared fixture with an existing docs/specs/design/DSN-001.md (draft, version 1, citing a different BRN, BRN-002) and the boards in docs/specs/design/DSN-001/boards/ only; the prompt records BRN-001 and the run has no Artifact tool. No new DSN is written and DSN-001.md is unchanged (whole-content grader); the reply says that the new DSN's number would be DSN-002 with its boards folder docs/specs/design/DSN-002/boards/ (DSN-001's folder belongs to a DSN that cites BRN-002) and that the session has no Artifact tool (ERR-19). Eval case boards-at-wrong-number: regex on last_message and the file."
@@ -1104,7 +1105,7 @@ verifications:
       - ERR-19
   - id: VER-40
     status: active
-    obligation: "No idea names a screen. A fixture whose BRN-001 is converged with promoted ideas that name no screen, flow or user interface ('Export shifts as CSV' and 'Sync to a server') and no boards folder; the prompt is 'Design the UI for BRN-001. Proceed without questions.' Nothing is written; the reply says that no promoted idea names a screen, that the step is optional, and points to /devforgeai:prd BRN-001. Eval case no-screen-idea: file_exists false and regex on last_message."
+    obligation: "No idea names a screen. A fixture whose BRN-001 is converged with promoted ideas that name no screen, flow or user interface ('Keep shifts in a local SQLite file' and 'Back up the data nightly') and no boards folder; the prompt is 'Design the UI for BRN-001. Proceed without questions.' Nothing is written; the reply says that no promoted idea names a screen, that the step is optional, and points to /devforgeai:prd BRN-001. Eval case no-screen-idea: file_exists false and regex on last_message."
     level: e2e
     covers:
       - ERR-24
@@ -1180,8 +1181,8 @@ verifications:
 - **Records.** CLAUDE.md's skill table gains a `ui` row (SKL-013, SPEC-017); `src/templates/README.md` gains the DSN rows in §1.2
   and §2.1 and a DSN → BRN `derives` pair in §2.4 (it lists `derives` for PRD → BRN only), as ADR-004's follow-up M2 did for `CTX`;
   the template moves into `assets/dsn.md` (`.claude/rules/skills.md`, "Building the next skill"). The README's list gains §2.5
-  (status lifecycles) too, where `design` has no row. A `.gitattributes` entry marking `docs/specs/design/**/boards/` as `-text`
-  keeps a line-ending conversion (Windows `autocrlf`) from changing the digests.
+  (status lifecycles) too, where `design` has no row. A `.gitattributes` entry marking `docs/specs/design/**/boards/` and, from version 2, the import's staging folder `docs/specs/design/**/project/` as `-text`
+  keeps a line-ending conversion (Windows `autocrlf`) from changing the digests, those of a failed import left in `project/` included (ERR-21).
 - **The ID patterns (deferred to cycle C, on purpose).** `common.schema.json`'s document ID pattern lacks `DSN` and its item ID
   pattern lacks `BRD`. They are not added in cycle A: `src/schemas/common.schema.json` is shared byte for byte with the
   prd, architecture and context skills' `references/schemas/` copies (`src/tests/prd/test_shared_files.py`), so changing it
@@ -1239,7 +1240,7 @@ to VER-21 and VER-30 to VER-38, each of which already runs the copy path, with t
 
 **Changes:** the description, argument-hint and checklist (ten items) in §5; `SKILL.md`'s rules, tools and steps;
 `references/boards.md` (no 'never fetches'; the import's problems), `interview.md` (the canvas facts asked only on the copy
-path) and `output-rules.md` (BEH-17's findings, the step numbers); the cases of VER-01, VER-04 and VER-05; `test_structure.py`
+path) and `output-rules.md` (BEH-17's findings, the step numbers); `.gitattributes` (the staging folder, §10); the cases of VER-01, VER-04 and VER-05; `test_structure.py`
 (its pins on the spec's version and status, the description, the checklist, the argument-hint and the reference list) and
 `test_make_evals.py` (the case list and the trigger prompts).
 
@@ -1517,3 +1518,4 @@ lines; version 2 changes (b), (d), (g), (t), (v), (y), (af) and (ag), and says s
 | 1 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | ADR-007 accepted by Bryan: its link is now constrains, blocked_by is empty, and the "(proposed)" labels are removed. No item changed | frontmatter, blockquote, §2 |
 | 1 | 2026-10-09 | Bryan | Approved ('Approve all (Recommended)'), with the drafter's choices of §13, the review's and re-review's fixes, and the cost shown in its preview | status |
 | 2 | 2026-10-10 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Bryan, 2026-10-10: "that's wrong! /devforgeai:ui is meant to use /design this is the entire excercise/purpose of this skill. you proved to me that claude code terminal has design issues. the spec is wrong"; "Option a is the path, based on your research"; "Yes. Approved" (the flow as probed, with the trigger-description fix in the same version). The skill now makes the Claude Design canvas: it drafts a brief for one flow in the shape of Anthropic's guidance and has the user confirm it (BEH-22), makes the canvas through the Artifact tool's Design type (BEH-23), asks whether to import now or iterate first (BEH-28), imports the canvas's boards and places them in boards/ (BEH-24, BEH-25, IF-05) and records the copy; an amend run reads the canvas's version, imports again when it moved and can add a flow (BEH-26, BEH-27). BEH-05, BEH-06, BEH-10 and BEH-19 are rewritten (a copy already in the folder is recorded as it is, with or without the tool; the skill never draws a board in the terminal, never invokes /design and never stands in for the canvas); ERR-19 to ERR-24 are new, and ERR-02, ERR-03, ERR-06, ERR-13 and ERR-17 change; the checklist has ten items; the description is rewritten with the exclusions for one story's design, a small styling change and a one-off mockup; QR-04 measures the negatives over 10 runs; QR-06, QR-07, VER-39 to VER-48 are new. Version 1's gaps found in the build are folded in (§6, BEH-16, BEH-17, BEH-21, ERR-06, ERR-09). PRD-001 links move to version 14, ADR-007 to version 2. Approval cleared; awaiting the drafts review and Bryan's decision; blocked_by names ADR-007 until its version 2 is accepted | all |
+| 2 | 2026-10-10 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Fix round 1 after the advisor's review of the drafts: VER-40's fixture uses ideas that name no interface under any reading (a storage choice and a nightly job), VER-04 gains a second case so that ERR-03 keeps an e2e case (boards-without-canvas-json), and the `.gitattributes` entry also covers the import's staging folder (§10, §11). No behaviour changes | VER-04, VER-40, §10, §11 |
