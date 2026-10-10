@@ -25,11 +25,11 @@ upstream:
   - {id: PRD-001, item: FR-016, relation: informed_by, version: 14, hash: null, note: "the requirement this skill implements; no story specifies it yet"}
   - {id: SPEC-004, relation: informed_by, version: 4, hash: null, note: "consumes the epic skill's downstream contract (SPEC-004 §5)"}
   - {id: SPEC-003, relation: informed_by, version: 11, hash: null, note: "reads the ARCH's components (CMP) and deployment units (SPEC-003 §4, §5)"}
-  - {id: ADR-007, relation: constrains, version: 2, hash: null, note: "accepted (version 2 awaits Bryan's acceptance): the ui step and the DSN; story-level design stays with this skill (D6)"}
+  - {id: ADR-007, relation: constrains, version: 2, hash: null, note: "accepted (version 2): the ui step and the DSN; story-level design stays with this skill (D6)"}
   - {id: SPEC-017, relation: informed_by, version: 2, hash: null, note: "the ui skill, which writes the DSN that the PRD's section 8 links and BEH-11 reads"}
 supersedes: []
 superseded_by: null
-blocked_by: ["ADR-007"]
+blocked_by: []
 # --- spec-specific ---
 components: ["src/claude/DevForgeAI/skills/story"]
 ---
@@ -52,8 +52,8 @@ components: ["src/claude/DevForgeAI/skills/story"]
 > the user copied by hand. This spec's behaviour does not change: the story skill still writes the `/design` brief and the
 > user still runs it and exports by hand (ADR-007 D6). Version 4 corrects the three passages that stated the old rule or the
 > premise it rested on ("no documented interface lets a skill drive Claude Design"), and asks in §13 whether the story skill
-> should also make a story's canvas that way. The text rests on ADR-007 version 2, which awaits Bryan's acceptance, so
-> `blocked_by` names it again until then.
+> should also make a story's canvas that way. The text rests on ADR-007 version 2, which Bryan accepted on 2026-10-10, and he
+> approved version 4's text with it ('Approve all (Recommended)'); the spec stays a draft, as the story skill is not built.
 
 ## 1. Overview
 
@@ -100,7 +100,7 @@ The skill is recorded as `SKL-008` in its `provenance.yaml`.
   - the ambiguities log as the pressure relief valve (ADR-004 D8).
 - **SPEC-011 §4 (named, not linked):** the approved-design line this skill writes (§4) is the one SPEC-011 BEH-11 reads to
   build `ui-mockups.md` section 3. SPEC-011 cites this spec, so this spec does not cite it back (SPEC-017 §13, z).
-- **ADR-007 (accepted; version 2 awaits acceptance):** the ui skill writes a DSN for the release before the PRD, from the
+- **ADR-007 (accepted, version 2):** the ui skill writes a DSN for the release before the PRD, from the
   boards it imports from a Claude Design canvas that it makes through the Artifact tool's Design type (SPEC-017). It leaves story-level design here (D6): the design gate, the
   design record and the check of each export. The DSN is reached through the PRD's section 8.
 - **SPEC-004 §5 (consumed):**
@@ -704,3 +704,5 @@ rest):
 | 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | ADR-007 accepted by Bryan: its link is now constrains, blocked_by is empty, and the "(proposed)" labels are removed. No item changed | frontmatter, blockquote, §2 |
 | 3 | 2026-10-09 | Bryan | Approved version 3's text ('Approve all (Recommended)'), with the drafter's choices of §13 and the review's and re-review's fixes; the spec stays draft: the story skill is not built and §13 keeps its open questions | version 3 text |
 | 4 | 2026-10-10 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Follows ADR-007 version 2 and SPEC-017 version 2 (Bryan, 2026-10-10: 'that's wrong! /devforgeai:ui is meant to use /design … the spec is wrong'; 'Option a is the path, based on your research'): §2's ADR-007 bullet no longer says the boards are committed by the user; the out-of-scope line and §12's row no longer say that no interface lets a skill drive Claude Design (the Skill tool refuses `/design`, and the Artifact tool's Design type makes a canvas), and say that the story skill still leaves the canvas and the export to the user; §13 asks whether it should make a story's canvas that way. No behaviour, error or verification item changes. PRD-001, ADR-007 and SPEC-017 links move to versions 14, 2 and 2; blocked_by names ADR-007 until its version 2 is accepted | frontmatter, blockquote, §2, §12, §13 |
+| 4 | 2026-10-10 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | ADR-007 version 2 accepted by Bryan: blocked_by is empty, its link note and the "awaits acceptance" label are updated. No item changed | frontmatter, blockquote, §2 |
+| 4 | 2026-10-10 | Bryan | Approved version 4's text ('Approve all (Recommended)'); the spec stays draft: the story skill is not built and §13 keeps its open questions | version 4 text |

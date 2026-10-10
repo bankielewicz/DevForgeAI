@@ -2,7 +2,7 @@
 id: SPEC-017
 type: spec
 title: "UI skill (MVP): design a release's screens in Claude Design and record them"
-status: draft       # draft | in-review | approved | superseded | deprecated
+status: approved    # draft | in-review | approved | superseded | deprecated
 version: 2
 created: 2026-10-09
 updated: 2026-10-10
@@ -13,15 +13,15 @@ generated_by:
   model: "claude-sonnet-5-5"
   session: "7637882f-b2ec-465e-988a-9602340d1023"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-10
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 14, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 14, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 14, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain, which ADR-007 extends with this step"}
-  - {id: ADR-007, relation: constrains, version: 2, hash: null, note: "accepted; its version 2 text (the skill makes the Claude Design canvas, imports its boards and records the copy) awaits Bryan's acceptance, so blocked_by names it"}
+  - {id: ADR-007, relation: constrains, version: 2, hash: null, note: "accepted: version 2, the skill makes the Claude Design canvas, imports its boards and records the copy this skill implements"}
   - {id: ADR-004, relation: informed_by, version: 2, hash: null, note: "D2: front-end.md keeps the conventions and the design system, ui-mockups.md indexes approved story designs; a CLI is a user interface; D6: suspect links"}
   - {id: PRD-001, item: FR-023, relation: informed_by, version: 14, hash: null, note: "the requirement this skill implements; no story specifies it yet"}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 14, hash: null, note: "decisions stay the user's: the grouping into flows, the briefs, every mapping and the approval"}
@@ -30,20 +30,20 @@ upstream:
   - {id: SPEC-013, relation: informed_by, version: 28, hash: null, note: "BEH-02: a plugin skill is tracked unless its metadata says otherwise; this skill is tracked, by ticks only"}
 supersedes: []
 superseded_by: null
-blocked_by: ["ADR-007"]
+blocked_by: []
 # --- spec-specific ---
 components: ["src/claude/DevForgeAI/skills/ui", "src/tests/ui", "src/claude/DevForgeAI/evals/ui", "src/schemas/design.schema.json"]
 ---
 
 # SPEC-017 — UI skill (MVP): design a release's screens in Claude Design and record them
 
-> **Version 2, drafted 2026-10-10 for Bryan's approval; status draft.** Version 1 (approved 2026-10-09, built as draft PR
+> **Version 2, approved by Bryan on 2026-10-10** ('Approve all (Recommended)', with every drafter's choice in §13 as recommended). Version 1 (approved 2026-10-09, built as draft PR
 > #110 and held) said the skill reads boards the user committed ("It reads files, not the canvas. No network, no /design"). Bryan,
 > 2026-10-10: "that's wrong! /devforgeai:ui is meant to use /design this is the entire excercise/purpose of this skill. you
 > proved to me that claude code terminal has design issues. the spec is wrong". After the platform probe of the same day:
 > "Option a is the path, based on your research", then "Yes. Approved" (the flow as probed, with the fix to the trigger
-> description in the same version). Version 2 implements ADR-007 version 2 (accepted; its revised text awaits Bryan's
-> acceptance, so `blocked_by` names it until then). The checker, the template, the recording half and its evals carry over
+> description in the same version). Version 2 implements ADR-007 version 2, which Bryan accepted
+> the same day. The checker, the template, the recording half and its evals carry over
 > from the version 1 build (§11); the brief, the canvas, the import and the trigger description are new. Nothing of version 2
 > is built, and version 1's eval results do not qualify it (§9).
 
@@ -111,7 +111,7 @@ because the Skill tool refuses to run `/design` (ADR-007, Context). Bryan, 2026-
   no-plugin baseline (QR-01 to QR-04), unless Bryan records a waiver in §9. Version 2 measures the trigger cases that must
   not fire over 10 runs instead of 3 (QR-04, §13 as).
 - **ADR-001** (v4): built in a worktree from `src/claude/DevForgeAI/`; the owner deploys; evals run from a plain terminal.
-- **ADR-007 (accepted; version 2 awaits acceptance):** the chain step (D1), the DSN (D2), the canvas made through the Design
+- **ADR-007 (accepted, version 2):** the chain step (D1), the DSN (D2), the canvas made through the Design
   type, imported and recorded as a committed copy (D3), one slot with an amend path (D4), the suspect-upstream duty (D5),
   story-level design left to SPEC-009 (D6) and the user's decisions (D7).
 - **The Artifact tool** (a platform tool, verified 2026-10-10; §13 at): the skill uses three of its actions and no other.
@@ -1489,7 +1489,7 @@ lines; version 2 changes (b), (d), (f), (g), (t), (v), (y), (af) and (ag), each 
   allows `ui-mockups.md` section 2, so ADR-007 is the authority; the alternative is an ADR-004 version 3 at cycle C. ADR-002 needs
   no bump.
 
-**Drafter's choices of version 2, for Bryan's accept or challenge** (everything below goes beyond his quoted words of
+**Drafter's choices of version 2, accepted by Bryan on 2026-10-10 ('Approve all (Recommended)')** (everything below goes beyond his quoted words of
 2026-10-10; each has its alternative; (ak), (al), (as) and (au) carry his answers of 2026-10-10 to the independent review's
 questions):
 - **(ak) The run waits, with a way out** (BEH-05, BEH-23, BEH-24, BEH-28). Bryan, 2026-10-10: "Wait, with a way out
@@ -1588,7 +1588,7 @@ questions):
   Alternative: a folder in the repository, which would break that and hand the next import a populated `project/`.
 - **(aw) ERR-24 stops a run in which no promoted idea names a screen** (BEH-22), because ADR-007 D1 makes the step optional and
   there is nothing to draw. Alternative: ask the user to name the ideas to draw (the request may already do so).
-- **(ax) The amend ordering and the version check** (BEH-05 route 3, BEH-26, ERR-17, BEH-10). The check only reads; the import
+- **(ax) The amend ordering and the version check** (decided by Bryan, 2026-10-10: "Treat it as current (Recommended)") (BEH-05 route 3, BEH-26, ERR-17, BEH-10). The check only reads; the import
   question is asked first and alone, after ERR-15 is settled, and the import waits for the answer, so a run that ends there leaves
   `boards/` and the DSN consistent; BEH-27's offer then reads `canvas.json` and offers only what the canvas does not hold. The
   identifier is the primary signal and the digest of `canvas.json` the only second one, so a board edited without touching
@@ -1596,9 +1596,10 @@ questions):
   (a board moved or resized, which Anthropic's guidance lists as a normal iteration) ends at ERR-17 and records nothing, though
   the import has replaced `boards/canvas.json`; the DSN keeps the old identifier, and the import question is asked again at each
   run until some run writes for another reason, or the user states the identifier in the request, which counts as a change and
-  records it. Alternatives: treat a moved identifier as a change (version +1 and a row for bookkeeping, against §13 ae's rule
-  that no bookkeeping amend is forced; the independent review prefers it and Bryan decides); import without a question (the
-  version 2 draft did).
+  records it. Bryan chose to treat that as current: a moved identifier with no changed board writes nothing, and stating the
+  identifier in the request records it. Alternatives (not chosen): treat a moved identifier as a change (version +1 and a row for
+  bookkeeping, against §13 ae's rule that no bookkeeping amend is forced; the independent review's preference); import without
+  a question (the version 2 draft did).
 - **(ay) The resume paths carry the URL, and the version is never asked** (BEH-09, BEH-10, ERR-13, ERR-21). The import is the only
   source of the version, so a path that loses it records `null` with a marker rather than ask the user for a number they never
   saw; ERR-13 and ERR-21 print the URL and the identifier so that the resume line can carry them. Alternative: keep asking, as
@@ -1646,3 +1647,5 @@ questions):
 | 2 | 2026-10-10 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Fix round 2, after the independent review of the drafts (`tmp/plans/ui-skill/review-drafts-v2.md`). C1: the board files are written with Write in the session's scratchpad and published through the `files` map, never in the repository (BEH-23, BEH-19, §1, §5, QR-06, VER-44). S1: the session's model writes the boards and the Design type hosts them (§1, §13 au). S4: the Artifact behaviours the spec relies on are listed with what the probe verified, each one not verified is a check in the new VER-49, and BEH-26 gains a second signal, the digest of canvas.json (a new line in IF-02). S5 and S6: an amend run's import waits for the user's decision after ERR-15 and BEH-27's offer, BEH-28 has an amend variant, and a moved identifier with no changed board ends at ERR-17 (BEH-05, BEH-10, BEH-26, ERR-17, §13 v and ax). S7: no question about the canvas version, and the resume paths carry the URL (BEH-09, BEH-10, BEH-05 route 1, ERR-13, ERR-21, §13 ay). S8: QR-07 and §13 aq claim no bound, and BEH-27 reads canvas.json only. S10: VER-39 accepts either flow, and VER-01's wording follows BEH-05. S11: the template changes are listed in §11. N1 to N15 and N18: auto_open, the import path's stray canvas.json, the read paths, `place` takes the tool's digests as `--sha` (IF-05, VER-42, §13 az), a failed move midway, 'a canvas the user owns or can edit', the action list wins, no memory of a declined flow, a warning on 'Import now', step 10 reworded, ERR-24 labelled (§13 aw), the scratchpad alternative (§13 an). Held for Bryan, not changed: whether the run waits in the session, the unit of a brief, and the trigger bar (their alternatives are added to §13 ak, al and as). ADR-007 version 2 gains the same corrections | BEH-05, BEH-09, BEH-10, BEH-17, BEH-19, BEH-23, BEH-25 to BEH-28, ERR-03, ERR-06, ERR-12, ERR-13, ERR-17, ERR-21, ERR-23, QR-05 to QR-07, IF-02, IF-05, VER-01, VER-23, VER-39, VER-42, VER-44 to VER-49, checklist, §1, §2, §4, §5, §9, §10, §11, §13 |
 | 2 | 2026-10-10 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Fix round 3, on Bryan's answers of 2026-10-10 to the independent review's four held questions. F8: "Yes, that's Claude Design (Recommended)" (the session's model writes the first boards through the Design type, the user iterates in Claude Design, the skill imports what the user ends with; §13 au). F6: "Wait, with a way out (Recommended)" (after the canvas one question stays open, 'Import now' or 'Iterate later', which ends the run with the line `/devforgeai:ui BRN-NNN <canvas URL>`; BEH-28, §5 checklist step 5, §13 ak, VER-44, VER-46, VER-48). F5: "No fire in 9 of 10 runs (Recommended)" (each negative trigger case runs 10 times on sonnet and opus and must not fire in at least 9; positives 3 of 3; haiku reported; a departure from PRD-001 NFR-003's 3 runs, recorded in §9; QR-04, VER-22, §13 as). F7: "Derived: a storyboard per flow (Recommended)" (the screens the ideas name are grouped into flows that the user confirms before any canvas, one brief for each confirmed flow, a single flow giving one brief for the release; a brief lists the flow's screens in order and asks for three directions of the key screen first; the canvas has a row for each flow, a title1 note, linked boards and is_interactive only where links work; within a flow canvas order is the step order; BEH-22, BEH-23, BEH-27, BEH-09, DM-02, DM-05, ERR-22, VER-39, VER-43 to VER-45, §12, §13 al; the number of screens is not known up front, §1). The description and checklist steps 3 to 5 change. ADR-007 version 2 follows | BEH-09, BEH-22, BEH-23, BEH-27, BEH-28, ERR-19, ERR-22, ERR-23, QR-04, QR-06, DM-02, DM-05, VER-22, VER-39, VER-43 to VER-46, VER-48, checklist, description, §1, §9, §11, §12, §13 |
 | 2 | 2026-10-10 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Fix round 4, after the re-review of 6ad2e39. N-C1: `place` reads the digests from a file (`--sha-file PATH`, lines `<hex>  <file>`) and no board name is ever a command-line word (IF-05, BEH-25, QR-05, §13 az; hostile-name cases in VER-42 and VER-45). N-S1: the step order is a mapping the user confirms, proposed from each board's position (y, then x ascending; IF-02 prints x and y; the keys' order is the fallback; the `order` list, which is the stacking order, is not read) and recorded by position in the boards block, with BRD numbers allocated once and never renumbered and no check rule sorting the block (DM-02, DM-04, BEH-09, BEH-12, BEH-13, BEH-23, the downstream contract, VER-10, VER-27, VER-31, VER-44, VER-45, VER-49, the shared prompt, §13 al); the `order` open question is deleted. N-S2: the `/design` skill's own text is cited for the Artifact path (§13 au; ADR-007). N2: `title1` lives in `notes`, which DM-04 ignores. N7: a stated URL or version counts as a change, and a copy-path DSN with null canvas facts keeps its marker (BEH-10, ERR-17). N1: the first canvas is capped at 3 boards for each flow and 4 flows (BEH-22, §13 al). N3: the import question is asked first and alone, and BEH-27 offers only what canvas.json lacks (BEH-26, BEH-27). N4: the description is 954 characters. N5: the cost of a moved identifier with no changed board is stated (§13 ax), ERR-17's wording and DM-01's definition of `canvas_version` hold after an import. N6: the surface of a flow is its key screen's (DM-05). N9: §13 ak agrees with BEH-28 for the no-tool case. §13 af and ag are marked 'version 2'. PRD-001 FR-023 and ADR-007 version 2 follow | BEH-05, BEH-09, BEH-10, BEH-12, BEH-13, BEH-22, BEH-23, BEH-25 to BEH-27, ERR-17, QR-05, IF-02, IF-05, DM-01, DM-02, DM-04, DM-05, VER-10, VER-23, VER-27, VER-31, VER-42 to VER-46, VER-48, VER-49, description, §1, §5, §11, §13 |
+| 2 | 2026-10-10 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | ADR-007 version 2 accepted by Bryan: blocked_by is empty, its link note and the "awaits acceptance" labels are updated. No item changed | frontmatter, blockquote, §2, §13 |
+| 2 | 2026-10-10 | Bryan | Approved version 2 ('Approve all (Recommended)'), with the drafter's choices of §13 (BEH-27 add a flow or a screen; any readable canvas URL; `place`; the brief not recorded, still an open question; the first canvas capped at 3 boards per flow and 4 flows per pass; the step order proposed from canvas position, confirmed by the user and kept by position in the DSN; ADR-007 edited in place with ADR-008 as the alternative; a headless run records the copy as not checked; canvas creation and import as manual checks only) and the review's and re-review's fixes; and, for §13 (ax), "Treat it as current (Recommended)": a moved canvas identifier with no changed board writes nothing, and stating the identifier in the request records it | status |

@@ -12,7 +12,7 @@ work.
 DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.31.0 in
 `src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
 Brainstorm → UI → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
-Architecture and Epic are built; `ui` (optional) is specified (SPEC-017 v2) and its first build is held; `context` writes the project context documents between Architecture
+Architecture and Epic are built; `ui` (optional) is specified (SPEC-017 v2, approved) and its rebuild to v2 is in progress (the first build is held); `context` writes the project context documents between Architecture
 and Story. Each skill implements an approved or in-review spec in `docs/specs/spec/`, and its eval
 suite is the evidence that it works. Each spec's §9 holds the build and eval record (results folders,
 bound commit, scores, cost, manual VER items run and not run); its §13 holds open questions; its
@@ -32,7 +32,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
 | `story` | SKL-008, reserved | SPEC-009 v4, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
-| `ui` | SKL-013 v1, draft (held) | SPEC-017 v2, draft (v1 approved) | v1 build held: Bryan reversed its rule on 2026-10-10 (SPEC-017 §9); v2 not built | — (PR #110, draft) |
+| `ui` | SKL-013 v1, draft (held) | SPEC-017 v2, approved 2026-10-10 | v1 build held: Bryan reversed its rule on 2026-10-10 (SPEC-017 §9); the rework to v2 is in progress | — (PR #110, draft) |
 
 - The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3, which is not
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
@@ -52,7 +52,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels.
 - ADR-001 to ADR-007 in `docs/specs/adr/` are accepted; ADR-007 adds the `ui` step (the skill makes the release's
-  Claude Design canvas through the Artifact tool and records its imported boards as a DSN; version 2 awaits acceptance) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
+  Claude Design canvas through the Artifact tool and records its imported boards as a DSN; version 2 accepted 2026-10-10) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
   context → epic → story → spec. PRD-001 (DevForgeAI itself) and PRD-002
   (DevForgeAI CLI, draft) are in `docs/specs/prd/`.
 
