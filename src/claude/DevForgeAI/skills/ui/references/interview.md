@@ -103,7 +103,7 @@ the request states is recorded as stated, and never asked.
 
 A request that says to proceed without questions, or not to ask anything, asks nothing in this run:
 - **Mappings.** In a create run, every mapping the request does not state is `null` with its marker, and so is
-  every unstated canvas fact. In an amend run, an existing item's mapping the request does not state stays as it
+  every unstated canvas fact. In an amend run, an existing item's mapping the request doesn't state stays as it
   is (BEH-13; ERR-13's "unchanged"); a new board's unstated flow, surface and ideas, and `canvas_version` after a
   board changed, was added or was removed, are `null` with their markers, and its title is the file name up to
   its first dot, as in a create run (BEH-09, BEH-10). A board that was removed has its item deprecated without

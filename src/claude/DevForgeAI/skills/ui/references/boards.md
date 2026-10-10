@@ -50,7 +50,8 @@ hand is recorded as it is). The skill reads `canvas.json` and each board file it
   not used; name it in the reply.
 - `boards <ID>`, success: `canvas.json: v3, <n> boards`, the line `canvas.json sha256 <sha256>`, then one line for
   each board in canvas order, `board <k> <file> <bytes> <lines> <sha256> <x> <y>` (`x` and `y` as numbers, `-`
-  for a value that is not a number), then `boards: ok`. Keep these lines: the digests go into the board items,
+  for a value that is not a number), then `boards: ok`. The file name in a `board` line is everything between
+  `board <k> ` and the last five fields (`<bytes> <lines> <sha256> <x> <y>`), since a name may hold spaces. Keep these lines: the digests go into the board items,
   the order is the order of the items, `x` and `y` propose the step order, and the `canvas.json` digest is the
   version check's second signal.
 - `boards <ID>`, failure: one or more `ERR-NN: <message>` lines, then `boards: <n> problem(s)`, exit 1.
@@ -59,7 +60,8 @@ hand is recorded as it is). The skill reads `canvas.json` and each board file it
 - `place`: on success `placed: canvas.json and <n> boards into docs/specs/design/DSN-NNN/boards/`, a line
   `left in project/: <names>` when files remain in the staging folder, and `place: ok`. On a problem it prints
   `ERR-NN:` lines (an `ERR-21` line for each digest that differs), then `place: <n> problem(s)`, exit 1, and
-  moves nothing.
+  moves nothing. A move that fails midway prints `ERR-21: <what>: <why>`, `files placed: <names>` and
+  `files not placed: <names>`, exit 1, and moves nothing back; a later import replaces them.
 - Exit 2 prints `Cannot run: <reason>.` and nothing else.
 
 ## Reading a board
@@ -144,9 +146,16 @@ After every change to the items, `upstream` holds one item link for each distinc
 kept `withdrawn` idea included) and no other: add a link for a newly named idea, and drop the link of an idea
 no active board names any more.
 
-With no fact line, the links current, no candidate left to put to the user and no change in the request,
-the run stops: ERR-17 (under "proceed without questions", candidates left unasked don't prevent this; say how
-many wait for an interactive run).
+**Nothing to change (ERR-17).** With no fact line, the links current, no candidate left to put to the user and no
+change in the request, write nothing and raise no version. Say that the DSN is current, give its version and the
+`canvas_version` it records, and say that the canvas was checked at that version, or that without the Artifact
+tool it was not checked and a board changed on the canvas is seen only when a run with the Artifact tool imports
+it, or when the boards are copied into the folder again by hand. When the run imported and the canvas's
+identifier had moved with no board changed, say so: the canvas is at that identifier, which the DSN does not
+record yet; it is recorded by the next run that writes, or by a run whose request states it, and until then the
+import question is asked again at each run; the import has replaced `boards/canvas.json`. Then stop: no check and
+no approval offer. Under "proceed without questions", candidates left unasked don't prevent this; say how many
+wait for an interactive run.
 
 ## Amend runs: candidates from the PRDs and ADRs
 
@@ -164,8 +173,9 @@ run, taking them in that order; report the rest as left for a later run.
 - A candidate the user declines goes in `considered` as `declined:PRD-NNN#FR-NNN`, `declined:PRD-NNN#NFR-NNN`
   or `declined:ADR-NNN`.
 - Under "proceed without questions" no candidate is put to the user. One the request itself declines (by name or
-  as a group) or assigns to a named board (by file name, BRD ID or title) is recorded as above and counts toward the caps. Every other one is reported as left for
-  a later run, with no `PRD-NNN@N` or `ADR-NNN@N` entry for its document.
+  as a group) or assigns to a named board (by file name, BRD ID or title) is recorded as above and counts toward
+  the caps. Every other one is reported as left for a later run, with no `PRD-NNN@N` or `ADR-NNN@N` entry for
+  its document.
 - `considered` changes only in a run that writes for another reason (a board, a mapping, a confirmed or
   declined candidate, a moved link). Then add `PRD-NNN@N` or `ADR-NNN@N` for each document read whose every
   candidate was put to the user in this run, or that had none. Never write it alone: an unrelated PRD or ADR

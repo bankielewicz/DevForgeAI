@@ -22,7 +22,7 @@
 
 ## When to use this
 
-Read this before writing (SKILL.md step 4), and check every written file at step 5: `dsn_check.py check`
+Read this before writing (SKILL.md step 7), and check every written file at step 8: `dsn_check.py check`
 decides every rule a script can, and the self-check list at the end keeps only what needs judgement. Later
 skills read the DSN mechanically (its ID, version and status, the active board items, the canvas facts), so a
 document that reads well but breaks a rule here misleads every document that cites it.
@@ -192,7 +192,22 @@ session ID is the one SKILL.md gives.
 
 ## Approval
 
-Only on the user's explicit words (SKILL.md step 9). One Edit touches only `status` (`approved`), `approved_by`
+Only on the user's explicit words (SKILL.md step 9).
+
+**The offer.** When the request does not already approve the DSN, offer approval once: with AskUserQuestion when
+it is available and the request does not say to proceed without questions, "Approve <ID> now?", with "Not now"
+first and marked (Recommended), then "Approve". No answer, or "Not now", leaves the status as it is. Without
+AskUserQuestion, the offer is the last finding of step 10, in plain text, before the Next step paragraph:
+"Approve <ID> now? Reply 'approve <ID>' with your name, or 'not now'." If the user never answers, the status
+stays and the Next step still holds; a later `approve <ID>` is an approval-only run.
+
+**The approver.** `approved_by` is the name the user gives ("I'm Example Owner, and I approve DSN-001"),
+including words after `approve DSN-NNN`. Words that name no one mean ask who is approving, offering the
+document's owner first; that question, without AskUserQuestion, takes the same last-finding slot as the offer.
+When no answer can arrive (under "proceed without questions" the gate stays closed), do not approve and say the
+approver was not named.
+
+**The Edit.** One Edit touches only `status` (`approved`), `approved_by`
 (the name the user gave), `approved_on` (today), `updated` (today) and one new Change Log row
 `| <version> | <today> | <approver> | Approved | status |`. Raise no version. Then run the check again. If it
 fails, undo with a second Edit that restores those four fields and removes the row, and report the DSN as not
@@ -201,7 +216,7 @@ approved, with the errors. If the undo fails, report "approval rollback failed" 
 
 ## The report
 
-Step 7 of SKILL.md gives the block and the next step. These are the rules of each line and of what follows.
+Step 10 of SKILL.md gives the block and the next step. These are the rules of each line and of what follows.
 - **`Boards`** is printed in a create and in an amend run and names the copy in the boards folder that the run
   read: `boards_root`, the number of active boards, and `canvas_version` or `unknown`.
 - **`Flows`** lists the flows in the order they first appear in the boards block, each hyphen shown as a space,
@@ -225,9 +240,9 @@ Step 7 of SKILL.md gives the block and the next step. These are the rules of eac
   amend run the documents that cite the DSN at an older version; the candidates the user declined or that were
   left for a later run, with their number; the unconfirmed mappings; and, after an amend, that the new version
   has not been reviewed, and any provenance written as `unavailable`. The last finding is the plain-text
-  approval offer of step 6, only when step 6 makes one: no marker left, no "proceed without questions", no
-  approval already given in the request, and no AskUserQuestion. It reads "Approve DSN-NNN now? Reply 'approve
-  DSN-NNN' with your name, or 'not now'." The Next step paragraph follows it and ends the reply.
+  approval offer or approver question of step 9 (see "Approval"), only when step 9 makes one: no marker left, no
+  "proceed without questions", no approval already given in the request, and no AskUserQuestion. The Next step
+  paragraph follows it and ends the reply.
 - **No block** for a run that stops before writing: ERR-01 to ERR-10, ERR-12, ERR-14 before the write, ERR-15
   without confirmation, ERR-16 to ERR-24, ERR-13 without a save, and an approval-only request for an approved
   DSN. A run that ends after making a canvas has the canvas report in its place (the canvas reference).

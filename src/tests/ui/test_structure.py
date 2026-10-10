@@ -284,7 +284,12 @@ class Skill(unittest.TestCase):
                        "ERR-03 to ERR-06 or ERR-12",                           # R5: the pre-check's ERR-NN line
                        "A step order the request states",                      # the shared prompt: "in that order" is confirmed
                        "the request to record the canvas is the answer",       # BEH-26 under proceed without questions
-                       "`place` takes no board name at all"):                  # IF-05: names are read from the digest file
+                       "`place` takes no board name at all",                   # IF-05: names are read from the digest file
+                       "or when the boards are copied into the folder again by hand",  # ERR-17 reply: VER-33's stale text and v2's
+                       "`files not placed:`",                                  # ERR-21: a move that fails partway
+                       "`<hex> canvas.json`",                                  # the digest file's lines: the key, no project/ (squashed)
+                       "Import the canvas at <new URL>, which replaces <old URL>?",  # a different URL asks with the import question
+                       "the digest file was rejected"):                        # ERR-14 when place exits 2 naming the file
             with self.subTest(phrase):
                 self.assertIn(phrase, text)
 
