@@ -331,6 +331,8 @@ class GeneratedTreeTests(unittest.TestCase):
             "unquoted": "python3 ${CLAUDE_SKILL_DIR}/scripts/dsn_check.py boards DSN-001\n"
                         "python3 ${CLAUDE_SKILL_DIR}/scripts/dsn_check.py check --before-amend DSN-001\n",
             "bare": "dsn_check.py boards DSN-001: boards: ok; then dsn_check.py check --before-amend DSN-001: OK\n",
+            "single quoted": "python3 '/home/u/skills/ui/scripts/dsn_check.py' boards DSN-001\n"
+                             "python3 '/home/u/skills/ui/scripts/dsn_check.py' check --before-amend DSN-001\n",
         }
         bad = {
             "wrong order": 'python3 "/x/dsn_check.py" check --before-amend DSN-001 then python3 "/x/dsn_check.py" boards DSN-001\n',
@@ -339,6 +341,56 @@ class GeneratedTreeTests(unittest.TestCase):
         }
         got = js([[g.pattern, g.flags, r] for r in list(replies.values()) + list(bad.values())])
         self.assertEqual([True] * len(replies) + [False] * len(bad), got)
+
+
+class ReplyGraderTests(unittest.TestCase):
+    """Reply graders that a round of review found too loose or too narrow."""
+
+    def grader(self, case, name):
+        return next(g for g in case_by_name()[case].graders if g.name == name)
+
+    def results(self, case, name, replies):
+        g = self.grader(case, name)
+        return js([[g.pattern, g.flags, r] for r in replies])
+
+    def test_the_marker_remains_is_a_sentence_not_the_markers_left_line(self):
+        block = ("Design document: DSN-001 (v1, draft; new)\nMarkers left: DSN-001: 1\nOK docs/specs/design/DSN-001.md\n")
+        yes = [block + "\nDSN-001 stays draft: the marker for IDEA-06 remains, so I did not offer approval.\n",
+               block + "\nI cannot approve while a [NEEDS CLARIFICATION marker is open.\n",
+               block + "\nApproval waits until the marker for IDEA-06 is resolved.\n"]
+        no = [block, block.replace("Markers left:", "**Markers left:**"), block.replace("Markers left:", "- Markers left:"),
+              "Written as a draft.\nIDEA-06 has no board yet.\n"]
+        got = self.results("approve-blocked-by-marker", "ver19-reply-says-the-marker-remains", yes + no)
+        self.assertEqual([True] * len(yes) + [False] * len(no), got)
+
+    def test_in_review_is_accepted_with_a_hyphen_or_a_space(self):
+        yes = ["Only a draft or in-review DSN is approved.", "Only a draft or in review DSN is approved.",
+               "A DSN is approved only when it is a draft or In Review."]
+        no = ["Only a draft DSN is approved.", "DSN-001 is superseded."]
+        got = self.results("approval-superseded-dsn", "ver37-says-only-draft-or-in-review", yes + no)
+        self.assertEqual([True] * len(yes) + [False] * len(no), got)
+
+    def test_asking_for_an_id_is_a_question_or_a_request(self):
+        yes = ["Which BRN ID should I use?", "Please give me the BRN ID."]
+        no = ["The skill takes a BRN ID or approve DSN-NNN, never a path; paths such as docs/specs/brainstorm/BRN-001.md are not accepted."]
+        self.assertEqual([True] * 2 + [False], self.results("path-refused", "ver14-asks-for-the-brn-id", yes + no))
+        yes = ["Which DSN should I approve? DSN-001 (v1, draft).", "Give me the DSN ID."]
+        no = ["Only DSN-NNN can be approved. DSN-001 (v1, draft)."]
+        self.assertEqual([True] * 2 + [False], self.results("approval-without-id", "ver37-asks-for-the-dsn-id", yes + no))
+
+    def test_the_malformed_block_is_named_as_a_block(self):
+        yes = ["The ideas block of docs/specs/brainstorm/BRN-001.md is malformed YAML."]
+        no = ["The ideas of docs/specs/brainstorm/BRN-001.md are malformed YAML (an unterminated quote)."]
+        self.assertEqual([True, False], self.results("malformed-brn", "ver17-names-the-ideas-block", yes + no))
+
+    def test_prd_001_is_named_as_citing_dsn_001_on_one_line(self):
+        for case, name, n in (("amend-changed-board", "ver10-names-prd-citing-version-1", 1),
+                              ("amend-prd-requirement", "ver31-names-prd-001-citing-version-2", 2),
+                              ("amend-adr-consequence", "ver32-names-prd-001-citing-version-3", 3)):
+            yes = [f"PRD-001 cites DSN-001 at version {n}.", f"DSN-001 is cited by PRD-001 at version {n}."]
+            no = [f"PRD-001 cites it at version {n}.", f"DSN-001 is at version {n}.\nPRD-001 is a PRD.",
+                  f"PRD-001 cites DSN-001 at version {n + 1}."]
+            self.assertEqual([True] * 2 + [False] * 3, self.results(case, name, yes + no), name)
 
 
 class DigestTests(unittest.TestCase):
