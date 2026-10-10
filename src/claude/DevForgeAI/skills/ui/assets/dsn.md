@@ -21,8 +21,8 @@ supersedes: []
 superseded_by: null
 blocked_by: []
 # --- design-specific ---
-canvas: null           # the canvas URL the user gave ("https://…"), else null
-canvas_version: null   # the canvas version of the copy now in boards/, as the user gave it (quoted), else null
+canvas: null           # the canvas URL the boards were imported from ("https://…"): the publish result's or the request's, else null
+canvas_version: null   # the identifier the import reported for the copy now in boards/ (quoted), else the request's, else null
 canvas_format: 0       # the v of canvas.json, read from the boards command, never asked
 boards_root: docs/specs/design/DSN-000/boards/
 considered: []         # [] for a new DSN; an amend run adds PRD-NNN@N, ADR-NNN@N and declined:… entries
@@ -30,9 +30,9 @@ considered: []         # [] for a new DSN; an amend run adds PRD-NNN@N, ADR-NNN@
 
 # DSN-000 — [[fill: the title, as in the frontmatter]]
 
-<!-- Design document (DevForgeAI). The screen designs of one release, recorded from board files the user
-     committed under boards_root, and the mapping of each board to a flow, a surface and the brainstorm's
-     promoted ideas.
+<!-- Design document (DevForgeAI). The screen designs of one release, imported from a Claude Design canvas into
+     boards_root (or placed there by the user and recorded as they were), and the mapping of each board to a
+     flow, a surface and the brainstorm's promoted ideas.
 
      BELONGS HERE: the board items, the idea coverage, the canvas facts and the open markers.
      DOES NOT: a board's content, design tokens or colours (the context documents own the look), a story's
@@ -53,9 +53,10 @@ considered: []         # [] for a new DSN; an amend run adds PRD-NNN@N, ADR-NNN@
 
 ## 2. Boards
 
-<!-- One item for each board canvas.json names, in its order, BRD-01 upward; after an amend, a board added
-     later is appended with the next free number. Quote every free-text value. A deprecated item stays.
-     notes holds the marker for each null field of the item, else null. Delete the # comments below. -->
+<!-- One item for each board canvas.json names, numbered BRD-01 upward in its order. A flow's items, in the
+     order they stand here, are its steps; after an amend, a board added later gets the next free number and is
+     inserted at its step. Quote every free-text value. A deprecated item stays. notes holds the marker for each
+     null field of the item, else null. Delete the # comments below. -->
 
 ```yaml items
 boards:
@@ -85,13 +86,13 @@ boards:
 
 ## 4. Canvas
 
-- Canvas: [[fill: the canvas URL the user gave, or null]]
-- Canvas version copied: [[fill: the version the user gave, or null]]
-- Date of the copy: [[fill: the date the user gave, or not given]]
+- Canvas: [[fill: the canvas URL the boards were imported from, or null]]
+- Canvas version imported: [[fill: the version identifier the import reported, or the version the request states for a copy already in the folder, or null]]
+- Date of the import: [[fill: the date of the import, or the date the request gives for the copy, or not known]]
 [[fill: when the URL or the version is null, one line holding the marker NEEDS CLARIFICATION: canvas URL and version copied, written in square brackets as the other markers are; otherwise delete this line]]
 
-The user copies the boards from the canvas into boards_root. This skill never fetches from the canvas. A new
-copy of the boards means a new run, which amends this document.
+The boards in boards_root were imported from this canvas by the ui skill, or placed there and recorded as they
+were. A new import means a new run, which amends this document. The brief is not recorded here.
 
 ## 5. Open questions
 

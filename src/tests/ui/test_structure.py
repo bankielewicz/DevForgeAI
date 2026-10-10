@@ -280,7 +280,10 @@ class Skill(unittest.TestCase):
                        "each `'` in the name is written `'\\''`",                # S3: a quote in a board name
                        "read the `ideas` block line by line",                  # A6: ERR-09
                        "`Flows: unconfirmed (<count>)`",                       # A10
-                       "ERR-03 to ERR-06 or ERR-12"):                          # R5: the pre-check's ERR-NN line
+                       "ERR-03 to ERR-06 or ERR-12",                           # R5: the pre-check's ERR-NN line
+                       "A step order the request states",                      # the shared prompt: "in that order" is confirmed
+                       "the request to record the canvas is the answer",       # BEH-26 under proceed without questions
+                       "`place` takes no board name at all"):                  # IF-05: names are read from the digest file
             with self.subTest(phrase):
                 self.assertIn(phrase, text)
 

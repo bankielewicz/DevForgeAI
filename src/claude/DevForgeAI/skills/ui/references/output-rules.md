@@ -31,7 +31,10 @@ document that reads well but breaks a rule here misleads every document that cit
 
 - `docs/specs/design/<ID>.md`, where `<ID>` is the ID the `next` command printed (a create run) or the DSN's
   own ID (an amend run). Never take a file name from the user.
-- Write nothing else: no board file, no `canvas.json`, no other document. Never delete a file.
+- The boards copy, `docs/specs/design/<ID>/boards/`, is written by the import (`place` moves the files in); never
+  with Write or Edit, and never edited after it is placed. In the session's scratchpad the skill also writes the
+  files it publishes to the canvas and the digest file of an import.
+- Write nothing else in the repository: no other document. Never delete a file or an artifact.
 
 ## Frontmatter
 
@@ -52,8 +55,8 @@ Keep exactly the template's keys, in its order. Unknown or misspelled keys are e
 | `approved_by`, `approved_on` | `""` and `null` until approval |
 | `upstream` | Link records (next section) |
 | `supersedes`, `superseded_by`, `blocked_by` | `[]`, `null`, `[]` |
-| `canvas` | The `https://` URL the user gave, quoted, or `null` |
-| `canvas_version` | The version the user gave for the copy now in the boards folder, quoted, or `null` |
+| `canvas` | The `https://` URL the boards were imported from, quoted: the URL of the publish result, or the one the request gave; `null` when the boards were already in the folder and the request gave none |
+| `canvas_version` | Quoted. After an import, the identifier the Artifact tool's read reported for the canvas as imported, never asked: the copy now in the boards folder. For a copy already in the folder, the version the request states, else `null` with a marker, and never asked. Never carried over from an earlier copy |
 | `canvas_format` | The integer `v` of `canvas.json`, from the `boards` command |
 | `boards_root` | `docs/specs/design/<ID>/boards/` for this document's own ID |
 | `considered` | `[]` for a new DSN. In an amend run, entries of the form `PRD-NNN@N`, `ADR-NNN@N`, `declined:PRD-NNN#FR-NNN`, `declined:PRD-NNN#NFR-NNN` or `declined:ADR-NNN`, without repeats; no `declined:` entry names an item an active board's `answers` holds |
@@ -76,15 +79,23 @@ an idea no active board names any more.
 
 ## Board items
 
-One item for each board `canvas.json` names, in canvas order, `BRD-01` upward. After an amend, a board added
-later is appended with the next free number. Quote every free-text value.
+One item for each board `canvas.json` names, numbered `BRD-01` upward in canvas (key) order. Quote every
+free-text value.
+
+**Step order within a flow.** A flow's active items, in the order they stand in the block, are its steps. A
+create run writes the items in canvas order and, where the user confirmed another step order for a flow,
+rearranges that flow's items among the positions they occupy. An amend inserts a new board's item right after the
+item at the step before it (or right before the item at the step after it), and a new flow's items after the last
+item. BRD numbers are allocated once, in order of appearance, and never renumbered, so they need not ascend down
+the block, and no check rule sorts it. A step order the user has not confirmed is recorded as proposed, with a
+`[NEEDS CLARIFICATION: step order of the flow <slug>]` marker in section 5.
 
 | Field | Holds |
 |---|---|
 | `id` | `BRD-NN`, two digits, never renumbered or reused |
 | `status` | `active`, or `deprecated` for a board that left the canvas; an item is never deleted |
 | `superseded_by` | Optional: the `BRD-NN` that replaces a deprecated board, only when the user says so |
-| `file` | The file name as `canvas.json` names it |
+| `file` | The file name as `canvas.json` names it: flat and plain, no `/`, `\`, `..` or control character |
 | `title` | The name the user confirmed, else the file name up to its first dot (the whole name when that is empty, as for `.hidden`) |
 | `flow` | The user's flow as a lowercase slug, or `null` until confirmed |
 | `surface` | `web`, `desktop`, `mobile` or `terminal`, or `null` until confirmed |
@@ -116,9 +127,10 @@ Keep section 3 equal to this after every write. Never add a row for an idea that
 
 - **1. Scope:** two to four sentences: the product or release (from the BRN's title and context), the flows and
   the surfaces that appear. Claim nothing the user did not confirm.
-- **4. Canvas:** the `canvas` and `canvas_version` values (or `null` with the marker `[NEEDS CLARIFICATION:
-  canvas URL and version copied]`), the date of the copy when the user gave it, and the re-copy rule the
-  template states.
+- **4. Canvas:** where the boards were imported from: the `canvas` and `canvas_version` values (or `null` with
+  the marker `[NEEDS CLARIFICATION: canvas URL and version copied]`), the date of the import when known, and the
+  re-import rule the template states: a new import means a new run, which amends the document. The brief is not
+  recorded here.
 - **5. Open questions:** one `[NEEDS CLARIFICATION: …]` bullet for each marker the document holds outside a
   board's `notes`, or `None.`
 
@@ -129,7 +141,8 @@ Use Write once, from the template (SKILL.md gives the path):
 - delete every author comment, HTML and `#` alike, and replace every `[[fill: …]]` placeholder and every
   stand-in value (`DSN-000`, `BRN-000`, `YYYY-MM-DD`, `canvas_format: 0`, the example board and its zero digest);
 - ID, version 1, status `draft`, `created` and `updated` today, `considered: []`;
-- one board item for each board in canvas order, with the file, the confirmed or `null` mapping, `answers: []`
+- one board item for each board in canvas order (a flow's items rearranged among the positions they occupy
+  where the user confirmed another step order), with the file, the confirmed or `null` mapping, `answers: []`
   unless the user stated a reference (taken as stated: the check, not the interview, tests that the item
   exists), and the digest from the script;
 - sections 3 to 5 as above, and one Change Log row.
@@ -144,9 +157,16 @@ Use Edit, never Write, starting from the document's current text.
   version and update that run's Change Log row instead of adding another. Set `updated` to today.
 - **Change only** what the user confirmed or a script fact requires (a digest, `canvas_format`, a link
   version, `considered`). Keep every other line.
-- **Items:** never delete or renumber one. Deprecate a removed board's item. Append a new board's item with the
-  next free BRD number. Add the confirmed `answers` entries (never to `upstream`). Update `sha256` for every
-  changed board.
+- **Items:** never delete or renumber one. Deprecate a removed board's item. Insert a new board's item (a file
+  that left and came back included) with the next free BRD number at the step the user confirms within its flow,
+  and a new flow's items after the last item; the insertion is for ordering only, and no number changes. Add the
+  confirmed `answers` entries (never to `upstream`). Update `sha256` for every changed board.
+- **`canvas_version`:** replaced by the new identifier only in a run that writes for another reason. A run that
+  imports and then finds nothing to change ends at ERR-17, leaves the recorded version, and names the canvas's
+  newer identifier in its report as recorded nowhere yet. Without an import, in a run in which a board changed,
+  was added or was removed, it is `null` with the marker unless the request states one, never the old value.
+  When no board changed, keep it. A DSN written on the copy path with a null canvas or `canvas_version` keeps its
+  marker in section 4 and cannot be approved until an import, or a run whose request states the fact, fills it.
 - **Status:** an approved DSN becomes `in-review` with `approved_by` cleared and `approved_on` null, so the
   change is reviewed explicitly; a draft or in-review DSN keeps its status.
 - **Keep** the existing `authors` (adding the tool if it is missing), `reviewed_by` and every Change Log row.
@@ -164,7 +184,7 @@ ever. Describe markers in words ("1 marker left"). Columns: `| Version | Date | 
 | Event | Version | Author | Change |
 |---|---|---|---|
 | New DSN | `1` | `claude-code (session <session ID>)` | `Created from BRN-NNN vN and the boards; N markers left`, N being the count |
-| Amend (one row per run) | the new version | the same | The boards changed, added or removed (by file); the `canvas_version` now recorded; the ideas, requirements and ADRs considered, with the document versions read; any link moved; `The new version has not been reviewed` |
+| Amend (one row per run) | the new version | the same | The boards changed, added or removed (by file); whether the copy was imported again from the canvas; the `canvas_version` now recorded; the ideas, requirements and ADRs considered, with the document versions read; any link moved; `The new version has not been reviewed` |
 | Approval | the current version | the approver's name | `Approved` |
 
 Items affected: `all` for a new DSN; the BRD IDs and section names for an amend; `status` for an approval. The
@@ -172,7 +192,7 @@ session ID is the one SKILL.md gives.
 
 ## Approval
 
-Only on the user's explicit words (SKILL.md step 6). One Edit touches only `status` (`approved`), `approved_by`
+Only on the user's explicit words (SKILL.md step 9). One Edit touches only `status` (`approved`), `approved_by`
 (the name the user gave), `approved_on` (today), `updated` (today) and one new Change Log row
 `| <version> | <today> | <approver> | Approved | status |`. Raise no version. Then run the check again. If it
 fails, undo with a second Edit that restores those four fields and removes the row, and report the DSN as not
@@ -195,7 +215,10 @@ Step 7 of SKILL.md gives the block and the next step. These are the rules of eac
   not checked.
 - **An approval-only run's block** is the one line `Design document: <ID> (v<N>, approved)`. When that run
   approved nothing, the line shows the status as it is: `(v<N>, <status>; not approved)`.
-- **Findings follow the block,** briefly: each check and repair, quoting the script's lines; in an amend run both
+- **Findings follow the block,** briefly: where the boards came from (imported from the canvas at version
+  `<identifier>`; or a copy recorded as it is, with `no Artifact tool in this session`, `no canvas is recorded` or
+  `recorded as it is by choice`, and the canvas not checked); a pending boards folder under another number that
+  the run did not use; each check and repair, quoting the script's lines; in an amend run both
   pre-check commands as run, in order (`dsn_check.py boards DSN-NNN`, then `dsn_check.py check --before-amend
   DSN-NNN`), each with its last line and its `fact:` lines; the suspect-link warnings; the `answers` entries gone
   stale (a deprecated PRD item, an ADR no longer accepted); the boards `head` reported as read in part; in an
@@ -206,8 +229,9 @@ Step 7 of SKILL.md gives the block and the next step. These are the rules of eac
   approval already given in the request, and no AskUserQuestion. It reads "Approve DSN-NNN now? Reply 'approve
   DSN-NNN' with your name, or 'not now'." The Next step paragraph follows it and ends the reply.
 - **No block** for a run that stops before writing: ERR-01 to ERR-10, ERR-12, ERR-14 before the write, ERR-15
-  without confirmation, ERR-16 to ERR-18, ERR-13 without a save, and an approval-only request for an approved
-  DSN. ERR-11's report replaces the block and the next step.
+  without confirmation, ERR-16 to ERR-24, ERR-13 without a save, and an approval-only request for an approved
+  DSN. A run that ends after making a canvas has the canvas report in its place (the canvas reference).
+  ERR-11's report replaces the block and the next step.
 
 ## Checking with dsn_check.py
 
@@ -271,13 +295,14 @@ Read each written file back for what the script cannot decide:
 2. Every `null` has a marker that names what is open, and no marker is left for a value now known. Section 5
    holds a marker for each `no board yet` idea, and the count in the Change Log row matches the document.
 3. Section 1 claims nothing the user did not confirm: no flow, surface or idea beyond the board items.
-4. The Change Log row describes the run: the boards changed, added or removed, the `canvas_version` now
-   recorded, the documents and versions considered, the links moved, the unavailable provenance, and the
-   statement that an amended version has not been reviewed.
-5. `canvas_version` is the version the user gave for the copy now in the boards folder, never carried over after
-   a board changed.
-6. In an amend run, only what the user confirmed or a script fact required was edited, no item was deleted or
+4. The Change Log row describes the run: the boards changed, added or removed, whether the copy was imported
+   again, the `canvas_version` now recorded, the documents and versions considered, the links moved, the
+   unavailable provenance, and the statement that an amended version has not been reviewed.
+5. `canvas` and `canvas_version` are the tool's (after an import) or the request's words, never asked and never
+   carried over from an earlier copy; section 4 says where the boards came from.
+6. A flow's step order is the user's, or recorded as proposed with its marker in section 5.
+7. In an amend run, only what the user confirmed or a script fact required was edited, no item was deleted or
    renumbered, the version rose once, `considered` follows the lazy rule, and the status follows "Amending".
-7. No author comment, `[[fill:` placeholder or stand-in value is left (the check finds comments and
+8. No author comment, `[[fill:` placeholder or stand-in value is left (the check finds comments and
    placeholders, not `DSN-000` or a zero digest).
-8. Nothing was written but the DSN.
+9. Nothing was written in the repository but the DSN and the boards copy.
