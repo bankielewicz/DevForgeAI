@@ -267,7 +267,9 @@ class GeneratedTreeTests(unittest.TestCase):
             for g in c.graders:
                 fm, body = front_matter(GENERATED / c.name / "graders" / f"{g.name}.md")
                 where = f"{c.name}/{g.name}"
-                self.assertIn(fm["type"], ("regex", "file_exists", "tool_used"), where)
+                self.assertIn(fm["type"], ("regex", "file_exists", "tool_used", "llm"), where)
+                if fm["type"] == "llm":
+                    self.assertTrue(body.strip(), where)
                 if fm["type"] == "regex":
                     self.assertIn(fm["match"], ("contains", "not_contains"), where)
                     self.assertTrue(fm["target"] == "last_message"
@@ -519,7 +521,7 @@ class V2CaseTests(unittest.TestCase):
                          [(i["idea"], i["disposition"]) for i in ideas if i["disposition"] == "promoted"])
         self.assertEqual("converged", yaml.safe_load(re.match(r"---\n(.*?)\n---\n", brn, re.S).group(1))["status"])
         files = cases["boards-without-canvas-json"].files
-        self.assertEqual(sorted(f"docs/specs/design/DSN-001/boards/{n}" for n in M.BOARDS) + ["docs/specs/brainstorm/BRN-001.md"],
+        self.assertEqual(sorted([f"docs/specs/design/DSN-001/boards/{n}" for n in M.BOARDS] + ["docs/specs/brainstorm/BRN-001.md"]),
                          sorted(files))
 
     def test_the_design_skill_grader(self):
@@ -573,6 +575,15 @@ class V2CaseTests(unittest.TestCase):
             ("writes-dsn", "ver01-says-no-artifact-tool-in-this-session", ["no Artifact tool in this session", "The session has no Artifact tool."], ["Written."]),
             ("writes-dsn", "ver01-says-canvas-not-checked", ["the canvas was not checked", "I could not check the canvas"], ["Written."]),
             ("writes-dsn", "ver01-says-copy-recorded-as-it-is", ["The copy in the folder was recorded as it is.", "Recorded the copy as-is."], ["Written."]),
+            ("boards-at-wrong-number", "ver05-next-free-number",
+             ["The new DSN would be DSN-002.", "The next free number is DSN-002.", "DSN-002 is the number of the new design."],
+             ["DSN-001 already exists."]),
+            ("no-boards-stops", "ver04-says-a-copy-placed-by-hand-is-recorded-when-run-again",
+             ["A copy placed there by hand is recorded when the skill is run again.", "Place canvas.json there yourself; I record it the next time you run the skill.",
+              "Once you have put the files there by hand, run the skill again and it records them."],
+             ["Nothing was written."]),
+            ("amend-nothing-with-unasked-candidate", "ver33-says-one-candidate-waits", ["A candidate (PRD-001 FR-024) waits for an interactive run."],
+             ["DSN-001 is current."]),
             ("no-boards-stops", "ver04-says-no-artifact-tool", ["This session has no Artifact tool, which the import needs."], ["Nothing was written."]),
             ("boards-at-wrong-number", "ver05-says-no-artifact-tool", ["No Artifact tool is available in this session."], ["Nothing was written."]),
             ("canvas-unreadable", "ver06-asks-to-import-or-copy-again",
