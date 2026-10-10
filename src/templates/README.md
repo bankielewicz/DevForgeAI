@@ -13,7 +13,7 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 | Template | Answers | Acceptance content |
 |---|---|---|
 | [brainstorm.md](../claude/DevForgeAI/skills/brainstorm/assets/brainstorm.md) | What could we build, and why? | None (only candidate success signals) |
-| [dsn.md](../claude/DevForgeAI/skills/ui/assets/dsn.md) | Which screens does the release have, and which flow and ideas does each show? | None; board items (`BRD-`) mapped to flows, surfaces and promoted ideas, from boards committed under `design/DSN-NNN/boards/` (ADR-007; schema `design.schema.json`) |
+| [dsn.md](../claude/DevForgeAI/skills/ui/assets/dsn.md) | Which screens does the release have, and which flow and ideas does each show? | None; board items (`BRD-`) mapped to flows, surfaces and promoted ideas, from boards imported from a Claude Design canvas into `design/DSN-NNN/boards/` (ADR-007; schema `design.schema.json`) |
 | [prd.md](../claude/DevForgeAI/skills/prd/assets/prd.md) | What are we building, for whom, and how do we measure success? | Success metrics (`SM-`), not testable AC |
 | [epic.md](../claude/DevForgeAI/skills/epic/assets/epic.md) | What large slice of value are we delivering? | "Done when" criteria (`DW-`) spanning stories |
 | [sprint.md](sprint.md) | What are we doing in this time-box? | None (references story AC and the sprint goal) |

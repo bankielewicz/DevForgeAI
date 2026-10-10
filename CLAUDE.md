@@ -30,9 +30,9 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | `spec-lookup` | SKL-011 v1, approved | SPEC-014 v3, approved | 3 runs, 4 of 4 at 1.00 | PR #75 (0.19.0) |
 | `precompact` | SKL-012 v1, approved | SPEC-015 v2, approved | 1 run, 12 of 12 at 1.00; 3-run qualification waived by Bryan | PR #93 (0.26.0) |
 | `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
-| `story` | SKL-008, reserved | SPEC-009 v3, draft | not built | — |
+| `story` | SKL-008, reserved | SPEC-009 v4, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
-| `ui` | SKL-013 v1, draft | SPEC-017 v1, approved | v1: not run (cycle B; 53 cases generated) | — (PR #110, draft) |
+| `ui` | SKL-013 v1, draft (held) | SPEC-017 v2, draft (v1 approved) | v1 build held: Bryan reversed its rule on 2026-10-10 (SPEC-017 §9); v2 not built | — (PR #110, draft) |
 
 - The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3, which is not
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
@@ -51,8 +51,8 @@ Change Log holds the history. Read those, not this file, for any number or date.
 - **The dashboard** (PRD-001 v12 FR-022; SPEC-016 v3, approved 2026-10-09, not built (v3's ledger hold shipped in 0.29.0); design `docs/specs/devforgeai-dashboard.md`; prototype `src/tools/dashboard-probe/`) is a pane of the tracker's mod, `/devforgeai:dashboard`. It needs SPEC-012 v17 and v18 and SPEC-013 v23 (the precompact row counted by fuel left) to v26 (the automatic precompact run's turn marked through BEH-41's set of names and, from v26, a pending mark in $.state with the turn-ID rule), all approved (v18, v25, v26 and SPEC-016 v2 on 2026-10-08), its evaluator and adapter parts and the odometer ledger writer (SPEC-016 BEH-10) shipped in 0.28.0 (PR #102, `7e5e3c7`); the pane is not built and waits for the design skill's place in the chain (0.29.0).
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels.
-- ADR-001 to ADR-007 in `docs/specs/adr/` are accepted; ADR-007 adds the `ui` step (release design, a DSN
-  from committed boards) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
+- ADR-001 to ADR-007 in `docs/specs/adr/` are accepted; ADR-007 adds the `ui` step (the skill makes the release's
+  Claude Design canvas through the Artifact tool and records its imported boards as a DSN; version 2 awaits acceptance) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
   context → epic → story → spec. PRD-001 (DevForgeAI itself) and PRD-002
   (DevForgeAI CLI, draft) are in `docs/specs/prd/`.
 
@@ -212,7 +212,7 @@ Recorded and not decided; each needs Bryan's decision before any work (see "Look
 building it"). The source of each item is named.
 
 - **Unbuilt skills:** `qa` (SPEC-008, a stub whose review criteria are open), `story` (SPEC-009,
-  draft), `ui`'s cycle C (the neighbours' changes: hand-offs, the DSN as input, `DSN` in `common.schema.json`, SPEC-017 v2's
+  draft), `ui`'s cycle C (the neighbours' changes: hand-offs, the DSN as input, `DSN` in `common.schema.json`, SPEC-017 v3's
   wording) and cycle D (the dashboard's eighth tile; ADR-007), `github-post` (SPEC-010 v3, awaiting approval; its templates are staged in
   `src/templates/github/`), and the chain's final Spec step, which only PRD-001 FR-017 covers (no
   spec, no reserved SKL ID).
