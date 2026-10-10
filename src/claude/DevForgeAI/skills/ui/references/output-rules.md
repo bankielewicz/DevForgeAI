@@ -1,0 +1,244 @@
+# DSN output rules
+
+## Contents
+
+- When to use this
+- Files
+- Frontmatter
+- Link records
+- Board items
+- The idea coverage table
+- Sections 1, 4 and 5
+- Writing a new DSN
+- Amending a DSN
+- Change Log rows
+- Approval
+- Checking with dsn_check.py
+- When validation still fails (ERR-11)
+- When the script cannot run (ERR-14)
+- Example board items
+- Self-check list
+
+## When to use this
+
+Read this before writing (SKILL.md step 4), and check every written file at step 5: `dsn_check.py check`
+decides every rule a script can, and the self-check list at the end keeps only what needs judgement. Later
+skills read the DSN mechanically (its ID, version and status, the active board items, the canvas facts), so a
+document that reads well but breaks a rule here misleads every document that cites it.
+
+## Files
+
+- `docs/specs/design/<ID>.md`, where `<ID>` is the ID the `next` command printed (a create run) or the DSN's
+  own ID (an amend run). Never take a file name from the user.
+- Write nothing else: no board file, no `canvas.json`, no other document. Never delete a file.
+
+## Frontmatter
+
+Keep exactly the template's keys, in its order. Unknown or misspelled keys are errors.
+
+| Key | Value |
+|---|---|
+| `id` | The ID; equals the file name |
+| `type` | `design` |
+| `title` | Quoted: the BRN's title followed by `: release design`, unless the user gives another |
+| `status` | `draft` for a new DSN; the rules of "Amending" and "Approval" otherwise. Never `superseded` or `deprecated`: those are the user's |
+| `version` | `1` for a new DSN; plus one per amend run; unchanged by an approval |
+| `created`, `updated` | Unquoted `YYYY-MM-DD`: today for a new DSN; an amend or an approval sets `updated` to today |
+| `owner` | Quoted: the BRN's `owner`, unless the user names another |
+| `authors` | `["<owner>", "claude-code"]` |
+| `generated_by` | `tool: "claude-code"`, `model:` your own model ID, `session:` the session ID SKILL.md gives, all quoted. When the host cannot provide one, write `"unavailable"` and say so in this write's Change Log row and in the report. An amend keeps the existing values |
+| `reviewed_by` | `[]` for a new DSN; kept otherwise. Humans only |
+| `approved_by`, `approved_on` | `""` and `null` until approval |
+| `upstream` | Link records (next section) |
+| `supersedes`, `superseded_by`, `blocked_by` | `[]`, `null`, `[]` |
+| `canvas` | The `https://` URL the user gave, quoted, or `null` |
+| `canvas_version` | The version the user gave for the copy now in the boards folder, quoted, or `null` |
+| `canvas_format` | The integer `v` of `canvas.json`, from the `boards` command |
+| `boards_root` | `docs/specs/design/<ID>/boards/` for this document's own ID |
+| `considered` | `[]` for a new DSN. In an amend run, entries of the form `PRD-NNN@N`, `ADR-NNN@N`, `declined:PRD-NNN#FR-NNN` or `declined:ADR-NNN`, without repeats; no `declined:` entry names an item an active board's `answers` holds |
+
+Keep the `# --- design-specific ---` line before `canvas`, and delete the template's other comments.
+
+## Link records
+
+One record per line, in flow form: `- {id: BRN-001, relation: derives, version: 1, hash: null}`. `hash` is always
+`null`. `upstream` holds:
+- one `derives` link to the BRN with no `item`, at the BRN's version;
+- one `derives` link with `item: IDEA-NN` to the same BRN, at the same version, for each distinct idea an
+  active board names, a `withdrawn` idea that a board still names included;
+- nothing else: no link to a PRD or an ADR. A board's references to requirements and ADRs are plain `answers`
+  text, because the PRD's section 8 links the DSN, and a link back would make each bump the other's suspect link
+  for ever.
+
+## Board items
+
+One item for each board `canvas.json` names, in canvas order, `BRD-01` upward. After an amend, a board added
+later is appended with the next free number. Quote every free-text value.
+
+| Field | Holds |
+|---|---|
+| `id` | `BRD-NN`, two digits, never renumbered or reused |
+| `status` | `active`, or `deprecated` for a board that left the canvas; an item is never deleted |
+| `superseded_by` | Optional: the `BRD-NN` that replaces a deprecated board, only when the user says so |
+| `file` | The file name as `canvas.json` names it |
+| `title` | The name the user confirmed, else the file name up to its first dot |
+| `flow` | The user's flow as a lowercase slug, or `null` until confirmed |
+| `surface` | `web`, `desktop`, `mobile` or `terminal`, or `null` until confirmed |
+| `ideas` | The promoted ideas the board shows, a list of `IDEA-NN`; `[]` when the user confirmed none; `null` until confirmed |
+| `answers` | `PRD-NNN#FR-NNN`, `PRD-NNN#NFR-NNN` or `ADR-NNN`: a list, `[]` when none. Written only for a candidate the user confirmed or a reference the user states |
+| `sha256` | The digest the `boards` command printed for the file at this run |
+| `notes` | Optional: free text, or `null`; it holds the marker for each `null` field of the item |
+
+An item has no other field, `upstream` included. An item with a `null` `flow`, `surface` or `ideas` has
+`[NEEDS CLARIFICATION` in its `notes`. A file that left the canvas and came back gets a new item with the next
+free number; the deprecated item stays.
+
+## The idea coverage table
+
+Section 3 holds `| Idea | Boards | Status |` and one row for each promoted idea of the BRN, in idea ID order, at
+the version read. The `Boards` cell lists the active `BRD-NN` items that name the idea, or `none`.
+- `designed`: at least one active board names the idea.
+- `not a screen`: the user said no board is needed.
+- `no board yet`: no active board names it and the user has not said `not a screen`. Section 5 holds a marker
+  that names the idea.
+- `withdrawn`: an earlier version listed the idea as promoted and the BRN no longer does. `Boards` lists the
+  active boards that still name it, or `none`.
+
+Keep section 3 equal to this after every write. Never add a row for an idea that is not promoted, other than a
+`withdrawn` row, and never record an idea as `not a screen` unless the user said so.
+
+## Sections 1, 4 and 5
+
+- **1. Scope:** two to four sentences: the product or release (from the BRN's title and context), the flows and
+  the surfaces that appear. Claim nothing the user did not confirm.
+- **4. Canvas:** the `canvas` and `canvas_version` values (or `null` with the marker `[NEEDS CLARIFICATION:
+  canvas URL and version copied]`), the date of the copy when the user gave it, and the re-copy rule the
+  template states.
+- **5. Open questions:** one `[NEEDS CLARIFICATION: …]` bullet for each marker the document holds outside a
+  board's `notes`, or `None.`
+
+## Writing a new DSN
+
+Use Write once, from the template (SKILL.md gives the path):
+- keep every heading of the template, in its order;
+- delete every author comment, HTML and `#` alike, and replace every `[[fill: …]]` placeholder and every
+  stand-in value (`DSN-000`, `BRN-000`, `YYYY-MM-DD`, `canvas_format: 0`, the example board and its zero digest);
+- ID, version 1, status `draft`, `created` and `updated` today, `considered: []`;
+- one board item for each board in canvas order, with the file, the confirmed or `null` mapping, `answers: []`
+  unless the user stated a reference (taken as stated: the check, not the interview, tests that the item
+  exists), and the digest from the script;
+- sections 3 to 5 as above, and one Change Log row.
+
+The write is a revision of no earlier document: it overwrites nothing.
+
+## Amending a DSN
+
+Use Edit, never Write, starting from the document's current text.
+- **Version:** raise `version` by one whatever the status, a draft's included, at most once per run, by the
+  first write that changes content. Later edits in the same run (repairs, the user's corrections) keep the
+  version and update that run's Change Log row instead of adding another. Set `updated` to today.
+- **Change only** what the user confirmed or a script fact requires (a digest, `canvas_format`, a link
+  version, `considered`). Keep every other line.
+- **Items:** never delete or renumber one. Deprecate a removed board's item. Append a new board's item with the
+  next free BRD number. Add the confirmed `answers` entries (never to `upstream`). Update `sha256` for every
+  changed board.
+- **Status:** an approved DSN becomes `in-review` with `approved_by` cleared and `approved_on` null, so the
+  change is reviewed explicitly; a draft or in-review DSN keeps its status.
+- **Keep** the existing `authors` (adding the tool if it is missing), `reviewed_by` and every Change Log row.
+  The new version has not been reviewed: say so in the Change Log row and in the report.
+- **Links:** move them to the BRN's current version in the same run when the BRN has moved.
+
+## Change Log rows
+
+Never change a row an earlier run wrote; this run's own row may grow to name every change. Columns:
+`| Version | Date | Author | Change | Items affected |`.
+
+| Event | Version | Author | Change |
+|---|---|---|---|
+| New DSN | `1` | `claude-code (session <session ID>)` | `Created from BRN-NNN vN and the boards; <number> markers left` |
+| Amend (one row per run) | the new version | the same | The boards changed, added or removed (by file); the `canvas_version` now recorded; the ideas, requirements and ADRs considered, with the document versions read; any link moved; `The new version has not been reviewed` |
+| Approval | the current version | the approver's name | `Approved` |
+
+Items affected: `all` for a new DSN; the BRD IDs and section names for an amend; `status` for an approval. The
+session ID is the one SKILL.md gives.
+
+## Approval
+
+Only on the user's explicit words (SKILL.md step 6). One Edit touches only `status` (`approved`), `approved_by`
+(the name the user gave), `approved_on` (today), `updated` (today) and one new Change Log row
+`| <version> | <today> | <approver> | Approved | status |`. Raise no version. Then run the check again. If it
+fails, undo with a second Edit that restores those four fields and removes the row, and report the DSN as not
+approved, with the errors. If the undo fails, report "approval rollback failed" with the `status`,
+`approved_by` and `approved_on` the file now holds.
+
+## Checking with dsn_check.py
+
+SKILL.md gives the commands. `check` prints one line for each error,
+`<file>:<line>: <part>: <message> (<rule>)`, a `warning: …` line for each suspect link or stale reference, then
+`OK <file>` or `INVALID: <n> error(s) in <file>`; exit 0 valid, 1 invalid, 2 cannot run.
+- Run one initial check, then at most three repair-and-readback cycles, so at most four checks. A repair
+  changes the file to address a reported error.
+- Record each check and repair in the reply, quoting the script's lines (`Check 1: INVALID: 1 error(s) in
+  docs/specs/design/DSN-001.md: …; repair 1: added the marker; check 2: OK docs/specs/design/DSN-001.md`).
+- A suspect-link warning is named in the reply and never repaired by editing another document.
+- An error that cannot be repaired (one in a file this skill may not edit) ends the cycles early and is
+  reported.
+
+## When validation still fails (ERR-11)
+
+After the initial check and three repair cycles with errors left, or an error that cannot be repaired: stop. A
+new DSN stays `draft`. An amended DSN keeps the status "Amending" gave it and is never set to `approved`.
+Replace the report block and the next step with a validation-failure report that lists the checks, the repairs
+and the unresolved errors. Do not hand off to the PRD and do not name the DSN as ready.
+
+## When the script cannot run (ERR-14)
+
+- Before writing (`next` or `boards` exits 2, `python3` is missing, or a BRN it needs cannot be read): stop,
+  say the check could not run, quote its `Cannot run:` line, and write nothing.
+- After the run has written (`check` exits 2): name the file as written and not checked, leave its status as it
+  is, approve nothing, and say so in the report.
+
+## Example board items
+
+```yaml
+boards:
+  - id: BRD-01
+    status: active
+    file: "Home.dc.html"
+    title: "Home"
+    flow: report-and-home
+    surface: web
+    ideas: ["IDEA-02"]
+    answers: []
+    sha256: "9f2c5a1e0b7d4c3a8e6f1d2b3c4a5968778695a4b3c2d1e0f9a8b7c6d5e4f3a2"
+    notes: null
+  - id: BRD-02
+    status: active
+    file: "List.dc.html"
+    title: "List"
+    flow: shifts
+    surface: terminal
+    ideas: null
+    answers: ["ADR-009"]
+    sha256: "1b3d5f7a9c0e2b4d6f8a0c2e4b6d8f0a1c3e5b7d9f1a3c5e7b9d1f3a5c7e9b0d"
+    notes: "[NEEDS CLARIFICATION: ideas this board shows]"
+```
+
+## Self-check list
+
+Read each written file back for what the script cannot decide:
+1. Each mapping says what the user confirmed: every title, flow, surface, idea list, `answers` entry and
+   coverage status is the user's words or a stated answer, never something inferred from a board's text.
+2. Every `null` has a marker that names what is open, and no marker is left for a value now known. Section 5
+   holds a marker for each `no board yet` idea, and the count in the Change Log row matches the document.
+3. Section 1 claims nothing the user did not confirm: no flow, surface or idea beyond the board items.
+4. The Change Log row describes the run: the boards changed, added or removed, the `canvas_version` now
+   recorded, the documents and versions considered, the links moved, the unavailable provenance, and the
+   statement that an amended version has not been reviewed.
+5. `canvas_version` is the version the user gave for the copy now in the boards folder, never carried over after
+   a board changed.
+6. In an amend run, only what the user confirmed or a script fact required was edited, no item was deleted or
+   renumbered, the version rose once, `considered` follows the lazy rule, and the status follows "Amending".
+7. No author comment, `[[fill:` placeholder or stand-in value is left (the check finds comments and
+   placeholders, not `DSN-000` or a zero digest).
+8. Nothing was written but the DSN.
