@@ -568,7 +568,7 @@ class V2CaseTests(unittest.TestCase):
         self.assertEqual(["ver39-briefs-are-well-formed"], [g.name for g in llm])
         fm, body = front_matter(GENERATED / "brief-drafted" / "graders" / "ver39-briefs-are-well-formed.md")
         self.assertEqual("llm", fm["type"])
-        self.assertIn("Give me 3 distinctly different directions of the key screen first", body)
+        self.assertIn("3 distinctly different directions of the key screen first", body)
 
     def test_the_v2_reply_graders(self):
         yes_no = [

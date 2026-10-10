@@ -4,4 +4,4 @@ target: last_message
 match: contains
 flags: i
 ---
-\bnot (?:been )?(?:re-?)?checked\b|\bn['’]t (?:been )?(?:re-?)?checked\b|\bcould(?:n['’]t| not) (?:be )?check|\bunchecked\b|\bnot verified\b|\bno Artifact tool\b|\bwithout (?:the )?Artifact tool\b
+(?:\bnot|n['’]t) (?:been |yet |re-?)*(?:checked|verified|looked at)\b|\bcould(?:n['’]t| not) (?:be )?(?:check|see|verify|read|reach)\w*|\bunchecked\b|\bno Artifact tool\b|\bwithout (?:the )?Artifact tool\b

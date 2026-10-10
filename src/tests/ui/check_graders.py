@@ -453,6 +453,110 @@ ALT_REPLIES = {"amend-candidates-left": [OBSERVED_LEFT], "amend-candidates-cappe
                "amend-nothing-with-unrelated-documents": [REPLY_CURRENT_B],
                "amend-nothing-with-unasked-candidate": [REPLY_CURRENT_B.rstrip("\n") + " One candidate (PRD-001 FR-024) waits for an interactive run.\n"]}
 
+# Final replies of v2 suite run 1 (42a5388) that the graders refused: each must pass every regex grader of its case with the
+# primary correct run's files (the llm grader of brief-drafted cannot be graded offline)
+OBSERVED_UNCONVERGED = """\
+I stopped before writing anything because BRN-001 is still a draft, and "proceed without questions" can't decide whether to go ahead with one.
+
+- [x] 1. This is a create run for BRN-001 ("Shiftlog: record shifts"): no DSN cites it, and the next ID is DSN-001. No other numbered folder is waiting for a document.
+- [ ] 2. **Stopped here.** BRN-001 has `status: draft` (version 1, owner Example Owner), so the brainstorm isn't converged and some ideas may still change.
+- [ ] 3–10. (skipped: waiting for your answer on the draft brainstorm)
+
+What the run found:
+- **Promoted ideas (5):** IDEA-01 add a shift from the terminal, IDEA-02 list shifts in a table, IDEA-03 a weekly report page, IDEA-04 export shifts as CSV, and IDEA-06 a dark theme for the report page. IDEA-05 (sync to a server) is parked, so the DSN won't cite it.
+- **Existing boards:** `docs/specs/design/DSN-001/boards/` already holds `canvas.json` plus `Add.dc.html`, `Home.dc.html`, `List.dc.html` and `Report.dc.html`. If you continue, I'll record that copy as it is: no new canvas, no briefs and no import.
+
+**Should I continue with BRN-001 even though it is still a draft?**
+- **Yes, continue:** I record the boards copy as DSN-001 version 1, draft. Because no questions are being asked, each board's flow, surface and ideas stay `null` with `[NEEDS CLARIFICATION]` markers until you confirm them.
+- **No, converge the brainstorm first:** run `/devforgeai:brainstorm` to finish BRN-001, then `/devforgeai:ui BRN-001`.
+
+Next step: reply "yes, continue with BRN-001" to record the design from the draft brainstorm, or converge BRN-001 with `/devforgeai:brainstorm` first and then run `/devforgeai:ui BRN-001`.
+"""
+OBSERVED_NOTHING_WITH_PRD = """\
+I made no changes. DSN-001 is already current with the boards copy, BRN-001 and PRD-001, so I wrote nothing and kept it at **version 1, draft**. It records canvas version `17-example`.
+
+- [x] 1. BRN-001 selected. DSN-001 already covers it, so this was an update to the existing document.
+- [x] 2. Read BRN-001, DSN-001 and PRD-001, and checked the copy of the boards in the repository.
+- [ ] 3–5. (skipped: this session has no Claude Design connection, so I used the copy of the boards in the repository)
+- [x] 6. Found nothing to change; the run stopped here.
+- [ ] 7–9. (skipped: nothing to change)
+- [ ] 10. (skipped: no document was written)
+
+**What I checked**
+- The four boards in `docs/specs/design/DSN-001/boards/` (Home, List, Add, Report) passed the check, and none has changed since DSN-001 recorded them.
+- DSN-001 passed its pre-update check with no differences: no board changed, was added or was removed.
+- DSN-001's links to BRN-001 match its current version (v1). Every promoted idea already has a row in its idea coverage table. That includes IDEA-06, the dark theme, which still has no board.
+- DSN-001 already records PRD-001 v2 as reviewed, and there are no ADRs, so there were no requirements to map to a board.
+- Your request asked for an update without naming a change, and "proceed without questions" meant I couldn't ask what you wanted changed.
+
+**The canvas wasn't checked.** This session has no Claude Design connection, so I couldn't see the canvas. Edits made there since version `17-example` will only show up after a run with Claude Design imports them, or after you copy the board files into the boards folder by hand.
+
+DSN-001 still has one open question: IDEA-06, the dark theme, has no board. Until it's answered, DSN-001 can't be approved.
+
+**To make an actual change,** run `/devforgeai:ui BRN-001` in an interactive Claude Code session with Claude Design. That run reads the canvas, imports any boards you changed, and offers to draw the missing dark-theme screen. Or name the change you want in the request, such as a board's flow, surface, ideas or step order.
+"""
+OBSERVED_BRIEFS = """\
+- [x] 1. Select the BRN: BRN-001 ("Shiftlog: record shifts", converged, v1). No DSN cites it, so this is a create run and the new ID would be DSN-001.
+- [x] 2. Read the BRN and find the boards. Five ideas are promoted (IDEA-01, 02, 03, 04, 06). `docs/specs/design/DSN-001/boards/` doesn't exist, no canvas URL was given and there are no pending boards folders. That means the run has to make a canvas, but the Artifact tool isn't available in this session.
+- [x] 3. Flows and briefs: drafted below. They're unconfirmed (ERR-19 and ERR-22).
+- [ ] 4. Canvas (skipped: no Artifact tool in this session, and the grouping and briefs aren't confirmed)
+- [ ] 5. Wait, then import (skipped: no canvas)
+- [ ] 6. Interview (skipped: no boards)
+- [ ] 7. Write DSN-001 (skipped: nothing to record)
+- [ ] 8. Validate (skipped: no DSN written)
+- [ ] 9. Approval (skipped: no DSN written)
+- [x] 10. Report
+
+## No UI was designed: this session can't create the canvas
+
+The canvas has to be made in Claude Design through the Artifact tool, and this session doesn't have it. Separately, "proceed without questions" means the flow grouping and briefs below were never confirmed, and nothing goes to claude.ai without that confirmation. So nothing was sent and nothing was written in the repository. I also didn't draw text mockups as a substitute.
+
+**Screens the promoted ideas name.** IDEA-04 ("Export shifts as CSV") doesn't name a screen, so it has no flow below. You can name it on a later run if you want it drawn.
+
+**Proposed grouping (unconfirmed):**
+- `shifts`, surface `terminal`. Screens: 1. List (key screen, IDEA-02), 2. Add (IDEA-01).
+- `weekly-report`, surface `web`. Screens: 1. Report (key screen, IDEA-03 and IDEA-06).
+
+**Brief 1: `shifts` (unconfirmed)**
+
+```
+Shifts in the terminal: the List and Add screens of Shiftlog, a terminal tool, for shift workers who record when they start and stop work.
+
+Context: Shift workers record when they start and stop work, and today they lose track of the hours they worked each week. The one job of this flow: add a shift and see the shifts already recorded at a glance.
+
+Content: the idea "List shifts in a table"; the idea "Add a shift from the terminal"; the problem "Workers lose track of the hours they worked each week". The flow's screens, in order: 1. List (the key screen), 2. Add. States to show: no shift recorded yet; a list of recorded shifts.
+
+Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters and 24-bit colour; fully keyboard-driven.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
+
+**Brief 2: `weekly-report` (unconfirmed)**
+
+```
+The weekly report: the Report page of Shiftlog, a web app, for shift workers who want to see the hours they worked each week.
+
+Context: Shift workers record when they start and stop work, and lose track of the hours they worked each week. The one job of this flow: open the report and read the week's hours.
+
+Content: the idea "A weekly report page"; the idea "A dark theme for the report page"; the problem "Workers lose track of the hours they worked each week". The flow's screens, in order: 1. Report (the key screen). States to show: a week with no shifts; a week with shifts.
+
+Must-haves: a web page for a desktop browser, 1280 pixels wide; readable in a dark theme.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
+
+The style is "propose one" because without the Artifact tool I couldn't look up your default design system. You can paste either brief into `/design` yourself. Another option: put `canvas.json` and the board files it names in `docs/specs/design/DSN-001/boards/`, and the next run will record that copy as it is.
+
+Next step: run `/devforgeai:ui BRN-001` in an interactive Claude Code session that has the Artifact tool, and without "proceed without questions". You can then confirm or change the grouping and briefs, and the canvas gets made. If you already have a canvas, run `/devforgeai:ui BRN-001 <canvas URL>` instead to import it.
+"""
+ALT_REPLIES["unconverged-brn"] = [OBSERVED_UNCONVERGED]
+ALT_REPLIES["amend-nothing-with-prd"] = ALT_REPLIES["amend-nothing-with-prd"] + [OBSERVED_NOTHING_WITH_PRD]
+ALT_REPLIES["brief-drafted"] = [OBSERVED_BRIEFS]
+
 # --------------------------------------------------------------------------------------------------------
 # The targeted wrong runs: (label, edits, the graders that must fail, and no others). An edit is
 # ("file", path, old, new) or ("reply", None, old, new); "calls" replaces the tool calls.
