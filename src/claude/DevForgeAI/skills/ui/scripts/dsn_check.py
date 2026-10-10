@@ -355,7 +355,7 @@ def cmd_next(root):
     nxt = max(numbers) + 1 if numbers else 1
     if nxt > MAX_DSN_NUMBER:
         raise CannotRun(f"the DSN numbers are used up (DSN-{MAX_DSN_NUMBER} exists)")
-    pending = sorted(folders - numbers)
+    pending = sorted(folders - numbers - {nxt})      # the folder at the next number is where the boards belong: not pending
     listed = ", ".join(f"DSN-{n:03d}" for n in pending) if pending else "none"
     return [f"next: DSN-{nxt:03d}", f"pending boards folders: {listed}"], 0
 

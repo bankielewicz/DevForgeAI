@@ -12,8 +12,8 @@ Readings this test pins where SPEC-017 leaves a choice (listed for Bryan in the 
 - the `head` trailer's `<n> lines cut` is the number of lines left out (lines - shown), as VER-23 says "the trailer
   says 250 lines left out"; a shortened line shows `[cut]` on the line, and `bytes shown` is the bytes of the
   file actually printed (a shortened line counts its first 500 characters). The whole output stays within 16384 bytes;
-- `pending boards folders` lists every DSN-NNN folder without a DSN-NNN.md (the definition in section 4), including
-  one at the next free number;
+- `pending boards folders` lists every DSN-NNN folder without a DSN-NNN.md except the one at the next free number,
+  where a create run expects the boards (section 4: it "matters only when it isn't the next free number");
 - a board name holding `..` anywhere, or equal to `.`, is refused (ERR-06's text says "holds .."), not only `..`;
 - `check --before-amend` prints both the suspect-link `warning:` and the `fact: links:` line;
 - `board <k>` in the `boards` output counts from 1, and "1 boards" is not pluralised (the literal section 5 text);
@@ -757,12 +757,18 @@ class Next(Base):
         r = self.cli("next")
         self.assertEqual((r.code, r.lines), (0, ["next: DSN-002", "pending boards folders: DSN-005"]), r)
 
-    def test_pending_folders_are_listed_in_order_and_include_the_next_number(self):
+    def test_pending_folders_are_listed_in_order_and_leave_out_the_next_number(self):
         self.p.put("docs/specs/design/DSN-001.md", "x")
         for n in ("DSN-004", "DSN-002", "DSN-009"):
             self.p.put(f"docs/specs/design/{n}/boards/canvas.json", "{}")
         r = self.cli("next")
-        self.assertEqual(r.lines, ["next: DSN-002", "pending boards folders: DSN-002, DSN-004, DSN-009"], r)
+        self.assertEqual(r.lines, ["next: DSN-002", "pending boards folders: DSN-004, DSN-009"], r)
+
+    def test_boards_in_the_folder_of_the_next_number_are_not_pending(self):
+        # section 4: the user copies the boards into the next number's folder before a create run
+        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", "{}")
+        r = self.cli("next")
+        self.assertEqual(r.lines, ["next: DSN-001", "pending boards folders: none"], r)
 
     def test_other_names_are_ignored(self):
         self.p.put("docs/specs/design/DSN-002.md", "x")
