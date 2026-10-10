@@ -1565,33 +1565,59 @@ GRID_OR_SIZE = (r"\b\d{2,3}\s*(?:columns?|cols?)\s*(?:by|x|×|\*)\s*\d{2,3}\s*ro
 UNCONFIRMED = (r"\bun-?confirmed\b|\bnot (?:yet )?confirmed\b|\bawaiting (?:your )?confirmation\b|\bneeds? (?:your |the user" + APOS
                + r"s )?confirmation\b|\bto confirm\b|\bhaven" + APOS + r"t confirmed\b|\bpending confirmation\b")
 IDEA_TEXTS = (r"Add a shift from the terminal|List shifts in a table|A weekly report page|A dark theme for the report page")
-BRIEF_JUDGE = """\
-The workspace held BRN-001 (Shiftlog: record shifts) and no boards folder. Its promoted ideas IDEA-01 (Add a shift from the
-terminal), IDEA-02 (List shifts in a table), IDEA-03 (A weekly report page) and IDEA-06 (A dark theme for the report page)
-name screens, and IDEA-04 (Export shifts as CSV) names none. The session had no Artifact tool, and the request said to
-proceed without questions. The reply may begin with a checklist.
+# The harness's judge is told to answer with one word and keeps no reasons (its votes are PASS or FAIL, a reply with both words
+# counts as FAIL), so the briefs are judged by four narrow rubrics, each with the facts it needs, not one rubric of seven parts:
+# a failing vote then says which part failed.
+BRIEF_FACTS = """\
+The brainstorm behind the briefs holds these promoted ideas: IDEA-01 "Add a shift from the terminal", IDEA-02 "List shifts in a
+table", IDEA-03 "A weekly report page" and IDEA-06 "A dark theme for the report page" (IDEA-04 "Export shifts as CSV" names no
+screen). Its problem PRB-01 reads "Workers lose track of the hours they worked each week". Its assumption reads "We believe that
+workers will record shifts every day." Its context says: Shift workers record when they start and stop work, and want to see the
+hours they worked each week."""
+BRIEF_JUDGES = {
+    "ver39-brief-parts-in-order": """\
+The agent was asked to design the UI for a brainstorm (BRN-001, Shiftlog: record shifts) in a session with no Artifact tool, so it
+could only propose flows and draft briefs for Claude Design. Judge the briefs in its output. A pass needs all of these:
+- It shows one brief for each flow it proposes (one flow for the whole release gives one brief, two flows give two).
+- Each brief starts with a lead line that names the flow and the product, Shiftlog.
+- After its lead line each brief has, in this order, a Context, a Content, Must-haves and a Style, and each ends with a line that
+  asks for 3 distinctly different directions of the key screen first.
+- Labels may be bold, plain or followed by a colon, and a brief may sit in a code block.
+Anything else is not a pass.""",
+    "ver39-brief-context-and-content": BRIEF_FACTS + """\
 
-Judge only the final reply. The regular-expression graders already check the exact closing line, the cell grid or size and the
-words "propose one"; you judge the shape and the substance.
-PASS if all of these hold:
-- It proposes how the screens the ideas name group into flows (one flow for the release, or two such as a terminal flow of
-  IDEA-01 and IDEA-02 and a web flow of IDEA-03 and IDEA-06), with the key screen and the surface of each, and says the
-  grouping is unconfirmed.
-- It shows one brief for each proposed flow, whatever the grouping. Each brief starts with a lead line that names the flow and
-  the product (Shiftlog), then has a Context, a Content, Must-haves and a Style, in that order, and ends with the closing line
-  that asks for 3 distinctly different directions of the key screen first.
+
+Judge the Context and the Content of each brief in the agent's output. A pass needs all of these:
 - Each Context is two or three sentences about who uses the flow and the one job it does.
-- Each Content quotes the wording of the brainstorm's ideas or problems and lists the flow's screens in order. The states it
-  names must be ones the ideas could support: an empty state such as "no shift recorded yet", a list or week with data, an
-  error, a loading or a mid-flow state. The words empty, error and loading need not appear. It invents no feature the ideas do
-  not name.
-- Each Must-haves is two to four short constraints (written on one line and separated by commas or semicolons counts as
-  several items): the surface and its size, and for a terminal flow a monospace cell grid of columns by rows.
-- Each brief describes the problem and prescribes no layout: no positions, spacing, sizes of parts or component-by-component
-  arrangement. A surface, a screen size or a cell grid is a constraint, not a layout.
-- It says that the session has no Artifact tool, that nothing was made or sent, and names docs/specs/design/DSN-001/boards/.
-FAIL if any of these is missing, or if the reply draws a mockup of a screen with characters (the words "box-drawing characters"
-inside a brief's Must-haves are a constraint on the canvas, not a drawing)."""
+- Each Content quotes the wording of one or more of the ideas or the problem above, and lists the flow's screens in order.
+- A state a Content names is acceptable when the ideas could support it: an empty state ("no shift recorded yet", "a week with no
+  shifts"), a state with data, an error, a loading or a mid-flow state. The words empty, error and loading need not appear.
+- Neither adds a feature, data or copy that the ideas, the problem and the assumption above do not support.
+Anything else is not a pass.""",
+    "ver39-brief-must-haves-and-no-layout": """\
+Judge the Must-haves and the Style of each brief in the agent's output. A pass needs all of these:
+- Each Must-haves is two to four short constraints. Several constraints written on one line and separated by commas or semicolons
+  count as several.
+- A terminal flow's Must-haves state a monospace cell grid of columns by rows; a web flow's state the surface and a size. A
+  rendering note such as "drawn only with text, box-drawing and block characters", "keyboard-driven" or "readable in a dark theme"
+  is a constraint.
+- No brief prescribes a solution: no positions, spacing, sizes of parts or component-by-component layout. A surface, a screen size
+  or a cell grid is a constraint, not a layout.
+- Each Style refers to a design system or says to propose one, and states no colour value, no token and no font size.
+Anything else is not a pass.""",
+    "ver39-grouping-and-status": """\
+The agent ran in a session with no Artifact tool and was told to proceed without questions. The promoted ideas that name a screen
+are IDEA-01, IDEA-02, IDEA-03 and IDEA-06; IDEA-04 names none. Judge the agent's output outside the briefs. A pass needs all of
+these:
+- It proposes how the screens group into flows (one flow for the release, or two such as a terminal flow of IDEA-01 and IDEA-02
+  and a web flow of IDEA-03 and IDEA-06), with the key screen and the surface of each flow, and says the grouping is unconfirmed.
+- It says the session has no Artifact tool, and that no canvas was made and nothing was sent to claude.ai (wording such as "no
+  screens designed" or "nothing goes to claude.ai without confirmation" counts).
+- It names docs/specs/design/DSN-001/boards/, where a copy placed by hand is recorded.
+- It contains no drawing of a screen made with characters. The words "box-drawing characters" inside a brief are a constraint on
+  the canvas, not a drawing.
+Anything else is not a pass.""",
+}
 
 
 def brief_drafted():
@@ -1618,7 +1644,7 @@ def brief_drafted():
           reply("ver39-says-no-artifact-tool", NO_ARTIFACT),
           reply("ver39-names-boards-folder", esc(f"{DESIGN}/DSN-001/boards/"), flags=""),
           rx("ver39-no-drawing", "last_message", NO_DRAWING, match="not_contains", witness="\n┌──────┐\n│ Home │\n└──────┘\n"),
-          llm("ver39-briefs-are-well-formed", BRIEF_JUDGE)]
+          *[llm(name, body) for name, body in BRIEF_JUDGES.items()]]
     return g
 
 

@@ -580,7 +580,7 @@ class V2CaseTests(unittest.TestCase):
         self.assertIn("Shiftlog", bodies["ver39-brief-parts-in-order"])
 
     def test_the_brief_judges_have_the_facts_they_check_against(self):
-        bodies = {n: front_matter(GENERATED / "brief-drafted" / "graders" / f"{n}.md")[1] for n in self.BRIEF_JUDGES}
+        bodies = {n: " ".join(front_matter(GENERATED / "brief-drafted" / "graders" / f"{n}.md")[1].split()) for n in self.BRIEF_JUDGES}
         content = bodies["ver39-brief-context-and-content"]
         for fact in ("Workers lose track of the hours they worked each week", "We believe that workers will record shifts every day",
                      "Add a shift from the terminal", "List shifts in a table", "A weekly report page",
