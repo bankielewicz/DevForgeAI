@@ -101,4 +101,4 @@ copy of the boards means a new run, which amends this document.
 
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
-| 1 | YYYY-MM-DD | claude-code (session [[fill: the session ID]]) | [[fill: Created from BRN-NNN and the boards; the number of markers left]] | all |
+| 1 | YYYY-MM-DD | claude-code (session [[fill: the session ID]]) | [[fill: Created from BRN-NNN vN and the boards; N markers left, N being the count]] | all |

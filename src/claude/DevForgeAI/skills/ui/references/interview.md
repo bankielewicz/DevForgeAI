@@ -30,8 +30,8 @@ lowercase slug (`day-to-day`).
 A call holds at most 4 questions, each with 2 to 4 options, the recommended option first and marked
 "(Recommended)". The user may answer in their own words. Fill each call in this order and carry the rest to
 the next call. The interview is bounded by this structure, not by a call budget.
-1. **The canvas facts,** when the request does not state them: the canvas URL and the canvas version copied
-   (below).
+1. **The canvas facts,** in a create run, or in an amend run in which a board changed, was added or was
+   removed, when the request does not state them: the canvas URL and the canvas version copied (below).
 2. **One question for each proposed flow,** showing its boards, each with the proposed title, surface and
    ideas. Options: confirm the group as shown (Recommended); change a board's flow, surface or ideas; leave the
    flow unconfirmed. The user confirms or changes the group.
@@ -88,11 +88,18 @@ ideas, which idea names no screen, which idea has no board yet, who approves. As
 
 ## Proceed without questions
 
-A request that says to proceed without questions, or not to ask anything, asks nothing in this run: every
-mapping the request does not state is `null` with its marker, every unstated canvas fact is `null` with its
-marker, every promoted idea no board shows is `no board yet` (never `not a screen`), and no approval is
-offered. Every other step still runs. It never answers the gates: which BRN, an unconverged BRN, which of
-several DSNs to amend.
+A request that says to proceed without questions, or not to ask anything, asks nothing in this run:
+- every mapping the request does not state is `null` with its marker, and so is every unstated canvas fact;
+- every promoted idea no board shows, and that the request does not say names no screen, is `no board yet`;
+  never `not a screen` on the skill's own judgement;
+- no candidate is put to the user: report every candidate as left for a later run, with their number.
+  `considered` gains no `PRD-NNN@N` or `ADR-NNN@N` entry for their documents. A `declined:` entry the request
+  states is still recorded, and counts toward the caps;
+- no approval is offered (an approval the request itself gives, with a name, still applies at step 6 of
+  SKILL.md).
+
+Every other step still runs. It never answers the gates: which BRN, an unconverged BRN, which of several DSNs
+to amend.
 
 ## When the user stops (ERR-13)
 

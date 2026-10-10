@@ -13,6 +13,7 @@
 - Amending a DSN
 - Change Log rows
 - Approval
+- The report
 - Checking with dsn_check.py
 - When validation still fails (ERR-11)
 - When the script cannot run (ERR-14)
@@ -69,6 +70,9 @@ One record per line, in flow form: `- {id: BRN-001, relation: derives, version: 
 - nothing else: no link to a PRD or an ADR. A board's references to requirements and ADRs are plain `answers`
   text, because the PRD's section 8 links the DSN, and a link back would make each bump the other's suspect link
   for ever.
+
+After every change to the items, keep this list exact: add a link for a newly named idea, and drop the link of
+an idea no active board names any more.
 
 ## Board items
 
@@ -146,7 +150,9 @@ Use Edit, never Write, starting from the document's current text.
   change is reviewed explicitly; a draft or in-review DSN keeps its status.
 - **Keep** the existing `authors` (adding the tool if it is missing), `reviewed_by` and every Change Log row.
   The new version has not been reviewed: say so in the Change Log row and in the report.
-- **Links:** move them to the BRN's current version in the same run when the BRN has moved.
+- **Links:** move them to the BRN's current version in the same run when the BRN has moved. After every item
+  change, `upstream` holds one item link for each distinct idea an active board names (a kept `withdrawn` idea
+  included) and no other.
 
 ## Change Log rows
 
@@ -155,7 +161,7 @@ Never change a row an earlier run wrote; this run's own row may grow to name eve
 
 | Event | Version | Author | Change |
 |---|---|---|---|
-| New DSN | `1` | `claude-code (session <session ID>)` | `Created from BRN-NNN vN and the boards; <number> markers left` |
+| New DSN | `1` | `claude-code (session <session ID>)` | `Created from BRN-NNN vN and the boards; N markers left`, N being the count |
 | Amend (one row per run) | the new version | the same | The boards changed, added or removed (by file); the `canvas_version` now recorded; the ideas, requirements and ADRs considered, with the document versions read; any link moved; `The new version has not been reviewed` |
 | Approval | the current version | the approver's name | `Approved` |
 
@@ -170,6 +176,32 @@ Only on the user's explicit words (SKILL.md step 6). One Edit touches only `stat
 fails, undo with a second Edit that restores those four fields and removes the row, and report the DSN as not
 approved, with the errors. If the undo fails, report "approval rollback failed" with the `status`,
 `approved_by` and `approved_on` the file now holds.
+
+## The report
+
+Step 7 of SKILL.md gives the block and the next step. These are the rules of each line and of what follows.
+- **`Boards`** is printed in a create and in an amend run and names the copy in the boards folder that the run
+  read: `boards_root`, the number of active boards, and `canvas_version` or `unknown`.
+- **`Flows`** lists the flows in the order they first appear in the boards block, each hyphen shown as a space,
+  with `unconfirmed (<count>)` last for the boards with a `null` flow.
+- **`Boards with no idea`** lists the active boards whose `ideas` and `answers` are both `[]` (not `null`).
+  **`Ideas with no board`** lists the `no board yet` rows. **`Markers left`** counts every
+  `[NEEDS CLARIFICATION` marker in the DSN, a board's `notes` included.
+- **The last line** is the script's last line: `OK docs/specs/design/<ID>.md`. After a write whose check could
+  not run (ERR-14), it is the script's `Cannot run: …` line instead, and the report names the DSN as written and
+  not checked.
+- **An approval-only run's block** is the one line `Design document: <ID> (v<N>, approved)`. When that run
+  approved nothing, the line shows the status as it is: `(v<N>, <status>; not approved)`.
+- **Findings follow the block,** briefly: each check and repair, quoting the script's lines; in an amend run both
+  pre-check commands as run, in order (`dsn_check.py boards DSN-NNN`, then `dsn_check.py check --before-amend
+  DSN-NNN`), each with its last line and its `fact:` lines; the suspect-link warnings; the `answers` entries gone
+  stale (a deprecated PRD item, an ADR no longer accepted); the boards `head` reported as read in part; in an
+  amend run the documents that cite the DSN at an older version; the candidates the user declined or that were
+  left for a later run, with their number; the unconfirmed mappings; and, after an amend, that the new version
+  has not been reviewed, and any provenance written as `unavailable`.
+- **No block** for a run that stops before writing: ERR-01 to ERR-10, ERR-12, ERR-14 before the write, ERR-15
+  without confirmation, ERR-16 to ERR-18, ERR-13 without a save, and an approval-only request for an approved
+  DSN. ERR-11's report replaces the block and the next step.
 
 ## Checking with dsn_check.py
 
@@ -193,10 +225,11 @@ and the unresolved errors. Do not hand off to the PRD and do not name the DSN as
 
 ## When the script cannot run (ERR-14)
 
-- Before writing (`next` or `boards` exits 2, `python3` is missing, or a BRN it needs cannot be read): stop,
-  say the check could not run, quote its `Cannot run:` line, and write nothing.
-- After the run has written (`check` exits 2): name the file as written and not checked, leave its status as it
-  is, approve nothing, and say so in the report.
+- Before writing (a script command exits other than 0 or 1, `python3` or the script is missing, or a BRN it
+  needs cannot be read): stop, say the check could not run, quote its `Cannot run:` line, and write nothing.
+- After the run has written (`check` exits other than 0 or 1): name the file as written and not checked, leave
+  its status as it is, approve nothing, and say so in the report. The block's last line is the script's
+  `Cannot run: …` line in place of `OK …` (see "The report").
 
 ## Example board items
 

@@ -42,11 +42,11 @@ DSN_KEYS = ["id", "type", "title", "status", "version", "created", "updated", "o
             "canvas", "canvas_version", "canvas_format", "boards_root", "considered"]
 # DM-02's fields, in the order the template shows them (superseded_by is optional and not in the template).
 BOARD_FIELDS = ["id", "status", "file", "title", "flow", "surface", "ideas", "answers", "sha256", "notes"]
-COMMANDS = ["python3 ${CLAUDE_SKILL_DIR}/scripts/dsn_check.py next",
-            "python3 ${CLAUDE_SKILL_DIR}/scripts/dsn_check.py boards <ID>",
-            "python3 ${CLAUDE_SKILL_DIR}/scripts/dsn_check.py check --before-amend <ID>",
-            "python3 ${CLAUDE_SKILL_DIR}/scripts/dsn_check.py head <ID> <FILE>",
-            "python3 ${CLAUDE_SKILL_DIR}/scripts/dsn_check.py check <ID>"]
+COMMANDS = ['python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" next',
+            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" boards <ID>',
+            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check --before-amend <ID>',
+            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" head <ID> <FILE>',
+            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check <ID>']
 REFERENCES = ["boards.md", "interview.md", "output-rules.md"]
 CHECKLIST = re.compile(r"^\s*- \[ \] (\d+)\. (.+?)\s*$", re.M)  # the tracker's own pattern (SPEC-012 §4)
 
@@ -227,6 +227,22 @@ class Skill(unittest.TestCase):
             for item in doc[key]:
                 with self.subTest(item["id"]):
                     self.assertIn(item["id"], cited)
+
+
+    def test_the_reviews_fixes_stay(self):
+        # skill-reviewer's C1 and S1 to S12: each phrase guards a VER grader or an error the reviewer found missing.
+        text = re.sub(r"\s+", " ", " ".join(skill_texts().values()))
+        for phrase in ("never `not a screen` on the skill's own judgement",   # C1: VER-02 and VER-03
+                       "never extract an ID from a path",                      # S1: ERR-02, VER-14
+                       "no candidate is put to the user",                      # S4: VER-38
+                       "a request to update or amend that names no specific change counts as none",  # S9: VER-33
+                       "126 or 127",                                           # S12: ERR-14 for every subcommand
+                       "Exit 1 is ERR-06",                                     # S12: head
+                       "## The report",                                        # S10
+                       "N markers left",                                       # N5
+                       "already `approved`"):                                  # N13
+            with self.subTest(phrase):
+                self.assertIn(phrase, text)
 
 
 class References(unittest.TestCase):
