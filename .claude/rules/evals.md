@@ -45,6 +45,10 @@ node src/tests/context/grade_evals.mjs src/claude/DevForgeAI/evals/context/<case
 PYTHONDONTWRITEBYTECODE=1 python3 src/tests/spec-lookup/make_evals.py
 # precompact: regenerate (builds each scaffold, checks its premise and computes the fixture's head hash)
 PYTHONDONTWRITEBYTECODE=1 python3 src/tests/precompact/make_evals.py
+# ui: regenerate (runs dsn_check.py over every fixture, validates seeded documents with the DSN-link
+# exemption of SPEC-017 §9); check the graders offline with good and bad simulated runs
+PYTHONDONTWRITEBYTECODE=1 python3 src/tests/ui/make_evals.py
+PYTHONDONTWRITEBYTECODE=1 python3 src/tests/ui/check_graders.py
 # before every paid run: bind a new results folder to the commit, plugin digest and cases
 bash src/tests/prd/record_revision.sh tmp/eval-results/<new-folder> <tag>
 ```

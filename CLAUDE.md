@@ -9,10 +9,10 @@ work.
 
 ## What this workspace is
 
-DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.30.0 in
+DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.31.0 in
 `src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
-Brainstorm → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
-Architecture and Epic are built; `context` writes the project context documents between Architecture
+Brainstorm → UI → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, UI, PRD,
+Architecture and Epic are built (UI is optional: it records the release's screen designs from committed boards); `context` writes the project context documents between Architecture
 and Story. Each skill implements an approved or in-review spec in `docs/specs/spec/`, and its eval
 suite is the evidence that it works. Each spec's §9 holds the build and eval record (results folders,
 bound commit, scores, cost, manual VER items run and not run); its §13 holds open questions; its
@@ -32,7 +32,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
 | `story` | SKL-008, reserved | SPEC-009 v3, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
-| `ui` | SKL-013, reserved | SPEC-017 v1, approved | not built | — |
+| `ui` | SKL-013 v1, draft | SPEC-017 v1, approved | v1: not run (cycle B; 53 cases generated) | — (PR #110, draft) |
 
 - The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3, which is not
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
@@ -212,8 +212,8 @@ Recorded and not decided; each needs Bryan's decision before any work (see "Look
 building it"). The source of each item is named.
 
 - **Unbuilt skills:** `qa` (SPEC-008, a stub whose review criteria are open), `story` (SPEC-009,
-  draft), `ui` (SPEC-017 v1, approved 2026-10-09; cycle B the build, cycle C the neighbours' changes, cycle D the
-  dashboard's eighth tile; ADR-007), `github-post` (SPEC-010 v3, awaiting approval; its templates are staged in
+  draft), `ui`'s cycle C (the neighbours' changes: hand-offs, the DSN as input, `DSN` in `common.schema.json`, SPEC-017 v2's
+  wording) and cycle D (the dashboard's eighth tile; ADR-007), `github-post` (SPEC-010 v3, awaiting approval; its templates are staged in
   `src/templates/github/`), and the chain's final Spec step, which only PRD-001 FR-017 covers (no
   spec, no reserved SKL ID).
 - **`git` SKL-006 v3:** native evaluation, the manual VER items and Bryan's approval
