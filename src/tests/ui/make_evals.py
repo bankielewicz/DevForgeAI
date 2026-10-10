@@ -1706,7 +1706,7 @@ CASES = [
     case("amend-candidates-capped", "38", "thirteen such requirements and a request to decline every candidate put to the user: "
          "considered holds exactly twelve declined entries and the reply says one candidate was left.",
          CANVAS_NOW.format(v="1791580000-c3d4") + " " + REPORT_STANDS + " I decline every candidate you would put to me: none of "
-         "them needs a board.",
+         "them needs a board. Don't offer to approve DSN-001.",
          {BRN_PATH: BRN, DSN1: DSN_B, "docs/specs/prd/PRD-001.md": prd(version=2, requirements=CANDIDATE_BASE + CANDIDATE_FRS),
           **boards_files(contents=BOARDS_REPORT_CHANGED)}, candidates_capped(),
          checks={"DSN-001": ("amend", AMEND_FACTS_REPORT)}),
