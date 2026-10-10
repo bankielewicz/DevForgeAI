@@ -562,13 +562,36 @@ class V2CaseTests(unittest.TestCase):
         self.assertEqual([True, False], self.hits(c, "ver39-quotes-an-idea", [BRIEF, "Content: a list of shifts."]))
         self.assertEqual([True, False], self.hits(c, "ver39-names-a-state", ["States to show: empty and error.", "Content: a list."]))
 
-    def test_the_brief_llm_grader(self):
+    BRIEF_JUDGES = ["ver39-brief-context-and-content", "ver39-brief-must-haves-and-no-layout", "ver39-brief-parts-in-order",
+                    "ver39-grouping-and-status"]
+
+    def test_the_brief_llm_graders(self):
+        # The harness's judge answers one word and keeps no reasons (only PASS or FAIL votes), so a seven-part rubric that fails
+        # says nothing about which part: one criterion group for each grader, each with the facts it needs to be checked.
         c = case_by_name()["brief-drafted"]
-        llm = [g for g in c.graders if g.type == "llm"]
-        self.assertEqual(["ver39-briefs-are-well-formed"], [g.name for g in llm])
-        fm, body = front_matter(GENERATED / "brief-drafted" / "graders" / "ver39-briefs-are-well-formed.md")
-        self.assertEqual("llm", fm["type"])
-        self.assertIn("3 distinctly different directions of the key screen first", body)
+        self.assertEqual(self.BRIEF_JUDGES, sorted(g.name for g in c.graders if g.type == "llm"))
+        bodies = {}
+        for name in self.BRIEF_JUDGES:
+            fm, body = front_matter(GENERATED / "brief-drafted" / "graders" / f"{name}.md")
+            self.assertEqual("llm", fm["type"], name)
+            self.assertNotRegex(body, r"\bFAIL\b", name)   # the harness counts a vote as a pass only if the judge's reply holds no FAIL
+            bodies[name] = body
+        self.assertIn("3 distinctly different directions of the key screen first", bodies["ver39-brief-parts-in-order"])
+        self.assertIn("Shiftlog", bodies["ver39-brief-parts-in-order"])
+
+    def test_the_brief_judges_have_the_facts_they_check_against(self):
+        bodies = {n: front_matter(GENERATED / "brief-drafted" / "graders" / f"{n}.md")[1] for n in self.BRIEF_JUDGES}
+        content = bodies["ver39-brief-context-and-content"]
+        for fact in ("Workers lose track of the hours they worked each week", "We believe that workers will record shifts every day",
+                     "Add a shift from the terminal", "List shifts in a table", "A weekly report page",
+                     "A dark theme for the report page", "no shift recorded yet", "need not appear"):
+            self.assertIn(fact, content)
+        layout = bodies["ver39-brief-must-haves-and-no-layout"]
+        for fact in ("separated by commas or semicolons", "a constraint, not a layout", "monospace cell grid", "keyboard-driven"):
+            self.assertIn(fact, layout)
+        status = bodies["ver39-grouping-and-status"]
+        for fact in ("IDEA-04", "no Artifact tool", "docs/specs/design/DSN-001/boards/", "unconfirmed", "not a drawing"):
+            self.assertIn(fact, status)
 
     def test_the_v2_reply_graders(self):
         yes_no = [
@@ -647,12 +670,6 @@ class ObservedV2ReplyTests(unittest.TestCase):
         no = ["Content: a list of shifts.", "Content: the idea \"A weekly report page\"."]
         got = self.hits("brief-drafted", "ver39-names-a-state", yes + no)
         self.assertEqual([True] * len(yes) + [False] * len(no), got)
-
-    def test_the_brief_judge_takes_a_state_by_what_it_shows(self):
-        _, body = front_matter(GENERATED / "brief-drafted" / "graders" / "ver39-briefs-are-well-formed.md")
-        for phrase in ("no shift recorded yet", "need not appear", "a constraint, not a layout", "separated by commas or semicolons",
-                       "not a drawing"):
-            self.assertIn(phrase, body)
 
 
 class DigestTests(unittest.TestCase):
