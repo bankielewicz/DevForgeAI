@@ -227,7 +227,8 @@ OK docs/specs/design/<ID>.md
 - `Boards with no idea` lists the active boards whose `ideas` and `answers` are both `[]` (not `null`).
   `Ideas with no board` lists the `no board yet` rows. `Markers left` counts every `[NEEDS CLARIFICATION`
   marker in the DSN. The last line is the script's last line.
-- An approval-only run's block is the one line `Design document: <ID> (v<N>, approved)`.
+- An approval-only run's block is the one line `Design document: <ID> (v<N>, approved)`. When that run approved
+  nothing, the line shows the status as it is: `(v<N>, <status>; not approved)`.
 
 Findings follow, briefly: each check and repair, quoting the script's lines, and in an amend run the pre-check's
 two commands with their `fact:` lines; the suspect-link warnings; `answers` entries gone stale (a deprecated
