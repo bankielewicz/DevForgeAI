@@ -3,6 +3,6 @@ description: "VER-34: '/devforgeai:ui approve DSN-001' approves a valid draft: f
 tags: [ui, ver-34]
 max_turns: 60
 timeout_seconds: 900
-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, ToolSearch]
 ---
 /devforgeai:ui approve DSN-001. I'm Example Owner.

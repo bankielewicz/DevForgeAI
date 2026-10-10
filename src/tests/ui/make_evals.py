@@ -15,6 +15,12 @@ each scaffold writes everything a case reads. Before writing anything, the gener
   --before-amend` for a fixture an amend run starts from), and fails on a surprise: the exact ERR a stop case is
   about, the exact `fact:` lines an amend run starts from, a current fixture that is not current.
 
+SPEC-017 version 2: `claude -p`, which `claude plugin eval` runs, has no Artifact tool, so no case makes, adds to or imports a
+canvas (those are the manual items VER-43 to VER-49). The e2e cases run the copy path (a fixture that seeds the boards
+folder; the reply says the canvas was not checked), the stops (ERR-19 among them) and the drafting of the briefs (VER-39).
+ToolSearch is among the allowed tools so that the skill's own check for the Artifact tool finds none, instead of being denied.
+The negative trigger cases carry `runs: 10` in case.yaml (QR-04: at least 9 of 10 must not fire, --threshold 0.9).
+
 Graders are JavaScript regular expressions (the harness's engine). SPEC-017 §9 writes whole-content anchors as ^…$ with
 no m flag, which anchors at the start and end of the input, as the context suite does. Each grader's name starts with
 the VER item it grades. A grader reads a reply or a file, never whether the prd skill exists (VER-02).
@@ -44,7 +50,8 @@ ROOT = REPO / "src/claude/DevForgeAI/evals/ui"
 SCHEMAS = REPO / "src/schemas"
 SCRIPT = REPO / "src/claude/DevForgeAI/skills/ui/scripts/dsn_check.py"
 EXAMPLE = REPO / "src/staging/examples/context-cli-service-rdbms/docs/specs"
-TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash]"
+# ToolSearch is how the skill checks for the Artifact tool (SKILL.md, Tools): a `claude -p` run has none (ERR-19)
+TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash, ToolSearch]"
 WRITING_LIMITS = (60, 900)   # §9: a case that writes
 SHORT_LIMITS = (15, 300)     # §9: the stop cases and the trigger cases
 SKILL_MATCH = r"""'"skill"\s*:\s*"(?:[\w-]+:)?ui"'"""
@@ -99,10 +106,18 @@ DIGESTS = {name: digest(text) for name, text in BOARDS.items()}
 BOARD_CONTENT = dict(BOARDS, **{"Settings.dc.html": SETTINGS})   # every board file the DSN fixtures know, by name
 
 
+# Where each board sits on the canvas (DM-04: IF-02 prints x and y, BEH-09 proposes a flow's step order from them, y then x
+# ascending). The first row is the flow report-and-home, Home then Report; the second is the flow shifts, List then Add;
+# Settings, when it is added, comes last in the first row. They agree with the order the shared prompt states.
+POSITIONS = {"Home.dc.html": (0, 0), "List.dc.html": (0, 900), "Add.dc.html": (1100, 900), "Report.dc.html": (1100, 0),
+             "Settings.dc.html": (2200, 0)}
+
+
 def canvas_json(names, v=3):
     """canvas.json in canvas order (never sorted: the order of the boards member is the canvas order)."""
-    return json.dumps({"v": v, "attachments": {}, "boards": {n: {"expand": False, "h": 640} for n in names}},
-                      indent=2) + "\n"
+    boards = {n: ({"x": POSITIONS[n][0], "y": POSITIONS[n][1], "w": 1040, "h": 760} if n in POSITIONS
+                  else {"expand": False, "h": 640}) for n in names}
+    return json.dumps({"v": v, "attachments": {}, "boards": boards}, indent=2) + "\n"
 
 
 def boards_files(dsn_id="DSN-001", contents=None, names=None, canvas=None):
@@ -375,11 +390,11 @@ boards:
 ## 4. Canvas
 
 - Canvas: {canvas or 'null'}
-- Canvas version copied: {canvas_version or 'null'}
-- Date of the copy: {copy_date or 'not given'}
+- Canvas version imported: {canvas_version or 'null'}
+- Date of the import: {copy_date or 'not known'}
 {'[NEEDS CLARIFICATION: canvas URL and version copied]' + chr(10) if canvas_marker else ''}
-The user copies the boards from the canvas into boards_root. This skill never fetches from the canvas. A new copy of the
-boards means a new run, which amends this document.
+The boards in boards_root were imported from this canvas by the ui skill, or placed there and recorded as they
+were. A new import means a new run, which amends this document. The brief is not recorded here.
 
 ## 5. Open questions
 
@@ -859,6 +874,7 @@ class Grader:
     min: int = None
     max: int = None
     witness: str = None     # text that, appended to the target, must make a not_contains grader fail
+    input_match: str = None  # tool_used: the pattern (a YAML scalar, quotes included); the trigger pattern when None
 
 
 @dataclass
@@ -876,6 +892,7 @@ class Case:
     boards: dict = field(default_factory=dict)       # DSN-NNN -> "ok" (default) or the first ERR its boards folder gives
     checks: dict = field(default_factory=dict)       # DSN-NNN -> ("current",) default | ("amend", [facts]) | ("invalid", [text])
     dirs: tuple = ()                                 # folders the scaffold makes even when it seeds no file in them
+    runs: int = None                                 # runs of the case (case.yaml); the harness's default (3) when None
 
 
 def rx(name, target, pattern, match="contains", flags="", witness=None):
@@ -888,6 +905,11 @@ def present(name, path, exists=True):
 
 def skill_fired(name, fired):
     return Grader(name, "tool_used", min=1 if fired else 0, max=None if fired else 0)
+
+
+def llm(name, body):
+    """A grader the judge model reads; the final reply is what it sees (.claude/rules/evals.md)."""
+    return Grader(name, "llm", pattern=body)
 
 
 def unchanged(name, path, text):
@@ -969,17 +991,33 @@ NOT_ACCEPTED = (r"\bpaths?\b[^\n]{0,80}(?:not accepted|aren" + APOS + r"t accept
                 r"not (?:taken|allowed|supported)|refus|can" + APOS + r"t|cannot)|(?:never|not|doesn" + APOS + r"t|don"
                 + APOS + r"t|won" + APOS + r"t|no)[^\n]{0,60}\bpaths?\b")
 
+# The reply says the session has no Artifact tool (ERR-19, BEH-05): it names the tool and its absence
+NO_ARTIFACT = (r"\bno Artifact\b|\bArtifact tool\b[^\n]{0,40}\b(?:not|n" + APOS + r"t|unavailable|missing|absent)\b|"
+               r"\b(?:without|lacks?|missing|has no|have no|don" + APOS + r"t have|do not have|doesn" + APOS
+               + r"t have)\b[^\n]{0,30}\bArtifact\b")
+# The canvas was not checked (BEH-05 routes A and D; ERR-17 v2)
+CANVAS_NOT_CHECKED = (r"\bnot (?:been )?(?:re-?)?checked\b|\bn" + APOS + r"t (?:been )?(?:re-?)?checked\b|\bcould(?:n" + APOS
+                      + r"t| not) (?:be )?check|\bunchecked\b|\bnot verified\b|\bno Artifact tool\b|\bwithout (?:the )?Artifact tool\b")
+COPY_RECORDED_AS_IS = (r"\bas[- ]is\b|\bas it is\b|\brecorded\b[^\n]{0,60}\bcopy\b|\bcopy\b[^\n]{0,80}\b(?:recorded|record)\b")
+IMPORT_OR_COPY_AGAIN = (r"\b(?:re-?)?import\w*\b[^\n]{0,80}\bagain\b|\bre-?import\b|\bcop(?:y|ied|ying)\b[^\n]{0,80}\bagain\b|"
+                        r"\bre-?cop(?:y|ied|ying)\b|\bagain\b[^\n]{0,60}\b(?:import|cop(?:y|ied))")
+# A drawing of a screen in a reply (VER-39, VER-41): a run of box-drawing or block characters, or a +---+ rule
+NO_DRAWING = r"[\u2500-\u257f\u2580-\u259f]{3}|\+-{3,}\+"
+DESIGN_MATCH = r"""'"skill"\s*:\s*"/?(?:[\w-]+:)?design"'"""
+BRIEF_CLOSING = "Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each."
+
 UI = "ui"
 SHARED_PROMPT = """\
 Record the UI design for BRN-001. The canvas is https://claude.ai/artifact/EXAMPLE, version 17-example. Home and Report
-are web screens in the flow report-and-home; List and Add are terminal screens in the flow shifts. Home shows IDEA-02;
-List shows IDEA-02; Add shows IDEA-01; Report shows IDEA-03. IDEA-04 names no screen. IDEA-06 has no board yet. Proceed
-without questions."""
+are web screens in the flow report-and-home, in that order; List and Add are terminal screens in the flow shifts, in that
+order. Home shows IDEA-02; List shows IDEA-02; Add shows IDEA-01; Report shows IDEA-03. IDEA-04 names no screen. IDEA-06
+has no board yet. Proceed without questions."""
 PROMPT_SETTINGS = """\
 Record the UI design for BRN-001. The canvas is https://claude.ai/artifact/EXAMPLE, version 17-example. Home, Report and
-Settings are web screens in the flow report-and-home; List and Add are terminal screens in the flow shifts. Home shows
-IDEA-02; List shows IDEA-02; Add shows IDEA-01; Report shows IDEA-03; Settings shows IDEA-06. IDEA-04 names no screen.
-Proceed without questions."""
+Settings are web screens in the flow report-and-home, in that order; List and Add are terminal screens in the flow
+shifts, in that order. Home shows IDEA-02; List shows IDEA-02; Add shows IDEA-01; Report shows IDEA-03; Settings shows
+IDEA-06. IDEA-04 names no screen. Proceed without questions."""
+PROMPT_DESIGN = "Design the UI for BRN-001. Proceed without questions."
 PROMPT_UNCONFIRMED = "Record the UI design for BRN-001. Proceed without questions."
 APPROVAL_WORDS = "I'm Example Owner, and I approve DSN-001."
 CANVAS_NOW = "Update the UI design for BRN-001. I copied the boards again from the canvas, version {v}."
@@ -1025,6 +1063,10 @@ def writes_dsn():
     g += [rx("ver01-change-log-row", DSN1, log_row(1)),
           rx("ver01-one-change-log-row", DSN1, r"claude-code \(session[\s\S]*claude-code \(session", match="not_contains",
              witness="| 1 | 2026-10-10 | claude-code (session x) | Again | all |\n")]
+    # the findings: the copy was recorded as it is and the canvas was not checked, because the session has no Artifact tool
+    g += [reply("ver01-says-copy-recorded-as-it-is", COPY_RECORDED_AS_IS),
+          reply("ver01-says-no-artifact-tool-in-this-session", NO_ARTIFACT),
+          reply("ver01-says-canvas-not-checked", CANVAS_NOT_CHECKED)]
     return g
 
 
@@ -1071,20 +1113,37 @@ def unconfirmed_stays_null():
 
 
 def no_boards_stops():
+    # ERR-19: the prompt names a canvas URL, no copy is in the folder and the session has no Artifact tool
+    return no_dsn_written("ver04") + nothing_written("ver04", "design") + [
+        reply("ver04-says-no-artifact-tool", NO_ARTIFACT),
+        reply("ver04-names-boards-folder", esc(f"{DESIGN}/DSN-001/boards/"), flags=""),
+        reply("ver04-names-canvas-json", r"canvas\.json"),
+        reply("ver04-says-a-copy-placed-by-hand-is-recorded-when-run-again",
+              r"\b(?:by hand|yourself|manually|place[sd]?|put|cop(?:y|ied))\b[^\n]{0,160}\b(?:run|runs|rerun|re-run|ran)\b[^\n]{0,40}\bagain\b|"
+              r"\bagain\b[^\n]{0,160}\b(?:record\w*)\b|\b(?:record\w*)\b[^\n]{0,160}\b(?:run|runs|rerun|re-run)\b[^\n]{0,40}\bagain\b|"
+              r"\brecord\w*\b[^\n]{0,160}\b(?:next|following|later)\s+(?:run|time|session)\b|"
+              r"\b(?:next|following|later)\s+(?:run|time|session)\b[^\n]{0,160}\brecord\w*\b"),
+        rx("ver04-no-drawing", "last_message", NO_DRAWING, match="not_contains", witness="\n┌──────┐\n│ Home │\n└──────┘\n")]
+
+
+def boards_without_canvas_json():
+    # ERR-03: the folder holds the board files and no canvas.json
     return no_dsn_written("ver04") + nothing_written("ver04", "design") + [
         reply("ver04-names-boards-folder", esc(f"{DESIGN}/DSN-001/boards/"), flags=""),
         reply("ver04-names-canvas-json", r"canvas\.json"),
-        reply("ver04-user-copies-boards", COPY_AGAIN + r"|\bcop(?:y|ied|ies)\b[^\n]{0,100}\b(?:there|into|to)\b"),
-        reply("ver04-never-fetches", NO_FETCH)]
+        reply("ver04-says-the-folder-must-hold-canvas-json-and-the-board-files",
+              r"(?=[\s\S]*\bcanvas\.json\b)(?=[\s\S]*\bboard files?\b)")]
 
 
 def boards_at_wrong_number():
     return [unchanged("ver05-dsn-001-unchanged", DSN1, DSN1_OTHER_BRN),
             present("ver05-no-dsn-002", DSN2, exists=False),
             present("ver05-no-file-under-dsn-002-folder", f"{DESIGN}/DSN-002/**", exists=False),
-            reply("ver05-next-free-number", r"next (?:free )?(?:number|ID)[^\n]{0,60}DSN-002|DSN-002[^\n]{0,60}next (?:free )?"
-                  r"(?:number|ID)|\bDSN-002\b[^\n]{0,80}\bnext\b"),
-            reply("ver05-copy-into-dsn-002-boards", esc(f"{DESIGN}/DSN-002/boards/"), flags="")]
+            # the skill says the new DSN's ID is the one `next` prints (DSN-002): "next free number" or "the new DSN"
+            reply("ver05-next-free-number", r"\b(?:new|next)\b[^\n]{0,80}\bDSN-002\b|\bDSN-002\b[^\n]{0,80}\b(?:new|next)\b|"
+                  r"\bDSN-002\b[^\n]{0,60}\b(?:would be|will be|is)\b"),
+            reply("ver05-copy-into-dsn-002-boards", esc(f"{DESIGN}/DSN-002/boards/"), flags=""),
+            reply("ver05-says-no-artifact-tool", NO_ARTIFACT)]
 
 
 def canvas_unreadable():
@@ -1092,7 +1151,7 @@ def canvas_unreadable():
         reply("ver06-cannot-read-canvas-json", r"canvas\.json[^\n]{0,160}(?:can" + APOS + r"?t|cannot|can not|unable|could(?:n"
               + APOS + r"t| not)|not (?:be )?(?:read|readable|valid|parsed|parseable)|unreadable|damaged|invalid|corrupt)"
               r"|(?:cannot|can" + APOS + r"t|unable to|could not) (?:be )?(?:read|parse)[^\n]{0,100}canvas\.json"),
-        reply("ver06-asks-to-copy-again", COPY_AGAIN)]
+        reply("ver06-asks-to-import-or-copy-again", IMPORT_OR_COPY_AGAIN)]
 
 
 def unknown_canvas_format():
@@ -1401,11 +1460,23 @@ def amend_adr_consequence():
     return g
 
 
-def amend_nothing(dsn_text):
-    return [unchanged("ver33-dsn-001-unchanged", DSN1, dsn_text), reply("ver33-says-dsn-001-is-current", CURRENT),
-            reply("ver33-gives-version-1", r"\b(?:version[ \t]*|v)1\b"),
-            reply("ver33-gives-the-recorded-canvas-version", esc(CANVAS_VERSION)),
-            reply("ver33-says-to-copy-the-boards-again", COPY_AGAIN)]
+def amend_nothing(dsn_text, unasked=False):
+    """ERR-17 (version 2): the DSN is current, its version and the canvas version it records, and that the canvas was not
+    checked and a change on it is seen only when a run with the tool imports it (version 1 said the boards were copied
+    again: not graded)."""
+    g = [unchanged("ver33-dsn-001-unchanged", DSN1, dsn_text), reply("ver33-says-dsn-001-is-current", CURRENT),
+         reply("ver33-gives-version-1", r"\b(?:version[ \t]*|v)1\b"),
+         reply("ver33-gives-the-recorded-canvas-version", esc(CANVAS_VERSION)),
+         reply("ver33-says-canvas-not-checked", CANVAS_NOT_CHECKED),
+         reply("ver33-says-a-change-is-seen-by-an-import",
+               r"\bimport(?:s|ed|ing)?\b[^\n]{0,100}\b(?:board|canvas|change)|\b(?:board|canvas|change)\w*[^\n]{0,100}\bimport")]
+    if unasked:
+        # the candidate is left unasked under "proceed without questions": nothing is written, and the reply counts it
+        g += [reply("ver33-says-one-candidate-waits",
+                    r"(?:\bone\b|\b1\b)[^\n]{0,80}\b(?:candidates?|requirements?|consequences?)\b|"
+                    r"\b(?:candidates?|requirements?)\b[^\n]{0,80}(?:\bone\b|\b1\b)|\bFR-024\b"),
+              reply("ver33-says-for-an-interactive-run", r"\binteractive (?:run|session)\b")]
+    return g
 
 
 DSN_CONSIDERED_PRD = dsn(standard_boards(), COVER_A, markers=[MARKER_06], considered=["PRD-001@2"])
@@ -1458,7 +1529,23 @@ def approval_blocked_by_changed_board():
             reply("ver36-says-the-check-failed", r"\b(?:check|validation)\b[^\n]{0,100}\b(?:fail\w*|INVALID|did not pass|didn" + APOS
                   + r"t pass|errors?|not valid)\b|\b(?:fail\w*|INVALID|errors?)\b[^\n]{0,100}\b(?:check|validation)\b"),
             reply("ver36-names-the-digest", r"\bsha-?256\b|\bdigests?\b|\bhash\b"), reply("ver36-names-the-board", r"Report"),
-            reply("ver36-says-an-amend-run-comes-first", r"\bamend")]
+            reply("ver36-says-an-amend-run-comes-first", r"\bamend"),
+            reply("ver36-block-line-not-approved", r"Design document:(?:\*\*)?[ \t]*DSN-001 \(v1, draft; not approved\)", flags="")]
+
+
+def approval_already_approved():
+    return [unchanged("ver37-dsn-001-unchanged", DSN1, DSN_B_APPROVED), reply("ver37-says-already-approved", r"\balready\s+approved\b"),
+            reply("ver37-gives-version-approver-and-date",
+                  r"(?=[\s\S]*(?:\bversion[ \t]*1\b|\bv1\b))(?=[\s\S]*Example Owner)(?=[\s\S]*2026-10-08)", flags="")] \
+        + nothing_written("ver37", *NO_STRAY)
+
+
+def approval_plus_change():
+    return [unchanged("ver37-dsn-001-unchanged", DSN1, DSN_B),
+            reply("ver37-says-an-amend-run-comes-first", r"\bamend run\b[^\n]{0,80}\bfirst\b|\bfirst\b[^\n]{0,80}\bamend\b"),
+            reply("ver37-names-the-amend-command", r"/devforgeai:ui[` \t]+BRN-001\b"),
+            reply("ver37-block-line-not-approved", r"Design document:(?:\*\*)?[ \t]*DSN-001 \(v1, draft; not approved\)", flags="")] \
+        + boards_unchanged("ver37", BOARDS)
 
 
 DSN_SUPERSEDED = dsn(standard_boards(), COVER_B, status="superseded", approved_by="Example Owner", approved_on="2026-10-08",
@@ -1467,6 +1554,76 @@ DSN_SUPERSEDED = dsn(standard_boards(), COVER_B, status="superseded", approved_b
                                 (1, "2026-10-08", "Example Owner", "Approved", "status")])
 ONLY_DRAFT_OR_IN_REVIEW = (r"\bonly\b[^\n]{0,80}\bdraft\b[^\n]{0,60}\bin[- ]review\b|\bdraft\b[^\n]{0,30}\b(?:or|and)\b[^\n]{0,30}"
                            r"\bin[- ]review\b[^\n]{0,60}\bonly\b|\bonly\b[^\n]{0,80}\bin[- ]review\b[^\n]{0,60}\bdraft\b")
+
+
+BRIEF_PARTS_IN_ORDER = (r"\bContext\b[\s\S]*\bContent\b[\s\S]*\bMust[- ]haves?\b[\s\S]*\bStyle\b[\s\S]*" + esc(BRIEF_CLOSING))
+GRID_OR_SIZE = (r"\b\d{2,3}\s*(?:columns?|cols?)\s*(?:by|x|×|\*)\s*\d{2,3}\s*rows?\b|\b\d{3,4}\s*(?:px|pixels?)\b|"
+                r"\b\d{3,4}\s*(?:x|×|by)\s*\d{3,4}\b")
+UNCONFIRMED = (r"\bun-?confirmed\b|\bnot (?:yet )?confirmed\b|\bawaiting (?:your )?confirmation\b|\bneeds? (?:your |the user" + APOS
+               + r"s )?confirmation\b|\bto confirm\b|\bhaven" + APOS + r"t confirmed\b|\bpending confirmation\b")
+IDEA_TEXTS = (r"Add a shift from the terminal|List shifts in a table|A weekly report page|A dark theme for the report page")
+BRIEF_JUDGE = """\
+The workspace held BRN-001 (Shiftlog: record shifts) and no boards folder. Its promoted ideas IDEA-01 (Add a shift from the
+terminal), IDEA-02 (List shifts in a table), IDEA-03 (A weekly report page) and IDEA-06 (A dark theme for the report page)
+name screens, and IDEA-04 (Export shifts as CSV) names none. The session had no Artifact tool, and the request said to
+proceed without questions.
+
+Judge only the final reply.
+PASS if all of these hold:
+- It lists the screens the ideas name and proposes how they group into flows (one flow for the release, or two such as
+  a terminal flow of IDEA-01 and IDEA-02 and a web flow of IDEA-03 and IDEA-06), with the key screen and the surface of
+  each flow, and says the grouping is unconfirmed.
+- It shows one brief for each proposed flow, whatever the grouping. Each brief has these parts, in order: a lead line that
+  names the flow and the product (Shiftlog); a Context of two or three sentences; a Content that quotes at least one of
+  the flow's ideas, lists the flow's screens in order and names at least one state (empty, error, loading or mid-flow);
+  Must-haves of two to four items that state a monospace cell grid of columns by rows for a terminal flow, or a surface and
+  a size for a web one; a Style that says to propose one and holds no hex value and no px size; and the exact closing line
+  "Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each."
+- A brief describes the problem and prescribes no layout: no positions, spacing, sizes of parts or component-by-component
+  arrangement, and it invents no content the ideas do not support.
+- It says that the session has no Artifact tool, that nothing was made or sent, and names docs/specs/design/DSN-001/boards/.
+FAIL if any of these is missing, or if the reply draws a mockup of a screen."""
+
+
+def brief_drafted():
+    p = "ver39"
+    g = nothing_written("ver39", "design") + no_dsn_written("ver39")
+    g += [reply("ver39-lists-the-screen-ideas", r"^(?=[\s\S]*IDEA-01)(?=[\s\S]*IDEA-02)(?=[\s\S]*IDEA-03)(?=[\s\S]*IDEA-06)"),
+          reply("ver39-says-idea-04-names-no-screen",
+                r"IDEA-04[^\n]{0,160}\b(?:no screen|names? no|not a screen|nothing|none|doesn" + APOS + r"t|does not|no user interface|"
+                r"isn" + APOS + r"t a screen)\b"),
+          reply("ver39-says-the-grouping-is-unconfirmed", UNCONFIRMED),
+          reply("ver39-names-key-screen-and-surface", r"^(?=[\s\S]*\bkey screen\b)(?=[\s\S]*\bsurface\b)(?=[\s\S]*\b(?:terminal|web)\b)"),
+          reply("ver39-briefs-in-dm05-order", BRIEF_PARTS_IN_ORDER),
+          reply("ver39-quotes-an-idea", IDEA_TEXTS),
+          reply("ver39-names-a-state", r"\b(?:empty|error|loading|mid-flow)\b"),
+          reply("ver39-must-haves-state-a-grid-or-a-size", GRID_OR_SIZE),
+          reply("ver39-style-says-propose-one", r"\bpropose one\b"),
+          rx("ver39-style-holds-no-hex-or-px", "last_message",
+             r"(?:^|\n)[ \t>*#-]*(?:\*\*)?Style(?:\*\*)?[:.\s][^\n]*(?:#[0-9a-fA-F]{3,8}\b|\b\d+\s?px\b)", match="not_contains",
+             witness="\nStyle: a dark palette #1a1b26\n"),
+          rx("ver39-no-hex-value-anywhere", "last_message", r"#[0-9a-fA-F]{6}\b", match="not_contains", witness="\ntext #1a1b26\n"),
+          reply("ver39-closing-line-exact", esc(BRIEF_CLOSING), flags=""),
+          reply("ver39-says-no-artifact-tool", NO_ARTIFACT),
+          reply("ver39-names-boards-folder", esc(f"{DESIGN}/DSN-001/boards/"), flags=""),
+          rx("ver39-no-drawing", "last_message", NO_DRAWING, match="not_contains", witness="\n┌──────┐\n│ Home │\n└──────┘\n"),
+          llm("ver39-briefs-are-well-formed", BRIEF_JUDGE)]
+    return g
+
+
+def no_screen_idea():
+    return nothing_written("ver40", "design") + no_dsn_written("ver40") + [
+        reply("ver40-says-no-idea-names-a-screen",
+              r"(?:\bno\b|\bnone\b|\bnothing\b|\bnot\b|n" + APOS + r"t)[^\n]{0,100}\b(?:screens?|user interface|UI)\b"),
+        reply("ver40-says-the-step-is-optional", r"\boptional\b"),
+        reply("ver40-points-to-prd", PRD_CMD)]
+
+
+def no_mockup_no_design_skill():
+    return nothing_written("ver41", "design") + no_dsn_written("ver41") + [
+        Grader("ver41-design-skill-not-invoked", "tool_used", min=0, max=0, input_match=DESIGN_MATCH),
+        rx("ver41-no-drawing", "last_message", NO_DRAWING, match="not_contains", witness="\n+------+\n| Home |\n+------+\n"),
+        reply("ver41-says-no-artifact-tool", NO_ARTIFACT)]
 
 
 def approval_unknown_dsn():
@@ -1531,7 +1688,10 @@ TRIGGERS = [
     (False, "Draw a login screen for me."),
     (False, "Record the approved design for STORY-001."),
     (False, "Make the button on the report page blue."),
+    (False, "Make me a mockup of a settings page."),
+    (True, "Design the screens for BRN-001 in Claude Design."),
 ]
+NEGATIVE_TRIGGERS = range(7, 13)   # these run 10 times each, and must not fire in 9 (QR-04, §9)
 
 
 # --------------------------------------------------------------------------------------------------------
@@ -1550,6 +1710,9 @@ DSN1_OTHER_BRN = dsn(_OTHER_BRN_BOARDS, [("IDEA-01", "BRD-03", "designed"), ("ID
                      brn_id="BRN-002", brn_title="Shiftlog: remind about open shifts")
 DSN_B_2 = second_dsn(DSN_B)
 SHARED_NO_BOARDS = {BRN_PATH: BRN}
+# VER-40: converged, with promoted ideas that name no screen, flow or user interface
+BRN_NO_SCREEN = brn(ideas=[("IDEA-01", "Keep shifts in a local SQLite file", "promoted"),
+                           ("IDEA-02", "Back up the data nightly", "promoted"), ("IDEA-03", "Sync to a server", "parked")])
 AMEND_FACTS_REPORT = ["fact: board Report.dc.html: changed"]
 CANDIDATE_BASE = [("FR-001", "The system shall record each shift with a start time and a stop time."),
                   ("FR-002", "The system shall total the hours worked in each week.")]
@@ -1573,6 +1736,10 @@ CASES = [
          PROMPT_UNCONFIRMED, SHARED, unconfirmed_stays_null()),
     case("no-boards-stops", "04", "with no boards folder nothing is written and the reply names the folder to copy the boards into.",
          SHARED_PROMPT, SHARED_NO_BOARDS, no_boards_stops(), stop=True, boards={"DSN-001": "ERR-03"}),
+    case("boards-without-canvas-json", "04", "the boards folder holds the four board files and no canvas.json: nothing is written and "
+         "the reply names the folder that must hold canvas.json and the board files it names.",
+         SHARED_PROMPT, {BRN_PATH: BRN, **{f"{DESIGN}/DSN-001/boards/{n}": t for n, t in BOARDS.items()}},
+         boards_without_canvas_json(), stop=True, boards={"DSN-001": "ERR-03"}),
     case("boards-at-wrong-number", "05", "the boards sit in the folder of an existing DSN-001, so the new design's number is "
          "DSN-002: nothing is written and DSN-001 is unchanged.",
          SHARED_PROMPT, {BRN_PATH: BRN, BRN2_PATH: BRN_2, DSN1: DSN1_OTHER_BRN, **boards_files()}, boards_at_wrong_number(),
@@ -1593,7 +1760,7 @@ CASES = [
     case("amend-changed-board", "10", "an approved DSN-001, a changed Report board and a new Settings board: the amend run quotes "
          "the pre-check, writes version 2 as in-review with approval cleared, and leaves the neighbours alone.",
          CANVAS_NOW.format(v="18-example") + " Report's mapping is unchanged. Settings is a new web screen in the flow "
-         "report-and-home, and it shows IDEA-06. Proceed without questions.",
+         "report-and-home, as its last step, and it shows IDEA-06. Proceed without questions.",
          {BRN_PATH: BRN, DSN1: DSN_B_APPROVED, "docs/specs/prd/PRD-001.md": PRD_CITING_1,
           **boards_files(contents=BOARDS_AMEND_CHANGED, names=FIVE)}, amend_changed_board(),
          checks={"DSN-001": ("amend", ["fact: board Report.dc.html: changed", "fact: board Settings.dc.html: new"])}),
@@ -1647,11 +1814,21 @@ CASES = [
     case("no-brn-with-promoted-idea", "21", "with only a draft BRN whose ideas are all open, the reply lists it with its status and "
          "points to /devforgeai:brainstorm.",
          "Record the UI design.", {BRN_PATH: BRN_DRAFT_OPEN}, no_brn_with_promoted_idea(), stop=True),
+    case("brief-drafted", "39", "no boards folder and no Artifact tool: the reply lists the screens the ideas name, proposes the flows "
+         "unconfirmed, shows one brief for each in DM-05's order with the exact closing line, and says the session has no "
+         "Artifact tool.",
+         PROMPT_DESIGN, SHARED_NO_BOARDS, brief_drafted(), stop=True),
+    case("no-screen-idea", "40", "no promoted idea names a screen, a flow or a user interface: nothing is written, the step is "
+         "optional and the reply points to /devforgeai:prd BRN-001.",
+         PROMPT_DESIGN, {BRN_PATH: BRN_NO_SCREEN}, no_screen_idea(), stop=True),
+    case("no-mockup-no-design-skill", "41", "'Design the screens for BRN-001 in Claude Design.' without an Artifact tool: the design "
+         "skill is not invoked, no screen is drawn in the reply, and the reply says the session has no Artifact tool.",
+         "Design the screens for BRN-001 in Claude Design.", SHARED_NO_BOARDS, no_mockup_no_design_skill(), stop=True),
 ] + [
     Case(f"ui-trigger-{i:02d}", ["22"], f"VER-22 ({'positive' if fires else 'negative'}): the skill "
          f"{'fires' if fires else 'does not fire'}.", prompt, SHARED_NO_BOARDS,
          [skill_fired("ver22-skill-fired" if fires else "ver22-skill-not-fired", fires)], limits=SHORT_LIMITS,
-         tags=["trigger", "ver-22", "ui-trigger"])
+         tags=["trigger", "ver-22", "ui-trigger"], runs=10 if i in NEGATIVE_TRIGGERS else None)
     for i, (fires, prompt) in enumerate(TRIGGERS, start=1)
 ] + [
     case("amend-draft-revision", "30", "a redrawn Report board and a new canvas version: DSN-001 is version 2 and still draft; the "
@@ -1665,8 +1842,8 @@ CASES = [
          checks={"DSN-001": ("amend", AMEND_FACTS_REPORT)}),
     case("amend-prd-requirement", "31", "a new Settings board that answers PRD-001 FR-024: version 3, in-review, answers and "
          "considered recorded, no PRD link in upstream, the PRD untouched.",
-         CANVAS_NOW.format(v="1791670000-e5f6") + " Settings is a new web screen in the flow report-and-home. It shows no idea. "
-         "It answers PRD-001 FR-024. Proceed without questions.",
+         CANVAS_NOW.format(v="1791670000-e5f6") + " Settings is a new web screen in the flow report-and-home, as its last step. "
+         "It shows no idea. It answers PRD-001 FR-024. Proceed without questions.",
          {BRN_PATH: BRN, DSN1: DSN_V2_APPROVED, "docs/specs/prd/PRD-001.md": PRD_V2_DSN2,
           **boards_files(contents=BOARDS_31, names=FIVE)}, amend_prd_requirement(),
          checks={"DSN-001": ("amend", ["fact: board Settings.dc.html: new"])}),
@@ -1688,6 +1865,12 @@ CASES = [
          "Update the UI design for BRN-001. Proceed without questions.",
          {BRN_PATH: BRN, DSN1: DSN_A, "docs/specs/prd/PRD-001.md": PRD_V2_PLAIN, "docs/specs/adr/ADR-001.md": ADR_NO_SCREEN,
           **boards_files()}, amend_nothing(DSN_A), stop=True),
+    case("amend-nothing-with-unasked-candidate", "33", "a PRD whose FR-024 names a screen and an empty considered list, under 'proceed "
+         "without questions': the candidate is left unasked, nothing is written and the reply says one candidate waits for an "
+         "interactive run.",
+         "Update the UI design for BRN-001. Proceed without questions.",
+         {BRN_PATH: BRN, DSN1: DSN_A, "docs/specs/prd/PRD-001.md": PRD_V2_SCREEN, **boards_files()},
+         amend_nothing(DSN_A, unasked=True), stop=True),
     case("approval-only-run", "34", "'/devforgeai:ui approve DSN-001' approves a valid draft: four fields and one Change Log row "
          "change, nothing else is written, and the reply is the one-line block and the next step.",
          "/devforgeai:ui approve DSN-001. I'm Example Owner.", {BRN_PATH: BRN, DSN1: DSN_B, **boards_files()},
@@ -1711,6 +1894,14 @@ CASES = [
          stop=True),
     case("approval-without-id", "37", "'Approve the design.' names no DSN: nothing is written and the reply asks for the ID.",
          "Approve the design.", {BRN_PATH: BRN, DSN1: DSN_B, **boards_files()}, approval_without_id(), stop=True),
+    case("approval-already-approved", "37", "'/devforgeai:ui approve DSN-001' for a DSN that is already approved writes nothing; the "
+         "reply says it is already approved, with its version, approver and date.",
+         "/devforgeai:ui approve DSN-001. I'm Example Owner.", {BRN_PATH: BRN, DSN1: DSN_B_APPROVED, **boards_files()},
+         approval_already_approved(), stop=True),
+    case("approval-plus-change", "37", "'/devforgeai:ui approve DSN-001 and also rename the Report board to Weekly.' approves nothing "
+         "and changes nothing: the reply says an amend run comes first and its block line reads 'not approved'.",
+         "/devforgeai:ui approve DSN-001 and also rename the Report board to Weekly.",
+         {BRN_PATH: BRN, DSN1: DSN_B, **boards_files()}, approval_plus_change(), stop=True),
     case("amend-candidates-left", "38", "six PRD requirements name a screen and none is answered; under 'proceed without questions' "
          "none is put to the user, considered lacks PRD-001@2 and the reply says six candidates were left.",
          CANVAS_NOW.format(v="1791580000-c3d4") + " " + REPORT_STANDS + " Proceed without questions.",
@@ -1902,7 +2093,9 @@ def grader_file(g):
         return "---\n" + "\n".join(head) + "\n---\n" + g.pattern + "\n"
     if g.type == "file_exists":
         return f"---\ntype: file_exists\npath: {g.target}\nexists: {'true' if g.exists else 'false'}\n---\n"
-    head = ["type: tool_used", "tool: Skill", f"input_match: {SKILL_MATCH}", f"min: {g.min}"]
+    if g.type == "llm":
+        return "---\ntype: llm\n---\n\n" + g.pattern + "\n"
+    head = ["type: tool_used", "tool: Skill", f"input_match: {g.input_match or SKILL_MATCH}", f"min: {g.min}"]
     head += [f"max: {g.max}"] if g.max is not None else []
     return "---\n" + "\n".join(head + ["arm: both"]) + "\n---\n"
 
@@ -1921,7 +2114,8 @@ def write_cases(out):
         d = out / c.name
         (d / "graders").mkdir(parents=True)
         (d / "prompt.md").write_text(prompt_file(c))
-        (d / "case.yaml").write_text(f'schema_version: "1.1"\nname: {c.name}\ncontext:\n  scaffold_script: scaffold.sh\n')
+        runs = f"runs: {c.runs}\n" if c.runs else ""
+        (d / "case.yaml").write_text(f'schema_version: "1.1"\nname: {c.name}\n{runs}context:\n  scaffold_script: scaffold.sh\n')
         (d / "scaffold.sh").write_text(scaffold(c))
         (d / "scaffold.sh").chmod(0o755)
         for g in c.graders:
@@ -1931,8 +2125,8 @@ def write_cases(out):
 def structure_problems():
     problems = []
     names = [c.name for c in CASES]
-    if len(names) != len(set(names)) or len(names) != 53:
-        problems.append(f"expected 53 distinct cases, found {len(names)}")
+    if len(names) != len(set(names)) or len(names) != 62:
+        problems.append(f"expected 62 distinct cases, found {len(names)}")
     for c in CASES:
         gnames = [g.name for g in c.graders]
         if len(gnames) != len(set(gnames)):

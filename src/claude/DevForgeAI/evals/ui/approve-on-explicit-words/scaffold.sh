@@ -232,24 +232,34 @@ cat > docs/specs/design/DSN-001/boards/canvas.json <<'UIFIXTURE'
   "attachments": {},
   "boards": {
     "Home.dc.html": {
-      "expand": false,
-      "h": 640
+      "x": 0,
+      "y": 0,
+      "w": 1040,
+      "h": 760
     },
     "List.dc.html": {
-      "expand": false,
-      "h": 640
+      "x": 0,
+      "y": 900,
+      "w": 1040,
+      "h": 760
     },
     "Add.dc.html": {
-      "expand": false,
-      "h": 640
+      "x": 1100,
+      "y": 900,
+      "w": 1040,
+      "h": 760
     },
     "Report.dc.html": {
-      "expand": false,
-      "h": 640
+      "x": 1100,
+      "y": 0,
+      "w": 1040,
+      "h": 760
     },
     "Settings.dc.html": {
-      "expand": false,
-      "h": 640
+      "x": 2200,
+      "y": 0,
+      "w": 1040,
+      "h": 760
     }
   }
 }

@@ -3,6 +3,6 @@ description: "VER-37: approving a DSN that does not exist writes nothing; the re
 tags: [ui, ver-37]
 max_turns: 15
 timeout_seconds: 300
-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, ToolSearch]
 ---
 /devforgeai:ui approve DSN-009

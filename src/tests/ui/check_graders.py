@@ -56,6 +56,7 @@ Ideas with no board: IDEA-06 (A dark theme for the report page)
 Markers left: DSN-001: 1
 OK docs/specs/design/DSN-001.md
 
+Boards come from the copy in docs/specs/design/DSN-001/boards/, recorded as it is. No Artifact tool in this session, so the canvas was not checked.
 Check 1: OK docs/specs/design/DSN-001.md.
 IDEA-04 is recorded as not a screen, as the request said; IDEA-06 has no board yet and holds the one open marker.
 
@@ -113,7 +114,8 @@ Next step: run /devforgeai:prd BRN-001 to write the PRD, and link DSN-001 in the
 """
 
 REPLY_CURRENT = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. Nothing was written. "
-                 "A board changed on the canvas must be copied into the boards folder again before the skill can see it.\n")
+                 "Without the Artifact tool the canvas was not checked; a board changed on the canvas is seen only when a run "
+                 "with the tool imports it.\n")
 
 # Without AskUserQuestion, SKILL.md step 6 makes the approval offer the last finding of step 7, before the Next step
 # paragraph. A case that ends with Next step must tolerate that line (it holds a question mark and the words
@@ -260,13 +262,64 @@ def stop(text):
     return ({}, text + "\n", [])
 
 
+DESIGN_SKILL = [{"tool": "Skill", "input": {"skill": "design"}}]
+CALLS_CASES = ("no-mockup-no-design-skill",)   # non-trigger cases with a tool_used grader: graded against simulated calls
+BRIEF_SHIFTS = """\
+**Brief 1: the flow shifts**
+
+Shifts in the terminal: the List and Add screens of Shiftlog, a terminal tool, for people who work shifts and record each one from the command line.
+
+Context: Shiftlog is used by people who work shifts. The one job of this flow: record a shift and see the shifts already recorded.
+
+Content: the idea "List shifts in a table"; the idea "Add a shift from the terminal". The flow's screens, in order: 1. List (the key screen), 2. Add. States to show: no shift recorded yet (empty); an error when a shift cannot be saved.
+
+Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; keyboard-driven.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+"""
+BRIEF_REPORT = """\
+**Brief 2: the flow report-and-home**
+
+The weekly report: the Home and Report pages of Shiftlog, a web app, for people who want to see their week at a glance.
+
+Context: Shiftlog users record shifts and then want to know how much they worked. The one job of this flow: read the week's report.
+
+Content: the idea "A weekly report page"; the idea "A dark theme for the report page". The flow's screens, in order: 1. Home, 2. Report (the key screen). States to show: a week with no shifts (empty); the report while it loads.
+
+Must-haves: a web page for a desktop browser, 1280 pixels wide; readable in a dark theme.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+"""
+REPLY_BRIEFS = """\
+I made no canvas and wrote nothing: this session has no Artifact tool, which making the canvas needs (ERR-19). Here is what I would send, unconfirmed.
+
+**Screens the promoted ideas name:** IDEA-01 (Add), IDEA-02 (List), IDEA-03 (Report) and IDEA-06 (the dark Report). IDEA-04, "Export shifts as CSV", names no screen.
+
+**Proposed grouping, unconfirmed:**
+1. shifts: List (the key screen) and Add, surface terminal.
+2. report-and-home: Home and Report (the key screen), surface web.
+
+@@BRIEF_SHIFTS@@
+@@BRIEF_REPORT@@
+Nothing was sent. The boards would go into docs/specs/design/DSN-001/boards/; run the skill in an interactive Claude Code session to make the canvas.
+""".replace("@@BRIEF_SHIFTS@@", BRIEF_SHIFTS).replace("@@BRIEF_REPORT@@", BRIEF_REPORT)
+
 GOOD2 = {
     "unconfirmed-stays-null": ({DSN1: null_dsn()}, REPLY_NULL, []),
-    "no-boards-stops": stop("The boards folder docs/specs/design/DSN-001/boards/ does not exist, so nothing was written. Copy canvas.json and the "
-                            "board files it names there from the canvas, then run the skill again. The skill never fetches boards from the canvas."),
-    "boards-at-wrong-number": stop("The next free number is DSN-002, so the boards must be in docs/specs/design/DSN-002/boards/. Copy canvas.json and "
-                                   "the board files there; DSN-001 already exists. Nothing was written."),
-    "canvas-unreadable": stop("canvas.json cannot be read as JSON (the copy may be damaged), so nothing was written. Please copy canvas.json again."),
+    "no-boards-stops": stop("This session has no Artifact tool, which importing the canvas named in your request needs (ERR-19), and "
+                            "docs/specs/design/DSN-001/boards/ holds no copy. A copy placed there by hand (canvas.json and the board files it "
+                            "names) is recorded when the skill is run again, in an interactive session. Nothing was written."),
+    "boards-without-canvas-json": stop("docs/specs/design/DSN-001/boards/ holds board files but no canvas.json. The folder must hold canvas.json and "
+                                       "the board files it names: import the canvas, or place them there. Nothing was written."),
+    "boards-at-wrong-number": stop("The next free number is DSN-002, so its boards would go in docs/specs/design/DSN-002/boards/; DSN-001's folder "
+                                   "belongs to a DSN that cites BRN-002. This session has no Artifact tool to import the canvas, and that folder holds "
+                                   "no copy. Nothing was written."),
+    "canvas-unreadable": stop("canvas.json cannot be read as JSON (the copy may be damaged), so nothing was written. Import the canvas again, "
+                              "or copy canvas.json again."),
     "unknown-canvas-format": stop("canvas.json has v 4, but only version 3 is supported. Claude Design's format is not documented, so I do not guess "
                                   "what version 4 means. Nothing was written."),
     "board-file-absent": stop("Two boards fail: Gone.dc.html is absent from the folder and ../outside.dc.html is not a plain file name. "
@@ -299,8 +352,18 @@ GOOD2 = {
     "amend-nothing-with-unrelated-documents": ({}, REPLY_CURRENT, []),
     "plain-run-never-approves": stop("DSN-001 is current: nothing to change, nothing was written."),
     "amend-never-approves": ({DSN1: revision_dsn()}, REPLY_REVISION, []),
-    "approval-blocked-by-changed-board": stop("The check failed: Report.dc.html differs from the digest (sha256) recorded in DSN-001, so nothing was "
-                                              "approved. An amend run comes first."),
+    "approval-blocked-by-changed-board": stop("Design document: DSN-001 (v1, draft; not approved)\n\nThe check failed: Report.dc.html differs from the "
+                                              "digest (sha256) recorded in DSN-001, so nothing was approved. An amend run comes first."),
+    "approval-already-approved": stop("DSN-001 is already approved: version 1, approved by Example Owner on 2026-10-08. Nothing was written."),
+    "approval-plus-change": stop("Design document: DSN-001 (v1, draft; not approved)\n\nI approved nothing and changed nothing: the request also asks "
+                                 "for a change, so an amend run comes first: /devforgeai:ui BRN-001."),
+    "amend-nothing-with-unasked-candidate": ({}, REPLY_CURRENT.rstrip("\n") + " One candidate (PRD-001 FR-024) waits for an interactive run.\n", []),
+    "brief-drafted": ({}, REPLY_BRIEFS, []),
+    "no-screen-idea": stop("No promoted idea of BRN-001 names a screen, a flow or a user interface (they keep shifts in a local SQLite file and back "
+                           "up the data), so there is nothing to design here; this step is optional. Go on with /devforgeai:prd BRN-001. Nothing "
+                           "was written."),
+    "no-mockup-no-design-skill": ({}, "I can't make the canvas: this session has no Artifact tool, and I don't draw a screen in the terminal. "
+                                      "Nothing was written. Run /devforgeai:ui BRN-001 in an interactive Claude Code session.\n", []),
     "approval-unknown-dsn": stop("DSN-009 does not exist. DSN-001 (v1, draft). Only a draft or in-review DSN is approved."),
     "approval-superseded-dsn": stop("DSN-001 (v1, superseded). Only a draft or in review DSN is approved."),
     "approval-without-id": stop("Which DSN should I approve? DSN-001 (v1, draft). Give me the DSN ID."),
@@ -464,7 +527,7 @@ COVERAGE_BAD = [
     ("Boards with no idea lists a board", [("reply", None, "Boards with no idea: none", "Boards with no idea: Report.dc.html")], {"ver02-block-boards-with-no-idea"}),
     ("Ideas with no board says none", [("reply", None, "Ideas with no board: IDEA-06 (A dark theme for the report page)", "Ideas with no board: none")],
      {"ver02-block-ideas-with-no-board"}),
-    ("no OK line in the block", [("reply", None, "OK docs/specs/design/DSN-001.md\n\nCheck 1:", "\nCheck 1:")], {"ver02-block-ok-line"}),
+    ("no OK line in the block", [("reply", None, "OK docs/specs/design/DSN-001.md\n\nBoards come from", "\nBoards come from")], {"ver02-block-ok-line"}),
     ("a paragraph after the next step", [("reply", None, "since the prd skill does not do it yet.\n", "since the prd skill does not do it yet.\n\nAnything else?\n")],
      {"ver02-next-step-is-last", "ver02-next-step-names-prd"}),
     ("the next step does not mention section 8", [("reply", None, ", and link DSN-001 in the PRD's section 8 by hand, since the prd skill does not do it yet", "")],
@@ -492,7 +555,7 @@ AMEND_BAD = [
     ("the PRD is edited", [("file", PRD, "shall total", "shall sum")], {"ver10-prd-001-unchanged"}),
     ("the BRN is edited", [("file", M.BRN_PATH, "Shift workers.", "Everyone.")], {"ver10-brn-001-unchanged"}),
     ("a board file is edited", [("file", f"{M.DESIGN}/DSN-001/boards/Home.dc.html", "Shiftlog home", "Shiftlog start")], {"ver10-board-home-unchanged"}),
-    ("canvas.json is edited", [("file", f"{M.DESIGN}/DSN-001/boards/canvas.json", '"h": 640', '"h": 641', 5)], {"ver10-canvas-json-unchanged"}),
+    ("canvas.json is edited", [("file", f"{M.DESIGN}/DSN-001/boards/canvas.json", '"h": 760', '"h": 761', 5)], {"ver10-canvas-json-unchanged"}),
     ("the commands are in the other order", [("reply", None, f'- python3 "{SCRIPT_PATH}" boards DSN-001 -> boards: ok\n- python3 "{SCRIPT_PATH}" check --before-amend DSN-001 ->',
                                               f'- python3 "{SCRIPT_PATH}" check --before-amend DSN-001 -> x\n- python3 "{SCRIPT_PATH}" boards DSN-001 ->')],
      {"ver10-pre-check-order"}),
@@ -544,8 +607,13 @@ NOTHING_BAD = [
     ("it does not say the DSN is current", [("reply", None, "DSN-001 is current:", "DSN-001 stands:")], {"ver33-says-dsn-001-is-current"}),
     ("it does not give the version", [("reply", None, "at version 1 and", "at revision one and")], {"ver33-gives-version-1"}),
     ("it does not give the canvas version", [("reply", None, "17-example", "unknown")], {"ver33-gives-the-recorded-canvas-version"}),
-    ("it does not say to copy the boards again", [("reply", None, " A board changed on the canvas must be copied into the boards folder again before the skill can see it.", "")],
-     {"ver33-says-to-copy-the-boards-again"}),
+    ("it does not say the canvas was not checked", [("reply", None, "Without the Artifact tool the canvas was not checked; a board changed",
+                                                      "A board changed")], {"ver33-says-canvas-not-checked"}),
+    ("it does not say a change is seen by an import", [("reply", None, "; a board changed on the canvas is seen only when a run with the tool imports it", "")],
+     {"ver33-says-a-change-is-seen-by-an-import"}),
+    ("it says the boards are copied again, as version 1 did", [("reply", None, "a board changed on the canvas is seen only when a run with the tool imports it",
+                                                                "a board changed on the canvas must be copied into the boards folder again")],
+     {"ver33-says-a-change-is-seen-by-an-import"}),
 ]
 
 TRIGGER_BAD = {
@@ -559,8 +627,57 @@ for i, (fires, _) in enumerate(M.TRIGGERS, start=1):
     if name not in TRIGGER_BAD:
         TRIGGER_BAD[name] = ([("no Skill call", {"calls": []}, {"ver22-skill-fired"}), ("the prd skill fires instead", {"calls": OTHER_SKILL}, {"ver22-skill-fired"})]
                              if fires else [("the ui skill fires", {"calls": SKILL}, {"ver22-skill-not-fired"})])
+TRIGGER_BAD["no-mockup-no-design-skill"] = [("the design skill is invoked", {"calls": DESIGN_SKILL}, {"ver41-design-skill-not-invoked"}),
+                                           ("the ui skill is not the design skill", {"calls": SKILL}, set())]
 STATUS_APPROVED = ("file", DSN1, "status: draft\n", "status: approved\n")
 BAD2 = {
+    "writes-dsn": [("the findings are silent about the copy and the canvas", [("reply", None, "Boards come from the copy in docs/specs/design/DSN-001/boards/, recorded as it is. No Artifact tool in this session, so the canvas was not checked.\n", "")],
+                    {"ver01-says-copy-recorded-as-it-is", "ver01-says-no-artifact-tool-in-this-session", "ver01-says-canvas-not-checked"}),
+                   ("the canvas is not said to be unchecked", [("reply", None, " No Artifact tool in this session, so the canvas was not checked.", "")],
+                    {"ver01-says-no-artifact-tool-in-this-session", "ver01-says-canvas-not-checked"})],
+    "no-boards-stops": [("no statement about the tool", [("reply", None, "This session has no Artifact tool, which importing the canvas named in your request needs (ERR-19), and ", "")],
+                         {"ver04-says-no-artifact-tool"}),
+                        ("a drawing of a screen", [("reply", None, "Nothing was written.", "Nothing was written.\n┌──────┐\n│ Home │\n└──────┘")],
+                         {"ver04-no-drawing"}),
+                        ("no copy by hand is recorded when run again", [("reply", None, "A copy placed there by hand (canvas.json and the board files it names) is recorded when the skill is run again, in an interactive session. ", "")],
+                         {"ver04-says-a-copy-placed-by-hand-is-recorded-when-run-again"})],
+    "boards-at-wrong-number": [("no statement about the tool", [("reply", None, "This session has no Artifact tool to import the canvas, and that folder holds no copy. ", "")],
+                                {"ver05-says-no-artifact-tool"})],
+    "canvas-unreadable": [("it does not ask to import or copy again", [("reply", None, " Import the canvas again, or copy canvas.json again.", "")],
+                           {"ver06-asks-to-import-or-copy-again"})],
+    "approval-blocked-by-changed-board": [("the block line says approved", [("reply", None, "(v1, draft; not approved)", "(v1, approved)")],
+                                           {"ver36-block-line-not-approved"})],
+    "approval-already-approved": [("it does not say already approved", [("reply", None, "is already approved:", "is a draft:")], {"ver37-says-already-approved"}),
+                                  ("it does not give the approver", [("reply", None, "approved by Example Owner on 2026-10-08", "approved")],
+                                   {"ver37-gives-version-approver-and-date"})],
+    "approval-plus-change": [("it says nothing about an amend run", [("reply", None, "so an amend run comes first: /devforgeai:ui BRN-001.", "so nothing else happened.")],
+                              {"ver37-says-an-amend-run-comes-first", "ver37-names-the-amend-command"}),
+                             ("the block line says approved", [("reply", None, "(v1, draft; not approved)", "(v1, approved)")],
+                              {"ver37-block-line-not-approved"})],
+    "amend-nothing-with-unasked-candidate": [("it does not count the candidate", [("reply", None, " One candidate (PRD-001 FR-024) waits for an interactive run.", "")],
+                                              {"ver33-says-one-candidate-waits", "ver33-says-for-an-interactive-run"})],
+    "brief-drafted": [("the closing line is missing from the second brief", [("reply", None, "Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.\n\nNothing was sent.", "\nNothing was sent.")],
+                       set()),
+                      ("no closing line at all", [("reply", None, "Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.\n", "", 2)],
+                       {"ver39-briefs-in-dm05-order", "ver39-closing-line-exact"}),
+                      ("the Style holds a hex value", [("reply", None, "Style: propose one.\n\nGive me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.\n\n**Brief 2", "Style: propose one, dark #1a1b26.\n\nGive me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.\n\n**Brief 2")],
+                       {"ver39-style-holds-no-hex-or-px", "ver39-no-hex-value-anywhere"}),
+                      ("a drawing of a screen", [("reply", None, "Nothing was sent.", "Nothing was sent.\n┌────────┐\n│ Shifts │\n└────────┘")],
+                       {"ver39-no-drawing"}),
+                      ("no statement about the tool", [("reply", None, "this session has no Artifact tool, which making the canvas needs (ERR-19). Here", "here")],
+                       {"ver39-says-no-artifact-tool"}),
+                      ("the grouping is not called unconfirmed", [("reply", None, "Here is what I would send, unconfirmed.", "Here is what I would send."),
+                                                                 ("reply", None, "**Proposed grouping, unconfirmed:**", "**Proposed grouping:**")],
+                       {"ver39-says-the-grouping-is-unconfirmed"}),
+                      ("the folder is not named", [("reply", None, "The boards would go into docs/specs/design/DSN-001/boards/; run", "Run")],
+                       {"ver39-names-boards-folder"}),
+                      ("IDEA-04 is not mentioned", [("reply", None, " IDEA-04, \"Export shifts as CSV\", names no screen.", "")],
+                       {"ver39-says-idea-04-names-no-screen"})],
+    "no-screen-idea": [("it does not point to the PRD", [("reply", None, " Go on with /devforgeai:prd BRN-001.", "")], {"ver40-points-to-prd"}),
+                       ("it does not call the step optional", [("reply", None, "; this step is optional", "")], {"ver40-says-the-step-is-optional"})],
+    "no-mockup-no-design-skill": [("a drawing of a screen", [("reply", None, "Nothing was written.", "Nothing was written.\n+------+\n| Home |\n+------+")],
+                                   {"ver41-no-drawing"}),
+                                  ("no statement about the tool", [("reply", None, "this session has no Artifact tool, and ", "")], {"ver41-says-no-artifact-tool"})],
     "approve-blocked-by-marker": [("only the Markers left line says it", [("reply", None, SAYS_MARKER_REMAINS + "\n", "")],
                                    {"ver19-reply-says-the-marker-remains"})],
     "path-refused": [("no question or request", [("reply", None, " Which BRN ID should I use? BRN-001 has promoted ideas.", "")],
@@ -721,7 +838,8 @@ def main():
     for name, (files, reply, calls) in list(GOOD.items()) + list(GOOD2.items()):
         case = CASES[name]
         is_trigger = name.startswith("ui-trigger-")
-        good = grade(case, files, reply, calls if is_trigger else None)
+        with_calls = is_trigger or name in CALLS_CASES
+        good = grade(case, files, reply, calls if with_calls else None)
         runs += 1
         graded = {k for k, v in good.items() if v is not None}
         if failing(good):
@@ -741,21 +859,19 @@ def main():
             runs += 1
             if failing(offered):
                 problems.append(f"{name}: the plain-text approval offer before Next step fails {sorted(failing(offered))}")
-        caught = failing(grade(case, {}, "", [] if is_trigger else None))
+        caught = failing(grade(case, {}, "", [] if with_calls else None))
         runs += 1
-        if is_trigger:
-            bad_runs = [(label, apply(case, files, reply, calls, [])[0], reply, edit["calls"], expected, True)
-                        for label, edit, expected in TRIGGER_BAD[name]]
-        else:
-            bad_runs = []
+        bad_runs = [(label, apply(case, files, reply, calls, [])[0], reply, edit["calls"], expected, True)
+                    for label, edit, expected in TRIGGER_BAD.get(name, [])]
+        if not is_trigger:
             for label, edits, expected in BAD.get(name, []):
                 bfiles, breply, _ = apply(case, files, reply, None, edits)
-                bad_runs.append((label, bfiles, breply, None, expected, True))
+                bad_runs.append((label, bfiles, breply, calls if with_calls else None, expected, True))
             for label, edits, expected in BAD2.get(name, []):
                 bfiles, breply, _ = apply(case, files, reply, None, edits)
-                bad_runs.append((label, bfiles, breply, None, expected, False))
+                bad_runs.append((label, bfiles, breply, calls if with_calls else None, expected, False))
             for gname, mfiles, mreply in list(mutations(case, files, reply)) + list(item_mutations(case, files, reply)):
-                got = failing(grade(case, mfiles, mreply))
+                got = failing(grade(case, mfiles, mreply, calls if with_calls else None))
                 runs += 1
                 if gname not in got:
                     problems.append(f"{name}: the mutation for {gname} doesn't fail it")

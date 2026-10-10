@@ -3,6 +3,6 @@ description: "VER-36: a board changed since the DSN was written blocks the appro
 tags: [ui, ver-36]
 max_turns: 15
 timeout_seconds: 300
-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, ToolSearch]
 ---
 /devforgeai:ui approve DSN-001. I'm Example Owner.

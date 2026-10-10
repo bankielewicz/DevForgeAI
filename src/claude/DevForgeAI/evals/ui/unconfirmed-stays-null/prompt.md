@@ -3,6 +3,6 @@ description: "VER-03: with no canvas facts and no mapping, every flow, surface a
 tags: [ui, ver-03]
 max_turns: 60
 timeout_seconds: 900
-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, ToolSearch]
 ---
 Record the UI design for BRN-001. Proceed without questions.

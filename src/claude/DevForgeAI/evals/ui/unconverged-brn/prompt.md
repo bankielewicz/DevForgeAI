@@ -3,6 +3,6 @@ description: "VER-15: a draft BRN writes nothing and the reply warns that some i
 tags: [ui, ver-15]
 max_turns: 15
 timeout_seconds: 300
-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, ToolSearch]
 ---
 Record the UI design for BRN-001. Proceed without questions.

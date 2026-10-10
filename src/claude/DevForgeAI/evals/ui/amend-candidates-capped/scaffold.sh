@@ -250,11 +250,11 @@ boards:
 ## 4. Canvas
 
 - Canvas: https://claude.ai/artifact/EXAMPLE
-- Canvas version copied: 17-example
-- Date of the copy: not given
+- Canvas version imported: 17-example
+- Date of the import: not known
 
-The user copies the boards from the canvas into boards_root. This skill never fetches from the canvas. A new copy of the
-boards means a new run, which amends this document.
+The boards in boards_root were imported from this canvas by the ui skill, or placed there and recorded as they
+were. A new import means a new run, which amends this document. The brief is not recorded here.
 
 ## 5. Open questions
 
@@ -336,20 +336,28 @@ cat > docs/specs/design/DSN-001/boards/canvas.json <<'UIFIXTURE'
   "attachments": {},
   "boards": {
     "Home.dc.html": {
-      "expand": false,
-      "h": 640
+      "x": 0,
+      "y": 0,
+      "w": 1040,
+      "h": 760
     },
     "List.dc.html": {
-      "expand": false,
-      "h": 640
+      "x": 0,
+      "y": 900,
+      "w": 1040,
+      "h": 760
     },
     "Add.dc.html": {
-      "expand": false,
-      "h": 640
+      "x": 1100,
+      "y": 900,
+      "w": 1040,
+      "h": 760
     },
     "Report.dc.html": {
-      "expand": false,
-      "h": 640
+      "x": 1100,
+      "y": 0,
+      "w": 1040,
+      "h": 760
     }
   }
 }

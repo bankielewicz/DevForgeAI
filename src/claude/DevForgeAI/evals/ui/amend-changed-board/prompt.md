@@ -3,6 +3,6 @@ description: "VER-10: an approved DSN-001, a changed Report board and a new Sett
 tags: [ui, ver-10]
 max_turns: 60
 timeout_seconds: 900
-allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]
+allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, ToolSearch]
 ---
-Update the UI design for BRN-001. I copied the boards again from the canvas, version 18-example. Report's mapping is unchanged. Settings is a new web screen in the flow report-and-home, and it shows IDEA-06. Proceed without questions.
+Update the UI design for BRN-001. I copied the boards again from the canvas, version 18-example. Report's mapping is unchanged. Settings is a new web screen in the flow report-and-home, as its last step, and it shows IDEA-06. Proceed without questions.
