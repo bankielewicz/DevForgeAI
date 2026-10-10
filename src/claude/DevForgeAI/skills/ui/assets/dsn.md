@@ -42,7 +42,7 @@ considered: []         # [] for a new DSN; an amend run adds PRD-NNN@N, ADR-NNN@
      notes or in section 5. The document cannot be approved while any marker remains.
      AUTHOR COMMENTS. Delete every comment in this file, HTML and # alike, except the line
      # --- design-specific ---, and replace every [[fill: …]] placeholder and every stand-in value
-     (DSN-000, BRN-000, YYYY-MM-DD, the example board) before writing.
+     (DSN-000, BRN-000, YYYY-MM-DD, canvas_format: 0, the example board) before writing.
      CHANGES. An amend raises version once a run, adds one Change Log row and never deletes or renumbers a
      board item.
      Delete these comments when you fill in the document. -->
@@ -88,6 +88,7 @@ boards:
 - Canvas: [[fill: the canvas URL the user gave, or null]]
 - Canvas version copied: [[fill: the version the user gave, or null]]
 - Date of the copy: [[fill: the date the user gave, or not given]]
+[[fill: when the URL or the version is null, one line holding the marker NEEDS CLARIFICATION: canvas URL and version copied, written in square brackets as the other markers are; otherwise delete this line]]
 
 The user copies the boards from the canvas into boards_root. This skill never fetches from the canvas. A new
 copy of the boards means a new run, which amends this document.
