@@ -1,0 +1,6 @@
+---
+type: regex
+target: {source: file, path: docs/specs/design/DSN-001.md}
+match: contains
+---
+\n##[ \t]+(?:\d+\.[ \t]+)?Idea coverage[^\n]*\n(?:(?!\n##[ \t])[\s\S])*?\n\|[ \t]*`?IDEA-02`?[ \t]*\|[ \t]*`?BRD-01[ \t,;&]+(?:and[ \t]+)?BRD-02`?[ \t]*\|[ \t]*`?withdrawn`?[ \t]*\|
