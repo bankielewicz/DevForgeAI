@@ -3,8 +3,10 @@ type: llm
 ---
 
 Judge the Must-haves and the Style of each brief in the agent's output. A pass needs all of these:
-- Each Must-haves is two to four short constraints. Several constraints written on one line and separated by commas or semicolons
-  count as several.
+- Each Must-haves is two to four short constraints. A constraint is a clause between semicolons (or an item on its own line);
+  commas inside a clause list parts of one constraint, as in "text, box-drawing and block characters". So "a terminal screen, a
+  monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters and 24-bit colour; fully
+  keyboard-driven" is three constraints.
 - A terminal flow's Must-haves state a monospace cell grid of columns by rows; a web flow's state the surface and a size. A
   rendering note such as "drawn only with text, box-drawing and block characters", "keyboard-driven" or "readable in a dark theme"
   is a constraint.

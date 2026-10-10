@@ -557,6 +557,191 @@ ALT_REPLIES["unconverged-brn"] = [OBSERVED_UNCONVERGED]
 ALT_REPLIES["amend-nothing-with-prd"] = ALT_REPLIES["amend-nothing-with-prd"] + [OBSERVED_NOTHING_WITH_PRD]
 ALT_REPLIES["brief-drafted"] = [OBSERVED_BRIEFS]
 
+# The final replies of the three runs of brief-drafted bound to feb23e6 (ui-v2-brief-20261010T142406): each must pass every
+# regex grader (the llm graders cannot be graded offline). Run 0 names the surface of a flow as 'terminal' and 'web', not 'surface'.
+OBSERVED_BRIEFS_0 = """\
+I wrote nothing and sent nothing. This session has no Artifact tool, so it can't make the Claude Design canvas (ERR-19). Also, you asked me to proceed without questions, so the grouping and briefs below are not confirmed, and the skill only makes a canvas from confirmed briefs (ERR-22).
+
+- [x] 1. Selected BRN-001 ("Shiftlog: record shifts", converged, v1). No DSN cites it, so this is a create run.
+- [x] 2. Read the BRN. The next DSN ID is DSN-001, with no other boards folders waiting under another number. `docs/specs/design/DSN-001/boards/` doesn't exist yet. The Artifact tool isn't available, so ERR-19 applies.
+- [x] 3. Proposed flows and briefs below. They are unconfirmed, because no questions could be asked and there was no Artifact tool.
+- [ ] 4. (skipped: no Artifact tool; grouping and briefs not confirmed)
+- [ ] 5. (skipped: no canvas to import)
+- [ ] 6. (skipped: no boards)
+- [ ] 7. (skipped: no boards to record)
+- [ ] 8. (skipped: no DSN written)
+- [ ] 9. (skipped: no DSN written)
+- [x] 10. Report
+
+**Screens named by the promoted ideas:**
+- **IDEA-01** "Add a shift from the terminal": Add screen, terminal.
+- **IDEA-02** "List shifts in a table": List screen, terminal.
+- **IDEA-03** "A weekly report page": Report screen, web.
+- **IDEA-06** "A dark theme for the report page": the Report screen again, as a requirement on it.
+- **IDEA-04** "Export shifts as CSV" names no screen. It looks like `not a screen`, but you decide that when the mappings are confirmed.
+- **IDEA-05** "Sync to a server" is parked, so it isn't included.
+
+**Proposed grouping:**
+1. `shifts`, terminal: 1. List (key screen), 2. Add. Ideas IDEA-01 and IDEA-02.
+2. `weekly-report`, web: 1. Report (key screen). Ideas IDEA-03 and IDEA-06.
+
+**Brief: `shifts`** (unconfirmed)
+
+```
+Shifts in the terminal: the List and Add screens of Shiftlog, a terminal tool, for shift workers who record when they start and stop work.
+
+Context: Shift workers record when they start and stop work, and today they lose track of the hours they worked each week. The one job of this flow: record a shift and see the shifts already recorded at a glance.
+
+Content: the idea "List shifts in a table"; the idea "Add a shift from the terminal"; the problem "Workers lose track of the hours they worked each week". The flow's screens, in order: 1. List (the key screen), 2. Add. States to show: no shift recorded yet; a list of recorded shifts.
+
+Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters and 24-bit colour; fully keyboard-driven.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
+
+**Brief: `weekly-report`** (unconfirmed)
+
+```
+The weekly report: the Report page of Shiftlog, a web app, for shift workers who want to see the hours they worked each week.
+
+Context: Shift workers record when they start and stop work, and want to see the hours they worked each week. The one job of this flow: open the report and read the week's hours.
+
+Content: the idea "A weekly report page"; the idea "A dark theme for the report page"; the problem "Workers lose track of the hours they worked each week"; the success signal "The hours worked each week are right". The flow's screens, in order: 1. Report (the key screen). States to show: a week with no shifts; a week with shifts.
+
+Must-haves: a web page for a desktop browser, 1280 pixels wide; readable in a dark theme; usable with the keyboard alone.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
+
+"Style: propose one" is there because I couldn't look up your default design system without the Artifact tool. If you want to make the boards by hand, you can paste these briefs into `/design`.
+
+Next step: run `/devforgeai:ui BRN-001` in an interactive Claude Code session that has the Artifact tool, and without "proceed without questions", so you can confirm the grouping and briefs and have the canvas made. Alternatively, put a copy of the canvas in `docs/specs/design/DSN-001/boards/` (`canvas.json` and the board files it names) and run the skill again to record it. Designing the UI is optional, so you can also go straight to `/devforgeai:prd BRN-001`.
+"""
+OBSERVED_BRIEFS_1 = """\
+I didn't make a canvas or write a design document for BRN-001, and nothing was sent to claude.ai. There were two blockers:
+
+- **No Artifact tool in this session (ERR-19).** Steps 4 and 5 make the canvas through the Artifact tool, and this session doesn't have it. So it also couldn't check your default design system, and the briefs say "Style: propose one".
+- **"Proceed without questions" (ERR-22).** You have to confirm the grouping and the briefs before any canvas is made. Under that instruction they stay unconfirmed, so I wrote nothing.
+
+The new design document will be **DSN-001**, and its boards folder will be `docs/specs/design/DSN-001/boards/`. No other boards folders are waiting.
+
+- [x] 1. BRN-001 selected: no design document cites it, so this is a create run
+- [x] 2. BRN-001 read (converged, version 1): 5 promoted ideas, IDEA-01, 02, 03, 04 and 06. The ID will be DSN-001. The boards folder is empty and no canvas URL was given, so the canvas has to be made from briefs
+- [x] 3. Flows and briefs drafted below; not confirmed
+- [ ] 4. Canvas (skipped: no Artifact tool, and the briefs aren't confirmed)
+- [ ] 5–9 (skipped: there's no canvas to import, so no design document was written)
+- [x] 10. Report below
+
+## Proposed flows (unconfirmed)
+
+| Flow | Screens, in order | Key screen | Surface | Ideas |
+|---|---|---|---|---|
+| `shifts` | 1. List, 2. Add | List | terminal | IDEA-02, IDEA-01 |
+| `report` | 1. Report | Report | web | IDEA-03, IDEA-06 (dark theme, shown on the Report screen) |
+
+IDEA-04 ("Export shifts as CSV") doesn't name a screen, so it isn't in either flow. The brainstorm doesn't mention a Home page, so I didn't add one.
+
+## Brief: `shifts`
+
+```
+Shifts in the terminal: the List and Add screens of Shiftlog, a terminal tool, for shift workers who record when they start and stop work.
+
+Context: Shift workers lose track of the hours they worked each week. The one job of this flow: add a shift from the terminal and see the shifts already recorded in a table.
+
+Content: the idea "List shifts in a table"; the idea "Add a shift from the terminal"; the problem "Workers lose track of the hours they worked each week". The flow's screens, in order: 1. List (the key screen), 2. Add. States to show: no shift recorded yet; a table of recorded shifts.
+
+Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters and 24-bit colour; fully keyboard-driven.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
+
+## Brief: `report`
+
+```
+The weekly report: the Report page of Shiftlog, a web app, for shift workers who want to see the hours they worked each week.
+
+Context: Shift workers record when they start and stop work, and lose track of their weekly hours. The one job of this flow: read the hours worked in a week.
+
+Content: the idea "A weekly report page"; the idea "A dark theme for the report page"; the problem "Workers lose track of the hours they worked each week"; the success signal "The hours worked each week are right". The flow's screens: 1. Report (the key screen). States to show: a week with no shifts; a week with shifts.
+
+Must-haves: a web page for a desktop browser, 1280 pixels wide; readable in a dark theme; usable with the keyboard alone.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
+
+You can paste these briefs into `/design` by hand. If you put that canvas's `canvas.json` and its board files in `docs/specs/design/DSN-001/boards/`, they're recorded as they are when the skill runs again.
+
+Next step: run `/devforgeai:ui BRN-001` in an interactive Claude Code session that has the Artifact tool, without "proceed without questions", so you can confirm or change the grouping and the briefs and the canvas can be made. If you'd rather skip screen design, `/devforgeai:prd BRN-001` goes straight to the PRD.
+"""
+OBSERVED_BRIEFS_2 = """\
+- [x] 1. Select the BRN — BRN-001 ("Shiftlog: record shifts", converged, v1). No DSN cites it, so this is a create run.
+- [x] 2. Read the BRN and find the boards — 5 promoted ideas. `next` gives DSN-001 and there are no pending boards folders. `docs/specs/design/DSN-001/boards/` doesn't exist and you gave no canvas URL, so the canvas would have to be made new.
+- [x] 3. Flows and briefs — drafted below but **not confirmed**. Two things stopped the run here: this session has no Artifact tool (ERR-19), and "proceed without questions" can't confirm a grouping or a brief (ERR-22).
+- [ ] 4. Canvas (skipped: ERR-19, no Artifact tool, and ERR-22, briefs unconfirmed)
+- [ ] 5. Wait, then import (skipped: no canvas)
+- [ ] 6. Interview (skipped: no boards)
+- [ ] 7. Write DSN-001 (skipped: nothing to record)
+- [ ] 8. Validate (skipped: no DSN written)
+- [ ] 9. Approval (skipped: no DSN written)
+- [ ] 10. Report — below. No DSN was written, so there's no report block.
+
+**No design canvas was made and nothing was written or sent.** This session has no Artifact tool (`ToolSearch select:Artifact` found nothing), and the canvas can only be made through that tool. Run the skill in an interactive Claude Code session that has it. The new design document would be **DSN-001**, with boards in `docs/specs/design/DSN-001/boards/`. If you place a copy there by hand (`canvas.json` plus the board files it lists), the next run records it as it is.
+
+**Proposed grouping (not confirmed):**
+
+| Flow | Screens, in order | Key screen | Surface | Ideas |
+|---|---|---|---|---|
+| `shifts` | 1. List, 2. Add | List | terminal | IDEA-02, IDEA-01 |
+| `report` | 1. Report | Report | web | IDEA-03, IDEA-06 |
+
+IDEA-04 ("Export shifts as CSV") doesn't name a screen, so it's in neither flow. At the mapping step it would probably be marked `not a screen`, but that's for you to confirm.
+
+**Brief: `shifts` (not confirmed)**
+
+```
+Shifts in the terminal: the List and Add screens of Shiftlog, a terminal tool, for shift workers who record when they start and stop work.
+
+Context: Shift workers lose track of the hours they worked each week. The one job of this flow: record a shift from the terminal and see the shifts already recorded at a glance.
+
+Content: the idea "List shifts in a table"; the idea "Add a shift from the terminal"; the problem "Workers lose track of the hours they worked each week"; the assumption "We believe that workers will record shifts every day." The flow's screens, in order: 1. List (the key screen), 2. Add. States to show: no shift recorded yet; a table of shifts recorded over a week.
+
+Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters and 24-bit colour; fully keyboard-driven.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
+
+**Brief: `report` (not confirmed)**
+
+```
+The weekly report: the Report page of Shiftlog, a web app, for shift workers who want to see the hours they worked each week.
+
+Context: Shift workers record when they start and stop work, and lose track of the hours they worked each week. The one job of this flow: read one week's hours at a glance.
+
+Content: the idea "A weekly report page"; the idea "A dark theme for the report page"; the problem "Workers lose track of the hours they worked each week"; the success signal "The hours worked each week are right." The flow's screens, in order: 1. Report (the key screen). States to show: a week with no shifts; a week with shifts.
+
+Must-haves: a web page for a desktop browser, 1280 pixels wide; a dark theme; usable with the keyboard alone.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
+
+The terminal size (120 × 40) and the 1280-pixel width are suggestions for you to confirm. "Style: propose one" is there because no design system could be read without the Artifact tool. You can also paste these briefs into `/design` yourself.
+
+Next step: run `/devforgeai:ui BRN-001` in an interactive Claude Code session that has the Artifact tool, and without "proceed without questions". You'll be asked to confirm the grouping and briefs, the canvas gets made, and the boards are imported into DSN-001 once you've finished working on them. If you'd rather skip screen design, go straight on with `/devforgeai:prd BRN-001`.
+"""
+ALT_REPLIES["brief-drafted"] = ALT_REPLIES["brief-drafted"] + [OBSERVED_BRIEFS_0, OBSERVED_BRIEFS_1, OBSERVED_BRIEFS_2]
+
 # --------------------------------------------------------------------------------------------------------
 # The targeted wrong runs: (label, edits, the graders that must fail, and no others). An edit is
 # ("file", path, old, new) or ("reply", None, old, new); "calls" replaces the tool calls.

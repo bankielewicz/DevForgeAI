@@ -1569,11 +1569,16 @@ IDEA_TEXTS = (r"Add a shift from the terminal|List shifts in a table|A weekly re
 # counts as FAIL), so the briefs are judged by four narrow rubrics, each with the facts it needs, not one rubric of seven parts:
 # a failing vote then says which part failed.
 BRIEF_FACTS = """\
-The brainstorm behind the briefs holds these promoted ideas: IDEA-01 "Add a shift from the terminal", IDEA-02 "List shifts in a
-table", IDEA-03 "A weekly report page" and IDEA-06 "A dark theme for the report page" (IDEA-04 "Export shifts as CSV" names no
-screen). Its problem PRB-01 reads "Workers lose track of the hours they worked each week". Its assumption reads "We believe that
-workers will record shifts every day." Its context says: Shift workers record when they start and stop work, and want to see the
-hours they worked each week."""
+Everything the brainstorm behind the briefs (BRN-001, "Shiftlog: record shifts") says that a brief may quote:
+- Context: Shift workers record when they start and stop work, and want to see the hours they worked each week.
+- Problem PRB-01, raised by shift workers, evidence "Interview notes": "Workers lose track of the hours they worked each week".
+- Target users: Shift workers.
+- Promoted ideas: IDEA-01 "Add a shift from the terminal", IDEA-02 "List shifts in a table", IDEA-03 "A weekly report page" and
+  IDEA-06 "A dark theme for the report page". (IDEA-04 "Export shifts as CSV" names no screen; IDEA-05 "Sync to a server" is
+  parked.)
+- Assumption ASM-01: "We believe that workers will record shifts every day."
+- Candidate success signal: The hours worked each week are right (quoted as "The hours worked each week are right").
+"""
 BRIEF_JUDGES = {
     "ver39-brief-parts-in-order": """\
 The agent was asked to design the UI for a brainstorm (BRN-001, Shiftlog: record shifts) in a session with no Artifact tool, so it
@@ -1588,16 +1593,20 @@ Anything else is not a pass.""",
 
 
 Judge the Context and the Content of each brief in the agent's output. A pass needs all of these:
-- Each Context is two or three sentences about who uses the flow and the one job it does.
-- Each Content quotes the wording of one or more of the ideas or the problem above, and lists the flow's screens in order.
+- Each Context is two or three sentences about who uses the flow and the one job it does. It may paraphrase the context, the users
+  and the problem above in other words.
+- Each Content quotes the wording of one or more of the sources above (an idea, the problem, the assumption, the success signal),
+  and lists the flow's screens in order.
 - A state a Content names is acceptable when the ideas could support it: an empty state ("no shift recorded yet", "a week with no
   shifts"), a state with data, an error, a loading or a mid-flow state. The words empty, error and loading need not appear.
-- Neither adds a feature, data or copy that the ideas, the problem and the assumption above do not support.
+- Neither adds a feature, data or copy that nothing above supports. A quote of any source above is supported.
 Anything else is not a pass.""",
     "ver39-brief-must-haves-and-no-layout": """\
 Judge the Must-haves and the Style of each brief in the agent's output. A pass needs all of these:
-- Each Must-haves is two to four short constraints. Several constraints written on one line and separated by commas or semicolons
-  count as several.
+- Each Must-haves is two to four short constraints. A constraint is a clause between semicolons (or an item on its own line);
+  commas inside a clause list parts of one constraint, as in "text, box-drawing and block characters". So "a terminal screen, a
+  monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters and 24-bit colour; fully
+  keyboard-driven" is three constraints.
 - A terminal flow's Must-haves state a monospace cell grid of columns by rows; a web flow's state the surface and a size. A
   rendering note such as "drawn only with text, box-drawing and block characters", "keyboard-driven" or "readable in a dark theme"
   is a constraint.
@@ -1628,7 +1637,8 @@ def brief_drafted():
                 r"IDEA-04[^\n]{0,160}\b(?:no screen|names? no|not a screen|nothing|none|doesn" + APOS + r"t|does not|no user interface|"
                 r"isn" + APOS + r"t a screen)\b"),
           reply("ver39-says-the-grouping-is-unconfirmed", UNCONFIRMED),
-          reply("ver39-names-key-screen-and-surface", r"^(?=[\s\S]*\bkey screen\b)(?=[\s\S]*\bsurface\b)(?=[\s\S]*\b(?:terminal|web)\b)"),
+          # the surface is named by saying terminal or web next to the flow; the word "surface" need not appear
+          reply("ver39-names-key-screen-and-surface", r"^(?=[\s\S]*\bkey screen\b)(?=[\s\S]*\b(?:terminal|web)\b)"),
           reply("ver39-briefs-in-dm05-order", BRIEF_PARTS_IN_ORDER),
           reply("ver39-quotes-an-idea", IDEA_TEXTS),
           # a state may be named by what it shows (briefs.md: "no shift recorded yet", "a week with no shifts")
