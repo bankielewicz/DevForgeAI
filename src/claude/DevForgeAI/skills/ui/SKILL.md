@@ -92,10 +92,13 @@ several DSNs to amend, and the confirmation ERR-15 asks for.
 
 Work through the checklist in order, in the main conversation (BEH-01). Decide the kind of run at step 1, from
 the request and the files:
-- `approve DSN-NNN`, or words that approve the design or a named DSN (an ID or none) → **approval-only run**
-  (BEH-21): steps 1, 5, 6 and 7. Mark steps 2 to 4 `(skipped: approval-only run)`. A request naming a DSN to
-  approve is an approval-only run even when it also asks for a change: the change is not made, nothing is
-  approved, and the reply says an amend run comes first, started with `/devforgeai:ui BRN-NNN`.
+- `approve DSN-NNN`, or words that approve the design or a named DSN and ask for nothing else (an ID or none) →
+  **approval-only run** (BEH-21): steps 1, 5, 6 and 7. Mark steps 2 to 4 `(skipped: approval-only run)`. A
+  request whose approval is the `approve DSN-NNN` form (a command argument that starts with it, with or without
+  the approver's name) is an approval-only run even when more words ask for a change: the change is not made,
+  nothing is approved, and the reply says an amend run comes first (`/devforgeai:ui BRN-NNN`). A request that
+  asks to record, write or update the design for a BRN is a create or amend run, and its approving words apply
+  at step 6 (BEH-16): with a marker left, say which, approve nothing, and don't offer.
 - No active DSN cites the BRN → **create run:** all seven steps.
 - One active DSN cites it → **amend run:** all seven steps, with the amend branches.
 
@@ -226,7 +229,7 @@ BRN-NNN`, or from another document citing the DSN. After ERR-11 or ERR-14, appro
   `approve DSN-NNN`. Words that name no one mean ask who is approving, offering the document's owner first; that
   question, without AskUserQuestion, takes the same last-finding slot as the offer. When no answer can arrive
   (under "proceed without questions" the gate stays closed), don't approve and say the approver wasn't named.
-  A request that also asks for a change makes no approval (see the run kinds above).
+  An `approve DSN-NNN` request that also asks for a change makes no approval (see the run kinds above).
 - On approval, follow output-rules.md, "Approval": one Edit, no version raised, the check again, and an undo
   when it fails.
 
