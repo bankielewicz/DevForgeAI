@@ -26,6 +26,19 @@ Readings this test pins where SPEC-017 leaves a choice (listed for Bryan in the 
 - `<part>` is a frontmatter key, `BRD-NN`, `upstream`, `section 3`, `Change Log`, `canvas.json`, `marker` or
   `document`; warnings print as `warning: <file>:<line>: <part>: <message> (<rule>)`, after the errors, then the facts.
 
+SPEC-017 version 2 adds `place` (IF-05), the only subcommand that writes, and two things to `boards` (the digest of
+canvas.json and each board's x and y). A `place` case runs in three copies of the temporary tree, one for each way
+of running the script, because it changes the tree: the copies must end alike, and the guard allows only the renames,
+folder creation and folder removal that `place` makes inside the DSN's own folder. Readings pinned for `place`:
+- `--sha-file PATH` is required (IF-05 writes it without brackets); the digest file may be empty or hold lines for some
+  files only; a line ending in a carriage return is read without it; two lines for one file are malformed;
+- the order of failure is: arguments and the digest file (exit 2), then ERR-03, ERR-04, ERR-05 and ERR-12 (the first
+  one), then lines naming a file canvas.json does not name (exit 2), then an ERR-06 line for each board that fails
+  and an ERR-21 line for each differing digest, canvas.json first (exit 1); a `boards/` that is a symbolic link or not
+  a folder is ERR-03; nothing moves on any of these;
+- the moves run canvas.json first, then the boards in canvas order; a move that fails prints `ERR-21: <file>: the move
+  failed (<reason>)`, `files placed: ...`, `files not placed: ...` and `place: 1 problem(s)`, and moves nothing back.
+
 Run from the repository root:
     python3 -B src/tests/ui/test_dsn_check.py
 """
@@ -59,6 +72,9 @@ GUARD = r'''
 import os, runpy, sys
 
 FORBID = {os.path.abspath(p) for p in os.environ.get("DSN_GUARD_FORBID", "").split(os.pathsep) if p}
+WRITE_ROOT = os.path.abspath(os.environ["DSN_GUARD_WRITE_ROOT"]) if os.environ.get("DSN_GUARD_WRITE_ROOT") else None
+# What `place` may do, and only inside its DSN's folder: rename (which os.replace reports as), make and remove a folder.
+MOVES = {"os.rename": 2, "os.mkdir": 1, "os.rmdir": 1}      # the number of path arguments of each event
 WRITE_FLAGS = os.O_WRONLY | os.O_RDWR | os.O_CREAT | os.O_TRUNC | os.O_APPEND
 # Audit events that mean a connection, a new process, or a change to the file system.
 DENIED = ("socket.", "subprocess.", "urllib.", "http.client.", "shutil.", "tempfile.") + tuple(
@@ -71,7 +87,21 @@ class Violation(BaseException):
     """BaseException, so that a broad `except Exception` in the script cannot swallow it."""
 
 
+def inside(path):
+    if WRITE_ROOT is None or not isinstance(path, (str, bytes)):
+        return False
+    p = os.path.abspath(os.fsdecode(path))
+    return p == WRITE_ROOT or p.startswith(WRITE_ROOT + os.sep)
+
+
 def hook(event, args):
+    if event in MOVES and WRITE_ROOT is not None:
+        paths = args[:MOVES[event]]
+        # directory descriptors: rename (src_dir_fd, dst_dir_fd), mkdir (mode, dir_fd), rmdir (dir_fd); -1 is none
+        fds = {"os.rename": args[2:4], "os.mkdir": args[2:3], "os.rmdir": args[1:2]}[event]
+        if all(inside(x) for x in paths) and all(fd == -1 for fd in fds):
+            return
+        raise Violation(event + " outside the DSN folder: %r" % (paths,))
     if event.startswith(DENIED):
         raise Violation(event)
     if event == "open":
@@ -129,14 +159,16 @@ def run_arms(args, cwd, forbid=()):
     return Result(first.returncode, first.stdout)
 
 
-def snapshot(top):
-    """Every path under top, without following links: kind, mode, size, mtime, bytes (None if unreadable), target."""
+def snapshot(top, times=True, modes=True):
+    """Every path under top, without following links: kind, mode, size, mtime, bytes (None if unreadable), target.
+    `times` and `modes` leave the mtime and the permission bits out (a copy of a tree keeps neither exactly)."""
     snap = {}
     for dirpath, dirnames, filenames in os.walk(top, followlinks=False):
         for name in dirnames + filenames:
             p = os.path.join(dirpath, name)
             st = os.lstat(p)
-            entry = [stat.S_IFMT(st.st_mode), stat.S_IMODE(st.st_mode), st.st_size, st.st_mtime_ns]
+            entry = [stat.S_IFMT(st.st_mode), stat.S_IMODE(st.st_mode) if modes else 0, st.st_size,
+                     st.st_mtime_ns if times else 0]
             if stat.S_ISLNK(st.st_mode):
                 entry.append(os.readlink(p))
             elif stat.S_ISREG(st.st_mode):
@@ -829,24 +861,25 @@ class Boards(Base):
 
     def test_a_valid_folder_of_four_boards(self):
         r = self.boards()
-        expected = ["canvas.json: v3, 4 boards"]
+        canvas_digest = hashlib.sha256((self.p.boards_dir() / "canvas.json").read_bytes()).hexdigest()
+        expected = ["canvas.json: v3, 4 boards", f"canvas.json sha256 {canvas_digest}"]
         for k, name in enumerate(BOARDS, 1):
             data = (self.p.boards_dir() / name).read_bytes()
-            expected.append(f"board {k} {name} {len(data)} {count_lines(data)} {hashlib.sha256(data).hexdigest()}")
+            expected.append(f"board {k} {name} {len(data)} {count_lines(data)} {hashlib.sha256(data).hexdigest()} - -")
         expected.append("boards: ok")
         self.assertEqual((r.code, r.lines), (0, expected), r)
 
     def test_the_order_is_canvas_order_not_alphabetical(self):
         self.canvas(json.dumps({"v": 3, "boards": {"Report.dc.html": {}, "Add.dc.html": {}, "Home.dc.html": {}}}))
         r = self.boards()
-        self.assertEqual([l.split()[2] for l in r.lines[1:-1]], ["Report.dc.html", "Add.dc.html", "Home.dc.html"], r)
+        self.assertEqual([l.split()[2] for l in r.lines[2:-1]], ["Report.dc.html", "Add.dc.html", "Home.dc.html"], r)
         self.assertEqual(r.lines[0], "canvas.json: v3, 3 boards")
 
     def test_line_counts(self):
         self.p.boards = {"A.html": "", "B.html": "x", "C.html": "x\ny", "D.html": "x\ny\n", "E.html": "x\r\ny\r\n"}
         self.p.write_boards()
         r = self.boards()
-        counts = {l.split()[2]: (l.split()[3], l.split()[4]) for l in r.lines[1:-1]}
+        counts = {l.split()[2]: (l.split()[3], l.split()[4]) for l in r.lines[2:-1]}
         self.assertEqual(counts, {"A.html": ("0", "0"), "B.html": ("1", "1"), "C.html": ("3", "2"),
                                   "D.html": ("4", "2"), "E.html": ("6", "2")}, r)
 
@@ -1070,6 +1103,45 @@ class Boards(Base):
         r = self.boards()
         self.assertFalse(any(l.startswith(("board ", "canvas.json")) for l in r.lines), r)
 
+    # --- the digest of canvas.json, and the position of each board (IF-02, DM-04) ------------------------------------
+    def test_the_digest_line_is_the_sha256_of_canvas_json_bytes(self):
+        raw = b'{"v": 3,\n "boards": {"Home.dc.html": {}}, "notes": "\xc3\xa9"}\n'
+        self.canvas(raw)
+        r = self.boards()
+        self.assertEqual(r.lines[1], "canvas.json sha256 " + hashlib.sha256(raw).hexdigest(), r)
+
+    def test_x_and_y_are_printed_as_numbers_and_a_dash_otherwise(self):
+        boards = {"Home.dc.html": {"x": 120, "y": 40}, "List.dc.html": {"x": 1.5, "y": -2.25}, "Add.dc.html": {"x": -7, "y": 1e3},
+                  "Report.dc.html": {"x": "10", "y": None}}
+        self.canvas(json.dumps({"v": 3, "boards": boards}))
+        r = self.boards()
+        self.assertEqual([l.split()[-2:] for l in r.lines[2:-1]],
+                         [["120", "40"], ["1.5", "-2.25"], ["-7", "1000.0"], ["-", "-"]], r)
+
+    def test_x_and_y_are_taken_as_the_file_writes_them(self):
+        raw = '{"v": 3, "boards": {"Home.dc.html": {"x": 1e3, "y": 2.50}, "List.dc.html": {"x": 0, "y": -0.0}}}'
+        self.canvas(raw)
+        r = self.boards()
+        self.assertEqual([l.split()[-2:] for l in r.lines[2:-1]], [["1e3", "2.50"], ["0", "-0.0"]], r)
+
+    def test_x_and_y_that_are_not_numbers_are_dashes(self):
+        for name, value in (("missing", {}), ("one only", {"x": 3}), ("true", {"x": True, "y": False}), ("null", {"x": None, "y": None}),
+                            ("strings", {"x": "1", "y": "2"}), ("lists", {"x": [1], "y": {"a": 1}}), ("not an object", [1, 2]),
+                            ("a string", "x"), ("a number", 7), ("null board", None)):
+            with self.subTest(name):
+                self.canvas(json.dumps({"v": 3, "boards": {"Home.dc.html": value}}))
+                r = self.boards()
+                fields = r.lines[2].split()
+                self.assertEqual(len(fields), 8, r)
+                expected = ["3", "-"] if name == "one only" else ["-", "-"]
+                self.assertEqual(fields[-2:], expected, r)
+
+    def test_other_members_of_a_board_are_ignored(self):
+        boards = {"Home.dc.html": {"x": 5, "y": 6, "w": 800, "h": 600, "title": "Home", "expand": True, "z": 1}}
+        self.canvas(json.dumps({"v": 3, "boards": boards, "order": ["Home.dc.html"], "notes": [{"title1": "A flow"}]}))
+        r = self.boards()
+        self.assertEqual((r.code, r.lines[2].split()[-2:]), (0, ["5", "6"]), r)
+
 
 # =====================================================================================================================
 # IF-04 head (VER-23)
@@ -1200,8 +1272,8 @@ class Head(Base):
 
     def test_the_trailer_counts_match_the_boards_command(self):
         listing = self.cli("boards", "DSN-001")
-        for line in listing.lines[1:-1]:
-            _, _k, name, size, lines, _digest = line.split()
+        for line in listing.lines[2:-1]:
+            _, _k, name, size, lines, _digest, _x, _y = line.split()
             r = self.head(name)
             self.assertEqual(self.trailer(r)[1], int(lines), (line, r.lines[-1]))
             self.assertEqual(self.trailer(r)[3], int(size), (line, r.lines[-1]))
@@ -2247,6 +2319,51 @@ class Check(CheckCase):
         text = set_field(text, "BRD-01", "title", '"Ho\tme"')
         self.assert_ok(text)
 
+    def test_the_step_order_is_the_position_in_the_block_and_no_rule_sorts_it(self):
+        # DM-02: BRD numbers are allocated once and need not ascend down the block, so a rearranged block is valid
+        start = self.base.index("  - id: BRD-01")
+        end = self.base.index("\n```", start)
+        items = [("  - id: BRD-" + chunk) for chunk in self.base[start:end].split("  - id: BRD-")[1:]]
+        for order in ([3, 2, 1, 0], [1, 0, 3, 2], [0, 3, 1, 2]):
+            with self.subTest(order=order):
+                block = "".join(items[i] if items[i].endswith("\n") else items[i] + "\n" for i in order).rstrip("\n")
+                self.assert_ok(self.base[:start] + block + self.base[end:])
+
+    def test_a_new_boards_item_may_stand_between_others(self):
+        self.p.add_board("Settings.dc.html", SETTINGS)
+        item = """  - id: BRD-05
+    status: active
+    file: "Settings.dc.html"
+    title: "Settings"
+    flow: "report-and-home"
+    surface: "web"
+    ideas: []
+    answers: []
+    sha256: "@Settings.dc.html@"
+    notes: null
+"""
+        text = edit(self.base, "  - id: BRD-04\n", item + "  - id: BRD-04\n")
+        self.assert_ok(text)
+
+    def test_a_prd_or_adr_that_is_a_symbolic_link_reads_as_absent(self):
+        prd = self.p.path("docs/specs/prd/PRD-001.md")
+        real_prd = self.p.elsewhere / "PRD-001.md"
+        real_prd.write_text(prd.read_text())
+        prd.unlink()
+        prd.symlink_to(real_prd)
+        adr = self.p.path("docs/specs/adr/ADR-009.md")
+        real_adr = self.p.elsewhere / "ADR-009.md"
+        real_adr.write_text(adr.read_text())
+        adr.unlink()
+        adr.symlink_to(real_adr)
+        text = set_field(self.base, "BRD-01", "answers", '["PRD-001#FR-024", "ADR-009"]')
+        self.p.write_dsn(text)
+        r = self.cli("check", "DSN-001", forbid=[prd, real_prd, adr, real_adr])
+        self.assertEqual(r.code, 1, r)
+        self.assertEqual(len(self.errors(r)), 2, r)
+        self.assertRegex(r.out, r"PRD-001#FR-024.*does not exist")
+        self.assertRegex(r.out, r"ADR-009.*does not exist")
+
     def test_a_dsn_that_is_a_symbolic_link_is_not_followed(self):
         real = self.p.elsewhere / "DSN-001.md"
         real.write_text(self.p.render(self.base))
@@ -2512,6 +2629,560 @@ class BeforeAmend(CheckCase):
             with self.subTest(argv=argv):
                 r = run_arms(argv, self.p.elsewhere)
                 self.assertEqual((r.code, r.lines), (0, [f"OK {FILE} (before amend)"]), r)
+
+
+# =====================================================================================================================
+# QR-05 for `place`: the guard allows its renames, folder creation and removal inside the DSN's folder, nothing else
+# =====================================================================================================================
+class GuardAllowsPlace(unittest.TestCase):
+    def run_guard(self, body, write_root=None):
+        with tempfile.TemporaryDirectory() as d:
+            script = Path(d) / "probe.py"
+            script.write_text(body.replace("@D@", d))
+            env = dict(os.environ, DSN_GUARD_FORBID="", DSN_GUARD_WRITE_ROOT=write_root.replace("@D@", d) if write_root else "")
+            os.makedirs(os.path.join(d, "dsn"), exist_ok=True)
+            os.makedirs(os.path.join(d, "dsn-sibling"), exist_ok=True)
+            os.makedirs(os.path.join(d, "outside"), exist_ok=True)
+            for rel in ("dsn/a.txt", "dsn-sibling/b.txt", "outside/c.txt"):
+                Path(d, rel).write_text("x")
+            return subprocess.run([sys.executable, "-B", "-S", "-c", GUARD, str(script)], capture_output=True, text=True,
+                                  env=env, timeout=60)
+
+    ROOT = "@D@/dsn"
+
+    def test_a_rename_a_new_folder_and_a_folder_removal_inside_the_root_are_allowed(self):
+        body = ("import os\nos.rename('@D@/dsn/a.txt', '@D@/dsn/b.txt')\nos.replace('@D@/dsn/b.txt', '@D@/dsn/c.txt')\n"
+                "os.mkdir('@D@/dsn/sub')\nos.rmdir('@D@/dsn/sub')\nprint('done')\n")
+        p = self.run_guard(body, self.ROOT)
+        self.assertEqual((p.returncode, p.stdout), (0, "done\n"), p)
+
+    def test_anything_outside_the_root_is_refused(self):
+        for name, body in (
+                ("rename out", "import os\nos.rename('@D@/dsn/a.txt', '@D@/outside/a.txt')\n"),
+                ("rename in", "import os\nos.rename('@D@/outside/c.txt', '@D@/dsn/c.txt')\n"),
+                ("replace outside", "import os\nos.replace('@D@/outside/c.txt', '@D@/outside/d.txt')\n"),
+                ("a sibling that shares the prefix", "import os\nos.rename('@D@/dsn-sibling/b.txt', '@D@/dsn-sibling/e.txt')\n"),
+                ("mkdir outside", "import os\nos.mkdir('@D@/outside/sub')\n"),
+                ("rmdir outside", "import os\nos.rmdir('@D@/outside')\n"),
+                ("dots out of the root", "import os\nos.rename('@D@/dsn/a.txt', '@D@/dsn/../outside/a.txt')\n")):
+            with self.subTest(name):
+                p = self.run_guard(body, self.ROOT)
+                self.assertEqual(p.returncode, 97, p)
+
+    def test_nothing_else_is_allowed_inside_the_root(self):
+        for name, body in (
+                ("a write", "open('@D@/dsn/new.txt', 'w').write('x')\n"),
+                ("an append", "open('@D@/dsn/a.txt', 'a').write('x')\n"),
+                ("a delete", "import os\nos.remove('@D@/dsn/a.txt')\n"),
+                ("an unlink", "import os\nos.unlink('@D@/dsn/a.txt')\n"),
+                ("a symlink", "import os\nos.symlink('@D@/dsn/a.txt', '@D@/dsn/l')\n"),
+                ("a chmod", "import os\nos.chmod('@D@/dsn/a.txt', 0o600)\n"),
+                ("a process", "import subprocess\nsubprocess.run(['true'])\n"),
+                ("a socket", "import socket\nsocket.socket()\n")):
+            with self.subTest(name):
+                p = self.run_guard(body, self.ROOT)
+                self.assertEqual(p.returncode, 97, p)
+
+    def test_without_a_write_root_a_rename_is_refused(self):
+        p = self.run_guard("import os\nos.rename('@D@/dsn/a.txt', '@D@/dsn/b.txt')\n")
+        self.assertEqual(p.returncode, 97, p)
+
+
+# =====================================================================================================================
+# IF-05 place (VER-42): the one subcommand that writes
+# =====================================================================================================================
+PLACE_DIR = "docs/specs/design/DSN-001"
+PLACE_FILES = {
+    "Home.dc.html": "<!doctype html>\n<title>Home</title>\n<h1>Home</h1>\n",
+    "List.dc.html": "<!doctype html>\n<title>List</title>\n<pre>$ shiftlog list</pre>\n",
+    "Add.dc.html": "<!doctype html>\n<title>Add</title>\n<pre>$ shiftlog add</pre>\n",
+}
+PLACED = "placed: canvas.json and 3 boards into docs/specs/design/DSN-001/boards/"
+# names a shell would act on: none of them may ever be a command-line word
+HOSTILE_NAMES = ["a;b.html", "a$(touch pwned).html", "a`id`.html", "it's.html", 'say "hi".html', "a b.html", "a  b.html",
+                 "a=b.html", "-lead.html", "$HOME.html", "a&b|c.html", "*.html", "a#b.html", "a>out.html", "~tilde.html"]
+
+
+class PlaceRun:
+    def __init__(self, result, argv, before, after):
+        self.result = result
+        self.argv = argv
+        self.before = before
+        self.after = after
+
+    @property
+    def changed(self):
+        paths = set(self.before) | set(self.after)
+        return sorted(q for q in paths if self.before.get(q) != self.after.get(q))
+
+
+def _make_removable(top):
+    for dirpath, dirnames, filenames in os.walk(top):
+        os.chmod(dirpath, 0o755)
+        for name in dirnames:
+            os.chmod(os.path.join(dirpath, name), 0o755)
+
+
+def run_place_arms(project, argv, forbid=(), prepare=None):
+    """Run the script in three copies of the project's temporary tree (it changes its tree, so the three ways of running it
+    cannot share one). Paths in `argv` and `forbid` that lie under the tree are mapped into each copy. The copies must end
+    with the same output and the same tree. `prepare(copy_root)` changes a copy before the run (a mode, say)."""
+    before = snapshot(project.tmp, times=False)
+    with tempfile.TemporaryDirectory(prefix="dsn-place-") as work:
+        try:
+            def one(arm):
+                name, flags = arm
+                dest = Path(work) / name
+                shutil.copytree(project.tmp, dest, symlinks=True)
+
+                def mapped(x):
+                    return str(dest / Path(x).relative_to(project.tmp)) if isinstance(x, Path) else x
+
+                if prepare:
+                    prepare(str(dest / "project"))
+                env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1",
+                           DSN_GUARD_FORBID=os.pathsep.join(mapped(f) for f in forbid),
+                           DSN_GUARD_WRITE_ROOT=str(dest / "project" / PLACE_DIR))
+                args = [mapped(x) for x in argv]
+                proc = subprocess.run([sys.executable, *flags, *args], cwd=dest / "elsewhere", env=env, capture_output=True,
+                                      timeout=120)
+                return name, str(dest), args, proc, snapshot(dest, times=False)
+
+            with ThreadPoolExecutor(len(ARMS)) as pool:
+                outcomes = list(pool.map(one, ARMS))
+            first = outcomes[0]
+            for name, dest, args, proc, snap in outcomes:
+                assert proc.stderr == b"", f"{name}: stderr was not empty:\n{proc.stderr.decode('utf-8', 'replace')}"
+                out = proc.stdout.replace(dest.encode(), b"<TMP>")
+                ref = first[3].stdout.replace(first[1].encode(), b"<TMP>")
+                assert (proc.returncode, out) == (first[3].returncode, ref), (
+                    f"the arms disagree ({name}):\n{ref.decode('utf-8', 'replace')}\n--\n{out.decode('utf-8', 'replace')}")
+                assert snap == first[4], f"the arms ended with different trees ({name})"
+            result = Result(first[3].returncode, first[3].stdout.replace(first[1].encode(), b"<TMP>"))
+            return PlaceRun(result, [a.replace(first[1], "<TMP>") for a in first[2]], before, first[4])
+        finally:
+            _make_removable(work)
+
+
+class Place(Base):
+    def setUp(self):
+        super().setUp()
+        self.files = dict(PLACE_FILES)
+        self.stage(self.files)
+
+    # --- fixtures ----------------------------------------------------------------------------------------------
+    def staging(self, rel=""):
+        return self.p.path(f"{PLACE_DIR}/project/{rel}".rstrip("/"))
+
+    def boards_path(self, rel=""):
+        return self.p.path(f"{PLACE_DIR}/boards/{rel}".rstrip("/"))
+
+    def stage(self, files, names=None, canvas=None):
+        for name, content in files.items():
+            self.p.put(f"{PLACE_DIR}/project/{name}", content)
+        names = list(files) if names is None else names
+        if canvas is None:
+            canvas = {"v": 3, "createdOnFiles": [], "order": names,
+                      "boards": {n: {"x": 100 * i, "y": 0, "w": 800, "h": 600} for i, n in enumerate(names)}}
+        self.p.put(f"{PLACE_DIR}/project/canvas.json", canvas if isinstance(canvas, (str, bytes)) else json.dumps(canvas))
+
+    def digest_text(self, wrong=(), skip=(), names=None, eol="\n"):
+        lines = []
+        for name in ["canvas.json"] + list(self.files if names is None else names):
+            if name in skip:
+                continue
+            data = self.staging(name).read_bytes()
+            lines.append(f"{sha256((b'changed' if name in wrong else b'') + data)}  {name}")
+        return eol.join(lines) + eol
+
+    def place(self, digests=None, sha=None, forbid=(), prepare=None, argv=None):
+        scratch = self.p.tmp / "scratch"
+        scratch.mkdir(exist_ok=True)
+        path = sha if sha is not None else scratch / "digests.txt"
+        if sha is None:
+            text = self.digest_text() if digests is None else digests
+            path.write_bytes(text if isinstance(text, bytes) else text.encode("utf-8"))
+        if argv is None:
+            argv = ["place", "--root", self.p.root, "DSN-001", "--sha-file", path]
+        return run_place_arms(self.p, argv, forbid, prepare)
+
+    # --- assertions --------------------------------------------------------------------------------------------
+    def assert_untouched(self, run, modes=True):
+        if modes:
+            self.assertEqual(run.after, run.before, run.changed)
+        else:
+            strip = lambda snap: {k: (v[0], v[2], *v[4:]) for k, v in snap.items()}
+            self.assertEqual(strip(run.after), strip(run.before), run.changed)
+
+    def assert_inside_the_dsn_folder(self, run):
+        for path in run.changed:
+            self.assertTrue(path.startswith("project/docs/specs/design/DSN-001/"), path)
+
+    def assert_exit(self, run, code):
+        self.assertEqual(run.result.code, code, run.result)
+        return run.result.lines
+
+    def assert_cannot_run(self, run):
+        self.assertEqual((run.result.code, len(run.result.lines)), (2, 1), run.result)
+        self.assertRegex(run.result.lines[0], r"^Cannot run: \S.*\.$")
+        self.assert_untouched(run)
+
+    def assert_problems(self, run, patterns, closing=None):
+        """Exit 1, one output line for each pattern in order, the closing `place: n problem(s)`, and nothing moved."""
+        lines = self.assert_exit(run, 1)
+        self.assertEqual(len(lines), len(patterns) + 1, run.result)
+        for line, pattern in zip(lines, patterns):
+            self.assertRegex(line, pattern)
+        self.assertEqual(lines[-1], closing or f"place: {len(patterns)} problem(s)")
+        self.assert_untouched(run)
+
+    # --- the placement ------------------------------------------------------------------------------------------
+    def test_a_valid_staging_folder_is_placed(self):
+        staged = {n: self.staging(n).read_bytes() for n in ["canvas.json", *self.files]}
+        run = self.place()
+        self.assertEqual((run.result.code, run.result.lines), (0, [PLACED, "place: ok"]), run.result)
+        root = "project/docs/specs/design/DSN-001/"
+        for name, data in staged.items():
+            entry = run.after[root + "boards/" + name]
+            self.assertEqual((entry[4], sha256(entry[4])), (data, sha256(data)), name)
+            self.assertNotIn(root + "project/" + name, run.after)
+        self.assertNotIn(root + "project", run.after)
+        self.assertNotIn(root + "boards/pwned", run.after)
+        self.assert_inside_the_dsn_folder(run)
+        self.assertEqual(sorted(k for k in run.after if k.startswith(root)),
+                         sorted([root + "boards"] + [root + "boards/" + n for n in staged]))
+
+    def test_the_placed_folder_passes_the_boards_command(self):
+        run = self.place()
+        self.assertEqual(run.result.code, 0, run.result)
+        shutil.rmtree(self.staging())
+        root = "project/" + PLACE_DIR + "/boards/"
+        for key, entry in run.after.items():       # rebuild the placed folder from the copy's tree
+            if key.startswith(root) and entry[0] == stat.S_IFREG:
+                self.p.put(f"{PLACE_DIR}/boards/{key[len(root):]}", entry[4])
+        r = self.cli("boards", "DSN-001")
+        self.assertEqual((r.code, r.lines[0], r.lines[-1]), (0, "canvas.json: v3, 3 boards", "boards: ok"), r)
+        self.assertEqual([l.split()[-2:] for l in r.lines[2:-1]], [["0", "0"], ["100", "0"], ["200", "0"]], r)
+
+    def test_a_file_that_canvas_json_does_not_name_stays_and_is_listed(self):
+        self.p.put(f"{PLACE_DIR}/project/Extra.txt", "extra")
+        self.p.put(f"{PLACE_DIR}/project/Notes.md", "notes")
+        self.p.put(f"{PLACE_DIR}/project/sub/deep.txt", "deep")
+        run = self.place()
+        self.assertEqual((run.result.code, run.result.lines),
+                         (0, [PLACED, "left in project/: Extra.txt, Notes.md, sub", "place: ok"]), run.result)
+        root = "project/docs/specs/design/DSN-001/"
+        self.assertEqual(sorted(k for k in run.after if k.startswith(root + "project")),
+                         sorted([root + "project", root + "project/Extra.txt", root + "project/Notes.md", root + "project/sub",
+                                 root + "project/sub/deep.txt"]))
+        self.assertEqual(run.after[root + "project/Extra.txt"][4], b"extra")
+
+    def test_a_left_over_name_is_shown_on_one_printable_line(self):
+        self.p.put(f"{PLACE_DIR}/project/odd\nname: place: ok.txt", "x")
+        run = self.place()
+        self.assertEqual(run.result.code, 0, run.result)
+        self.assertEqual(len(run.result.lines), 3, run.result)
+        self.assertRegex(run.result.lines[1], r'^left in project/: ".*"$')
+        self.assertTrue(all(c == "\n" or c.isprintable() for c in run.result.out), repr(run.result.out))
+
+    def test_other_files_in_boards_stay_and_a_file_of_the_same_name_is_replaced(self):
+        self.p.put(f"{PLACE_DIR}/boards/README.md", "digests")
+        self.p.put(f"{PLACE_DIR}/boards/Other.dc.html", "other")
+        self.p.put(f"{PLACE_DIR}/boards/Home.dc.html", "the old Home")
+        self.p.put(f"{PLACE_DIR}/boards/canvas.json", '{"v": 3, "boards": {"Old.dc.html": {}}}')
+        run = self.place()
+        self.assertEqual((run.result.code, run.result.lines), (0, [PLACED, "place: ok"]), run.result)
+        root = "project/docs/specs/design/DSN-001/boards/"
+        self.assertEqual(run.after[root + "README.md"][4], b"digests")
+        self.assertEqual(run.after[root + "Other.dc.html"][4], b"other")
+        self.assertEqual(run.after[root + "Home.dc.html"][4], PLACE_FILES["Home.dc.html"].encode())
+        self.assertIn(b'"Home.dc.html"', run.after[root + "canvas.json"][4])
+        self.assert_inside_the_dsn_folder(run)
+
+    def test_an_existing_empty_boards_folder_is_used(self):
+        self.boards_path().mkdir(parents=True)
+        run = self.place()
+        self.assertEqual(run.result.code, 0, run.result)
+
+    def test_a_target_that_is_a_symbolic_link_is_replaced_not_followed(self):
+        self.boards_path().mkdir(parents=True)
+        target = self.p.elsewhere / "victim.html"
+        target.write_text("victim")
+        link = self.boards_path("Home.dc.html")
+        link.symlink_to(target)
+        run = self.place(forbid=[target])
+        self.assertEqual(run.result.code, 0, run.result)
+        self.assertEqual(run.after["elsewhere/victim.html"][4], b"victim")
+        entry = run.after["project/" + PLACE_DIR + "/boards/Home.dc.html"]
+        self.assertEqual(entry[4], PLACE_FILES["Home.dc.html"].encode())
+
+    def test_the_digest_file_may_be_empty_hold_some_files_or_use_carriage_returns(self):
+        for name, text in (("empty", ""), ("some", self.digest_text(skip=("List.dc.html",))),
+                           ("no final newline", self.digest_text().rstrip("\n")), ("CRLF", self.digest_text(eol="\r\n"))):
+            with self.subTest(name):
+                run = self.place(digests=text)
+                self.assertEqual((run.result.code, run.result.lines), (0, [PLACED, "place: ok"]), run.result)
+
+    def test_a_second_place_finds_no_staging_folder(self):
+        run = self.place()
+        self.assertEqual(run.result.code, 0, run.result)
+        shutil.rmtree(self.staging())
+        run = self.place(digests="")
+        self.assert_problems(run, [r"^ERR-03: .*docs/specs/design/DSN-001/project/"])
+
+    # --- ERR-03 to ERR-06 and ERR-12 ---------------------------------------------------------------------------------
+    def test_err03_no_staging_folder_an_empty_one_or_one_without_canvas_json(self):
+        shutil.rmtree(self.staging())
+        self.assert_problems(self.place(digests=""), [r"^ERR-03: .*docs/specs/design/DSN-001/project/"])
+        self.staging().mkdir()
+        self.assert_problems(self.place(digests=""), [r"^ERR-03: .*docs/specs/design/DSN-001/project/"])
+        self.p.put(f"{PLACE_DIR}/project/Home.dc.html", "x")
+        self.assert_problems(self.place(digests=""), [r"^ERR-03: .*docs/specs/design/DSN-001/project/"])
+
+    def test_err03_canvas_json_that_names_no_board(self):
+        self.stage({}, canvas='{"v": 3, "boards": {}}')
+        self.assert_problems(self.place(digests=""), [r"^ERR-03: .*docs/specs/design/DSN-001/project/"])
+
+    def test_err03_canvas_json_that_is_not_a_regular_file(self):
+        self.staging("canvas.json").unlink()
+        self.staging("canvas.json").mkdir()
+        self.assert_problems(self.place(digests=""), [r"^ERR-03: .*docs/specs/design/DSN-001/project/"])
+
+    def test_err03_a_staging_folder_or_a_boards_folder_that_is_a_symbolic_link(self):
+        real = self.p.elsewhere / "project"
+        shutil.copytree(self.staging(), real)
+        shutil.rmtree(self.staging())
+        self.staging().symlink_to(real)
+        run = self.place(digests="", forbid=[real / "canvas.json"])
+        self.assert_problems(run, [r"^ERR-03: .*docs/specs/design/DSN-001/project/.*symbolic link"])
+        self.staging().unlink()
+        shutil.copytree(real, self.staging())
+        outside = self.p.elsewhere / "boards"
+        outside.mkdir()
+        self.boards_path().symlink_to(outside)
+        run = self.place(forbid=[outside])
+        self.assert_problems(run, [r"^ERR-03: .*docs/specs/design/DSN-001/boards/.*symbolic link"])
+
+    def test_err03_a_boards_that_is_a_file(self):
+        self.p.put(f"{PLACE_DIR}/boards", "not a folder")
+        self.assert_problems(self.place(), [r"^ERR-03: .*docs/specs/design/DSN-001/boards/"])
+
+    def test_err04_forms_canvas_json_cannot_take(self):
+        cases = {"invalid UTF-8": b'{"v": 3, "boards": {"Home.dc.html": {}}, "x": "\xff"}', "not JSON": b"not json {",
+                 "an array": b"[1]", "no boards member": b'{"v": 3}', "boards is a list": b'{"v": 3, "boards": []}',
+                 "a duplicate key": b'{"v": 3, "boards": {"Home.dc.html": {}, "Home.dc.html": {}}}'}
+        for name, raw in cases.items():
+            with self.subTest(name):
+                self.stage({}, canvas=raw)
+                self.assert_problems(self.place(digests=""), [r"^ERR-04: "])
+
+    def test_err05_and_err12(self):
+        for v, shown in (("4", r"\b4\b"), ('"3"', r'"3"'), ("3.0", r"3\.0"), ("true", "true")):
+            with self.subTest(v=v):
+                self.stage({}, canvas='{"v": %s, "boards": {"Home.dc.html": {}}}' % v)
+                self.assert_problems(self.place(digests=""), [rf"^ERR-05: .*{shown}"])
+        self.stage({}, canvas={"v": 3, "boards": {f"b{n:03d}.html": {} for n in range(100)}})
+        self.assert_problems(self.place(digests=""), [r"^ERR-12: .*100"])
+
+    def test_the_first_failing_of_err03_to_err12_stops_the_run(self):
+        self.stage({}, canvas={"v": 4, "boards": {f"b{n:03d}.html": {} for n in range(100)}})
+        self.assert_problems(self.place(digests=""), [r"^ERR-05: "])
+        self.stage({}, canvas={"v": 4, "boards": {}})
+        self.assert_problems(self.place(digests=""), [r"^ERR-03: "])
+
+    def test_err06_an_absent_file_a_directory_a_symbolic_link_and_unsafe_names(self):
+        self.staging("List.dc.html").unlink()
+        self.staging("Add.dc.html").unlink()
+        self.staging("Add.dc.html").mkdir()
+        link = self.staging("Link.dc.html")
+        link.symlink_to(self.p.elsewhere / "target.html")
+        (self.p.elsewhere / "target.html").write_text("TARGET")
+        names = ["Home.dc.html", "List.dc.html", "Add.dc.html", "Link.dc.html", "", "..", "a/b", "a\\b", "x\ny.html", "\ud800.html"]
+        self.stage({}, names=names)
+        run = self.place(digests=f"{sha256(self.staging('Home.dc.html').read_bytes())}  Home.dc.html\n",
+                         forbid=[link, self.p.elsewhere / "target.html"])
+        lines = self.assert_exit(run, 1)
+        found = {}
+        for line in lines[:-1]:
+            m = re.match(r'^ERR-06: board (\d+) (".*"): (.+)$', line)
+            self.assertIsNotNone(m, line)
+            found[int(m.group(1))] = (m.group(2), m.group(3))
+        self.assertEqual(sorted(found), list(range(2, 11)), run.result)
+        self.assertRegex(found[2][1], r"absent")
+        self.assertRegex(found[3][1], r"regular file")
+        self.assertRegex(found[4][1], r"symbolic link")
+        self.assertEqual(lines[-1], "place: 9 problem(s)")
+        self.assertTrue(all(c == "\n" or c.isprintable() for c in run.result.out), repr(run.result.out))
+        self.assert_untouched(run)
+
+    @unittest.skipIf(os.geteuid() == 0, "root can read a file with mode 000")
+    def test_err06_an_unreadable_file(self):
+        run = self.place(prepare=lambda root: os.chmod(os.path.join(root, PLACE_DIR, "project", "List.dc.html"), 0))
+        lines = self.assert_exit(run, 1)
+        self.assertEqual(len(lines), 2, run.result)
+        self.assertRegex(lines[0], r'^ERR-06: board 2 "List\.dc\.html": .*cannot be read')
+        self.assertEqual(lines[1], "place: 1 problem(s)")
+        self.assertEqual(run.changed, ["project/" + PLACE_DIR + "/project/List.dc.html"])      # only the mode the test set
+
+    # --- the digests: ERR-21 and exit 2 --------------------------------------------------------------------------------
+    def test_err21_a_differing_digest_moves_nothing(self):
+        run = self.place(digests=self.digest_text(wrong=("List.dc.html",)))
+        actual = sha256(PLACE_FILES["List.dc.html"].encode())
+        given = sha256(b"changed" + PLACE_FILES["List.dc.html"].encode())
+        self.assert_problems(run, [rf"^ERR-21: List\.dc\.html: the staged digest {actual} differs from the tool's {given}$"])
+
+    def test_err21_canvas_json_and_every_differing_board_are_listed_in_canvas_order(self):
+        run = self.place(digests=self.digest_text(wrong=("Add.dc.html", "canvas.json", "Home.dc.html")))
+        self.assert_problems(run, [r"^ERR-21: canvas\.json: the staged digest", r"^ERR-21: Home\.dc\.html: ",
+                                   r"^ERR-21: Add\.dc\.html: "])
+
+    def test_err06_lines_come_before_err21_lines(self):
+        self.staging("List.dc.html").unlink()
+        digests = f"{sha256(b'x')}  Home.dc.html\n"
+        run = self.place(digests=digests)
+        self.assert_problems(run, [r'^ERR-06: board 2 "List\.dc\.html": ', r"^ERR-21: Home\.dc\.html: "])
+
+    def test_a_malformed_line_or_a_file_canvas_json_does_not_name_cannot_run(self):
+        good = sha256(self.staging("Home.dc.html").read_bytes())
+        for name, text in (
+                ("short hex", f"{good[:63]}  Home.dc.html\n"), ("long hex", f"{good}0  Home.dc.html\n"),
+                ("upper case hex", f"{good.upper()}  Home.dc.html\n"), ("one space", f"{good} Home.dc.html\n"),
+                ("a tab", f"{good}\tHome.dc.html\n"), ("no name", f"{good}  \n"), ("only a name", "Home.dc.html\n"),
+                ("only a digest", f"{good}\n"), ("a blank line", f"{good}  Home.dc.html\n\n{good}  List.dc.html\n"),
+                ("the name starts with a space", f"{good}   Home.dc.html\n"),
+                ("two lines for one file", f"{good}  Home.dc.html\n{good}  Home.dc.html\n"),
+                ("a file canvas.json does not name", f"{good}  Extra.txt\n"),
+                ("a path", f"{good}  project/Home.dc.html\n"), ("a name with a folder", f"{good}  ../Home.dc.html\n"),
+                ("text before the digest", f"x {good}  Home.dc.html\n")):
+            with self.subTest(name):
+                self.p.put(f"{PLACE_DIR}/project/Extra.txt", "extra")
+                self.assert_cannot_run(self.place(digests=text))
+
+    def test_a_malformed_line_is_cannot_run_even_with_no_staging_folder(self):
+        shutil.rmtree(self.staging())
+        self.assert_cannot_run(self.place(digests="not a digest line\n"))
+
+    def test_a_digest_file_that_is_not_a_regular_file_or_cannot_be_read_cannot_run(self):
+        scratch = self.p.tmp / "scratch"
+        scratch.mkdir()
+        real = scratch / "real.txt"
+        real.write_text(self.digest_text())
+        link = scratch / "link.txt"
+        link.symlink_to(real)
+        self.assert_cannot_run(self.place(sha=scratch, forbid=[]))
+        self.assert_cannot_run(self.place(sha=link, forbid=[link, real]))
+        self.assert_cannot_run(self.place(sha=scratch / "missing.txt"))
+        bad = scratch / "bad.txt"
+        bad.write_bytes(b"\xff\xfe" + self.digest_text().encode())
+        self.assert_cannot_run(self.place(sha=bad))
+
+    @unittest.skipIf(os.geteuid() == 0, "root can read a file with mode 000")
+    def test_an_unreadable_digest_file_cannot_run(self):
+        scratch = self.p.tmp / "scratch"
+        scratch.mkdir()
+        locked = scratch / "locked.txt"
+        locked.write_text(self.digest_text())
+        run = self.place(sha=locked, prepare=lambda root: os.chmod(os.path.join(os.path.dirname(root), "scratch", "locked.txt"), 0))
+        self.assertEqual((run.result.code, len(run.result.lines)), (2, 1), run.result)
+        self.assertRegex(run.result.lines[0], r"^Cannot run: \S.*\.$")
+
+    def test_the_arguments_of_place(self):
+        scratch = self.p.tmp / "scratch"
+        scratch.mkdir()
+        sha = scratch / "digests.txt"
+        sha.write_text(self.digest_text())
+        root = self.p.root
+        for name, argv in (
+                ("no --sha-file", ["place", "--root", root, "DSN-001"]),
+                ("--sha-file without a value", ["place", "--root", root, "DSN-001", "--sha-file"]),
+                ("--sha-file twice", ["place", "--root", root, "DSN-001", "--sha-file", sha, "--sha-file", sha]),
+                ("no DSN", ["place", "--root", root, "--sha-file", sha]),
+                ("a bad DSN", ["place", "--root", root, "DSN-1", "--sha-file", sha]),
+                ("an extra word", ["place", "--root", root, "DSN-001", "Home.dc.html", "--sha-file", sha]),
+                ("--before-amend", ["place", "--root", root, "--before-amend", "DSN-001", "--sha-file", sha]),
+                ("no root folder", ["place", "--root", self.p.tmp / "nowhere", "DSN-001", "--sha-file", sha]),
+                ("an unknown option", ["place", "--root", root, "DSN-001", "--sha-file", sha, "--force"])):
+            with self.subTest(name):
+                self.assert_cannot_run(self.place(argv=argv))
+        for sub in ("next", "boards", "check", "head"):
+            with self.subTest(sub=sub):
+                extra = ["DSN-001"] * (sub != "next") + ["Home.dc.html"] * (sub == "head")
+                self.assert_cannot_run(self.place(argv=[sub, "--root", root, *extra, "--sha-file", sha]))
+
+    # --- hostile names --------------------------------------------------------------------------------------------------
+    def test_hostile_names_are_placed_with_their_bytes_and_no_name_is_ever_a_word_of_the_command(self):
+        for name in HOSTILE_NAMES:
+            with self.subTest(name=name):
+                shutil.rmtree(self.p.root / "docs", ignore_errors=True)
+                content = f"<title>{name}</title>\n<p>unchanged bytes é</p>\n"
+                files = {"Home.dc.html": PLACE_FILES["Home.dc.html"], name: content}
+                self.files = files
+                self.stage(files)
+                run = self.place()
+                self.assertEqual((run.result.code, run.result.lines),
+                                 (0, ["placed: canvas.json and 2 boards into docs/specs/design/DSN-001/boards/", "place: ok"]),
+                                 run.result)
+                entry = run.after["project/" + PLACE_DIR + "/boards/" + name]
+                self.assertEqual((entry[4], sha256(entry[4])), (content.encode(), sha256(content.encode())))
+                self.assertEqual(len(run.argv), 6, run.argv)
+                self.assertEqual([run.argv[0], run.argv[3], run.argv[4]], ["place", "DSN-001", "--sha-file"])
+                for word in run.argv:
+                    self.assertNotIn(name, word)
+                self.assertFalse(any(k.endswith("pwned") or "/pwned" in k for k in run.after), sorted(run.after))
+                self.assert_inside_the_dsn_folder(run)
+
+    def test_hostile_names_in_the_digest_file_are_read_to_the_end_of_the_line(self):
+        name = 'x y; "z" $(w) `v` \'u\' = -t.html'
+        files = {"Home.dc.html": PLACE_FILES["Home.dc.html"], name: "hostile"}
+        self.files = files
+        self.stage(files)
+        run = self.place(digests=self.digest_text(wrong=(name,)))
+        actual, given = sha256(b"hostile"), sha256(b"changedhostile")
+        self.assert_problems(run, [rf"^ERR-21: {re.escape(name)}: the staged digest {actual} differs from the tool's {given}$"])
+
+    # --- a move that fails -------------------------------------------------------------------------------------------------
+    def test_a_move_that_fails_midway_stops_names_the_files_and_moves_nothing_back(self):
+        # a folder in the way of the second board: the first two moves succeed, the third fails
+        (self.boards_path("List.dc.html") / "keep").mkdir(parents=True)
+        staged_canvas = self.staging("canvas.json").read_bytes()
+        run = self.place()
+        lines = self.assert_exit(run, 1)
+        self.assertEqual(len(lines), 4, run.result)
+        self.assertRegex(lines[0], r"^ERR-21: List\.dc\.html: the move failed \(.+\)$")
+        self.assertEqual(lines[1:], ["files placed: canvas.json, Home.dc.html", "files not placed: List.dc.html, Add.dc.html",
+                                     "place: 1 problem(s)"])
+        root = "project/docs/specs/design/DSN-001/"
+        self.assertEqual(run.after[root + "boards/canvas.json"][4], staged_canvas)
+        self.assertIn(root + "boards/Home.dc.html", run.after)
+        self.assertNotIn(root + "project/canvas.json", run.after)
+        self.assertNotIn(root + "project/Home.dc.html", run.after)
+        self.assertIn(root + "project/List.dc.html", run.after)
+        self.assertIn(root + "project/Add.dc.html", run.after)
+        self.assertNotIn(root + "boards/Add.dc.html", run.after)
+        self.assertIn(root + "boards/List.dc.html/keep", run.after)
+        self.assert_inside_the_dsn_folder(run)
+
+    @unittest.skipIf(os.geteuid() == 0, "root can write into a folder with mode 555")
+    def test_a_boards_folder_that_cannot_be_written_places_nothing(self):
+        self.boards_path().mkdir(parents=True)
+        run = self.place(prepare=lambda root: os.chmod(os.path.join(root, PLACE_DIR, "boards"), 0o555))
+        lines = self.assert_exit(run, 1)
+        self.assertEqual(len(lines), 4, run.result)
+        self.assertRegex(lines[0], r"^ERR-21: canvas\.json: the move failed \(.+\)$")
+        self.assertEqual(lines[1:], ["files placed: none", "files not placed: canvas.json, Home.dc.html, List.dc.html, Add.dc.html",
+                                     "place: 1 problem(s)"])
+        root = "project/docs/specs/design/DSN-001/"
+        for name in ("canvas.json", *PLACE_FILES):
+            self.assertIn(root + "project/" + name, run.after)
+
+    def test_no_file_is_written_outside_the_dsn_folder_whatever_happens(self):
+        for case in range(3):
+            if case == 1:
+                self.staging("List.dc.html").unlink()
+            if case == 2:
+                self.stage({}, canvas='{"v": 4, "boards": {}}')
+            run = self.place(digests="")
+            self.assert_inside_the_dsn_folder(run)
 
 
 class Robustness(CheckCase):
