@@ -612,6 +612,49 @@ class V2CaseTests(unittest.TestCase):
                                                         ["┌──┐\n│x │\n└──┘", "+----+\n| x  |\n+----+", "I will not draw a screen."]))
 
 
+class ObservedV2ReplyTests(unittest.TestCase):
+    """Wording of correct replies that v2 suite run 1 (42a5388, ui-v2-suite1-20261010T112433) showed the graders to refuse."""
+
+    hits = V2CaseTests.hits
+    grader = V2CaseTests.grader
+
+    def test_a_draft_brainstorm_is_not_converged_or_may_still_change(self):
+        yes = ["BRN-001 has status: draft, so the brainstorm isn't converged and some ideas may still change.",
+               "The brainstorm is not yet converged.", "Some ideas may not be decided.", "The brainstorm is not converged."]
+        no = ["BRN-001 is a draft.", "Should I continue?", "Written."]
+        got = self.hits("unconverged-brn", "ver15-warns-ideas-may-not-be-decided", yes + no)
+        self.assertEqual([True] * len(yes) + [False] * len(no), got)
+
+    def test_the_canvas_was_not_checked_in_a_contraction(self):
+        yes = ["The canvas wasn't checked.", "The canvas was not checked.", "I couldn't see the canvas, so it was not looked at.",
+               "I couldn't check the canvas.", "Without the Artifact tool the canvas is unchecked.", "The canvas hasn't been checked."]
+        no = ["DSN-001 is current.", "The canvas was imported."]
+        for case in ("amend-nothing-with-prd", "writes-dsn"):
+            name = "ver33-says-canvas-not-checked" if case.startswith("amend") else "ver01-says-canvas-not-checked"
+            got = self.hits(case, name, yes + no)
+            self.assertEqual([True] * len(yes) + [False] * len(no), got, case)
+
+    def test_the_artifact_tool_isnt_available_in_a_contraction(self):
+        yes = ["The Artifact tool isn't available in this session.", "The Artifact tool is not available.", "The Artifact tool wasn't loaded.",
+               "No Artifact tool is available."]
+        no = ["Artifact.", "The tool is available."]
+        for case, name in (("no-boards-stops", "ver04-says-no-artifact-tool"), ("brief-drafted", "ver39-says-no-artifact-tool")):
+            self.assertEqual([True] * len(yes) + [False] * len(no), self.hits(case, name, yes + no), case)
+
+    def test_a_state_may_be_named_by_what_it_shows(self):
+        yes = ["States to show: no shift recorded yet; a list of recorded shifts.", "States to show: a week with no shifts; a week with shifts.",
+               "an error when a shift cannot be saved", "the report while it loads", "an empty state", "mid-flow"]
+        no = ["Content: a list of shifts.", "Content: the idea \"A weekly report page\"."]
+        got = self.hits("brief-drafted", "ver39-names-a-state", yes + no)
+        self.assertEqual([True] * len(yes) + [False] * len(no), got)
+
+    def test_the_brief_judge_takes_a_state_by_what_it_shows(self):
+        _, body = front_matter(GENERATED / "brief-drafted" / "graders" / "ver39-briefs-are-well-formed.md")
+        for phrase in ("no shift recorded yet", "need not appear", "a constraint, not a layout", "separated by commas or semicolons",
+                       "not a drawing"):
+            self.assertIn(phrase, body)
+
+
 class DigestTests(unittest.TestCase):
     def test_digests_are_the_sha256_of_the_boards(self):
         import hashlib
