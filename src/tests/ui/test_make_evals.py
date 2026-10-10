@@ -40,7 +40,7 @@ COMMITTED = ROOT / "src/claude/DevForgeAI/evals/ui"
 SCHEMAS = ROOT / "src/schemas"
 
 # The e2e VER items the suite grades (VER-26 is the qualification bar, VER-23 to VER-25 are unit, VER-27 to VER-29 manual).
-E2E = [f"VER-{n:02d}" for n in list(range(1, 23)) + list(range(30, 39))]
+E2E = [f"VER-{n:02d}" for n in list(range(1, 23)) + list(range(30, 42))]
 
 TRIGGER_PROMPTS = [
     (True, "Record the screen designs for BRN-001 from the boards we copied."),
@@ -54,7 +54,11 @@ TRIGGER_PROMPTS = [
     (False, "Draw a login screen for me."),
     (False, "Record the approved design for STORY-001."),
     (False, "Make the button on the report page blue."),
+    (False, "Make me a mockup of a settings page."),
+    (True, "Design the screens for BRN-001 in Claude Design."),
 ]
+NEGATIVE_TRIGGERS = range(7, 13)   # ui-trigger-07 to ui-trigger-12 run 10 times (QR-04, §9)
+ALLOWED_TOOLS = ["Skill", "Read", "Glob", "Grep", "Write", "Edit", "Bash", "ToolSearch"]
 TRIGGER_MATCH = r'"skill"\s*:\s*"(?:[\w-]+:)?ui"'
 
 # Cases whose correct run writes nothing (§9: "the stop cases"): 15 turns and 300 seconds. Every other case writes
@@ -65,11 +69,14 @@ STOP_CASES = {
     "two-dsns-cite", "lists-brns", "no-brainstorm-yet", "no-brn-with-promoted-idea", "amend-nothing-to-do",
     "amend-nothing-with-prd", "amend-nothing-with-unrelated-documents", "plain-run-never-approves",
     "approval-blocked-by-changed-board", "approval-unknown-dsn", "approval-superseded-dsn", "approval-without-id",
+    "boards-without-canvas-json", "brief-drafted", "no-screen-idea", "no-mockup-no-design-skill",
+    "amend-nothing-with-unasked-candidate", "approval-already-approved", "approval-plus-change",
 }
 # The boards folder of each stop case the script refuses, and the ERR it prints first (IF-02), with the DSN ID the
 # create or amend run would give the script.
 BOARDS_ERRORS = {
     "no-boards-stops": ("DSN-001", "ERR-03"),
+    "boards-without-canvas-json": ("DSN-001", "ERR-03"),
     "boards-at-wrong-number": ("DSN-002", "ERR-03"),
     "canvas-unreadable": ("DSN-001", "ERR-04"),
     "unknown-canvas-format": ("DSN-001", "ERR-05"),
@@ -165,8 +172,8 @@ class SpecTests(unittest.TestCase):
             self.assertEqual("e2e", specs[ver]["level"])
             obligation = specs[ver]["obligation"]
             if ver == "VER-22":
-                self.assertIn("ui-trigger-01 to ui-trigger-11", obligation)
-                names = [f"ui-trigger-{i:02d}" for i in range(1, 12)]
+                self.assertIn("ui-trigger-01 to ui-trigger-13", obligation)
+                names = [f"ui-trigger-{i:02d}" for i in range(1, 14)]
             else:
                 names = spec_case_names(obligation)
             for name in names:
@@ -174,7 +181,7 @@ class SpecTests(unittest.TestCase):
                 self.assertIn(ver[4:], cases[name].vers, f"{name} does not grade {ver}")
                 wanted.add(name)
         self.assertEqual(wanted, set(cases), "cases the spec does not name, or names the suite lacks")
-        self.assertEqual(53, len(M.CASES))
+        self.assertEqual(62, len(M.CASES))
 
     def test_only_the_e2e_items_are_graded(self):
         graded = {v for c in M.CASES for v in c.vers}
@@ -220,8 +227,10 @@ class GeneratedTreeTests(unittest.TestCase):
     def test_the_layout_of_each_case(self):
         for c in M.CASES:
             d = GENERATED / c.name
+            n = int(c.name[-2:]) if c.name.startswith("ui-trigger-") else 0
+            runs = "runs: 10\n" if n in NEGATIVE_TRIGGERS else ""
             self.assertEqual(
-                f'schema_version: "1.1"\nname: {c.name}\ncontext:\n  scaffold_script: scaffold.sh\n',
+                f'schema_version: "1.1"\nname: {c.name}\n{runs}context:\n  scaffold_script: scaffold.sh\n',
                 (d / "case.yaml").read_text(), c.name)
             self.assertTrue((d / "prompt.md").is_file() and (d / "scaffold.sh").is_file(), c.name)
             self.assertTrue(list((d / "graders").glob("*.md")), f"{c.name} has no grader")
@@ -235,11 +244,12 @@ class GeneratedTreeTests(unittest.TestCase):
                 self.assertEqual(["trigger", "ver-22", "ui-trigger"], fm["tags"], c.name)
                 self.assertNotIn("ui", fm["tags"])
                 self.assertEqual((15, 300), (fm["max_turns"], fm["timeout_seconds"]), c.name)
+                self.assertEqual(ALLOWED_TOOLS, fm["allowed_tools"], c.name)
                 continue
             self.assertEqual(["ui"] + [f"ver-{v}" for v in c.vers], fm["tags"], c.name)
             expected = (15, 300) if c.name in STOP_CASES else (60, 900)
             self.assertEqual(expected, (fm["max_turns"], fm["timeout_seconds"]), c.name)
-            self.assertEqual(["Skill", "Read", "Glob", "Grep", "Write", "Edit", "Bash"], fm["allowed_tools"], c.name)
+            self.assertEqual(ALLOWED_TOOLS, fm["allowed_tools"], c.name)
         names = {c.name for c in M.CASES}
         self.assertTrue(STOP_CASES <= names)
 
@@ -290,7 +300,8 @@ class GeneratedTreeTests(unittest.TestCase):
         for c in M.CASES:
             for g in c.graders:
                 if g.type == "tool_used":
-                    self.assertTrue(c.name.startswith("ui-trigger-"), f"{c.name}/{g.name}: tool_used outside a trigger case")
+                    self.assertTrue(c.name.startswith("ui-trigger-") or g.name == "ver41-design-skill-not-invoked",
+                                    f"{c.name}/{g.name}: tool_used outside a trigger case and VER-41")
                 if g.type == "regex":
                     # VER-02: never whether the prd skill exists
                     self.assertNotIn("SKILL.md", g.pattern, f"{c.name}/{g.name}")
@@ -317,7 +328,7 @@ class GeneratedTreeTests(unittest.TestCase):
             self.assertEqual([True] * 3 + [False] * 3, js([[fm["input_match"], "", t] for t in yes + no]))
 
     def test_trigger_fixtures_have_no_boards_folder(self):
-        for i in range(1, 12):
+        for i in range(1, 14):
             c = case_by_name()[f"ui-trigger-{i:02d}"]
             self.assertIn("docs/specs/brainstorm/BRN-001.md", c.files)
             self.assertFalse([p for p in c.files if "/boards/" in p or p.startswith("docs/specs/design/")], c.name)
@@ -428,6 +439,168 @@ class ObservedReplyTests(unittest.TestCase):
         self.assertEqual([True] * len(yes) + [False] * len(no), got)
 
 
+BRIEF = """\
+**Shifts in the terminal:** the List and Add screens of Shiftlog, a terminal tool, for people who work shifts.
+
+**Context:** Shiftlog is used by people who work shifts. The one job of this flow: record a shift.
+
+**Content:** the idea "List shifts in a table". The flow's screens, in order: 1. List (the key screen), 2. Add. States to
+show: no shift recorded yet (empty); an error when a shift cannot be saved.
+
+**Must-haves:** a terminal screen, a monospace cell grid of 120 columns by 40 rows; keyboard-driven.
+
+**Style:** propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+"""
+
+
+class V2CaseTests(unittest.TestCase):
+    """The cases SPEC-017 version 2 adds, and the ones it changes (VER-01, VER-04 to VER-06, VER-33 to VER-41)."""
+
+    def grader(self, case, name):
+        return next(g for g in case_by_name()[case].graders if g.name == name)
+
+    def hits(self, case, name, texts):
+        g = self.grader(case, name)
+        return js([[g.pattern, g.flags, t] for t in texts])
+
+    def test_the_new_prompts_are_the_specs(self):
+        cases = case_by_name()
+        spec = spec_verifications()
+        for name, prompt, ver in (
+                ("brief-drafted", "Design the UI for BRN-001. Proceed without questions.", "VER-39"),
+                ("no-screen-idea", "Design the UI for BRN-001. Proceed without questions.", "VER-40"),
+                ("no-mockup-no-design-skill", "Design the screens for BRN-001 in Claude Design.", "VER-41"),
+                ("approval-plus-change", "/devforgeai:ui approve DSN-001 and also rename the Report board to Weekly.", "VER-37"),
+                ("approval-already-approved", "/devforgeai:ui approve DSN-001. I'm Example Owner.", "VER-37"),
+                ("amend-nothing-with-unasked-candidate", "Update the UI design for BRN-001. Proceed without questions.", "VER-33")):
+            self.assertEqual(prompt, cases[name].prompt.strip(), name)
+            self.assertIn(prompt, spec[ver]["obligation"], name)
+
+    def test_the_prompts_state_the_step_order(self):
+        cases = case_by_name()
+        # §9: the shared prompt states the order of each flow's screens; so do the prompts that add Settings
+        for name in ("approve-on-explicit-words", "no-approval-without-words"):
+            self.assertIn("Home, Report and Settings are web screens in the flow report-and-home, in that order;", " ".join(cases[name].prompt.split()), name)
+            self.assertIn("List and Add are terminal screens in the flow shifts, in that order.", " ".join(cases[name].prompt.split()), name)
+        for name in ("amend-changed-board", "amend-prd-requirement"):
+            self.assertIn("in the flow report-and-home, as its last step", cases[name].prompt, name)
+
+    def test_the_canvas_json_carries_the_boards_positions(self):
+        ws = run_scaffold("writes-dsn")
+        try:
+            canvas = json.loads((ws / "docs/specs/design/DSN-001/boards/canvas.json").read_text())
+            pos = {n: (b["x"], b["y"]) for n, b in canvas["boards"].items()}
+            self.assertEqual({n: tuple(M.POSITIONS[n]) for n in M.BOARDS}, pos)
+            # the positions agree with the order the prompt states: Home before Report, List before Add (BEH-09)
+            self.assertEqual(pos["Home.dc.html"][1], pos["Report.dc.html"][1])
+            self.assertLess(pos["Home.dc.html"][0], pos["Report.dc.html"][0])
+            self.assertEqual(pos["List.dc.html"][1], pos["Add.dc.html"][1])
+            self.assertLess(pos["List.dc.html"][0], pos["Add.dc.html"][0])
+            self.assertLess(pos["Home.dc.html"][1], pos["List.dc.html"][1])
+        finally:
+            shutil.rmtree(ws, ignore_errors=True)
+
+    def test_negative_triggers_run_ten_times_and_the_positives_the_default(self):
+        for i in range(1, 14):
+            text = (GENERATED / f"ui-trigger-{i:02d}" / "case.yaml").read_text()
+            self.assertEqual(i in NEGATIVE_TRIGGERS, "runs: 10\n" in text, i)
+            self.assertEqual({"schema_version", "name", "context"} | ({"runs"} if i in NEGATIVE_TRIGGERS else set()),
+                             set(yaml.safe_load(text)), i)
+
+    def test_the_design_fixtures(self):
+        cases = case_by_name()
+        for name in ("brief-drafted", "no-mockup-no-design-skill", "no-screen-idea"):
+            self.assertEqual(["docs/specs/brainstorm/BRN-001.md"], sorted(cases[name].files), name)
+        brn = cases["no-screen-idea"].files["docs/specs/brainstorm/BRN-001.md"]
+        ideas = yaml.safe_load(re.search(r"```yaml items\n(ideas:.*?)```", brn, re.S).group(1))["ideas"]
+        self.assertEqual([("Keep shifts in a local SQLite file", "promoted"), ("Back up the data nightly", "promoted")],
+                         [(i["idea"], i["disposition"]) for i in ideas if i["disposition"] == "promoted"])
+        self.assertEqual("converged", yaml.safe_load(re.match(r"---\n(.*?)\n---\n", brn, re.S).group(1))["status"])
+        files = cases["boards-without-canvas-json"].files
+        self.assertEqual(sorted(f"docs/specs/design/DSN-001/boards/{n}" for n in M.BOARDS) + ["docs/specs/brainstorm/BRN-001.md"],
+                         sorted(files))
+
+    def test_the_design_skill_grader(self):
+        g = self.grader("no-mockup-no-design-skill", "ver41-design-skill-not-invoked")
+        self.assertEqual(("tool_used", 0, 0), (g.type, g.min, g.max))
+        fm, _ = front_matter(GENERATED / "no-mockup-no-design-skill" / "graders" / "ver41-design-skill-not-invoked.md")
+        self.assertEqual(("Skill", "both"), (fm["tool"], fm["arm"]))
+        yes = ['{"skill": "design"}', '{"skill":"/design"}', '{"skill": "design", "args": "x"}']
+        no = ['{"skill": "devforgeai:ui"}', '{"skill": "designer"}', '{"skill": "devforgeai:prd"}']
+        self.assertEqual([True] * 3 + [False] * 3, js([[fm["input_match"], "", t] for t in yes + no]))
+
+    def test_the_brief_graders(self):
+        c = "brief-drafted"
+        order = self.hits(c, "ver39-briefs-in-dm05-order", [
+            BRIEF, BRIEF.replace("Must-haves", "Must haves"),
+            BRIEF.replace("**Style:** propose one.\n\n", ""),
+            BRIEF.replace("\n\nGive me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.\n", "")])
+        self.assertEqual([True, True, False, False], order)
+        closing = self.hits(c, "ver39-closing-line-exact", [BRIEF, BRIEF.replace("tradeoff", "trade-off"),
+                                                             BRIEF.replace("3 distinctly", "three distinctly")])
+        self.assertEqual([True, False, False], closing)
+        size = self.hits(c, "ver39-must-haves-state-a-grid-or-a-size", [
+            "a monospace cell grid of 120 columns by 40 rows", "a web page 1280 pixels wide", "a web page, 1280 px wide",
+            "a terminal screen, keyboard-driven"])
+        self.assertEqual([True, True, True, False], size)
+        # not_contains graders: True means the offending text was found
+        style = self.hits(c, "ver39-style-holds-no-hex-or-px", [
+            "**Style:** a dark palette #1a1b26", "Style: 16px type", "**Must-haves:** 1280 px wide\n\n**Style:** propose one.", BRIEF])
+        self.assertEqual([True, True, False, False], style)
+        self.assertEqual([True, False], self.hits(c, "ver39-no-hex-value-anywhere", ["use #1a1b26 for the text", BRIEF]))
+        drawing = self.hits(c, "ver39-no-drawing", ["┌────────┐\n│ Shifts │\n└────────┘", "+-----+\n| x |\n+-----+",
+                                                      "drawn only with text and box-drawing characters", BRIEF])
+        self.assertEqual([True, True, False, False], drawing)
+        self.assertEqual([True, True, False], self.hits(c, "ver39-says-no-artifact-tool", [
+            "This session has no Artifact tool.", "The Artifact tool is not available here.", "Artifact."]))
+        self.assertEqual([True, False], self.hits(c, "ver39-says-the-grouping-is-unconfirmed",
+                                                  ["The grouping is unconfirmed.", "Here is the grouping."]))
+        self.assertEqual([True, False], self.hits(c, "ver39-quotes-an-idea", [BRIEF, "Content: a list of shifts."]))
+        self.assertEqual([True, False], self.hits(c, "ver39-names-a-state", ["States to show: empty and error.", "Content: a list."]))
+
+    def test_the_brief_llm_grader(self):
+        c = case_by_name()["brief-drafted"]
+        llm = [g for g in c.graders if g.type == "llm"]
+        self.assertEqual(["ver39-briefs-are-well-formed"], [g.name for g in llm])
+        fm, body = front_matter(GENERATED / "brief-drafted" / "graders" / "ver39-briefs-are-well-formed.md")
+        self.assertEqual("llm", fm["type"])
+        self.assertIn("Give me 3 distinctly different directions of the key screen first", body)
+
+    def test_the_v2_reply_graders(self):
+        yes_no = [
+            ("writes-dsn", "ver01-says-no-artifact-tool-in-this-session", ["no Artifact tool in this session", "The session has no Artifact tool."], ["Written."]),
+            ("writes-dsn", "ver01-says-canvas-not-checked", ["the canvas was not checked", "I could not check the canvas"], ["Written."]),
+            ("writes-dsn", "ver01-says-copy-recorded-as-it-is", ["The copy in the folder was recorded as it is.", "Recorded the copy as-is."], ["Written."]),
+            ("no-boards-stops", "ver04-says-no-artifact-tool", ["This session has no Artifact tool, which the import needs."], ["Nothing was written."]),
+            ("boards-at-wrong-number", "ver05-says-no-artifact-tool", ["No Artifact tool is available in this session."], ["Nothing was written."]),
+            ("canvas-unreadable", "ver06-asks-to-import-or-copy-again",
+             ["Import the canvas again, or copy canvas.json again.", "Please copy it again.", "Re-import the canvas."], ["canvas.json is not valid JSON."]),
+            ("amend-nothing-to-do", "ver33-says-canvas-not-checked", ["Without the Artifact tool the canvas was not checked.", "no Artifact tool in this session"], ["DSN-001 is current."]),
+            ("amend-nothing-to-do", "ver33-says-a-change-is-seen-by-an-import",
+             ["A board changed on the canvas is seen only when a run with the tool imports it."],
+             ["A board changed on the canvas must be copied into the boards folder again before the skill can see it."]),
+            ("amend-nothing-with-unasked-candidate", "ver33-says-one-candidate-waits", ["One candidate waits for an interactive run.", "1 requirement that names a screen is left."], ["DSN-001 is current."]),
+            ("amend-nothing-with-unasked-candidate", "ver33-says-for-an-interactive-run", ["It waits for an interactive run."], ["It is left."]),
+            ("approval-blocked-by-changed-board", "ver36-block-line-not-approved", ["Design document: DSN-001 (v1, draft; not approved)"], ["Design document: DSN-001 (v1, approved)"]),
+            ("approval-plus-change", "ver37-block-line-not-approved", ["Design document: DSN-001 (v1, draft; not approved)"], ["Design document: DSN-001 (v1, approved)"]),
+            ("approval-plus-change", "ver37-says-an-amend-run-comes-first", ["An amend run comes first: /devforgeai:ui BRN-001."], ["Nothing was approved."]),
+            ("approval-already-approved", "ver37-says-already-approved", ["DSN-001 is already approved."], ["DSN-001 is a draft."]),
+            ("approval-already-approved", "ver37-gives-version-approver-and-date",
+             ["Already approved: version 1, by Example Owner on 2026-10-08."], ["Already approved: version 1."]),
+            ("no-screen-idea", "ver40-says-no-idea-names-a-screen", ["No promoted idea names a screen, a flow or a user interface."], ["Written."]),
+            ("no-screen-idea", "ver40-says-the-step-is-optional", ["This step is optional."], ["Written."]),
+            ("no-screen-idea", "ver40-points-to-prd", ["Go on with /devforgeai:prd BRN-001."], ["Go on."]),
+            ("no-mockup-no-design-skill", "ver41-says-no-artifact-tool", ["This session has no Artifact tool."], ["I can't."]),
+        ]
+        for case, name, yes, no in yes_no:
+            self.assertEqual([True] * len(yes) + [False] * len(no), self.hits(case, name, yes + no), f"{case}/{name}")
+        # a drawing of a screen (VER-41, not_contains): found in a box drawing and in a +---+ rule
+        self.assertEqual([True, True, False], self.hits("no-mockup-no-design-skill", "ver41-no-drawing",
+                                                        ["┌──┐\n│x │\n└──┘", "+----+\n| x  |\n+----+", "I will not draw a screen."]))
+
+
 class DigestTests(unittest.TestCase):
     def test_digests_are_the_sha256_of_the_boards(self):
         import hashlib
@@ -463,9 +636,16 @@ class DigestTests(unittest.TestCase):
                              [k for k, _ in members["boards"]])
             code, out = run_script(ws, "boards", "DSN-001")
             self.assertEqual(0, code, out)
+            import hashlib
+            self.assertEqual("canvas.json: v3, 4 boards", out.splitlines()[0])
+            self.assertEqual("canvas.json sha256 " + hashlib.sha256((boards / "canvas.json").read_bytes()).hexdigest(),
+                             out.splitlines()[1])
             lines = [l.split() for l in out.splitlines() if l.startswith("board ")]
             self.assertEqual([[str(i + 1), n, str(len(t.encode())), str(t.count("\n")), M.DIGESTS[n]]
-                              for i, (n, t) in enumerate(M.BOARDS.items())], [l[1:] for l in lines])
+                              for i, (n, t) in enumerate(M.BOARDS.items())], [l[1:6] for l in lines])
+            # the positions of the canvas: Home and Report in the first row, List and Add in the second (BEH-09)
+            self.assertEqual([(M.POSITIONS[n][0], M.POSITIONS[n][1]) for n in M.BOARDS],
+                             [(float(l[6]), float(l[7])) for l in lines])
         finally:
             shutil.rmtree(ws, ignore_errors=True)
 
