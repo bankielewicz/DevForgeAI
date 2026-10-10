@@ -4,4 +4,4 @@ target: last_message
 match: contains
 flags: i
 ---
-\bDSN ID\b|\bwhich DSN\b|DSN-NNN|\bwhich (?:design|document)\b|\bID of the\b
+\bDSN\b[^\n]*\?|\b(?:give|provide|tell|name|send|pick|choose|say|supply)\b[^\n]{0,60}\bDSN\b

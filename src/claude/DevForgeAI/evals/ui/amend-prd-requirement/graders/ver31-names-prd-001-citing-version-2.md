@@ -4,4 +4,4 @@ target: last_message
 match: contains
 flags: i
 ---
-PRD-001[^\n]*\b(?:version[ \t]*|v)2\b
+(?:^|\n)(?=[^\n]*\bPRD-001\b)(?=[^\n]*\bDSN-001\b)[^\n]*\b(?:version[ \t]*|v)2\b

@@ -1115,7 +1115,12 @@ def too_many_boards():
 # --------------------------------------------------------------------------------------------------------
 # VER-10 to VER-12: the amend run
 
-PRE_CHECK_ORDER = (r"dsn_check\.py\"?\s+boards\s+DSN-001[\s\S]*?dsn_check\.py\"?\s+check\s+--before-amend\s+DSN-001")
+def prd_cites_dsn(version):
+    """A line that names PRD-001 as citing DSN-001 at the version (the block's lines name neither)."""
+    return (r"(?:^|\n)(?=[^\n]*\bPRD-001\b)(?=[^\n]*\bDSN-001\b)[^\n]*\b(?:version[ \t]*|v)" + str(version) + r"\b")
+
+
+PRE_CHECK_ORDER = (r"dsn_check\.py[\"']?\s+boards\s+DSN-001[\s\S]*?dsn_check\.py[\"']?\s+check\s+--before-amend\s+DSN-001")
 OLD_ROWS_B_APPROVED = [r for r in DSN_B_APPROVED.splitlines(True) if r.startswith("| 1 |")]
 
 
@@ -1138,7 +1143,7 @@ def amend_changed_board():
           reply("ver10-fact-report-changed", r"fact: board Report\.dc\.html: changed", flags=""),
           reply("ver10-fact-settings-new", r"fact: board Settings\.dc\.html: new", flags=""),
           reply("ver10-says-amended", r"Design document:(?:\*\*)?[ \t]*DSN-001 \(v2, in-review; amended\)", flags=""),
-          reply("ver10-names-prd-citing-version-1", r"PRD-001[^\n]*\b(?:version[ \t]*|v)1\b"),
+          reply("ver10-names-prd-citing-version-1", prd_cites_dsn(1)),
           rx("ver10-next-step", "last_message", next_step_has(PRD_CMD, review_by_hand("DSN-001", 2), r"\bPRD-001\b"),
              flags="i"),
           rx("ver10-next-step-is-last", "last_message", NEXT_STEP_LAST)]
@@ -1186,7 +1191,7 @@ def unknown_brn():
 def path_refused():
     return no_dsn_written("ver14") + nothing_written("ver14", "design") + [
         reply("ver14-says-paths-are-not-accepted", NOT_ACCEPTED),
-        reply("ver14-asks-for-the-brn-id", r"BRN ID|BRN-NNN|which BRN|BRN number")]
+        reply("ver14-asks-for-the-brn-id", r"\bBRN\b[^\n]*\?|\b(?:give|provide|tell|name|send|pick|choose|say|supply)\b[^\n]{0,60}\bBRN\b")]
 
 
 def unconverged_brn():
@@ -1202,7 +1207,7 @@ def no_promoted_idea():
 
 def malformed_brn():
     return no_dsn_written("ver17") + nothing_written("ver17", "design") + [
-        reply("ver17-names-the-ideas-block", r"\bideas\b"), reply("ver17-names-the-brn-path", esc(BRN_PATH), flags=""),
+        reply("ver17-names-the-ideas-block", r"\bideas\b[^\n]{0,40}\bblock\b|\bblock\b[^\n]{0,40}\bideas\b"), reply("ver17-names-the-brn-path", esc(BRN_PATH), flags=""),
         unchanged("ver17-brn-001-unchanged", BRN_PATH, BRN_MALFORMED)]
 
 
@@ -1213,14 +1218,19 @@ def two_dsns_cite():
             reply("ver18-asks-which-to-amend", r"\bwhich\b[^\n]{0,100}\?|\?[^\n]{0,100}\bwhich\b")]
 
 
+# A line that says the marker remains or blocks the approval: not the block's own `Markers left:` line, which a run
+# that says nothing about the marker prints too
+MARKER_REMAINS = (r"(?:^|\n)(?![ \t>*-]*(?:\*\*)?Markers left:)(?=[^\n]*\bmarkers?\b)"
+                  r"(?=[^\n]*\b(?:remains?|remaining|still|blocks?|blocked|waits?|waiting|until|unresolved|open)\b)[^\n]+")
+
+
 def approve_blocked_by_marker():
     return [present("ver19-dsn-written", DSN1), rx("ver19-status-stays-draft", DSN1, fm_has(fm_field("status", "draft"))),
             rx("ver19-approved-by-empty", DSN1, fm_has(r"approved_by:[ \t]*(?:\"\"|'')" + EOL)),
             rx("ver19-approved-on-null", DSN1, fm_has(fm_null("approved_on"))),
             rx("ver19-no-approved-row", DSN1, r"\n\|[^\n]*\|[ \t]*Approved\.?[ \t]*\|", match="not_contains"),
             rx("ver19-marker-for-idea-06-remains", DSN1, r"\[NEEDS CLARIFICATION:[^\]\n]*IDEA-06"),
-            reply("ver19-reply-says-the-marker-remains",
-                  r"\bmarkers?\b[^\n]{0,100}\b(?:remains?|left|still|open|blocks?)\b|\b(?:remains?|left|still|open|blocks?)\b[^\n]{0,100}\bmarkers?\b")]
+            reply("ver19-reply-says-the-marker-remains", MARKER_REMAINS)]
 
 
 def approve_on_explicit_words():
@@ -1348,7 +1358,7 @@ def amend_prd_requirement():
     g += [reply("ver31-says-amended", r"Design document:(?:\*\*)?[ \t]*DSN-001 \(v3, in-review; amended\)", flags=""),
           rx("ver31-settings-not-under-boards-with-no-idea", "last_message", block_line("Boards with no idea", r"[^\n]*Settings"),
              match="not_contains"),
-          reply("ver31-names-prd-001-citing-version-2", r"PRD-001[^\n]*\b(?:version[ \t]*|v)2\b"),
+          reply("ver31-names-prd-001-citing-version-2", prd_cites_dsn(2)),
           rx("ver31-next-step", "last_message", next_step_has(PRD_CMD, review_by_hand("DSN-001", 3), r"\bPRD-001\b"), flags="i"),
           rx("ver31-next-step-is-last", "last_message", NEXT_STEP_LAST)]
     return g
@@ -1382,7 +1392,7 @@ def amend_adr_consequence():
           unchanged("ver32-brn-001-unchanged", BRN_PATH, BRN)]
     g += boards_unchanged(p, BOARDS_32, names=FIVE)
     g += [reply("ver32-says-amended", r"Design document:(?:\*\*)?[ \t]*DSN-001 \(v4, in-review; amended\)", flags=""),
-          reply("ver32-names-prd-001-citing-version-3", r"PRD-001[^\n]*\b(?:version[ \t]*|v)3\b"),
+          reply("ver32-names-prd-001-citing-version-3", prd_cites_dsn(3)),
           rx("ver32-next-step", "last_message", next_step_has(PRD_CMD, review_by_hand("DSN-001", 4), r"\bPRD-001\b"), flags="i"),
           rx("ver32-next-step-is-last", "last_message", NEXT_STEP_LAST),
           rx("ver32-next-step-outside-code", "last_message", NEXT_STEP_IN_CODE, match="not_contains")]
@@ -1453,7 +1463,8 @@ DSN_SUPERSEDED = dsn(standard_boards(), COVER_B, status="superseded", approved_b
                      changelog=[(1, "2026-10-08", f"claude-code (session {FIXTURE_SESSION})",
                                  "Created from BRN-001 v1 and the boards; 0 markers left", "all"),
                                 (1, "2026-10-08", "Example Owner", "Approved", "status")])
-ONLY_DRAFT_OR_IN_REVIEW = r"\bonly\b[^\n]{0,80}\bdraft\b[^\n]{0,60}\bin-review\b|\bdraft\b[^\n]{0,30}\b(?:or|and)\b[^\n]{0,30}\bin-review\b[^\n]{0,60}\bonly\b|\bonly\b[^\n]{0,80}\bin-review\b[^\n]{0,60}\bdraft\b"
+ONLY_DRAFT_OR_IN_REVIEW = (r"\bonly\b[^\n]{0,80}\bdraft\b[^\n]{0,60}\bin[- ]review\b|\bdraft\b[^\n]{0,30}\b(?:or|and)\b[^\n]{0,30}"
+                           r"\bin[- ]review\b[^\n]{0,60}\bonly\b|\bonly\b[^\n]{0,80}\bin[- ]review\b[^\n]{0,60}\bdraft\b")
 
 
 def approval_unknown_dsn():
@@ -1468,7 +1479,7 @@ def approval_superseded_dsn():
 
 def approval_without_id():
     return [unchanged("ver37-dsn-001-unchanged", DSN1, DSN_B), reply("ver37-lists-the-dsns", r"DSN-001"),
-            reply("ver37-asks-for-the-dsn-id", r"\bDSN ID\b|\bwhich DSN\b|DSN-NNN|\bwhich (?:design|document)\b|\bID of the\b")]
+            reply("ver37-asks-for-the-dsn-id", r"\bDSN\b[^\n]*\?|\b(?:give|provide|tell|name|send|pick|choose|say|supply)\b[^\n]{0,60}\bDSN\b")]
 
 
 def candidates_left():

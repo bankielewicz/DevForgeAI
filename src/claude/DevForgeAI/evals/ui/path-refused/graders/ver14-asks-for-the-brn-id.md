@@ -4,4 +4,4 @@ target: last_message
 match: contains
 flags: i
 ---
-BRN ID|BRN-NNN|which BRN|BRN number
+\bBRN\b[^\n]*\?|\b(?:give|provide|tell|name|send|pick|choose|say|supply)\b[^\n]{0,60}\bBRN\b

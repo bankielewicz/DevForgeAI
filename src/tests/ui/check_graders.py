@@ -253,6 +253,9 @@ CONSIDERED_12 = [f"declined:PRD-001#FR-{n:03d}" for n in range(25, 37)]
 CONSIDERED_6 = ["PRD-001@2"] + [f"declined:PRD-001#FR-{n:03d}" for n in range(25, 31)]
 
 
+SAYS_MARKER_REMAINS = "DSN-001 stays draft: the marker for IDEA-06 remains, so I did not offer approval."
+
+
 def stop(text):
     return ({}, text + "\n", [])
 
@@ -280,7 +283,7 @@ GOOD2 = {
                           "Nothing was written and the BRN is unchanged."),
     "two-dsns-cite": stop("Two active DSNs cite BRN-001: DSN-001 (v1, draft) and DSN-002 (v1, draft). ADR-007 D4 allows one active DSN for each BRN. "
                           "Which one should I amend?"),
-    "approve-blocked-by-marker": ({DSN1: created_dsn()}, "DSN-001 stays draft: the marker for IDEA-06 remains, so I did not offer approval.\n", []),
+    "approve-blocked-by-marker": ({DSN1: created_dsn()}, REPLY_CREATE.split("\n\n")[0] + "\n\n" + SAYS_MARKER_REMAINS + "\n", []),
     "approve-on-explicit-words": ({DSN1: settings_dsn("approved", approved=True)}, "Approved DSN-001 for Example Owner.\n", []),
     "no-approval-without-words": ({DSN1: settings_dsn("draft")}, "Wrote DSN-001 as a draft.\n", []),
     "neighbours-unchanged": ({DSN1: created_dsn()}, REPLY_CREATE, []),
@@ -299,7 +302,7 @@ GOOD2 = {
     "approval-blocked-by-changed-board": stop("The check failed: Report.dc.html differs from the digest (sha256) recorded in DSN-001, so nothing was "
                                               "approved. An amend run comes first."),
     "approval-unknown-dsn": stop("DSN-009 does not exist. DSN-001 (v1, draft). Only a draft or in-review DSN is approved."),
-    "approval-superseded-dsn": stop("DSN-001 (v1, superseded). Only a draft or in-review DSN is approved."),
+    "approval-superseded-dsn": stop("DSN-001 (v1, superseded). Only a draft or in review DSN is approved."),
     "approval-without-id": stop("Which DSN should I approve? DSN-001 (v1, draft). Give me the DSN ID."),
     "amend-candidates-left": ({DSN1: candidates_dsn([])}, REPLY_CANDIDATES.format(text="Six candidates from PRD-001 version 2 were left for a later run."), []),
     "amend-declined-recorded": ({DSN1: candidates_dsn(CONSIDERED_6)}, REPLY_CANDIDATES.format(text="Declined FR-025 to FR-030 as asked."), []),
@@ -430,6 +433,8 @@ AMEND_BAD = [
     ("the block says new", [("reply", None, "(v2, in-review; amended)", "(v2, in-review; new)")], {"ver10-says-amended"}),
     ("PRD-001 is not named as citing", [("reply", None, "PRD-001 cites DSN-001 at version 1. The new version has not been reviewed.\n", "The new version has not been reviewed.\n")],
      {"ver10-names-prd-citing-version-1"}),
+    ("PRD-001 is named without DSN-001 on the line", [("reply", None, "PRD-001 cites DSN-001 at version 1.", "PRD-001 cites it at version 1.")],
+     {"ver10-names-prd-citing-version-1"}),
     ("the next step lacks the review sentence", [("reply", None, "review them against DSN-001 version 2 by hand until their skills do it (cycle C)", "review them")],
      {"ver10-next-step"}),
     ("the next step reviews against another version", [("reply", None, "against DSN-001 version 2 by hand", "against DSN-001 version 1 by hand")], {"ver10-next-step"}),
@@ -488,6 +493,13 @@ for i, (fires, _) in enumerate(M.TRIGGERS, start=1):
                              if fires else [("the ui skill fires", {"calls": SKILL}, {"ver22-skill-not-fired"})])
 STATUS_APPROVED = ("file", DSN1, "status: draft\n", "status: approved\n")
 BAD2 = {
+    "approve-blocked-by-marker": [("only the Markers left line says it", [("reply", None, SAYS_MARKER_REMAINS + "\n", "")],
+                                   {"ver19-reply-says-the-marker-remains"})],
+    "path-refused": [("no question or request", [("reply", None, " Which BRN ID should I use? BRN-001 has promoted ideas.", "")],
+                      {"ver14-asks-for-the-brn-id"})],
+    "malformed-brn": [("the block is not named", [("reply", None, "The ideas block of", "The ideas of")], {"ver17-names-the-ideas-block"})],
+    "approval-without-id": [("no question or request", [("reply", None, "Which DSN should I approve? ", "Only DSN-NNN can be approved. "),
+                                                         ("reply", None, " Give me the DSN ID.", "")], {"ver37-asks-for-the-dsn-id"})],
     "amend-removed-board": [("BRD-04 renumbered", [("file", DSN1, "BRD-04", "BRD-05", 2)], {"ver11-no-item-renumbered"})],
     "amend-brn-moved": [("BRD-03 deprecated", [("file", DSN1, '    status: active\n    file: "Add.dc.html"', '    status: deprecated\n    file: "Add.dc.html"')],
                          {"ver12-no-item-deprecated"})],
@@ -501,12 +513,16 @@ BAD2 = {
         ("an ADR link in upstream", [("file", DSN1, "  - {id: BRN-001, relation: derives, version: 1, hash: null}\n",
                                       "  - {id: BRN-001, relation: derives, version: 1, hash: null}\n  - {id: ADR-009, relation: informed_by, version: 1, hash: null}\n")],
          {"ver31-upstream-holds-no-adr-link"}),
+        ("PRD-001 is named without DSN-001 on the line", [("reply", None, "PRD-001 cites DSN-001 at version 2.", "PRD-001 cites it at version 2.")],
+         {"ver31-names-prd-001-citing-version-2"}),
         ("Settings is listed as a board with no idea", [("reply", None, "Boards with no idea: none", "Boards with no idea: Settings.dc.html")],
          {"ver31-settings-not-under-boards-with-no-idea"})],
     "amend-adr-consequence": [
         ("an ADR link in upstream", [("file", DSN1, "  - {id: BRN-001, relation: derives, version: 1, hash: null}\n",
                                       "  - {id: BRN-001, relation: derives, version: 1, hash: null}\n  - {id: ADR-009, relation: informed_by, version: 1, hash: null}\n")],
          {"ver32-upstream-holds-no-adr-009-link"}),
+        ("PRD-001 is named without DSN-001 on the line", [("reply", None, "PRD-001 cites DSN-001 at version 3.", "PRD-001 cites it at version 3.")],
+         {"ver32-names-prd-001-citing-version-3"}),
         ("considered lost PRD-001@2", [("file", DSN1, '"PRD-001@2", ', "")], {"ver32-considered-keeps-prd-001-at-2"}),
         ("the status is approved", [("file", DSN1, "status: in-review\n", "status: approved\n")], {"ver32-status-stays-in-review"}),
         ("the next step is in a code block", [("reply", None, "/devforgeai:prd BRN-001.\n", "/devforgeai:prd BRN-001.\n```")], {"ver32-next-step-outside-code"})],
