@@ -5,7 +5,8 @@ Usage:
     python3 dsn_check.py next [--root DIR]
     python3 dsn_check.py boards [--root DIR] DSN-NNN
     python3 dsn_check.py check [--before-amend] [--root DIR] DSN-NNN
-    python3 dsn_check.py head [--root DIR] DSN-NNN FILE
+    python3 dsn_check.py head [--root DIR] DSN-NNN [--] FILE
+    python3 dsn_check.py place [--root DIR] DSN-NNN --sha-file PATH
 
 DIR is the project root (`.` by default). Output is on standard output. Exit 0 is success, 1 a problem the script
 reports, 2 that it cannot run: no or wrong arguments, a root it cannot read, a DSN file or a BRN it cannot read. A run
@@ -17,8 +18,9 @@ it reports, in every subcommand that reads it: `ERR-03`, `ERR-04`, `ERR-05` or `
   `pending boards folders: ...`. It reads only the names in that folder.
 - boards: checks docs/specs/design/DSN-NNN/boards/ against the canvas.json contract (DM-04) and prints
   `canvas.json: v<N>, <n> boards`, a `board <k> <file> <bytes> <lines> <sha256>` line for each board in canvas order
-  and `boards: ok`; or ERR-03, ERR-04, ERR-05 or ERR-12 (the first that fails), or an ERR-06 line for every board that
-  fails, then `boards: <n> problem(s)`.
+  and `boards: ok`, with `canvas.json sha256 <hex>` after the first line and `<x> <y>` (numbers, or `-`) at the end of each
+  board line; or ERR-03, ERR-04, ERR-05 or ERR-12 (the first that fails), or an ERR-06 line for every board that fails,
+  then `boards: <n> problem(s)`.
 - check: applies the rules of the DSN (frontmatter, boards, mapping, links, coverage, approval, changelog, placeholder)
   and prints `<file>:<line>: <part>: <message> (<rule>)` for each error, `warning: ...` for each suspect reference,
   then `OK <file>` or `INVALID: <n> error(s) in <file>`. With --before-amend it applies the structural rules only and
@@ -28,8 +30,16 @@ it reports, in every subcommand that reads it: `ERR-03`, `ERR-04`, `ERR-05` or `
   500 and marked `[cut]`, then `head: <shown> of <lines> lines, <bytes shown> of <bytes> bytes, <n> lines cut`: what was
   left out is the difference between the "of" numbers, and <n> is the number of lines that were cut short.
 
-Standard library only: it runs under `python3 -S`. It writes no file, opens no network connection, starts no process,
-follows no symbolic link and reads only the paths each subcommand names. It reads the frontmatter and the `boards:`
+- place: moves an import from docs/specs/design/DSN-NNN/project/ into boards/, after checking canvas.json and every board it
+  names as `boards` does and each staged file against the `<hex>  <file>` lines of the file PATH (written by the skill from
+  the tool's results; the file names are read from that file and are never command-line words). It moves nothing on any
+  problem. It is the only subcommand that writes, and it writes only inside that DSN's folder: it makes boards/ if it is
+  absent, replaces the files of the same names there, removes project/ when it is then empty, and does nothing else. A
+  PATH that is not a regular file, a line that is not `<64 hex digits>  <file>`, and a line naming a file canvas.json does
+  not name are `Cannot run`. A move that fails midway stops, names the files placed and not placed, and moves nothing back.
+
+Standard library only: it runs under `python3 -S`. It opens no network connection, starts no process, follows no symbolic
+link and reads only the paths each subcommand names; every subcommand but `place` writes no file. It reads the frontmatter and the `boards:`
 block with a fixed-shape reader (flat mappings, flow sequences, double-quoted scalars with escapes, integers, dates and
 null); PyYAML, when installed, is only a syntax cross-check and gives the same verdict.
 """
@@ -270,47 +280,61 @@ def shown_json(value):
 
 
 class Canvas:
-    def __init__(self, names, v):
+    def __init__(self, names, v, sha, positions):
         self.names = names
         self.v = v
+        self.sha = sha              # the SHA-256 of canvas.json's bytes (BEH-26 compares it with the tool's)
+        self.positions = positions  # [(x, y)] as text, one for each board: a number as written, or "-"
 
 
-def boards_rel(dsn):
-    return f"docs/specs/design/{dsn}/boards/"
+def number_text(value):
+    """A board's x or y for IF-02: the number as the file writes it, else a dash (a boolean is not a number)."""
+    if isinstance(value, bool):
+        return "-"
+    if isinstance(value, (int, RawNumber)):
+        return str(value)
+    return "-"
 
 
-def boards_path(root, dsn, *more):
-    return os.path.join(root, "docs", "specs", "design", dsn, "boards", *more)
+def boards_rel(dsn, sub="boards"):
+    return f"docs/specs/design/{dsn}/{sub}/"
 
 
-def read_canvas(root, dsn):
-    """Read and validate canvas.json: the first failing of ERR-03, ERR-04, ERR-05 and ERR-12 raises BoardsProblem."""
-    rel = boards_rel(dsn)
-    copy_hint = "copy canvas.json and the board files it names there; the skill never fetches them"
+def boards_path(root, dsn, *more, sub="boards"):
+    return os.path.join(root, "docs", "specs", "design", dsn, sub, *more)
+
+
+def read_canvas(root, dsn, sub="boards"):
+    """Read and validate canvas.json in the boards folder (or, for `place`, the staging folder `project`): the first
+    failing of ERR-03, ERR-04, ERR-05 and ERR-12 raises BoardsProblem."""
+    rel = boards_rel(dsn, sub)
+    what = "boards folder" if sub == "boards" else "staging folder"
+    copy_hint = ("copy canvas.json and the board files it names there, or import the canvas with the skill" if sub == "boards"
+                 else "import the canvas again: the Artifact tool saves its files there")
     design = os.path.join(root, "docs", "specs", "design")
-    for path in (os.path.join(design, dsn), boards_path(root, dsn)):
+    for path in (os.path.join(design, dsn), boards_path(root, dsn, sub=sub)):
         try:
             st = os.lstat(path)
         except (FileNotFoundError, NotADirectoryError):
-            raise BoardsProblem("03", f"the boards folder {rel} does not exist; {copy_hint}")
+            raise BoardsProblem("03", f"the {what} {rel} does not exist; {copy_hint}")
         except OSError as e:
-            raise BoardsProblem("03", f"the boards folder {rel} cannot be read ({_os_reason(e)})")
+            raise BoardsProblem("03", f"the {what} {rel} cannot be read ({_os_reason(e)})")
         if stat.S_ISLNK(st.st_mode):
-            raise BoardsProblem("03", f"the boards folder {rel} is, or lies in, a symbolic link, which is never followed")
+            raise BoardsProblem("03", f"the {what} {rel} is, or lies in, a symbolic link, which is never followed")
         if not stat.S_ISDIR(st.st_mode):
             raise BoardsProblem("03", f"{rel} is not a folder; {copy_hint}")
     try:
-        entries = os.listdir(boards_path(root, dsn))
+        entries = os.listdir(boards_path(root, dsn, sub=sub))
     except OSError as e:
-        raise BoardsProblem("03", f"the boards folder {rel} cannot be listed ({_os_reason(e)})")
+        raise BoardsProblem("03", f"the {what} {rel} cannot be listed ({_os_reason(e)})")
     if not entries:
-        raise BoardsProblem("03", f"the boards folder {rel} is empty; {copy_hint}")
-    canvas_path = boards_path(root, dsn, "canvas.json")
+        raise BoardsProblem("03", f"the {what} {rel} is empty; {copy_hint}")
+    canvas_path = boards_path(root, dsn, "canvas.json", sub=sub)
     try:
         raw = read_file(canvas_path)
     except Unreadable as u:
         if u.kind == "absent":
-            raise BoardsProblem("03", f"the boards folder {rel} has no canvas.json; {copy_hint}")
+            raise BoardsProblem("03", f"the {what} {rel} has no canvas.json; {copy_hint}")
         if u.kind in ("link", "notfile"):
             raise BoardsProblem("03", f"{rel}canvas.json is not a regular file ({u.reason}); {copy_hint}")
         raise BoardsProblem("04", f"{rel}canvas.json cannot be read ({u.reason}); copy it again")
@@ -342,16 +366,18 @@ def read_canvas(root, dsn):
         raise BoardsProblem("05", f"{rel}canvas.json v is {shown_json(v)}; supported: v {SUPPORTED_V} only. Claude Design's format is not documented, so the skill does not guess what another version means; a spec change must be approved for it")
     if len(boards) > MAX_BOARDS:
         raise BoardsProblem("12", f"{rel}canvas.json names {len(boards)} boards; the DSN's board IDs (BRD-NN) hold {MAX_BOARDS}; split the canvas or ask the owner to change the spec")
-    return Canvas(list(boards.keys()), v)
+    positions = [(number_text(b.get("x")), number_text(b.get("y"))) if isinstance(b, dict) else ("-", "-")
+                 for b in boards.values()]
+    return Canvas(list(boards.keys()), v, hashlib.sha256(raw).hexdigest(), positions)
 
 
-def board_issue(root, dsn, name):
+def board_issue(root, dsn, name, sub="boards"):
     """(reason, Scan) for a board canvas.json names: the reason is None when the board file is usable."""
     why = name_problem(name)
     if why:
         return why, None
     try:
-        return None, scan_file(boards_path(root, dsn, name))
+        return None, scan_file(boards_path(root, dsn, name, sub=sub))
     except Unreadable as u:
         return u.reason, None
 
@@ -397,10 +423,12 @@ def cmd_boards(root, dsn):
         if why:
             problems.append(f"ERR-06: board {k} {jstr(name)}: {why}")
         else:
-            lines.append(f"board {k} {name} {scan.size} {scan.lines} {scan.sha}")
+            x, y = canvas.positions[k - 1]
+            lines.append(f"board {k} {name} {scan.size} {scan.lines} {scan.sha} {x} {y}")
     if problems:
         return problems + [f"boards: {len(problems)} problem(s)"], 1
-    return [f"canvas.json: v{canvas.v}, {len(canvas.names)} boards"] + lines + ["boards: ok"], 0
+    return ([f"canvas.json: v{canvas.v}, {len(canvas.names)} boards", f"canvas.json sha256 {canvas.sha}"] + lines
+            + ["boards: ok"]), 0
 
 
 def cmd_head(root, dsn, name):
@@ -444,6 +472,102 @@ def cmd_head(root, dsn, name):
         cut += cut_line
     out.append(f"head: {shown} of {scan.lines} lines, {bytes_shown} of {scan.size} bytes, {cut} lines cut")
     return out, 0
+
+
+RE_DIGEST_LINE = re.compile(r"([0-9a-f]{64})  (.+)")      # IF-05: 64 lowercase hex digits, two spaces, the name to the line's end
+
+
+def read_digest_file(path):
+    """{file name: digest} from the file PATH of `place`. Anything that is not a plain run of '<hex>  <file>' lines is
+    CannotRun: the skill writes this file, so a line that does not parse is a bug to stop on, not data to guess at."""
+    try:
+        raw = read_file(path)
+    except Unreadable as u:
+        raise CannotRun(f"the digest file {path!r} cannot be used: {u.reason}")
+    try:
+        text = raw.decode("utf-8")
+    except UnicodeDecodeError:
+        raise CannotRun(f"the digest file {path!r} is not UTF-8 text")
+    lines = text.split("\n")
+    if lines and lines[-1] == "":
+        lines.pop()                                  # the newline that ends the last line
+    digests = {}
+    for n, line in enumerate(lines, 1):
+        m = RE_DIGEST_LINE.fullmatch(line[:-1] if line.endswith("\r") else line)
+        if not m:
+            raise CannotRun(f"line {n} of the digest file is not '<sha256>  <file>' (64 lowercase hex digits, two spaces, the file name)")
+        if m.group(2) in digests:
+            raise CannotRun(f"line {n} of the digest file repeats the file {jstr(m.group(2))}")
+        digests[m.group(2)] = m.group(1)
+    return digests
+
+
+def names_list(names):
+    """File names for one line of output: plain names as they are, a name with a control character or a separator quoted."""
+    return ", ".join(jstr(n) if RE_UNSAFE_NAME.search(n) else n for n in names) if names else "none"
+
+
+def cmd_place(root, dsn, sha_path):
+    digests = read_digest_file(sha_path)
+    try:
+        canvas = read_canvas(root, dsn, "project")
+    except BoardsProblem as p:
+        return [f"ERR-{p.code}: {p.message}", "place: 1 problem(s)"], 1
+    boards_dir = boards_path(root, dsn)
+    try:
+        st = os.lstat(boards_dir)
+    except (FileNotFoundError, NotADirectoryError):
+        st = None
+    except OSError as e:
+        return [f"ERR-03: the boards folder {boards_rel(dsn)} cannot be read ({_os_reason(e)})", "place: 1 problem(s)"], 1
+    if st is not None and (stat.S_ISLNK(st.st_mode) or not stat.S_ISDIR(st.st_mode)):
+        what = "is a symbolic link, which is never followed" if stat.S_ISLNK(st.st_mode) else "is not a folder"
+        return [f"ERR-03: the boards folder {boards_rel(dsn)} {what}; nothing is placed into it", "place: 1 problem(s)"], 1
+    for name in digests:
+        if name != "canvas.json" and name not in canvas.names:
+            raise CannotRun(f"the digest file names {jstr(name)}, which canvas.json does not name")
+    problems, scans = [], {}
+    for k, name in enumerate(canvas.names, 1):
+        why, scan = board_issue(root, dsn, name, "project")
+        if why:
+            problems.append(f"ERR-06: board {k} {jstr(name)}: {why}")
+        else:
+            scans[name] = scan.sha
+    scans["canvas.json"] = canvas.sha
+    for name in ["canvas.json"] + canvas.names:
+        if name in digests and name in scans and scans[name] != digests[name]:
+            problems.append(f"ERR-21: {name}: the staged digest {scans[name]} differs from the tool's {digests[name]}")
+    if problems:
+        return problems + [f"place: {len(problems)} problem(s)"], 1
+    moving = ["canvas.json"] + canvas.names
+    placed = []
+
+    def stopped(what, why):
+        return [f"ERR-21: {what}: {why}", f"files placed: {names_list(placed)}",
+                f"files not placed: {names_list([n for n in moving if n not in placed])}", "place: 1 problem(s)"], 1
+
+    if st is None:
+        try:
+            os.mkdir(boards_dir)
+        except OSError as e:
+            return stopped("boards/", f"the folder could not be made ({_os_reason(e)})")
+    project_dir = boards_path(root, dsn, sub="project")
+    for name in moving:
+        try:
+            os.replace(os.path.join(project_dir, name), os.path.join(boards_dir, name))
+        except OSError as e:
+            return stopped(name, f"the move failed ({_os_reason(e)})")
+        placed.append(name)
+    left = sorted(os.listdir(project_dir))
+    if not left:
+        try:
+            os.rmdir(project_dir)
+        except OSError:
+            pass                                    # an empty staging folder that stays is harmless
+    out = [f"placed: canvas.json and {len(canvas.names)} boards into {boards_rel(dsn)}"]
+    if left:
+        out.append(f"left in project/: {names_list(left)}")
+    return out + ["place: ok"], 0
 
 
 # --- The fixed-shape YAML reader -----------------------------------------------------------------------------------
@@ -1901,11 +2025,11 @@ class Check:
 # --- Arguments and main ----------------------------------------------------------------------------------------------
 def parse_args(argv):
     if not argv:
-        raise CannotRun("no subcommand given: use next, boards, check or head")
+        raise CannotRun("no subcommand given: use next, boards, check, head or place")
     sub = argv[0]
-    if sub not in ("next", "boards", "check", "head"):
-        raise CannotRun(f"unknown subcommand {sub!r}: use next, boards, check or head")
-    root, before, positional = None, False, []
+    if sub not in ("next", "boards", "check", "head", "place"):
+        raise CannotRun(f"unknown subcommand {sub!r}: use next, boards, check, head or place")
+    root, before, positional, sha_file = None, False, [], None
     i = 1
     only_positional = False
     while i < len(argv):
@@ -1925,6 +2049,15 @@ def parse_args(argv):
             if sub != "check":
                 raise CannotRun("--before-amend belongs to the check subcommand")
             before = True
+        elif a == "--sha-file":
+            if sub != "place":
+                raise CannotRun("--sha-file belongs to the place subcommand")
+            if sha_file is not None:
+                raise CannotRun("--sha-file was given twice")
+            i += 1
+            if i >= len(argv) or argv[i].startswith("--"):
+                raise CannotRun("--sha-file needs the path of the digest file")
+            sha_file = argv[i]
         elif a.startswith("-") and a != "-":
             raise CannotRun(f"unknown option {a!r}")
         else:
@@ -1933,25 +2066,28 @@ def parse_args(argv):
     root = "." if root is None else root
     if not os.path.isdir(root) or not os.access(root, os.R_OK | os.X_OK):
         raise CannotRun(f"the project root {root!r} is not a readable folder")
-    wanted = {"next": 0, "boards": 1, "check": 1, "head": 2}[sub]
-    if len(positional) != wanted:
+    wanted = {"next": 0, "boards": 1, "check": 1, "head": 2, "place": 1}[sub]
+    if len(positional) != wanted or (sub == "place" and sha_file is None):
         usage = {"next": "next [--root DIR]", "boards": "boards [--root DIR] DSN-NNN",
-                 "check": "check [--before-amend] [--root DIR] DSN-NNN", "head": "head [--root DIR] DSN-NNN FILE"}[sub]
+                 "check": "check [--before-amend] [--root DIR] DSN-NNN", "head": "head [--root DIR] DSN-NNN [--] FILE",
+                 "place": "place [--root DIR] DSN-NNN --sha-file PATH"}[sub]
         raise CannotRun(f"wrong arguments: use {usage}")
     if wanted and not RE_DSN.fullmatch(positional[0]):
         raise CannotRun(f"{positional[0]!r} is not a DSN ID such as DSN-001")
-    return sub, root, before, positional
+    return sub, root, before, positional, sha_file
 
 
 def main(argv):
     try:
-        sub, root, before, positional = parse_args(argv)
+        sub, root, before, positional, sha_file = parse_args(argv)
         if sub == "next":
             lines, code = cmd_next(root)
         elif sub == "boards":
             lines, code = cmd_boards(root, positional[0])
         elif sub == "head":
             lines, code = cmd_head(root, positional[0], positional[1])
+        elif sub == "place":
+            lines, code = cmd_place(root, positional[0], sha_file)
         else:
             lines, code = Check(root, positional[0], before).run()
     except CannotRun as e:
