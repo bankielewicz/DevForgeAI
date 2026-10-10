@@ -244,7 +244,8 @@ class Skill(unittest.TestCase):
                        "which may be followed by the approver's name",  # VER-34/36: the approver is not ERR-02's string
                        "Approve <ID> now? Reply 'approve <ID>' with your name, or 'not now'.",  # offer before Next step
                        "is never put into a command unquoted",                 # A1a: a board name is untrusted data
-                       "mappings the request doesn't state stay as they are",  # R1: proceed without questions, amend run
+                       "an existing item's mapping the request doesn't state stays as it is",  # R1/C1: proceed without questions, amend run
+                       "each `'` in the name is written `'\\''`",                # S3: a quote in a board name
                        "read the `ideas` block line by line",                  # A6: ERR-09
                        "`Flows: unconfirmed (<count>)`",                       # A10
                        "ERR-03 to ERR-06 or ERR-12"):                          # R5: the pre-check's ERR-NN line

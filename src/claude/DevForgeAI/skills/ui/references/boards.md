@@ -44,7 +44,7 @@ canvas, opens a URL or calls `/design`.
   `board <k> <file> <bytes> <lines> <sha256>`, then `boards: ok`. Keep these lines: the digests go into the
   board items, and the order is the order of the items.
 - `boards <ID>`, failure: one or more `ERR-NN: <message>` lines, then `boards: <n> problem(s)`, exit 1.
-- `head <ID> -- '<FILE>'`: the board's first lines, then the trailer
+- `head <ID> -- '<FILE>'` (each `'` in the name written `'\''`): the board's first lines, then the trailer
   `head: <lines shown> of <lines> lines, <bytes shown> of <bytes> bytes, <n> lines cut`.
 - Exit 2 prints `Cannot run: <reason>.` and nothing else.
 
@@ -99,7 +99,8 @@ Every board without a fact line is unchanged.
 - `fact: board <file>: new` — `canvas.json` names a file no active item has. Append an item with the next free
   BRD number (a file that left and came back gets a new item too), and ask for its flow, surface and ideas.
 - `fact: board <file>: removed` — an active item's file is no longer named. Ask to confirm, then set the item
-  `status: deprecated`. Never delete or renumber it.
+  `status: deprecated`. Never delete or renumber it. Under "proceed without questions", or in ERR-13's saved
+  draft, the item is deprecated without asking, because the fact requires it (BEH-13), and the report says so.
 - `fact: canvas_format: the DSN records <N>, canvas.json has <M>` — set `canvas_format` to the script's value.
 - `fact: idea IDEA-NN: no row` — a promoted idea section 3 lacks. Add a row, and ask about it.
 - `fact: idea IDEA-NN: no longer promoted` — see "Amend runs: a BRN that has moved".
@@ -115,7 +116,8 @@ kept `withdrawn` idea included) and no other: add a link for a newly named idea,
 no active board names any more.
 
 With no fact line, the links current, no candidate left to put to the user and no change in the request,
-the run stops: ERR-17.
+the run stops: ERR-17 (under "proceed without questions", candidates left unasked don't prevent this; say how
+many wait for an interactive run).
 
 ## Amend runs: candidates from the PRDs and ADRs
 
@@ -132,8 +134,8 @@ run, taking them in that order; report the rest as left for a later run.
 - A candidate the user confirms for a board goes in that board's `answers` (never in `upstream`).
 - A candidate the user declines goes in `considered` as `declined:PRD-NNN#FR-NNN`, `declined:PRD-NNN#NFR-NNN`
   or `declined:ADR-NNN`.
-- Under "proceed without questions" no candidate is put to the user. One the request itself declines or assigns
-  to a board by name is recorded as above and counts toward the caps. Every other one is reported as left for
+- Under "proceed without questions" no candidate is put to the user. One the request itself declines (by name or
+  as a group) or assigns to a named board (by file name, BRD ID or title) is recorded as above and counts toward the caps. Every other one is reported as left for
   a later run, with no `PRD-NNN@N` or `ADR-NNN@N` entry for its document.
 - `considered` changes only in a run that writes for another reason (a board, a mapping, a confirmed or
   declined candidate, a moved link). Then add `PRD-NNN@N` or `ADR-NNN@N` for each document read whose every

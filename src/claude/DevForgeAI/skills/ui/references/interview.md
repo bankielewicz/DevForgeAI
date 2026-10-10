@@ -92,18 +92,23 @@ ideas, which idea names no screen, which idea has no board yet, who approves. As
 
 A request that says to proceed without questions, or not to ask anything, asks nothing in this run:
 - **Mappings.** In a create run, every mapping the request does not state is `null` with its marker, and so is
-  every unstated canvas fact. In an amend run, mappings the request does not state stay as they are (BEH-13;
-  ERR-13's "unchanged"): the nulls with markers apply only to a create run's unstated mappings.
+  every unstated canvas fact. In an amend run, an existing item's mapping the request does not state stays as it
+  is (BEH-13; ERR-13's "unchanged"); a new board's unstated flow, surface and ideas, and `canvas_version` after a
+  board changed, was added or was removed, are `null` with their markers, and its title is the file name up to
+  its first dot, as in a create run (BEH-09, BEH-10). A board that was removed has its item deprecated without
+  asking, because the script's fact requires it (BEH-13), and the report says so.
 - **Ideas no board shows.** Every promoted idea no board shows, and that the request does not say names no
   screen, is `no board yet`; never `not a screen` on the skill's own judgement.
-- **Candidates.** No candidate is put to the user. A candidate the request itself declines, or assigns to a
-  board by name, counts as put to the user and is recorded: `declined:` in `considered`, or the board's
+- **Candidates.** No candidate is put to the user. A candidate the request itself declines (by name or as a
+  group), or assigns to a named board (by file name, BRD ID or title), counts as put to the user and is
+  recorded: `declined:` in `considered`, or the board's
   `answers`. A document whose every candidate the request answered gets its `PRD-NNN@N` or `ADR-NNN@N` entry.
   Only the candidates the request leaves unanswered are reported as left for a later run, with their number, and
   no entry is written for their documents. Recorded candidates count toward the caps.
 - **Nothing to change.** When the pre-check prints no fact, the links are current, the request names no change
-  and only unasked candidates remain, write nothing and say the DSN is current (ERR-17's report), and that
-  that many candidates wait for an interactive run.
+  and only unasked candidates remain, candidates left unasked don't prevent ERR-17: write nothing, stop with
+  no check and no approval offer, say the DSN is current (ERR-17's report), and say how many candidates wait
+  for an interactive run.
 - **Approval.** No approval is offered (an approval the request itself gives, with a name, still applies at
   step 6 of SKILL.md).
 
@@ -113,6 +118,7 @@ to amend, and the confirmation ERR-15 asks for (without it, leave the DSN unchan
 ## When the user stops (ERR-13)
 
 When the user stops before the interview ends, offer to save the DSN with every unanswered mapping `null` and
-marked (a create run) or unchanged (an amend run). On a yes, write it, then validate and report it as any
+marked (a create run) or unchanged (an amend run; a board that was removed is still deprecated, because the
+script's fact requires it, and the report says so). On a yes, write it, then validate and report it as any
 other write. With no answer to the offer, write nothing and say how to resume: run the skill again with the
 BRN ID.
