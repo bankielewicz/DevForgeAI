@@ -5,6 +5,8 @@ For the six cases below, after running each scaffold:
 - a correct run (a DSN as the skill writes one, a reply as BEH-17 and BEH-18 give it) passes every grader, and a
   correct DSN also passes the skill's own `dsn_check.py check`, which is the strongest evidence that the graders and
   the script agree;
+- the same reply with SKILL.md step 6's plain-text approval offer inserted before the Next step paragraph still passes
+  every grader in the cases that end with Next step;
 - each targeted wrong run fails exactly the graders it names;
 - every grader fails in at least one wrong run: a run that writes nothing and says nothing, an automatic mutation
   (a changed byte for a whole-content grader, the file a file_exists-false grader forbids, the witness text of a
@@ -113,6 +115,12 @@ Next step: run /devforgeai:prd BRN-001 to write the PRD, and link DSN-001 in the
 REPLY_CURRENT = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. Nothing was written. "
                  "A board changed on the canvas must be copied into the boards folder again before the skill can see it.\n")
 
+# Without AskUserQuestion, SKILL.md step 6 makes the approval offer the last finding of step 7, before the Next step
+# paragraph. A case that ends with Next step must tolerate that line (it holds a question mark and the words
+# "approve DSN-001"); none expects it, because every such case says to proceed without questions.
+OFFER = "Approve DSN-001 now? Reply 'approve DSN-001' with your name, or 'not now'."
+TOLERATE_OFFER = ("writes-dsn", "coverage-and-report", "neighbours-unchanged", "amend-changed-board", "amend-draft-revision",
+                  "amend-prd-requirement", "amend-adr-consequence", "amend-removed-board", "amend-brn-moved")
 SKILL = [{"tool": "Skill", "input": {"skill": "devforgeai:ui", "args": "BRN-001"}}]
 OTHER_SKILL = [{"tool": "Skill", "input": {"skill": "devforgeai:prd", "args": "BRN-001"}}]
 BASH = [{"tool": "Bash", "input": {"command": "python3 dsn_check.py next"}}]
@@ -638,6 +646,12 @@ def main():
             code, out = script_check(case, files)
             if code != 0:
                 problems.append(f"{name}: the correct run fails dsn_check.py check:\n{out}")
+        if name in TOLERATE_OFFER:
+            at = reply.rindex("Next step")
+            offered = grade(case, files, reply[:at] + OFFER + "\n\n" + reply[at:])
+            runs += 1
+            if failing(offered):
+                problems.append(f"{name}: the plain-text approval offer before Next step fails {sorted(failing(offered))}")
         caught = failing(grade(case, {}, "", [] if is_trigger else None))
         runs += 1
         if is_trigger:
