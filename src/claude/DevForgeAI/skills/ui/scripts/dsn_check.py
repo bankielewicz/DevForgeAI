@@ -8,9 +8,10 @@ Usage:
     python3 dsn_check.py head [--root DIR] DSN-NNN FILE
 
 DIR is the project root (`.` by default). Output is on standard output. Exit 0 is success, 1 a problem the script
-reports, 2 that it cannot run: no or wrong arguments, a root it cannot read, a DSN file or a BRN it cannot read, or
-(for `check --before-amend` and `head`) a boards folder it cannot use. A run that cannot run prints one line,
-`Cannot run: <reason>.`, and nothing else.
+reports, 2 that it cannot run: no or wrong arguments, a root it cannot read, a DSN file or a BRN it cannot read. A run
+that cannot run prints one line, `Cannot run: <reason>.`, and nothing else. A boards folder that fails DM-04 is a problem
+it reports, in every subcommand that reads it: `ERR-03`, `ERR-04`, `ERR-05` or `ERR-12` (the first that fails), or an
+`ERR-06` line for every board that fails; `check` (without --before-amend) reports it as one `boards` error.
 
 - next: prints `next: DSN-NNN` (one more than the highest DSN-NNN.md in docs/specs/design/, DSN-001 with none) and
   `pending boards folders: ...`. It reads only the names in that folder.
@@ -23,8 +24,9 @@ reports, 2 that it cannot run: no or wrong arguments, a root it cannot read, a D
   then `OK <file>` or `INVALID: <n> error(s) in <file>`. With --before-amend it applies the structural rules only and
   prints what it did not enforce as `fact: ...` lines (the facts an amend run starts from), then
   `OK <file> (before amend)` or `INVALID: ...`.
-- head: prints at most 150 lines and 16 KB of one board file that canvas.json names, a line over 500 characters cut and
-  marked `[cut]`, then `head: <shown> of <lines> lines, <bytes shown> of <bytes> bytes, <n> lines cut`.
+- head: prints at most 150 lines and 16 KB of one board file that canvas.json names, a line over 500 characters cut to
+  500 and marked `[cut]`, then `head: <shown> of <lines> lines, <bytes shown> of <bytes> bytes, <n> lines cut`: what was
+  left out is the difference between the "of" numbers, and <n> is the number of lines that were cut short.
 
 Standard library only: it runs under `python3 -S`. It writes no file, opens no network connection, starts no process,
 follows no symbolic link and reads only the paths each subcommand names. It reads the frontmatter and the `boards:`
@@ -96,6 +98,14 @@ class Unreadable(Exception):
         super().__init__(reason)
         self.kind = kind
         self.reason = reason
+
+
+class FolderProblem(Exception):
+    """`check --before-amend` met a boards folder that fails DM-04: `lines` are the ERR-NN lines IF-02 would print."""
+
+    def __init__(self, lines):
+        super().__init__(lines[0])
+        self.lines = lines
 
 
 class BoardsProblem(Exception):
@@ -381,7 +391,7 @@ def cmd_head(root, dsn, name):
     try:
         canvas = read_canvas(root, dsn)
     except BoardsProblem as p:
-        raise CannotRun(f"the boards folder {boards_rel(dsn)} cannot be used (ERR-{p.code}: {p.message.rstrip('.')}); run dsn_check.py boards {dsn} first")
+        return [f"ERR-{p.code}: {p.message}"], 1
     why = name_problem(name)
     if not why and name not in canvas.names:
         why = f"the file is not named by canvas.json, so it is not a board"
@@ -393,7 +403,7 @@ def cmd_head(root, dsn, name):
     if why:
         return [f"ERR-06: board {jstr(name)}: {why}"], 1
     budget = OUTPUT_MAX_BYTES - TRAILER_RESERVE
-    out, used, shown, bytes_shown = [], 0, 0, 0
+    out, used, shown, bytes_shown, cut = [], 0, 0, 0, 0
     for prefix, length, ended in scan.head:
         text = prefix.decode("utf-8", "surrogateescape")
         if length == len(prefix) and text.endswith("\r"):
@@ -402,9 +412,11 @@ def cmd_head(root, dsn, name):
             text = text[:LINE_MAX_CHARS]
             counted = len(text.encode("utf-8", "surrogateescape"))
             marker = " [cut]"
+            cut_line = True
         else:
             counted = length + (1 if ended else 0)
             marker = ""
+            cut_line = False
         printable = text.encode("utf-8", "surrogateescape").decode("utf-8", "replace") + marker
         size = len(printable.encode("utf-8")) + 1
         if used + size > budget:
@@ -413,7 +425,8 @@ def cmd_head(root, dsn, name):
         used += size
         shown += 1
         bytes_shown += counted
-    out.append(f"head: {shown} of {scan.lines} lines, {bytes_shown} of {scan.size} bytes, {scan.lines - shown} lines cut")
+        cut += cut_line
+    out.append(f"head: {shown} of {scan.lines} lines, {bytes_shown} of {scan.size} bytes, {cut} lines cut")
     return out, 0
 
 
@@ -775,6 +788,12 @@ class Check:
 
     # --- the run -----------------------------------------------------------------------------------------------
     def run(self):
+        try:
+            return self.steps()
+        except FolderProblem as f:
+            return f.lines + [f"INVALID: {len(f.lines)} error(s) in {self.rel}"], 1
+
+    def steps(self):
         if not self.load():
             return self.result()
         if not self.read_frontmatter():
@@ -1194,11 +1213,20 @@ class Check:
         try:
             self.canvas = read_canvas(self.root, self.dsn)
         except BoardsProblem as p:
-            if self.before:
-                raise CannotRun(f"the boards folder {boards_rel(self.dsn)} cannot be used (ERR-{p.code}: {p.message.rstrip('.')}); run dsn_check.py boards {self.dsn} first")
+            if self.before:      # the skill ran `boards` first, so this is rare; the folder's own ERR line says what to fix
+                raise FolderProblem([f"ERR-{p.code}: {p.message}"])
             self.canvas_problem = p
             self.err(self.line("boards_root"), "boards",
                      f"the boards folder cannot be used (ERR-{p.code}: {p.message.rstrip('.')}); run dsn_check.py boards {self.dsn}", "boards")
+
+        if self.before:
+            failing = []
+            for k, name in enumerate(self.canvas.names, 1):
+                why, _ = self.digest_of(name)
+                if why:
+                    failing.append(f"ERR-06: board {k} {jstr(name)}: {why}")
+            if failing:
+                raise FolderProblem(failing)
 
     brn_id = None
 
@@ -1691,7 +1719,7 @@ class Check:
                     continue
                 why, scan = self.digest_of(name)
                 if why:
-                    raise CannotRun(f"the board file {name!r} named by canvas.json cannot be used (ERR-06: {why.rstrip('.')}); run dsn_check.py boards {self.dsn} first")
+                    continue            # unreachable: read_brn_and_canvas stopped on any board that fails ERR-06
                 if any(isinstance(it.get("sha256"), str) and it.get("sha256") != scan.sha for it in group):
                     facts.append(f"fact: board {name}: changed")
             for it in active:

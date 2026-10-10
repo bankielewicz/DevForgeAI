@@ -9,16 +9,18 @@ agree byte for byte on the exit code and standard output, and print nothing on s
 After each run the whole temporary tree (modes, sizes, times, bytes, link targets) must equal what it was before.
 
 Readings this test pins where SPEC-017 leaves a choice (listed for Bryan in the build report):
-- the `head` trailer's `<n> lines cut` is the number of lines left out (lines - shown), as VER-23 says "the trailer
-  says 250 lines left out"; a shortened line shows `[cut]` on the line, and `bytes shown` is the bytes of the
-  file actually printed (a shortened line counts its first 500 characters). The whole output stays within 16384 bytes;
+- the `head` trailer says what was left out through its "of" numbers (`150 of 400 lines`, `500 of 2097153 bytes`), and
+  `<n> lines cut` is the number of lines shortened to 500 characters (each also shows `[cut]`); `bytes shown` is the
+  bytes of the file actually printed (a shortened line counts its first 500 characters, the marker nothing). The 500 is
+  in characters, the 16 KB (16384, the whole output) in bytes;
 - `pending boards folders` lists every DSN-NNN folder without a DSN-NNN.md except the one at the next free number,
   where a create run expects the boards (section 4: it "matters only when it isn't the next free number");
 - a board name holding `..` anywhere, or equal to `.`, is refused (ERR-06's text says "holds .."), not only `..`;
 - `check --before-amend` prints both the suspect-link `warning:` and the `fact: links:` line;
 - `board <k>` in the `boards` output counts from 1, and "1 boards" is not pluralised (the literal section 5 text);
-- exit 2 is for arguments, an unreadable root, a missing DSN file and a BRN that cannot be read; a boards folder
-  that cannot be used is one `boards` error in the full check, and exit 2 in `--before-amend` and `head`;
+- exit 2 is for arguments, an unreadable root, a missing DSN file and a BRN that cannot be read. A boards folder that
+  fails DM-04 is a reported problem (exit 1): the `ERR-0N` line of IF-02 from `head` and from `--before-amend` (which
+  adds `INVALID: <n> error(s)`), and one `boards` error from the full check;
 - a symbolic link is refused (never followed) for a board file, for canvas.json, for the boards folder and for the
   DSN document itself;
 - `<part>` is a frontmatter key, `BRD-NN`, `upstream`, `section 3`, `Change Log`, `canvas.json`, `marker` or
@@ -1064,6 +1066,7 @@ class Head(Base):
         return self.cli("head", "DSN-001", name, **kw)
 
     def trailer(self, r):
+        """(lines shown, lines, bytes shown, bytes, lines cut short) from the trailer."""
         m = re.fullmatch(r"head: (\d+) of (\d+) lines, (\d+) of (\d+) bytes, (\d+) lines cut", r.lines[-1])
         self.assertIsNotNone(m, r.lines[-1])
         return tuple(int(x) for x in m.groups())
@@ -1090,7 +1093,7 @@ class Head(Base):
         shown = ("\n".join(lines[:150]) + "\n").encode()
         self.assertEqual(r.code, 0, r)
         self.assertEqual(r.lines[:-1], lines[:150])
-        self.assertEqual(r.lines[-1], f"head: 150 of 400 lines, {len(shown)} of {len(data)} bytes, 250 lines cut")
+        self.assertEqual(r.lines[-1], f"head: 150 of 400 lines, {len(shown)} of {len(data)} bytes, 0 lines cut")
 
     def test_a_two_megabyte_line_prints_500_characters_marked_cut(self):
         data = b"x" * (2 * 1024 * 1024) + b"\n"
@@ -1100,9 +1103,7 @@ class Head(Base):
         self.assertEqual(len(r.lines), 2, r.out[:200])
         self.assertTrue(r.lines[0].endswith(" [cut]"), r.lines[0][-20:])
         self.assertEqual(r.lines[0][:-len(" [cut]")], "x" * 500)
-        lines_shown, lines, bytes_shown, size, left_out = self.trailer(r)
-        self.assertEqual((lines_shown, lines, size, left_out), (1, 1, len(data), 0))
-        self.assertTrue(500 <= bytes_shown <= 501, bytes_shown)
+        self.assertEqual(self.trailer(r), (1, 1, 500, len(data), 1))
         self.assertLess(len(r.raw), 1024)
 
     def test_a_long_line_in_a_short_file_is_cut_and_the_others_print_whole(self):
@@ -1113,25 +1114,32 @@ class Head(Base):
         self.assertEqual(r.lines[:2], ["first", "second"])
         self.assertEqual(r.lines[2], "c" * 500 + " [cut]")
         self.assertEqual(r.lines[3:5], ["fourth", "fifth"])
-        shown_lines, total_lines, bytes_shown, size, left_out = self.trailer(r)
-        self.assertEqual((shown_lines, total_lines, size, left_out), (5, 5, len(data), 0))
-        self.assertLess(bytes_shown, size)
+        self.assertEqual(self.trailer(r), (5, 5, len(data) - 101, len(data), 1))
+
+    def test_only_the_lines_shown_count_as_cut(self):
+        lines = ["s" * 600] + ["row"] * 178 + ["t" * 600] * 3
+        self.p.add_board("Late.dc.html", "\n".join(lines) + "\n")
+        r = self.head("Late.dc.html")
+        self.assertEqual(r.lines[0], "s" * 500 + " [cut]")
+        shown_lines, total_lines, _, _, cut = self.trailer(r)
+        self.assertEqual((shown_lines, total_lines, cut), (150, 182, 1))
 
     def test_a_line_of_exactly_500_characters_is_not_cut(self):
         self.p.add_board("Exact.dc.html", "e" * 500 + "\n" + "f" * 501 + "\n")
         r = self.head("Exact.dc.html")
         self.assertEqual(r.lines[0], "e" * 500)
         self.assertEqual(r.lines[1], "f" * 500 + " [cut]")
+        self.assertEqual(self.trailer(r)[4], 1)
 
     def test_the_output_never_exceeds_16_kb(self):
         lines = ["y" * 400 for _ in range(300)]
         self.p.add_board("Wide.dc.html", "\n".join(lines) + "\n")
         r = self.head("Wide.dc.html")
         self.assertLessEqual(len(r.raw), MAX_OUTPUT)
-        shown_lines, total_lines, bytes_shown, size, left_out = self.trailer(r)
+        shown_lines, total_lines, bytes_shown, size, cut = self.trailer(r)
         self.assertEqual((total_lines, size), (300, 300 * 401))
         self.assertTrue(30 <= shown_lines < 150, shown_lines)
-        self.assertEqual((bytes_shown, left_out), (shown_lines * 401, 300 - shown_lines))
+        self.assertEqual((bytes_shown, cut), (shown_lines * 401, 0))
         self.assertEqual(r.lines[:-1], lines[:shown_lines])
 
     def test_multibyte_text_is_bounded_in_bytes_and_never_split(self):
@@ -1148,6 +1156,7 @@ class Head(Base):
         self.p.add_board("Wide-chars.dc.html", "あ" * 700 + "\n")
         r = self.head("Wide-chars.dc.html")
         self.assertEqual(r.lines[0], "あ" * 500 + " [cut]")
+        self.assertEqual(self.trailer(r), (1, 1, 1500, 2101, 1))
 
     def test_an_empty_file(self):
         self.p.add_board("Empty.dc.html", "")
@@ -1226,16 +1235,25 @@ class Head(Base):
                 self.assert_err06(r, json.dumps(name), r"plain file name")
                 self.assertNotIn("CONTENT", r.out)
 
-    def test_an_unusable_canvas_json_cannot_run(self):
-        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", "not json {")
+    def test_an_unusable_boards_folder_is_the_err_line_of_boards(self):
+        cases = ((b"not json {", "04"), (b'{"v": 4, "boards": {"Home.dc.html": {}}}', "05"), (b'{"v": 3, "boards": {}}', "03"),
+                 (b'{"v": 3, "boards": []}', "04"))
+        for raw, code in cases:
+            with self.subTest(raw=raw):
+                self.p.put("docs/specs/design/DSN-001/boards/canvas.json", raw)
+                r = self.head("Home.dc.html")
+                self.assertEqual((r.code, len(r.lines)), (1, 1), r)
+                self.assertRegex(r.lines[0], rf"^ERR-{code}: ")
+        names = {f"b{n:03d}.html": {} for n in range(100)}
+        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", json.dumps({"v": 3, "boards": names}))
         r = self.head("Home.dc.html")
-        self.assertEqual((r.code, len(r.lines)), (2, 1), r)
-        self.assertRegex(r.lines[0], r"^Cannot run: .+\.$")
+        self.assertEqual((r.code, len(r.lines)), (1, 1), r)
+        self.assertRegex(r.lines[0], r"^ERR-12: ")
 
-    def test_a_missing_boards_folder_cannot_run(self):
+    def test_a_missing_boards_folder_is_err03(self):
         r = self.cli("head", "DSN-009", "Home.dc.html")
-        self.assertEqual((r.code, len(r.lines)), (2, 1), r)
-        self.assertRegex(r.lines[0], r"^Cannot run: .+\.$")
+        self.assertEqual((r.code, len(r.lines)), (1, 1), r)
+        self.assertRegex(r.lines[0], r"^ERR-03: .*docs/specs/design/DSN-009/boards/")
 
 
 # =====================================================================================================================
@@ -2327,21 +2345,45 @@ class BeforeAmend(CheckCase):
         self.assertEqual(r.code, 1, r)
         self.assertRegex(self.errors(r)[0], r"\(frontmatter\)$")
 
-    def test_a_boards_folder_that_cannot_be_used_cannot_run(self):
+    def test_a_boards_folder_that_cannot_be_used_is_the_err_line_of_boards(self):
         self.p.write_dsn(self.base)
-        for raw in (b"not json {", b'{"v": 4, "boards": {"Home.dc.html": {}}}'):
+        cases = ((b"not json {", "04"), (b'{"v": 4, "boards": {"Home.dc.html": {}}}', "05"), (b'{"v": 3, "boards": {}}', "03"),
+                 (b'{"v": 3, "boards": {"Home.dc.html": {}, "Home.dc.html": {}}}', "04"))
+        for raw, code in cases:
             with self.subTest(raw=raw):
                 self.p.put("docs/specs/design/DSN-001/boards/canvas.json", raw)
                 r = self.cli("check", "--before-amend", "DSN-001")
-                self.assertEqual((r.code, len(r.lines)), (2, 1), r)
-                self.assertRegex(r.lines[0], r"^Cannot run: .+\.$")
-
-    def test_a_board_file_that_cannot_be_read_cannot_run(self):
-        self.p.write_dsn(self.base)
-        (self.p.boards_dir() / "Report.dc.html").unlink()
+                self.assertEqual((r.code, len(r.lines)), (1, 2), r)
+                self.assertRegex(r.lines[0], rf"^ERR-{code}: ")
+                self.assertEqual(r.lines[1], f"INVALID: 1 error(s) in {FILE}")
+        names = {f"b{n:03d}.html": {} for n in range(100)}
+        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", json.dumps({"v": 3, "boards": names}))
         r = self.cli("check", "--before-amend", "DSN-001")
-        self.assertEqual((r.code, len(r.lines)), (2, 1), r)
-        self.assertRegex(r.lines[0], r"^Cannot run: .+\.$")
+        self.assertEqual((r.code, len(r.lines)), (1, 2), r)
+        self.assertRegex(r.lines[0], r"^ERR-12: ")
+
+    def test_a_missing_boards_folder_is_err03(self):
+        self.p.write_dsn(self.base)
+        shutil.rmtree(self.p.boards_dir())
+        r = self.cli("check", "--before-amend", "DSN-001")
+        self.assertEqual((r.code, len(r.lines)), (1, 2), r)
+        self.assertRegex(r.lines[0], r"^ERR-03: .*" + re.escape(FOLDER))
+
+    def test_every_board_file_that_cannot_be_read_is_an_err06_line(self):
+        self.p.write_dsn(self.base)
+        (self.p.boards_dir() / "Add.dc.html").unlink()
+        (self.p.boards_dir() / "Report.dc.html").unlink()
+        (self.p.boards_dir() / "Report.dc.html").mkdir()
+        canvas = json.loads((self.p.boards_dir() / "canvas.json").read_text())
+        canvas["boards"]["a/b"] = {}
+        self.p.write_canvas(canvas)
+        r = self.cli("check", "--before-amend", "DSN-001")
+        self.assertEqual(r.code, 1, r)
+        self.assertEqual(len(r.lines), 4, r)
+        self.assertRegex(r.lines[0], r'^ERR-06: board 3 "Add\.dc\.html": ')
+        self.assertRegex(r.lines[1], r'^ERR-06: board 4 "Report\.dc\.html": ')
+        self.assertRegex(r.lines[2], r'^ERR-06: board 5 "a/b": ')
+        self.assertEqual(r.lines[3], f"INVALID: 3 error(s) in {FILE}")
 
     def test_the_option_may_come_before_or_after_the_root(self):
         self.p.write_dsn(self.base)
