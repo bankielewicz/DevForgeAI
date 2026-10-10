@@ -28,7 +28,7 @@ boards_root: docs/specs/design/DSN-000/boards/
 considered: []         # [] for a new DSN; an amend run adds PRD-NNN@N, ADR-NNN@N and declined:… entries
 ---
 
-# DSN-000 — [[fill: the BRN's title]]: release design
+# DSN-000 — [[fill: the title, as in the frontmatter]]
 
 <!-- Design document (DevForgeAI). The screen designs of one release, recorded from board files the user
      committed under boards_root, and the mapping of each board to a flow, a surface and the brainstorm's
@@ -74,14 +74,14 @@ boards:
 ## 3. Idea coverage
 
 <!-- One row for each promoted idea of the BRN, in idea ID order. Boards: the active BRD-NN items that name
-     the idea, or none. Status is one of: designed (an active board names it), not a screen (the user said
+     the idea, as comma-separated BRD-NN values (BRD-01, BRD-03: no backticks, no "and"), or none. Status is one of: designed (an active board names it), not a screen (the user said
      the idea needs no board), no board yet (no board names it and the user has not said not a screen; a
      marker in section 5 names the idea), withdrawn (an earlier version listed it as promoted and the BRN no
      longer does). -->
 
 | Idea | Boards | Status |
 |---|---|---|
-| [[fill: IDEA-NN]] | [[fill: the active BRD-NN items that name it, or none]] | [[fill: designed, not a screen, no board yet or withdrawn]] |
+| [[fill: IDEA-NN]] | [[fill: the active BRD-NN items that name it, comma-separated, or none]] | [[fill: designed, not a screen, no board yet or withdrawn]] |
 
 ## 4. Canvas
 

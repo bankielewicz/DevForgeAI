@@ -56,7 +56,7 @@ Keep exactly the template's keys, in its order. Unknown or misspelled keys are e
 | `canvas_version` | The version the user gave for the copy now in the boards folder, quoted, or `null` |
 | `canvas_format` | The integer `v` of `canvas.json`, from the `boards` command |
 | `boards_root` | `docs/specs/design/<ID>/boards/` for this document's own ID |
-| `considered` | `[]` for a new DSN. In an amend run, entries of the form `PRD-NNN@N`, `ADR-NNN@N`, `declined:PRD-NNN#FR-NNN` or `declined:ADR-NNN`, without repeats; no `declined:` entry names an item an active board's `answers` holds |
+| `considered` | `[]` for a new DSN. In an amend run, entries of the form `PRD-NNN@N`, `ADR-NNN@N`, `declined:PRD-NNN#FR-NNN`, `declined:PRD-NNN#NFR-NNN` or `declined:ADR-NNN`, without repeats; no `declined:` entry names an item an active board's `answers` holds |
 
 Keep the `# --- design-specific ---` line before `canvas`, and delete the template's other comments.
 
@@ -85,7 +85,7 @@ later is appended with the next free number. Quote every free-text value.
 | `status` | `active`, or `deprecated` for a board that left the canvas; an item is never deleted |
 | `superseded_by` | Optional: the `BRD-NN` that replaces a deprecated board, only when the user says so |
 | `file` | The file name as `canvas.json` names it |
-| `title` | The name the user confirmed, else the file name up to its first dot |
+| `title` | The name the user confirmed, else the file name up to its first dot (the whole name when that is empty, as for `.hidden`) |
 | `flow` | The user's flow as a lowercase slug, or `null` until confirmed |
 | `surface` | `web`, `desktop`, `mobile` or `terminal`, or `null` until confirmed |
 | `ideas` | The promoted ideas the board shows, a list of `IDEA-NN`; `[]` when the user confirmed none; `null` until confirmed |
@@ -100,7 +100,8 @@ free number; the deprecated item stays.
 ## The idea coverage table
 
 Section 3 holds `| Idea | Boards | Status |` and one row for each promoted idea of the BRN, in idea ID order, at
-the version read. The `Boards` cell lists the active `BRD-NN` items that name the idea, or `none`.
+the version read. The `Boards` cell lists the active `BRD-NN` items that name the idea, as plain values
+separated by commas (`BRD-01, BRD-03`: no backticks, no "and"), or `none`; `check` rejects other forms.
 - `designed`: at least one active board names the idea.
 - `not a screen`: the user said no board is needed.
 - `no board yet`: no active board names it and the user has not said `not a screen`. Section 5 holds a marker
@@ -156,8 +157,9 @@ Use Edit, never Write, starting from the document's current text.
 
 ## Change Log rows
 
-Never change a row an earlier run wrote; this run's own row may grow to name every change. Columns:
-`| Version | Date | Author | Change | Items affected |`.
+Never change a row an earlier run wrote; this run's own row may grow to name every change. Never write the
+literal marker text `[NEEDS CLARIFICATION` in a row: rows are never rewritten, so it would block approval for
+ever. Describe markers in words ("1 marker left"). Columns: `| Version | Date | Author | Change | Items affected |`.
 
 | Event | Version | Author | Change |
 |---|---|---|---|
@@ -183,7 +185,8 @@ Step 7 of SKILL.md gives the block and the next step. These are the rules of eac
 - **`Boards`** is printed in a create and in an amend run and names the copy in the boards folder that the run
   read: `boards_root`, the number of active boards, and `canvas_version` or `unknown`.
 - **`Flows`** lists the flows in the order they first appear in the boards block, each hyphen shown as a space,
-  with `unconfirmed (<count>)` last for the boards with a `null` flow.
+  with `unconfirmed (<count>)` last for the boards with a `null` flow. `none` only when there are no active
+  boards; with no confirmed flow the line is `Flows: unconfirmed (<count>)`.
 - **`Boards with no idea`** lists the active boards whose `ideas` and `answers` are both `[]` (not `null`).
   **`Ideas with no board`** lists the `no board yet` rows. **`Markers left`** counts every
   `[NEEDS CLARIFICATION` marker in the DSN, a board's `notes` included.

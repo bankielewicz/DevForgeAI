@@ -46,7 +46,8 @@ the next call. The interview is bounded by this structure, not by a call budget.
 5. **The approver and approval,** only at step 6 of SKILL.md.
 
 Write nothing that an unanswered question affects until the answer arrives. When AskUserQuestion is not
-available, ask in plain text, at the end of the reply, and end the turn.
+available, ask in plain text, at the end of the reply, and end the turn. The exception is the approval offer
+and the approver question of step 6 in SKILL.md: they are the last finding, before the Next step paragraph.
 
 ## Writing what the answers give
 
@@ -76,9 +77,10 @@ marker. A terminal board is mapped to flows and ideas, counted and reported exac
 
 ## Candidates in an amend run
 
-The candidates come from the PRDs and the accepted ADRs (SKILL.md step 2). Put at most 4 in a call and at most
-12 in a run; report the rest as left for a later run. Each carries its citation: the file, the item and the
-version. The user either names the board that answers it (recorded in that board's `answers`), or declines it
+The candidates come from the PRDs and the accepted ADRs (SKILL.md step 2), in this order: the PRDs before the
+ADRs, each in document-ID order, the items of a document in document order. Put at most 4 in a call and at most
+12 in a run, taking them in that order; report the rest as left for a later run. Each carries its citation: the
+file, the item and the version. The user either names the board that answers it (recorded in that board's `answers`), or declines it
 (recorded in `considered`), or leaves it for a later run.
 
 ## Answers stated in the request
@@ -89,17 +91,24 @@ ideas, which idea names no screen, which idea has no board yet, who approves. As
 ## Proceed without questions
 
 A request that says to proceed without questions, or not to ask anything, asks nothing in this run:
-- every mapping the request does not state is `null` with its marker, and so is every unstated canvas fact;
-- every promoted idea no board shows, and that the request does not say names no screen, is `no board yet`;
-  never `not a screen` on the skill's own judgement;
-- no candidate is put to the user: report every candidate as left for a later run, with their number.
-  `considered` gains no `PRD-NNN@N` or `ADR-NNN@N` entry for their documents. A `declined:` entry the request
-  states is still recorded, and counts toward the caps;
-- no approval is offered (an approval the request itself gives, with a name, still applies at step 6 of
-  SKILL.md).
+- **Mappings.** In a create run, every mapping the request does not state is `null` with its marker, and so is
+  every unstated canvas fact. In an amend run, mappings the request does not state stay as they are (BEH-13;
+  ERR-13's "unchanged"): the nulls with markers apply only to a create run's unstated mappings.
+- **Ideas no board shows.** Every promoted idea no board shows, and that the request does not say names no
+  screen, is `no board yet`; never `not a screen` on the skill's own judgement.
+- **Candidates.** No candidate is put to the user. A candidate the request itself declines, or assigns to a
+  board by name, counts as put to the user and is recorded: `declined:` in `considered`, or the board's
+  `answers`. A document whose every candidate the request answered gets its `PRD-NNN@N` or `ADR-NNN@N` entry.
+  Only the candidates the request leaves unanswered are reported as left for a later run, with their number, and
+  no entry is written for their documents. Recorded candidates count toward the caps.
+- **Nothing to change.** When the pre-check prints no fact, the links are current, the request names no change
+  and only unasked candidates remain, write nothing and say the DSN is current (ERR-17's report), and that
+  that many candidates wait for an interactive run.
+- **Approval.** No approval is offered (an approval the request itself gives, with a name, still applies at
+  step 6 of SKILL.md).
 
 Every other step still runs. It never answers the gates: which BRN, an unconverged BRN, which of several DSNs
-to amend.
+to amend, and the confirmation ERR-15 asks for (without it, leave the DSN unchanged and stop).
 
 ## When the user stops (ERR-13)
 

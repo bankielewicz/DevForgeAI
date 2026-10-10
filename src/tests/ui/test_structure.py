@@ -45,7 +45,7 @@ BOARD_FIELDS = ["id", "status", "file", "title", "flow", "surface", "ideas", "an
 COMMANDS = ['python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" next',
             'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" boards <ID>',
             'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check --before-amend <ID>',
-            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" head <ID> <FILE>',
+            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" head <ID> -- \'<FILE>\'',
             'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check <ID>']
 REFERENCES = ["boards.md", "interview.md", "output-rules.md"]
 CHECKLIST = re.compile(r"^\s*- \[ \] (\d+)\. (.+?)\s*$", re.M)  # the tracker's own pattern (SPEC-012 §4)
@@ -241,8 +241,13 @@ class Skill(unittest.TestCase):
                        "## The report",                                        # S10
                        "N markers left",                                       # N5
                        "already `approved`",                                   # N13
-                       "which may be followed by the approver's name or words",  # VER-34/36: the approver is not ERR-02's string
-                       "Approve <ID> now? Reply 'approve <ID>' with your name, or 'not now'."):  # offer before Next step
+                       "which may be followed by the approver's name",  # VER-34/36: the approver is not ERR-02's string
+                       "Approve <ID> now? Reply 'approve <ID>' with your name, or 'not now'.",  # offer before Next step
+                       "is never put into a command unquoted",                 # A1a: a board name is untrusted data
+                       "mappings the request doesn't state stay as they are",  # R1: proceed without questions, amend run
+                       "read the `ideas` block line by line",                  # A6: ERR-09
+                       "`Flows: unconfirmed (<count>)`",                       # A10
+                       "ERR-03 to ERR-06 or ERR-12"):                          # R5: the pre-check's ERR-NN line
             with self.subTest(phrase):
                 self.assertIn(phrase, text)
 
