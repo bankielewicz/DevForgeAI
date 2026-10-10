@@ -4,7 +4,7 @@ description: Designs a DevForgeAI release's screens in Claude Design and records
 argument-hint: "[BRN-NNN [canvas URL] | approve DSN-NNN]"
 metadata:
   devforgeai-id: "SKL-013"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
 ---
 
 # UI
