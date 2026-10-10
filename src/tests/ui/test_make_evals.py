@@ -567,8 +567,12 @@ class V2CaseTests(unittest.TestCase):
         self.assertEqual([True, True, False, False], keyscreen)
         self.assertEqual([True, False], self.hits(c, "ver39-names-a-state", ["States to show: empty and error.", "Content: a list."]))
 
-    BRIEF_JUDGES = ["ver39-brief-context-and-content", "ver39-brief-must-haves-and-no-layout", "ver39-brief-parts-in-order",
-                    "ver39-grouping-and-status"]
+    BRIEF_JUDGES = ["ver39-brief-content-invents-nothing", "ver39-brief-content-shape", "ver39-brief-context",
+                    "ver39-brief-must-haves-and-no-layout", "ver39-brief-parts-in-order", "ver39-grouping-and-status"]
+    PART_JUDGES = ["ver39-brief-content-invents-nothing", "ver39-brief-content-shape", "ver39-brief-context"]
+
+    def bodies(self):
+        return {n: " ".join(front_matter(GENERATED / "brief-drafted" / "graders" / f"{n}.md")[1].split()) for n in self.BRIEF_JUDGES}
 
     def test_the_brief_llm_graders(self):
         # The harness's judge answers one word and keeps no reasons (only PASS or FAIL votes), so a seven-part rubric that fails
@@ -584,16 +588,49 @@ class V2CaseTests(unittest.TestCase):
         self.assertIn("3 distinctly different directions of the key screen first", bodies["ver39-brief-parts-in-order"])
         self.assertIn("Shiftlog", bodies["ver39-brief-parts-in-order"])
 
-    def test_the_brief_judges_have_the_facts_they_check_against(self):
-        bodies = {n: " ".join(front_matter(GENERATED / "brief-drafted" / "graders" / f"{n}.md")[1].split()) for n in self.BRIEF_JUDGES}
-        content = bodies["ver39-brief-context-and-content"]
+    def test_the_part_judges_judge_one_span_of_each_brief(self):
+        # ui-v2-brief2 (cefa763): the Context-and-Content judge failed 9 of 9 votes on briefs that the stand-ins passed. A judge that
+        # answers one word applies "adds nothing unsupported" to the whole brief (a terminal tool, 1280 pixels), so each rubric
+        # says which span it judges, and what the other spans are judged by; the instruction comes before the facts.
+        bodies = self.bodies()
+        spans = {"ver39-brief-context": ('after "Context:"', 'its "Content:" label'),
+                 "ver39-brief-content-shape": ('after "Content:"', 'its "Must-haves:" label'),
+                 "ver39-brief-content-invents-nothing": ('after "Content:"', 'its "Must-haves:" label')}
+        for name, (start, end) in spans.items():
+            body = bodies[name]
+            self.assertIn("Judge ONLY the text", body, name)
+            self.assertIn(start, body, name)
+            self.assertIn(end, body, name)
+            for other in ("lead line", "Must-haves", "Style", "closing line"):
+                self.assertIn(other, body.split("A pass needs")[0], f"{name}: {other}")
+            self.assertLess(body.index("Judge ONLY"), body.index("Everything the brainstorm"), name)
+
+    def test_the_part_judges_have_the_facts_they_check_against(self):
+        bodies = self.bodies()
         # every section of BRN-001 a brief may quote (v2 suite run 3: the success signal was quoted, and the judge could not find it)
-        for fact in ("Workers lose track of the hours they worked each week", "We believe that workers will record shifts every day",
-                     "The hours worked each week are right", "Shift workers record when they start and stop work",
-                     "Shift workers.", "Interview notes", "Shiftlog: record shifts",
-                     "Add a shift from the terminal", "List shifts in a table", "A weekly report page",
-                     "A dark theme for the report page", "no shift recorded yet", "need not appear", "paraphrase"):
-            self.assertIn(fact, content)
+        for name in self.PART_JUDGES:
+            for fact in ("Workers lose track of the hours they worked each week", "We believe that workers will record shifts every day",
+                         "The hours worked each week are right", "Shift workers record when they start and stop work",
+                         "Shift workers.", "Interview notes", "Shiftlog: record shifts",
+                         "Add a shift from the terminal", "List shifts in a table", "A weekly report page",
+                         "A dark theme for the report page"):
+                self.assertIn(fact, bodies[name], f"{name}: {fact}")
+            # the surfaces the reply proposes and the jobs the ideas imply are supported (ui-v2-brief2: nothing said so)
+            for fact in ("terminal", "web page", "add a shift", "see the recorded shifts", "read the hours worked in a week"):
+                self.assertIn(fact, bodies[name], f"{name}: {fact}")
+        self.assertIn("paraphrase", bodies["ver39-brief-context"])
+        self.assertIn("two or three sentences", bodies["ver39-brief-context"])
+        shape = bodies["ver39-brief-content-shape"]
+        for fact in ("no shift recorded yet", "need not appear", "in order", "key screen", "quotation marks"):
+            self.assertIn(fact, shape)
+        nothing = bodies["ver39-brief-content-invents-nothing"]
+        # the criterion of DM-05 is kept whole: a Content invents no data, no copy and no feature
+        for fact in ("word for word", "a full stop inside", "figure", "name", "date", "button label", "feature"):
+            self.assertIn(fact, nothing)
+        self.assertIn("adds no fact", bodies["ver39-brief-context"])
+
+    def test_the_other_brief_judges_have_the_facts_they_check_against(self):
+        bodies = self.bodies()
         layout = bodies["ver39-brief-must-haves-and-no-layout"]
         # the unit of a constraint: a clause between semicolons; a comma inside a clause lists parts of one constraint
         for fact in ("a constraint, not a layout", "monospace cell grid", "keyboard-driven", "between semicolons",
