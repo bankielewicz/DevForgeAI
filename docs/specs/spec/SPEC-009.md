@@ -25,11 +25,11 @@ upstream:
   - {id: PRD-001, item: FR-016, relation: informed_by, version: 13, hash: null, note: "the requirement this skill implements; no story specifies it yet"}
   - {id: SPEC-004, relation: informed_by, version: 4, hash: null, note: "consumes the epic skill's downstream contract (SPEC-004 §5)"}
   - {id: SPEC-003, relation: informed_by, version: 11, hash: null, note: "reads the ARCH's components (CMP) and deployment units (SPEC-003 §4, §5)"}
-  - {id: ADR-007, relation: informed_by, version: 1, hash: null, note: "proposed: the ui step and the DSN; story-level design stays with this skill (D6)"}
+  - {id: ADR-007, relation: constrains, version: 1, hash: null, note: "accepted: the ui step and the DSN; story-level design stays with this skill (D6)"}
   - {id: SPEC-017, relation: informed_by, version: 1, hash: null, note: "the ui skill, which writes the DSN that the PRD's section 8 links and BEH-11 reads"}
 supersedes: []
 superseded_by: null
-blocked_by: [ADR-007]
+blocked_by: []
 # --- spec-specific ---
 components: ["src/claude/DevForgeAI/skills/story"]
 ---
@@ -40,10 +40,11 @@ components: ["src/claude/DevForgeAI/skills/story"]
 > accepted 2026-09-29). It can't be built before the prerequisites in §11: the context templates, the
 > component kind, and the story template and schema changes.
 >
-> **Version 3 (2026-10-09, cycle A of ADR-007, which is proposed).** BEH-11 and BEH-12 stay. BEH-12 adopts the
+> **Version 3 (2026-10-09, cycle A of ADR-007, accepted the same day).** BEH-11 and BEH-12 stay. BEH-12 adopts the
 > approved-design line that SPEC-011 §4 fixes, and checks each export's path; BEH-11 reads the DSN that the PRD's
 > section 8 links (SPEC-017). Story-level design stays with this skill. Version 3's text rests on ADR-007, so `blocked_by`
-> names it for the whole draft until it is accepted; the earlier text didn't need it. SPEC-011 is named in prose (§2, §4), not
+> named it for the whole draft until Bryan accepted it on 2026-10-09; the earlier text didn't need it. Bryan approved version 3's
+> text on 2026-10-09 ('Approve all (Recommended)'); the spec stays a draft, as the story skill is not built and §13 keeps its open questions. SPEC-011 is named in prose (§2, §4), not
 > linked, so that its citation of this spec forms no two-way pair.
 
 ## 1. Overview
@@ -91,7 +92,7 @@ The skill is recorded as `SKL-008` in its `provenance.yaml`.
   - the ambiguities log as the pressure relief valve (ADR-004 D8).
 - **SPEC-011 §4 (named, not linked):** the approved-design line this skill writes (§4) is the one SPEC-011 BEH-11 reads to
   build `ui-mockups.md` section 3. SPEC-011 cites this spec, so this spec does not cite it back (SPEC-017 §13, z).
-- **ADR-007 (proposed):** the ui skill writes a DSN for the release before the PRD, from board files
+- **ADR-007 (accepted):** the ui skill writes a DSN for the release before the PRD, from board files
   committed to the repository (SPEC-017). It leaves story-level design here (D6): the design gate, the
   design record and the check of each export. The DSN is reached through the PRD's section 8.
 - **SPEC-004 §5 (consumed):**
@@ -654,7 +655,7 @@ and the `upstream` rule in §5.
 - [NEEDS CLARIFICATION: how revising an approved design reopens the story: whether the design marker returns to section 7 (the states of §4 say an approved design returns to boarded)]
 - [NEEDS CLARIFICATION: whether a DSN's boards may ever satisfy the design gate, in place of a story-level export; version 3 says they never do]
 
-**Version 3's drafter's choices,** for Bryan's accept or challenge (the page's claim 2 and Bryan's 2026-10-08 decision give the
+**Version 3's drafter's choices,** accepted by Bryan on 2026-10-09 ('Approve all (Recommended)') (the page's claim 2 and Bryan's 2026-10-08 decision give the
 rest):
 - **The DSN input** (BEH-11): the page says 'the DSN as an input via the PRD's section 8' and not what the story skill does
   with it. Chosen: the brief lists the DSN's boards that bear on the story, by a mechanical match on ideas or on the
@@ -674,8 +675,8 @@ rest):
   in the PRD's section 8 until SPEC-002 version 6 defines it.
 - **The path check's reach** (§4): any depth under the story's folder, `.png` or `.pdf`, no `..` segment.
 - **The next step of a design-record run** (BEH-12): `/devforgeai:context ui-mockups`, as the page's trace shows.
-- **`blocked_by: [ADR-007]`,** as SPEC-009 version 1 named ADR-004 while it was proposed; it blocks the whole draft, whose
-  version 3 text rests on ADR-007. The two links the version moves to current versions (PRD-001 version 13 for NFR-001 to NFR-003 and
+- **`blocked_by: [ADR-007]`,** as SPEC-009 version 1 named ADR-004 while it was proposed; it blocked the whole draft, whose
+  version 3 text rests on ADR-007, until ADR-007 was accepted (2026-10-09), when it was cleared. The two links the version moves to current versions (PRD-001 version 13 for NFR-001 to NFR-003 and
   FR-016, and SPEC-004 version 4, whose §5 downstream contract is unchanged) were re-read for this bump.
 
 ## Change Log
@@ -689,3 +690,5 @@ rest):
 | 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Before review: BEH-11's list of a DSN's boards also matches a board whose `answers` (SPEC-017 DM-02) name one of the epic's refined requirements, besides the match on ideas | BEH-11, §13 |
 | 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | After the independent review: the link to SPEC-011 is prose now, one direction in each pair of citations (S1); the approved-design form and path rule are shared byte for byte with the context skill's documents.md, with a test (S5, VER-21); BEH-11 matches a board by the pair BRN ID and idea ID, §4 reads the refined requirements' upstream links and the PRD's section 8 for any DSN ID (N14, N17); the blockquote and §13 say one thing about blocked_by (N11) | frontmatter, blockquote, §2, §3, §4, BEH-11, VER-19, VER-21, §13 |
 | 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | After the independent re-review: the shared unit is a new subsection `### The approved-design line` of the context skill's documents.md holding only the fixed form line and the export-path definition, which the story build adds (a SKL-010 bump with a context requalification, listed in §10 and §11), and VER-21 asserts that subsection | §3, §4, §10, §11, VER-21, §13 |
+| 3 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | ADR-007 accepted by Bryan: its link is now constrains, blocked_by is empty, and the "(proposed)" labels are removed. No item changed | frontmatter, blockquote, §2 |
+| 3 | 2026-10-09 | Bryan | Approved version 3's text ('Approve all (Recommended)'), with the drafter's choices of §13 and the review's and re-review's fixes; the spec stays draft: the story skill is not built and §13 keeps its open questions | version 3 text |

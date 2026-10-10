@@ -2,7 +2,7 @@
 id: SPEC-017
 type: spec
 title: "UI skill (MVP): record a release's screen designs from committed boards"
-status: draft          # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 1
 created: 2026-10-09
 updated: 2026-10-09
@@ -13,15 +13,15 @@ generated_by:
   model: "claude-sonnet-5-5"
   session: "7637882f-b2ec-465e-988a-9602340d1023"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-10-09
 upstream:
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 13, hash: null}
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 13, hash: null}
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 13, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain, which ADR-007 extends with this step"}
-  - {id: ADR-007, relation: informed_by, version: 1, hash: null, note: "proposed: the chain step, the DSN and the committed boards this skill implements; becomes constrains when ADR-007 is accepted (SPEC-009 v1 handled ADR-004 the same way)"}
+  - {id: ADR-007, relation: constrains, version: 1, hash: null, note: "accepted: the chain step, the DSN and the committed boards this skill implements"}
   - {id: ADR-004, relation: informed_by, version: 2, hash: null, note: "D2: front-end.md keeps the conventions and the design system, ui-mockups.md indexes approved story designs; a CLI is a user interface; D6: suspect links"}
   - {id: PRD-001, item: FR-023, relation: informed_by, version: 13, hash: null, note: "the requirement this skill implements; no story specifies it yet"}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 13, hash: null, note: "decisions stay the user's: every mapping and the approval"}
@@ -30,17 +30,18 @@ upstream:
   - {id: SPEC-013, relation: informed_by, version: 28, hash: null, note: "BEH-02: a plugin skill is tracked unless its metadata says otherwise; this skill is tracked, by ticks only"}
 supersedes: []
 superseded_by: null
-blocked_by: [ADR-007]
+blocked_by: []
 # --- spec-specific ---
 components: ["src/claude/DevForgeAI/skills/ui", "src/tests/ui", "src/claude/DevForgeAI/evals/ui", "src/schemas/design.schema.json"]
 ---
 
 # SPEC-017 — UI skill (MVP): record a release's screen designs from committed boards
 
-> **Version 1, draft, 2026-10-09.** Cycle A of four (ADR-007): documents only. Drafted from Bryan's decisions of 2026-10-08
-> and 2026-10-09 and the Krepion session's spec page "A UI Skill for DevForgeAI" (version 6), which §13 lists. It implements
-> ADR-007, which is proposed, so this spec is blocked until ADR-007 is accepted. Nothing is built. Every choice that the
-> page or Bryan's words don't settle is in §13, for his accept or challenge.
+> **Version 1, approved by Bryan on 2026-10-09** ('Approve all (Recommended)', with every drafter's choice in §13 as recommended). Cycle A of four
+> (ADR-007, accepted the same day): documents only. Drafted from Bryan's decisions of 2026-10-08 and 2026-10-09 and the Krepion
+> session's spec page "A UI Skill for DevForgeAI" (version 6), which §13 lists, then revised after an independent review and
+> re-review. It implements ADR-007. Nothing is built: the build is cycle B, the neighbours' changes cycle C, the dashboard
+> cycle D.
 
 ## 1. Overview
 
@@ -87,7 +88,7 @@ built-in command and is not this skill.
   spec-only frontmatter with provenance in the sidecar, and an eval suite at 0.8 per case over 3 runs against the
   no-plugin baseline (QR-01 to QR-04), unless Bryan records a waiver in §9.
 - **ADR-001** (v4): built in a worktree from `src/claude/DevForgeAI/`; the owner deploys; evals run from a plain terminal.
-- **ADR-007 (proposed):** the chain step (D1), the DSN (D2), the boards read by contract (D3), one slot with an amend path
+- **ADR-007 (accepted):** the chain step (D1), the DSN (D2), the boards read by contract (D3), one slot with an amend path
   (D4), the suspect-upstream duty (D5), story-level design left to SPEC-009 (D6) and the user's decisions (D7).
 - **ADR-004 D2:** `front-end.md` keeps the conventions, including the design system and, for a CLI, "command structure, flags,
   output formats"; `ui-mockups.md` holds the design-system reference and the index of approved story designs. The DSN holds
@@ -1014,7 +1015,7 @@ cycles A–D (Recommended)"). The Krepion session's page also records, as decide
 user-owned decisions of §1 and the report block; this spec follows those. Its checklist differs from the page's in two places,
 (f) and (t) below.
 
-**Drafter's choices, for Bryan's accept or challenge** (everything below goes beyond his quoted words and the page's "Decided"
+**Drafter's choices, accepted by Bryan on 2026-10-09 ('Approve all (Recommended)')** (everything below goes beyond his quoted words and the page's "Decided"
 lines):
 - **(a) Token ownership.** The page's DSN carried a `tokens` block that `front-end.md` section 6 would copy, while its scope says
   `front-end.md` keeps the conventions and the DSN holds the screen designs. Chosen: **the context documents own the look.**
@@ -1162,3 +1163,5 @@ lines):
 | 1 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Before review, on the lead's additions of the same day (Bryan's question on how screens found during the PRD or architecture steps, and revisions after the brainstorm, reach the design): board items gain `answers` (PRD requirements and accepted ADRs, plain fields, not links; §13 w); the report always prints the canvas version of the copy it read, and an amend never keeps a stale one; §6 gains the amend path with three triggers and an example each (§13 u, x); a draft's amend raises the version; new ERR-17 (nothing to amend); new VER-30 to VER-33; the checker's `mapping` and `boards` rules cover `answers` | §1, DM-01, DM-02, DM-04, IF-03, BEH-07, BEH-09, BEH-10, BEH-13, BEH-17, ERR-17, VER-24, VER-26, VER-30 to VER-33, §6, §9, §13 |
 | 1 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | After the independent review (the independent review), on the dispositions the lead settled with the advisor: the pre-amend check is its own mode, `check --before-amend` (C1, §13 ad); BEH-08 no longer deprecates a board and BEH-03 allows a withdrawn idea (C2); an approval-only run, BEH-21, approval offered once, `updated` set, an inverse Edit on failure, ERR-18 (C3, S9, §13 y); BEH-18's cycle-B wording (C4, §13 af); one direction in each pair of citations (S1, §13 z); `considered` and candidate caps (S2, §13 ae); the tracker's `next` left alone (S3, §13 aa); the file-name title up to the first dot (S6); the trigger cases ui-trigger-NN and their grader (S7); the architecture description not promised (S8); no board yet defined by the user's confirmation (S10); the required board fields, the approval rule for superseded and deprecated, and README §2.5 (S11); the checker's YAML subset (S12); boards read in part, 150 lines or 16 KB, as data (S13); the version raised once a run (S14); the exact fixture exemption (S15); and N1 to N17 | frontmatter, §1, §2, §3, DM-01 to DM-04, IF-02, IF-03, BEH-03 to BEH-09, BEH-12 to BEH-14, BEH-16 to BEH-18, BEH-21, ERR-12, ERR-15, ERR-17, ERR-18, QR-03, VER-02, VER-03, VER-10, VER-12, VER-22 to VER-24, VER-26, VER-28, VER-30 to VER-38, §6, §9, §10, §13 |
 | 1 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | After the independent re-review, on the lead's dispositions: ERR-17 asks only that no candidate remain, and `considered` changes only in a run that writes for another reason (R1, §13 ae); approval is a command, `/devforgeai:ui approve DSN-NNN`, with the argument-hint, the description and the error for any other string (R2, §13 y); the amend-side hand-off says to review the citing documents by hand until cycle C (R3, §13 af); boards are read only through the new `head` subcommand, IF-04, which bounds lines, bytes and line length (R5, §13 m); `--before-amend` wording and fact lines, duplicate keys in ERR-04, the empty title, the approval-only block and a missing DSN ID, the cap case VER-38, a links warning not blocking approval, the Change Log citation (R6 a to h); the SPEC-001 link caveat (§13 z, §10) | frontmatter, §3, DM-02, DM-04, IF-02 to IF-04, BEH-01, BEH-02, BEH-06, BEH-07, BEH-16 to BEH-18, BEH-21, ERR-02, ERR-04, ERR-17, VER-22 to VER-24, VER-27, VER-28, VER-33 to VER-38, §6, §10, §13 |
+| 1 | 2026-10-09 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | ADR-007 accepted by Bryan: its link is now constrains, blocked_by is empty, and the "(proposed)" labels are removed. No item changed | frontmatter, blockquote, §2 |
+| 1 | 2026-10-09 | Bryan | Approved ('Approve all (Recommended)'), with the drafter's choices of §13, the review's and re-review's fixes, and the cost shown in its preview | status |
