@@ -240,7 +240,9 @@ class Skill(unittest.TestCase):
                        "Exit 1 is ERR-06",                                     # S12: head
                        "## The report",                                        # S10
                        "N markers left",                                       # N5
-                       "already `approved`"):                                  # N13
+                       "already `approved`",                                   # N13
+                       "which may be followed by the approver's name or words",  # VER-34/36: the approver is not ERR-02's string
+                       "Approve <ID> now? Reply 'approve <ID>' with your name, or 'not now'."):  # offer before Next step
             with self.subTest(phrase):
                 self.assertIn(phrase, text)
 

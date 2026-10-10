@@ -198,7 +198,9 @@ Step 7 of SKILL.md gives the block and the next step. These are the rules of eac
   stale (a deprecated PRD item, an ADR no longer accepted); the boards `head` reported as read in part; in an
   amend run the documents that cite the DSN at an older version; the candidates the user declined or that were
   left for a later run, with their number; the unconfirmed mappings; and, after an amend, that the new version
-  has not been reviewed, and any provenance written as `unavailable`.
+  has not been reviewed, and any provenance written as `unavailable`. The last finding is the plain-text
+  approval offer of step 6, when AskUserQuestion was not available to make it: "Approve DSN-NNN now? Reply
+  'approve DSN-NNN' with your name, or 'not now'." The Next step paragraph follows it and ends the reply.
 - **No block** for a run that stops before writing: ERR-01 to ERR-10, ERR-12, ERR-14 before the write, ERR-15
   without confirmation, ERR-16 to ERR-18, ERR-13 without a save, and an approval-only request for an approved
   DSN. ERR-11's report replaces the block and the next step.

@@ -28,11 +28,12 @@ Four rules shape everything below:
 
 ## Inputs
 
-- `$ARGUMENTS`: a BRN ID, empty, or `approve DSN-NNN`. A file path, a boards folder or other words, in
-  `$ARGUMENTS` or in the request, is refused (ERR-02), even a path to a BRN file such as
-  `docs/specs/brainstorm/BRN-001.md`; never extract an ID from a path. Write nothing, say the skill takes a BRN
-  ID or `approve DSN-NNN` and paths aren't accepted, and ask for the ID (listing the BRNs that have a promoted
-  idea, or the DSNs for an approval).
+- `$ARGUMENTS`: a BRN ID, empty, or `approve DSN-NNN`, which may be followed by the approver's name or words
+  (step 6 takes them as the approver, not as another string). Text that replaces the ID is refused (ERR-02): a
+  file path, a boards folder or other words in place of a BRN ID, in `$ARGUMENTS` or in the request, even a path
+  to a BRN file such as `docs/specs/brainstorm/BRN-001.md`; never extract an ID from a path. Write nothing, say
+  the skill takes a BRN ID or `approve DSN-NNN` and paths aren't accepted, and ask for the ID (listing the BRNs
+  that have a promoted idea, or the DSNs for an approval).
 - Read by contract, never by crawling the repository: `docs/specs/brainstorm/BRN-NNN.md`, `docs/specs/design/`
   (the DSNs, and each boards folder `DSN-NNN/boards/`, through the script only), and in an amend run
   `docs/specs/prd/`, the accepted ADRs in `docs/specs/adr/` and the frontmatter of documents that cite the DSN.
@@ -202,7 +203,10 @@ BRN-NNN`, or from another document citing the DSN. After ERR-11 or ERR-14, appro
 - **The request already approves the DSN** (an approval-only run, or approving words in a write run): approve.
   **Otherwise offer once,** with AskUserQuestion when it is available and the request doesn't say to proceed
   without questions: "Approve <ID> now?", with "Not now" first and marked (Recommended), then "Approve". No
-  answer, or "Not now", leaves the status as it is.
+  answer, or "Not now", leaves the status as it is. Without AskUserQuestion, the offer is the last finding of
+  step 7, in plain text, before the Next step paragraph: "Approve <ID> now? Reply 'approve <ID>' with your
+  name, or 'not now'." If the user never answers, the status stays and the Next step still holds; a later
+  `approve <ID>` is an approval-only run.
 - `approved_by` is the name the user gives ("I'm Example Owner, and I approve DSN-001"). When none is given, ask
   who is approving, offering the document's owner first; when no answer can arrive, don't approve and say the
   approver wasn't named.
@@ -214,7 +218,8 @@ BRN-NNN`, or from another document citing the DSN. After ERR-11 or ERR-14, appro
 When the run wrote or checked a DSN, the final reply opens with this block. Nothing comes before it, not even
 the checklist. output-rules.md, "The report", gives the rules of each line, the findings that follow it (the
 checks and repairs, and in an amend run both pre-check commands with their `fact:` lines), and the runs that
-have no block.
+have no block. The order is the block, the findings (the plain-text approval offer of step 6, when there is
+one, last), then the Next step paragraph, then nothing.
 
 ```
 Design document: <ID> (v<N>, <status>; new | amended)
