@@ -139,9 +139,11 @@ Read [references/boards.md](references/boards.md) first.
    their digests). Exit 1: stop, write nothing, and tell the user what boards.md gives for the ERR it names
    (ERR-03 to ERR-06, ERR-12). Any other exit (ERR-14): say the check couldn't run, quote its `Cannot run`
    line, and write nothing.
-4. **Amend run only: the pre-check.** Run `check --before-amend <ID>`. Exit 1 (ERR-15): report its errors, and
-   amend only when the user confirms in this run (the amend then also repairs them, and the Change Log row says
-   so); otherwise leave the DSN unchanged and stop. Exit 0: its `fact:` lines are the board differences, which
+4. **Amend run only: the pre-check.** Run `check --before-amend <ID>`. Exit 1 with an `ERR-0N:` line: the
+   boards folder changed after step 3; stop as step 3 says for that ERR. Exit 1 otherwise (ERR-15): report its
+   errors, and amend only when the user confirms in this run (the amend then also repairs them, and the Change
+   Log row says so); otherwise leave the DSN unchanged and stop. Any other exit (ERR-14): say the check couldn't
+   run, quote its `Cannot run` line, and write nothing. Exit 0: its `fact:` lines are the board differences, which
    boards.md explains. Before asking anything, add the number of `new` boards to the highest BRD number in the
    DSN, deprecated items included (the script doesn't count this). Above 99 (ERR-12): stop, write nothing, and
    give the number needed and the limit of 99.

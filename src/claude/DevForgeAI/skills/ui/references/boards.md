@@ -88,7 +88,10 @@ and ERR-12, or every board that fails ERR-06. Tell the user:
 ## Amend runs: the facts
 
 `check --before-amend <ID>` runs after `boards`, so a broken folder shows as ERR-03 to ERR-06 and not as a
-difference. It exits 0 with the differences as `fact:` lines, which are not errors. An error is ERR-15.
+difference. It exits 0 with the differences as `fact:` lines, which are not errors. Exit 1 with an `ERR-0N:` line
+means the boards folder changed after `boards` ran (the first failing of ERR-03, ERR-04, ERR-05 and ERR-12, else
+an ERR-06 line for every failing board, then `INVALID: …`, and no other check ran): stop as "Boards problems"
+says for that ERR. Exit 1 without such a line is ERR-15, and any exit other than 0 or 1 is ERR-14.
 Every board without a fact line is unchanged.
 - `fact: board <file>: changed` — the file's digest differs from the item's `sha256`. Ask whether its mapping
   stands, and update the digest.
