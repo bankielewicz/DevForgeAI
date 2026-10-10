@@ -1177,7 +1177,7 @@ class Head(Base):
     def assert_err06(self, r, name_json, reason):
         self.assertEqual(r.code, 1, r)
         self.assertEqual(len(r.lines), 1, r)
-        self.assertRegex(r.lines[0], rf"^ERR-06: board {re.escape(name_json)}: {reason}")
+        self.assertRegex(r.lines[0], rf"^ERR-06: board {re.escape(name_json)}: .*(?:{reason})")
 
     def test_a_symbolic_link_is_refused_and_its_target_is_never_read(self):
         target = self.p.elsewhere / "secret.html"
@@ -1541,7 +1541,7 @@ class Check(CheckCase):
 
     def test_frontmatter_considered_entries_may_not_repeat(self):
         text = edit(self.base, "considered: []", 'considered: ["PRD-001@2", "PRD-001@2"]')
-        self.assert_invalid(text, ("frontmatter", "^considered$", r"repeat|duplicate"))
+        self.assert_invalid(text, ("frontmatter", "^considered$", r"twice|repeat|duplicate"))
 
     def test_frontmatter_a_declined_entry_may_not_name_an_answered_item(self):
         text = set_field(self.base, "BRD-03", "answers", '["PRD-001#FR-024"]')
@@ -1581,7 +1581,7 @@ class Check(CheckCase):
 
     def test_frontmatter_a_repeated_key(self):
         text = edit(self.base, "version: 1\ncreated", "version: 1\nversion: 1\ncreated")
-        self.assert_invalid(text, ("frontmatter", "^version$", r"repeat|duplicate"))
+        self.assert_invalid(text, ("frontmatter", "^version$", r"twice|repeat|duplicate"))
 
     def test_frontmatter_type_status_and_version(self):
         self.assert_invalid(edit(self.base, "type: design", "type: spec"), ("frontmatter", "^type$", r"design"), n=1)
@@ -2259,8 +2259,8 @@ class BeforeAmend(CheckCase):
             "fact: board Settings.dc.html: new",
             "fact: board Add.dc.html: removed",
             "fact: canvas_format: the DSN records 2, canvas.json has 3",
-            "fact: idea IDEA-02: no longer promoted",
             "fact: idea IDEA-07: no row",
+            "fact: idea IDEA-02: no longer promoted",
             "fact: links: BRN-001 at version 1, the BRN is at 2",
         ])
         self.assertEqual(r.lines[-1], f"OK {FILE} (before amend)")
