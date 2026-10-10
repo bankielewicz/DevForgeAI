@@ -81,7 +81,7 @@ Context: Shiftlog is used by people who work shifts and today write them on pape
 
 Content: the idea "List shifts in a table"; the idea "Add a shift from the terminal"; the problem "Shifts are written on paper and get lost". The flow's screens, in order: 1. List (the key screen), 2. Add. States to show: no shift recorded yet; a list of recorded shifts; an error when a shift cannot be saved.
 
-Must-haves: a terminal screen: a monospace cell grid of 120 columns by 40 rows, drawn only with text, box-drawing and block characters and 24-bit colour; fully keyboard-driven.
+Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters and 24-bit colour; a dark terminal; fully keyboard-driven.
 
 Style: propose one.
 

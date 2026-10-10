@@ -201,7 +201,9 @@ the first Artifact call.
    - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL the request names): run
      `boards <ID>` and then `check --before-amend <ID>` on the copy as it is, so that a structural error is
      ERR-15 and is settled first. Then check the canvas's version, read-only, and ask the import question, first
-     and alone (canvas.md). Nothing in the repository changes before the answer. After an import at step 5,
+     and alone (canvas.md). Nothing in the repository changes before the answer. Once it is settled, offer once to
+     draw a flow or a screen the canvas lacks (BEH-27; canvas.md, "Adding a flow or a screen in an amend run"); on
+     "Draw it now", steps 3 and 4 follow, then the open question of step 5. After an import at step 5,
      `boards` and `check --before-amend` run again, because their facts are what the interview consumes. When
      `boards` reports ERR-03 to ERR-06 or ERR-12 for the copy, skip the pre-check and treat the import as the
      repair.
