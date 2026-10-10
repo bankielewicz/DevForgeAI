@@ -38,6 +38,7 @@ import stat
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -1048,6 +1049,22 @@ class Boards(Base):
         self.assertEqual(sorted(found), [2, 3, 4, 5, 6, 7, 8], found)
         self.assertEqual([found[k][0] for k in sorted(found)], [json.dumps(n) for n in names[1:8]])
 
+    UNSAFE_NAMES = ["a\nboards: ok.html", "a\rb.html", "a\tb.html", "x\x00y.html", "\x7f.html", "\x1b[31m.html",
+                    "\x85.html", " .html", " .html", "\ud800.html", "ok.html\n"]
+
+    def test_err06_names_with_control_characters_or_that_cannot_be_encoded(self):
+        # a canvas key must not forge a line of the `board` / `boards:` protocol the skill parses
+        for name in self.UNSAFE_NAMES:
+            with self.subTest(name=name):
+                self.canvas(json.dumps({"v": 3, "boards": {"Home.dc.html": {}, name: {}}}))
+                r = self.boards()
+                found = self.err06(r)
+                self.assertEqual(r.code, 1, r)
+                self.assertEqual(list(found), [2], r)
+                self.assertEqual(len(r.lines), 2, r)
+                self.assertRegex(found[2][1], r"plain file name")
+                self.assertTrue(all(c == "\n" or c.isprintable() for c in r.out), repr(r.out))
+
     def test_a_failing_board_prints_none_of_the_good_lines(self):
         (self.p.boards_dir() / "List.dc.html").unlink()
         r = self.boards()
@@ -1234,6 +1251,22 @@ class Head(Base):
                 r = self.head(name, forbid=forbid)
                 self.assert_err06(r, json.dumps(name), r"plain file name")
                 self.assertNotIn("CONTENT", r.out)
+
+    def test_a_name_with_a_control_character_is_one_err06_line(self):
+        for name in ("a\nboards: ok.html", "a\rb.html", "a\tb.html", "\x7f.html", "\x85.html", " .html"):
+            with self.subTest(name=name):
+                r = self.head(name)
+                self.assertEqual((r.code, len(r.lines)), (1, 1), r)
+                self.assertRegex(r.lines[0], r"^ERR-06: board \".*\": .*plain file name")
+                self.assertTrue(all(c == "\n" or c.isprintable() for c in r.out), repr(r.out))
+
+    def test_double_dash_ends_the_options(self):
+        self.p.add_board("-Odd.dc.html", "<title>Odd</title>\n")
+        r = self.cli("head", "DSN-001", "--", "-Odd.dc.html")
+        self.assertEqual(r.code, 0, r)
+        self.assertEqual(r.lines[0], "<title>Odd</title>")
+        r = self.cli("head", "DSN-001", "-Odd.dc.html")
+        self.assertEqual(r.code, 2, r)
 
     def test_an_unusable_boards_folder_is_the_err_line_of_boards(self):
         cases = ((b"not json {", "04"), (b'{"v": 4, "boards": {"Home.dc.html": {}}}', "05"), (b'{"v": 3, "boards": {}}', "03"),
@@ -2158,6 +2191,62 @@ class Check(CheckCase):
         r = self.cli("check", "DSN-001", forbid=forbid)
         self.assertEqual((r.code, r.lines), (0, [f"OK {FILE}"]), r)
 
+    def test_a_canvas_key_that_cannot_be_encoded_is_not_an_internal_error(self):
+        canvas = {"v": 3, "boards": {n: {} for n in BOARDS}}
+        canvas["boards"]["\ud800.html"] = {}
+        self.p.write_dsn(self.base)
+        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", json.dumps(canvas))
+        r = self.cli("check", "DSN-001")
+        self.assertEqual(r.code, 1, r)
+        self.assertNotIn("internal error", r.out)
+        self.assertRegex(r.out, r"ud800\.html.*no active board item")
+
+    def test_yaml_line_breaks_are_the_scripts_error_with_and_without_pyyaml(self):
+        # NEL, a bare CR, LS and PS end a line for YAML but not for this reader: a hidden line is refused
+        for name, text in (
+                ("NEL in a comment", edit(self.base, "# --- design-specific ---", "# --- design-specific ---\x85")),
+                ("bare CR before a list", set_field(self.base, "BRD-01", "answers", "\r[]")),
+                ("LS in a quoted title", edit(self.base, 'title: "Shiftlog: record', 'title: "Shiftlog : record')),
+                ("PS in a board title", set_field(self.base, "BRD-01", "title", '"Ho me"')),
+                ("NEL in a board comment", set_field(self.base, "BRD-01", "notes", "null  # note\x85")),
+                ("NUL in a board", set_field(self.base, "BRD-01", "notes", '"x\x00y"'))):
+            with self.subTest(name):
+                r = self.check(text)
+                self.assertEqual(r.code, 1, r)
+                self.assertTrue(any(re.search(r"\((frontmatter|boards)\)$", l) and re.search(r"line break|control character", l)
+                                   for l in self.errors(r)), r)
+
+    def test_other_spaces_and_flow_indicators_agree_with_pyyaml(self):
+        # YAML spaces are the plain space only, and [ ] { } end a plain token inside a list: PyYAML refuses these
+        for name, text in (
+                ("no-break space before a value", edit(self.base, 'owner: "Example Owner"', 'owner: \xa0"Example Owner"')),
+                ("no-break space after a value", edit(self.base, 'owner: "Example Owner"', 'owner: "Example Owner"\xa0')),
+                ("ideographic space in a list", set_field(self.base, "BRD-01", "ideas", '["IDEA-02",　"IDEA-03"]')),
+                ("a bracket after a plain item", edit(self.base, 'authors: ["Example Owner", "claude-code"]', 'authors: [Owner["x"]')),
+                ("a brace after a plain item", set_field(self.base, "BRD-01", "answers", "[ADR-009{}]"))):
+            with self.subTest(name):
+                r = self.check(text)
+                self.assertEqual(r.code, 1, r)
+        text = set_field(self.base, "BRD-01", "title", '"Ho\xa0me　page"')
+        self.assert_ok(text)
+
+    def test_a_tab_outside_a_quoted_value_is_refused_and_inside_one_it_is_not(self):
+        for name, text in (
+                ("after a colon", edit(self.base, "status: draft ", "status:\tdraft ")),
+                ("before a value", edit(self.base, "\nversion: 1\n", "\nversion:\t1\n")),
+                ("trailing", edit(self.base, "\nversion: 1\n", "\nversion: 1\t\n")),
+                ("in a nested key", edit(self.base, '  tool: "claude-code"', '\ttool: "claude-code"')),
+                ("in a link", edit(self.base, "- {id: BRN-001, relation", "- {id:\tBRN-001, relation")),
+                ("in a board", set_field(self.base, "BRD-01", "title", '\t"Home"')),
+                ("in a board comment line", edit(self.base, "boards:\n  - id: BRD-01", "boards:\n\t# a comment\n  - id: BRD-01"))):
+            with self.subTest(name):
+                r = self.check(text)
+                self.assertEqual(r.code, 1, r)
+                self.assertTrue(any(re.search(r"\((frontmatter|boards)\)$", l) and "tab" in l for l in self.errors(r)), r)
+        text = edit(self.base, 'title: "Shiftlog: record shifts: release design"', 'title: "Shiftlog:\trecord shifts"')
+        text = set_field(text, "BRD-01", "title", '"Ho\tme"')
+        self.assert_ok(text)
+
     def test_a_dsn_that_is_a_symbolic_link_is_not_followed(self):
         real = self.p.elsewhere / "DSN-001.md"
         real.write_text(self.p.render(self.base))
@@ -2385,6 +2474,36 @@ class BeforeAmend(CheckCase):
         self.assertRegex(r.lines[2], r'^ERR-06: board 5 "a/b": ')
         self.assertEqual(r.lines[3], f"INVALID: 3 error(s) in {FILE}")
 
+    def test_answers_are_checked_for_their_form_but_not_looked_up(self):
+        # section 5: the pre-check holds shapes only, so no PRD or ADR is opened and nothing is a warning
+        text = set_field(self.base, "BRD-01", "answers", '["PRD-001#FR-099", "PRD-001#FR-025", "PRD-009#FR-001", "ADR-042"]')
+        forbid = [self.p.path("docs/specs/prd/PRD-001.md"), self.p.path("docs/specs/adr/ADR-009.md")]
+        self.p.write_dsn(text)
+        r = self.cli("check", "--before-amend", "DSN-001", forbid=forbid)
+        self.assertEqual((r.code, r.lines), (0, [f"OK {FILE} (before amend)"]), r)
+        full = self.cli("check", "DSN-001")
+        self.assertEqual(full.code, 1, full)
+        self.assertRegex(full.out, r"FR-099")
+        self.p.write_dsn(set_field(self.base, "BRD-01", "answers", '["FR-006"]'))
+        self.assertEqual(self.cli("check", "--before-amend", "DSN-001").code, 1)
+
+    def test_a_link_version_above_the_brns_is_a_warning_here_and_an_error_in_the_full_check(self):
+        text = self.base.replace("version: 1, hash: null}", "version: 3, hash: null}")
+        r = self.check(text, "--before-amend")
+        self.assertEqual(r.code, 0, r)
+        self.assertEqual(len(self.warnings(r)), 1, r)
+        self.assertRegex(self.warnings(r)[0], r"version 3.*version 1.*\(links\)$")
+        self.assertEqual(self.facts(r), [])
+        self.assertEqual(self.check(text).code, 1)
+
+    def test_a_file_name_in_an_item_cannot_forge_a_fact(self):
+        text = set_field(self.base, "BRD-03", "file", '"Gone.html\\nfact: board Report.dc.html: changed"')
+        r = self.check(text, "--before-amend")
+        self.assertEqual(r.code, 1, r)
+        # Add.dc.html is now named by canvas.json with no active item, which is a true fact; the forged one is not printed
+        self.assertEqual([l for l in r.lines if l.startswith("fact:")], ["fact: board Add.dc.html: new"], r)
+        self.assertRegex(r.out, r"BRD-03: file .*plain file name")
+
     def test_the_option_may_come_before_or_after_the_root(self):
         self.p.write_dsn(self.base)
         for argv in (["check", "--before-amend", "--root", str(self.p.root), "DSN-001"],
@@ -2393,6 +2512,80 @@ class BeforeAmend(CheckCase):
             with self.subTest(argv=argv):
                 r = run_arms(argv, self.p.elsewhere)
                 self.assertEqual((r.code, r.lines), (0, [f"OK {FILE} (before amend)"]), r)
+
+
+class Robustness(CheckCase):
+    """Hostile input costs linear time and never ends in an internal error."""
+
+    LIMIT = 1.0       # seconds for the three arms together (they take about 0.1); before the fixes a line of 16000
+                      # backticks took 20 s and 20000 unclosed markers 1.7 s
+
+    def timed(self, text):
+        start = time.monotonic()
+        r = self.check(text)
+        took = time.monotonic() - start
+        self.assertLess(took, self.LIMIT, f"took {took:.1f} s")
+        self.assertNotIn("internal error", r.out)
+        return r
+
+    def test_a_line_of_backticks_costs_linear_time(self):
+        for name, line in (("one long run", "a " + "`" * 16000), ("pairs", "a " + "`` " * 6000), ("alternating", "a " + "`a" * 8000),
+                           ("growing runs", "a " + " ".join("`" * n for n in range(1, 180)))):
+            with self.subTest(name):
+                r = self.timed(edit(self.base, "## 1. Scope\n\n", f"## 1. Scope\n\n{line}\n\n"))
+                self.assertEqual((r.code, r.lines), (0, [f"OK {FILE}"]), r.out[:300])
+
+    def test_code_spans_still_hide_the_forms_they_quote(self):
+        for line in ("`[[fill: x]]`", "``<!-- x -->``", "text ``a ` b [[fill: x]] ` c`` more", "```x [[fill: y]] x```"):
+            with self.subTest(line):
+                self.assert_ok(edit(self.base, "## 1. Scope\n\n", f"## 1. Scope\n\nsay {line} here\n\n"))
+        for line in ("`[[fill: x]]", "[[fill: x]]`", "``[[fill: x]]`", "`a` [[fill: x]] `b`"):
+            with self.subTest(line):
+                self.assert_invalid(edit(self.base, "## 1. Scope\n\n", f"## 1. Scope\n\nsay {line} here\n\n"),
+                                    ("placeholder", "document", r"\[\[fill:"))
+
+    def test_an_unclosed_marker_repeated_costs_linear_time(self):
+        text = edit(self.base, MARKER, "- " + "[NEEDS CLARIFICATION" * 20000)
+        r = self.timed(text)
+        self.assertEqual(r.code, 1, r.out[:300])
+        self.assertRegex(r.out, r"IDEA-06 is no board yet")
+        # the same many times closed: each is a marker, and only the ones naming the idea satisfy IDEA-06
+        text = edit(self.base, MARKER, "- " + "[NEEDS CLARIFICATION: x]" * 20000 + " [NEEDS CLARIFICATION: IDEA-06 here]")
+        self.assertEqual(self.timed(text).code, 0)
+
+    def test_an_approved_document_with_many_markers_costs_linear_time(self):
+        text = edit(self.approved(), "## 1. Scope\n\n", "## 1. Scope\n\n" + "[NEEDS CLARIFICATION" * 20000 + "\n\n")
+        r = self.timed(text)
+        self.assertEqual(r.code, 1, r.out[:300])
+        self.assertRegex(r.out, r"approval")
+
+    def test_deep_nesting_is_a_frontmatter_or_boards_error(self):
+        for name, depth_text in (("lists", "[" * 3000), ("mappings", "{a: " * 3000), ("mixed", "[{a: " * 1500)):
+            with self.subTest(name):
+                r = self.timed(edit(self.base, "canvas_format: 3", f"canvas_format: {depth_text}"))
+                self.assertEqual(r.code, 1, r.out[:300])
+                self.assertTrue(any(re.search(r"\(frontmatter\)$", l) and re.search(r"nest|deep", l) for l in self.errors(r)), r.out[:400])
+                r = self.timed(set_field(self.base, "BRD-01", "title", depth_text))
+                self.assertEqual(r.code, 1, r.out[:300])
+                self.assertTrue(any(re.search(r"\(boards\)$", l) and re.search(r"nest|deep", l) for l in self.errors(r)), r.out[:400])
+
+    def test_deep_json_nesting_is_err04(self):
+        self.p.write_dsn(self.base)
+        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", '{"v": 3, "boards": {"Home.dc.html": ' + "[" * 100000 + "]" * 100000 + "}}")
+        r = self.cli("boards", "DSN-001")
+        self.assertEqual(r.code, 1, r)
+        self.assertRegex(r.lines[0], r"^ERR-0[34]: ")
+
+    def test_long_lines_of_quotes_and_backslashes_cost_linear_time(self):
+        for name, line in (("quotes", '"' * 40000), ("escapes", '"' + "\\" * 40000), ("pairs", '"a\\"' * 20000),
+                           ("lists", "[" + '"a", ' * 15000), ("pipes", "|" * 40000), ("tabs and quotes", '"\t' * 20000)):
+            with self.subTest(name):
+                r = self.timed(edit(self.base, 'owner: "Example Owner"', f"owner: {line}"))
+                self.assertEqual(r.code, 1, r.out[:300])
+                r = self.timed(edit(self.base, "## 1. Scope\n\n", f"## 1. Scope\n\n{line}\n\n"))
+                self.assertIn(r.code, (0, 1))
+                r = self.timed(edit(self.base, "| IDEA-04 | none | not a screen |", f"| IDEA-04 | none | {line} |"))
+                self.assertEqual(r.code, 1, r.out[:300])
 
 
 if __name__ == "__main__":

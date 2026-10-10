@@ -83,8 +83,10 @@ RE_ITEM_ID = re.compile(r"[A-Z]+-\d{2,3}")
 RE_DATE = re.compile(r"\d{4}-\d{2}-\d{2}")
 RE_KEY_LINE = re.compile(r"^([A-Za-z_][A-Za-z0-9_-]*):(?:[ \t]+(.*))?$")
 RE_FENCE_OPEN = re.compile(r"^```(.*)$")
-RE_CODE_SPAN = re.compile(r"(`+)(.+?)\1")
-RE_MARKER = re.compile(r"\[NEEDS CLARIFICATION[^\]]*\]", re.S)
+RE_BACKTICKS = re.compile(r"`+")
+MARKER_OPEN = "[NEEDS CLARIFICATION"
+MAX_NESTING = 8                       # a field of the DSN holds a list or a mapping, two deep at most; this stops a hostile line
+                                      # from exhausting the stack
 
 
 class CannotRun(Exception):
@@ -128,7 +130,7 @@ def regular_file(path):
         st = os.lstat(path)
     except (FileNotFoundError, NotADirectoryError):
         raise Unreadable("absent", "the file is absent")
-    except OSError as e:
+    except (OSError, ValueError) as e:      # ValueError: a name with a NUL or a lone surrogate cannot be a path
         raise Unreadable("unreadable", f"the file cannot be read ({_os_reason(e)})")
     if stat.S_ISLNK(st.st_mode):
         raise Unreadable("link", "the file is a symbolic link, which is never followed")
@@ -143,7 +145,7 @@ def open_regular(path):
     flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_CLOEXEC", 0)
     try:
         return os.open(path, flags)
-    except OSError as e:
+    except (OSError, ValueError) as e:
         raise Unreadable("unreadable", f"the file cannot be read ({_os_reason(e)})")
 
 
@@ -207,16 +209,30 @@ def scan_file(path, keep=0):
     return Scan(size, lines, sha.hexdigest(), head)
 
 
+# A name that holds one of these would forge or split a line of this script's output (`board <k> <file> ...`, `fact: ...`):
+# C0 and C1 controls (newline, carriage return, tab, NUL, DEL, NEL), the Unicode line and paragraph separators, and the
+# surrogates, which no file system can encode.
+RE_UNSAFE_NAME = re.compile("[\x00-\x1f\x7f-\x9f\u2028\u2029\ud800-\udfff]")
+
+
 def name_problem(name):
     """Why a board name is not a plain file name (ERR-06), or None."""
-    if name in ("", ".") or "/" in name or "\\" in name or ".." in name or "\x00" in name:
-        return 'the name is not a plain file name (it must not be empty or ".", or hold /, \\ or ..)'
+    if name in ("", ".") or "/" in name or "\\" in name or ".." in name or RE_UNSAFE_NAME.search(name):
+        return ('the name is not a plain file name (it must not be empty or ".", or hold /, \\ or .., '
+                'or hold a control character or a line separator)')
+    try:
+        os.fsencode(name)
+    except (UnicodeError, ValueError):
+        return "the name is not a plain file name (the file system cannot encode it)"
     return None
 
 
 def jstr(value):
-    """A name as JSON text: quoted, with escapes, so that an empty name or a backslash shows plainly."""
-    return json.dumps(value, ensure_ascii=False)
+    """A name as JSON text: quoted, with escapes, so that an empty name or a backslash shows plainly. Control characters
+    are escaped by JSON; DEL, the C1 controls, the line separators and surrogates are escaped here, so the text is one
+    printable line."""
+    text = json.dumps(value, ensure_ascii=False)
+    return re.sub("[\x7f-\x9f\u2028\u2029\ud800-\udfff]", lambda m: "\\u%04x" % ord(m.group(0)), text)
 
 
 # --- canvas.json (DM-04) ------------------------------------------------------------------------------------------
@@ -541,9 +557,9 @@ def parse_plain(s, i, flow, key=False):
     j = i
     while j < len(s):
         c = s[j]
-        if flow and c in ",]}":
+        if flow and c in ",[]{}":           # the flow indicators end a plain token inside a list or a mapping
             break
-        if c == ":" and (j + 1 >= len(s) or s[j + 1] in " \t" or (flow and s[j + 1] in ",]}")):
+        if c == ":" and (j + 1 >= len(s) or s[j + 1] in " \t" or (flow and s[j + 1] in ",[]{}")):
             if key:
                 break
             raise Syntax("a value that holds ': ' must be in double quotes")
@@ -560,27 +576,29 @@ def _skip(s, i):
     return i
 
 
-def parse_value(s, i, flow):
+def parse_value(s, i, flow, depth=0):
     i = _skip(s, i)
     if i >= len(s):
         raise Syntax("a value is missing")
     c = s[i]
     if c == '"':
         return parse_quoted(s, i)
+    if c in "[{" and depth >= MAX_NESTING:
+        raise Syntax(f"lists and mappings nested more than {MAX_NESTING} levels deep are not taken")
     if c == "[":
-        return parse_flow_list(s, i)
+        return parse_flow_list(s, i, depth + 1)
     if c == "{":
-        return parse_flow_map(s, i)
+        return parse_flow_map(s, i, depth + 1)
     return parse_plain(s, i, flow)
 
 
-def parse_flow_list(s, i):
+def parse_flow_list(s, i, depth):
     items = []
     i = _skip(s, i + 1)
     if i < len(s) and s[i] == "]":
         return items, i + 1
     while True:
-        v, i = parse_value(s, i, True)
+        v, i = parse_value(s, i, True, depth)
         items.append(v)
         i = _skip(s, i)
         if i >= len(s):
@@ -595,7 +613,7 @@ def parse_flow_list(s, i):
         raise Syntax(f"unexpected {s[i]!r} in a list: put a value that holds {s[i]!r} in double quotes")
 
 
-def parse_flow_map(s, i):
+def parse_flow_map(s, i, depth):
     out = {}
     i = _skip(s, i + 1)
     if i < len(s) and s[i] == "}":
@@ -609,7 +627,7 @@ def parse_flow_map(s, i):
             raise Syntax("a mapping entry must look like key: value")
         if key in out:
             raise Syntax(f"the key {key} appears twice in one mapping")
-        v, i = parse_value(s, i + 1, True)
+        v, i = parse_value(s, i + 1, True, depth)
         out[key] = v
         i = _skip(s, i)
         if i >= len(s):
@@ -624,7 +642,7 @@ def parse_flow_map(s, i):
 
 def parse_node(raw):
     """The value of one `key: value` line (comment included): EMPTY, or the parsed value; Syntax when unreadable."""
-    text = strip_comment(raw).strip()
+    text = strip_comment(raw).strip(" ")        # YAML spaces only: a no-break space is part of a plain value
     if not text:
         return EMPTY
     v, i = parse_value(text, 0, False)
@@ -640,13 +658,27 @@ RE_QUOTED = re.compile(r'"(?:[^"\\]|\\.)*"')
 RE_UNPRINTABLE = re.compile("[^\t\n\r\x20-\x7e\x85\xa0-\ud7ff\ue000-\ufffd\U00010000-\U0010ffff]")
 
 
+# YAML ends a line at these as well as at a line feed; this reader splits at the line feed only, so a line holding one
+# would hide a second line from it and not from PyYAML.
+RE_LINE_BREAK = re.compile("[\r\x85\u2028\u2029]")
+
+
 def yaml_line_problem(line):
-    """Why a line of YAML is refused whatever it says: a control character, or a tab used as indentation or spacing."""
+    """Why a line of YAML is refused whatever it says: a control character or an extra line break, or a tab used as
+    indentation or spacing."""
+    m = RE_LINE_BREAK.search(line)
+    if m:
+        return f"the line holds the line break character U+{ord(m.group(0)):04X}, which would hide a line from this reader"
     m = RE_UNPRINTABLE.search(line)
     if m:
         return f"the line holds the control character U+{ord(m.group(0)):04X}, which YAML does not take"
-    if "\t" in RE_QUOTED.sub("", line):
-        return "the line holds a tab outside a quoted value: indent and space with spaces"
+    if "\t" in line or not line.isascii():
+        bare = RE_QUOTED.sub("", line)
+        if "\t" in bare:
+            return "the line holds a tab outside a quoted value: indent and space with spaces"
+        odd = next((c for c in bare if c.isspace() and c != " "), None)
+        if odd:
+            return f"the line holds the space character U+{ord(odd):04X} outside a quoted value: use plain spaces"
     return None
 
 
@@ -720,8 +752,46 @@ class Brn:
 
 
 def code_free(line):
-    """A line with its inline code spans blanked out (a marker or a placeholder in a code span is quoted text)."""
-    return RE_CODE_SPAN.sub(lambda m: " " * len(m.group(0)), line)
+    """A line with its inline code spans blanked out (a marker or a placeholder in a code span is quoted text). A span
+    opens with a run of backticks and closes at the next run of the same length, as in CommonMark; a run with no such
+    partner is literal text. Linear in the length of the line."""
+    if "`" not in line:
+        return line
+    runs = [(m.start(), m.end()) for m in RE_BACKTICKS.finditer(line)]
+    partner, last = [None] * len(runs), {}
+    for i in range(len(runs) - 1, -1, -1):          # the next run of the same length, found right to left
+        size = runs[i][1] - runs[i][0]
+        partner[i] = last.get(size)
+        last[size] = i
+    out, pos, i = [], 0, 0
+    while i < len(runs):
+        j = partner[i]
+        if j is None:
+            i += 1
+            continue
+        start, end = runs[i][0], runs[j][1]
+        out.append(line[pos:start])
+        out.append(" " * (end - start))
+        pos = end
+        i = j + 1
+    out.append(line[pos:])
+    return "".join(out)
+
+
+def markers_in(text):
+    """The [NEEDS CLARIFICATION ...] markers of a text: from the opening words to the first closing bracket. Linear: once
+    no closing bracket is left, no later marker can close either."""
+    found, pos = [], 0
+    while True:
+        a = text.find(MARKER_OPEN, pos)
+        if a < 0:
+            break
+        b = text.find("]", a)
+        if b < 0:
+            break
+        found.append(text[a:b + 1])
+        pos = b + 1
+    return found
 
 
 def split_cells(line):
@@ -1377,7 +1447,7 @@ class Check:
                         self.err(it.line_of("answers"), part, f"answers entry {x!r} must be PRD-NNN#FR-NNN, PRD-NNN#NFR-NNN or ADR-NNN", "mapping")
                 if len(set(map(repr, v))) != len(v):
                     self.err(it.line_of("answers"), part, "answers repeats an entry", "mapping")
-                if it.active:
+                if it.active and not self.before:       # --before-amend holds shapes only: no PRD or ADR is looked up
                     for x in v:
                         if isinstance(x, str) and RE_ANSWER.fullmatch(x):
                             self.check_reference(it, x)
@@ -1563,7 +1633,11 @@ class Check:
             if self.before:
                 self.facts.append(f"fact: links: {self.brn.id} at version {version}, the BRN is at {self.brn.version}")
         elif version > self.brn.version:
-            self.err(ln, "upstream", f"upstream cites {self.brn.id} at version {version}, but the BRN is at version {self.brn.version}", "links")
+            message = f"upstream cites {self.brn.id} at version {version}, but the BRN is at version {self.brn.version}"
+            if self.before:      # the version comparison is a warning in the pre-check
+                self.warn(ln, "upstream", message, "links")
+            else:
+                self.err(ln, "upstream", message, "links")
 
     # --- membership and digests (the full check) ----------------------------------------------------------------------
     def digest_of(self, name):
@@ -1669,7 +1743,7 @@ class Check:
         for idea in sorted(promoted):
             if idea not in seen:
                 self.err(self.sections["coverage"][0] + 1, "section 3", f"{idea} is promoted in the BRN but section 3 has no row for it", "coverage")
-        markers = RE_MARKER.findall(self.marker_text())
+        markers = markers_in(self.marker_text())
         for idea, r in seen.items():
             named = {it.id for it in self.items if it.active and isinstance(it.get("ideas"), list) and idea in it.get("ideas")}
             if idea not in promoted:
@@ -1723,8 +1797,8 @@ class Check:
                 if any(isinstance(it.get("sha256"), str) and it.get("sha256") != scan.sha for it in group):
                     facts.append(f"fact: board {name}: changed")
             for it in active:
-                if it.get("file") not in self.canvas.names:
-                    facts.append(f"fact: board {it.get('file')}: removed")
+                if it.get("file") not in self.canvas.names and not name_problem(it.get("file")):
+                    facts.append(f"fact: board {it.get('file')}: removed")      # a name that is no file name is already an error
             v = self.value("canvas_format")
             if isinstance(v, int) and not isinstance(v, bool) and v != self.canvas.v:
                 facts.append(f"fact: canvas_format: the DSN records {v}, canvas.json has {self.canvas.v}")
