@@ -1,4 +1,4 @@
-"""Structural checks for the ui skill, SKL-013 (SPEC-017 VER-25; QR-01, QR-02).
+"""Structural checks for the ui skill, SKL-013 (SPEC-017 version 2, VER-25; QR-01, QR-02).
 
 - SKILL.md has at most 500 lines (QR-01), and every reference, asset and script it names exists;
 - its frontmatter has exactly SPEC-017 §5's fields (name, description, argument-hint, and metadata with
@@ -6,10 +6,14 @@
   against skill-frontmatter.schema.json;
 - the description is the one SPEC-017 §5 fixes, at most 1024 characters, with no < or >;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02), and provenance.yaml validates against
-  skill.schema.json and records SKL-013 implementing SPEC-017 v1;
-- the checklist has the seven numbered items of §5, in the Workflow section;
-- SKILL.md carries the substituted variables and the five dsn_check.py commands (Claude Code substitutes
+  skill.schema.json and records SKL-013 implementing SPEC-017 v2;
+- the checklist has the ten numbered items of §5, in the Workflow section;
+- SKILL.md carries the substituted variables and the six dsn_check.py commands (Claude Code substitutes
   ${CLAUDE_SKILL_DIR} and ${CLAUDE_SESSION_ID} only in SKILL.md), the report block of BEH-17 and BEH-18's hand-off;
+- SKILL.md names no Artifact action but quickstart, publish and read, never invokes the /design skill and never
+  stands in for the canvas; the description carries the three exclusions of §5;
+- references/briefs.md holds DM-05's six parts in order and the closing line, and references/canvas.md the import's
+  and the canvas's rules;
 - every BEH and ERR item of SPEC-017 is cited in SKILL.md or a reference;
 - assets/dsn.md holds DM-01's keys and headings in order, uses only [[fill: ...]] placeholders, and validates,
   filled in, against design.schema.json;
@@ -35,7 +39,7 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILL = ROOT / "src/claude/DevForgeAI/skills/ui"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-017.md"
-SKL, SPEC_VERSION = "SKL-013", 1
+SKL, SPEC_VERSION = "SKL-013", 2
 # DM-01: the common keys, then the design-specific ones.
 DSN_KEYS = ["id", "type", "title", "status", "version", "created", "updated", "owner", "authors", "generated_by",
             "reviewed_by", "approved_by", "approved_on", "upstream", "supersedes", "superseded_by", "blocked_by",
@@ -46,8 +50,13 @@ COMMANDS = ['python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" next',
             'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" boards <ID>',
             'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check --before-amend <ID>',
             'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" head <ID> -- \'<FILE>\'',
-            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check <ID>']
-REFERENCES = ["boards.md", "interview.md", "output-rules.md"]
+            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check <ID>',
+            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" place <ID> --sha-file \'<PATH>\'']
+REFERENCES = ["boards.md", "briefs.md", "canvas.md", "interview.md", "output-rules.md"]
+EXCLUSIONS = ("Not for recording or approving one story's design, a small styling change to existing UI, "
+              "a one-off mockup asked of Claude Design directly, or general UI advice.")
+BRIEF_PARTS = ["Lead line", "Context", "Content", "Must-haves", "Style", "Closing line"]
+CLOSING_LINE = "Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each."
 CHECKLIST = re.compile(r"^\s*- \[ \] (\d+)\. (.+?)\s*$", re.M)  # the tracker's own pattern (SPEC-012 §4)
 
 
@@ -132,7 +141,7 @@ class Skill(unittest.TestCase):
         self.assertEqual(list(self.fm["metadata"]), ["devforgeai-id", "devforgeai-version"])
         self.assertEqual(errors("skill-frontmatter.schema.json", self.fm), [])
         self.assertEqual(self.fm["name"], "ui")
-        self.assertEqual(self.fm["argument-hint"], "[BRN-NNN | approve DSN-NNN]")
+        self.assertEqual(self.fm["argument-hint"], "[BRN-NNN [canvas URL] | approve DSN-NNN]")
         self.assertNotIn("devforgeai-tracked", self.text)
 
     def test_metadata_values_are_quoted(self):
@@ -146,6 +155,7 @@ class Skill(unittest.TestCase):
         self.assertEqual(self.fm["description"], fixed)
         self.assertLessEqual(len(self.fm["description"]), 1024)
         self.assertNotRegex(self.fm["description"], r"[<>]")
+        self.assertIn(EXCLUSIONS, self.fm["description"])  # VER-25: the three exclusions of §5
 
     def test_version_mirrors_provenance(self):
         self.assertEqual(self.fm["metadata"]["devforgeai-version"], str(self.prov["version"]))
@@ -162,10 +172,10 @@ class Skill(unittest.TestCase):
         for key in ("tool", "model", "session"):
             self.assertTrue(self.prov["generated_by"][key], key)
 
-    def test_checklist_is_the_seven_items_of_spec_017(self):
+    def test_checklist_is_the_ten_items_of_spec_017(self):
         fixed = CHECKLIST.findall(spec_section(5))
-        self.assertEqual(len(fixed), 7)
-        self.assertEqual([n for n, _ in fixed], [str(i) for i in range(1, 8)])
+        self.assertEqual(len(fixed), 10)
+        self.assertEqual([n for n, _ in fixed], [str(i) for i in range(1, 11)])
         self.assertEqual(CHECKLIST.findall(self.text), fixed)
         workflow = self.text.split("\n## Workflow")[1].split("\n## ")[0]
         self.assertEqual(CHECKLIST.findall(workflow), fixed)
@@ -217,6 +227,27 @@ class Skill(unittest.TestCase):
         for tool in ("AskUserQuestion", "Proceed without questions"):
             self.assertIn(tool, self.text)
 
+    def test_skill_md_uses_three_artifact_actions_and_never_stands_in_for_the_canvas(self):
+        squashed = re.sub(r"\s+", " ", self.text)
+        for word in ("quickstart", "publish", "read"):
+            self.assertRegex(self.text, rf"`{word}`")
+        # VER-25: no Artifact action but those three, and not the comments tool or the data tool.
+        for word in ("list", "open", "delete", "pin", "unpin"):
+            self.assertNotRegex(self.text, rf"`{word}`")
+        for tool in ("ArtifactComments", "ArtifactData"):
+            self.assertNotIn(tool, self.text)
+        for phrase in ("ToolSearch",                                      # the tool may be deferred
+                       "never invoke the `/design` skill",                # BEH-01, BEH-06
+                       "text or ASCII mockup",                            # BEH-06: the terminal is not the canvas
+                       "session's scratchpad",                            # BEH-23, BEH-25: where the files are written
+                       "Iterate later", "Import now",                     # BEH-28
+                       "Create the canvas from these briefs?",            # BEH-23
+                       "Group the screens like this?",                    # BEH-22
+                       "at most 4 flows",                                 # BEH-22: the first canvas is capped
+                       "3 boards"):
+            with self.subTest(phrase):
+                self.assertIn(phrase, squashed)
+
     def test_every_behaviour_and_error_is_cited(self):
         doc = spec_document(spec_text())
         text = " ".join(skill_texts().values())
@@ -230,7 +261,8 @@ class Skill(unittest.TestCase):
 
 
     def test_the_reviews_fixes_stay(self):
-        # skill-reviewer's C1 and S1 to S12: each phrase guards a VER grader or an error the reviewer found missing.
+        # The version 1 build's review fixes that version 2 keeps (C1, S1 to S12, the later passes): each phrase
+        # guards a VER grader or an error a reviewer found missing.
         text = re.sub(r"\s+", " ", " ".join(skill_texts().values()))
         for phrase in ("never `not a screen` on the skill's own judgement",   # C1: VER-02 and VER-03
                        "never extract an ID from a path",                      # S1: ERR-02, VER-14
@@ -272,6 +304,30 @@ class References(unittest.TestCase):
                     self.assertEqual(lines[0][:2], "# ")
                     self.assertEqual(lines[2], "## Contents")
 
+    def test_briefs_md_holds_dm_05(self):
+        text = (SKILL / "references/briefs.md").read_text()
+        order = ["1. Lead line", "2. Context", "3. Content", "4. Must-haves", "5. Style", "6. Closing line"]
+        self.assertEqual([part.split(". ")[1] for part in order], BRIEF_PARTS)
+        positions = [text.index(part) for part in order]
+        self.assertEqual(positions, sorted(positions))
+        # The shape, a terminal flow's worked example and a web flow's: the closing line is exact in each.
+        self.assertGreaterEqual(text.count(CLOSING_LINE), 3)
+        self.assertNotIn("<!--", text)                                # a brief holds no HTML comment
+        self.assertNotRegex(text, r"#[0-9a-fA-F]{6}\b")               # nor a hex value
+        squashed = re.sub(r"\s+", " ", text)
+        for phrase in ("describes the problem and never prescribes the solution", "propose one",
+                       "monospace cell grid", "one brief for each confirmed flow", "never invented"):
+            with self.subTest(phrase):
+                self.assertIn(phrase, squashed)
+
+    def test_canvas_md_holds_the_canvas_and_the_import(self):
+        text = re.sub(r"\s+", " ", (SKILL / "references/canvas.md").read_text())
+        for phrase in ("project/canvas.json", "at most 4", "out_dir", "--sha-file", "sha256", "title1", "<a href",
+                       "is_interactive", "scratchpad", "flat", "version identifier", "Import the canvas now",
+                       "Use the copy as it is", "Draw ", "ERR-19", "ERR-20", "ERR-21", "ERR-23", "Next step"):
+            with self.subTest(phrase):
+                self.assertIn(phrase, text)
+
     def test_output_rules_ends_with_the_self_check_list(self):
         text = (SKILL / "references/output-rules.md").read_text()
         tail = text.split("## Self-check list")[-1]
@@ -295,6 +351,13 @@ class Template(unittest.TestCase):
         text = re.sub(r"<!--.*?-->", "", self.raw, flags=re.S)
         text = re.sub(r"```.*?```", "", text, flags=re.S)
         self.assertEqual([l.rstrip() for l in text.splitlines() if re.match(r"^##(?!#)\s", l)], fixed)
+
+    def test_section_4_and_the_comments_say_import_not_copy_by_hand(self):
+        # SPEC-017 §11: the version 1 prose ('the user copies the boards', 'never fetches') is replaced.
+        for stale in ("never fetches", "copies the boards", "the user gave"):
+            with self.subTest(stale):
+                self.assertNotIn(stale, self.raw)
+        self.assertIn("imported", self.raw)
 
     def test_boards_block_and_tables(self):
         self.assertEqual(self.raw.count("```yaml items\nboards:\n"), 1)
@@ -351,7 +414,7 @@ class Spec(unittest.TestCase):
             for item in doc[key]:
                 with self.subTest(item["id"]):
                     self.assertIn(item["id"], covered)
-        for item in ("IF-01", "IF-02", "IF-03", "IF-04"):
+        for item in ("IF-01", "IF-02", "IF-03", "IF-04", "IF-05"):
             self.assertIn(item, covered)
 
 
