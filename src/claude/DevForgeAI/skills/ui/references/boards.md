@@ -38,7 +38,8 @@ canvas, opens a URL or calls `/design`.
 ## What the commands print
 
 - `next`: `next: DSN-NNN`, the ID a create run uses, then `pending boards folders: DSN-NNN, … | none`: boards
-  folders whose number has no DSN document. One under another number is the likely reason for ERR-03.
+  folders whose number has no DSN document, the next number's own folder left out. One under another number is
+  the likely reason for ERR-03.
 - `boards <ID>`, success: `canvas.json: v3, <n> boards`, then one line for each board in canvas order,
   `board <k> <file> <bytes> <lines> <sha256>`, then `boards: ok`. Keep these lines: the digests go into the
   board items, and the order is the order of the items.
@@ -99,6 +100,11 @@ Every board without a fact line is unchanged.
 - `fact: idea IDEA-NN: no row` — a promoted idea section 3 lacks. Add a row, and ask about it.
 - `fact: idea IDEA-NN: no longer promoted` — see "Amend runs: a BRN that has moved".
 - `fact: links: BRN-NNN at version <N>, the BRN is at <M>` — see "Amend runs: a BRN that has moved".
+
+**Count the new boards before asking anything.** `boards` sees only `canvas.json`'s count, so it cannot catch
+ERR-12 in an amend run. Add the number of `new` boards to the highest BRD number in the DSN, deprecated items
+included. If the sum is above 99, stop with ERR-12: write nothing, give the sum as the number needed and the
+limit of 99, and ask the owner to split the canvas or change the spec.
 
 After every change to the items, `upstream` holds one item link for each distinct idea an active board names (a
 kept `withdrawn` idea included) and no other: add a link for a newly named idea, and drop the link of an idea
