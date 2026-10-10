@@ -4,7 +4,7 @@
 > document is built. At that point the template moves into that skill's `assets/`. Documents made from
 > them are written under `docs/specs/` in the project.
 
-Templates for the planning chain **Brainstorm → PRD → Architecture (ARCH) → Epic → Story → Specification**,
+Templates for the planning chain **Brainstorm → UI design (DSN, optional) → PRD → Architecture (ARCH) → Epic → Story → Specification**,
 with **Context** documents between Architecture and Story, **Sprint** as a scheduling overlay and **ADR**
 for design decisions.
 Every template conforms to the conventions in this file and to the JSON Schemas in
@@ -13,6 +13,7 @@ Every template conforms to the conventions in this file and to the JSON Schemas 
 | Template | Answers | Acceptance content |
 |---|---|---|
 | [brainstorm.md](../claude/DevForgeAI/skills/brainstorm/assets/brainstorm.md) | What could we build, and why? | None (only candidate success signals) |
+| [dsn.md](../claude/DevForgeAI/skills/ui/assets/dsn.md) | Which screens does the release have, and which flow and ideas does each show? | None; board items (`BRD-`) mapped to flows, surfaces and promoted ideas, from boards committed under `design/DSN-NNN/boards/` (ADR-007; schema `design.schema.json`) |
 | [prd.md](../claude/DevForgeAI/skills/prd/assets/prd.md) | What are we building, for whom, and how do we measure success? | Success metrics (`SM-`), not testable AC |
 | [epic.md](../claude/DevForgeAI/skills/epic/assets/epic.md) | What large slice of value are we delivering? | "Done when" criteria (`DW-`) spanning stories |
 | [sprint.md](sprint.md) | What are we doing in this time-box? | None (references story AC and the sprint goal) |
@@ -79,6 +80,7 @@ Anything a link can point at is an item block. Anything that needs judgment or n
 |---|---|---|---|
 | brainstorm | `problems` | `PRB-NN` | `statement`, `who`, `evidence`, `severity` |
 | brainstorm | `ideas` | `IDEA-NN` | `idea`, `addresses`, `value`, `effort`, `risk`, `score`, `disposition`, `reason` |
+| design | `boards` | `BRD-NN` | `file`, `title`, `flow`, `surface`, `ideas`, `answers`, `sha256`, `notes` (no `upstream`; SPEC-017 DM-02) |
 | brainstorm, prd | `assumptions` | `ASM-NN` | `statement`, `validation`, `state` |
 | prd | `success_metrics` | `SM-NN` | `metric`, `baseline`, `target`, `measured_by` |
 | prd | `functional_requirements` | `FR-NNN` | `statement`, `priority`, `release`, `notes` |
@@ -132,6 +134,7 @@ IDs are **flat, stable, and never reused**. An ID never encodes its parent
 | Prefix | Artifact | File name | Status |
 |---|---|---|---|
 | `BRN-NNN` | Brainstorm | `brainstorm/BRN-NNN.md` | templated |
+| `DSN-NNN` | Design document: a release's screen designs (ADR-007, SPEC-017) | `design/DSN-NNN.md`; its boards in `design/DSN-NNN/boards/` | templated |
 | `PRD-NNN` | Product Requirements Document | `prd/PRD-NNN.md` | templated |
 | `EPIC-NNN` | Epic | `epic/EPIC-NNN.md` | templated |
 | `SPR-NNN` | Sprint | `sprint/SPR-NNN.md` | templated |
@@ -217,7 +220,7 @@ downstream views (a PRD's epics, a story's specs and tests, a traceability matri
 
 | Relation | Typical owner → target | Meaning |
 |---|---|---|
-| `derives` | PRD item → BRN item | Extracted from a brainstorm problem, idea or assumption |
+| `derives` | PRD item → BRN item, DSN → BRN and DSN → BRN idea | Extracted from a brainstorm problem, idea or assumption |
 | `refines` | EPIC → PRD item, STORY → EPIC | Narrows scope into a smaller deliverable |
 | `satisfies` | AC → FR/NFR/DW, QR → NFR | Demonstrates or meets that requirement |
 | `specifies` | SPEC → STORY | Defines how the story's AC will be met |
@@ -236,6 +239,7 @@ which stories are in a sprint, and stories carry no `sprint:` field.
 |---|---|
 | brainstorm | `draft → converged → archived` |
 | prd, epic, spec | `draft → in-review → approved → superseded / deprecated` |
+| design | `draft → in-review → approved → superseded / deprecated`; an amend of an approved DSN returns it to `in-review` (SPEC-017 BEH-13) |
 | story | `draft → ready → in-progress → in-review → done` (also `blocked`, `cancelled`) |
 | sprint | `planned → active → closed` |
 | adr | `proposed → accepted → superseded / deprecated / rejected` |
