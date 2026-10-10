@@ -12,7 +12,7 @@ work.
 DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.31.0 in
 `src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
 Brainstorm → UI → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
-Architecture and Epic are built; `ui` (optional) is specified (SPEC-017 v2, approved) and its rebuild to v2 is in progress (the first build is held); `context` writes the project context documents between Architecture
+Architecture and Epic are built; `ui` (optional, SKL-013 v2) designs a release's screens in Claude Design and records them as a DSN; `context` writes the project context documents between Architecture
 and Story. Each skill implements an approved or in-review spec in `docs/specs/spec/`, and its eval
 suite is the evidence that it works. Each spec's §9 holds the build and eval record (results folders,
 bound commit, scores, cost, manual VER items run and not run); its §13 holds open questions; its
@@ -32,7 +32,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
 | `story` | SKL-008, reserved | SPEC-009 v4, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
-| `ui` | SKL-013 v1, draft (held) | SPEC-017 v2, approved 2026-10-10 | v1 build held: Bryan reversed its rule on 2026-10-10 (SPEC-017 §9); the rework to v2 is in progress | — (PR #110, draft) |
+| `ui` | SKL-013 v2, draft | SPEC-017 v2, approved 2026-10-10 | v2: e2e 1 run, every case ≥ 0.8; triggers 13 of 13 on sonnet and opus (negatives 10 of 10); 3-run qualification waived by Bryan; manual VER-43 to VER-49 not run (SPEC-017 §9) | PR #110 (0.31.0) |
 
 - The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3, which is not
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
