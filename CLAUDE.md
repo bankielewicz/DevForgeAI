@@ -11,8 +11,8 @@ work.
 
 DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.31.0 in
 `src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
-Brainstorm → UI → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, UI, PRD,
-Architecture and Epic are built (UI is optional: it records the release's screen designs from committed boards); `context` writes the project context documents between Architecture
+Brainstorm → UI → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
+Architecture and Epic are built; `ui` (optional) is specified (SPEC-017 v2) and its first build is held; `context` writes the project context documents between Architecture
 and Story. Each skill implements an approved or in-review spec in `docs/specs/spec/`, and its eval
 suite is the evidence that it works. Each spec's §9 holds the build and eval record (results folders,
 bound commit, scores, cost, manual VER items run and not run); its §13 holds open questions; its
