@@ -444,7 +444,14 @@ There's one brainstorm with promoted ideas you can record a design from:
 
 Which brainstorm ID should I use? If it's BRN-001, run `/devforgeai:ui BRN-001`.
 """
-ALT_REPLIES = {"amend-candidates-left": [OBSERVED_LEFT], "amend-candidates-capped": [OBSERVED_CAPPED], "path-refused": [OBSERVED_PATH]}
+# ERR-17 as boards.md words it after the skill-reviewer's fixes (it also names the hand copy that version 1 asked for)
+REPLY_CURRENT_B = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. Nothing was written. Without the Artifact "
+                   "tool the canvas was not checked, and a board changed on the canvas is seen only when a run with the Artifact tool imports "
+                   "it, or when the boards are copied into the folder again by hand.\n")
+ALT_REPLIES = {"amend-candidates-left": [OBSERVED_LEFT], "amend-candidates-capped": [OBSERVED_CAPPED], "path-refused": [OBSERVED_PATH],
+               "amend-nothing-to-do": [REPLY_CURRENT_B], "amend-nothing-with-prd": [REPLY_CURRENT_B],
+               "amend-nothing-with-unrelated-documents": [REPLY_CURRENT_B],
+               "amend-nothing-with-unasked-candidate": [REPLY_CURRENT_B.rstrip("\n") + " One candidate (PRD-001 FR-024) waits for an interactive run.\n"]}
 
 # --------------------------------------------------------------------------------------------------------
 # The targeted wrong runs: (label, edits, the graders that must fail, and no others). An edit is
