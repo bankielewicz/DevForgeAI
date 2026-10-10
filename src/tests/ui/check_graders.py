@@ -315,6 +315,74 @@ for i, (fires, _) in enumerate(M.TRIGGERS, start=1):
 for name in ("ui-trigger-01", "ui-trigger-07"):
     GOOD2.pop(name)
 
+# Final replies of suite run 1 (ui-suite1-20261010T020051, 2ace6b9), whose wording the graders refused: each must pass
+# every grader of its case with the primary correct run's files.
+OBSERVED_LEFT = """\
+```
+Design document: DSN-001 (v2, draft; amended)
+Boards: docs/specs/design/DSN-001/boards/ · 4 · version 1791580000-c3d4
+Flows: report and home (2), shifts (2)
+Boards with no idea: none
+Ideas with no board: none
+Markers left: none
+OK docs/specs/design/DSN-001.md
+```
+
+I updated DSN-001 to version 2. It is still a draft.
+
+**Pre-check results**
+- `dsn_check.py boards DSN-001` found 4 boards in the copy and ended with `boards: ok`. The other three boards (Home, List and Add) are identical to the last copy.
+- `dsn_check.py check --before-amend DSN-001` printed one difference, `fact: board Report.dc.html: changed`, and ended with `OK docs/specs/design/DSN-001.md (before amend)`.
+- All four boards were read in full; none was cut short.
+
+**What changed in DSN-001**
+- **Report board (BRD-04):** the file fingerprint is updated. Its mapping is unchanged, as you said: flow report and home, surface web, IDEA-03.
+- **Canvas version:** now `1791580000-c3d4`, in the frontmatter and in section 4.
+- **Version and log:** version 1 → 2, `updated` set to 2026-10-10, and one Change Log row added.
+- **Not changed:** the links to BRN-001 v1 are still current, so none were moved.
+
+**Check:** one check after the edits passed (`OK docs/specs/design/DSN-001.md`), and no repairs were needed.
+
+**Screen requirements not mapped yet:** PRD-001 v2 has 6 requirements that name a screen and that no board answers yet: FR-025 (summary), FR-026 (edit), FR-027 (delete confirmation), FR-028 (dashboard), FR-029 (help) and FR-030 (monthly). You said not to ask questions, so I didn't put them to you. They wait for an interactive run, and PRD-001 is not yet added to `considered`.
+
+**Not reviewed or approved:** nobody has reviewed version 2 yet. Since you said not to ask questions, I didn't offer approval.
+
+Next step: no other document cites DSN-001, so nothing needs re-checking against version 2. Run `/devforgeai:prd BRN-001` and add DSN-001 to the PRD's section 8 by hand, because the prd skill doesn't link it yet. To map the 6 screen requirements to boards, run `/devforgeai:ui BRN-001` again without "proceed without questions".
+"""
+OBSERVED_CAPPED = """\
+Design document: DSN-001 (v2, draft; amended)
+Boards: docs/specs/design/DSN-001/boards/ · 4 · version 1791580000-c3d4
+Flows: report and home (2), shifts (2)
+Boards with no idea: none
+Ideas with no board: none
+Markers left: none
+OK docs/specs/design/DSN-001.md
+
+- **Board check:** `dsn_check.py boards DSN-001` passed with `boards: ok`. It found 4 boards in format v3.
+- **Pre-check:** `dsn_check.py check --before-amend DSN-001` printed `OK docs/specs/design/DSN-001.md (before amend)`. Its only `fact:` line was `fact: board Report.dc.html: changed`. No board was added or removed, and the links to BRN-001 v1 are still current.
+- **Report board:** As you said, Report's mapping is unchanged: flow report-and-home, surface web, IDEA-03. Only its file fingerprint (`sha256`) was updated.
+- **Canvas version:** now 1791580000-c3d4. The canvas URL and "date of the copy: not given" are unchanged.
+- **Boards read:** all four were read in full; none was cut short.
+- **Declined requirements:** PRD-001 v2 has 13 requirements that name a screen. A run can put at most 12 to you, so your decline covers FR-025 to FR-036. They're recorded as declined in `considered`.
+- **Left for a later run:** FR-037, the print screen. Because of that, `PRD-001@2` isn't recorded as fully considered yet. There's no ADR folder, so no ADRs were read.
+- **Final check:** `OK docs/specs/design/DSN-001.md` on the first try, with no repairs. The read-back against the self-check list also passed.
+- **Review:** version 2 hasn't been reviewed. Its status is still draft. As you asked, I didn't offer approval.
+
+Next step: no other document cites DSN-001, so nothing needs a second look because of this change. Run `/devforgeai:prd BRN-001` when you're ready, and link DSN-001 in PRD section 8 by hand, since the prd skill doesn't do that yet.
+"""
+OBSERVED_PATH = """\
+I didn't write anything. This skill needs a brainstorm ID like `BRN-001` (or `approve DSN-NNN`), and it doesn't accept file paths. That includes a path to a brainstorm file such as `docs/specs/brainstorm/BRN-001.md`, so I didn't pull the ID out of it.
+
+There's one brainstorm with promoted ideas you can record a design from:
+
+| BRN | Title | Status | Promoted ideas | Design document (DSN) that cites it |
+|---|---|---|---|---|
+| BRN-001 | Shiftlog: record shifts | converged | 5 | none |
+
+Which brainstorm ID should I use? If it's BRN-001, run `/devforgeai:ui BRN-001`.
+"""
+ALT_REPLIES = {"amend-candidates-left": [OBSERVED_LEFT], "amend-candidates-capped": [OBSERVED_CAPPED], "path-refused": [OBSERVED_PATH]}
+
 # --------------------------------------------------------------------------------------------------------
 # The targeted wrong runs: (label, edits, the graders that must fail, and no others). An edit is
 # ("file", path, old, new) or ("reply", None, old, new); "calls" replaces the tool calls.
@@ -662,6 +730,11 @@ def main():
             code, out = script_check(case, files)
             if code != 0:
                 problems.append(f"{name}: the correct run fails dsn_check.py check:\n{out}")
+        for i, alt in enumerate(ALT_REPLIES.get(name, []), start=1):
+            observed = grade(case, files, alt)
+            runs += 1
+            if failing(observed):
+                problems.append(f"{name}: the observed reply {i} fails {sorted(failing(observed))}")
         if name in TOLERATE_OFFER:
             at = reply.rindex("Next step")
             offered = grade(case, files, reply[:at] + OFFER + "\n\n" + reply[at:])

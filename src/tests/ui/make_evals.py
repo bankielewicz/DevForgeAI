@@ -1191,7 +1191,9 @@ def unknown_brn():
 def path_refused():
     return no_dsn_written("ver14") + nothing_written("ver14", "design") + [
         reply("ver14-says-paths-are-not-accepted", NOT_ACCEPTED),
-        reply("ver14-asks-for-the-brn-id", r"\bBRN\b[^\n]*\?|\b(?:give|provide|tell|name|send|pick|choose|say|supply)\b[^\n]{0,60}\bBRN\b")]
+        # a brainstorm ID is the BRN ID; a question or a request, not the statement that the skill takes one
+        reply("ver14-asks-for-the-brn-id", r"\b(?:BRN|brainstorm)\b[^\n]*\?|\bwhich\b[^\n]{0,80}\bID\b|"
+              r"\b(?:give|provide|tell|name|send|pick|choose|say|supply)\b[^\n]{0,60}\b(?:BRN|brainstorm)\b")]
 
 
 def unconverged_brn():
@@ -1479,16 +1481,22 @@ def approval_superseded_dsn():
 
 def approval_without_id():
     return [unchanged("ver37-dsn-001-unchanged", DSN1, DSN_B), reply("ver37-lists-the-dsns", r"DSN-001"),
-            reply("ver37-asks-for-the-dsn-id", r"\bDSN\b[^\n]*\?|\b(?:give|provide|tell|name|send|pick|choose|say|supply)\b[^\n]{0,60}\bDSN\b")]
+            reply("ver37-asks-for-the-dsn-id", r"\b(?:DSN|design)\b[^\n]*\?|\bwhich\b[^\n]{0,80}\b(?:DSN|design)\b|"
+                  r"\b(?:give|provide|tell|name|send|pick|choose|say|supply)\b[^\n]{0,60}\b(?:DSN|design)\b")]
+
+
+LATER_RUN = (r"\b(?:later|future|another|subsequent|interactive)\s+(?:run|session)\b|\bnext run\b|\bleft for later\b|"
+             r"\bwait\w*\b[^\n]{0,40}\b(?:run|session)\b")
 
 
 def candidates_left():
     return [rx("ver38-version-2", DSN1, fm_has(r"version:[ \t]*2" + EOL)),
             rx("ver38-considered-does-not-hold-prd-001-at-2", DSN1, fm_has(considered_has("PRD-001@2")), match="not_contains"),
             rx("ver38-considered-holds-no-declined-entry", DSN1, r"considered:[^\n]*declined:", match="not_contains"),
+            # the skill says "candidates" and also "wait for an interactive run" (SKILL.md step 2): a reply may call them requirements
             reply("ver38-says-six-candidates-were-left",
-                  r"(?:\bsix\b|\b6\b)[^\n]{0,80}\bcandidates?\b|\bcandidates?\b[^\n]{0,80}(?:\bsix\b|\b6\b)"),
-            reply("ver38-says-for-a-later-run", r"\blater run\b|\bnext run\b|\bfuture run\b|\bleft for later\b")]
+                  r"(?:\bsix\b|\b6\b)[^\n]{0,80}\b(?:candidates?|requirements?)\b|\b(?:candidates?|requirements?)\b[^\n]{0,80}(?:\bsix\b|\b6\b)"),
+            reply("ver38-says-for-a-later-run", LATER_RUN)]
 
 
 def candidates_declined():
@@ -1507,7 +1515,7 @@ def candidates_capped():
           rx("ver38-considered-does-not-hold-prd-001-at-2", DSN1, fm_has(considered_has("PRD-001@2")), match="not_contains"),
           reply("ver38-says-one-candidate-was-left",
                 r"\b(?:one|1)\b[^\n]{0,60}\bcandidate\b[^\n]{0,80}\b(?:left|later)|\bcandidate\b[^\n]{0,80}\b(?:left|later)\b[^\n]{0,60}\b(?:one|1)\b"
-                r"|FR-037[^\n]{0,80}\b(?:left|later)\b")]
+                r"|FR-037[^\n]{0,80}\b(?:left|later)\b|\b(?:left|later)\b[^\n]{0,80}FR-037")]
     return g
 
 
