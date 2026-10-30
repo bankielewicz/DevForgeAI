@@ -303,7 +303,12 @@ class Skill(unittest.TestCase):
                 "step 10 included",
                 "The order is the block, the checklist, the findings, then the Next step paragraph, then nothing.",
                 "each brief in full in a fenced block",                            # BEH-23, #115: a brief is shown first
-                "preview repeats the briefs",
+                "each brief in full in its own fenced block",                    # step 4 words it as an instruction
+                "put the same briefs in the \"Create the canvas\" option's preview",
+                "`run stopped at ERR-NN`",                                        # a form to copy for a step not reached
+                "first reply is also its last",                                   # the checklist appears once there
+                "plus one more after a publish that the tool refuses",            # BEH-29: the one retry
+                "K taken from the latest `boards` output",                        # BEH-06: a stale K reads another board
                 "text written in the same turn before a question is not reliably shown",
                 "no file name is ever put on a command line",                     # BEH-06, #118: head takes a position
                 "one plain `read` of the canvas URL",                             # BEH-29, #117 and #121
@@ -311,6 +316,7 @@ class Skill(unittest.TestCase):
             ],
             "references/canvas.md": [
                 "no `paths`",                                                     # BEH-29
+                "preview repeats the briefs",                                     # BEH-23, #115
                 "haven't viewed the latest version",                              # BEH-27, BEH-29: one more plain read, one retry
                 "a second refusal is ERR-23",
                 "owned by you, private",                                          # BEH-29, #121
@@ -326,6 +332,7 @@ class Skill(unittest.TestCase):
                 "nested too deeply",                                              # ERR-04, #125
                 "Never grep or run `ls` in Bash",                                 # BEH-07: the Grep tool only
                 "head <ID> <K>",                                                  # IF-04, #118
+                "latest `boards` output",
             ],
             "references/briefs.md": ["each in full, in a fenced block"],          # ERR-19, ERR-22, #115
             "references/output-rules.md": [

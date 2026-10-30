@@ -217,12 +217,14 @@ approved, with the errors. If the undo fails, report "approval rollback failed" 
 ## The report
 
 Step 10 of SKILL.md gives the block and the next step. These are the rules of each line and of what follows. The
-final reply is the block, then the checklist, then the findings, then the Next step paragraph.
+final reply is the block, then the checklist, then the findings, then the Next step paragraph. A run whose first
+reply is also its last shows the checklist once, ticked, there.
 - **The checklist** is the ten lines of SKILL.md's Workflow with their titles, repeated right after the block
   (BEH-01), every line ticked `- [x] N. <title>` and step 10 included, so that the tracker sees the run reach
   step 10. A step the run did not do is written in the ticked skipped form on its own line,
   `- [x] N. <title> (skipped: <reason>)`: never as prose ("steps 3 to 5 were skipped") and never as an unticked
-  box.
+  box. The reason is the one that fits (SKILL.md, Workflow): `not needed on this route`, `run stopped at ERR-NN`
+  or `run ended after the canvas; run again to import`.
 - **`Boards`** is printed in a create and in an amend run and names the copy in the boards folder that the run
   read: `boards_root`, the number of active boards, and `canvas_version` or `unknown`.
 - **`Flows`** lists the flows in the order they first appear in the boards block, each hyphen shown as a space,
@@ -256,7 +258,8 @@ final reply is the block, then the checklist, then the findings, then the Next s
   without confirmation, ERR-16 to ERR-24, ERR-13 without a save, and an approval-only request for an approved
   DSN. A run that ends after making a canvas has the canvas report in its place (the canvas reference).
   ERR-11's report replaces the block and the next step. Each of those replies states why the run stopped, or
-  gives the canvas report, and then repeats the checklist all the same.
+  gives the canvas report, and then repeats the checklist all the same. Any briefs such a reply shows (ERR-19,
+  ERR-22, ERR-23, the canvas report) follow the checklist.
 
 ## Checking with dsn_check.py
 

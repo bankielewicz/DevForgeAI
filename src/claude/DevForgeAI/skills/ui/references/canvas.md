@@ -79,7 +79,8 @@ turn before a question is not reliably shown, so a brief is shown twice:
   briefs.
 
 The same holds wherever the skill shows a brief: the amend run's question (BEH-27) and the replies of ERR-19,
-ERR-22 and ERR-23, each brief in full in a fenced block.
+ERR-22 and ERR-23, each brief in full in a fenced block. In a reply that ends the run, the briefs follow the
+checklist, as the canvas report's do (below).
 
 ## Making the canvas (BEH-23)
 
