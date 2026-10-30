@@ -1,4 +1,4 @@
-"""Generates evals/ui/<case>/ for the ui skill (SPEC-017 §9, QR-03, VER-01 to VER-22 and VER-30 to VER-38): prompts,
+"""Generates evals/ui/<case>/ for the ui skill (SPEC-017 §9, QR-03, VER-01 to VER-22, VER-30 to VER-41 and VER-50): prompts,
 graders, case.yaml and an inline scaffold per case.
 
 Every fixture is built once here: BRN-001 and the four boards of SPEC-017 §9's shared fixture, the DSNs, PRDs, ADRs
@@ -1020,6 +1020,7 @@ Settings are web screens in the flow report-and-home, in that order; List and Ad
 shifts, in that order. Home shows IDEA-02; List shows IDEA-02; Add shows IDEA-01; Report shows IDEA-03; Settings shows
 IDEA-06. IDEA-04 names no screen. Proceed without questions."""
 PROMPT_DESIGN = "Design the UI for BRN-001. Proceed without questions."
+PROMPT_ONE_FLOW = "Design the UI for BRN-001 as one flow for the whole release. Proceed without questions."
 PROMPT_UNCONFIRMED = "Record the UI design for BRN-001. Proceed without questions."
 APPROVAL_WORDS = "I'm Example Owner, and I approve DSN-001."
 CANVAS_NOW = "Update the UI design for BRN-001. I copied the boards again from the canvas, version {v}."
@@ -1069,7 +1070,8 @@ def writes_dsn():
     g += [reply("ver01-says-copy-recorded-as-it-is", COPY_RECORDED_AS_IS),
           reply("ver01-says-no-artifact-tool-in-this-session", NO_ARTIFACT),
           reply("ver01-says-canvas-not-checked", CANVAS_NOT_CHECKED)]
-    return g
+    # the copy path: the canvas steps 3 to 5 are not done (VER-50)
+    return g + ver50(ANCHOR_OK_LINE, (3, 4, 5))
 
 
 def coverage_and_report():
@@ -1125,7 +1127,8 @@ def no_boards_stops():
               r"\bagain\b[^\n]{0,160}\b(?:record\w*)\b|\b(?:record\w*)\b[^\n]{0,160}\b(?:run|runs|rerun|re-run)\b[^\n]{0,40}\bagain\b|"
               r"\brecord\w*\b[^\n]{0,160}\b(?:next|following|later)\s+(?:run|time|session)\b|"
               r"\b(?:next|following|later)\s+(?:run|time|session)\b[^\n]{0,160}\brecord\w*\b"),
-        rx("ver04-no-drawing", "last_message", NO_DRAWING, match="not_contains", witness="\n┌──────┐\n│ Home │\n└──────┘\n")]
+        rx("ver04-no-drawing", "last_message", NO_DRAWING, match="not_contains", witness="\n┌──────┐\n│ Home │\n└──────┘\n")
+    ] + ver50(ANCHOR_STATEMENT, (6, 7, 8, 9))   # a run that stops before it writes: steps 6 to 9 are not done (VER-50)
 
 
 def boards_without_canvas_json():
@@ -1463,6 +1466,12 @@ def amend_adr_consequence():
     return g
 
 
+# A board changed on the canvas is seen only when a run with the tool imports it (ERR-17, VER-33). The checklist that closes every
+# reply (VER-50) has a title that holds the words 'import its boards', so this names what is seen and what sees it.
+CHANGE_SEEN_BY_IMPORT = (r"\b(?:board|canvas|change)\w*\b[^\n]{0,120}\b(?:seen|noticed|picked up|detected|found|shows? up|visible)\b[^\n]{0,80}"
+                         r"\bimport\w*|\bimport\w*\b[^\n]{0,80}\b(?:sees?|shows?|reads?|picks? up|notices?)\b[^\n]{0,60}\b(?:board|canvas|change)")
+
+
 def amend_nothing(dsn_text, unasked=False):
     """ERR-17 (version 2): the DSN is current, its version and the canvas version it records, and that the canvas was not
     checked and a change on it is seen only when a run with the tool imports it (version 1 said the boards were copied
@@ -1471,8 +1480,7 @@ def amend_nothing(dsn_text, unasked=False):
          reply("ver33-gives-version-1", r"\b(?:version[ \t]*|v)1\b"),
          reply("ver33-gives-the-recorded-canvas-version", esc(CANVAS_VERSION)),
          reply("ver33-says-canvas-not-checked", CANVAS_NOT_CHECKED),
-         reply("ver33-says-a-change-is-seen-by-an-import",
-               r"\bimport(?:s|ed|ing)?\b[^\n]{0,100}\b(?:board|canvas|change)|\b(?:board|canvas|change)\w*[^\n]{0,100}\bimport")]
+         reply("ver33-says-a-change-is-seen-by-an-import", CHANGE_SEEN_BY_IMPORT)]
     if unasked:
         # the candidate is left unasked under "proceed without questions": nothing is written, and the reply counts it
         g += [reply("ver33-says-one-candidate-waits",
@@ -1511,7 +1519,8 @@ def approval_only_run():
           rx("ver34-next-step-names-prd", "last_message", next_step_has(PRD_CMD), flags="i"),
           rx("ver34-next-step-is-last", "last_message", NEXT_STEP_LAST),
           rx("ver34-asks-nothing", "last_message", r"\?", match="not_contains", witness="\nShall I continue?\n")]
-    return g
+    # an approval-only run does steps 1, 8, 9 and 10 only (SKILL.md)
+    return g + ver50(ANCHOR_APPROVED_BLOCK, (2, 3, 4, 5, 6, 7))
 
 
 def plain_run_never_approves():
@@ -1559,92 +1568,158 @@ ONLY_DRAFT_OR_IN_REVIEW = (r"\bonly\b[^\n]{0,80}\bdraft\b[^\n]{0,60}\bin[- ]revi
                            r"\bin[- ]review\b[^\n]{0,60}\bonly\b|\bonly\b[^\n]{0,80}\bin[- ]review\b[^\n]{0,60}\bdraft\b")
 
 
-BRIEF_PARTS_IN_ORDER = (r"\bContext\b[\s\S]*\bContent\b[\s\S]*\bMust[- ]haves?\b[\s\S]*\bStyle\b[\s\S]*" + esc(BRIEF_CLOSING))
+# --------------------------------------------------------------------------------------------------------
+# VER-50 (SPEC-017 version 3, #116): the final reply repeats the ten-line checklist, every line ticked, a step not done in the form
+# `- [x] N. <title> (skipped: <reason>)`. The patterns are the tracker's (SPEC-012 BEH-05): `- [x] N.` claims step N done, and a line
+# of `- [ ]` or `- [x]` that ends `(skipped: <reason>)` claims it skipped; an unticked box claims nothing.
+
+CHECK_LINE = r"(?:^|\n)[ \t]*[-*][ \t]*\[[ xX]\][ \t]*\d+\."
+UNTICKED_LINE = r"(?:^|\n)[ \t]*[-*][ \t]*\[ \][ \t]*\d+\."
+NEXT_STEP_START = r"(?:^|\n)[ \t]*(?:\*\*|__)?Next step\b"
+CHECKLIST_STEPS = range(1, 11)
+
+
+def done_line(n):
+    return r"[ \t]*[-*][ \t]*\[[xX]\][ \t]*" + str(n) + r"\.[ \t]*\S[^\n]*"
+
+
+def skipped_line(n):
+    return (r"(?:^|\n)[ \t]*[-*][ \t]*\[[xX]\][ \t]*" + str(n) + r"\.[^\n]*\(skipped:[ \t]*[^\s)][^\n]*\)[ \t]*(?=\n|$)")
+
+
+def ten_ticked(anchor):
+    """The ten lines are consecutive, ticked, in order and once each (no other checklist line in the reply), after `anchor` (the report's
+    block, or the statement of why the run stopped) and before any Next step paragraph."""
+    before = r"(?:(?!" + CHECK_LINE + "|" + NEXT_STEP_START + r")[\s\S])*?"
+    block = r"(?:^|\n)" + r"\n".join(done_line(n) for n in CHECKLIST_STEPS)
+    return "^" + before + anchor + before + block + r"(?:(?!" + CHECK_LINE + r")[\s\S])*$"
+
+
+def skipped_in_ticked_form(must_skip, must_do=(1, 10)):
+    """Each step the run did not do is a ticked line ending (skipped: reason); a step it did is not; no unticked line, and no sentence
+    like 'steps 3 to 5 were skipped' stands in for one."""
+    prose = (r"(?:^|\n)(?![ \t]*[-*][ \t]*\[)[^\n]*\bsteps?[ \t]+\d+\b[^\n]{0,80}\b(?:skipped|not done|not run|omitted)\b")
+    return ("^" + "".join(f"(?=[\\s\\S]*{skipped_line(n)})" for n in must_skip)
+            + "".join(f"(?![\\s\\S]*{skipped_line(n)})" for n in must_do)
+            + f"(?![\\s\\S]*{prose})(?![\\s\\S]*{UNTICKED_LINE})")
+
+
+def ver50(anchor, must_skip):
+    return [reply("ver50-ten-ticked-lines", ten_ticked(anchor)),
+            reply("ver50-skipped-lines-in-ticked-form", skipped_in_ticked_form(must_skip))]
+
+
+# the report block's last line, the one-line block of an approval, and the first word of a statement
+ANCHOR_OK_LINE = r"OK " + esc(f"{DESIGN}/DSN-001.md") + r"[ \t]*"
+ANCHOR_APPROVED_BLOCK = r"Design document:(?:\*\*)?[ \t]*DSN-001 \(v\d+, [^\n)]*\)[ \t]*"   # approved, or not approved (BEH-17)
+ANCHOR_STATEMENT = r"\S"
+
+
 GRID_OR_SIZE = (r"\b\d{2,3}\s*(?:columns?|cols?)\s*(?:by|x|×|\*)\s*\d{2,3}\s*rows?\b|\b\d{3,4}\s*(?:px|pixels?)\b|"
                 r"\b\d{3,4}\s*(?:x|×|by)\s*\d{3,4}\b")
+CELL_GRID = r"\b\d{2,3}\s*(?:columns?|cols?)\s*(?:by|x|×|\*)\s*\d{2,3}\s*rows?\b"
 UNCONFIRMED = (r"\bun-?confirmed\b|\bnot (?:yet )?confirmed\b|\bawaiting (?:your )?confirmation\b|\bneeds? (?:your |the user" + APOS
                + r"s )?confirmation\b|\bto confirm\b|\bhaven" + APOS + r"t confirmed\b|\bpending confirmation\b")
-IDEA_TEXTS = (r"Add a shift from the terminal|List shifts in a table|A weekly report page|A dark theme for the report page")
-# The harness's judge is told to answer with one word and keeps no reasons (its votes are PASS or FAIL, a reply with both words
-# counts as FAIL), so the briefs are judged by six narrow rubrics, three of them for one span each of a brief, each with the facts
-# it needs, not one rubric of seven parts: a failing vote then says which part failed.
-BRIEF_FACTS = """\
-Everything the brainstorm behind the briefs (BRN-001, "Shiftlog: record shifts") says that a brief may quote:
-- The brainstorm's context section: Shift workers record when they start and stop work, and want to see the hours they worked
-  each week.
-- Problem PRB-01, raised by shift workers, evidence "Interview notes": "Workers lose track of the hours they worked each week".
-- Target users: Shift workers.
-- Promoted ideas: IDEA-01 "Add a shift from the terminal", IDEA-02 "List shifts in a table", IDEA-03 "A weekly report page" and
-  IDEA-06 "A dark theme for the report page". (IDEA-04 "Export shifts as CSV" names no screen; IDEA-05 "Sync to a server" is
-  parked.)
-- Assumption ASM-01: "We believe that workers will record shifts every day."
-- Candidate success signal: The hours worked each week are right (quoted as "The hours worked each week are right").
-"""
-BRIEF_SUPPORT = """\
-What the ideas support, in other words (not quotes):
-- Surfaces: IDEA-01 and IDEA-02 are screens of a terminal tool; IDEA-03 and IDEA-06 are a web page. A terminal flow and a web flow, and
-  a product called a terminal tool or a web app, are supported.
-- Jobs: add a shift (IDEA-01); see the recorded shifts in a table (IDEA-02); read the hours worked in a week on a report page
-  (IDEA-03), also in a dark theme (IDEA-06).
-"""
+IDEA_TEXTS = r"Add a shift from the terminal|List shifts in a table|A weekly report page|A dark theme for the report page"
+STATE = (r"\b(?:empty|error|loading|loads?|mid-flow|no shifts?|nothing (?:recorded|yet)|not yet recorded|cannot be saved|can" + APOS
+         + r"t be saved)\b")
+# What a Must-haves part may not say (SPEC-017 DM-05: a brief never prescribes the solution): a position, a spacing or a component.
+# A surface, a size and a cell grid ('120 columns by 40 rows') are constraints, not layout.
+LAYOUT = (r"\b(?:side ?bars?|headers?|footers?|toolbars?|nav ?bars?|top bars?|status bars?|tab bars?|panels?|panes?|cards?|tiles?|modals?|"
+          r"dialogs?|dropdowns?|buttons?|padding|margins?|spacing|gutters?|align(?:ed|ment)?|left[- ]hand|right[- ]hand|"
+          r"(?:top|bottom)[- ](?:left|right)|on the (?:left|right)|at the (?:top|bottom)|(?:two|three|four)[- ]columns?|above the|"
+          r"below the|next to the|beside)\b")
+
+# --------------------------------------------------------------------------------------------------------
+# VER-39 (SPEC-017 version 3): the briefs. The checks of the briefs' shape, the Content's shape and the Must-haves are regex graders
+# that read every brief of the reply; one judge stays, for what a regex cannot see: a fact the BRN does not hold (§9, §13 bf).
+# A brief is a fenced block (briefs.md, "Showing a brief"); a part is a label at the start of a line, bold, plain or with a colon.
+
+CLOSE = esc(BRIEF_CLOSING)
+CLOSE_LINE = r"\n[ \t]*" + CLOSE + r"[ \t]*(?=\n|$)"
+IN_BRIEF = r"(?:(?!```|" + CLOSE + r")[\s\S])*?"      # inside one fence, never across a closing line
+NOT_CLOSE = r"(?:(?!" + CLOSE + r")[\s\S])*?"
+FENCE_OPEN = r"(?:^|\n)```[^\n]*\n"
 
 
-def brief_span(label, nxt, other, criteria):
-    """A rubric for one span of each brief: the instruction first, then the criteria, then the facts (ui-v2-brief2: a judge that
-    answers one word applied 'adds nothing unsupported' to the lead line and the Must-haves, which other graders judge)."""
-    return (f"""\
+def part(label):
+    return r"(?:^|\n)[ \t]*(?:\*\*|__)?" + label + r"\b(?:\*\*|__)?[ \t]*:?(?:\*\*|__)?"
+
+
+CONTEXT, CONTENT, MUST, STYLE = part("Context"), part("Content"), part(r"Must[- ]haves?"), part("Style")
+# the lead line: the first line of the fence, which names the product and is not a part label
+LEAD = r"(?:[ \t]*\n)*[ \t]*(?!(?:\*\*|__)?(?:Context|Content|Must|Style)\b)[^\n]*\bShiftlog\b[^\n]*"
+TERM = r"[.!?][\"'”’)\]*_]*(?=\s|$)"                 # the end of a sentence: not the dot of 1.5 or dc.html
+
+
+def each_brief(inner):
+    """The whole reply is text with no closing line, and fenced blocks that each hold `inner` (ending with the closing line) and no
+    other closing line: every closing line ends a brief that sits in a fenced block of its own, and there is at least one."""
+    block = FENCE_OPEN + inner + IN_BRIEF + "```"
+    return "^" + NOT_CLOSE + "(?:" + block + NOT_CLOSE + ")+$"
+
+
+def span(label, stop, lacks):
+    """A part, from its label to the next part's, that holds nothing matching `lacks` (found = the violation)."""
+    return label + r"(?:(?!" + lacks + r")(?!" + stop + r")[\s\S])*" + stop
+
+
+def sentence(stop):
+    return r"(?:(?!" + TERM + r")(?!" + stop + r")[\s\S])*" + TERM
+
+
+# a Context of fewer than two sentences, or of four or more
+CONTEXT_WRONG_COUNT = (CONTEXT + "(?:(?:" + sentence(CONTENT) + r")?(?:(?!" + TERM + r")(?!" + CONTENT + r")[\s\S])*" + CONTENT
+                       + "|(?:" + sentence(CONTENT) + "){4})")
+# the number of constraints of a Must-haves is its clauses between semicolons, or its items on lines of their own; the item that
+# follows the label at once is the first, not a separator (atomic: the lookahead keeps its choice)
+SEPARATOR = r"(?:;|\n[ \t]*(?:[-*•]|\d+[.)])[ \t])"
+FIRST_ITEM = r"(?=(?<first>[ \t]*\n[ \t]*(?:[-*•]|\d+[.)])[ \t]+|))\k<first>"
+MUST_WRONG_COUNT = (MUST + FIRST_ITEM + "(?:(?:(?!" + SEPARATOR + ")(?!" + STYLE + r")[\s\S])*" + STYLE
+                    + "|(?:(?:(?!" + STYLE + r")[\s\S])*?" + SEPARATOR + "){4})")
+# a terminal flow's brief (its lead line says terminal) states a cell grid of columns by rows; any brief states a grid or a size
+TERMINAL_WITHOUT_GRID = (FENCE_OPEN + r"(?:[ \t]*\n)*[^\n]*\b(?:terminal|command line|CLI)\b[^\n]*" + r"(?:(?!```)[\s\S])*?" + MUST
+                         + r"(?:(?!" + CELL_GRID + ")(?!" + STYLE + r")[\s\S])*" + STYLE)
+WITHOUT_SIZE = span(MUST, STYLE, "(?:" + GRID_OR_SIZE + ")")
+LAYOUT_IN_MUST = MUST + r"(?:(?!" + STYLE + r")[\s\S])*?" + LAYOUT
+# a fenced brief (it has a Context) that ends without the closing line; the fence's own line is not consumed, so that a Context on the
+# first line of the fence is found too
+BRIEF_WITHOUT_CLOSING = r"(?:^|\n)```[^\n]*" + IN_BRIEF + CONTEXT + IN_BRIEF + "```"
+STYLE_WITHOUT_PROPOSE = span(STYLE, CLOSE, r"\bpropose one\b")
+STYLE_WITH_VALUE = STYLE + r"(?:(?!" + CLOSE + r")[\s\S])*?(?:#[0-9a-fA-F]{3,8}\b|\b\d+\s?px\b)"
+CONTENT_WITHOUT_IDEA = span(CONTENT, MUST, "(?:" + IDEA_TEXTS + ")")
+CONTENT_WITHOUT_SCREENS = ("(?:" + span(CONTENT, MUST, r"\bkey screen\b") + "|" + span(CONTENT, MUST, r"\b1[.)][ \t]*[A-Z]|→|->") + ")")
+CONTENT_WITHOUT_STATE = span(CONTENT, MUST, STATE)
+
+# The text of the one judge: the rubric that the replay of 2026-10-30 passed on three correct briefs 3 of 3 and failed on a brief with
+# one added fact 3 of 3, naming the fact. The brainstorm is the fixture's, so that the rubric and the fixture cannot drift.
+BRIEF_RUBRIC_HEAD = """\
 The agent was asked to design the UI for a brainstorm (BRN-001, Shiftlog: record shifts) in a session with no Artifact tool, so it
 could only draft briefs for Claude Design. Each brief has a lead line, then Context, Content, Must-haves, Style and a closing line;
 labels may be bold, plain or followed by a colon, and a brief may sit in a code block.
-Judge ONLY the text after "{label}:" in each brief, up to its "{nxt}:" label. The lead line, {other}, the Must-haves, the Style, the
-closing line and the rest of the reply are judged by other graders. A pass needs all of these:
-""" + criteria + "\n\n" + BRIEF_FACTS + "\n" + BRIEF_SUPPORT.rstrip("\n"))
+Judge ONLY the text after "Context:" and after "Content:" in each brief, each up to the next label. The lead line, the Must-haves,
+the Style, the closing line and the rest of the reply are judged by other graders.
+PASS when no Context and no Content states a fact about the product, its users, their work or their problem that the brainstorm
+below does not state or directly imply. Paraphrase is fine; so is restating in plain words what an idea lets the user do, naming
+the screens the promoted ideas name (List, Add, Report), the surface an idea implies (IDEA-01 and IDEA-02 are a terminal tool;
+IDEA-03 and IDEA-06 a web page), and states those ideas could show (none recorded yet; some recorded; a week with or without shifts).
+Quoted wording must be the brainstorm's own words.
+FAIL when any Context or Content adds such a fact (a figure, a name, a device, a habit, a feature, a field, a cause, a number of
+users, a place). When you answer FAIL, write FAIL followed by a colon and the added fact, quoted from the brief.
+
+The brainstorm, in full (everything a brief may rest on):
+
+"""
+
+
+def brief_rubric():
+    body = BRN[BRN.index("# BRN-001"):].rstrip("\n")
+    assert not [l for l in body.splitlines() if l.lstrip().startswith("---")], "a line of three dashes would close the front matter"
+    return BRIEF_RUBRIC_HEAD + body
 
 
 BRIEF_JUDGES = {
-    "ver39-brief-parts-in-order": """\
-The agent was asked to design the UI for a brainstorm (BRN-001, Shiftlog: record shifts) in a session with no Artifact tool, so it
-could only propose flows and draft briefs for Claude Design. Judge the briefs in its output. A pass needs all of these:
-- It shows one brief for each flow it proposes (one flow for the whole release gives one brief, two flows give two).
-- Each brief starts with a lead line that names the flow and the product, Shiftlog.
-- After its lead line each brief has, in this order, a Context, a Content, Must-haves and a Style, and each ends with a line that
-  asks for 3 distinctly different directions of the key screen first.
-- Labels may be bold, plain or followed by a colon, and a brief may sit in a code block.
-Anything else is not a pass.""",
-    "ver39-brief-context": brief_span("Context", "Content", "the Content", """\
-- Each Context is two or three sentences.
-- Each Context says who uses the flow and the one job it does.
-- A Context adds no fact about the product that the facts below do not support. It may paraphrase the context, the users and the
-  problem, and its job may restate in plain words what the ideas let the user do.
-Anything else is not a pass."""),
-    "ver39-brief-content-shape": brief_span("Content", "Must-haves", "the Context", """\
-- Each Content quotes, between quotation marks, the wording of one or more of the sources in the facts below (an idea, the problem,
-  the assumption or the success signal).
-- Each Content lists the flow's screens in order, with the key screen marked.
-- Each Content names at least one state to show. A state is acceptable when the ideas could support it: an empty state ("no shift
-  recorded yet", "a week with no shifts"), a state with data, an error, a loading or a mid-flow state. The words empty, error and
-  loading need not appear.
-Anything else is not a pass."""),
-    "ver39-brief-content-invents-nothing": brief_span("Content", "Must-haves", "the Context", """\
-- Every wording a Content puts between quotation marks is, word for word, a wording in the facts below (a full stop inside the
-  closing quotation mark is fine).
-- Every screen a Content lists is one that a promoted idea names (a screen may be named by one word: List, Add, Report), and every
-  state it names is one that those ideas could support.
-- A Content holds no figure, name, date, hour count, field, button label or feature that nothing in the facts supports.
-Anything else is not a pass."""),
-    "ver39-brief-must-haves-and-no-layout": """\
-Judge the Must-haves and the Style of each brief in the agent's output. A pass needs all of these:
-- Each Must-haves is two to four short constraints. A constraint is a clause between semicolons (or an item on its own line);
-  commas inside a clause list parts of one constraint, as in "text, box-drawing and block characters". So "a terminal screen, a
-  monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters and 24-bit colour; fully
-  keyboard-driven" is three constraints.
-- A terminal flow's Must-haves state a monospace cell grid of columns by rows; a web flow's state the surface and a size. A
-  rendering note such as "drawn only with text, box-drawing and block characters", "keyboard-driven" or "readable in a dark theme"
-  is a constraint.
-- No brief prescribes a solution: no positions, spacing, sizes of parts or component-by-component layout. A surface, a screen size
-  or a cell grid is a constraint, not a layout.
-- Each Style refers to a design system or says to propose one, and states no colour value, no token and no font size.
-Anything else is not a pass.""",
+    "ver39-brief-adds-no-fact": brief_rubric(),
     "ver39-grouping-and-status": """\
 The agent ran in a session with no Artifact tool and was told to proceed without questions. The promoted ideas that name a screen
 are IDEA-01, IDEA-02, IDEA-03 and IDEA-06; IDEA-04 names none. Judge the agent's output outside the briefs. A pass needs all of
@@ -1660,8 +1735,9 @@ Anything else is not a pass.""",
 }
 
 
-def brief_drafted():
-    p = "ver39"
+def brief_drafted(one_flow=False):
+    """VER-39: the reply to 'Design the UI for BRN-001' with no Artifact tool and no questions (ERR-19, ERR-22); with one_flow, to the
+    request for one flow for the whole release, which has exactly one brief."""
     g = nothing_written("ver39", "design") + no_dsn_written("ver39")
     g += [reply("ver39-lists-the-screen-ideas", r"^(?=[\s\S]*IDEA-01)(?=[\s\S]*IDEA-02)(?=[\s\S]*IDEA-03)(?=[\s\S]*IDEA-06)"),
           reply("ver39-says-idea-04-names-no-screen",
@@ -1670,22 +1746,44 @@ def brief_drafted():
           reply("ver39-says-the-grouping-is-unconfirmed", UNCONFIRMED),
           # the surface is named by saying terminal or web next to the flow; the word "surface" need not appear
           reply("ver39-names-key-screen-and-surface", r"^(?=[\s\S]*\bkey screen\b)(?=[\s\S]*\b(?:terminal|web)\b)"),
-          reply("ver39-briefs-in-dm05-order", BRIEF_PARTS_IN_ORDER),
-          reply("ver39-quotes-an-idea", IDEA_TEXTS),
+          # the briefs' shape: each in a fenced block of its own, its lead line naming Shiftlog, its parts in DM-05's order, the
+          # exact closing line last
+          reply("ver39-briefs-in-dm05-order", each_brief(LEAD + IN_BRIEF + CONTEXT + IN_BRIEF + CONTENT + IN_BRIEF + MUST + IN_BRIEF
+                                                          + STYLE + IN_BRIEF + CLOSE_LINE)),
+          reply("ver39-each-brief-sits-in-its-own-fence", each_brief(IN_BRIEF + CLOSE_LINE)),
+          reply("ver39-closing-line-exact", CLOSE, flags=""),
+          reply("ver39-every-brief-ends-with-the-closing-line", BRIEF_WITHOUT_CLOSING, match="not_contains",
+                witness="\n```\nContext: x. y.\n```\n"),
+          # the Context's two or three sentences; the Content's quotation, screens in order and state
+          reply("ver39-every-context-is-two-or-three-sentences", CONTEXT_WRONG_COUNT, match="not_contains",
+                witness="\nContext: One sentence only.\nContent: x\n"),
+          reply("ver39-every-content-quotes-an-idea", CONTENT_WITHOUT_IDEA, match="not_contains",
+                witness="\nContent: nothing quoted here.\nMust-haves: x\n"),
+          reply("ver39-every-content-lists-the-screens-in-order", CONTENT_WITHOUT_SCREENS, match="not_contains",
+                witness="\nContent: the idea \"List shifts in a table\". Screens: List and Add.\nMust-haves: x\n"),
           # a state may be named by what it shows (briefs.md: "no shift recorded yet", "a week with no shifts")
-          reply("ver39-names-a-state", r"\b(?:empty|error|loading|loads?|mid-flow|no shifts?|nothing (?:recorded|yet)|not yet recorded|"
-                r"cannot be saved|can" + APOS + r"t be saved)\b"),
-          reply("ver39-must-haves-state-a-grid-or-a-size", GRID_OR_SIZE),
-          reply("ver39-style-says-propose-one", r"\bpropose one\b"),
-          rx("ver39-style-holds-no-hex-or-px", "last_message",
-             r"(?:^|\n)[ \t>*#-]*(?:\*\*)?Style(?:\*\*)?[:.\s][^\n]*(?:#[0-9a-fA-F]{3,8}\b|\b\d+\s?px\b)", match="not_contains",
-             witness="\nStyle: a dark palette #1a1b26\n"),
+          reply("ver39-every-content-names-a-state", CONTENT_WITHOUT_STATE, match="not_contains",
+                witness="\nContent: the idea \"List shifts in a table\". 1. List (the key screen).\nMust-haves: x\n"),
+          # the Must-haves' two to four constraints, a grid or a size, no layout word
+          reply("ver39-every-must-haves-is-two-to-four-constraints", MUST_WRONG_COUNT, match="not_contains",
+                witness="\nMust-haves: one constraint only\nStyle: x\n"),
+          reply("ver39-every-must-haves-states-a-grid-or-a-size", "(?:" + WITHOUT_SIZE + "|" + TERMINAL_WITHOUT_GRID + ")",
+                match="not_contains", witness="\nMust-haves: nothing sized\nStyle: x\n"),
+          reply("ver39-no-must-haves-holds-a-layout-word", LAYOUT_IN_MUST, match="not_contains",
+                witness="\nMust-haves: a sidebar on the left\nStyle: x\n"),
+          # the Style: no design system was listed, so "propose one", and no value
+          reply("ver39-every-style-says-propose-one", STYLE_WITHOUT_PROPOSE, match="not_contains",
+                witness="\nStyle: dark.\n" + BRIEF_CLOSING + "\n"),
+          reply("ver39-style-holds-no-hex-or-px", STYLE_WITH_VALUE, match="not_contains",
+                witness="\nStyle: propose one, a dark palette #1a1b26\n" + BRIEF_CLOSING + "\n"),
           rx("ver39-no-hex-value-anywhere", "last_message", r"#[0-9a-fA-F]{6}\b", match="not_contains", witness="\ntext #1a1b26\n"),
-          reply("ver39-closing-line-exact", esc(BRIEF_CLOSING), flags=""),
           reply("ver39-says-no-artifact-tool", NO_ARTIFACT),
           reply("ver39-names-boards-folder", esc(f"{DESIGN}/DSN-001/boards/"), flags=""),
-          rx("ver39-no-drawing", "last_message", NO_DRAWING, match="not_contains", witness="\n┌──────┐\n│ Home │\n└──────┘\n"),
-          *[llm(name, body) for name, body in BRIEF_JUDGES.items()]]
+          rx("ver39-no-drawing", "last_message", NO_DRAWING, match="not_contains", witness="\n┌──────┐\n│ Home │\n└──────┘\n")]
+    if one_flow:
+        g.append(reply("ver39-exactly-one-brief", CLOSE + r"[\s\S]*" + CLOSE, flags="", match="not_contains",
+                       witness="\n" + BRIEF_CLOSING + "\n"))
+    g += [llm(name, body) for name, body in BRIEF_JUDGES.items()]
     return g
 
 
@@ -1797,15 +1895,18 @@ CANDIDATE_BASE = [("FR-001", "The system shall record each shift with a start ti
 REPORT_STANDS = "Report's mapping stands."
 
 
-def case(name, ver, description, prompt, files, graders, stop=False, **kw):
+def case(name, ver, description, prompt, files, graders, stop=False, also=(), **kw):
+    """A case of one VER item, and of the items in `also` whose graders it carries (VER-50's two graders are in four cases)."""
     limits = SHORT_LIMITS if stop else WRITING_LIMITS
-    return Case(name, [ver], f"VER-{ver}: {description}", prompt, files, graders, limits=limits, **kw)
+    extra = "".join(f" VER-{v}: the final reply repeats the ten checklist lines, each ticked, a step not done in the skipped form."
+                    for v in also if v == "50")
+    return Case(name, [ver, *also], f"VER-{ver}: {description}{extra}", prompt, files, graders, limits=limits, **kw)
 
 
 CASES = [
     case("writes-dsn", "01", "the shared fixture and prompt write DSN-001 as draft version 1 with four active board items "
          "in canvas order, each with its digest, the derives links, the provenance and one Change Log row.",
-         SHARED_PROMPT, SHARED, writes_dsn()),
+         SHARED_PROMPT, SHARED, writes_dsn(), also=("50",)),
     case("coverage-and-report", "02", "section 3 has the five rows (IDEA-05 is parked), section 5 one marker naming IDEA-06, "
          "and the reply opens with the report block and ends with the next step to the PRD.",
          SHARED_PROMPT, SHARED, coverage_and_report()),
@@ -1813,7 +1914,7 @@ CASES = [
          "marker, the titles are the file names' first parts, and all five promoted ideas are 'no board yet'.",
          PROMPT_UNCONFIRMED, SHARED, unconfirmed_stays_null()),
     case("no-boards-stops", "04", "with no boards folder nothing is written and the reply names the folder to copy the boards into.",
-         SHARED_PROMPT, SHARED_NO_BOARDS, no_boards_stops(), stop=True, boards={"DSN-001": "ERR-03"}),
+         SHARED_PROMPT, SHARED_NO_BOARDS, no_boards_stops(), stop=True, also=("50",), boards={"DSN-001": "ERR-03"}),
     case("boards-without-canvas-json", "04", "the boards folder holds the four board files and no canvas.json: nothing is written and "
          "the reply names the folder that must hold canvas.json and the board files it names.",
          SHARED_PROMPT, {BRN_PATH: BRN, **{f"{DESIGN}/DSN-001/boards/{n}": t for n, t in BOARDS.items()}},
@@ -1896,6 +1997,9 @@ CASES = [
          "unconfirmed, shows one brief for each in DM-05's order with the exact closing line, and says the session has no "
          "Artifact tool.",
          PROMPT_DESIGN, SHARED_NO_BOARDS, brief_drafted(), stop=True),
+    case("brief-drafted-one-flow", "39", "the same without the grouping: the request names one flow for the whole release, so the "
+         "reply shows exactly one brief, in a fenced block of its own, in DM-05's order with the exact closing line.",
+         PROMPT_ONE_FLOW, SHARED_NO_BOARDS, brief_drafted(one_flow=True), stop=True),
     case("no-screen-idea", "40", "no promoted idea names a screen, a flow or a user interface: nothing is written, the step is "
          "optional and the reply points to /devforgeai:prd BRN-001.",
          PROMPT_DESIGN, {BRN_PATH: BRN_NO_SCREEN}, no_screen_idea(), stop=True),
@@ -1933,7 +2037,7 @@ CASES = [
          checks={"DSN-001": ("amend", ["fact: board List.dc.html: changed"])}),
     case("amend-nothing-to-do", "33", "a current draft DSN-001, no PRD and no ADR: nothing is written and the reply says it is current.",
          "Update the UI design for BRN-001. Proceed without questions.", {BRN_PATH: BRN, DSN1: DSN_A, **boards_files()},
-         amend_nothing(DSN_A), stop=True),
+         amend_nothing(DSN_A) + ver50(ANCHOR_STATEMENT, (7, 8, 9)), stop=True, also=("50",)),
     case("amend-nothing-with-prd", "33", "a PRD whose FR-024 names a screen but is already in considered: the same result.",
          "Update the UI design for BRN-001. Proceed without questions.",
          {BRN_PATH: BRN, DSN1: DSN_CONSIDERED_PRD, "docs/specs/prd/PRD-001.md": PRD_V2_SCREEN, **boards_files()},
@@ -1952,7 +2056,7 @@ CASES = [
     case("approval-only-run", "34", "'/devforgeai:ui approve DSN-001' approves a valid draft: four fields and one Change Log row "
          "change, nothing else is written, and the reply is the one-line block and the next step.",
          "/devforgeai:ui approve DSN-001. I'm Example Owner.", {BRN_PATH: BRN, DSN1: DSN_B, **boards_files()},
-         approval_only_run()),
+         approval_only_run(), also=("50",)),
     case("plain-run-never-approves", "35", "a plain run for a BRN with a current draft DSN leaves DSN-001 byte-identical and a draft.",
          "Record the UI design for BRN-001.", {BRN_PATH: BRN, DSN1: DSN_B, **boards_files()}, plain_run_never_approves(),
          stop=True),
@@ -2203,8 +2307,8 @@ def write_cases(out):
 def structure_problems():
     problems = []
     names = [c.name for c in CASES]
-    if len(names) != len(set(names)) or len(names) != 62:
-        problems.append(f"expected 62 distinct cases, found {len(names)}")
+    if len(names) != len(set(names)) or len(names) != 63:
+        problems.append(f"expected 63 distinct cases, found {len(names)}")
     for c in CASES:
         gnames = [g.name for g in c.graders]
         if len(gnames) != len(set(gnames)):

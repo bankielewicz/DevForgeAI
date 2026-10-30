@@ -1,6 +1,6 @@
 ---
-description: "VER-04: with no boards folder nothing is written and the reply names the folder to copy the boards into."
-tags: [ui, ver-04]
+description: "VER-04: with no boards folder nothing is written and the reply names the folder to copy the boards into. VER-50: the final reply repeats the ten checklist lines, each ticked, a step not done in the skipped form."
+tags: [ui, ver-04, ver-50]
 max_turns: 15
 timeout_seconds: 300
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, ToolSearch]

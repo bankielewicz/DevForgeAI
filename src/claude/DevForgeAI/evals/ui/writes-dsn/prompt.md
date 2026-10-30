@@ -1,6 +1,6 @@
 ---
-description: "VER-01: the shared fixture and prompt write DSN-001 as draft version 1 with four active board items in canvas order, each with its digest, the derives links, the provenance and one Change Log row."
-tags: [ui, ver-01]
+description: "VER-01: the shared fixture and prompt write DSN-001 as draft version 1 with four active board items in canvas order, each with its digest, the derives links, the provenance and one Change Log row. VER-50: the final reply repeats the ten checklist lines, each ticked, a step not done in the skipped form."
+tags: [ui, ver-01, ver-50]
 max_turns: 60
 timeout_seconds: 900
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, ToolSearch]

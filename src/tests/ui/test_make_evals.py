@@ -734,7 +734,8 @@ class V3BriefTests(unittest.TestCase):
     CASES = ("brief-drafted", "brief-drafted-one-flow")
     OLD_JUDGES = ["ver39-brief-parts-in-order", "ver39-brief-context", "ver39-brief-content-shape",
                   "ver39-brief-content-invents-nothing", "ver39-brief-must-haves-and-no-layout"]
-    REGEX_GRADERS = ["ver39-briefs-in-dm05-order", "ver39-each-brief-sits-in-its-own-fence", "ver39-every-context-is-two-or-three-sentences",
+    REGEX_GRADERS = ["ver39-briefs-in-dm05-order", "ver39-each-brief-sits-in-its-own-fence", "ver39-every-brief-ends-with-the-closing-line",
+                     "ver39-every-context-is-two-or-three-sentences",
                      "ver39-every-content-quotes-an-idea", "ver39-every-content-lists-the-screens-in-order",
                      "ver39-every-content-names-a-state", "ver39-every-must-haves-is-two-to-four-constraints",
                      "ver39-every-must-haves-states-a-grid-or-a-size", "ver39-no-must-haves-holds-a-layout-word",
@@ -754,7 +755,8 @@ class V3BriefTests(unittest.TestCase):
             for name in self.REGEX_GRADERS:
                 self.assertEqual("regex", by[name].type, f"{case}/{name}")
                 self.assertEqual("last_message", by[name].target, f"{case}/{name}")
-            for name in ("ver39-every-context-is-two-or-three-sentences", "ver39-every-content-quotes-an-idea",
+            for name in ("ver39-every-brief-ends-with-the-closing-line", "ver39-every-context-is-two-or-three-sentences",
+                         "ver39-every-content-quotes-an-idea",
                          "ver39-every-content-lists-the-screens-in-order", "ver39-every-content-names-a-state",
                          "ver39-every-must-haves-is-two-to-four-constraints", "ver39-every-must-haves-states-a-grid-or-a-size",
                          "ver39-no-must-haves-holds-a-layout-word", "ver39-every-style-says-propose-one", "ver39-style-holds-no-hex-or-px"):
@@ -830,6 +832,19 @@ class V3BriefTests(unittest.TestCase):
                "the second is not fenced": reply_of(brief()) + "\n" + web(), "none": "Nothing.\n"}
         got = self.hits("ver39-each-brief-sits-in-its-own-fence", list(bad.values()))
         self.assertEqual({k: False for k in bad}, dict(zip(bad, got)))
+
+    def test_every_brief_ends_with_the_closing_line(self):
+        # not_contains: True means a fenced brief without the closing line was found
+        name = "ver39-every-brief-ends-with-the-closing-line"
+        web = lambda **kw: brief(WEB, **kw)
+        self.assertEqual([False, False], self.hits(name, [reply_of(brief()), reply_of(brief(), web())]))
+        bad = {"the only brief": reply_of(brief(closing=None)), "the second brief": reply_of(brief(), web(closing=None)),
+               "the first brief": reply_of(brief(closing=None), web()),
+               "a closing line that is not exact": reply_of(brief(closing=CLOSING.replace("tradeoff", "trade-off")))}
+        got = self.hits(name, list(bad.values()))
+        self.assertEqual({k: True for k in bad}, dict(zip(bad, got)))
+        # a fenced block that is not a brief (no Context) is not one
+        self.assertEqual([False], self.hits(name, ["```\nToolSearch select:Artifact\n```\n" + reply_of(brief())]))
 
     def test_exactly_one_brief(self):
         got = self.hits("ver39-exactly-one-brief", [reply_of(brief()), reply_of(brief(), brief(WEB)), "Nothing.\n"],
@@ -1052,6 +1067,17 @@ class V3WordingTests(unittest.TestCase):
 
     def test_the_obligation_has_the_wording(self):
         self.assertIn(self.WORDING, spec_verifications()["VER-33"]["obligation"])
+
+    def test_the_checklist_does_not_say_it_for_the_run(self):
+        # every final reply repeats the checklist (VER-50), whose title 5 holds 'import its boards': it must not satisfy the grader
+        titles = checklist_titles()
+        self.assertTrue(any("import" in t and "board" in t for t in titles))
+        bare = "DSN-001 is current: version 1, canvas version 17-example. Nothing was written.\n\n" + ticked((3, 4, 5, 7, 8, 9))
+        for case in self.CASES:
+            self.assertEqual([False], self.hit(case, "ver33-says-a-change-is-seen-by-an-import", [bare]), case)
+        for text in ("A changed board shows up only after an import.", "Only an import notices a board that changed on the canvas.",
+                     "A change on the canvas is picked up when a run with the tool imports it."):
+            self.assertEqual([True], self.hit(self.CASES[0], "ver33-says-a-change-is-seen-by-an-import", [text]), text)
 
     def test_the_graders_accept_it_and_refuse_version_1s(self):
         v3 = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. With no Artifact tool in this session, the "

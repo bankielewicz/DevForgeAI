@@ -1,6 +1,6 @@
 ---
-description: "VER-33: a current draft DSN-001, no PRD and no ADR: nothing is written and the reply says it is current."
-tags: [ui, ver-33]
+description: "VER-33: a current draft DSN-001, no PRD and no ADR: nothing is written and the reply says it is current. VER-50: the final reply repeats the ten checklist lines, each ticked, a step not done in the skipped form."
+tags: [ui, ver-33, ver-50]
 max_turns: 15
 timeout_seconds: 300
 allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash, ToolSearch]

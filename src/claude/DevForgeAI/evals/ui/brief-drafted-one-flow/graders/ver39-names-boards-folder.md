@@ -2,6 +2,5 @@
 type: regex
 target: last_message
 match: contains
-flags: i
 ---
-\bpropose one\b
+docs/specs/design/DSN-001/boards/

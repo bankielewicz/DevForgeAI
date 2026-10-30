@@ -17,6 +17,10 @@ tool_used graders are graded against simulated tool calls. Every other case has 
 all its graders (and its DSN the script's check), and fails in the empty run and the automatic mutations; a grader
 that no wrong run of those catches is listed as a NOTE (the six cases above must have none).
 
+SPEC-017 version 3: every correct final reply of the cases VER-50 names repeats the skill's ten-line checklist (read from SKILL.md),
+and the replies of brief-drafted carry their briefs in fenced blocks; the real replies the judge was replayed on (2026-10-30) also pass
+every regex grader of brief-drafted (checked once by hand: they are in tmp/, which is not tracked).
+
 Run from the repository root, under the normal HOME (it imports make_evals):
     PYTHONDONTWRITEBYTECODE=1 python3 src/tests/ui/check_graders.py
 """
@@ -40,6 +44,35 @@ DSN1 = M.DSN1
 PRD = "docs/specs/prd/PRD-001.md"
 
 # --------------------------------------------------------------------------------------------------------
+# The checklist the final reply repeats (SPEC-017 BEH-01, VER-50): the ten lines of SKILL.md, every line ticked, a step not done in
+# the skipped form. SKILL.md is read here, so that the simulated correct replies use the skill's own titles.
+
+SKILL_MD = M.REPO / "src/claude/DevForgeAI/skills/ui/SKILL.md"
+
+
+def checklist_titles():
+    block = re.search(r"```\n((?:- \[ \] \d+\. .*\n){10})```", SKILL_MD.read_text())
+    assert block, "SKILL.md has no ten-line checklist"
+    return re.findall(r"- \[ \] \d+\. (.*)", block.group(1))
+
+
+def checklist(skipped=(), reason="not needed in this run"):
+    return "\n".join(f"- [x] {n}. {title}" + (f" (skipped: {reason})" if n in skipped else "")
+                     for n, title in enumerate(checklist_titles(), start=1))
+
+
+def with_checklist(statement, skipped, reason="not needed in this run"):
+    """A stop's final reply: the statement of why the run stopped, then the checklist (BEH-01)."""
+    return statement.rstrip("\n") + "\n\n" + checklist(skipped, reason) + "\n"
+
+
+SKIP_COPY = (3, 4, 5)                  # the copy path: no canvas is made
+SKIP_APPROVAL_ONLY = (2, 3, 4, 5, 6, 7)
+SKIP_CURRENT = (3, 4, 5, 7, 8, 9)      # ERR-17 with no Artifact tool: nothing to import, nothing to write
+SKIP_STOP = (3, 4, 5, 6, 7, 8, 9)      # ERR-19: nothing was imported and nothing written
+
+
+# --------------------------------------------------------------------------------------------------------
 # The correct runs
 
 
@@ -55,6 +88,8 @@ Boards with no idea: none
 Ideas with no board: IDEA-06 (A dark theme for the report page)
 Markers left: DSN-001: 1
 OK docs/specs/design/DSN-001.md
+
+{checklist(SKIP_COPY, "no canvas is needed")}
 
 Boards come from the copy in docs/specs/design/DSN-001/boards/, recorded as it is. No Artifact tool in this session, so the canvas was not checked.
 Check 1: OK docs/specs/design/DSN-001.md.
@@ -105,17 +140,21 @@ def approved_dsn():
     return t + f"| 1 | {TODAY} | Example Owner | Approved | status |\n"
 
 
-REPLY_APPROVE = """\
+REPLY_APPROVE = f"""\
 Design document: DSN-001 (v1, approved)
+
+{checklist(SKIP_APPROVAL_ONLY, "an approval-only run")}
 
 Check: OK docs/specs/design/DSN-001.md.
 
 Next step: run /devforgeai:prd BRN-001 to write the PRD, and link DSN-001 in the PRD's section 8 by hand, since the prd skill does not do it yet.
 """
 
-REPLY_CURRENT = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. Nothing was written. "
-                 "Without the Artifact tool the canvas was not checked; a board changed on the canvas is seen only when a run "
-                 "with the tool imports it.\n")
+CURRENT_TEXT = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. Nothing was written. "
+                "Without the Artifact tool the canvas was not checked; a board changed on the canvas is seen only when a run "
+                "with the tool imports it.")
+CANDIDATE = " One candidate (PRD-001 FR-024) waits for an interactive run."
+REPLY_CURRENT = with_checklist(CURRENT_TEXT, SKIP_CURRENT, "no change needed")
 
 # Without AskUserQuestion, SKILL.md step 6 makes the approval offer the last finding of step 7, before the Next step
 # paragraph. A case that ends with Next step must tolerate that line (it holds a question mark and the words
@@ -267,6 +306,7 @@ CALLS_CASES = ("no-mockup-no-design-skill",)   # non-trigger cases with a tool_u
 BRIEF_SHIFTS = """\
 **Brief 1: the flow shifts**
 
+```
 Shifts in the terminal: the List and Add screens of Shiftlog, a terminal tool, for people who work shifts and record each one from the command line.
 
 Context: Shiftlog is used by people who work shifts. The one job of this flow: record a shift and see the shifts already recorded.
@@ -278,10 +318,12 @@ Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; 
 Style: propose one.
 
 Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
 """
 BRIEF_REPORT = """\
 **Brief 2: the flow report-and-home**
 
+```
 The weekly report: the Home and Report pages of Shiftlog, a web app, for people who want to see their week at a glance.
 
 Context: Shiftlog users record shifts and then want to know how much they worked. The one job of this flow: read the week's report.
@@ -293,6 +335,7 @@ Must-haves: a web page for a desktop browser, 1280 pixels wide; readable in a da
 Style: propose one.
 
 Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
 """
 REPLY_BRIEFS = """\
 I made no canvas and wrote nothing: this session has no Artifact tool, which making the canvas needs (ERR-19). Here is what I would send, unconfirmed.
@@ -308,11 +351,40 @@ I made no canvas and wrote nothing: this session has no Artifact tool, which mak
 Nothing was sent. The boards would go into docs/specs/design/DSN-001/boards/; run the skill in an interactive Claude Code session to make the canvas.
 """.replace("@@BRIEF_SHIFTS@@", BRIEF_SHIFTS).replace("@@BRIEF_REPORT@@", BRIEF_REPORT)
 
+BRIEF_ONE = """\
+```
+One flow from the terminal to the report: the List, Add and Report screens of Shiftlog, a terminal tool with a weekly report, for people who work shifts and record each one.
+
+Context: Shiftlog is used by people who work shifts. The one job of this flow: record a shift, see the shifts already recorded and read the week's hours.
+
+Content: the idea "List shifts in a table"; the idea "Add a shift from the terminal"; the idea "A weekly report page". The flow's screens, in order: 1. List (the key screen), 2. Add, 3. Report. States to show: no shift recorded yet (empty); a week with no shifts; an error when a shift cannot be saved.
+
+Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters; keyboard-driven.
+
+Style: propose one.
+
+Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.
+```
+"""
+REPLY_ONE_FLOW = """\
+I made no canvas and wrote nothing: this session has no Artifact tool, which making the canvas needs (ERR-19). Here is what I would send, unconfirmed.
+
+**Screens the promoted ideas name:** IDEA-01 (Add), IDEA-02 (List), IDEA-03 (Report) and IDEA-06 (the dark Report). IDEA-04, "Export shifts as CSV", names no screen.
+
+**The one flow you asked for, unconfirmed:** the whole release in one flow, List (the key screen), Add and Report, surface terminal.
+
+**The brief**
+
+@@BRIEF_ONE@@
+Nothing was sent. The boards would go into docs/specs/design/DSN-001/boards/; run the skill in an interactive Claude Code session to make the canvas.
+""".replace("@@BRIEF_ONE@@", BRIEF_ONE)
+
 GOOD2 = {
     "unconfirmed-stays-null": ({DSN1: null_dsn()}, REPLY_NULL, []),
-    "no-boards-stops": stop("This session has no Artifact tool, which importing the canvas named in your request needs (ERR-19), and "
-                            "docs/specs/design/DSN-001/boards/ holds no copy. A copy placed there by hand (canvas.json and the board files it "
-                            "names) is recorded when the skill is run again, in an interactive session. Nothing was written."),
+    "no-boards-stops": ({}, with_checklist("This session has no Artifact tool, which importing the canvas named in your request needs (ERR-19), and "
+                                           "docs/specs/design/DSN-001/boards/ holds no copy. A copy placed there by hand (canvas.json and the board files it "
+                                           "names) is recorded when the skill is run again, in an interactive session. Nothing was written.",
+                                           SKIP_STOP, "no canvas to import"), []),
     "boards-without-canvas-json": stop("docs/specs/design/DSN-001/boards/ holds board files but no canvas.json. The folder must hold canvas.json and "
                                        "the board files it names: import the canvas, or place them there. Nothing was written."),
     "boards-at-wrong-number": stop("The next free number is DSN-002, so its boards would go in docs/specs/design/DSN-002/boards/; DSN-001's folder "
@@ -357,8 +429,9 @@ GOOD2 = {
     "approval-already-approved": stop("DSN-001 is already approved: version 1, approved by Example Owner on 2026-10-08. Nothing was written."),
     "approval-plus-change": stop("Design document: DSN-001 (v1, draft; not approved)\n\nI approved nothing and changed nothing: the request also asks "
                                  "for a change, so an amend run comes first: /devforgeai:ui BRN-001."),
-    "amend-nothing-with-unasked-candidate": ({}, REPLY_CURRENT.rstrip("\n") + " One candidate (PRD-001 FR-024) waits for an interactive run.\n", []),
+    "amend-nothing-with-unasked-candidate": ({}, with_checklist(CURRENT_TEXT + CANDIDATE, SKIP_CURRENT, "no change needed"), []),
     "brief-drafted": ({}, REPLY_BRIEFS, []),
+    "brief-drafted-one-flow": ({}, REPLY_ONE_FLOW, []),
     "no-screen-idea": stop("No promoted idea of BRN-001 names a screen, a flow or a user interface (they keep shifts in a local SQLite file and back "
                            "up the data), so there is nothing to design here; this step is optional. Go on with /devforgeai:prd BRN-001. Nothing "
                            "was written."),
@@ -445,13 +518,14 @@ There's one brainstorm with promoted ideas you can record a design from:
 Which brainstorm ID should I use? If it's BRN-001, run `/devforgeai:ui BRN-001`.
 """
 # ERR-17 as boards.md words it after the skill-reviewer's fixes (it also names the hand copy that version 1 asked for)
-REPLY_CURRENT_B = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. Nothing was written. Without the Artifact "
-                   "tool the canvas was not checked, and a board changed on the canvas is seen only when a run with the Artifact tool imports "
-                   "it, or when the boards are copied into the folder again by hand.\n")
+CURRENT_B_TEXT = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. Nothing was written. Without the Artifact "
+                  "tool the canvas was not checked, and a board changed on the canvas is seen only when a run with the Artifact tool imports "
+                  "it, or when the boards are copied into the folder again by hand.")
+REPLY_CURRENT_B = with_checklist(CURRENT_B_TEXT, SKIP_CURRENT, "no change needed")
 ALT_REPLIES = {"amend-candidates-left": [OBSERVED_LEFT], "amend-candidates-capped": [OBSERVED_CAPPED], "path-refused": [OBSERVED_PATH],
                "amend-nothing-to-do": [REPLY_CURRENT_B], "amend-nothing-with-prd": [REPLY_CURRENT_B],
                "amend-nothing-with-unrelated-documents": [REPLY_CURRENT_B],
-               "amend-nothing-with-unasked-candidate": [REPLY_CURRENT_B.rstrip("\n") + " One candidate (PRD-001 FR-024) waits for an interactive run.\n"]}
+               "amend-nothing-with-unasked-candidate": [with_checklist(CURRENT_B_TEXT + CANDIDATE, SKIP_CURRENT, "no change needed")]}
 
 # Final replies of v2 suite run 1 (42a5388) that the graders refused: each must pass every regex grader of its case with the
 # primary correct run's files (the llm grader of brief-drafted cannot be graded offline)
@@ -823,7 +897,7 @@ COVERAGE_BAD = [
     ("Boards with no idea lists a board", [("reply", None, "Boards with no idea: none", "Boards with no idea: Report.dc.html")], {"ver02-block-boards-with-no-idea"}),
     ("Ideas with no board says none", [("reply", None, "Ideas with no board: IDEA-06 (A dark theme for the report page)", "Ideas with no board: none")],
      {"ver02-block-ideas-with-no-board"}),
-    ("no OK line in the block", [("reply", None, "OK docs/specs/design/DSN-001.md\n\nBoards come from", "\nBoards come from")], {"ver02-block-ok-line"}),
+    ("no OK line in the block", [("reply", None, "OK docs/specs/design/DSN-001.md\n\n- [x] 1.", "\n- [x] 1.")], {"ver02-block-ok-line"}),
     ("a paragraph after the next step", [("reply", None, "since the prd skill does not do it yet.\n", "since the prd skill does not do it yet.\n\nAnything else?\n")],
      {"ver02-next-step-is-last", "ver02-next-step-names-prd"}),
     ("the next step does not mention section 8", [("reply", None, ", and link DSN-001 in the PRD's section 8 by hand, since the prd skill does not do it yet", "")],
@@ -926,6 +1000,68 @@ for i, (fires, _) in enumerate(M.TRIGGERS, start=1):
 TRIGGER_BAD["no-mockup-no-design-skill"] = [("the design skill is invoked", {"calls": DESIGN_SKILL}, {"ver41-design-skill-not-invoked"}),
                                            ("the ui skill is not the design skill", {"calls": SKILL}, set())]
 STATUS_APPROVED = ("file", DSN1, "status: draft\n", "status: approved\n")
+CLOSING = "Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each."
+BRIEF_BAD = [
+    ("the closing line is missing from the second brief", [("reply", None, CLOSING + "\n```\n\nNothing was sent.", "```\n\nNothing was sent.")],
+     {"ver39-every-brief-ends-with-the-closing-line"}),
+    ("no closing line at all", [("reply", None, CLOSING + "\n", "", 2)],
+     {"ver39-briefs-in-dm05-order", "ver39-closing-line-exact", "ver39-each-brief-sits-in-its-own-fence"}),
+    ("the Style holds a hex value", [("reply", None, "Style: propose one.\n\n" + CLOSING + "\n```\n\n**Brief 2",
+                                      "Style: propose one, dark #1a1b26.\n\n" + CLOSING + "\n```\n\n**Brief 2")],
+     {"ver39-style-holds-no-hex-or-px", "ver39-no-hex-value-anywhere"}),
+    ("a drawing of a screen", [("reply", None, "Nothing was sent.", "Nothing was sent.\n┌────────┐\n│ Shifts │\n└────────┘")],
+     {"ver39-no-drawing"}),
+    ("no statement about the tool", [("reply", None, "this session has no Artifact tool, which making the canvas needs (ERR-19). Here", "here")],
+     {"ver39-says-no-artifact-tool"}),
+    ("the grouping is not called unconfirmed", [("reply", None, "Here is what I would send, unconfirmed.", "Here is what I would send."),
+                                               ("reply", None, "**Proposed grouping, unconfirmed:**", "**Proposed grouping:**")],
+     {"ver39-says-the-grouping-is-unconfirmed"}),
+    ("the folder is not named", [("reply", None, "The boards would go into docs/specs/design/DSN-001/boards/; run", "Run")],
+     {"ver39-names-boards-folder"}),
+    ("IDEA-04 is not mentioned", [("reply", None, " IDEA-04, \"Export shifts as CSV\", names no screen.", "")],
+     {"ver39-says-idea-04-names-no-screen"}),
+    ("a lead line that does not name the product", [("reply", None, "the List and Add screens of Shiftlog, a terminal tool,", "the List and Add screens of the app, a terminal tool,")],
+     {"ver39-briefs-in-dm05-order"}),
+    ("a Context of one sentence", [("reply", None, " The one job of this flow: record a shift and see the shifts already recorded.", "")],
+     {"ver39-every-context-is-two-or-three-sentences"}),
+    ("a Content that quotes no idea", [("reply", None, "the idea \"List shifts in a table\"; the idea \"Add a shift from the terminal\". The flow", "the screens List and Add. The flow")],
+     {"ver39-every-content-quotes-an-idea"}),
+    ("a Content whose key screen is not marked", [("reply", None, "1. List (the key screen), 2. Add.", "1. List, 2. Add.")],
+     {"ver39-every-content-lists-the-screens-in-order"}),
+    ("a Content that names no state", [("reply", None, " States to show: no shift recorded yet (empty); an error when a shift cannot be saved.", "")],
+     {"ver39-every-content-names-a-state"}),
+    ("a Must-haves of one constraint", [("reply", None, "40 rows; keyboard-driven.", "40 rows, keyboard-driven.")],
+     {"ver39-every-must-haves-is-two-to-four-constraints"}),
+    ("a terminal Must-haves with no cell grid", [("reply", None, "a monospace cell grid of 120 columns by 40 rows; keyboard-driven", "a monospace cell grid; keyboard-driven")],
+     {"ver39-every-must-haves-states-a-grid-or-a-size"}),
+    ("a layout word in the Must-haves", [("reply", None, "keyboard-driven.\n", "keyboard-driven; a sidebar on the left.\n")],
+     {"ver39-no-must-haves-holds-a-layout-word"}),
+    ("a Style that does not propose one", [("reply", None, "Style: propose one.\n\n" + CLOSING + "\n```\n\n**Brief 2",
+                                            "Style: follow the design system Aurora.\n\n" + CLOSING + "\n```\n\n**Brief 2")],
+     {"ver39-every-style-says-propose-one"}),
+    ("two briefs in one fence", [("reply", None, "```\n\n**Brief 2: the flow report-and-home**\n\n```\n", "\n")],
+     {"ver39-each-brief-sits-in-its-own-fence", "ver39-briefs-in-dm05-order"}),
+    ("the first brief is not in a fence", [("reply", None, "**Brief 1: the flow shifts**\n\n```\n", "**Brief 1: the flow shifts**\n\n"),
+                                          ("reply", None, CLOSING + "\n```\n\n**Brief 2", CLOSING + "\n\n**Brief 2")],
+     {"ver39-each-brief-sits-in-its-own-fence", "ver39-briefs-in-dm05-order"}),
+]
+ONE_FLOW_BAD = [
+    ("a second brief", [("reply", None, "Nothing was sent. The boards would go", BRIEF_ONE + "\nNothing was sent. The boards would go")],
+     {"ver39-exactly-one-brief"}),
+    ("no closing line", [("reply", None, CLOSING + "\n", "")],
+     {"ver39-briefs-in-dm05-order", "ver39-closing-line-exact", "ver39-each-brief-sits-in-its-own-fence"}),
+    ("the brief is not in a fence", [("reply", None, "```\nOne flow from the terminal", "One flow from the terminal"),
+                                     ("reply", None, CLOSING + "\n```\n", CLOSING + "\n")],
+     {"ver39-each-brief-sits-in-its-own-fence", "ver39-briefs-in-dm05-order"}),
+    ("a lead line that does not name the product", [("reply", None, "the List, Add and Report screens of Shiftlog,", "the List, Add and Report screens of the app,")],
+     {"ver39-briefs-in-dm05-order"}),
+    ("a Context of four sentences", [("reply", None, " and read the week's hours.", " and read the week's hours. It is used daily. It is used at night.")],
+     {"ver39-every-context-is-two-or-three-sentences"}),
+    ("a layout word in the Must-haves", [("reply", None, "keyboard-driven.\n", "keyboard-driven; the header at the top.\n")],
+     {"ver39-no-must-haves-holds-a-layout-word"}),
+    ("a Content whose screens are not in order", [("reply", None, "1. List (the key screen), 2. Add, 3. Report.", "List (the key screen), Add and Report.")],
+     {"ver39-every-content-lists-the-screens-in-order"}),
+]
 BAD2 = {
     "writes-dsn": [("the findings are silent about the copy and the canvas", [("reply", None, "Boards come from the copy in docs/specs/design/DSN-001/boards/, recorded as it is. No Artifact tool in this session, so the canvas was not checked.\n", "")],
                     {"ver01-says-copy-recorded-as-it-is", "ver01-says-no-artifact-tool-in-this-session", "ver01-says-canvas-not-checked"}),
@@ -952,23 +1088,7 @@ BAD2 = {
                               {"ver37-block-line-not-approved"})],
     "amend-nothing-with-unasked-candidate": [("it does not count the candidate", [("reply", None, " One candidate (PRD-001 FR-024) waits for an interactive run.", "")],
                                               {"ver33-says-one-candidate-waits", "ver33-says-for-an-interactive-run"})],
-    "brief-drafted": [("the closing line is missing from the second brief", [("reply", None, "Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.\n\nNothing was sent.", "\nNothing was sent.")],
-                       set()),
-                      ("no closing line at all", [("reply", None, "Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.\n", "", 2)],
-                       {"ver39-briefs-in-dm05-order", "ver39-closing-line-exact"}),
-                      ("the Style holds a hex value", [("reply", None, "Style: propose one.\n\nGive me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.\n\n**Brief 2", "Style: propose one, dark #1a1b26.\n\nGive me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.\n\n**Brief 2")],
-                       {"ver39-style-holds-no-hex-or-px", "ver39-no-hex-value-anywhere"}),
-                      ("a drawing of a screen", [("reply", None, "Nothing was sent.", "Nothing was sent.\n┌────────┐\n│ Shifts │\n└────────┘")],
-                       {"ver39-no-drawing"}),
-                      ("no statement about the tool", [("reply", None, "this session has no Artifact tool, which making the canvas needs (ERR-19). Here", "here")],
-                       {"ver39-says-no-artifact-tool"}),
-                      ("the grouping is not called unconfirmed", [("reply", None, "Here is what I would send, unconfirmed.", "Here is what I would send."),
-                                                                 ("reply", None, "**Proposed grouping, unconfirmed:**", "**Proposed grouping:**")],
-                       {"ver39-says-the-grouping-is-unconfirmed"}),
-                      ("the folder is not named", [("reply", None, "The boards would go into docs/specs/design/DSN-001/boards/; run", "Run")],
-                       {"ver39-names-boards-folder"}),
-                      ("IDEA-04 is not mentioned", [("reply", None, " IDEA-04, \"Export shifts as CSV\", names no screen.", "")],
-                       {"ver39-says-idea-04-names-no-screen"})],
+    "brief-drafted": BRIEF_BAD,
     "no-screen-idea": [("it does not point to the PRD", [("reply", None, " Go on with /devforgeai:prd BRN-001.", "")], {"ver40-points-to-prd"}),
                        ("it does not call the step optional", [("reply", None, "; this step is optional", "")], {"ver40-says-the-step-is-optional"})],
     "no-mockup-no-design-skill": [("a drawing of a screen", [("reply", None, "Nothing was written.", "Nothing was written.\n+------+\n| Home |\n+------+")],
@@ -1024,6 +1144,44 @@ BAD2 = {
                                 ("considered holds PRD-001@2", [("file", DSN1, "considered: [", 'considered: ["PRD-001@2", ')],
                                  {"ver38-considered-does-not-hold-prd-001-at-2"})],
 }
+BAD2["brief-drafted-one-flow"] = ONE_FLOW_BAD
+
+
+def ver50_bad(good, required):
+    """Wrong final replies for VER-50: (label, edits, graders that must fail), made from the correct reply's own checklist lines;
+    `required` are the steps the case's run must have skipped."""
+    line = lambda n: re.search(rf"^- \[x\] {n}\. .*$", good, re.M).group(0)
+    skipped = [n for n in range(1, 11) if "(skipped:" in line(n)]
+    first = required[0]
+    block = "\n".join(line(n) for n in range(1, 11))
+    assert block in good
+    return [
+        ("a step is an unticked box", [("reply", None, line(5), line(5).replace("- [x]", "- [ ]"))], {"ver50-ten-ticked-lines"}),
+        ("step 10 is not ticked", [("reply", None, line(10), line(10).replace("- [x]", "- [ ]"))], {"ver50-ten-ticked-lines"}),
+        ("step 10 is missing", [("reply", None, "\n" + line(10), "")], {"ver50-ten-ticked-lines"}),
+        ("the steps are out of order", [("reply", None, line(4) + "\n" + line(5), line(5) + "\n" + line(4))], {"ver50-ten-ticked-lines"}),
+        ("the list is repeated", [("reply", None, block, block + "\n\n" + block)], {"ver50-ten-ticked-lines"}),
+        ("no checklist", [("reply", None, block, "")], {"ver50-ten-ticked-lines", "ver50-skipped-lines-in-ticked-form"}),
+        ("the skipped steps are one sentence", [("reply", None, block, "\n".join(line(n) for n in range(1, 11) if n not in skipped)
+                                                 + f"\n\nSteps {first} to {skipped[-1]} were skipped.")],
+         {"ver50-ten-ticked-lines", "ver50-skipped-lines-in-ticked-form"}),
+        ("a skipped step is an unticked box", [("reply", None, line(first), line(first).replace("- [x]", "- [ ]"))],
+         {"ver50-ten-ticked-lines", "ver50-skipped-lines-in-ticked-form"}),
+        ("a skipped step does not say so", [("reply", None, line(first), re.sub(r" \(skipped:.*\)$", "", line(first)))], {"ver50-skipped-lines-in-ticked-form"}),
+        ("a skipped step has no reason", [("reply", None, line(first), re.sub(r"\(skipped:.*\)$", "(skipped: )", line(first)))], {"ver50-skipped-lines-in-ticked-form"}),
+    ]
+
+
+for _case, _good, _required in (("writes-dsn", REPLY_CREATE, (3, 4, 5)), ("approval-only-run", REPLY_APPROVE, (2, 3, 4, 5, 6, 7)),
+                                ("amend-nothing-to-do", REPLY_CURRENT, (7, 8, 9)), ("no-boards-stops", GOOD2["no-boards-stops"][1], (6, 7, 8, 9))):
+    BAD2.setdefault(_case, []).extend(ver50_bad(_good, _required))
+# the checklist before the report's block, or before the statement of why the run stopped, is not the order of BEH-01 and BEH-17
+_block, _list, _rest = REPLY_CREATE.split("\n\n", 2)
+BAD2["writes-dsn"].append(("the checklist comes before the report's block", [("reply", None, REPLY_CREATE, _list + "\n\n" + _block + "\n\n" + _rest)],
+                          {"ver50-ten-ticked-lines"}))
+_statement, _list = REPLY_CURRENT.split("\n\n", 1)
+BAD2["amend-nothing-to-do"].append(("the checklist comes before the statement", [("reply", None, REPLY_CURRENT, _list.rstrip("\n") + "\n\n" + _statement + "\n")],
+                                   {"ver50-ten-ticked-lines"}))
 BAD = {"writes-dsn": CREATE_BAD, "coverage-and-report": COVERAGE_BAD, "amend-changed-board": AMEND_BAD,
        "approval-only-run": APPROVE_BAD, "amend-nothing-to-do": NOTHING_BAD}
 
