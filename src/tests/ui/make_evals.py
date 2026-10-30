@@ -1467,9 +1467,12 @@ def amend_adr_consequence():
 
 
 # A board changed on the canvas is seen only when a run with the tool imports it (ERR-17, VER-33). The checklist that closes every
-# reply (VER-50) has a title that holds the words 'import its boards', so this names what is seen and what sees it.
+# reply (VER-50) has a title that holds the words 'import its boards', so this names what is seen and what sees it. What sees it may
+# also be named as the run with the tool ('will only show up in a session that has the Artifact tool'), with a narrower verb.
 CHANGE_SEEN_BY_IMPORT = (r"\b(?:board|canvas|change)\w*\b[^\n]{0,120}\b(?:seen|noticed|picked up|detected|found|shows? up|visible)\b[^\n]{0,80}"
-                         r"\bimport\w*|\bimport\w*\b[^\n]{0,80}\b(?:sees?|shows?|reads?|picks? up|notices?)\b[^\n]{0,60}\b(?:board|canvas|change)")
+                         r"\bimport\w*|\bimport\w*\b[^\n]{0,80}\b(?:sees?|shows?|reads?|picks? up|notices?)\b[^\n]{0,60}\b(?:board|canvas|change)|"
+                         r"\b(?:board|canvas|change|edit)\w*\b[^\n]{0,160}\b(?:seen|shows? up|picked up|pick (?:it|them|those) up|visible)\b"
+                         r"[^\n]{0,120}\b(?:Artifact tool|canvas tool|interactive (?:Claude Code )?session)")
 
 
 def amend_nothing(dsn_text, unasked=False):
@@ -1624,7 +1627,9 @@ CELL_GRID = (r"\b\d{2,3}[ \t-]*(?:columns?|cols?)\s*(?:by|x|×|\*|and|,)?\s*\d{2
 GRID_OR_SIZE = (CELL_GRID + r"|\b\d{3,4}[ \t-]*(?:px|pixels?)\b|\b\d{3,4}\s*(?:x|×|by)\s*\d{3,4}\b|"
                 r"\b\d{3,4}\s*(?:px|pixels?)?\s*(?:wide|tall|high)\b")
 UNCONFIRMED = (r"\bun-?confirmed\b|\bnot (?:yet )?confirmed\b|\bawaiting (?:your )?confirmation\b|\bneeds? (?:your |the user" + APOS
-               + r"s )?confirmation\b|\bto confirm\b|\bhaven" + APOS + r"t confirmed\b|\bpending confirmation\b")
+               + r"s )?confirmation\b|\bto confirm\b|\bhaven" + APOS + r"t confirmed\b|\bpending confirmation\b|"
+               r"\b(?:is|are|was)n" + APOS + r"t (?:yet )?confirmed\b|\b(?:could(?:n" + APOS + r"t| not)|cannot|can" + APOS
+               + r"t) be confirmed\b|\bnot been confirmed\b")
 IDEA_TEXTS = r"Add a shift from the terminal|List shifts in a table|A weekly report page|A dark theme for the report page"
 STATE = (r"\b(?:empty|error|loading|loads?|mid-flow|no shifts?|zero shifts?|blank (?:list|table|state|week|report|screen)|"
          r"nothing (?:recorded|yet)|not yet recorded|cannot be saved|can" + APOS + r"t be saved)\b")

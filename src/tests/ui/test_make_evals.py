@@ -638,6 +638,11 @@ class V2CaseTests(unittest.TestCase):
             "This session has no Artifact tool.", "The Artifact tool is not available here.", "Artifact."]))
         self.assertEqual([True, False], self.hits(c, "ver39-says-the-grouping-is-unconfirmed",
                                                   ["The grouping is unconfirmed.", "Here is the grouping."]))
+        # a negated verb counts (the one-flow reply of 20261030T151903); a plain "confirmed" does not
+        self.assertEqual([True, True, True, False], self.hits(c, "ver39-says-the-grouping-is-unconfirmed", [
+            "Here is the proposed brief for the `record-and-report` flow. It isn't confirmed yet.",
+            "Your request also said to proceed without questions, so the brief below couldn't be confirmed (ERR-22).",
+            "The grouping has not been confirmed.", "Bryan confirmed the grouping."]))
         # the surface of a flow may be named without the word "surface" (v2 suite run 3)
         keyscreen = self.hits(c, "ver39-names-key-screen-and-surface", [
             "**Proposed grouping:**\n1. `shifts`, terminal: 1. List (key screen), 2. Add.\n2. `weekly-report`, web: 1. Report (key screen).",
@@ -1196,8 +1201,17 @@ class V3WordingTests(unittest.TestCase):
         for case in self.CASES:
             self.assertEqual([False], self.hit(case, "ver33-says-a-change-is-seen-by-an-import", [bare]), case)
         for text in ("A changed board shows up only after an import.", "Only an import notices a board that changed on the canvas.",
-                     "A change on the canvas is picked up when a run with the tool imports it."):
+                     "A change on the canvas is picked up when a run with the tool imports it.",
+                     # the run with the tool named instead of the import (the replies of 20261030T153032)
+                     "Any board you've changed on the canvas since then will only show up in a session that has the Artifact tool, "
+                     "or if you copy the boards into `docs/specs/design/DSN-001/boards/` by hand.",
+                     "So any edits made on the canvas itself since the last import won't show up. To pick those up, run the skill "
+                     "again in an interactive Claude Code session (where that tool is available)."):
             self.assertEqual([True], self.hit(self.CASES[0], "ver33-says-a-change-is-seen-by-an-import", [text]), text)
+        # a change not found, or the tool named with no change seen through it, does not say it
+        for text in ("No changed board was found. This session has no Artifact tool.",
+                     "The canvas was not checked: this session has no Artifact tool."):
+            self.assertEqual([False], self.hit(self.CASES[0], "ver33-says-a-change-is-seen-by-an-import", [bare + "\n\n" + text]), text)
 
     def test_the_graders_accept_it_and_refuse_version_1s(self):
         v3 = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. With no Artifact tool in this session, the "
