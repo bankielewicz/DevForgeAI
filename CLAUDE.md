@@ -32,7 +32,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
 | `story` | SKL-008, reserved | SPEC-009 v4, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
-| `ui` | SKL-013 v3, draft | SPEC-017 v3, approved 2026-10-30 | v3: changed-path cases 1 run, 9 of 9 ≥ 0.8; suite 1 run, 50 of 50 ≥ 0.8 (42 at 1.00); triggers not rerun (description unchanged; v2: 13 of 13 on sonnet and opus, negatives 10 of 10); 3-run qualification waived by Bryan until v4's build or 2026-12-31; the brief judge's harness votes and two grader changes made after the results await Bryan; manual re-checks of VER-43 to VER-49 after the deploy (SPEC-017 §9) | PR #126 (0.32.0) |
+| `ui` | SKL-013 v3, draft | SPEC-017 v3, approved 2026-10-30 | v3: changed-path cases 1 run, 9 of 9 ≥ 0.8; suite 1 run, 50 of 50 ≥ 0.8 (42 at 1.00); triggers not rerun (description unchanged; v2: 13 of 13 on sonnet and opus, negatives 10 of 10); 3-run qualification waived by Bryan until v4's build or 2026-12-31; graders too brittle for correct replies corrected and the brief judge reweighted to 0.5, both on Bryan's word; manual re-checks of VER-43 to VER-49 after the deploy (SPEC-017 §9) | PR #126 (0.32.0) |
 
 - The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3, which is not
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
