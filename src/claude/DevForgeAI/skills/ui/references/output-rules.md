@@ -290,11 +290,14 @@ SKILL.md gives the commands. `check` prints one line for each error,
   reported.
 - Exit 0 is `OK`: read the DSN back against the self-check list below.
 - An approval-only run runs `check <ID>` once. An error (a boards copy replaced since the last write) stops the
-  approval: report the errors, say an amend run comes first, and repair nothing.
+  approval, and it is not ERR-11: repair nothing, open the reply with the one-line block
+  `Design document: <ID> (v<N>, <status>; not approved)` ("The report"), then report the errors and say an amend
+  run comes first.
 
 ## When validation still fails (ERR-11)
 
-After the initial check and three repair cycles with errors left, or an error that cannot be repaired: stop. A
+In a run that wrote the DSN, after the initial check and three repair cycles with errors left, or an error that
+cannot be repaired: stop. A
 new DSN stays `draft`. An amended DSN keeps the status "Amending" gave it and is never set to `approved`.
 Replace the report block and the next step with a validation-failure report that lists the checks, the repairs
 and the unresolved errors. Do not hand off to the PRD and do not name the DSN as ready.
