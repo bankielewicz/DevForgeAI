@@ -1,4 +1,4 @@
-"""Structural checks for the ui skill, SKL-013 (SPEC-017 version 2, VER-25; QR-01, QR-02).
+"""Structural checks for the ui skill, SKL-013 (SPEC-017 version 3, VER-25; QR-01, QR-02).
 
 - SKILL.md has at most 500 lines (QR-01), and every reference, asset and script it names exists;
 - its frontmatter has exactly SPEC-017 §5's fields (name, description, argument-hint, and metadata with
@@ -6,7 +6,7 @@
   against skill-frontmatter.schema.json;
 - the description is the one SPEC-017 §5 fixes, at most 1024 characters, with no < or >;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02), and provenance.yaml validates against
-  skill.schema.json and records SKL-013 implementing SPEC-017 v2;
+  skill.schema.json and records SKL-013 version 3 implementing SPEC-017 v3;
 - the checklist has the ten numbered items of §5, in the Workflow section;
 - SKILL.md carries the substituted variables and the six dsn_check.py commands (Claude Code substitutes
   ${CLAUDE_SKILL_DIR} and ${CLAUDE_SESSION_ID} only in SKILL.md), the report block of BEH-17 and BEH-18's hand-off;
@@ -39,7 +39,7 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILL = ROOT / "src/claude/DevForgeAI/skills/ui"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-017.md"
-SKL, SPEC_VERSION = "SKL-013", 2
+SKL, SPEC_VERSION, SKL_VERSION = "SKL-013", 3, 3
 # DM-01: the common keys, then the design-specific ones.
 DSN_KEYS = ["id", "type", "title", "status", "version", "created", "updated", "owner", "authors", "generated_by",
             "reviewed_by", "approved_by", "approved_on", "upstream", "supersedes", "superseded_by", "blocked_by",
@@ -49,7 +49,7 @@ BOARD_FIELDS = ["id", "status", "file", "title", "flow", "surface", "ideas", "an
 COMMANDS = ['python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" next',
             'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" boards <ID>',
             'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check --before-amend <ID>',
-            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" head <ID> -- \'<FILE>\'',
+            'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" head <ID> <K>',
             'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check <ID>',
             'python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" place <ID> --sha-file \'<PATH>\'']
 REFERENCES = ["boards.md", "briefs.md", "canvas.md", "interview.md", "output-rules.md"]
@@ -165,7 +165,7 @@ class Skill(unittest.TestCase):
         self.assertEqual(errors("skill.schema.json", {"frontmatter": self.prov}), [])
         self.assertEqual((self.prov["id"], self.prov["skill_name"], self.prov["eval_tag"]), (SKL, "ui", "ui"))
         self.assertEqual((self.prov["packaging"], self.prov["plugin"]), ("plugin", "devforgeai"))
-        self.assertEqual(self.prov["version"], 2)  # SPEC-017 v2 §11 step 3: "SKL-013 version 2"
+        self.assertEqual(self.prov["version"], SKL_VERSION)  # SPEC-017 v3 §11: "SKL-013 version 3"
         self.assertIn({"id": "SPEC-017", "relation": "implements", "version": SPEC_VERSION, "hash": None},
                       self.prov["upstream"])
         # Not approved until the suite and the manual checks have run and Bryan has said so.
@@ -276,9 +276,7 @@ class Skill(unittest.TestCase):
                        "already `approved`",                                   # N13
                        "which may be followed by the approver's name",  # VER-34/36: the approver is not ERR-02's string
                        "Approve <ID> now? Reply 'approve <ID>' with your name, or 'not now'.",  # offer before Next step
-                       "is never put into a command unquoted",                 # A1a: a board name is untrusted data
                        "an existing item's mapping the request doesn't state stays as it is",  # R1/C1: proceed without questions, amend run
-                       "each `'` in the name is written `'\\''`",                # S3: a quote in a board name
                        "read the `ideas` block line by line",                  # A6: ERR-09
                        "`Flows: unconfirmed (<count>)`",                       # A10
                        "ERR-03 to ERR-06 or ERR-12",                           # R5: the pre-check's ERR-NN line
@@ -292,6 +290,61 @@ class Skill(unittest.TestCase):
                        "the digest file was rejected"):                        # ERR-14 when place exits 2 naming the file
             with self.subTest(phrase):
                 self.assertIn(phrase, text)
+
+    def test_version_3_changes_stay(self):
+        # SPEC-017 v3 (§11): each phrase guards one of the issues #115 to #118, #121 and #125, in the file that
+        # holds the rule. Whitespace is squashed, so a phrase may wrap across lines in the text.
+        files = {name: re.sub(r"\s+", " ", text) for name, text in skill_texts().items()}
+        pins = {
+            "SKILL.md": [
+                "A step the run doesn't do is written ticked and skipped",       # BEH-01, #116: the ticked form only
+                "`- [x] N. <title> (skipped: <reason>)`",
+                "The final reply repeats the whole checklist",                    # BEH-01, #116
+                "step 10 included",
+                "The order is the block, the checklist, the findings, then the Next step paragraph, then nothing.",
+                "each in full in a fenced block",                                 # BEH-23, #115: a brief is shown first
+                "preview repeats the briefs",
+                "text written in the same turn before a question is not reliably shown",
+                "no file name is ever put on a command line",                     # BEH-06, #118: head takes a position
+                "one plain `read` of the canvas URL",                             # BEH-29, #117 and #121
+                "Share menu",                                                     # BEH-29, #121: sharing is reported, never changed
+            ],
+            "references/canvas.md": [
+                "no `paths`",                                                     # BEH-29
+                "haven't viewed the latest version",                              # BEH-27, BEH-29: one more plain read, one retry
+                "a second refusal is ERR-23",
+                "owned by you, private",                                          # BEH-29, #121
+                "readable by only you",
+                "Share menu",
+                "the sharing could not be read",
+                "Add <the flow or screen> to the canvas from this brief?",        # BEH-27, #115
+                "its preview gives the steps to take on the canvas",              # BEH-28, #115
+                "its description carries the line that resumes the run",
+                "(skipped: run ended after the canvas; run again to import)",     # BEH-28, #116
+            ],
+            "references/boards.md": [
+                "nested too deeply",                                              # ERR-04, #125
+                "Never grep or run `ls` in Bash",                                 # BEH-07: the Grep tool only
+                "head <ID> <K>",                                                  # IF-04, #118
+            ],
+            "references/briefs.md": ["each in full, in a fenced block"],          # ERR-19, ERR-22, #115
+            "references/output-rules.md": [
+                "the block, then the checklist",                                  # BEH-17, #116: block, checklist, findings
+                "the canvas's sharing",                                           # BEH-17, BEH-29
+            ],
+        }
+        for name, phrases in pins.items():
+            for phrase in phrases:
+                with self.subTest(name=name, phrase=phrase):
+                    self.assertIn(phrase, files[name])
+        every = " ".join(files.values())
+        for stale in ("head <ID> --",                                             # #118: no name on a command line
+                      "'\\''",                                                    # a quote escaped for the shell
+                      "the checklist does not repeat there",                      # #116: the final reply repeats it
+                      "`ls` the subfolders",                                      # BEH-07: no ls in Bash
+                      "grep on that folder"):
+            with self.subTest(stale=stale):
+                self.assertNotIn(stale, every)
 
 
 class References(unittest.TestCase):
