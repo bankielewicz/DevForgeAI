@@ -12,7 +12,7 @@ work.
 DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.32.0 in
 `src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
 Brainstorm → UI → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
-Architecture and Epic are built; `ui` (optional, SKL-013 v2) designs a release's screens in Claude Design and records them as a DSN; `context` writes the project context documents between Architecture
+Architecture and Epic are built; `ui` (optional, SKL-013 v3) designs a release's screens in Claude Design and records them as a DSN; `context` writes the project context documents between Architecture
 and Story. Each skill implements an approved or in-review spec in `docs/specs/spec/`, and its eval
 suite is the evidence that it works. Each spec's §9 holds the build and eval record (results folders,
 bound commit, scores, cost, manual VER items run and not run); its §13 holds open questions; its
@@ -32,7 +32,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
 | `story` | SKL-008, reserved | SPEC-009 v4, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
-| `ui` | SKL-013 v2, draft | SPEC-017 v2, approved 2026-10-10 | v2: e2e 1 run, every case ≥ 0.8; triggers 13 of 13 on sonnet and opus (negatives 10 of 10); 3-run qualification waived by Bryan; manual VER-43 to VER-49 run 2026-10-10, mostly passing; failures open in #115, #116, #117, a spec contradiction in #118 (SPEC-017 §9) | PR #110 (0.31.0) |
+| `ui` | SKL-013 v3, draft | SPEC-017 v3, approved 2026-10-30 | v3: changed-path cases 1 run, 9 of 9 ≥ 0.8; suite 1 run, 50 of 50 ≥ 0.8 (42 at 1.00); triggers not rerun (description unchanged; v2: 13 of 13 on sonnet and opus, negatives 10 of 10); 3-run qualification waived by Bryan until v4's build or 2026-12-31; the brief judge's harness votes and two grader changes made after the results await Bryan; manual re-checks of VER-43 to VER-49 after the deploy (SPEC-017 §9) | PR #126 (0.32.0) |
 
 - The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3, which is not
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
@@ -52,7 +52,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels.
 - ADR-001 to ADR-007 in `docs/specs/adr/` are accepted; ADR-007 adds the `ui` step (the skill makes the release's
-  Claude Design canvas through the Artifact tool and records its imported boards as a DSN; version 2 accepted 2026-10-10) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
+  Claude Design canvas through the Artifact tool and records its imported boards as a DSN; version 3 accepted 2026-10-30) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
   context → epic → story → spec. PRD-001 (DevForgeAI itself) and PRD-002
   (DevForgeAI CLI, draft) are in `docs/specs/prd/`.
 
