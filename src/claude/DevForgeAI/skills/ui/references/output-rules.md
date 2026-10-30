@@ -216,7 +216,13 @@ approved, with the errors. If the undo fails, report "approval rollback failed" 
 
 ## The report
 
-Step 10 of SKILL.md gives the block and the next step. These are the rules of each line and of what follows.
+Step 10 of SKILL.md gives the block and the next step. These are the rules of each line and of what follows. The
+final reply is the block, then the checklist, then the findings, then the Next step paragraph.
+- **The checklist** is the ten lines of SKILL.md's Workflow with their titles, repeated right after the block
+  (BEH-01), every line ticked `- [x] N. <title>` and step 10 included, so that the tracker sees the run reach
+  step 10. A step the run did not do is written in the ticked skipped form on its own line,
+  `- [x] N. <title> (skipped: <reason>)`: never as prose ("steps 3 to 5 were skipped") and never as an unticked
+  box.
 - **`Boards`** is printed in a create and in an amend run and names the copy in the boards folder that the run
   read: `boards_root`, the number of active boards, and `canvas_version` or `unknown`.
 - **`Flows`** lists the flows in the order they first appear in the boards block, each hyphen shown as a space,
@@ -230,9 +236,12 @@ Step 10 of SKILL.md gives the block and the next step. These are the rules of ea
   not checked.
 - **An approval-only run's block** is the one line `Design document: <ID> (v<N>, approved)`. When that run
   approved nothing, the line shows the status as it is: `(v<N>, <status>; not approved)`.
-- **Findings follow the block,** briefly: where the boards came from (imported from the canvas at version
+- **Findings follow the checklist,** briefly: where the boards came from (imported from the canvas at version
   `<identifier>`; or a copy recorded as it is, with `no Artifact tool in this session`, `no canvas is recorded` or
-  `recorded as it is by choice`, and the canvas not checked); a pending boards folder under another number that
+  `recorded as it is by choice`, and the canvas not checked); the canvas's sharing as the plain read and the
+  publish results reported it (BEH-29): a canvas the user owns that is not private, with the canvas page's Share
+  menu named as what changes it; for another person's canvas, the header's sharing words as they stand and no
+  pointer to the Share menu; or that the sharing could not be read; a pending boards folder under another number that
   the run did not use; each check and repair, quoting the script's lines; in an amend run both
   pre-check commands as run, in order (`dsn_check.py boards DSN-NNN`, then `dsn_check.py check --before-amend
   DSN-NNN`), each with its last line and its `fact:` lines; the suspect-link warnings; the `answers` entries gone
@@ -246,7 +255,8 @@ Step 10 of SKILL.md gives the block and the next step. These are the rules of ea
 - **No block** for a run that stops before writing: ERR-01 to ERR-10, ERR-12, ERR-14 before the write, ERR-15
   without confirmation, ERR-16 to ERR-24, ERR-13 without a save, and an approval-only request for an approved
   DSN. A run that ends after making a canvas has the canvas report in its place (the canvas reference).
-  ERR-11's report replaces the block and the next step.
+  ERR-11's report replaces the block and the next step. Each of those replies states why the run stopped, or
+  gives the canvas report, and then repeats the checklist all the same.
 
 ## Checking with dsn_check.py
 

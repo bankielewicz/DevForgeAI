@@ -5,6 +5,7 @@
 - When to use this
 - Listing the screens and grouping them into flows
 - The brief's shape
+- Showing a brief
 - The guidance behind it
 - A worked example: a terminal flow
 - A worked example: a web flow
@@ -17,8 +18,9 @@
 
 Read this at step 3 of SKILL.md, before listing the screens. It covers what the skill proposes before any
 canvas exists: the grouping of screens into flows, and one brief for each confirmed flow. A brief is a
-decision that leaves the repository, so the user confirms the grouping and the briefs first. Nothing is sent
-before the question at step 4.
+decision that leaves the repository, so the user confirms the grouping and the briefs first, and sees each brief
+in full before the question that confirms it (see "Showing a brief"). Nothing is sent before the question at
+step 4.
 
 ## Listing the screens and grouping them into flows
 
@@ -52,6 +54,14 @@ It has six parts, in this order:
 | 4. Must-haves | Two to four hard constraints: the surface and its size. For a terminal surface: a monospace cell grid of stated columns by rows, drawn only with text, box-drawing and block characters, 24-bit colour, keyboard-driven (propose a size such as 120 columns by 40 rows; the user confirms it with the brief) |
 | 5. Style | By reference: the user's default design system, named as the Artifact tool's `quickstart` lists it, else the words "propose one". Never a restatement of tokens, colours or hex values |
 | 6. Closing line | The exact line `Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.` |
+
+## Showing a brief
+
+The user must never confirm a brief they have not seen, and text written in the same turn before a question is not
+reliably shown. So the reply text gives each confirmed flow's brief in full, in a fenced block of its own,
+whatever the number of flows (a single confirmed flow's one brief included), before the question, and the preview
+of the confirming option repeats the briefs. The same holds wherever the skill shows a brief: the question that
+adds a flow or a screen to a canvas, and the replies of ERR-19, ERR-22 and ERR-23.
 
 ## The guidance behind it
 
@@ -130,7 +140,8 @@ When the user declines, asks for another grouping or a change, or no answer can 
 "proceed without questions"): make no canvas and send nothing.
 - A changed grouping: propose it again and redraft the briefs.
 - A changed brief: redraft it and ask again.
-- Otherwise show the grouping and the briefs, say how to resume (run the skill again), and write nothing.
+- Otherwise show the grouping and the briefs, each in full, in a fenced block, say how to resume (run the skill
+  again), and write nothing.
 
 ## When nothing names a screen (ERR-24)
 
@@ -142,6 +153,6 @@ screen, that this step is optional, and that the user can name the ideas to draw
 ## Without the Artifact tool (ERR-19)
 
 Check that the Artifact tool is available before asking anything (SKILL.md, Tools). Without it, list the screens
-and show the proposed grouping and the briefs for it, unconfirmed, ask nothing, and say that they can be pasted
-into `/design` by hand. Then apply ERR-19 as SKILL.md says. Never draw a mockup of a screen, in a reply or in
+and show the proposed grouping and the briefs for it, each in full, in a fenced block, unconfirmed, ask nothing,
+and say that they can be pasted into `/design` by hand. Then apply ERR-19 as SKILL.md says. Never draw a mockup of a screen, in a reply or in
 the terminal, in place of the canvas.

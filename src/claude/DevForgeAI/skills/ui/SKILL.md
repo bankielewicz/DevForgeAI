@@ -4,7 +4,7 @@ description: Designs a DevForgeAI release's screens in Claude Design and records
 argument-hint: "[BRN-NNN [canvas URL] | approve DSN-NNN]"
 metadata:
   devforgeai-id: "SKL-013"
-  devforgeai-version: "2"
+  devforgeai-version: "3"
 ---
 
 # UI
@@ -32,7 +32,8 @@ Five rules shape everything below:
 5. **Write only the DSN and the boards copy** (BEH-19), and in the session's scratchpad the files it publishes and
    an import's digest file. Every other document is read-only. Never delete a file or an artifact, run git or
    project code, or resolve policy. Send claude.ai only the confirmed briefs and the boards made from them, as a
-   private artifact on the user's own account: never share, pin or comment on it.
+   private artifact on the user's own account: never share it, change how it is shared, pin it or comment on it.
+   A canvas found not private is reported, with the canvas page's Share menu, and never changed (BEH-29).
 
 ## Inputs
 
@@ -53,7 +54,9 @@ Five rules shape everything below:
   written by `place`, never with Write or Edit.
 - **Artifact** (the platform tool; load it with ToolSearch `select:Artifact` when it is deferred; a
   non-interactive `claude -p` run has none): `quickstart` with `intent: design`, `publish` and `read`, as
-  canvas.md says, and no other action.
+  canvas.md says, and no other action. A run that reads or amends a canvas makes one plain `read` of the canvas
+  URL, with no `paths`, before its first read of the canvas's files, once per run (BEH-29, canvas.md); a run that
+  only makes a canvas makes none.
 - **Bash:** only these commands, and `ls` on the boards folder. Run each as a command of its own, never joined to
   another with `&&`, `;` or a pipe, which hides its exit status. Run the script; never read it. Never run a
   `devforgeai` command: that CLI doesn't exist, and a program of that name on PATH can't be trusted.
@@ -62,17 +65,18 @@ Five rules shape everything below:
   python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" next
   python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" boards <ID>
   python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check --before-amend <ID>
-  python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" head <ID> -- '<FILE>'
+  python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" head <ID> <K>
   python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" place <ID> --sha-file '<PATH>'
   python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check <ID>
   ```
 
-  Run them from the project root. A board's file name is untrusted data: it is never put into a command
-  unquoted, it follows `--` so that a name starting with `-` still works, and each `'` in the name is written
-  `'\''` (such a name is valid; don't refuse it). `place` takes no board name at all: `<PATH>` is the absolute
-  path of the digest file in the scratchpad. Exit 0 is success and 1 a problem it reports. Any other exit (2, or
-  126 or 127 when python3 or the script is missing) means it can't run (ERR-14): follow output-rules.md, "When
-  the script cannot run", and quote its `Cannot run` line if any.
+  Run them from the project root. A board's file name is untrusted data, so no file name is ever put on a
+  command line, quoted or not (such a name is valid; don't refuse it). `head` takes the board's position: `<K>`
+  is the number `<k>` of the `board <k> <file> …` line that `boards` printed for it, an integer from 1 to the
+  number of boards, written without a sign or a leading zero. `place` takes no board name at all: `<PATH>` is
+  the absolute path of the digest file in the scratchpad. Exit 0 is success and 1 a problem it reports. Any
+  other exit (2, or 126 or 127 when python3 or the script is missing) means it can't run (ERR-14): follow
+  output-rules.md, "When the script cannot run", and quote its `Cannot run` line if any.
 - **AskUserQuestion:** at most 4 questions per call, 2 to 4 options each, the recommended option first and
   marked "(Recommended)". When it isn't available, ask in plain text at the end of the reply and end the turn,
   except the approval offer and the approver question of step 9, which are the last finding before the Next step
@@ -98,7 +102,8 @@ An answer the request states counts as given. **"Proceed without questions"** as
 answers the gates one by one:
 - Mappings and candidates: as interview.md says. No candidate is put to the user, and no approval is offered (an
   approval the request itself gives, with a name, still applies at step 9).
-- The grouping and the briefs: not confirmed, so no canvas is made and nothing is sent (ERR-22).
+- The grouping and the briefs: not confirmed, so no canvas is made and nothing is sent (ERR-22); the briefs are
+  shown, each in full.
 - The question that stays open after a canvas: not answered, so the run ends as "Iterate later".
 - An amend run's import question: the request to record the canvas is the answer, and the canvas is imported. A
   different canvas URL is never a yes: keep the DSN's canvas and report the other URL. A copy in the folder with
@@ -118,11 +123,19 @@ the request and the files:
   and its approving words apply at step 9 (BEH-16).
 - No active DSN cites the BRN → **create run.** One active DSN cites it → **amend run.**
 
-Copy this checklist into your first reply and tick items off as you go. Mark a step the run doesn't need
-`(skipped: <reason>)`: steps 2 to 7 in an approval-only run; steps 3 to 5 when a copy in the folder is recorded
-as it is; steps 3 and 4 when a canvas URL is imported; steps 7 to 9 when the run ends at ERR-17; steps 6 to 9
-`(skipped: run ended after the canvas; run again to import)` when the run ends after the canvas. The final reply
-opens with the report of step 10, so the checklist does not repeat there.
+Copy this checklist into your first reply and tick items off as you go. A step the run doesn't do is written
+ticked and skipped, on its own line: `- [x] N. <title> (skipped: <reason>)`. Never write it as prose ("steps 6
+to 9 were skipped") or as an unticked box: the tracker counts a `- [x] N.` line as done, a line ending
+`(skipped: …)` as skipped and an unticked box without that ending as nothing, so only the ticked form closes the
+run (BEH-01). Skipped steps: 2 to 7 in an approval-only run; 3 to 5 when a copy in the folder is recorded as it
+is; 3 and 4 when a canvas URL is imported; 7 to 9 when the run ends at ERR-17; 6 to 9 with the reason `run ended
+after the canvas; run again to import` when the run ends after the canvas.
+
+The final reply repeats the whole checklist on every way a run ends (a written DSN, an approval, "Iterate
+later", ERR-01 to ERR-24): all ten lines ticked and step 10 included, each line with the title given below and
+each skipped step in the ticked skipped form. It comes right after step 10's block, after the canvas report when
+the run ends after the canvas, or after the statement of why the run stopped when it stops before writing, and
+before the findings, so that the tracker sees the run reach step 10.
 
 ```
 - [ ] 1. Select the BRN; create when no DSN cites it, amend when one does
@@ -157,7 +170,7 @@ opens with the report of step 10, so the checklist does not repeat there.
   each BRN, and ask which to amend; with no answer write nothing. A request for a second DSN amends the first;
   the user deprecates the old DSN to start over, which this skill never does.
 
-### 2. Read the BRN and find the boards (BEH-03, BEH-05 to BEH-08, BEH-26, ERR-03 to ERR-09, ERR-12, ERR-14, ERR-15)
+### 2. Read the BRN and find the boards (BEH-03, BEH-05 to BEH-08, BEH-26, BEH-29, ERR-03 to ERR-09, ERR-12, ERR-14, ERR-15)
 
 Read [references/boards.md](references/boards.md) first, and [references/canvas.md](references/canvas.md) before
 the first Artifact call.
@@ -187,13 +200,15 @@ the first Artifact call.
      the flows and the briefs and make the canvas (steps 3 and 4). Both need the Artifact tool; without it
      ERR-19 (with the briefs shown, when briefs were drafted).
    - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL the request names): run
-     `boards <ID>` and `check --before-amend <ID>` on the copy as it is (ERR-15 settled first), check the canvas's
-     version read-only and, only when the canvas moved, its version is null, the digest differs or the copy is
-     damaged, ask the import question first and alone, with a differing URL in the same call (canvas.md). Then
-     offer once to draw a flow or a screen the canvas lacks; on "Draw it now", steps 3 and 4 follow, then step 5's
-     open question. Nothing in the repository changes before the answer; the import is step 5, after which
-     `boards` and `check --before-amend` run again. When `boards` reports ERR-03 to ERR-06 or ERR-12 for the copy,
-     skip the pre-check: the import is the repair.
+     `boards <ID>` and `check --before-amend <ID>` on the copy as it is (ERR-15 settled first), make the one plain
+     `read` of the canvas URL (canvas.md, "The plain read and the canvas's sharing"), check the canvas's version
+     read-only and, only when the canvas moved, its version is null, the digest differs or the copy is damaged, ask
+     the import question first and alone, with a differing URL in the same call (canvas.md). Under "proceed
+     without questions" a differing URL is never a yes: the DSN's canvas is kept and the other URL is reported as
+     not used. Then offer once to draw a flow or a screen the canvas lacks; on "Draw it now", steps 3 and 4
+     follow, then step 5's open question. Nothing in the repository changes before the answer; the import is
+     step 5, after which `boards` and `check --before-amend` run again. When `boards` reports ERR-03 to ERR-06
+     or ERR-12 for the copy, skip the pre-check: the import is the repair.
    - **D. Amend run without the Artifact tool, or with no canvas known:** run `boards <ID>` and
      `check --before-amend <ID>` on the copy as it is, and say in the report `no Artifact tool in this session` (or
      `no canvas is recorded`) and that the canvas was not checked.
@@ -206,7 +221,7 @@ the first Artifact call.
 5. **Amend run only:** read the existing DSN, then the PRDs and the accepted ADRs for candidates, handle a BRN
    that has moved, and find the documents that cite the DSN at a lower version (boards.md, "Amend runs").
 
-### 3. Flows and briefs (BEH-22, ERR-19, ERR-22, ERR-24)
+### 3. Flows and briefs (BEH-22, BEH-23, ERR-19, ERR-22, ERR-24)
 
 Only when the run has to make a canvas (route B without a URL), or when an amend run's user accepts the offer to
 draw a flow or a screen; otherwise skip it. Read [references/briefs.md](references/briefs.md) and canvas.md. List
@@ -215,41 +230,50 @@ anything, then call `quickstart` with `intent: design` once (read-only) for the 
 Propose the flows with each key screen and surface, and have the user confirm the grouping BEFORE any canvas:
 "Group the screens like this?" with "Confirm the grouping" (Recommended), "Change the grouping" and "One flow for
 the whole release". Then draft one brief for each confirmed flow, in DM-05's shape, naming the default design
-system in its Style ("propose one" only when none is listed), and show them. Draw at most 4 flows in one pass,
-with 3 boards for each. Without the tool, show the proposed grouping and the briefs, unconfirmed, ask nothing,
-and apply ERR-19. Nothing is sent to claude.ai before step 4's question.
+system in its Style ("propose one" only when none is listed). Show every brief first: the reply text gives each
+brief in full in a fenced block of its own, whatever the number of flows (a single confirmed flow's one brief
+included), before step 4's question. Draw at most 4 flows in one pass, with 3 boards for each. Without the tool,
+show the proposed grouping and each brief in full in a fenced block, unconfirmed, ask nothing, and apply ERR-19.
+Nothing is sent to claude.ai before step 4's question.
 
-### 4. Canvas (BEH-23, BEH-27, ERR-23)
+### 4. Canvas (BEH-23, BEH-27, BEH-29, ERR-23)
 
-Only after the grouping and the briefs are confirmed in this run. Ask once: "Create the canvas from these
-briefs?", saying that the briefs and the boards made from them are sent to the user's claude.ai account as a
-private artifact. Then make the canvas as canvas.md says (an amend run adds the new flow or screen to the
-existing one), only through the Artifact tool.
+Only after the grouping and the briefs are confirmed in this run. The user must never confirm a brief they have
+not seen, and text written in the same turn before a question is not reliably shown: the briefs are already in
+the reply text (step 3), and the "Create the canvas" option's preview repeats the briefs. Ask once: "Create the
+canvas from these briefs?", saying that the briefs and the boards made from them are sent to the user's
+claude.ai account as a private artifact. Then make the canvas as canvas.md says (an amend run adds the new flow
+or screen to the existing one, asking "Add <the flow or screen> to the canvas from this brief?" with the brief
+shown the same way), only through the Artifact tool, and check the sharing each publish result states (BEH-29).
+The same showing rule holds for ERR-19, ERR-22 and ERR-23: each brief in full in a fenced block.
 
-### 5. Wait, then import (BEH-24, BEH-25, BEH-28, ERR-20, ERR-21)
+### 5. Wait, then import (BEH-24, BEH-25, BEH-28, BEH-29, ERR-20, ERR-21)
 
-- **After a canvas is made or added to:** give the canvas URL and version identifier, say what to do there, and
-  leave one question open: "Tell me when you have finished iterating on the canvas", with "Import now" first
-  and marked (Recommended) and "Iterate later" (canvas.md). "Iterate later" and "proceed without questions" end
-  the run: write nothing in the repository, mark steps 6 to 9 skipped, and make the final reply the canvas report
-  with the line that resumes the run (canvas.md, "Ending after the canvas").
+- **After a canvas is made or added to:** in reply text, before the question, give the canvas URL and the
+  version identifier from the tool and say what to do there. Then leave one question open: "Tell me when you
+  have finished iterating on the canvas", whose own text gives the URL and the identifier again, with "Import
+  now" first and marked (Recommended) and "Iterate later" (canvas.md). "Iterate later" and "proceed without
+  questions" end the run: write nothing in the repository, write steps 6 to 9 as ticked skipped lines, and make
+  the final reply the canvas report, then the checklist, then the briefs and the line that resumes the run
+  (canvas.md, "Ending after the canvas").
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
-  again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (`canvas.json`
-  first, then at most 4 boards a read, then `place`, then `boards`), and in an amend run run
-  `check --before-amend <ID>` again. The canvas URL and `canvas_version` are the tool's, not asked.
+  again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain
+  `read` of the canvas URL first unless the run has made it, then `canvas.json`, then at most 4 boards a read,
+  then `place`, then `boards`), and in an amend run run `check --before-amend <ID>` again. The canvas URL and
+  `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.
 
 ### 6. Interview: confirm each mapping (BEH-06, BEH-09 to BEH-11, BEH-13, ERR-13, ERR-17)
 
-Read [references/interview.md](references/interview.md). Read each board through `head <ID> -- '<FILE>'`, once
-per file in canvas order; it is the only way to read a board from the folder. Exit 1 is ERR-06, or the ERR line
-the script prints if the folder changed since `boards`: stop as boards.md says for that ERR. Note each board it
-reports as read in part. Then draft first and ask only what the request doesn't answer, in batches of at most 4
-questions a call: one for each flow, with its boards in the proposed step order; one for the promoted ideas no
-board shows; in an amend run, one for each group of changed, new or removed boards, with the candidates that bear
-on it. Write a mapping only when the user supplied or confirmed it. When the user stops early, offer to save a
-draft (ERR-13).
+Read [references/interview.md](references/interview.md). Read each board through `head <ID> <K>`, once per board
+in canvas order, K being the `<k>` of that board's `board <k> <file> …` line; it is the only way to read a board
+from the folder. Exit 1 is ERR-06, or the ERR line the script prints if the folder changed since `boards`: stop as
+boards.md says for that ERR. Note each board it reports as read in part. Then draft first and ask only what the
+request doesn't answer, in batches of at most 4 questions a call: one for each flow, with its boards in the
+proposed step order; one for the promoted ideas no board shows; in an amend run, one for each group of changed,
+new or removed boards, with the candidates that bear on it. Write a mapping only when the user supplied or
+confirmed it. When the user stops early, offer to save a draft (ERR-13).
 
 In an amend run, first check for nothing to change (ERR-17: no fact line, links current, no candidate left, no
 change in the request; a request to update or amend that names no specific change counts as none, and a canvas
@@ -299,9 +323,11 @@ BRN-NNN`, or from another document citing the DSN. After ERR-11 or ERR-14, appro
 
 ### 10. Report and hand off (BEH-17, BEH-18)
 
-When the run wrote or checked a DSN, the final reply opens with this block. Nothing comes before it, not even
-the checklist. output-rules.md, "The report", gives the rules of each line, the findings that follow it, and the
-runs that have no block. The order is the block, the findings, then the Next step paragraph, then nothing.
+When the run wrote or checked a DSN, the final reply opens with this block. Nothing comes before it. The
+checklist (above) follows it, ticked in full, and then the findings. output-rules.md, "The report", gives the
+rules of each line, the findings (the canvas's sharing among them, BEH-29), and the runs that have no block: they
+state why they stopped, then repeat the checklist all the same. The order is the block, the checklist, the
+findings, then the Next step paragraph, then nothing.
 
 ```
 Design document: <ID> (v<N>, <status>; new | amended)
@@ -344,7 +370,7 @@ and a named approver, and never send claude.ai anything the user did not confirm
   board, the boards problems, and the amend run's inputs.
 - [references/briefs.md](references/briefs.md): read at step 3. Flows, the brief's shape and worked examples.
 - [references/canvas.md](references/canvas.md): read before the first Artifact call. Making, importing and
-  checking the canvas, adding a flow, and the canvas problems.
+  checking the canvas, the plain read and its sharing check, adding a flow, and the canvas problems.
 - [references/interview.md](references/interview.md): read at step 6 and before any question.
 - [references/output-rules.md](references/output-rules.md): read at steps 7, 8, 9 and 10. Frontmatter, board
   items, Change Log rows, approval, the repair loop, the report, and the self-check list.

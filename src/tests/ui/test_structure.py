@@ -302,7 +302,7 @@ class Skill(unittest.TestCase):
                 "The final reply repeats the whole checklist",                    # BEH-01, #116
                 "step 10 included",
                 "The order is the block, the checklist, the findings, then the Next step paragraph, then nothing.",
-                "each in full in a fenced block",                                 # BEH-23, #115: a brief is shown first
+                "each brief in full in a fenced block",                            # BEH-23, #115: a brief is shown first
                 "preview repeats the briefs",
                 "text written in the same turn before a question is not reliably shown",
                 "no file name is ever put on a command line",                     # BEH-06, #118: head takes a position
