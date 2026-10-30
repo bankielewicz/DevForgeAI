@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
-"""Check a DevForgeAI design document (DSN) and the boards folder it records (SPEC-017 IF-01 to IF-04).
+"""Check a DevForgeAI design document (DSN) and the boards folder it records (SPEC-017 IF-01 to IF-05).
 
 Usage:
     python3 dsn_check.py next [--root DIR]
     python3 dsn_check.py boards [--root DIR] DSN-NNN
     python3 dsn_check.py check [--before-amend] [--root DIR] DSN-NNN
-    python3 dsn_check.py head [--root DIR] DSN-NNN [--] FILE
+    python3 dsn_check.py head [--root DIR] DSN-NNN K
     python3 dsn_check.py place [--root DIR] DSN-NNN --sha-file PATH
 
 DIR is the project root (`.` by default). Output is on standard output. Exit 0 is success, 1 a problem the script
 reports, 2 that it cannot run: no or wrong arguments, a root it cannot read, a DSN file or a BRN it cannot read. A run
 that cannot run prints one line, `Cannot run: <reason>.`, and nothing else. A boards folder that fails DM-04 is a problem
 it reports, in every subcommand that reads it: `ERR-03`, `ERR-04`, `ERR-05` or `ERR-12` (the first that fails), or an
-`ERR-06` line for every board that fails; `check` (without --before-amend) reports it as one `boards` error.
+`ERR-06` line for every board that fails; `check` (without --before-amend) reports it as one `boards` error. A canvas.json
+nested more than 100 levels deep is ERR-04, counted before the file is parsed.
 
 - next: prints `next: DSN-NNN` (one more than the highest DSN-NNN.md in docs/specs/design/, DSN-001 with none) and
   `pending boards folders: ...`. It reads only the names in that folder.
@@ -26,9 +27,12 @@ it reports, in every subcommand that reads it: `ERR-03`, `ERR-04`, `ERR-05` or `
   then `OK <file>` or `INVALID: <n> error(s) in <file>`. With --before-amend it applies the structural rules only and
   prints what it did not enforce as `fact: ...` lines (the facts an amend run starts from), then
   `OK <file> (before amend)` or `INVALID: ...`.
-- head: prints at most 150 lines and 16 KB of one board file that canvas.json names, a line over 500 characters cut to
-  500 and marked `[cut]`, then `head: <shown> of <lines> lines, <bytes shown> of <bytes> bytes, <n> lines cut`: what was
-  left out is the difference between the "of" numbers, and <n> is the number of lines that were cut short.
+- head: prints at most 150 lines and 16 KB of the board at position K, the K-th key of `boards` in canvas.json (the
+  number <k> of the `board <k> <file> ...` line of `boards`; an integer from 1, written without a sign or a leading zero),
+  a line over 500 characters cut to 500 and marked `[cut]`, then `head: <shown> of <lines> lines, <bytes shown> of <bytes>
+  bytes, <n> lines cut`: what was left out is the difference between the "of" numbers, and <n> is the number of lines that
+  were cut short. A board's name is untrusted text, so it is never a command-line word: the script reads it from
+  canvas.json. A K that is not such an integer, or above the number of boards, cannot run (exit 2).
 
 - place: moves an import from docs/specs/design/DSN-NNN/project/ into boards/, after checking canvas.json and every board it
   names as `boards` does and each staged file against the `<hex>  <file>` lines of the file PATH (written by the skill from
@@ -59,6 +63,7 @@ OUTPUT_MAX_BYTES = 16 * 1024          # DM-04, IF-04: the whole of `head`'s outp
 TRAILER_RESERVE = 200                 # room kept for head's trailer line inside OUTPUT_MAX_BYTES (it is under 100)
 LINE_MAX_CHARS = 500                  # DM-04, IF-04: a longer line is cut to 500 characters and marked [cut]
 LINE_PREFIX_BYTES = 4 * LINE_MAX_CHARS + 4   # 500 characters are at most 2000 bytes (UTF-8); a few more to see the 501st
+JSON_MAX_DEPTH = 100                  # DM-04, IF-02, ERR-04: canvas.json nests at most 100 levels, far below any decoder's own limit
 READ_CHUNK = 64 * 1024                # a board is read in chunks, so a minified board of one 2 MB line costs no more memory
 MAX_DSN_NUMBER = 999                  # DSN-NNN has three digits (design.schema.json)
 
@@ -279,6 +284,28 @@ def shown_json(value):
     return text if len(text) <= 40 else text[:37] + "..."
 
 
+# A JSON string up to its closing quote (a backslash escapes the next character, so an escaped quote does not end it), or
+# up to the end of the text when it is never closed; or one bracket. The alternatives of the loop start with different
+# characters, so a match never backtracks.
+RE_JSON_TOKEN = re.compile(r'"(?:[^"\\]+|\\[\s\S]?)*(?:"|\Z)|[\[\]{}]')
+
+
+def nested_too_deeply(text):
+    """True when `text` nests deeper than JSON_MAX_DEPTH: one level for each [ or { outside a JSON string, one given back
+    for each ] or }. The count is made before the text is parsed, so the verdict never depends on the interpreter's
+    stack, and the same text gets the same verdict under every way of running the script."""
+    depth = 0
+    for m in RE_JSON_TOKEN.finditer(text):
+        c = text[m.start()]
+        if c == "[" or c == "{":
+            depth += 1
+            if depth > JSON_MAX_DEPTH:
+                return True
+        elif c != '"':
+            depth -= 1
+    return False
+
+
 class Canvas:
     def __init__(self, names, v, sha, positions):
         self.names = names
@@ -342,12 +369,17 @@ def read_canvas(root, dsn, sub="boards"):
         text = raw.decode("utf-8")
     except UnicodeDecodeError as e:
         raise BoardsProblem("04", f"{rel}canvas.json is not valid UTF-8 (byte {e.start}); the copy may be damaged, copy it again")
+
+    def not_json(detail):
+        return BoardsProblem("04", f"{rel}canvas.json is not valid JSON ({detail}); the copy may be damaged or from another tool, copy it again")
+
+    if nested_too_deeply(text):
+        # counted before the parse (IF-02): the decoder's own limit and the text of its error vary with the interpreter
+        raise not_json("nested too deeply")
     try:
         data = json.loads(text, object_pairs_hook=_json_pairs, parse_float=RawNumber, parse_constant=_json_constant)
-    except (ValueError, RecursionError) as e:
-        # a RecursionError's own text holds a stack-usage figure that varies from run to run
-        detail = "nested too deeply" if isinstance(e, RecursionError) else " ".join(str(e).split())
-        raise BoardsProblem("04", f"{rel}canvas.json is not valid JSON ({detail}); the copy may be damaged or from another tool, copy it again")
+    except ValueError as e:
+        raise not_json(" ".join(str(e).split()))
     if not isinstance(data, JsonObject):
         raise BoardsProblem("04", f"{rel}canvas.json must be a JSON object, not {shown_json(data)}; the copy may be damaged, copy it again")
     if data.dups:
@@ -433,21 +465,34 @@ def cmd_boards(root, dsn):
             + ["boards: ok"]), 0
 
 
-def cmd_head(root, dsn, name):
+RE_POSITION = re.compile(r"[1-9][0-9]*")         # IF-04: K is an integer from 1, without a sign or a leading zero
+
+
+def position_shown(text):
+    """K (or what stands where K belongs) for a message: quoted, with escapes, and cut when it is long."""
+    return repr(text if len(text) <= 40 else text[:37] + "...")
+
+
+def cmd_head(root, dsn, position):
+    """`position` is K as the command line gave it: parse_args has checked its form (an integer from 1, no sign, no leading
+    zero). The board's name is read from canvas.json, so a name is never a word of the command (IF-04)."""
     try:
         canvas = read_canvas(root, dsn)
     except BoardsProblem as p:
         return [f"ERR-{p.code}: {p.message}"], 1
+    k = int(position) if len(position) <= len(str(MAX_BOARDS)) else 0     # a longer number is above every number of boards
+    if not 1 <= k <= len(canvas.names):
+        raise CannotRun(f"{position_shown(position)} is not the position of a board: canvas.json lists {len(canvas.names)}, "
+                        f"numbered 1 to {len(canvas.names)} as boards prints them")
+    name = canvas.names[k - 1]
     why = name_problem(name)
-    if not why and name not in canvas.names:
-        why = f"the file is not named by canvas.json, so it is not a board"
     if not why:
         try:
             scan = scan_file(boards_path(root, dsn, name), keep=HEAD_MAX_LINES)
         except Unreadable as u:
             why = u.reason
     if why:
-        return [f"ERR-06: board {jstr(name)}: {why}"], 1
+        return [f"ERR-06: board {k} {jstr(name)}: {why}"], 1
     budget = OUTPUT_MAX_BYTES - TRAILER_RESERVE
     out, used, shown, bytes_shown, cut = [], 0, 0, 0, 0
     for prefix, length, ended in scan.head:
@@ -2071,11 +2116,14 @@ def parse_args(argv):
     wanted = {"next": 0, "boards": 1, "check": 1, "head": 2, "place": 1}[sub]
     if len(positional) != wanted or (sub == "place" and sha_file is None):
         usage = {"next": "next [--root DIR]", "boards": "boards [--root DIR] DSN-NNN",
-                 "check": "check [--before-amend] [--root DIR] DSN-NNN", "head": "head [--root DIR] DSN-NNN [--] FILE",
+                 "check": "check [--before-amend] [--root DIR] DSN-NNN", "head": "head [--root DIR] DSN-NNN K",
                  "place": "place [--root DIR] DSN-NNN --sha-file PATH"}[sub]
         raise CannotRun(f"wrong arguments: use {usage}")
     if wanted and not RE_DSN.fullmatch(positional[0]):
         raise CannotRun(f"{positional[0]!r} is not a DSN ID such as DSN-001")
+    if sub == "head" and not RE_POSITION.fullmatch(positional[1]):
+        raise CannotRun(f"{position_shown(positional[1])} is not a board position: K is the number <k> of a `board <k> <file> ...` "
+                        "line of boards, an integer from 1 written without a sign or a leading zero")
     return sub, root, before, positional, sha_file
 
 
