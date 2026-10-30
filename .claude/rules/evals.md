@@ -10,6 +10,13 @@ paths:
 CLAUDE.md, "Evaluating a skill", has the suite command and the rules that always apply. This file has
 the per-skill tooling, what each flag is for, and how to read results.
 
+A sibling herdr pane running a plain shell counts as the plain terminal (Bryan, 2026-10-30): a session
+may start a run there with `herdr pane run <pane> "<command>"`, never in a pane running a Claude agent,
+and waits on the run's own log for a marker line it prints at the end (`herdr pane wait-output`
+returned early once). A run that grants Bash is refused, every case in about 5 s at $0.00, while
+anything inside `~/.docker` is a symbolic link (only the folder itself may be one); `find ~/.docker
+-type l` must print nothing.
+
 ## Per-skill eval tooling
 
 Run from the repository root. Cases under `src/claude/DevForgeAI/evals/<skill>/` are generated:
