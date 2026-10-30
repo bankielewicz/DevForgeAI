@@ -1,5 +1,6 @@
 ---
 type: llm
+weight: 0.5
 ---
 
 The agent was asked to design the UI for a brainstorm (BRN-001, Shiftlog: record shifts) in a session with no Artifact tool, so it

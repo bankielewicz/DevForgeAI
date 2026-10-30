@@ -998,7 +998,14 @@ NOTHING_BAD = [
     ("it does not give the canvas version", [("reply", None, "17-example", "unknown")], {"ver33-gives-the-recorded-canvas-version"}),
     ("it does not say the canvas was not checked", [("reply", None, "Without the Artifact tool the canvas was not checked; a board changed",
                                                       "A board changed")], {"ver33-says-canvas-not-checked"}),
+    # the widening of 5af464f and its 'see' (Bryan, 2026-10-30): what is left must still fail. Here only the checklist's 'then import its
+    # boards' names an import (and the reply still names the Artifact tool)
     ("it does not say a change is seen by an import", [("reply", None, "; a board changed on the canvas is seen only when a run with the tool imports it", "")],
+     {"ver33-says-a-change-is-seen-by-an-import"}),
+    ("a change shows up in the DSN, with no run or tool named", [("reply", None, "is seen only when a run with the tool imports it", "shows up in the DSN")],
+     {"ver33-says-a-change-is-seen-by-an-import"}),
+    ("a change the user will see in the DSN, with no run or tool named", [("reply", None, "is seen only when a run with the tool imports it",
+                                                                            "is one you will see in the DSN")],
      {"ver33-says-a-change-is-seen-by-an-import"}),
     ("it says the boards are copied again, as version 1 did", [("reply", None, "a board changed on the canvas is seen only when a run with the tool imports it",
                                                                 "a board changed on the canvas must be copied into the boards folder again")],
@@ -1035,6 +1042,17 @@ BRIEF_BAD = [
     ("the grouping is not called unconfirmed", [("reply", None, "Here is what I would send, unconfirmed.", "Here is what I would send."),
                                                ("reply", None, "**Proposed grouping, unconfirmed:**", "**Proposed grouping:**")],
      {"ver39-says-the-grouping-is-unconfirmed"}),
+    # UNCONFIRMED's negated forms (5af464f): a plain "confirmed" still fails (Bryan, 2026-10-30)
+    ("'confirmed' alone", [("reply", None, "Here is what I would send, unconfirmed.", "Here is what I would send, confirmed."),
+                           ("reply", None, "**Proposed grouping, unconfirmed:**", "**Proposed grouping, confirmed:**")],
+     {"ver39-says-the-grouping-is-unconfirmed"}),
+    ("the grouping was confirmed", [("reply", None, "Here is what I would send, unconfirmed.", "Here is what I would send. The grouping was confirmed."),
+                                    ("reply", None, "**Proposed grouping, unconfirmed:**", "**Proposed grouping:**")],
+     {"ver39-says-the-grouping-is-unconfirmed"}),
+    # a quoted phrase in a Content or a Context that is not the BRN's own words (Bryan, 2026-10-30)
+    ("a Content quotes words the BRN does not have", [("reply", None, "the idea \"List shifts in a table\"; the idea \"Add a shift from the terminal\". The flow",
+                                                       "the idea \"List every shift in a table\"; the idea \"Add a shift from the terminal\". The flow")],
+     {"ver39-quotes-are-the-brns-words"}),
     ("the folder is not named", [("reply", None, "The boards would go into docs/specs/design/DSN-001/boards/; run", "Run")],
      {"ver39-names-boards-folder"}),
     ("IDEA-04 is not mentioned", [("reply", None, " IDEA-04, \"Export shifts as CSV\", names no screen.", "")],
@@ -1080,6 +1098,9 @@ ONE_FLOW_BAD = [
      {"ver39-no-must-haves-holds-a-layout-word"}),
     ("a Content whose screens are not in order", [("reply", None, "The flow's screens, in order: 1. List (the key screen), 2. Add, 3. Report.", "The screens are List (the key screen), Add and Report.")],
      {"ver39-every-content-lists-the-screens-in-order"}),
+    ("a Context quotes words the BRN does not have", [("reply", None, "Context: Shiftlog is used by people who work shifts.",
+                                                       "Context: Shiftlog is used by people who \"clock in at the depot\".")],
+     {"ver39-quotes-are-the-brns-words"}),
 ]
 BAD2 = {
     "writes-dsn": [("the findings are silent about the copy and the canvas", [("reply", None, "Boards come from the copy in docs/specs/design/DSN-001/boards/, recorded as it is. No Artifact tool in this session, so the canvas was not checked.\n", "")],

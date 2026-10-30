@@ -643,6 +643,7 @@ class V2CaseTests(unittest.TestCase):
             "Here is the proposed brief for the `record-and-report` flow. It isn't confirmed yet.",
             "Your request also said to proceed without questions, so the brief below couldn't be confirmed (ERR-22).",
             "The grouping has not been confirmed.", "Bryan confirmed the grouping."]))
+        self.assertEqual([False, False], self.hits(c, "ver39-says-the-grouping-is-unconfirmed", ["Confirmed.", "The grouping was confirmed."]))
         # the surface of a flow may be named without the word "surface" (v2 suite run 3)
         keyscreen = self.hits(c, "ver39-names-key-screen-and-surface", [
             "**Proposed grouping:**\n1. `shifts`, terminal: 1. List (key screen), 2. Add.\n2. `weekly-report`, web: 1. Report (key screen).",
@@ -778,6 +779,34 @@ class V3BriefTests(unittest.TestCase):
             self.assertIn("It shows one brief for each flow it proposes", text, case)
             self.assertIn("a reply that proposes two flows and shows one brief is not a pass", text, case)
 
+    def test_one_flow_grouping_is_settled_by_the_request(self):
+        # Bryan, 2026-10-30: in one-flow the request settles the grouping, and the brief is what stays unconfirmed
+        one = " ".join(front_matter(GENERATED / "brief-drafted-one-flow" / "graders" / "ver39-grouping-and-status.md")[1].split())
+        many = " ".join(front_matter(GENERATED / "brief-drafted" / "graders" / "ver39-grouping-and-status.md")[1].split())
+        self.assertIn("and says the grouping is unconfirmed", many)
+        self.assertNotIn("says the grouping is unconfirmed", one)
+        self.assertIn("The request settled the grouping", one)
+        self.assertIn("says the brief is unconfirmed", one)
+        self.assertEqual({"type": "llm"}, front_matter(GENERATED / "brief-drafted-one-flow" / "graders" / "ver39-grouping-and-status.md")[0])
+
+    def test_quotes_are_the_brns_words(self):
+        # Bryan, 2026-10-30: the judge's "Quoted wording must be the brainstorm's own words", made deterministic: every quoted phrase in a
+        # Context or Content is a run of whole words of one BRN text, its case aside (not_contains: True means a quote the BRN lacks)
+        good = ['Content: the idea "List shifts in a table"; the idea "Add a shift from the terminal"; the problem "Workers lose track of '
+                'the hours they worked each week"; the assumption "We believe that workers will record shifts every day." The flow\'s screens',
+                'Context: Shiftlog is for shift workers. Today "Workers lose track of the hours they worked each week". The one job: x.',
+                '**Content:** the idea “A weekly report page”; the success signal "The hours worked each week are right". States: x',
+                'Content: the idea "a dark theme" for the report page.',
+                'Context: shift workers who "lose track of the hours" they worked. The one job: x.',     # a part of one BRN text
+                'Must-haves: a "fully keyboard-driven" screen',      # not a Context or a Content
+                BRIEF]
+        bad = ['Content: the idea "List every shift in a table"; 1. List',
+               'Context: Shifts "are written on paper and get lost". The one job: x.',
+               'Content: the idea "List shifts in a table"; the idea "Export to the cloud".',
+               '**Context:** Shiftlog users "clock in at the depot". x.']
+        for case in self.CASES:
+            self.assertEqual([False] * len(good) + [True] * len(bad), self.hits("ver39-quotes-are-the-brns-words", good + bad, case=case), case)
+
     def test_one_judge_stays_and_the_five_old_ones_are_gone(self):
         for case in self.CASES:
             llm = sorted(g.name for g in case_by_name()[case].graders if g.type == "llm")
@@ -791,7 +820,8 @@ class V3BriefTests(unittest.TestCase):
         brn_body = M.BRN[M.BRN.index("# BRN-001"):]
         for case in self.CASES:
             fm, body = front_matter(GENERATED / case / "graders" / "ver39-brief-adds-no-fact.md")
-            self.assertEqual({"type": "llm"}, fm)
+            # weight 0.5 (Bryan, 2026-10-30): the harness keeps no FAIL reason, so a harness FAIL cannot be diagnosed
+            self.assertEqual({"type": "llm", "weight": 0.5}, fm)
             self.assertTrue(body.rstrip().endswith(brn_body.rstrip()), case)
             self.assertEqual(1, body.count("# BRN-001"), case)
             # the harness closes the front matter at the first three dashes: none may open a line of the body
@@ -1206,11 +1236,16 @@ class V3WordingTests(unittest.TestCase):
                      "Any board you've changed on the canvas since then will only show up in a session that has the Artifact tool, "
                      "or if you copy the boards into `docs/specs/design/DSN-001/boards/` by hand.",
                      "So any edits made on the canvas itself since the last import won't show up. To pick those up, run the skill "
-                     "again in an interactive Claude Code session (where that tool is available)."):
+                     "again in an interactive Claude Code session (where that tool is available).",
+                     # 'see', bound to the tool or session (Bryan, 2026-10-30; the suite reply of 20261030T153953)
+                     "If a board was changed on the canvas, I'll only see it after a run with the Artifact tool imports it, or after the "
+                     "boards are copied into the folder again by hand."):
             self.assertEqual([True], self.hit(self.CASES[0], "ver33-says-a-change-is-seen-by-an-import", [text]), text)
-        # a change not found, or the tool named with no change seen through it, does not say it
+        # a change not found, the tool named with no change seen through it, or a change seen in the DSN with no run or tool named,
+        # does not say it
         for text in ("No changed board was found. This session has no Artifact tool.",
-                     "The canvas was not checked: this session has no Artifact tool."):
+                     "The canvas was not checked: this session has no Artifact tool.",
+                     "A change on the canvas shows up in the DSN.", "You'll see a board changed on the canvas in the DSN."):
             self.assertEqual([False], self.hit(self.CASES[0], "ver33-says-a-change-is-seen-by-an-import", [bare + "\n\n" + text]), text)
 
     def test_the_graders_accept_it_and_refuse_version_1s(self):

@@ -5,8 +5,8 @@ type: llm
 The agent ran in a session with no Artifact tool and was told to proceed without questions. The promoted ideas that name a screen
 are IDEA-01, IDEA-02, IDEA-03 and IDEA-06; IDEA-04 names none. Judge the agent's output outside the briefs, and how many briefs it
 shows. A pass needs all of these:
-- It proposes how the screens group into flows (one flow for the release, or two such as a terminal flow of IDEA-01 and IDEA-02
-  and a web flow of IDEA-03 and IDEA-06), with the key screen and the surface of each flow, and says the grouping is unconfirmed.
+- It states the one flow for the whole release, with its key screen and its surface (or surfaces), and says the brief is unconfirmed.
+  The request settled the grouping, so the reply may say so; it need not call the grouping unconfirmed.
 - It shows one brief for each flow it proposes, each in a code block of its own: a reply that proposes two flows and shows one brief is
   not a pass.
 - It says the session has no Artifact tool, and that no canvas was made and nothing was sent to claude.ai (wording such as "no

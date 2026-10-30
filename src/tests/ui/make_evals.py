@@ -875,6 +875,7 @@ class Grader:
     max: int = None
     witness: str = None     # text that, appended to the target, must make a not_contains grader fail
     input_match: str = None  # tool_used: the pattern (a YAML scalar, quotes included); the trigger pattern when None
+    weight: float = None     # the harness's default (1) when None
 
 
 @dataclass
@@ -907,9 +908,9 @@ def skill_fired(name, fired):
     return Grader(name, "tool_used", min=1 if fired else 0, max=None if fired else 0)
 
 
-def llm(name, body):
+def llm(name, body, weight=None):
     """A grader the judge model reads; the final reply is what it sees (.claude/rules/evals.md)."""
-    return Grader(name, "llm", pattern=body)
+    return Grader(name, "llm", pattern=body, weight=weight)
 
 
 def unchanged(name, path, text):
@@ -1468,10 +1469,12 @@ def amend_adr_consequence():
 
 # A board changed on the canvas is seen only when a run with the tool imports it (ERR-17, VER-33). The checklist that closes every
 # reply (VER-50) has a title that holds the words 'import its boards', so this names what is seen and what sees it. What sees it may
-# also be named as the run with the tool ('will only show up in a session that has the Artifact tool'), with a narrower verb.
+# also be named as the run with the tool ('will only show up in a session that has the Artifact tool'), with a narrower verb, which
+# alone takes 'see' ('I'll only see it after a run with the Artifact tool imports it'; Bryan, 2026-10-30): in the first alternative it
+# would let the checklist's 'import its boards' through again.
 CHANGE_SEEN_BY_IMPORT = (r"\b(?:board|canvas|change)\w*\b[^\n]{0,120}\b(?:seen|noticed|picked up|detected|found|shows? up|visible)\b[^\n]{0,80}"
                          r"\bimport\w*|\bimport\w*\b[^\n]{0,80}\b(?:sees?|shows?|reads?|picks? up|notices?)\b[^\n]{0,60}\b(?:board|canvas|change)|"
-                         r"\b(?:board|canvas|change|edit)\w*\b[^\n]{0,160}\b(?:seen|shows? up|picked up|pick (?:it|them|those) up|visible)\b"
+                         r"\b(?:board|canvas|change|edit)\w*\b[^\n]{0,160}\b(?:sees?|seen|shows? up|picked up|pick (?:it|them|those) up|visible)\b"
                          r"[^\n]{0,120}\b(?:Artifact tool|canvas tool|interactive (?:Claude Code )?session)")
 
 
@@ -1736,14 +1739,21 @@ def brief_rubric():
     return BRIEF_RUBRIC_HEAD + body
 
 
-BRIEF_JUDGES = {
-    "ver39-brief-adds-no-fact": brief_rubric(),
-    "ver39-grouping-and-status": """\
+GROUPING_HEAD = """\
 The agent ran in a session with no Artifact tool and was told to proceed without questions. The promoted ideas that name a screen
 are IDEA-01, IDEA-02, IDEA-03 and IDEA-06; IDEA-04 names none. Judge the agent's output outside the briefs, and how many briefs it
 shows. A pass needs all of these:
+"""
+GROUPING_PROPOSED = """\
 - It proposes how the screens group into flows (one flow for the release, or two such as a terminal flow of IDEA-01 and IDEA-02
   and a web flow of IDEA-03 and IDEA-06), with the key screen and the surface of each flow, and says the grouping is unconfirmed.
+"""
+# One flow for the whole release: the request settled the grouping, and the brief is what stays unconfirmed (Bryan, 2026-10-30)
+GROUPING_REQUESTED = """\
+- It states the one flow for the whole release, with its key screen and its surface (or surfaces), and says the brief is unconfirmed.
+  The request settled the grouping, so the reply may say so; it need not call the grouping unconfirmed.
+"""
+GROUPING_TAIL = """\
 - It shows one brief for each flow it proposes, each in a code block of its own: a reply that proposes two flows and shows one brief is
   not a pass.
 - It says the session has no Artifact tool, and that no canvas was made and nothing was sent to claude.ai (wording such as "no
@@ -1751,8 +1761,41 @@ shows. A pass needs all of these:
 - It names docs/specs/design/DSN-001/boards/, where a copy placed by hand is recorded.
 - It contains no drawing of a screen made with characters. The words "box-drawing characters" inside a brief are a constraint on
   the canvas, not a drawing.
-Anything else is not a pass.""",
-}
+Anything else is not a pass."""
+
+
+def grouping_rubric(one_flow=False):
+    return GROUPING_HEAD + (GROUPING_REQUESTED if one_flow else GROUPING_PROPOSED) + GROUPING_TAIL
+
+
+# Every quoted phrase in a Context or a Content is the brainstorm's own words: the judge's 'Quoted wording must be the brainstorm's own
+# words', made deterministic (Bryan, 2026-10-30). A quote passes when it is a run of whole words of one of the BRN's texts, its case
+# aside; the texts are read from the fixture's BRN, so the two cannot drift. Each quote is matched as a whole, so the closing mark of an
+# allowed quote is never read as the opening of another.
+def brn_texts(text=None):
+    body = (text or BRN)[(text or BRN).index("# BRN-001"):]
+    texts = re.findall(r'^\s+(?:statement|who|evidence|idea|validation): "(.*)"$', body, re.M)
+    texts.append(re.search(r"^# BRN-001 — (.*)$", body, re.M).group(1))
+    for line in body.splitlines():
+        s = line.strip()
+        if s and s[0] not in "#|`" and not line.startswith(" ") and not s.endswith(":"):
+            texts.append(s[2:] if s.startswith("- ") else s)
+    return texts
+
+
+def word_runs(texts):
+    runs = set()
+    for text in texts:
+        words = text.split()
+        for i in range(len(words)):
+            for j in range(i + 1, len(words) + 1):
+                run = " ".join(words[i:j])
+                runs.update({run, run.rstrip(".,:;")})
+    return sorted((r for r in runs if r), key=lambda r: (-len(r), r))
+
+
+BRN_QUOTE = "(?:" + "|".join(esc(r) for r in word_runs(brn_texts())) + r")\.?"
+QUOTE_NOT_BRN = ("(?:" + CONTEXT + "|" + CONTENT + r")(?:[^\"“”\n]|[\"“]" + BRN_QUOTE + r"[\"”])*[\"“](?!" + BRN_QUOTE + r"[\"”])")
 
 
 def brief_drafted(one_flow=False):
@@ -1784,6 +1827,8 @@ def brief_drafted(one_flow=False):
           # a state may be named by what it shows (briefs.md: "no shift recorded yet", "a week with no shifts")
           reply("ver39-every-content-names-a-state", CONTENT_WITHOUT_STATE, match="not_contains",
                 witness="\nContent: the idea \"List shifts in a table\". 1. List (the key screen).\nMust-haves: x\n"),
+          reply("ver39-quotes-are-the-brns-words", QUOTE_NOT_BRN, match="not_contains",
+                witness="\nContent: the idea \"Export to the cloud\".\n"),
           # the Must-haves' two to four constraints, a grid or a size, no layout word
           reply("ver39-every-must-haves-is-two-to-four-constraints", MUST_WRONG_COUNT, match="not_contains",
                 witness="\nMust-haves: one constraint only\nStyle: x\n"),
@@ -1804,7 +1849,9 @@ def brief_drafted(one_flow=False):
         # two fenced briefs (the closing line quoted in prose is not one)
         g.append(reply("ver39-exactly-one-brief", FENCE_OPEN + IN_BRIEF + CLOSE_LINE + IN_BRIEF + "```" + r"[\s\S]*?" + FENCE_OPEN + IN_BRIEF
                        + CLOSE_LINE, flags="", match="not_contains", witness="\n```\n\n" + BRIEF_CLOSING + "\n```\n"))
-    g += [llm(name, body) for name, body in BRIEF_JUDGES.items()]
+    # the brief judge weighs 0.5 (Bryan, 2026-10-30): the harness keeps no FAIL reason, so a harness FAIL cannot be diagnosed; it stays for
+    # its real catch (00327e7), and the replay of tmp/plans/ui-skill/judge-replay/ stays the gate for its wording
+    g += [llm("ver39-brief-adds-no-fact", brief_rubric(), weight=0.5), llm("ver39-grouping-and-status", grouping_rubric(one_flow))]
     return g
 
 
@@ -2297,7 +2344,7 @@ def grader_file(g):
     if g.type == "file_exists":
         return f"---\ntype: file_exists\npath: {g.target}\nexists: {'true' if g.exists else 'false'}\n---\n"
     if g.type == "llm":
-        return "---\ntype: llm\n---\n\n" + g.pattern + "\n"
+        return "---\ntype: llm\n" + (f"weight: {g.weight}\n" if g.weight is not None else "") + "---\n\n" + g.pattern + "\n"
     head = ["type: tool_used", "tool: Skill", f"input_match: {g.input_match or SKILL_MATCH}", f"min: {g.min}"]
     head += [f"max: {g.max}"] if g.max is not None else []
     return "---\n" + "\n".join(head + ["arm: both"]) + "\n---\n"
