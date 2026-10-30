@@ -1,6 +1,7 @@
 """Structural checks for the ui skill, SKL-013 (SPEC-017 version 3, VER-25; QR-01, QR-02).
 
-- SKILL.md has at most 500 lines (QR-01), and every reference, asset and script it names exists;
+- SKILL.md has at most 500 lines (QR-01) and a body of at most 2,000 words (a build-side guard stricter than QR-01's
+  measured_by), and every reference, asset and script it names exists;
 - its frontmatter has exactly SPEC-017 §5's fields (name, description, argument-hint, and metadata with
   devforgeai-id and devforgeai-version), metadata values quoted, no devforgeai-tracked key, and validates
   against skill-frontmatter.schema.json;
@@ -135,6 +136,13 @@ class Skill(unittest.TestCase):
 
     def test_skill_md_has_at_most_500_lines(self):
         self.assertLessEqual(len(self.text.splitlines()), 500)
+
+    def test_skill_md_body_has_at_most_2000_words(self):
+        # A build-side guard, stricter than QR-01's measured_by (lines and description length only): Bryan decided
+        # on 2026-10-30 that the body, the text after the front matter's closing ---, stays within the skill-development
+        # guide's 1,500 to 2,000 words, with the procedure in references/ (QR-01's text).
+        body = re.match(r"---\n.*?\n---\n(.*)", self.text, re.S).group(1)
+        self.assertLessEqual(len(body.split()), 2000)
 
     def test_frontmatter_keys(self):
         self.assertEqual(list(self.fm), ["name", "description", "argument-hint", "metadata"])
