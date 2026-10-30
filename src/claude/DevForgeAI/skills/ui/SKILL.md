@@ -83,8 +83,8 @@ output-rules.md, "The report", says why). Copy the reason that fits:
 - `run ended after the canvas; run again to import`: steps 6 to 9.
 
 The final reply repeats the whole checklist on every way a run ends: all ten lines ticked and step 10 included,
-each with the title given below. The order is the block, the checklist, the findings, then the Next step paragraph, then nothing. A run with no block puts the
-checklist after the canvas report or the statement of why it stopped, and before the findings; any briefs it shows
+each with its title below. The order is the block, the checklist, the findings, then the Next step paragraph, then nothing. A run with no block puts the
+checklist after the canvas report or the stop statement, and before the findings; any briefs it shows
 follow the checklist.
 
 ```
@@ -110,7 +110,8 @@ at its ERR.
 
 Read [references/boards.md](references/boards.md), "Reading the BRN, the ID and the route (step 2)", and
 [references/canvas.md](references/canvas.md) before the first Artifact call. Gate: the route is chosen; on routes
-A, C and D `boards` (amend: and `check --before-amend`) exits 0, or the run stopped at its ERR.
+A, C and D `boards` (amend: and `check --before-amend`) exits 0 (route C: or the import repairs a damaged copy),
+or the run stopped at its ERR.
 
 ### 3. Flows and briefs (BEH-22, BEH-23, ERR-19, ERR-22, ERR-24)
 
@@ -162,8 +163,8 @@ has when approval is allowed, the offer, the Edit and the undo.
 ### 10. Report and hand off (BEH-17, BEH-18)
 
 When the run wrote or checked a DSN, the final reply opens with this block (order: Workflow).
-output-rules.md, "The report", has the rules of each line, the approval-only run's one-line block, the findings and
-the replies without a block.
+output-rules.md, "The report", has each line's rules, the approval-only one-line block, the findings and the
+replies without a block.
 
 ```
 Design document: <ID> (v<N>, <status>; new | amended)
@@ -188,6 +189,7 @@ For the Next step paragraph, check each skill with Glob on its SKILL.md path and
 Write only the DSN `docs/specs/design/<ID>.md` (the ID `next` printed, or the DSN's own), which follows the
 template and output-rules.md and passes `dsn_check.py check`, and the boards copy `docs/specs/design/<ID>/boards/`
 (BEH-19); in the scratchpad, also the files published to the canvas and an import's digest file. Every other
-document is read-only. Never delete a file or an artifact, run git or project code, or resolve policy. Send claude.ai only the confirmed briefs and the boards made from them, as a private artifact on the user's
+document is read-only. Never start another workflow, delete a file or an artifact, run git or project code, or
+resolve policy. Send claude.ai only the confirmed briefs and the boards made from them, as a private artifact on the user's
 own account, never shared, re-shared, pinned or commented on; report a canvas found not private, with the canvas
 page's Share menu, and never change it (BEH-29).

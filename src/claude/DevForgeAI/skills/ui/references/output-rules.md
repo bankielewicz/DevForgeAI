@@ -22,7 +22,8 @@
 
 ## When to use this
 
-Read this before writing (SKILL.md step 7), and check every written file at step 8: `dsn_check.py check`
+Read this before writing (SKILL.md step 7), or at step 8 in an approval-only run, and check every written file
+at step 8: `dsn_check.py check`
 decides every rule a script can, and the self-check list at the end keeps only what needs judgement. Later
 skills read the DSN mechanically (its ID, version and status, the active board items, the canvas facts), so a
 document that reads well but breaks a rule here misleads every document that cites it.

@@ -237,9 +237,10 @@ run, taking them in that order; report the rest as left for a later run.
 - A candidate the user declines goes in `considered` as `declined:PRD-NNN#FR-NNN`, `declined:PRD-NNN#NFR-NNN`
   or `declined:ADR-NNN`.
 - Under "proceed without questions" no candidate is put to the user. One the request itself declines (by name or
-  as a group) or assigns to a named board (by file name, BRD ID or title) is recorded as above and counts toward
-  the caps. Every other one is reported as left for a later run, with no `PRD-NNN@N` or `ADR-NNN@N` entry for
-  its document.
+  as a group) or assigns to a named board (by file name, BRD ID or title) counts as put to the user, is recorded
+  as above and counts toward the caps; a document whose every candidate the request answered gets its
+  `PRD-NNN@N` or `ADR-NNN@N` entry. The others are reported as left for a later run, with their number, and no
+  `PRD-NNN@N` or `ADR-NNN@N` entry is written for their documents.
 - `considered` changes only in a run that writes for another reason (a board, a mapping, a confirmed or
   declined candidate, a moved link). Then add `PRD-NNN@N` or `ADR-NNN@N` for each document read whose every
   candidate was put to the user in this run, or that had none. Never write it alone: an unrelated PRD or ADR

@@ -32,8 +32,7 @@ The request and the files decide the kind of run, from the start:
   and its approving words apply at step 9 (BEH-16).
 - No active DSN cites the BRN → **create run.** One active DSN cites it → **amend run.**
 
-**The arguments.** The arguments are empty, one BRN ID, a BRN ID followed by one canvas URL, or `approve DSN-NNN`
-(which may be followed by the approver's name). A canvas URL is a claude.ai artifact link,
+**A canvas URL.** A canvas URL (the arguments are in SKILL.md, "Inputs") is a claude.ai artifact link,
 `https://claude.ai/artifact/<id>` or `https://claude.ai/code/artifact/<uuid>`; one stated in the request counts as
 stated, as in the arguments.
 
@@ -152,11 +151,8 @@ A request that says to proceed without questions, or not to ask anything, asks n
   asking, because the script's fact requires it (BEH-13), and the report says so.
 - **Ideas no board shows.** Every promoted idea no board shows, and that the request does not say names no
   screen, is `no board yet`; never `not a screen` on the skill's own judgement.
-- **Candidates.** No candidate is put to the user. A candidate the request itself declines (by name or as a
-  group), or assigns to a named board (by file name, BRD ID or title), counts as put to the user and is
-  recorded: `declined:` in `considered`, or the board's `answers`. A document whose every candidate the request answered gets its `PRD-NNN@N` or `ADR-NNN@N` entry.
-  Only the candidates the request leaves unanswered are reported as left for a later run, with their number, and
-  no entry is written for their documents. Recorded candidates count toward the caps.
+- **Candidates.** None is put to the user; boards.md, "Amend runs: candidates from the PRDs and ADRs", says which
+  are recorded and which are left for a later run.
 - **A copy in the folder.** A copy in the folder with a canvas URL in the request is recorded as it is.
 - **The canvas gates.** The amend run's import question, a canvas URL that differs from the DSN's and the offer to
   draw a flow or a screen are answered as the canvas reference says ("Importing a canvas", "Checking the canvas's
