@@ -72,15 +72,15 @@ It does two jobs.
 ## Showing the briefs (BEH-23)
 
 A brief leaves the repository, so the user must never confirm one they have not seen. Text written in the same
-turn before a question is not reliably shown, so a brief is shown twice:
-- in the reply text, each confirmed flow's brief in full in a fenced block of its own, whatever the number of
-  flows (a single confirmed flow's one brief included), written before the question; and
-- in the preview of the option that confirms ("Create the canvas", or "Add" in an amend run), which repeats the
-  briefs.
+turn before a question is not reliably shown, so show every brief twice:
+- In the reply text, before the question, write each confirmed flow's brief in full in a fenced block of its own,
+  whatever the number of flows (a single confirmed flow's one brief included).
+- Put the same briefs in the preview of the option that confirms ("Create the canvas", or "Add" in an amend run):
+  the preview repeats the briefs.
 
-The same holds wherever the skill shows a brief: the amend run's question (BEH-27) and the replies of ERR-19,
-ERR-22 and ERR-23, each brief in full in a fenced block. In a reply that ends the run, the briefs follow the
-checklist, as the canvas report's do (below).
+Show a brief the same way wherever the skill shows one: the amend run's question (BEH-27) and the replies of
+ERR-19, ERR-22 and ERR-23, each brief in full in a fenced block. In a reply that ends the run, the briefs follow
+the checklist (SKILL.md, Workflow).
 
 ## Making the canvas (BEH-23)
 
@@ -130,13 +130,13 @@ wanted), and delete the boards not wanted in the canvas editor. The DSN records 
 it is imported.
 
 Then leave one question open, with AskUserQuestion when it is available: "Tell me when you have finished
-iterating on the canvas". Text written in the same turn before a question is not reliably shown, so the
-question's own text gives the canvas URL and the version identifier again. Options:
-- "Import now" first and marked (Recommended), for when the user is done. Its text warns that every board the
-  canvas holds becomes an active board, the directions not picked included, and its preview gives the steps to
-  take on the canvas (choose a direction for each flow, ask Claude Design to carry it across the flow's other
+iterating on the canvas". Text written in the same turn before a question is not reliably shown, so put the
+canvas URL and the version identifier in the question's own text again. Options:
+- "Import now" first, marked (Recommended), for when the user is done. Put in its text a warning that every board
+  the canvas holds becomes an active board, the directions not picked included, and put the steps to take on the
+  canvas in its preview (choose a direction for each flow, ask Claude Design to carry it across the flow's other
   screens, delete the boards not wanted).
-- "Iterate later", which ends the run; its description carries the line that resumes the run (below).
+- "Iterate later", which ends the run: put the line that resumes the run (below) in its description.
 
 The run waits at the question and writes nothing in the repository until an import. "Import now" continues with
 the import below (in an amend run, then `boards` and `check --before-amend` again).
@@ -268,7 +268,7 @@ questions" adds nothing.
   run in an interactive Claude Code session. In a create run, name the new DSN's ID and its boards folder,
   `docs/specs/design/<ID>/boards/`, say that a copy placed there by hand (`canvas.json` and the board files it
   names) is recorded when the skill is run again, and name any pending boards folder under another number as not
-  used. When briefs were drafted, show each in full, in a fenced block, with the proposed grouping, unconfirmed,
+  used. When briefs were drafted, show them as "Showing the briefs" says, with the proposed grouping, unconfirmed,
   and say they can be pasted into `/design` by hand. Never draw a mockup in place of the canvas.
 - **ERR-20** (the canvas cannot be read: the URL is not found or is not a Design canvas, it has no
   `project/canvas.json`, the tool refuses the read, the plain read included, or returns a summary instead of the

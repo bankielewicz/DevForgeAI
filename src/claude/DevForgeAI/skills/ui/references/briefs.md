@@ -28,16 +28,19 @@ before the question at step 4.
    a user interface, a command line included; an idea the request names (`IDEA-NN`) counts as naming one. Read
    the BRN's problems and assumptions too, for the real content of a brief. When no idea names a screen, see
    "When nothing names a screen" below.
-2. Propose how the screens group into flows. Give each flow a lowercase slug (`day-to-day`), its screens in
+2. Before asking anything, check that the Artifact tool is available (without it, "Without the Artifact tool
+   (ERR-19)" below applies), then call `quickstart` with `intent: design` once (read-only) for the user's design
+   systems: the default one is named in each brief's Style.
+3. Propose how the screens group into flows. Give each flow a lowercase slug (`day-to-day`), its screens in
    order, its **key screen** (the one that carries the flow) and its **surface**: `web`, `desktop`, `mobile` or
    `terminal`. A flow takes the surface of its key screen; when its screens differ in surface, propose splitting
    the flow, and the user may.
-3. The number of screens is not known up front. The BRN gives the first count; PRD requirements and ADR
+4. The number of screens is not known up front. The BRN gives the first count; PRD requirements and ADR
    consequences add more later, through an amend run. Never invent a screen the ideas do not name.
-4. The skill never decides the flows. Ask, with AskUserQuestion when it is available: "Group the screens like
+5. The skill never decides the flows. Ask, with AskUserQuestion when it is available: "Group the screens like
    this?" with "Confirm the grouping" (Recommended), "Change the grouping" and "One flow for the whole release".
    A changed grouping is proposed again. A single confirmed flow gives one brief for the whole release.
-5. At most 4 flows are drawn in one pass, with 3 boards for each (three directions of the key screen). With more
+6. At most 4 flows are drawn in one pass, with 3 boards for each (three directions of the key screen). With more
    confirmed flows, the first four, in the order the user confirms them, are drawn; the rest come through the
    offer to add a flow in a later amend run.
 
@@ -66,8 +69,7 @@ These are Anthropic's rules for prompting Claude Design, applied.
   to carry it across the flow's other screens.
 - Do not ask for every screen and every state at once.
 - The style is a reference to the design system that exists, so there is one owner of the look (the context
-  documents). The skill reads the user's design systems with `quickstart` (with `intent: design`, once, after checking that the
-  Artifact tool is available and before the first question), which changes nothing.
+  documents). The skill reads the user's design systems with `quickstart`, which changes nothing.
 - Real content makes the directions comparable: quote the BRN's wording, and leave out what the BRN does not
   support.
 - A brief holds no HTML comment.
@@ -134,8 +136,8 @@ When the user declines, asks for another grouping or a change, or no answer can 
 "proceed without questions"): make no canvas and send nothing.
 - A changed grouping: propose it again and redraft the briefs.
 - A changed brief: redraft it and ask again.
-- Otherwise show the grouping and the briefs, each in full, in a fenced block (after the checklist), say how to
-  resume (run the skill again), and write nothing.
+- Otherwise show the grouping and the briefs as the canvas reference's "Showing the briefs" says (each in full, in
+  a fenced block), say how to resume (run the skill again), and write nothing.
 
 ## When nothing names a screen (ERR-24)
 
@@ -146,8 +148,5 @@ screen, that this step is optional, and that the user can name the ideas to draw
 
 ## Without the Artifact tool (ERR-19)
 
-Check that the Artifact tool is available before asking anything (SKILL.md, Tools). Without it, list the screens
-and show the proposed grouping and the briefs for it, each in full, in a fenced block, unconfirmed, ask nothing,
-and say that they can be pasted into `/design` by hand. Then apply ERR-19 (the canvas reference, "Problems"); the
-briefs follow the checklist. Never draw a mockup of a screen, in a reply or in the terminal, in place of the
-canvas.
+Without the tool, list the screens, propose the grouping and draft the briefs for it, ask nothing, and reply as
+ERR-19 says (the canvas reference, "Problems").

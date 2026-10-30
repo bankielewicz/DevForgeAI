@@ -228,12 +228,13 @@ class Skill(unittest.TestCase):
                      "Markers left: "):
             with self.subTest(line):
                 self.assertIn(line, self.text)
-        # The approval-only run's one-line block is output-rules.md's (moved there when SKILL.md was cut to 2,000 words).
-        rules = (SKILL / "references/output-rules.md").read_text()
+        # The approval-only run's one-line block and the amend run's hand-off sentence are output-rules.md's (moved there
+        # when SKILL.md was cut to 2,000 words); SKILL.md keeps the create run's hand-off and the skills' paths.
+        rules = re.sub(r"\s+", " ", (SKILL / "references/output-rules.md").read_text())
         self.assertIn("(v<N>, approved)", rules)
-        for phrase in ("Next step", "in the PRD's section 8 by hand",
-                       "These documents cite <ID> at an older version; review them against <ID> version <N> by hand "
-                       "until their skills do it (cycle C)."):
+        self.assertIn("These documents cite <ID> at an older version; review them against <ID> version <N> by hand "
+                      "until their skills do it (cycle C).", rules)
+        for phrase in ("Next step", "in the PRD's section 8 by hand"):
             with self.subTest(phrase):
                 self.assertIn(phrase, squashed)
         for tool in ("AskUserQuestion", "Proceed without questions"):
@@ -313,7 +314,8 @@ class Skill(unittest.TestCase):
                 "The final reply repeats the whole checklist",                    # BEH-01, #116
                 "step 10 included",
                 "The order is the block, the checklist, the findings, then the Next step paragraph, then nothing.",
-                "each brief in full in a fenced block",                            # BEH-23, #115: a brief is shown first
+                "each brief in full in its own fenced block",                    # BEH-23, #115: a brief is shown first
+                "put the same briefs in the \"Create the canvas\" option's preview",
                 "`run stopped at ERR-NN`",                                        # a form to copy for a step not reached
                 "first reply is also its last",                                   # the checklist appears once there
                 "no file name is ever put on a command line",                     # BEH-06, #118: head takes a position
@@ -323,8 +325,8 @@ class Skill(unittest.TestCase):
             "references/canvas.md": [
                 "no `paths`",                                                     # BEH-29
                 "the one more plain read that a refused publish gets",           # BEH-29: the one retry (moved from SKILL.md)
-                "each confirmed flow's brief in full in a fenced block of its own",  # BEH-23, #115 (moved from SKILL.md)
-                "in the preview of the option that confirms",
+                "write each confirmed flow's brief in full in a fenced block of its own",  # BEH-23, #115: a command
+                "Put the same briefs in the preview of the option that confirms",
                 "Text written in the same turn before a question is not reliably shown",
                 "preview repeats the briefs",                                     # BEH-23, #115
                 "haven't viewed the latest version",                              # BEH-27, BEH-29: one more plain read, one retry
@@ -334,8 +336,8 @@ class Skill(unittest.TestCase):
                 "Share menu",
                 "the sharing could not be read",
                 "Add <the flow or screen> to the canvas from this brief?",        # BEH-27, #115
-                "its preview gives the steps to take on the canvas",              # BEH-28, #115
-                "its description carries the line that resumes the run",
+                "put the steps to take on the canvas in its preview",             # BEH-28, #115: commands
+                "put the line that resumes the run (below) in its description",
                 "(skipped: run ended after the canvas; run again to import)",     # BEH-28, #116
             ],
             "references/boards.md": [

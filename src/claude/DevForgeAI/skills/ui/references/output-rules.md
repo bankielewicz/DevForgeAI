@@ -222,15 +222,14 @@ approved, with the errors. If the undo fails, report "approval rollback failed" 
 
 ## The report
 
-Step 10 of SKILL.md gives the block and the next step. These are the rules of each line and of what follows. The
-final reply is the block, then the checklist, then the findings, then the Next step paragraph.
-- **The checklist** is SKILL.md's (Workflow), repeated right after the block (BEH-01): the ten lines, the skipped
-  form and its reasons are there. A step the run did not do is never written as prose ("steps 3 to 5 were
-  skipped") or as an unticked box: the tracker counts a `- [x] N.` line as done, a line ending `(skipped: …)` as
-  skipped and an unticked box without that ending as nothing, so only the ticked form closes the run, and every
-  line ticked with step 10 included lets the tracker see the run reach step 10. The checklist comes right after the
-  block, after the canvas report when the run ends after the canvas, or after the statement of why the run stopped
-  when it stops before writing, and before the findings.
+Step 10 of SKILL.md gives the block and the hand-off paths. These are the rules of each line and of what follows.
+SKILL.md, Workflow, gives the order of the final reply (the block, then the checklist, then the findings, then the
+Next step paragraph) and where the checklist goes when there is no block.
+- **The checklist** is SKILL.md's (Workflow): the ten lines, the skipped form, its reasons and its place. A step the
+  run did not do is never written as prose ("steps 3 to 5 were skipped") or as an unticked box, because the tracker
+  counts a `- [x] N.` line as done, a line ending `(skipped: …)` as skipped and an unticked box without that
+  ending as nothing: only the ticked form closes the run, and every line ticked with step 10 included lets the
+  tracker see the run reach step 10.
 - **`Boards`** is printed in a create and in an amend run and names the copy in the boards folder that the run
   read: `boards_root`, the number of active boards, and `canvas_version` or `unknown`.
 - **`Flows`** lists the flows in the order they first appear in the boards block, each hyphen shown as a space,
@@ -258,15 +257,23 @@ final reply is the block, then the checklist, then the findings, then the Next s
   left for a later run, with their number; the unconfirmed mappings; and, after an amend, that the new version
   has not been reviewed, and any provenance written as `unavailable`. The last finding is the plain-text
   approval offer or approver question of step 9 (see "Approval"), only when step 9 makes one: no marker left, no
-  "proceed without questions", no approval already given in the request, and no AskUserQuestion. The Next step
-  paragraph follows it and ends the reply: one paragraph outside any code block, with no list,
-  starting with the words Next step in plain text, and nothing after it (SKILL.md, step 10, has what it names).
+  "proceed without questions", no approval already given in the request, and no AskUserQuestion.
+- **The Next step paragraph** follows the findings and ends the reply: one paragraph outside any code block, with
+  no list, starting with the words Next step in plain text, and nothing after it. Never start another workflow or
+  edit another document. After a create run or an approval-only run it is the one SKILL.md, step 10, gives. After
+  an amend run it names inline, in chain order, each document found at step 2 that cites the DSN at an older
+  version, with the command of the skill that owns it: the PRD (`/devforgeai:prd BRN-NNN`, when the prd skill is
+  built), an architecture description (`/devforgeai:architecture PRD-NNN`, when the architecture skill is built and
+  the description cites the DSN in its `upstream`), a context document (`/devforgeai:context <document>`, when the
+  context skill is built); SKILL.md, step 10, gives the paths that tell whether a skill is built. Then: "These
+  documents cite <ID> at an older version; review them against <ID> version <N> by hand until their skills do it
+  (cycle C)." (<N> is the DSN's new version.) When none cites it, say so and name `/devforgeai:prd BRN-NNN` as a
+  create run does.
 - **No block** for a run that stops before writing: ERR-01 to ERR-10, ERR-12, ERR-14 before the write, ERR-15
   without confirmation, ERR-16 to ERR-24, ERR-13 without a save, and an approval-only request for an approved
   DSN. A run that ends after making a canvas has the canvas report in its place (the canvas reference).
   ERR-11's report replaces the block and the next step. Each of those replies states why the run stopped, or
-  gives the canvas report, and then the checklist (SKILL.md, Workflow). Any briefs such a reply shows (ERR-19,
-  ERR-22, ERR-23, the canvas report) follow the checklist.
+  gives the canvas report, and then the checklist and any briefs it shows, in the order SKILL.md, Workflow, gives.
 
 ## Checking with dsn_check.py
 

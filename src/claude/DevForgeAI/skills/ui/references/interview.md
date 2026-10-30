@@ -32,9 +32,16 @@ The request and the files decide the kind of run, from the start:
   and its approving words apply at step 9 (BEH-16).
 - No active DSN cites the BRN → **create run.** One active DSN cites it → **amend run.**
 
-**A request that replaces the ID (ERR-02).** Write nothing, say the skill takes a BRN ID, optionally followed by
-the canvas's claude.ai artifact URL, or `approve DSN-NNN` and paths aren't accepted, and ask for the ID (listing
-the BRNs that have a promoted idea, or the DSNs).
+**The arguments.** The arguments are empty, one BRN ID, a BRN ID followed by one canvas URL, or `approve DSN-NNN`
+(which may be followed by the approver's name). A canvas URL is a claude.ai artifact link,
+`https://claude.ai/artifact/<id>` or `https://claude.ai/code/artifact/<uuid>`; one stated in the request counts as
+stated, as in the arguments.
+
+**A request that replaces the ID (ERR-02).** A file path, a boards folder, a URL without a BRN ID or other words
+in place of the ID are refused, even a path to a BRN file such as `docs/specs/brainstorm/BRN-001.md`: never extract
+an ID from a path. Write nothing, say the skill takes a BRN ID, optionally followed by the canvas's claude.ai
+artifact URL, or `approve DSN-NNN` and paths aren't accepted, and ask for the ID (listing the BRNs that have a
+promoted idea, or the DSNs).
 
 Then, in step 1's order (BEH-02, BEH-04, ERR-01, ERR-10, ERR-16, ERR-18):
 - **Approval-only run:** select the DSN the request names and take the BRN from that DSN's own `derives` link
@@ -155,10 +162,8 @@ A request that says to proceed without questions, or not to ask anything, asks n
   draw a flow or a screen are answered as the canvas reference says ("Importing a canvas", "Checking the canvas's
   version in an amend run", "Adding a flow or a screen in an amend run"): the request to record the canvas is the
   answer to the import question, a different URL is never a yes, and the offer adds nothing.
-- **Nothing to change.** When the pre-check prints no fact, the links are current, the request names no change
-  and only unasked candidates remain, candidates left unasked don't prevent ERR-17: write nothing, stop with
-  no check and no approval offer, say the DSN is current (ERR-17's report), and say how many candidates wait
-  for an interactive run.
+- **Nothing to change.** Candidates left unasked don't prevent ERR-17, and the reply says how many wait for an
+  interactive run (the boards reference, "Amend runs: the facts").
 - **Approval.** No approval is offered (an approval the request itself gives, with a name, still applies at
   step 9 of SKILL.md).
 
