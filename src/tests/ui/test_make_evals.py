@@ -3,7 +3,7 @@
 The generator builds src/claude/DevForgeAI/evals/ui/<case>/ (prompt.md, case.yaml, scaffold.sh, graders/). These
 tests pin what SPEC-017 §9 fixes about the suite:
 - the cases: one for each automated e2e VER item, under the names the spec gives, found by reading the spec itself
-  (VER-01 to VER-22 and VER-30 to VER-38), with the tags and limits of §9 and QR-03;
+  (VER-01 to VER-22, VER-30 to VER-41 and VER-50), with the tags and limits of §9 and QR-03;
 - the shared fixture and prompt: BRN-001 with IDEA-01 to IDEA-06, the four boards in canvas order, the SHA-256 of
   each board computed by the generator;
 - the trigger cases: `ui-trigger-01` to `ui-trigger-11`, one tool_used Skill grader each, arm both, tagged trigger,
@@ -13,7 +13,10 @@ tests pin what SPEC-017 §9 fixes about the suite:
   the docId pattern at frontmatter/upstream/N/id for an instance that matches ^DSN-\\d{3}$. Another test makes the
   suite fail the day common.schema.json accepts DSN, which is the signal to remove the exemption (§10, cycle C);
 - the script on the fixtures: each stop case's boards folder fails with the ERR the case is about;
-- generation is deterministic, and the tree committed under evals/ui/ is what the generator writes.
+- generation is deterministic, and the tree committed under evals/ui/ is what the generator writes;
+- SPEC-017 version 3: VER-39's regex graders for the briefs and its one judge (the rubric the replay of 2026-10-30 passed, built from
+  the fixture BRN), the second case brief-drafted-one-flow, VER-50's two graders in the four cases the item names (the tracker's
+  patterns, SPEC-012 BEH-05), and the wording of VER-33.
 
 Run from the repository root, under the normal HOME (the generator imports jsonschema and referencing from the
 user site):
@@ -39,8 +42,10 @@ SPEC = ROOT / "docs/specs/spec/SPEC-017.md"
 COMMITTED = ROOT / "src/claude/DevForgeAI/evals/ui"
 SCHEMAS = ROOT / "src/schemas"
 
-# The e2e VER items the suite grades (VER-26 is the qualification bar, VER-23 to VER-25 are unit, VER-27 to VER-29 manual).
-E2E = [f"VER-{n:02d}" for n in list(range(1, 23)) + list(range(30, 42))]
+# The e2e VER items the suite grades (VER-26 is the qualification bar, VER-23 to VER-25 and VER-42 are unit, VER-27 to VER-29
+# and VER-43 to VER-49 manual). VER-50 is graded by two graders added to four existing cases (SPEC-017 v3, #116).
+E2E = [f"VER-{n:02d}" for n in list(range(1, 23)) + list(range(30, 42)) + [50]]
+VER_50_CASES = ["writes-dsn", "no-boards-stops", "approval-only-run", "amend-nothing-to-do"]
 
 TRIGGER_PROMPTS = [
     (True, "Record the screen designs for BRN-001 from the boards we copied."),
@@ -70,7 +75,7 @@ STOP_CASES = {
     "amend-nothing-with-prd", "amend-nothing-with-unrelated-documents", "plain-run-never-approves",
     "approval-blocked-by-changed-board", "approval-unknown-dsn", "approval-superseded-dsn", "approval-without-id",
     "boards-without-canvas-json", "brief-drafted", "no-screen-idea", "no-mockup-no-design-skill",
-    "amend-nothing-with-unasked-candidate", "approval-already-approved", "approval-plus-change",
+    "amend-nothing-with-unasked-candidate", "approval-already-approved", "approval-plus-change", "brief-drafted-one-flow",
 }
 # The boards folder of each stop case the script refuses, and the ERR it prints first (IF-02), with the DSN ID the
 # create or amend run would give the script.
@@ -174,14 +179,26 @@ class SpecTests(unittest.TestCase):
             if ver == "VER-22":
                 self.assertIn("ui-trigger-01 to ui-trigger-13", obligation)
                 names = [f"ui-trigger-{i:02d}" for i in range(1, 14)]
+            elif ver == "VER-50":
+                # added to four cases that other items own: "In the cases writes-dsn (…), no-boards-stops (…), …"
+                self.assertIn("graders ver50-ten-ticked-lines and ver50-skipped-lines-in-ticked-form, added to those four cases",
+                              obligation)
+                names = VER_50_CASES
+                for name in names:
+                    self.assertIn(name, obligation)
             else:
                 names = spec_case_names(obligation)
+                if ver == "VER-39":
+                    # "A second case, brief-drafted-one-flow, with a prompt that names one flow …"
+                    second = re.findall(r"A second case, ([a-z0-9-]+),", obligation)
+                    self.assertEqual(["brief-drafted-one-flow"], second)
+                    names += second
             for name in names:
                 self.assertIn(name, cases, f"{ver}: no case {name}")
                 self.assertIn(ver[4:], cases[name].vers, f"{name} does not grade {ver}")
                 wanted.add(name)
         self.assertEqual(wanted, set(cases), "cases the spec does not name, or names the suite lacks")
-        self.assertEqual(62, len(M.CASES))
+        self.assertEqual(63, len(M.CASES))
 
     def test_only_the_e2e_items_are_graded(self):
         graded = {v for c in M.CASES for v in c.vers}
@@ -457,6 +474,75 @@ Give me 3 distinctly different directions of the key screen first, with a one-li
 """
 
 
+CLOSING = "Give me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each."
+# The parts of a brief (DM-05), one string each, so that a test can leave one out or change it
+TERMINAL = {
+    "lead": "Shifts in the terminal: the List and Add screens of Shiftlog, a terminal tool, for people who work shifts.",
+    "context": "Context: Shiftlog is used by people who work shifts. The one job of this flow: record a shift.",
+    "content": "Content: the idea \"List shifts in a table\". The flow's screens, in order: 1. List (the key screen), 2. Add. "
+               "States to show: no shift recorded yet (empty); an error when a shift cannot be saved.",
+    "must": "Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block "
+            "characters; keyboard-driven.",
+    "style": "Style: propose one.",
+    "closing": CLOSING,
+}
+WEB = {
+    "lead": "The weekly report: the Report page of Shiftlog, a web app, for people who want to see a week at a glance.",
+    "context": "Context: Shiftlog users record shifts and then want to know how much they worked. The one job of this flow: read the "
+               "week's report.",
+    "content": "Content: the idea \"A weekly report page\". The flow's screens, in order: 1. Report (the key screen). States to show: a "
+               "week with no shifts; the report while it loads.",
+    "must": "Must-haves: a web page for a desktop browser, 1280 pixels wide; readable in a dark theme; usable with the keyboard alone.",
+    "style": "Style: propose one.",
+    "closing": CLOSING,
+}
+
+
+def brief(base=None, **parts):
+    """A brief's text from its parts (a part given as None is left out)."""
+    p = dict(base or TERMINAL, **parts)
+    return "\n\n".join(p[k] for k in ("lead", "context", "content", "must", "style", "closing") if p[k] is not None) + "\n"
+
+
+def fenced(body):
+    return "```\n" + body + "```\n"
+
+
+def reply_of(*bodies):
+    """A reply that shows each brief in a fenced block of its own, as ERR-19 says."""
+    return ("I wrote nothing: this session has no Artifact tool.\n\n"
+            + "\n**Brief**\n\n".join(fenced(b) for b in bodies) + "\nNothing was sent.\n")
+
+
+BRIEF_BODY = brief()
+
+
+def with_content(body, tail):
+    """The terminal brief with a Content that quotes an idea, lists the screens in order and ends with tail."""
+    return body.replace(TERMINAL["content"], "Content: the idea \"List shifts in a table\". The flow's screens, in order: 1. List "
+                                                "(the key screen), 2. Add. " + tail)
+
+
+SKILL_MD = ROOT / "src/claude/DevForgeAI/skills/ui/SKILL.md"
+
+
+def checklist_titles():
+    """The ten lines of SKILL.md's checklist (SPEC-017 §5): the titles the final reply repeats."""
+    block = re.search(r"```\n((?:- \[ \] \d+\. .*\n){10})```", SKILL_MD.read_text())
+    assert block, "SKILL.md has no ten-line checklist"
+    return re.findall(r"- \[ \] \d+\. (.*)", block.group(1))
+
+
+def ticked(skipped=(), reason="not needed here", only=None):
+    """The checklist as the final reply repeats it (BEH-01): every line ticked, a step not done ending (skipped: reason)."""
+    out = []
+    for n, title in enumerate(checklist_titles(), start=1):
+        if only is not None and n not in only:
+            continue
+        out.append(f"- [x] {n}. {title}" + (f" (skipped: {reason})" if n in skipped else ""))
+    return "\n".join(out)
+
+
 class V2CaseTests(unittest.TestCase):
     """The cases SPEC-017 version 2 adds, and the ones it changes (VER-01, VER-04 to VER-06, VER-33 to VER-41)."""
 
@@ -472,6 +558,7 @@ class V2CaseTests(unittest.TestCase):
         spec = spec_verifications()
         for name, prompt, ver in (
                 ("brief-drafted", "Design the UI for BRN-001. Proceed without questions.", "VER-39"),
+                ("brief-drafted-one-flow", "Design the UI for BRN-001 as one flow for the whole release. Proceed without questions.", "VER-39"),
                 ("no-screen-idea", "Design the UI for BRN-001. Proceed without questions.", "VER-40"),
                 ("no-mockup-no-design-skill", "Design the screens for BRN-001 in Claude Design.", "VER-41"),
                 ("approval-plus-change", "/devforgeai:ui approve DSN-001 and also rename the Report board to Weekly.", "VER-37"),
@@ -513,7 +600,7 @@ class V2CaseTests(unittest.TestCase):
 
     def test_the_design_fixtures(self):
         cases = case_by_name()
-        for name in ("brief-drafted", "no-mockup-no-design-skill", "no-screen-idea"):
+        for name in ("brief-drafted", "brief-drafted-one-flow", "no-mockup-no-design-skill", "no-screen-idea"):
             self.assertEqual(["docs/specs/brainstorm/BRN-001.md"], sorted(cases[name].files), name)
         brn = cases["no-screen-idea"].files["docs/specs/brainstorm/BRN-001.md"]
         ideas = yaml.safe_load(re.search(r"```yaml items\n(ideas:.*?)```", brn, re.S).group(1))["ideas"]
@@ -534,19 +621,11 @@ class V2CaseTests(unittest.TestCase):
         self.assertEqual([True] * 3 + [False] * 3, js([[fm["input_match"], "", t] for t in yes + no]))
 
     def test_the_brief_graders(self):
+        # the graders that read the reply as a whole, or one line of it; the per-brief graders are in V3BriefTests
         c = "brief-drafted"
-        order = self.hits(c, "ver39-briefs-in-dm05-order", [
-            BRIEF, BRIEF.replace("Must-haves", "Must haves"),
-            BRIEF.replace("**Style:** propose one.\n\n", ""),
-            BRIEF.replace("\n\nGive me 3 distinctly different directions of the key screen first, with a one-line tradeoff under each.\n", "")])
-        self.assertEqual([True, True, False, False], order)
         closing = self.hits(c, "ver39-closing-line-exact", [BRIEF, BRIEF.replace("tradeoff", "trade-off"),
                                                              BRIEF.replace("3 distinctly", "three distinctly")])
         self.assertEqual([True, False, False], closing)
-        size = self.hits(c, "ver39-must-haves-state-a-grid-or-a-size", [
-            "a monospace cell grid of 120 columns by 40 rows", "a web page 1280 pixels wide", "a web page, 1280 px wide",
-            "a terminal screen, keyboard-driven"])
-        self.assertEqual([True, True, True, False], size)
         # not_contains graders: True means the offending text was found
         style = self.hits(c, "ver39-style-holds-no-hex-or-px", [
             "**Style:** a dark palette #1a1b26", "Style: 16px type", "**Must-haves:** 1280 px wide\n\n**Style:** propose one.", BRIEF])
@@ -559,86 +638,11 @@ class V2CaseTests(unittest.TestCase):
             "This session has no Artifact tool.", "The Artifact tool is not available here.", "Artifact."]))
         self.assertEqual([True, False], self.hits(c, "ver39-says-the-grouping-is-unconfirmed",
                                                   ["The grouping is unconfirmed.", "Here is the grouping."]))
-        self.assertEqual([True, False], self.hits(c, "ver39-quotes-an-idea", [BRIEF, "Content: a list of shifts."]))
         # the surface of a flow may be named without the word "surface" (v2 suite run 3)
         keyscreen = self.hits(c, "ver39-names-key-screen-and-surface", [
             "**Proposed grouping:**\n1. `shifts`, terminal: 1. List (key screen), 2. Add.\n2. `weekly-report`, web: 1. Report (key screen).",
             "shifts: List (key screen), surface terminal", "shifts: List (key screen)", "terminal flow: List, Add"])
         self.assertEqual([True, True, False, False], keyscreen)
-        self.assertEqual([True, False], self.hits(c, "ver39-names-a-state", ["States to show: empty and error.", "Content: a list."]))
-
-    BRIEF_JUDGES = ["ver39-brief-content-invents-nothing", "ver39-brief-content-shape", "ver39-brief-context",
-                    "ver39-brief-must-haves-and-no-layout", "ver39-brief-parts-in-order", "ver39-grouping-and-status"]
-    PART_JUDGES = ["ver39-brief-content-invents-nothing", "ver39-brief-content-shape", "ver39-brief-context"]
-
-    def bodies(self):
-        return {n: " ".join(front_matter(GENERATED / "brief-drafted" / "graders" / f"{n}.md")[1].split()) for n in self.BRIEF_JUDGES}
-
-    def test_the_brief_llm_graders(self):
-        # The harness's judge answers one word and keeps no reasons (only PASS or FAIL votes), so a seven-part rubric that fails
-        # says nothing about which part: one criterion group for each grader, each with the facts it needs to be checked.
-        c = case_by_name()["brief-drafted"]
-        self.assertEqual(self.BRIEF_JUDGES, sorted(g.name for g in c.graders if g.type == "llm"))
-        bodies = {}
-        for name in self.BRIEF_JUDGES:
-            fm, body = front_matter(GENERATED / "brief-drafted" / "graders" / f"{name}.md")
-            self.assertEqual("llm", fm["type"], name)
-            self.assertNotRegex(body, r"\bFAIL\b", name)   # the harness counts a vote as a pass only if the judge's reply holds no FAIL
-            bodies[name] = body
-        self.assertIn("3 distinctly different directions of the key screen first", bodies["ver39-brief-parts-in-order"])
-        self.assertIn("Shiftlog", bodies["ver39-brief-parts-in-order"])
-
-    def test_the_part_judges_judge_one_span_of_each_brief(self):
-        # ui-v2-brief2 (cefa763): the Context-and-Content judge failed 9 of 9 votes on briefs that the stand-ins passed. A judge that
-        # answers one word applies "adds nothing unsupported" to the whole brief (a terminal tool, 1280 pixels), so each rubric
-        # says which span it judges, and what the other spans are judged by; the instruction comes before the facts.
-        bodies = self.bodies()
-        spans = {"ver39-brief-context": ('after "Context:"', 'its "Content:" label'),
-                 "ver39-brief-content-shape": ('after "Content:"', 'its "Must-haves:" label'),
-                 "ver39-brief-content-invents-nothing": ('after "Content:"', 'its "Must-haves:" label')}
-        for name, (start, end) in spans.items():
-            body = bodies[name]
-            self.assertIn("Judge ONLY the text", body, name)
-            self.assertIn(start, body, name)
-            self.assertIn(end, body, name)
-            for other in ("lead line", "Must-haves", "Style", "closing line"):
-                self.assertIn(other, body.split("A pass needs")[0], f"{name}: {other}")
-            self.assertLess(body.index("Judge ONLY"), body.index("Everything the brainstorm"), name)
-
-    def test_the_part_judges_have_the_facts_they_check_against(self):
-        bodies = self.bodies()
-        # every section of BRN-001 a brief may quote (v2 suite run 3: the success signal was quoted, and the judge could not find it)
-        for name in self.PART_JUDGES:
-            for fact in ("Workers lose track of the hours they worked each week", "We believe that workers will record shifts every day",
-                         "The hours worked each week are right", "Shift workers record when they start and stop work",
-                         "Shift workers.", "Interview notes", "Shiftlog: record shifts",
-                         "Add a shift from the terminal", "List shifts in a table", "A weekly report page",
-                         "A dark theme for the report page"):
-                self.assertIn(fact, bodies[name], f"{name}: {fact}")
-            # the surfaces the reply proposes and the jobs the ideas imply are supported (ui-v2-brief2: nothing said so)
-            for fact in ("terminal", "web page", "add a shift", "see the recorded shifts", "read the hours worked in a week"):
-                self.assertIn(fact, bodies[name], f"{name}: {fact}")
-        self.assertIn("paraphrase", bodies["ver39-brief-context"])
-        self.assertIn("two or three sentences", bodies["ver39-brief-context"])
-        shape = bodies["ver39-brief-content-shape"]
-        for fact in ("no shift recorded yet", "need not appear", "in order", "key screen", "quotation marks"):
-            self.assertIn(fact, shape)
-        nothing = bodies["ver39-brief-content-invents-nothing"]
-        # the criterion of DM-05 is kept whole: a Content invents no data, no copy and no feature
-        for fact in ("word for word", "a full stop inside", "figure", "name", "date", "button label", "feature"):
-            self.assertIn(fact, nothing)
-        self.assertIn("adds no fact", bodies["ver39-brief-context"])
-
-    def test_the_other_brief_judges_have_the_facts_they_check_against(self):
-        bodies = self.bodies()
-        layout = bodies["ver39-brief-must-haves-and-no-layout"]
-        # the unit of a constraint: a clause between semicolons; a comma inside a clause lists parts of one constraint
-        for fact in ("a constraint, not a layout", "monospace cell grid", "keyboard-driven", "between semicolons",
-                     "commas inside a clause list parts of one constraint", "text, box-drawing and block characters"):
-            self.assertIn(fact, layout)
-        status = bodies["ver39-grouping-and-status"]
-        for fact in ("IDEA-04", "no Artifact tool", "docs/specs/design/DSN-001/boards/", "unconfirmed", "not a drawing"):
-            self.assertIn(fact, status)
 
     def test_the_v2_reply_graders(self):
         yes_no = [
@@ -713,10 +717,353 @@ class ObservedV2ReplyTests(unittest.TestCase):
 
     def test_a_state_may_be_named_by_what_it_shows(self):
         yes = ["States to show: no shift recorded yet; a list of recorded shifts.", "States to show: a week with no shifts; a week with shifts.",
-               "an error when a shift cannot be saved", "the report while it loads", "an empty state", "mid-flow"]
-        no = ["Content: a list of shifts.", "Content: the idea \"A weekly report page\"."]
-        got = self.hits("brief-drafted", "ver39-names-a-state", yes + no)
-        self.assertEqual([True] * len(yes) + [False] * len(no), got)
+               "States to show: an error when a shift cannot be saved.", "States to show: the report while it loads.",
+               "States to show: an empty state.", "States to show: mid-flow."]
+        no = ["Show a list of shifts.", "The user adds a shift."]
+        # the grader is a not_contains: True means a Content without a state was found
+        found = [self.hits("brief-drafted", "ver39-every-content-names-a-state", [reply_of(with_content(BRIEF_BODY, t))])[0]
+                 for t in yes + no]
+        self.assertEqual([False] * len(yes) + [True] * len(no), found)
+
+
+class V3BriefTests(unittest.TestCase):
+    """SPEC-017 version 3, VER-39: regex graders replace the judges of the briefs' shape, the Content's shape and the Must-haves; one
+    judge stays for 'the Context and the Content add no fact beyond the BRN'; a second case, brief-drafted-one-flow, has the same
+    graders for exactly one brief (§9, §13 bf). Each per-brief grader reads every brief of the reply, not the first."""
+
+    CASES = ("brief-drafted", "brief-drafted-one-flow")
+    OLD_JUDGES = ["ver39-brief-parts-in-order", "ver39-brief-context", "ver39-brief-content-shape",
+                  "ver39-brief-content-invents-nothing", "ver39-brief-must-haves-and-no-layout"]
+    REGEX_GRADERS = ["ver39-briefs-in-dm05-order", "ver39-each-brief-sits-in-its-own-fence", "ver39-every-context-is-two-or-three-sentences",
+                     "ver39-every-content-quotes-an-idea", "ver39-every-content-lists-the-screens-in-order",
+                     "ver39-every-content-names-a-state", "ver39-every-must-haves-is-two-to-four-constraints",
+                     "ver39-every-must-haves-states-a-grid-or-a-size", "ver39-no-must-haves-holds-a-layout-word",
+                     "ver39-every-style-says-propose-one", "ver39-style-holds-no-hex-or-px"]
+
+    def hits(self, name, texts, case="brief-drafted"):
+        g = next(g for g in case_by_name()[case].graders if g.name == name)
+        return js([[g.pattern, g.flags, t] for t in texts])
+
+    def test_the_two_cases_have_the_same_graders(self):
+        cases = case_by_name()
+        one, many = [g.name for g in cases["brief-drafted-one-flow"].graders], [g.name for g in cases["brief-drafted"].graders]
+        self.assertEqual(set(many) | {"ver39-exactly-one-brief"}, set(one))
+        self.assertNotIn("ver39-exactly-one-brief", many)
+        for case in self.CASES:
+            by = {g.name: g for g in cases[case].graders}
+            for name in self.REGEX_GRADERS:
+                self.assertEqual("regex", by[name].type, f"{case}/{name}")
+                self.assertEqual("last_message", by[name].target, f"{case}/{name}")
+            for name in ("ver39-every-context-is-two-or-three-sentences", "ver39-every-content-quotes-an-idea",
+                         "ver39-every-content-lists-the-screens-in-order", "ver39-every-content-names-a-state",
+                         "ver39-every-must-haves-is-two-to-four-constraints", "ver39-every-must-haves-states-a-grid-or-a-size",
+                         "ver39-no-must-haves-holds-a-layout-word", "ver39-every-style-says-propose-one", "ver39-style-holds-no-hex-or-px"):
+                self.assertEqual("not_contains", by[name].match, f"{case}/{name}")
+                self.assertTrue(by[name].witness, f"{case}/{name}: a not_contains grader names the text that must make it fail")
+            for name in ("ver39-briefs-in-dm05-order", "ver39-each-brief-sits-in-its-own-fence"):
+                self.assertEqual("contains", by[name].match, f"{case}/{name}")
+
+    def test_one_judge_stays_and_the_five_old_ones_are_gone(self):
+        for case in self.CASES:
+            llm = sorted(g.name for g in case_by_name()[case].graders if g.type == "llm")
+            self.assertEqual(["ver39-brief-adds-no-fact", "ver39-grouping-and-status"], llm, case)
+            names = {g.name for g in case_by_name()[case].graders}
+            self.assertFalse(names & set(self.OLD_JUDGES), case)
+
+    def test_the_judge_is_the_rubric_the_replay_passed(self):
+        # tmp/plans/ui-skill/judge-replay/rubrics/ver39-brief-adds-no-fact.md (2026-10-30): 3 correct briefs PASS 3 of 3, a brief with one
+        # added fact FAIL 3 of 3 with the fact named. Its BRN is the generator's, so the two cannot drift.
+        brn_body = M.BRN[M.BRN.index("# BRN-001"):]
+        for case in self.CASES:
+            fm, body = front_matter(GENERATED / case / "graders" / "ver39-brief-adds-no-fact.md")
+            self.assertEqual({"type": "llm"}, fm)
+            self.assertTrue(body.rstrip().endswith(brn_body.rstrip()), case)
+            self.assertEqual(1, body.count("# BRN-001"), case)
+            # the harness closes the front matter at the first three dashes: none may open a line of the body
+            self.assertFalse([l for l in body.splitlines() if l.lstrip().startswith("---")], case)
+            head = " ".join(body.split("The brainstorm, in full")[0].split())
+            for text in ("in a session with no Artifact tool, so it could only draft briefs for Claude Design",
+                         'Judge ONLY the text after "Context:" and after "Content:" in each brief, each up to the next label',
+                         "The lead line, the Must-haves, the Style, the closing line and the rest of the reply are judged by other graders",
+                         "PASS when no Context and no Content states a fact about the product, its users, their work or their problem that "
+                         "the brainstorm below does not state or directly imply",
+                         "Paraphrase is fine", "Quoted wording must be the brainstorm's own words",
+                         "FAIL when any Context or Content adds such a fact (a figure, a name, a device, a habit, a feature, a field, a cause, "
+                         "a number of users, a place)",
+                         "When you answer FAIL, write FAIL followed by a colon and the added fact, quoted from the brief"):
+                self.assertIn(text, head, case)
+            for fact in ("Shiftlog: record shifts", "IDEA-01", "Add a shift from the terminal", "A dark theme for the report page",
+                         "ASM-01", "We believe that workers will record shifts every day.", "The hours worked each week are right.",
+                         "Workers lose track of the hours they worked each week"):
+                self.assertIn(fact, body, case)
+
+    def test_the_shape_of_each_brief(self):
+        web = lambda **kw: brief(WEB, **kw)
+        good = [reply_of(brief()), reply_of(brief(), web()),
+                reply_of(brief(context=TERMINAL["context"].replace("Context:", "**Context:**"),
+                               must=TERMINAL["must"].replace("Must-haves:", "**Must-haves:**"))),
+                reply_of(brief(must=TERMINAL["must"].replace("Must-haves", "Must haves"))),
+                "```\nToolSearch select:Artifact\n```\n" + reply_of(brief())]
+        self.assertEqual([True] * len(good), self.hits("ver39-briefs-in-dm05-order", good))
+        bad = {
+            "Content before Context": reply_of(brief(context=TERMINAL["content"], content=TERMINAL["context"])),
+            "no Style": reply_of(brief(style=None)),
+            "no Must-haves": reply_of(brief(must=None)),
+            "no lead line": reply_of(brief(lead=None)),
+            "a lead line that does not name the product": reply_of(brief(lead="Shifts in the terminal: the List and Add screens, for people who work shifts.")),
+            "no closing line": reply_of(brief(closing=None)),
+            "a closing line that is not exact": reply_of(brief(closing=CLOSING.replace("tradeoff", "trade-off"))),
+            "the brief is not in a fence": "I wrote nothing.\n\n" + brief() + "\nNothing was sent.\n",
+            "two briefs in one fence": reply_of(brief() + "\n" + web()),
+            "the second brief has no Style": reply_of(brief(), web(style=None)),
+            "the second brief is not in a fence": reply_of(brief()) + "\n" + web(),
+            "no brief": "I wrote nothing.\n",
+        }
+        got = self.hits("ver39-briefs-in-dm05-order", list(bad.values()))
+        self.assertEqual({k: False for k in bad}, dict(zip(bad, got)))
+
+    def test_each_brief_sits_in_its_own_fence(self):
+        web = lambda **kw: brief(WEB, **kw)
+        good = [reply_of(brief()), reply_of(brief(), web()), "```\ngrouping\n```\n\n" + reply_of(brief())]
+        self.assertEqual([True] * 3, self.hits("ver39-each-brief-sits-in-its-own-fence", good))
+        bad = {"not fenced": brief(), "two in one fence": reply_of(brief() + "\n" + web()),
+               "the second is not fenced": reply_of(brief()) + "\n" + web(), "none": "Nothing.\n"}
+        got = self.hits("ver39-each-brief-sits-in-its-own-fence", list(bad.values()))
+        self.assertEqual({k: False for k in bad}, dict(zip(bad, got)))
+
+    def test_exactly_one_brief(self):
+        got = self.hits("ver39-exactly-one-brief", [reply_of(brief()), reply_of(brief(), brief(WEB)), "Nothing.\n"],
+                        "brief-drafted-one-flow")
+        self.assertEqual([False, True, False], got)   # a not_contains grader: True means the offending text was found
+
+    def violations(self, name, texts):
+        return self.hits(name, texts)
+
+    def test_the_context_is_two_or_three_sentences(self):
+        ctx = TERMINAL["context"]
+        ok = [reply_of(brief()), reply_of(brief(context=ctx + " It is used every day.")),
+              reply_of(brief(context="**Context:** Shiftlog is 1.5 times faster. The one job of this flow: record a shift.")),
+              reply_of(brief(context="Context: Who uses it? Shift workers. The one job: record a shift!")),
+              reply_of(brief(), brief(WEB))]
+        self.assertEqual([False] * len(ok), self.violations("ver39-every-context-is-two-or-three-sentences", ok))
+        bad = {"one sentence": reply_of(brief(context="Context: Shiftlog is used by people who work shifts.")),
+               "four sentences": reply_of(brief(context=ctx + " It is used every day. It is used at night.")),
+               "no full stop": reply_of(brief(context="Context: used by people who work shifts")),
+               "the second brief has one sentence": reply_of(brief(), brief(WEB, context="Context: Shiftlog users record shifts."))}
+        got = self.violations("ver39-every-context-is-two-or-three-sentences", list(bad.values()))
+        self.assertEqual({k: True for k in bad}, dict(zip(bad, got)))
+
+    def test_the_content_quotes_an_idea_lists_the_screens_in_order_and_names_a_state(self):
+        quote, screens, state = ("ver39-every-content-quotes-an-idea", "ver39-every-content-lists-the-screens-in-order",
+                                 "ver39-every-content-names-a-state")
+        ok = [reply_of(brief()), reply_of(brief(), brief(WEB))]
+        for name in (quote, screens, state):
+            self.assertEqual([False, False], self.violations(name, ok), name)
+        problem_only = "Content: the problem \"Workers lose track of the hours they worked each week\". The flow's screens, in order: 1. List (the key screen), 2. Add. States to show: no shift recorded yet."
+        unmarked = "Content: the idea \"List shifts in a table\". The flow's screens, in order: 1. List, 2. Add. States to show: no shift recorded yet."
+        unordered = "Content: the idea \"List shifts in a table\". The screens are List (the key screen) and Add. States to show: no shift recorded yet."
+        no_state = "Content: the idea \"List shifts in a table\". The flow's screens, in order: 1. List (the key screen), 2. Add."
+        for name, text in ((quote, problem_only), (screens, unmarked), (screens, unordered), (state, no_state)):
+            self.assertEqual([True], self.violations(name, [reply_of(brief(content=text))]), f"{name}: {text[:40]}")
+            self.assertEqual([True], self.violations(name, [reply_of(brief(), brief(WEB, content=text))]), f"{name}: the second brief")
+
+    def test_the_must_haves_are_two_to_four_constraints(self):
+        name = "ver39-every-must-haves-is-two-to-four-constraints"
+        grid = "a terminal screen, a monospace cell grid of 120 columns by 40 rows"
+        ok = ["Must-haves: " + grid + "; keyboard-driven.", TERMINAL["must"], "Must-haves: a; b; c; d.",
+              "Must-haves:\n- " + grid + "\n- drawn only with text\n- keyboard-driven",
+              "Must-haves:\n1. " + grid + "\n2. keyboard-driven", "**Must-haves:** " + grid + "; keyboard-driven"]
+        self.assertEqual([False] * len(ok), self.violations(name, [reply_of(brief(must=m)) for m in ok]))
+        bad = {"one constraint": "Must-haves: " + grid + ", keyboard-driven.", "five constraints": "Must-haves: a; b; c; d; e.",
+               "five bullets": "Must-haves:\n- a\n- b\n- c\n- d\n- e", "one bullet": "Must-haves:\n- " + grid}
+        got = self.violations(name, [reply_of(brief(must=m)) for m in bad.values()])
+        self.assertEqual({k: True for k in bad}, dict(zip(bad, got)))
+        self.assertEqual([True], self.violations(name, [reply_of(brief(), brief(WEB, must="Must-haves: a web page, 1280 pixels wide."))]))
+
+    def test_the_must_haves_state_a_grid_or_a_size(self):
+        name = "ver39-every-must-haves-states-a-grid-or-a-size"
+        ok = [reply_of(brief()), reply_of(brief(), brief(WEB)),
+              reply_of(brief(WEB, must="Must-haves: a web page, 1280 px wide; keyboard alone.")),
+              reply_of(brief(WEB, must="Must-haves: a web page at 1280 x 800; keyboard alone."))]
+        self.assertEqual([False] * len(ok), self.violations(name, ok))
+        bad = {"a terminal brief with no grid": brief(must="Must-haves: a terminal screen; keyboard-driven; drawn with text."),
+               "a terminal brief with a size and no cell grid": brief(must="Must-haves: a terminal screen, 1280 pixels wide; keyboard-driven."),
+               "a web brief with no size": brief(WEB, must="Must-haves: a web page for a desktop browser; readable in a dark theme.")}
+        got = self.violations(name, [reply_of(b) for b in bad.values()])
+        self.assertEqual({k: True for k in bad}, dict(zip(bad, got)))
+
+    def test_the_must_haves_hold_no_layout_word(self):
+        name = "ver39-no-must-haves-holds-a-layout-word"
+        self.assertEqual([False, False], self.violations(name, [reply_of(brief()), reply_of(brief(), brief(WEB))]))
+        for words in ("a sidebar on the left", "padding of 16 px between the cards", "the header at the top, the list below",
+                      "a two-column layout", "a button in the bottom right corner", "spacing of 8 px"):
+            must = "Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; " + words + "; keyboard-driven."
+            self.assertEqual([True], self.violations(name, [reply_of(brief(must=must))]), words)
+            self.assertEqual([True], self.violations(name, [reply_of(brief(), brief(WEB, must=must))]), words)
+        # a layout word outside the Must-haves is not the Must-haves'
+        self.assertEqual([False], self.violations(name, [reply_of(brief(style="Style: propose one, no sidebar."))]))
+
+    def test_the_style_says_propose_one_and_holds_no_value(self):
+        propose = "ver39-every-style-says-propose-one"
+        self.assertEqual([False, False], self.violations(propose, [reply_of(brief()), reply_of(brief(), brief(WEB))]))
+        self.assertEqual([True, True], self.violations(propose, [reply_of(brief(style="Style: follow the design system Aurora.")),
+                                                                 reply_of(brief(), brief(WEB, style="Style: dark."))]))
+        values = "ver39-style-holds-no-hex-or-px"
+        self.assertEqual([False, False], self.violations(values, [reply_of(brief()), reply_of(brief(), brief(WEB))]))
+        for style in ("Style: propose one, a dark palette #1a1b26.", "Style: propose one.\nBackground #1a1b26.", "Style: propose one, 16px type.",
+                      "Style: propose one,\n16 px type."):
+            self.assertEqual([True], self.violations(values, [reply_of(brief(style=style))]), style)
+            self.assertEqual([True], self.violations(values, [reply_of(brief(), brief(WEB, style=style))]), style)
+
+
+class V3ChecklistTests(unittest.TestCase):
+    """SPEC-017 version 3, VER-50 (#116): the final reply repeats the ten-line checklist, every line ticked, a step not done in the form
+    `- [x] N. <title> (skipped: <reason>)`, in the four cases the item names. The patterns are the tracker's (SPEC-012 BEH-05)."""
+
+    BLOCK = ("Design document: DSN-001 (v1, draft; new)\nBoards: docs/specs/design/DSN-001/boards/ · 4 · version 17-example\n"
+             "Flows: report and home (2), shifts (2)\nBoards with no idea: none\n"
+             "Ideas with no board: IDEA-06 (A dark theme for the report page)\nMarkers left: DSN-001: 1\nOK docs/specs/design/DSN-001.md")
+    NEXT = "Next step: run /devforgeai:prd BRN-001 to write the PRD, and link DSN-001 in the PRD's section 8 by hand."
+    # case -> (the steps the run did not do, the final reply around the checklist as a function of the checklist)
+    SKIPPED = {"writes-dsn": (3, 4, 5), "no-boards-stops": (3, 4, 5, 6, 7, 8, 9), "approval-only-run": (2, 3, 4, 5, 6, 7),
+               "amend-nothing-to-do": (3, 4, 5, 7, 8, 9)}
+    REQUIRED = {"writes-dsn": (3, 4, 5), "no-boards-stops": (6, 7, 8, 9), "approval-only-run": (2, 3, 4, 5, 6, 7),
+                "amend-nothing-to-do": (7, 8, 9)}
+
+    @classmethod
+    def final(cls, case, checklist):
+        return {
+            "writes-dsn": f"{cls.BLOCK}\n\n{checklist}\n\nThe boards are the copy in the folder, recorded as it is.\n\n{cls.NEXT}\n",
+            "approval-only-run": f"Design document: DSN-001 (v1, approved)\n\n{checklist}\n\nCheck: OK docs/specs/design/DSN-001.md.\n\n{cls.NEXT}\n",
+            "no-boards-stops": ("This session has no Artifact tool, which importing the canvas needs (ERR-19). Nothing was written.\n\n"
+                                f"{checklist}\n"),
+            "amend-nothing-to-do": ("DSN-001 is current: version 1, canvas version 17-example. Nothing was written.\n\n"
+                                    f"{checklist}\n"),
+        }[case]
+
+    def good(self, case):
+        return self.final(case, ticked(self.SKIPPED[case]))
+
+    def hit(self, case, name, texts):
+        g = next(g for g in case_by_name()[case].graders if g.name == name)
+        return js([[g.pattern, g.flags, t] for t in texts])
+
+    def test_the_graders_are_in_the_four_cases_only(self):
+        cases = case_by_name()
+        for name, c in cases.items():
+            names = {g.name for g in c.graders if g.name.startswith("ver50-")}
+            if name in VER_50_CASES:
+                self.assertEqual({"ver50-ten-ticked-lines", "ver50-skipped-lines-in-ticked-form"}, names, name)
+                self.assertIn("50", c.vers, name)
+                self.assertTrue(all(g.type == "regex" and g.target == "last_message" and g.match == "contains"
+                                    for g in c.graders if g.name.startswith("ver50-")), name)
+            else:
+                self.assertEqual(set(), names, name)
+
+    def test_a_good_final_reply_passes_both(self):
+        for case in VER_50_CASES:
+            for name in ("ver50-ten-ticked-lines", "ver50-skipped-lines-in-ticked-form"):
+                self.assertEqual([True], self.hit(case, name, [self.good(case)]), f"{case}/{name}")
+
+    def test_the_checklist_is_ten_ticked_lines_once_in_order_after_the_statement(self):
+        name = "ver50-ten-ticked-lines"
+        titles = checklist_titles()
+        self.assertEqual(10, len(titles))
+        for case in VER_50_CASES:
+            skipped = self.SKIPPED[case]
+            full = ticked(skipped)
+            lines = full.split("\n")
+            variants = {
+                "step 5 unticked": full.replace("- [x] 5.", "- [ ] 5."),
+                "step 10 missing": "\n".join(lines[:9]),
+                "step 10 unticked": full.replace("- [x] 10.", "- [ ] 10."),
+                "step 1 missing": "\n".join(lines[1:]),
+                "steps 4 and 5 swapped": "\n".join(lines[:3] + [lines[4], lines[3]] + lines[5:]),
+                "steps 5 to 9 on one line": "\n".join(lines[:4] + ["- [x] 5. to 9. (skipped: nothing to do)"] + lines[9:]),
+                "the list is twice in the reply": full + "\n\n" + full,
+                "a prose line for the skipped steps": "\n".join(l for l in lines if "(skipped:" not in l) + "\n\nSteps 3 to 5 were skipped.",
+                "no checklist": "",
+                "a checklist of dashes": "\n".join(l.replace("- [x] ", "- ") for l in lines),
+            }
+            texts = {k: self.final(case, v) for k, v in variants.items()}
+            got = self.hit(case, name, list(texts.values()))
+            self.assertEqual({k: False for k in texts}, dict(zip(texts, got)), case)
+        # the order of the reply: after the report's block, before the Next step paragraph; a stop's checklist follows its statement
+        full = ticked(self.SKIPPED["writes-dsn"])
+        self.assertEqual([False, False, False], self.hit("writes-dsn", name, [
+            f"{full}\n\n{self.BLOCK}\n\n{self.NEXT}\n", f"{self.BLOCK}\n\n{self.NEXT}\n\n{full}\n", f"Found.\n\n{full}\n\n{self.BLOCK}\n"]))
+        self.assertEqual([False, False], self.hit("approval-only-run", name, [
+            f"{full}\n\nDesign document: DSN-001 (v1, approved)\n\n{self.NEXT}\n",
+            f"Design document: DSN-001 (v1, approved)\n\n{self.NEXT}\n\n{full}\n"]))
+        for case in ("no-boards-stops", "amend-nothing-to-do"):
+            self.assertEqual([False], self.hit(case, name, [f"{ticked(self.SKIPPED[case])}\n\nNothing was written.\n"]), case)
+        # the list may sit in a code block, and the findings may follow it
+        self.assertEqual([True], self.hit("writes-dsn", name, [f"{self.BLOCK}\n\n```\n{ticked((3, 4, 5))}\n```\n\nFindings.\n\n{self.NEXT}\n"]))
+        self.assertEqual([True], self.hit("writes-dsn", name, [self.good("writes-dsn").replace("- [x]", "* [x]")]))
+
+    def test_a_skipped_step_is_a_ticked_line_ending_in_skipped(self):
+        name = "ver50-skipped-lines-in-ticked-form"
+        titles = checklist_titles()
+        for case in VER_50_CASES:
+            full = ticked(self.SKIPPED[case])
+            lines = full.split("\n")
+            n = self.REQUIRED[case][0]
+
+            def line_n(new):
+                return "\n".join(lines[:n - 1] + [new] + lines[n:])
+            variants = {
+                f"step {n} unticked": line_n(lines[n - 1].replace("- [x]", "- [ ]")),
+                f"step {n} with no reason": line_n(lines[n - 1].replace("(skipped: not needed here)", "(skipped: )")),
+                f"step {n} with text after the parenthesis": line_n(lines[n - 1] + " so"),
+                "step 10 written skipped": full.replace(f"- [x] 10. {titles[9]}", f"- [x] 10. {titles[9]} (skipped: none)"),
+                "an unticked line for step 1": full.replace("- [x] 1.", "- [ ] 1."),
+                "a prose sentence": full + "\n\nSteps 3 to 5 were skipped because nothing was needed.",
+                "a prose sentence, singular": full + "\n\nStep 4 is skipped.",
+            }
+            texts = {k: self.final(case, v) for k, v in variants.items()}
+            got = self.hit(case, name, list(texts.values()))
+            self.assertEqual({k: False for k in texts}, dict(zip(texts, got)), case)
+            # every step the run must have skipped is a skipped line, one at a time
+            for step in self.REQUIRED[case]:
+                broken = full.replace(f"- [x] {step}. {titles[step - 1]} (skipped: not needed here)", f"- [x] {step}. {titles[step - 1]}")
+                self.assertNotEqual(full, broken)
+                self.assertEqual([False], self.hit(case, name, [self.final(case, broken)]), f"{case}: step {step} not skipped")
+
+    def test_the_reason_may_hold_a_semicolon_and_the_skipped_steps_may_be_more_than_the_run_must_skip(self):
+        for case in VER_50_CASES:
+            self.assertEqual([True], self.hit(case, "ver50-skipped-lines-in-ticked-form",
+                                              [self.final(case, ticked(self.SKIPPED[case], reason="no canvas; run again to import"))]))
+        # steps 3 to 5 may also be skipped in a stop whose request names a canvas, and step 5 may be done or skipped
+        self.assertEqual([True, True], self.hit("no-boards-stops", "ver50-skipped-lines-in-ticked-form", [
+            self.final("no-boards-stops", ticked((6, 7, 8, 9))), self.final("no-boards-stops", ticked((4, 5, 6, 7, 8, 9)))]))
+
+
+class V3WordingTests(unittest.TestCase):
+    """SPEC-017 version 3, VER-33: the reply says that, with no Artifact tool in this session, the canvas was not checked and a board
+    changed on the canvas is seen only when a run with the tool imports it. The suite's graders already match that wording (§13 bg)."""
+
+    WORDING = ("says that, with no Artifact tool in this session, the canvas was not checked and a board changed on the canvas is seen "
+               "only when a run with the tool imports it (ERR-17)")
+    CASES = ("amend-nothing-to-do", "amend-nothing-with-prd", "amend-nothing-with-unrelated-documents", "amend-nothing-with-unasked-candidate")
+
+    def hit(self, case, name, texts):
+        g = next(g for g in case_by_name()[case].graders if g.name == name)
+        return js([[g.pattern, g.flags, t] for t in texts])
+
+    def test_the_obligation_has_the_wording(self):
+        self.assertIn(self.WORDING, spec_verifications()["VER-33"]["obligation"])
+
+    def test_the_graders_accept_it_and_refuse_version_1s(self):
+        v3 = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. With no Artifact tool in this session, the "
+              "canvas was not checked, and a board changed on the canvas is seen only when a run with the tool imports it.")
+        v1 = ("DSN-001 is current: it is at version 1 and records canvas version 17-example. A board changed on the canvas must be copied "
+              "into the boards folder again first.")
+        for case in self.CASES:
+            for name in ("ver33-says-dsn-001-is-current", "ver33-gives-version-1", "ver33-gives-the-recorded-canvas-version",
+                         "ver33-says-canvas-not-checked", "ver33-says-a-change-is-seen-by-an-import"):
+                self.assertEqual([True], self.hit(case, name, [v3]), f"{case}/{name}")
+            self.assertEqual([False, False], self.hit(case, "ver33-says-canvas-not-checked", [v1, "Nothing to change."]), case)
+            self.assertEqual([False], self.hit(case, "ver33-says-a-change-is-seen-by-an-import", [v1]), case)
 
 
 class DigestTests(unittest.TestCase):
