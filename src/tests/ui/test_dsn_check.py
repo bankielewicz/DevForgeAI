@@ -1,4 +1,4 @@
-"""Unit tests for the ui skill's checker, scripts/dsn_check.py (SPEC-017 VER-23 and VER-24; IF-01 to IF-04, QR-05).
+"""Unit tests for the ui skill's checker, scripts/dsn_check.py (SPEC-017 VER-23, VER-24 and VER-42; IF-01 to IF-05, QR-05).
 
 Each case builds a project folder in a temporary directory and runs the script as a subprocess three ways, which must
 agree byte for byte on the exit code and standard output, and print nothing on standard error:
@@ -38,6 +38,19 @@ folder creation and folder removal that `place` makes inside the DSN's own folde
   a folder is ERR-03; nothing moves on any of these;
 - the moves run canvas.json first, then the boards in canvas order; a move that fails prints `ERR-21: <file>: the move
   failed (<reason>)`, `files placed: ...`, `files not placed: ...` and `place: 1 problem(s)`, and moves nothing back.
+
+SPEC-017 version 3 changes two things (IF-02, IF-04, DM-04, ERR-04; issues #118 and #125). `head` takes the board's
+position K (the `<k>` of the `board <k> <file> ...` line of `boards`) in place of its name, and no board name is ever a
+command-line word: the Head cases pass DSN and K only and the hostile names are read from canvas.json by position.
+A canvas.json nested more than 100 levels deep (the top-level object is one level) is ERR-04, counted before the file is
+parsed (brackets inside strings skipped, an escaped quote and an escaped backslash honoured), so the line is the same
+plain and under `-S`, at 101 levels and at 100,000. Readings this test pins where SPEC-017 leaves a choice:
+- the order of failure of `head` is: arguments (exit 2, which includes a K that is not written as a positive integer
+  without a sign or a leading zero), then the ERR-03 to ERR-05 and ERR-12 line of a canvas.json that fails (exit 1), then
+  a K above the number of boards (exit 2), then the board's own file (an ERR-06 line, exit 1);
+- an ERR-06 line from `head` reads `ERR-06: board <k> <name as JSON>: <reason>`, as the line of `boards` does;
+- the depth line is the one `boards` printed before, with the path and its advice after the fixed words
+  (`canvas.json is not valid JSON (nested too deeply)`).
 
 Run from the repository root:
     python3 -B src/tests/ui/test_dsn_check.py
@@ -187,6 +200,28 @@ def sha256(data):
 
 def count_lines(data):
     return data.count(b"\n") + (1 if data and not data.endswith(b"\n") else 0)
+
+
+def deep_canvas(levels, brackets="["):
+    """canvas.json text that is valid JSON, names the board Home.dc.html and holds, in a member the script ignores, a value
+    nested so that the whole file is exactly `levels` deep (the top-level object counts as one level). `brackets` is "["
+    for arrays, "{" for objects, or "mixed" for both in turn."""
+    opens, closes = [], []
+    for i in range(levels - 1):
+        if brackets == "[" or (brackets == "mixed" and i % 2 == 0):
+            opens.append("[")
+            closes.append("]")
+        else:
+            opens.append('{"a": ')
+            closes.append("}")
+    inner = "".join(opens) + "0" + "".join(reversed(closes))
+    return '{"v": 3, "boards": {"Home.dc.html": {}}, "future": ' + inner + "}"
+
+
+def nested_line(sub="boards"):
+    """The one line ERR-04 prints for a canvas.json nested past 100 levels: it never carries the decoder's own text."""
+    return (f"ERR-04: docs/specs/design/DSN-001/{sub}/canvas.json is not valid JSON (nested too deeply); "
+            "the copy may be damaged or from another tool, copy it again")
 
 
 def edit(text, old, new, count=1):
@@ -747,10 +782,11 @@ class CannotRun(Base):
         self.assert_cannot_run(self.cli("check", "DSN-001", "extra"))
         self.assert_cannot_run(self.cli("head", "DSN-001"))
         self.assert_cannot_run(self.cli("head", "DSN-001", "a", "b"))
+        self.assert_cannot_run(self.cli("head", "DSN-001", "1", "2"))
 
     def test_before_amend_belongs_to_check(self):
         for argv in (("next", "--before-amend"), ("boards", "--before-amend", "DSN-001"),
-                     ("head", "--before-amend", "DSN-001", "Home.dc.html")):
+                     ("head", "--before-amend", "DSN-001", "1")):
             with self.subTest(argv=argv):
                 self.assert_cannot_run(self.cli(*argv))
 
@@ -974,6 +1010,95 @@ class Boards(Base):
         self.canvas('{"v": 4, "boards": []}')
         self.assert_one_error(self.boards(), "04", "")
 
+    # --- ERR-04: the depth limit of 100 levels (IF-02, DM-04; #125) --------------------------------------------------
+    def test_err04_a_file_nested_exactly_100_levels_deep_is_read(self):
+        for brackets in ("[", "{", "mixed"):
+            with self.subTest(brackets=brackets):
+                self.canvas(deep_canvas(100, brackets))
+                r = self.boards()
+                self.assertEqual((r.code, r.lines[0], r.lines[-1]), (0, "canvas.json: v3, 1 boards", "boards: ok"), r)
+
+    def test_err04_a_file_nested_101_levels_deep_is_one_fixed_line_on_every_run(self):
+        for levels, brackets in ((101, "["), (101, "{"), (101, "mixed"), (102, "["), (1000, "["), (100000, "["), (100000, "{")):
+            with self.subTest(levels=levels, brackets=brackets):
+                self.canvas(deep_canvas(levels, brackets))
+                for _run in range(2):
+                    r = self.boards()
+                    self.assertEqual((r.code, r.lines), (1, [nested_line(), "boards: 1 problem(s)"]), r)
+
+    def test_err04_the_depth_counts_in_a_boards_value_too(self):
+        # the top-level object, boards and the board's own object are three levels: 97 more make 100, 98 make 101
+        self.canvas('{"v": 3, "boards": {"Home.dc.html": {"x": ' + "[" * 98 + "]" * 98 + "}}}")
+        self.assert_one_error(self.boards(), "04", r"nested too deeply")
+        self.canvas('{"v": 3, "boards": {"Home.dc.html": {"x": ' + "[" * 97 + "]" * 97 + "}}}")
+        self.assertEqual(self.boards().code, 0)
+
+    def test_err04_the_depth_is_counted_before_the_file_is_parsed(self):
+        # whatever else is wrong with the file, 101 levels is what it says, and with 100 levels the decoder speaks as before
+        cases = {"a syntax error after the 101st level": '{"v": 3, "boards": {}, "future": ' + "[" * 100 + "]" * 100 + " oops}",
+                 "a root that is not an object": "[" * 101 + "]" * 101,
+                 "a file that is never closed": "[" * 101,
+                 "100 levels never closed, after a repeated member": '{"v": 3, "v": 4, "boards": {}, "x": ' + "[" * 100}
+        for name, raw in cases.items():
+            with self.subTest(name):
+                self.canvas(raw)
+                r = self.boards()
+                self.assertEqual((r.code, r.lines), (1, [nested_line(), "boards: 1 problem(s)"]), r)
+        self.canvas('{"v": 3, "boards": {}, "future": ' + "[" * 98 + "]" * 98 + " oops}")
+        r = self.boards()
+        self.assertEqual(r.code, 1, r)
+        self.assertRegex(r.lines[0], r"^ERR-04: .*canvas\.json is not valid JSON \(Expecting ','")
+        self.assertNotIn("nested too deeply", r.out)
+
+    def test_err04_brackets_inside_strings_are_not_levels(self):
+        cases = {
+            "2,000 [ in a string after an escaped quote": '"\\"' + "[" * 2000 + '"',
+            "[ and { in a string": '"' + "[{" * 2000 + '"',
+            "] and } in a string": '"' + "]}" * 2000 + '"',
+            "a string that holds quotes and brackets": '"\\"[\\"[\\"[' + "[" * 500 + '"',
+            "an escaped backslash and a bracket in one string": '"\\\\[[[[' + "[" * 500 + '"',
+        }
+        for name, value in cases.items():
+            with self.subTest(name):
+                self.canvas('{"v": 3, "boards": {"Home.dc.html": {}}, "future": ' + value + "}")
+                r = self.boards()
+                self.assertEqual((r.code, r.lines[-1]), (0, "boards: ok"), r)
+        with self.subTest("a key"):
+            self.canvas('{"v": 3, "boards": {"Home.dc.html": {}}, "' + "[" * 2000 + '": 1, "{{{": 2}')
+            self.assertEqual(self.boards().code, 0)
+        with self.subTest("a string in a deep value"):
+            self.canvas('{"v": 3, "boards": {"Home.dc.html": {}}, "future": ' + "[" * 98 + '"' + "[" * 5000 + '"' + "]" * 98 + "}")
+            self.assertEqual(self.boards().code, 0)
+
+    def test_err04_an_escaped_backslash_ends_the_string_at_the_next_quote(self):
+        # the string "\\" is one backslash and is closed: the brackets after it are outside it and count
+        for brackets, expected in ((99, 0), (100, 1)):
+            with self.subTest(brackets=brackets):
+                self.canvas('{"v": 3, "boards": {"Home.dc.html": {}}, "a": "\\\\", "future": ' + "[" * brackets + "]" * brackets + "}")
+                r = self.boards()
+                self.assertEqual(r.code, expected, r)
+                if expected:
+                    self.assertEqual(r.lines[0], nested_line())
+
+    def test_err04_levels_that_are_closed_are_given_back(self):
+        self.canvas('{"v": 3, "boards": {"Home.dc.html": {}}, "future": [' + "[[]]," * 5000 + "[]]}")
+        self.assertEqual(self.boards().code, 0)
+        self.canvas('{"v": 3, "boards": {"Home.dc.html": {}}, "future": [' + "{\"a\": [[]]}," * 5000 + "[]]}")
+        self.assertEqual(self.boards().code, 0)
+
+    def test_err04_the_other_subcommands_that_read_canvas_json_apply_the_same_limit(self):
+        self.p.write_brn()
+        self.p.write_dsn(BASE)
+        self.canvas(deep_canvas(101))
+        r = self.cli("check", "DSN-001")
+        self.assertEqual(r.code, 1, r)
+        self.assertTrue(any("nested too deeply" in l for l in r.lines), r)
+        r = self.cli("check", "--before-amend", "DSN-001")
+        self.assertEqual(r.code, 1, r)
+        self.assertEqual(r.lines[0], nested_line())
+        self.canvas(deep_canvas(100))
+        self.assertFalse(any("nested too deeply" in l for l in self.cli("check", "DSN-001").lines))
+
     # --- ERR-05 ------------------------------------------------------------------------------------------------
     def test_err05_values_of_v_the_spec_does_not_support(self):
         cases = [("4", r"\b4\b"), ('"3"', r'"3"'), ("3.0", r"3\.0"), ("true", r"\btrue\b"), ("false", r"\bfalse\b"),
@@ -1150,9 +1275,29 @@ class Head(Base):
     def setUp(self):
         super().setUp()
         self.p.write_boards()
+        self.calls = []
+
+    def cli(self, *args, **kw):
+        self.calls.append(args)
+        return super().cli(*args, **kw)
+
+    def canvas_names(self):
+        return list(json.loads((self.p.boards_dir() / "canvas.json").read_text())["boards"])
+
+    def head_at(self, k, **kw):
+        """Run `head` for the board at position k, the number of its `board <k> <file> ...` line in `boards`."""
+        return self.cli("head", "DSN-001", str(k), **kw)
 
     def head(self, name, **kw):
-        return self.cli("head", "DSN-001", name, **kw)
+        """Run `head` for the board that canvas.json lists as `name`: by its position, never by its name."""
+        return self.head_at(self.canvas_names().index(name) + 1, **kw)
+
+    def name_board(self, name):
+        """Add `name` to the end of canvas.json's boards without a file (as a hand-copied canvas.json can) and return its position."""
+        canvas = json.loads((self.p.boards_dir() / "canvas.json").read_text())
+        canvas["boards"][name] = {}
+        self.p.write_canvas(canvas)
+        return len(canvas["boards"])
 
     def trailer(self, r):
         """(lines shown, lines, bytes shown, bytes, lines cut short) from the trailer."""
@@ -1270,18 +1415,106 @@ class Head(Base):
         self.assertEqual(r.lines[1], "second")
         self.assertEqual(self.trailer(r)[:2], (2, 2))
 
+    # --- the position K (IF-04, DM-04) -----------------------------------------------------------------------------------
     def test_the_trailer_counts_match_the_boards_command(self):
         listing = self.cli("boards", "DSN-001")
         for line in listing.lines[2:-1]:
-            _, _k, name, size, lines, _digest, _x, _y = line.split()
-            r = self.head(name)
+            _, k, name, size, lines, _digest, _x, _y = line.split()
+            r = self.head_at(k)
+            self.assertEqual(r.lines[:-1], BOARDS[name].splitlines(), line)
             self.assertEqual(self.trailer(r)[1], int(lines), (line, r.lines[-1]))
             self.assertEqual(self.trailer(r)[3], int(size), (line, r.lines[-1]))
 
-    def assert_err06(self, r, name_json, reason):
+    def test_k_is_the_position_in_canvas_order_not_alphabetical_order(self):
+        order = ["Report.dc.html", "Add.dc.html", "Home.dc.html"]
+        self.p.write_canvas({"v": 3, "boards": {name: {} for name in order}})
+        listing = self.cli("boards", "DSN-001")
+        self.assertEqual([l.split()[1:3] for l in listing.lines[2:-1]], [["1", "Report.dc.html"], ["2", "Add.dc.html"],
+                                                                         ["3", "Home.dc.html"]], listing)
+        for k, name in enumerate(order, 1):
+            with self.subTest(k=k):
+                r = self.head_at(k)
+                self.assertEqual((r.code, r.lines[:-1]), (0, BOARDS[name].splitlines()), r)
+
+    def test_the_first_and_the_last_position_read_the_first_and_the_last_board(self):
+        self.assertEqual(self.head_at(1).lines[:-1], BOARDS["Home.dc.html"].splitlines())
+        self.assertEqual(self.head_at(4).lines[:-1], BOARDS["Report.dc.html"].splitlines())
+
+    def test_a_k_that_is_not_a_position_cannot_run(self):
+        # 0, the number of boards plus one, a sign, a fraction, a leading zero, a space, another script's digits, an
+        # exponent, a base prefix, nothing, a word, a huge number, and a board's name given in place of k
+        bad = ["0", "5", "-1", "+1", "1.5", "01", "00", " 1", "1 ", "١", "１", "1e0", "0x1", "", "one", "1,2", "1;2",
+               "9" * 5000, "Home.dc.html", "Home", "$(touch pwned)", "1\n2"]
+        for k in bad:
+            with self.subTest(k=k[:20]):
+                r = self.head_at(k)
+                self.assertEqual((r.code, len(r.lines)), (2, 1), r.out[:200])
+                self.assertRegex(r.lines[0], r"^Cannot run: \S.*\.$")
+                self.assertNotIn("internal error", r.out)
+                self.assertNotIn("ERR-", r.out)
+
+    def test_the_largest_k_is_the_number_of_boards(self):
+        for n in (1, 4, 99):
+            with self.subTest(boards=n):
+                names = {f"b{i:02d}.html": "" for i in range(1, n + 1)}
+                shutil.rmtree(self.p.boards_dir())
+                self.p.boards = names
+                self.p.write_boards()
+                self.assertEqual(self.head_at(n).code, 0)
+                r = self.head_at(n + 1)
+                self.assertEqual((r.code, len(r.lines)), (2, 1), r)
+                self.assertRegex(r.lines[0], r"^Cannot run: ")
+
+    def test_double_dash_does_not_make_a_name_or_a_sign_a_position(self):
+        self.p.add_board("-Odd.dc.html", "<title>Odd</title>\n")
+        for argv in (("head", "DSN-001", "-1"), ("head", "DSN-001", "--", "-1"), ("head", "DSN-001", "-Odd.dc.html"),
+                     ("head", "DSN-001", "--", "-Odd.dc.html"), ("head", "DSN-001", "--", "Home.dc.html")):
+            with self.subTest(argv=argv):
+                r = self.cli(*argv)
+                self.assertEqual((r.code, len(r.lines)), (2, 1), r)
+                self.assertRegex(r.lines[0], r"^Cannot run: ")
+
+    def test_too_many_or_too_few_words_cannot_run(self):
+        for argv in (("head",), ("head", "DSN-001"), ("head", "DSN-001", "1", "2"), ("head", "DSN-001", "1", "Home.dc.html")):
+            with self.subTest(argv=argv):
+                r = self.cli(*argv)
+                self.assertEqual((r.code, len(r.lines)), (2, 1), r)
+                self.assertRegex(r.lines[0], r"^Cannot run: \S.*\.$")
+        self.assertRegex(self.cli("head", "DSN-001").lines[0], r"head \[--root DIR\] DSN-NNN K")
+
+    def test_a_board_in_the_folder_that_canvas_json_does_not_name_is_never_reachable(self):
+        self.p.put("docs/specs/design/DSN-001/boards/Other.dc.html", "<title>Other</title>\nNOT-NAMED\n")
+        forbid = [self.p.boards_dir() / "Other.dc.html"]
+        for k in range(1, 6):
+            with self.subTest(k=k):
+                r = self.head_at(k, forbid=forbid)
+                self.assertNotIn("NOT-NAMED", r.out)
+        self.assertEqual(self.head_at(5, forbid=forbid).code, 2)
+
+    # --- hostile names: never a word of the command ---------------------------------------------------------------------
+    def test_hostile_names_are_read_by_position_with_their_bytes_intact_and_no_name_is_ever_a_command_line_word(self):
+        for name in HOSTILE_NAMES:
+            with self.subTest(name=name):
+                shutil.rmtree(self.p.root / "docs", ignore_errors=True)
+                content = f"<title>{name}</title>\n<p>unchanged bytes é</p>\n"
+                self.p.boards = {"Home.dc.html": BOARDS["Home.dc.html"], name: content}
+                self.p.write_boards()
+                before = len(self.calls)
+                r = self.head_at(2)
+                data = content.encode()
+                self.assertEqual((r.code, r.lines), (0, [f"<title>{name}</title>", "<p>unchanged bytes é</p>",
+                                                        f"head: 2 of 2 lines, {len(data)} of {len(data)} bytes, 0 lines cut"]), r)
+                self.assertEqual(self.calls[before:], [("head", "DSN-001", "2")])
+                for call in self.calls[before:]:
+                    for word in call:
+                        self.assertNotIn(name, word)
+                self.assertFalse((self.p.root / "pwned").exists() or (self.p.elsewhere / "pwned").exists())
+
+    # --- ERR-06 for the board at position k ---------------------------------------------------------------------------
+    def assert_err06(self, r, k, name_json, reason):
         self.assertEqual(r.code, 1, r)
         self.assertEqual(len(r.lines), 1, r)
-        self.assertRegex(r.lines[0], rf"^ERR-06: board {re.escape(name_json)}: .*(?:{reason})")
+        self.assertRegex(r.lines[0], rf"^ERR-06: board {k} {re.escape(name_json)}: .*(?:{reason})")
 
     def test_a_symbolic_link_is_refused_and_its_target_is_never_read(self):
         target = self.p.elsewhere / "secret.html"
@@ -1290,75 +1523,85 @@ class Head(Base):
         link.unlink()
         link.symlink_to(target)
         r = self.head("Home.dc.html", forbid=[link, target])
-        self.assert_err06(r, '"Home.dc.html"', r"symbolic link")
+        self.assert_err06(r, 1, '"Home.dc.html"', r"symbolic link")
         self.assertNotIn("SECRET", r.out)
-
-    def test_a_file_canvas_json_does_not_name(self):
-        self.p.put("docs/specs/design/DSN-001/boards/Other.dc.html", "<title>Other</title>\nNOT-NAMED\n")
-        r = self.head("Other.dc.html", forbid=[self.p.boards_dir() / "Other.dc.html"])
-        self.assert_err06(r, '"Other.dc.html"', r"not named|does not name")
-        self.assertNotIn("NOT-NAMED", r.out)
 
     def test_an_absent_file(self):
         (self.p.boards_dir() / "Home.dc.html").unlink()
-        self.assert_err06(self.head("Home.dc.html"), '"Home.dc.html"', r"absent|does not exist|missing")
+        self.assert_err06(self.head("Home.dc.html"), 1, '"Home.dc.html"', r"absent|does not exist|missing")
 
     def test_a_directory(self):
         (self.p.boards_dir() / "Home.dc.html").unlink()
         (self.p.boards_dir() / "Home.dc.html").mkdir()
-        self.assert_err06(self.head("Home.dc.html"), '"Home.dc.html"', r"regular file")
+        self.assert_err06(self.head("Home.dc.html"), 1, '"Home.dc.html"', r"regular file")
+
+    def test_the_other_boards_still_print_when_one_fails(self):
+        (self.p.boards_dir() / "List.dc.html").unlink()
+        self.assert_err06(self.head_at(2), 2, '"List.dc.html"', r"absent")
+        self.assertEqual(self.head_at(3).lines[:-1], BOARDS["Add.dc.html"].splitlines())
 
     def test_names_with_a_slash_or_dots_are_refused_even_when_canvas_json_names_them(self):
         self.p.put("docs/specs/design/DSN-001/outside.dc.html", "OUTSIDE-CONTENT\n")
         self.p.put("docs/specs/design/DSN-001/boards/sub/x.html", "SUB-CONTENT\n")
         forbid = [self.p.boards_dir() / "sub" / "x.html", self.p.boards_dir().parent / "outside.dc.html"]
         for name in ("a/b", "../outside.dc.html", "sub/x.html", "..", ".", "", "a\\b", "x..y.html"):
-            with self.subTest(name=name, named=False):
-                r = self.head(name, forbid=forbid)
-                self.assert_err06(r, json.dumps(name), r"plain file name")
-            with self.subTest(name=name, named=True):
-                canvas = json.loads((self.p.boards_dir() / "canvas.json").read_text())
-                canvas["boards"][name] = {}
-                self.p.write_canvas(canvas)
-                r = self.head(name, forbid=forbid)
-                self.assert_err06(r, json.dumps(name), r"plain file name")
+            with self.subTest(name=name):
+                k = self.name_board(name)
+                r = self.head_at(k, forbid=forbid)
+                self.assert_err06(r, k, json.dumps(name), r"plain file name")
                 self.assertNotIn("CONTENT", r.out)
 
     def test_a_name_with_a_control_character_is_one_err06_line(self):
-        for name in ("a\nboards: ok.html", "a\rb.html", "a\tb.html", "\x7f.html", "\x85.html", " .html"):
+        for name in ("a\nboards: ok.html", "a\rb.html", "a\tb.html", "\x7f.html", "\x85.html", "\u2028.html", "\u2029.html"):
             with self.subTest(name=name):
-                r = self.head(name)
+                k = self.name_board(name)
+                r = self.head_at(k)
                 self.assertEqual((r.code, len(r.lines)), (1, 1), r)
-                self.assertRegex(r.lines[0], r"^ERR-06: board \".*\": .*plain file name")
+                self.assertRegex(r.lines[0], rf"^ERR-06: board {k} \".*\": .*plain file name")
                 self.assertTrue(all(c == "\n" or c.isprintable() for c in r.out), repr(r.out))
 
-    def test_double_dash_ends_the_options(self):
-        self.p.add_board("-Odd.dc.html", "<title>Odd</title>\n")
-        r = self.cli("head", "DSN-001", "--", "-Odd.dc.html")
-        self.assertEqual(r.code, 0, r)
-        self.assertEqual(r.lines[0], "<title>Odd</title>")
-        r = self.cli("head", "DSN-001", "-Odd.dc.html")
-        self.assertEqual(r.code, 2, r)
-
+    # --- a boards folder that fails DM-04 -------------------------------------------------------------------------------
     def test_an_unusable_boards_folder_is_the_err_line_of_boards(self):
         cases = ((b"not json {", "04"), (b'{"v": 4, "boards": {"Home.dc.html": {}}}', "05"), (b'{"v": 3, "boards": {}}', "03"),
                  (b'{"v": 3, "boards": []}', "04"))
         for raw, code in cases:
             with self.subTest(raw=raw):
                 self.p.put("docs/specs/design/DSN-001/boards/canvas.json", raw)
-                r = self.head("Home.dc.html")
+                r = self.head_at(1)
                 self.assertEqual((r.code, len(r.lines)), (1, 1), r)
                 self.assertRegex(r.lines[0], rf"^ERR-{code}: ")
         names = {f"b{n:03d}.html": {} for n in range(100)}
         self.p.put("docs/specs/design/DSN-001/boards/canvas.json", json.dumps({"v": 3, "boards": names}))
-        r = self.head("Home.dc.html")
+        r = self.head_at(1)
         self.assertEqual((r.code, len(r.lines)), (1, 1), r)
         self.assertRegex(r.lines[0], r"^ERR-12: ")
 
+    def test_a_canvas_json_that_is_rejected_gives_its_err_line_before_k_is_checked_against_the_boards(self):
+        # k is a position, so its range can only be told from a canvas.json that is readable: a rejected one gives its ERR
+        # line (exit 1) for any k of the right form, and a k of the wrong form cannot run before anything is read
+        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", b'{"v": 4, "boards": {"Home.dc.html": {}}}')
+        for k in ("1", "2", "99"):
+            with self.subTest(k=k):
+                r = self.head_at(k)
+                self.assertEqual((r.code, len(r.lines)), (1, 1), r)
+                self.assertRegex(r.lines[0], r"^ERR-05: ")
+        for k in ("0", "-1", "01", "Home.dc.html"):
+            with self.subTest(k=k):
+                r = self.head_at(k)
+                self.assertEqual((r.code, len(r.lines)), (2, 1), r)
+
     def test_a_missing_boards_folder_is_err03(self):
-        r = self.cli("head", "DSN-009", "Home.dc.html")
+        r = self.cli("head", "DSN-009", "1")
         self.assertEqual((r.code, len(r.lines)), (1, 1), r)
         self.assertRegex(r.lines[0], r"^ERR-03: .*docs/specs/design/DSN-009/boards/")
+
+    def test_a_canvas_json_nested_past_100_levels_gives_the_depth_line(self):
+        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", deep_canvas(101))
+        r = self.head_at(1)
+        self.assertEqual((r.code, r.lines), (1, [nested_line("boards")]), r)
+        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", deep_canvas(100))
+        r = self.head_at(1)
+        self.assertEqual((r.code, r.lines[:-1]), (0, BOARDS["Home.dc.html"].splitlines()), r)
 
 
 # =====================================================================================================================
@@ -2978,6 +3221,30 @@ class Place(Base):
                 self.stage({}, canvas=raw)
                 self.assert_problems(self.place(digests=""), [r"^ERR-04: "])
 
+    def test_err04_nesting_past_100_levels_is_refused_and_exactly_100_levels_is_placed(self):
+        for levels in (101, 102, 100000):
+            with self.subTest(levels=levels):
+                self.stage({}, canvas=deep_canvas(levels))
+                for _run in range(2):
+                    self.assert_problems(self.place(digests=""), [r"^ERR-04: .*canvas\.json is not valid JSON \(nested too deeply\); "])
+        shutil.rmtree(self.p.root / "docs")
+        self.files = {"Home.dc.html": PLACE_FILES["Home.dc.html"]}
+        for brackets in ("[", "{", "mixed"):
+            with self.subTest(levels=100, brackets=brackets):
+                shutil.rmtree(self.p.root / "docs", ignore_errors=True)
+                self.stage(self.files, canvas=deep_canvas(100, brackets))
+                run = self.place()
+                self.assertEqual((run.result.code, run.result.lines),
+                                 (0, ["placed: canvas.json and 1 boards into docs/specs/design/DSN-001/boards/", "place: ok"]),
+                                 run.result)
+
+    def test_err04_brackets_inside_a_string_do_not_count_for_place(self):
+        self.files = {"Home.dc.html": PLACE_FILES["Home.dc.html"]}
+        shutil.rmtree(self.p.root / "docs")
+        self.stage(self.files, canvas='{"v": 3, "boards": {"Home.dc.html": {}}, "future": "\\"' + "[" * 2000 + '"}')
+        run = self.place()
+        self.assertEqual((run.result.code, run.result.lines[-1]), (0, "place: ok"), run.result)
+
     def test_err05_and_err12(self):
         for v, shown in (("4", r"\b4\b"), ('"3"', r'"3"'), ("3.0", r"3\.0"), ("true", "true")):
             with self.subTest(v=v):
@@ -3108,7 +3375,7 @@ class Place(Base):
                 self.assert_cannot_run(self.place(argv=argv))
         for sub in ("next", "boards", "check", "head"):
             with self.subTest(sub=sub):
-                extra = ["DSN-001"] * (sub != "next") + ["Home.dc.html"] * (sub == "head")
+                extra = ["DSN-001"] * (sub != "next") + ["1"] * (sub == "head")
                 self.assert_cannot_run(self.place(argv=[sub, "--root", root, *extra, "--sha-file", sha]))
 
     # --- hostile names --------------------------------------------------------------------------------------------------
@@ -3244,7 +3511,8 @@ class Robustness(CheckCase):
 
     def test_deep_json_nesting_gives_one_fixed_message(self):
         # issue #119: the decoder's text for a stack overflow carries a stack-usage figure that varies from run to run.
-        # 100,000 levels is well past the decoder's limit (about 57,900 here); at the limit itself see issue #125.
+        # 100,000 levels is well past the decoder's limit (about 57,900 here); the limit of 100 levels (SPEC-017 version 3,
+        # issue #125) is tested in Boards and Place.
         self.p.write_dsn(self.base)
         self.p.put("docs/specs/design/DSN-001/boards/canvas.json", '{"v": 3, "boards": {"Home.dc.html": ' + "[" * 100000 + "]" * 100000 + "}}")
         r = self.cli("boards", "DSN-001")
