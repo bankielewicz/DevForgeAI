@@ -82,6 +82,12 @@ translate them with `.claude/rules/spec-paths.md`.
   and 7) is the owner's step, from a plain shell. After a fresh clone, deploy once.
 - `.codex/devforgeai/` is the deployed Codex copy, built from the files `main` tracks. All of
   `.codex/` is gitignored.
+- `.claude-plugin/marketplace.json` at the root makes the repository the marketplace
+  `bankielewicz/DevForgeAI` (PR #113), with one plugin, `./src/claude/DevForgeAI`. A marketplace
+  install copies the plugin from GitHub at the commit it was installed or updated at, not from the
+  working tree or the deployed copy. The manifest repeats the plugin version, so a version bump
+  changes `plugin.json`, `marketplace.json` and the pin in
+  `src/tests/progress/test_adapter_structure.py`; no test checks the marketplace's copy.
 
 ```bash
 # Deploy the Claude plugin; the adapter's tests and Claude Code's generated files stay out
@@ -116,6 +122,8 @@ python3 -m unittest discover -s src/tools/session-archive -p 'test_*.py' -k test
 # The progress adapter's kit tests, and what Claude Code reads from the plugin
 claude plugin test src/claude/DevForgeAI
 claude plugin validate src/claude/DevForgeAI
+# The marketplace manifest at the root
+claude plugin validate .
 # The Codex port's tests, leaving no __pycache__ in the Codex tree
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s src/codex/devforgeai/tests -p 'test_*.py'
 # A skill's checker on a real file
@@ -200,6 +208,11 @@ claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --outp
   and commands whose paths contain `git` in a form it can't verify (such as `skills/git/`). Run test
   files directly (`python3 -B src/tests/git/test_repo_state.py`), and write scratch scripts with the
   Write tool before running them.
+- On the owner's machine (`enabledPlugins` in `~/.claude/settings.json`, 2026-10-30), two copies of
+  `devforgeai` load here: the deployed copy (`devforgeai@skills-dir`) and a user-scope marketplace
+  install of this repository (`devforgeai@devforgeai`, 0.31.0 from GitHub). ADR-001 forbids only a
+  project-scope marketplace install here. Which copy runs a skill both ship is not verified: confirm
+  it before taking a live check as a test of the deployed copy.
 - **Never investigate a failing test by changing the working tree** (ADR-005 D7). Record a baseline
   test run before the first change; compare old code only in a disposable worktree
   (`git worktree add --detach <path> <commit>`) or with `git show <commit>:<path>`; commit work in
