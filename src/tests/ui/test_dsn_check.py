@@ -3242,15 +3242,9 @@ class Robustness(CheckCase):
                 self.assertEqual(r.code, 1, r.out[:300])
                 self.assertTrue(any(re.search(r"\(boards\)$", l) and re.search(r"nest|deep", l) for l in self.errors(r)), r.out[:400])
 
-    def test_deep_json_nesting_is_err04(self):
-        self.p.write_dsn(self.base)
-        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", '{"v": 3, "boards": {"Home.dc.html": ' + "[" * 100000 + "]" * 100000 + "}}")
-        r = self.cli("boards", "DSN-001")
-        self.assertEqual(r.code, 1, r)
-        self.assertRegex(r.lines[0], r"^ERR-0[34]: ")
-
     def test_deep_json_nesting_gives_one_fixed_message(self):
-        # issue #119: the decoder's text for a stack overflow carries a stack-usage figure that varies from run to run
+        # issue #119: the decoder's text for a stack overflow carries a stack-usage figure that varies from run to run.
+        # 100,000 levels is well past the decoder's limit (about 57,900 here); at the limit itself see issue #125.
         self.p.write_dsn(self.base)
         self.p.put("docs/specs/design/DSN-001/boards/canvas.json", '{"v": 3, "boards": {"Home.dc.html": ' + "[" * 100000 + "]" * 100000 + "}}")
         r = self.cli("boards", "DSN-001")

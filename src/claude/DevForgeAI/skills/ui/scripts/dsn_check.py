@@ -344,11 +344,10 @@ def read_canvas(root, dsn, sub="boards"):
         raise BoardsProblem("04", f"{rel}canvas.json is not valid UTF-8 (byte {e.start}); the copy may be damaged, copy it again")
     try:
         data = json.loads(text, object_pairs_hook=_json_pairs, parse_float=RawNumber, parse_constant=_json_constant)
-    except RecursionError:
-        # the decoder's own text holds a stack-usage figure that varies from run to run
-        raise BoardsProblem("04", f"{rel}canvas.json is not valid JSON (nested too deeply); the copy may be damaged or from another tool, copy it again")
-    except ValueError as e:
-        raise BoardsProblem("04", f"{rel}canvas.json is not valid JSON ({' '.join(str(e).split())}); the copy may be damaged or from another tool, copy it again")
+    except (ValueError, RecursionError) as e:
+        # a RecursionError's own text holds a stack-usage figure that varies from run to run
+        detail = "nested too deeply" if isinstance(e, RecursionError) else " ".join(str(e).split())
+        raise BoardsProblem("04", f"{rel}canvas.json is not valid JSON ({detail}); the copy may be damaged or from another tool, copy it again")
     if not isinstance(data, JsonObject):
         raise BoardsProblem("04", f"{rel}canvas.json must be a JSON object, not {shown_json(data)}; the copy may be damaged, copy it again")
     if data.dups:
