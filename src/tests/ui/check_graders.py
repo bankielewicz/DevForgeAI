@@ -826,6 +826,14 @@ Next step: run `/devforgeai:ui BRN-001` in an interactive Claude Code session th
 """
 ALT_REPLIES["brief-drafted"] = ALT_REPLIES["brief-drafted"] + [OBSERVED_BRIEFS_0, OBSERVED_BRIEFS_1, OBSERVED_BRIEFS_2]
 ALT_REPLIES["brief-drafted-one-flow"] = [REPLY_ONE_FLOW_WEB]
+# review of 2026-10-30: the closing line quoted in a sentence is prose, not a brief; the ten lines may have other lines between them,
+# and a sentence about the skipped steps may stand beside their lines
+_QUOTE = f'Each brief ends with "{M.BRIEF_CLOSING}"\n\n'
+ALT_REPLIES["brief-drafted"].append(REPLY_BRIEFS.replace("Nothing was sent.", _QUOTE + "Nothing was sent."))
+ALT_REPLIES["brief-drafted-one-flow"].append(REPLY_ONE_FLOW.replace("Nothing was sent.", _QUOTE + "Nothing was sent."))
+_LIST = checklist(SKIP_COPY, "no canvas is needed")
+ALT_REPLIES["writes-dsn"] = [REPLY_CREATE.replace(_LIST, _LIST.replace("\n", "\n\n") + "\n\nSteps 3 to 5 are skipped: no canvas is needed."),
+                             REPLY_CREATE.replace(_LIST, _LIST.replace("\n", "\n  a note on the step, indented\n"))]
 
 # --------------------------------------------------------------------------------------------------------
 # The targeted wrong runs: (label, edits, the graders that must fail, and no others). An edit is
@@ -1070,7 +1078,7 @@ ONE_FLOW_BAD = [
      {"ver39-every-context-is-two-or-three-sentences"}),
     ("a layout word in the Must-haves", [("reply", None, "keyboard-driven.\n", "keyboard-driven; the header at the top.\n")],
      {"ver39-no-must-haves-holds-a-layout-word"}),
-    ("a Content whose screens are not in order", [("reply", None, "1. List (the key screen), 2. Add, 3. Report.", "List (the key screen), Add and Report.")],
+    ("a Content whose screens are not in order", [("reply", None, "The flow's screens, in order: 1. List (the key screen), 2. Add, 3. Report.", "The screens are List (the key screen), Add and Report.")],
      {"ver39-every-content-lists-the-screens-in-order"}),
 ]
 BAD2 = {

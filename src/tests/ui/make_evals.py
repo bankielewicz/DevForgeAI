@@ -1580,7 +1580,8 @@ CHECKLIST_STEPS = range(1, 11)
 
 
 def done_line(n):
-    return r"[ \t]*[-*][ \t]*\[[xX]\][ \t]*" + str(n) + r"\.[ \t]*\S[^\n]*"
+    # the line is taken to its end, so that its tail is not given back to the lazy text between the lines (it blows up over ten lines)
+    return r"[ \t]*[-*][ \t]*\[[xX]\][ \t]*" + str(n) + r"\.[ \t]*\S[^\n]*(?=\n|$)"
 
 
 def skipped_line(n):
@@ -1588,20 +1589,21 @@ def skipped_line(n):
 
 
 def ten_ticked(anchor):
-    """The ten lines are consecutive, ticked, in order and once each (no other checklist line in the reply), after `anchor` (the report's
-    block, or the statement of why the run stopped) and before any Next step paragraph."""
+    """The ten lines are ticked, in order and once each (no other checklist line in the reply, whatever else lies between them: a blank
+    line, an indented note), after `anchor` (the report's block, or the statement of why the run stopped) and before any Next step
+    paragraph."""
     before = r"(?:(?!" + CHECK_LINE + "|" + NEXT_STEP_START + r")[\s\S])*?"
-    block = r"(?:^|\n)" + r"\n".join(done_line(n) for n in CHECKLIST_STEPS)
+    between = r"(?:(?!" + CHECK_LINE + r")[\s\S])*?\n"
+    block = r"(?:^|\n)" + between.join(done_line(n) for n in CHECKLIST_STEPS)
     return "^" + before + anchor + before + block + r"(?:(?!" + CHECK_LINE + r")[\s\S])*$"
 
 
 def skipped_in_ticked_form(must_skip, must_do=(1, 10)):
-    """Each step the run did not do is a ticked line ending (skipped: reason); a step it did is not; no unticked line, and no sentence
-    like 'steps 3 to 5 were skipped' stands in for one."""
-    prose = (r"(?:^|\n)(?![ \t]*[-*][ \t]*\[)[^\n]*\bsteps?[ \t]+\d+\b[^\n]{0,80}\b(?:skipped|not done|not run|omitted)\b")
+    """Each step the run did not do is a ticked line ending (skipped: reason); a step it did is not; no unticked line. A sentence about the
+    skipped steps beside their lines is fine; one in place of them leaves the lines missing, which fails here and in ten_ticked."""
     return ("^" + "".join(f"(?=[\\s\\S]*{skipped_line(n)})" for n in must_skip)
             + "".join(f"(?![\\s\\S]*{skipped_line(n)})" for n in must_do)
-            + f"(?![\\s\\S]*{prose})(?![\\s\\S]*{UNTICKED_LINE})")
+            + f"(?![\\s\\S]*{UNTICKED_LINE})")
 
 
 def ver50(anchor, must_skip):
@@ -1615,14 +1617,17 @@ ANCHOR_APPROVED_BLOCK = r"Design document:(?:\*\*)?[ \t]*DSN-001 \(v\d+, [^\n)]*
 ANCHOR_STATEMENT = r"\S"
 
 
-GRID_OR_SIZE = (r"\b\d{2,3}\s*(?:columns?|cols?)\s*(?:by|x|×|\*)\s*\d{2,3}\s*rows?\b|\b\d{3,4}\s*(?:px|pixels?)\b|"
-                r"\b\d{3,4}\s*(?:x|×|by)\s*\d{3,4}\b")
-CELL_GRID = r"\b\d{2,3}\s*(?:columns?|cols?)\s*(?:by|x|×|\*)\s*\d{2,3}\s*rows?\b"
+# a monospace cell grid of columns by rows ('120 columns by 40 rows', '120-column by 40-row', '120 columns and 40 rows', '120x40 cells'),
+# or a size ('1280 pixels wide', '1280 px', '1280-pixel width', '1280 wide', '1280 x 800')
+CELL_GRID = (r"\b\d{2,3}[ \t-]*(?:columns?|cols?)\s*(?:by|x|×|\*|and|,)?\s*\d{2,3}[ \t-]*rows?\b|"
+             r"\b\d{2,3}\s*(?:x|×|by)\s*\d{2,3}\s*(?:cells?|characters?|chars?|grid)\b")
+GRID_OR_SIZE = (CELL_GRID + r"|\b\d{3,4}[ \t-]*(?:px|pixels?)\b|\b\d{3,4}\s*(?:x|×|by)\s*\d{3,4}\b|"
+                r"\b\d{3,4}\s*(?:px|pixels?)?\s*(?:wide|tall|high)\b")
 UNCONFIRMED = (r"\bun-?confirmed\b|\bnot (?:yet )?confirmed\b|\bawaiting (?:your )?confirmation\b|\bneeds? (?:your |the user" + APOS
                + r"s )?confirmation\b|\bto confirm\b|\bhaven" + APOS + r"t confirmed\b|\bpending confirmation\b")
 IDEA_TEXTS = r"Add a shift from the terminal|List shifts in a table|A weekly report page|A dark theme for the report page"
-STATE = (r"\b(?:empty|error|loading|loads?|mid-flow|no shifts?|nothing (?:recorded|yet)|not yet recorded|cannot be saved|can" + APOS
-         + r"t be saved)\b")
+STATE = (r"\b(?:empty|error|loading|loads?|mid-flow|no shifts?|zero shifts?|blank (?:list|table|state|week|report|screen)|"
+         r"nothing (?:recorded|yet)|not yet recorded|cannot be saved|can" + APOS + r"t be saved)\b")
 # What a Must-haves part may not say (SPEC-017 DM-05: a brief never prescribes the solution): a position, a spacing or a component.
 # A surface, a size and a cell grid ('120 columns by 40 rows') are constraints, not layout.
 LAYOUT = (r"\b(?:side ?bars?|headers?|footers?|toolbars?|nav ?bars?|top bars?|status bars?|tab bars?|panels?|panes?|cards?|tiles?|modals?|"
@@ -1637,8 +1642,9 @@ LAYOUT = (r"\b(?:side ?bars?|headers?|footers?|toolbars?|nav ?bars?|top bars?|st
 
 CLOSE = esc(BRIEF_CLOSING)
 CLOSE_LINE = r"\n[ \t]*" + CLOSE + r"[ \t]*(?=\n|$)"
-IN_BRIEF = r"(?:(?!```|" + CLOSE + r")[\s\S])*?"      # inside one fence, never across a closing line
-NOT_CLOSE = r"(?:(?!" + CLOSE + r")[\s\S])*?"
+# A closing line is a line of its own (CLOSE_LINE): the same words quoted in a sentence, a quotation or a list item are prose, not a brief
+IN_BRIEF = r"(?:(?!```|" + CLOSE_LINE + r")[\s\S])*?"      # inside one fence, never across a closing line
+NOT_CLOSE = r"(?:(?!" + CLOSE_LINE + r")[\s\S])*?"
 FENCE_OPEN = r"(?:^|\n)```[^\n]*\n"
 
 
@@ -1675,7 +1681,8 @@ CONTEXT_WRONG_COUNT = (CONTEXT + "(?:(?:" + sentence(CONTENT) + r")?(?:(?!" + TE
 # follows the label at once is the first, not a separator (atomic: the lookahead keeps its choice)
 SEPARATOR = r"(?:;|\n[ \t]*(?:[-*•]|\d+[.)])[ \t])"
 FIRST_ITEM = r"(?=(?<first>[ \t]*\n[ \t]*(?:[-*•]|\d+[.)])[ \t]+|))\k<first>"
-MUST_WRONG_COUNT = (MUST + FIRST_ITEM + "(?:(?:(?!" + SEPARATOR + ")(?!" + STYLE + r")[\s\S])*" + STYLE
+# the label is atomic: its optional colon may not be given back, or the first item would count as a separator
+MUST_WRONG_COUNT = (r"(?=(?<lab>" + MUST + r"))\k<lab>" + FIRST_ITEM + "(?:(?:(?!" + SEPARATOR + ")(?!" + STYLE + r")[\s\S])*" + STYLE
                     + "|(?:(?:(?!" + STYLE + r")[\s\S])*?" + SEPARATOR + "){4})")
 # a terminal flow's brief (its lead line says terminal and names no web page, browser, desktop or mobile surface) states a cell grid of
 # columns by rows; any brief states a grid or a size. A flow of both surfaces, such as the one flow of the whole release, takes its
@@ -1684,14 +1691,17 @@ TERMINAL_WITHOUT_GRID = (FENCE_OPEN + r"(?:[ \t]*\n)*(?![^\n]*\b(?:web|browser|d
                          + r"(?:(?!```)[\s\S])*?" + MUST
                          + r"(?:(?!" + CELL_GRID + ")(?!" + STYLE + r")[\s\S])*" + STYLE)
 WITHOUT_SIZE = span(MUST, STYLE, "(?:" + GRID_OR_SIZE + ")")
-LAYOUT_IN_MUST = MUST + r"(?:(?!" + STYLE + r")[\s\S])*?" + LAYOUT
+LAYOUT_IN_MUST = MUST + r"(?:(?!```|" + STYLE + r")[\s\S])*?" + LAYOUT + r"(?:(?!```|" + STYLE + r")[\s\S])*" + STYLE
 # a fenced brief (it has a Context) that ends without the closing line; the fence's own line is not consumed, so that a Context on the
 # first line of the fence is found too
 BRIEF_WITHOUT_CLOSING = r"(?:^|\n)```[^\n]*" + IN_BRIEF + CONTEXT + IN_BRIEF + "```"
 STYLE_WITHOUT_PROPOSE = span(STYLE, CLOSE, r"\bpropose one\b")
 STYLE_WITH_VALUE = STYLE + r"(?:(?!" + CLOSE + r")[\s\S])*?(?:#[0-9a-fA-F]{3,8}\b|\b\d+\s?px\b)"
 CONTENT_WITHOUT_IDEA = span(CONTENT, MUST, "(?:" + IDEA_TEXTS + ")")
-CONTENT_WITHOUT_SCREENS = ("(?:" + span(CONTENT, MUST, r"\bkey screen\b") + "|" + span(CONTENT, MUST, r"\b1[.)][ \t]*[A-Z]|→|->") + ")")
+# the screens in order: numbered or arrowed, said to be in order, or a lone screen that is the key screen ('The flow's screen: Report (the key
+# screen)'); and the key screen marked
+IN_ORDER = r"\b1[.)][ \t]*[A-Z]|→|->|\bin order\b|\bscreen:[ \t]*[A-Z]\w*[ \t]*\((?:the )?key screen\)"
+CONTENT_WITHOUT_SCREENS = ("(?:" + span(CONTENT, MUST, r"\bkey screen\b") + "|" + span(CONTENT, MUST, "(?:" + IN_ORDER + ")") + ")")
 CONTENT_WITHOUT_STATE = span(CONTENT, MUST, STATE)
 
 # The text of the one judge: the rubric that the replay of 2026-10-30 passed on three correct briefs 3 of 3 and failed on a brief with
@@ -1725,10 +1735,12 @@ BRIEF_JUDGES = {
     "ver39-brief-adds-no-fact": brief_rubric(),
     "ver39-grouping-and-status": """\
 The agent ran in a session with no Artifact tool and was told to proceed without questions. The promoted ideas that name a screen
-are IDEA-01, IDEA-02, IDEA-03 and IDEA-06; IDEA-04 names none. Judge the agent's output outside the briefs. A pass needs all of
-these:
+are IDEA-01, IDEA-02, IDEA-03 and IDEA-06; IDEA-04 names none. Judge the agent's output outside the briefs, and how many briefs it
+shows. A pass needs all of these:
 - It proposes how the screens group into flows (one flow for the release, or two such as a terminal flow of IDEA-01 and IDEA-02
   and a web flow of IDEA-03 and IDEA-06), with the key screen and the surface of each flow, and says the grouping is unconfirmed.
+- It shows one brief for each flow it proposes, each in a code block of its own: a reply that proposes two flows and shows one brief is
+  not a pass.
 - It says the session has no Artifact tool, and that no canvas was made and nothing was sent to claude.ai (wording such as "no
   screens designed" or "nothing goes to claude.ai without confirmation" counts).
 - It names docs/specs/design/DSN-001/boards/, where a copy placed by hand is recorded.
@@ -1784,8 +1796,9 @@ def brief_drafted(one_flow=False):
           reply("ver39-names-boards-folder", esc(f"{DESIGN}/DSN-001/boards/"), flags=""),
           rx("ver39-no-drawing", "last_message", NO_DRAWING, match="not_contains", witness="\n┌──────┐\n│ Home │\n└──────┘\n")]
     if one_flow:
-        g.append(reply("ver39-exactly-one-brief", CLOSE + r"[\s\S]*" + CLOSE, flags="", match="not_contains",
-                       witness="\n" + BRIEF_CLOSING + "\n"))
+        # two fenced briefs (the closing line quoted in prose is not one)
+        g.append(reply("ver39-exactly-one-brief", FENCE_OPEN + IN_BRIEF + CLOSE_LINE + IN_BRIEF + "```" + r"[\s\S]*?" + FENCE_OPEN + IN_BRIEF
+                       + CLOSE_LINE, flags="", match="not_contains", witness="\n```\n\n" + BRIEF_CLOSING + "\n```\n"))
     g += [llm(name, body) for name, body in BRIEF_JUDGES.items()]
     return g
 

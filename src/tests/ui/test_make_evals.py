@@ -765,6 +765,14 @@ class V3BriefTests(unittest.TestCase):
             for name in ("ver39-briefs-in-dm05-order", "ver39-each-brief-sits-in-its-own-fence"):
                 self.assertEqual("contains", by[name].match, f"{case}/{name}")
 
+    def test_the_grouping_judge_counts_the_briefs(self):
+        # nothing in a regex checks one brief for each proposed flow: a reply that proposes two flows and shows one brief fails
+        for case in self.CASES:
+            fm, body = front_matter(GENERATED / case / "graders" / "ver39-grouping-and-status.md")
+            text = " ".join(body.split())
+            self.assertIn("It shows one brief for each flow it proposes", text, case)
+            self.assertIn("a reply that proposes two flows and shows one brief is not a pass", text, case)
+
     def test_one_judge_stays_and_the_five_old_ones_are_gone(self):
         for case in self.CASES:
             llm = sorted(g.name for g in case_by_name()[case].graders if g.type == "llm")
@@ -851,6 +859,35 @@ class V3BriefTests(unittest.TestCase):
                         "brief-drafted-one-flow")
         self.assertEqual([False, True, False], got)   # a not_contains grader: True means the offending text was found
 
+    # The closing line quoted in prose is not a brief (review of 2026-10-30): VER-39 counts the fenced briefs, a brief being a fenced
+    # block with the closing line as a line of its own; a bare closing line outside a fence is an unfenced brief.
+    QUOTED = ['Each brief ends with "' + CLOSING + '"',
+              "Each brief ends with " + CLOSING,
+              "> " + CLOSING,
+              "- " + CLOSING,
+              '"' + CLOSING + '"',
+              "The closing line, `" + CLOSING + "`, asks for three directions."]
+
+    def with_quoted(self, text, *bodies, where="after"):
+        r = reply_of(*bodies)
+        return (r + "\n" + text + "\n") if where == "after" else (text + "\n\n" + r)
+
+    def test_a_quoted_closing_line_is_not_a_brief(self):
+        web = lambda **kw: brief(WEB, **kw)
+        for quote in self.QUOTED:
+            for where in ("after", "before"):
+                one, two = self.with_quoted(quote, brief(), where=where), self.with_quoted(quote, brief(), web(), where=where)
+                for name in ("ver39-briefs-in-dm05-order", "ver39-each-brief-sits-in-its-own-fence"):
+                    self.assertEqual([True, True], self.hits(name, [one, two]), f"{name}: {quote[:30]} {where}")
+                self.assertEqual([False], self.hits("ver39-exactly-one-brief", [one], "brief-drafted-one-flow"), f"{quote[:30]} {where}")
+                self.assertEqual([True], self.hits("ver39-exactly-one-brief", [two], "brief-drafted-one-flow"), f"{quote[:30]} {where}")
+        # a closing line that stands alone outside a fence is an unfenced brief
+        bare = reply_of(brief()) + "\n" + CLOSING + "\n"
+        self.assertEqual([False], self.hits("ver39-briefs-in-dm05-order", [bare]))
+        self.assertEqual([False], self.hits("ver39-each-brief-sits-in-its-own-fence", [bare]))
+        # two fenced briefs are two, whatever the prose around them says
+        self.assertEqual([True], self.hits("ver39-exactly-one-brief", [self.with_quoted(self.QUOTED[0], brief(), web())], "brief-drafted-one-flow"))
+
     def violations(self, name, texts):
         return self.hits(name, texts)
 
@@ -887,10 +924,20 @@ class V3BriefTests(unittest.TestCase):
         grid = "a terminal screen, a monospace cell grid of 120 columns by 40 rows"
         ok = ["Must-haves: " + grid + "; keyboard-driven.", TERMINAL["must"], "Must-haves: a; b; c; d.",
               "Must-haves:\n- " + grid + "\n- drawn only with text\n- keyboard-driven",
-              "Must-haves:\n1. " + grid + "\n2. keyboard-driven", "**Must-haves:** " + grid + "; keyboard-driven"]
+              "Must-haves:\n1. " + grid + "\n2. keyboard-driven", "**Must-haves:** " + grid + "; keyboard-driven",
+              # four items on lines of their own (review of 2026-10-30: the first bullet was counted as a separator)
+              "Must-haves:\n- " + grid + "\n- drawn only with text\n- 24-bit colour\n- keyboard-driven",
+              "Must-haves:\n1. " + grid + "\n2. drawn only with text\n3. 24-bit colour\n4. keyboard-driven",
+              "Must-haves:\n1) " + grid + "\n2) drawn only with text\n3) 24-bit colour\n4) keyboard-driven",
+              "**Must-haves:**\n* " + grid + "\n* drawn only with text\n* 24-bit colour\n* keyboard-driven",
+              "**Must-haves**:\n- " + grid + "\n- drawn only with text\n- 24-bit colour\n- keyboard-driven",
+              "Must-haves\n- " + grid + "\n- drawn only with text\n- 24-bit colour\n- keyboard-driven"]
         self.assertEqual([False] * len(ok), self.violations(name, [reply_of(brief(must=m)) for m in ok]))
         bad = {"one constraint": "Must-haves: " + grid + ", keyboard-driven.", "five constraints": "Must-haves: a; b; c; d; e.",
-               "five bullets": "Must-haves:\n- a\n- b\n- c\n- d\n- e", "one bullet": "Must-haves:\n- " + grid}
+               "five bullets": "Must-haves:\n- a\n- b\n- c\n- d\n- e", "one bullet": "Must-haves:\n- " + grid,
+               "five numbered items": "Must-haves:\n1. a\n2. b\n3. c\n4. d\n5. e",
+               "five numbered items, bold label": "**Must-haves:**\n1. a\n2. b\n3. c\n4. d\n5. e",
+               "five bullets under a label without a colon": "Must-haves\n- a\n- b\n- c\n- d\n- e"}
         got = self.violations(name, [reply_of(brief(must=m)) for m in bad.values()])
         self.assertEqual({k: True for k in bad}, dict(zip(bad, got)))
         self.assertEqual([True], self.violations(name, [reply_of(brief(), brief(WEB, must="Must-haves: a web page, 1280 pixels wide."))]))
@@ -915,6 +962,35 @@ class V3BriefTests(unittest.TestCase):
         got = self.violations(name, [reply_of(b) for b in bad.values()])
         self.assertEqual({k: True for k in bad}, dict(zip(bad, got)))
 
+    def test_the_must_haves_accept_other_ways_to_say_a_grid_or_a_size(self):
+        name = "ver39-every-must-haves-states-a-grid-or-a-size"
+        grids = ["a monospace cell grid of 120x40 cells", "a cell grid of 120 columns and 40 rows", "a 120-column by 40-row cell grid",
+                 "a cell grid of 120 × 40 characters", "a cell grid of 120 columns, 40 rows", "a cell grid of 80 by 24 cells"]
+        for grid in grids:
+            must = f"Must-haves: a terminal screen, {grid}; keyboard-driven."
+            self.assertEqual([False], self.violations(name, [reply_of(brief(must=must))]), grid)
+        for size in ("a web page 1280 wide", "a web page, 1280 pixels wide", "a web page, a 1280-pixel width", "a web page 1280 px wide",
+                     "a web page 1280 by 800", "a web page 1440 wide and 900 tall"):
+            must = f"Must-haves: {size}; usable with the keyboard alone."
+            self.assertEqual([False], self.violations(name, [reply_of(brief(WEB, must=must))]), size)
+        # a terminal brief still needs a cell grid, and no grid or size is still none
+        self.assertEqual([True], self.violations(name, [reply_of(brief(must="Must-haves: a terminal screen, 1280 wide; keyboard-driven."))]))
+        self.assertEqual([True], self.violations(name, [reply_of(brief(WEB, must="Must-haves: a wide web page; usable with the keyboard alone."))]))
+
+    def test_the_content_accepts_a_one_screen_flow_and_other_empty_states(self):
+        screens, state = "ver39-every-content-lists-the-screens-in-order", "ver39-every-content-names-a-state"
+        one = "Content: the idea \"A weekly report page\". The flow's screen: Report (the key screen). States to show: a week with no shifts."
+        also = "Content: the idea \"A weekly report page\". The flow's screens, in order: Report (the key screen). States to show: a week with no shifts."
+        for text in (one, also):
+            self.assertEqual([False], self.violations(screens, [reply_of(brief(WEB, content=text))]), text)
+        # a list with no order and no number is still not one
+        self.assertEqual([True], self.violations(screens, [reply_of(brief(content="Content: the idea \"List shifts in a table\". The screens are List (the key screen) and Add. States to show: no shift recorded yet."))]))
+        self.assertEqual([True], self.violations(screens, [reply_of(brief(WEB, content="Content: the idea \"A weekly report page\". States to show: a week with no shifts."))]))
+        for tail in ("States to show: zero shifts recorded.", "States to show: a blank list.", "States to show: a week with zero shifts.",
+                     "States to show: a blank list until a shift is added."):
+            self.assertEqual([False], self.violations(state, [reply_of(with_content(BRIEF_BODY, tail))]), tail)
+        self.assertEqual([True], self.violations(state, [reply_of(with_content(BRIEF_BODY, "Show a list of shifts."))]))
+
     def test_the_must_haves_hold_no_layout_word(self):
         name = "ver39-no-must-haves-holds-a-layout-word"
         self.assertEqual([False, False], self.violations(name, [reply_of(brief()), reply_of(brief(), brief(WEB))]))
@@ -925,6 +1001,11 @@ class V3BriefTests(unittest.TestCase):
             self.assertEqual([True], self.violations(name, [reply_of(brief(), brief(WEB, must=must))]), words)
         # a layout word outside the Must-haves is not the Must-haves'
         self.assertEqual([False], self.violations(name, [reply_of(brief(style="Style: propose one, no sidebar."))]))
+        # a prose line that starts with the label, with a layout word after it and no Style label to end it (review of 2026-10-30)
+        prose = "Must-haves are kept short, and the brief is shown below the grouping."
+        self.assertEqual([False, False], self.violations(name, [prose + "\n\nNothing was sent.\n", "Must-haves: none yet.\nSee the header of the file.\n"]))
+        # and a prose line before a good brief does not reach that brief's Style label
+        self.assertEqual([False, False], self.violations(name, [prose + "\n\n" + reply_of(brief()), prose + "\n\n" + reply_of(brief(), brief(WEB))]))
 
     def test_the_style_says_propose_one_and_holds_no_value(self):
         propose = "ver39-every-style-says-propose-one"
@@ -1040,8 +1121,6 @@ class V3ChecklistTests(unittest.TestCase):
                 f"step {n} with text after the parenthesis": line_n(lines[n - 1] + " so"),
                 "step 10 written skipped": full.replace(f"- [x] 10. {titles[9]}", f"- [x] 10. {titles[9]} (skipped: none)"),
                 "an unticked line for step 1": full.replace("- [x] 1.", "- [ ] 1."),
-                "a prose sentence": full + "\n\nSteps 3 to 5 were skipped because nothing was needed.",
-                "a prose sentence, singular": full + "\n\nStep 4 is skipped.",
             }
             texts = {k: self.final(case, v) for k, v in variants.items()}
             got = self.hit(case, name, list(texts.values()))
@@ -1051,6 +1130,39 @@ class V3ChecklistTests(unittest.TestCase):
                 broken = full.replace(f"- [x] {step}. {titles[step - 1]} (skipped: not needed here)", f"- [x] {step}. {titles[step - 1]}")
                 self.assertNotEqual(full, broken)
                 self.assertEqual([False], self.hit(case, name, [self.final(case, broken)]), f"{case}: step {step} not skipped")
+
+    def test_a_sentence_about_the_skipped_steps_is_fine_beside_their_lines_and_no_stand_in_for_them(self):
+        # review of 2026-10-30: VER-50 forbids prose that stands in for a line, not a sentence next to the ten lines
+        name = "ver50-skipped-lines-in-ticked-form"
+        for case in VER_50_CASES:
+            full = ticked(self.SKIPPED[case])
+            first, last = self.REQUIRED[case][0], self.REQUIRED[case][-1]
+            for sentence in (f"Steps {first} to {last} are skipped: no canvas is needed.", f"Step {first} was skipped, as the list says.",
+                             f"Steps {first} and {last} were not run."):
+                self.assertEqual([True], self.hit(case, name, [self.final(case, full + "\n\n" + sentence)]), f"{case}: {sentence}")
+            # the sentence in place of the lines is a stand-in: the lines are missing
+            lines = full.split("\n")
+            kept = "\n".join(l for n, l in enumerate(lines, start=1) if n not in self.SKIPPED[case])
+            instead = self.final(case, kept + f"\n\nSteps {first} to {last} are skipped: no canvas is needed.")
+            self.assertEqual([False], self.hit(case, name, [instead]), case)
+            self.assertEqual([False], self.hit(case, "ver50-ten-ticked-lines", [instead]), case)
+
+    def test_the_ten_lines_may_have_other_lines_between_them(self):
+        # review of 2026-10-30: "once each and in order", not "on consecutive lines"
+        name = "ver50-ten-ticked-lines"
+        for case in VER_50_CASES:
+            lines = ticked(self.SKIPPED[case]).split("\n")
+            spaced = "\n\n".join(lines)
+            continued = "\n".join(l + "\n  a note on the step, indented" for l in lines)
+            sub = "\n".join(l + "\n  - a sub-item of the step" for l in lines)
+            note = "\n".join(lines[:4]) + "\nThe canvas steps follow.\n" + "\n".join(lines[4:])
+            for label, text in (("blank lines", spaced), ("indented continuation lines", continued), ("sub-items", sub), ("a note line", note)):
+                self.assertEqual([True], self.hit(case, name, [self.final(case, text)]), f"{case}: {label}")
+            # still once each, in order and ticked, whatever lies between
+            self.assertEqual([False], self.hit(case, name, [self.final(case, spaced.replace("- [x] 5.", "- [ ] 5."))]), case)
+            self.assertEqual([False], self.hit(case, name, [self.final(case, "\n\n".join(lines[:3] + [lines[4], lines[3]] + lines[5:]))]), case)
+            self.assertEqual([False], self.hit(case, name, [self.final(case, spaced + "\n\n" + spaced)]), case)
+            self.assertEqual([False], self.hit(case, name, [self.final(case, "\n\n".join(lines[:9]))]), case)
 
     def test_the_reason_may_hold_a_semicolon_and_the_skipped_steps_may_be_more_than_the_run_must_skip(self):
         for case in VER_50_CASES:
