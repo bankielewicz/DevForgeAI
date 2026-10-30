@@ -901,6 +901,14 @@ class V3BriefTests(unittest.TestCase):
               reply_of(brief(WEB, must="Must-haves: a web page, 1280 px wide; keyboard alone.")),
               reply_of(brief(WEB, must="Must-haves: a web page at 1280 x 800; keyboard alone."))]
         self.assertEqual([False] * len(ok), self.violations(name, ok))
+        # one flow for the whole release has both surfaces (brief-drafted-one-flow): its key screen decides, so a lead line that names a
+        # web page too does not demand a cell grid, and its Must-haves state the web page's size
+        mixed_lead = "Shiftlog from the terminal to the report: the List and Add terminal screens and the Report web page of Shiftlog, for people who work shifts."
+        web_must = "Must-haves: a web page for a desktop browser, 1280 pixels wide; readable in a dark theme; usable with the keyboard alone."
+        for case in self.CASES:
+            self.assertEqual([False], self.hits(name, [reply_of(brief(lead=mixed_lead, must=web_must))], case), case)
+            self.assertEqual([False], self.hits(name, [reply_of(brief(lead=mixed_lead))], case), case)
+        self.assertEqual([True], self.hits(name, [reply_of(brief(lead=mixed_lead, must="Must-haves: a web page for a desktop browser; keyboard alone."))]))
         bad = {"a terminal brief with no grid": brief(must="Must-haves: a terminal screen; keyboard-driven; drawn with text."),
                "a terminal brief with a size and no cell grid": brief(must="Must-haves: a terminal screen, 1280 pixels wide; keyboard-driven."),
                "a web brief with no size": brief(WEB, must="Must-haves: a web page for a desktop browser; readable in a dark theme.")}

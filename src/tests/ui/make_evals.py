@@ -1677,8 +1677,11 @@ SEPARATOR = r"(?:;|\n[ \t]*(?:[-*•]|\d+[.)])[ \t])"
 FIRST_ITEM = r"(?=(?<first>[ \t]*\n[ \t]*(?:[-*•]|\d+[.)])[ \t]+|))\k<first>"
 MUST_WRONG_COUNT = (MUST + FIRST_ITEM + "(?:(?:(?!" + SEPARATOR + ")(?!" + STYLE + r")[\s\S])*" + STYLE
                     + "|(?:(?:(?!" + STYLE + r")[\s\S])*?" + SEPARATOR + "){4})")
-# a terminal flow's brief (its lead line says terminal) states a cell grid of columns by rows; any brief states a grid or a size
-TERMINAL_WITHOUT_GRID = (FENCE_OPEN + r"(?:[ \t]*\n)*[^\n]*\b(?:terminal|command line|CLI)\b[^\n]*" + r"(?:(?!```)[\s\S])*?" + MUST
+# a terminal flow's brief (its lead line says terminal and names no web page, browser, desktop or mobile surface) states a cell grid of
+# columns by rows; any brief states a grid or a size. A flow of both surfaces, such as the one flow of the whole release, takes its
+# key screen's surface, which the regex cannot tell: its Must-haves need a grid or a size, as any brief's.
+TERMINAL_WITHOUT_GRID = (FENCE_OPEN + r"(?:[ \t]*\n)*(?![^\n]*\b(?:web|browser|desktop|mobile)\b)[^\n]*\b(?:terminal|command line|CLI)\b[^\n]*"
+                         + r"(?:(?!```)[\s\S])*?" + MUST
                          + r"(?:(?!" + CELL_GRID + ")(?!" + STYLE + r")[\s\S])*" + STYLE)
 WITHOUT_SIZE = span(MUST, STYLE, "(?:" + GRID_OR_SIZE + ")")
 LAYOUT_IN_MUST = MUST + r"(?:(?!" + STYLE + r")[\s\S])*?" + LAYOUT

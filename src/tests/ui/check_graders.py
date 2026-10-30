@@ -379,6 +379,16 @@ I made no canvas and wrote nothing: this session has no Artifact tool, which mak
 Nothing was sent. The boards would go into docs/specs/design/DSN-001/boards/; run the skill in an interactive Claude Code session to make the canvas.
 """.replace("@@BRIEF_ONE@@", BRIEF_ONE)
 
+# the one flow of the whole release may take the web page for its key screen: its lead names both surfaces, its Must-haves a size
+REPLY_ONE_FLOW_WEB = (REPLY_ONE_FLOW
+                      .replace("One flow from the terminal to the report: the List, Add and Report screens of Shiftlog, a terminal tool with a weekly report,",
+                               "One flow from the terminal to the report: the List and Add terminal screens and the Report web page of Shiftlog,")
+                      .replace("1. List (the key screen), 2. Add, 3. Report.", "1. List, 2. Add, 3. Report (the key screen).")
+                      .replace("Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters; keyboard-driven.",
+                               "Must-haves: a web page for a desktop browser, 1280 pixels wide; readable in a dark theme; usable with the keyboard alone.")
+                      .replace("List (the key screen), Add and Report, surface terminal", "List, Add and Report (the key screen), surface web"))
+assert REPLY_ONE_FLOW_WEB != REPLY_ONE_FLOW and "web page for a desktop browser" in REPLY_ONE_FLOW_WEB and "Report web page" in REPLY_ONE_FLOW_WEB
+
 GOOD2 = {
     "unconfirmed-stays-null": ({DSN1: null_dsn()}, REPLY_NULL, []),
     "no-boards-stops": ({}, with_checklist("This session has no Artifact tool, which importing the canvas named in your request needs (ERR-19), and "
@@ -815,6 +825,7 @@ The terminal size (120 × 40) and the 1280-pixel width are suggestions for you t
 Next step: run `/devforgeai:ui BRN-001` in an interactive Claude Code session that has the Artifact tool, and without "proceed without questions". You'll be asked to confirm the grouping and briefs, the canvas gets made, and the boards are imported into DSN-001 once you've finished working on them. If you'd rather skip screen design, go straight on with `/devforgeai:prd BRN-001`.
 """
 ALT_REPLIES["brief-drafted"] = ALT_REPLIES["brief-drafted"] + [OBSERVED_BRIEFS_0, OBSERVED_BRIEFS_1, OBSERVED_BRIEFS_2]
+ALT_REPLIES["brief-drafted-one-flow"] = [REPLY_ONE_FLOW_WEB]
 
 # --------------------------------------------------------------------------------------------------------
 # The targeted wrong runs: (label, edits, the graders that must fail, and no others). An edit is
