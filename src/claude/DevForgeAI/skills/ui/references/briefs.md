@@ -80,7 +80,7 @@ Shifts in the terminal: the List and Add screens of Shiftlog, a terminal tool, f
 
 Context: Shiftlog is used by people who work shifts and today write them on paper, where they get lost. The one job of this flow: record a shift and see the shifts already recorded at a glance.
 
-Content: the idea "List shifts in a table"; the idea "Add a shift from the terminal"; the problem "Shifts are written on paper and get lost". The flow's screens, in order: 1. List (the key screen), 2. Add. States to show: no shift recorded yet; a list of recorded shifts; an error when a shift cannot be saved.
+Content: the idea "List shifts in a table"; the idea "Add a shift from the terminal"; the problem "Shifts are written on paper and get lost". The flow's screens, in order: 1. List (the key screen), 2. Add. States to show: no shift recorded yet; a list of recorded shifts.
 
 Must-haves: a terminal screen, a monospace cell grid of 120 columns by 40 rows; drawn only with text, box-drawing and block characters and 24-bit colour; a dark terminal; fully keyboard-driven.
 
@@ -99,7 +99,7 @@ The weekly report: the Home and Report pages of Shiftlog, a web app, for people 
 
 Context: Shiftlog users record shifts and then want to know how much they worked. The one job of this flow: open the app and read the week's report.
 
-Content: the idea "A weekly report page"; the idea "A dark theme for the report page". The flow's screens, in order: 1. Home, 2. Report (the key screen). States to show: a week with no shifts; a week with shifts; the report while it loads.
+Content: the idea "A weekly report page"; the idea "A dark theme for the report page". The flow's screens, in order: 1. Home, 2. Report (the key screen). States to show: a week with no shifts; a week with shifts.
 
 Must-haves: a web page for a desktop browser, 1280 pixels wide; readable in a dark theme; usable with the keyboard alone.
 
