@@ -2815,8 +2815,10 @@ class Place(Base):
             self.assertEqual(strip(run.after), strip(run.before), run.changed)
 
     def assert_inside_the_dsn_folder(self, run):
+        # The DSN folder's own entry may change too: place removes the emptied project/ inside it (IF-05), and on tmpfs
+        # a folder's size counts its entries, which the snapshot compares (issue #119).
         for path in run.changed:
-            self.assertTrue(path.startswith("project/docs/specs/design/DSN-001/"), path)
+            self.assertTrue(path == "project/docs/specs/design/DSN-001" or path.startswith("project/docs/specs/design/DSN-001/"), path)
 
     def assert_exit(self, run, code):
         self.assertEqual(run.result.code, code, run.result)
@@ -3246,6 +3248,21 @@ class Robustness(CheckCase):
         r = self.cli("boards", "DSN-001")
         self.assertEqual(r.code, 1, r)
         self.assertRegex(r.lines[0], r"^ERR-0[34]: ")
+
+    def test_deep_json_nesting_gives_one_fixed_message(self):
+        # issue #119: the decoder's text for a stack overflow carries a stack-usage figure that varies from run to run
+        self.p.write_dsn(self.base)
+        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", '{"v": 3, "boards": {"Home.dc.html": ' + "[" * 100000 + "]" * 100000 + "}}")
+        r = self.cli("boards", "DSN-001")
+        self.assertEqual((r.code, r.lines[0]), (1, "ERR-04: docs/specs/design/DSN-001/boards/canvas.json is not valid JSON (nested too deeply); "
+                                                    "the copy may be damaged or from another tool, copy it again"), r)
+
+    def test_a_json_syntax_error_still_names_its_line_and_column(self):
+        self.p.write_dsn(self.base)
+        self.p.put("docs/specs/design/DSN-001/boards/canvas.json", '{"v": 3,\n "boards": {"Home.dc.html": [1,]}}')
+        r = self.cli("boards", "DSN-001")
+        self.assertEqual(r.code, 1, r)
+        self.assertRegex(r.lines[0], r"^ERR-04: docs/specs/design/DSN-001/boards/canvas\.json is not valid JSON \(.*line 2 column \d+ \(char \d+\)\); ")
 
     def test_long_lines_of_quotes_and_backslashes_cost_linear_time(self):
         for name, line in (("quotes", '"' * 40000), ("escapes", '"' + "\\" * 40000), ("pairs", '"a\\"' * 20000),
