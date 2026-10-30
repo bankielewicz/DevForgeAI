@@ -225,7 +225,7 @@ Recorded and not decided; each needs Bryan's decision before any work (see "Look
 building it"). The source of each item is named.
 
 - **Unbuilt skills:** `qa` (SPEC-008, a stub whose review criteria are open), `story` (SPEC-009,
-  draft), `ui`'s cycle C (the neighbours' changes: hand-offs, the DSN as input, `DSN` in `common.schema.json`, SPEC-017 v3's
+  draft), `ui`'s cycle C (the neighbours' changes: hand-offs, the DSN as input, `DSN` in `common.schema.json`, SPEC-017 v4's
   wording) and cycle D (the dashboard's eighth tile; ADR-007), `github-post` (SPEC-010 v3, awaiting approval; its templates are staged in
   `src/templates/github/`), and the chain's final Spec step, which only PRD-001 FR-017 covers (no
   spec, no reserved SKL ID).
