@@ -9,7 +9,7 @@ work.
 
 ## What this workspace is
 
-DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.31.0 in
+DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.31.1 in
 `src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
 Brainstorm → UI → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
 Architecture and Epic are built; `ui` (optional, SKL-013 v2) designs a release's screens in Claude Design and records them as a DSN; `context` writes the project context documents between Architecture
@@ -210,7 +210,7 @@ claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --outp
   Write tool before running them.
 - On the owner's machine (`enabledPlugins` in `~/.claude/settings.json`, 2026-10-30), two copies of
   `devforgeai` load here: the deployed copy (`devforgeai@skills-dir`) and a user-scope marketplace
-  install of this repository (`devforgeai@devforgeai`, 0.31.0 from GitHub). ADR-001 forbids only a
+  install of this repository (`devforgeai@devforgeai`, from GitHub at the commit it was installed or last updated at). ADR-001 forbids only a
   project-scope marketplace install here. Which copy runs a skill both ship is not verified: confirm
   it before taking a live check as a test of the deployed copy.
 - **Never investigate a failing test by changing the working tree** (ADR-005 D7). Record a baseline
