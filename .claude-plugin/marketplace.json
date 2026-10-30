@@ -9,7 +9,7 @@
       "name": "devforgeai",
       "source": "./src/claude/DevForgeAI",
       "description": "Brainstorm, PRD, architecture, context, epics, UI design records, docs updater, git workflow, spec lookup and pre-compaction handoff.",
-      "version": "0.31.1"
+      "version": "0.32.0"
     }
   ]
 }
