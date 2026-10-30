@@ -90,8 +90,8 @@ Only after the user confirms the grouping and the briefs in this run (ERR-22 oth
    claude.ai account as a private artifact. Options: "Create the canvas" (Recommended; its preview repeats the
    briefs), "Change a brief", "Change the grouping", "Not now". "Change a brief" redrafts it and asks again,
    "Change the grouping" returns to the grouping, and "Not now" is ERR-22: make no canvas and write nothing.
-2. `quickstart` with `intent: design`, for the `type_url` and the design systems (step 3 of SKILL.md has already
-   read it once; use that result).
+2. `quickstart` with `intent: design`, for the `type_url` and the design systems (step 3 has already read it
+   once, as the briefs reference says; use that result).
 3. `publish` with the Design type's `type_url`, a `title` that begins with the BRN's ID
    (`BRN-001: <the BRN's title>, release design`) and `auto_open: "after_first_write"`, and no files.
 4. Write the board files with Write into the session's scratchpad, never into the repository: a folder that
@@ -158,21 +158,8 @@ Design document: none yet (the boards are imported when the run is resumed)
 
 In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. When the canvas was found
 not private (the plain read or a publish result, above), one line between them says so and names the canvas
-page's Share menu. Then the checklist, all ten lines ticked: steps 1 to 5 and 10 as done, steps 6 to 9 as skipped,
-so that the tracker sees the run reach step 10:
-
-```
-- [x] 1. Select the BRN; create when no DSN cites it, amend when one does
-- [x] 2. Read the BRN and find the boards (amend: the PRD and the ADRs too, and the canvas's version)
-- [x] 3. Flows and briefs: group the screens the ideas name into flows, draft a brief for each, and have the user confirm them
-- [x] 4. Canvas: make it through the Artifact tool's Design type (amend: add a flow or a screen to it)
-- [x] 5. Wait for the user to finish on the canvas, then import its boards into boards/ (or end the run with the link)
-- [x] 6. Interview: confirm each mapping (skipped: run ended after the canvas; run again to import)
-- [x] 7. Write DSN-NNN (amend: version +1, a Change Log row) (skipped: run ended after the canvas; run again to import)
-- [x] 8. Validate (at most three repair cycles) (skipped: run ended after the canvas; run again to import)
-- [x] 9. Approval: offered once, given only on the user's explicit words (skipped: run ended after the canvas; run again to import)
-- [x] 10. Report, and hand off to /devforgeai:prd BRN-NNN when a DSN was written
-```
+page's Share menu. Then the checklist (SKILL.md, Workflow), all ten lines ticked, so that the tracker sees the
+run reach step 10: steps 1 to 5 and 10 as done, steps 6 to 9 as the skipped lines above.
 
 Then the briefs, and a last paragraph outside any code block, starting with the words Next step, that gives the
 line that resumes the run, to run once the user has finished iterating: `/devforgeai:ui BRN-NNN <canvas URL>` in
@@ -189,6 +176,11 @@ asked in the same call as the import question ("Import the canvas at <new URL>, 
 "proceed without questions" that yes is never given: keep the DSN's canvas and report the other URL as not used.
 With a null canvas in the DSN, the URL fills it. Reach the canvas only through the Artifact tool's `read`, the
 first of them the plain read.
+
+**When it runs.** On "Import now"; for a create run with a canvas URL and no copy; on route A's "Import the canvas
+again"; on an amend run's "Import the canvas now". There is no import on route D, nor on route A unless the user
+chose "Import the canvas again", nor when the user chose "Use the copy as it is": skip the step. The canvas URL
+and `canvas_version` are the tool's, not asked.
 
 **The steps.** Each is a call of its own. Before step 1, the plain read of the canvas URL (above), unless the run
 has made it already (an amend run's version check makes it first).
@@ -257,8 +249,7 @@ because nothing remembers a decline.
 
 On "Draw it now", the user confirms the flow (a new flow, or the existing flow that the screen joins, which the
 skill proposes and never decides) and its brief, confirmed with the same question as the first canvas:
-"Add <the flow or screen> to the canvas from this brief?", the brief shown as "Showing the briefs" says (in full
-in a fenced block in the reply text, and repeated in the preview of the "Add" option). A new flow
+"Add <the flow or screen> to the canvas from this brief?", the brief shown as "Showing the briefs" says. A new flow
 gets a new row (at most 4 flows in one pass), and a screen of an existing flow joins that flow's row at the step
 the user confirms. Write the new board files and the updated `canvas.json` in the scratchpad, starting from the
 `canvas.json` text the read returned and keeping every board already in it unchanged (the skill removes no file
@@ -297,5 +288,5 @@ questions" adds nothing.
   limit, a refusal to update the canvas, a second refusal for an unviewed version, or a publish that a permission
   prompt or an auto-mode block denies or that the user declines): write nothing in the repository. Report the
   tool's message, say that anything the tool made stays on the user's account (the skill deletes nothing), give
-  the URL if the tool returned one, and show the briefs, each in full in a fenced block, so that the user can use
+  the URL if the tool returned one, and show the briefs as "Showing the briefs" says, so that the user can use
   them by hand.

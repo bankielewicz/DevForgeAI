@@ -225,9 +225,12 @@ class Skill(unittest.TestCase):
     def test_skill_md_states_the_report_and_the_hand_off(self):
         squashed = re.sub(r"\s+", " ", self.text)
         for line in ("Design document: ", "Boards: ", "Flows: ", "Boards with no idea: ", "Ideas with no board: ",
-                     "Markers left: ", "(v<N>, approved)"):
+                     "Markers left: "):
             with self.subTest(line):
                 self.assertIn(line, self.text)
+        # The approval-only run's one-line block is output-rules.md's (moved there when SKILL.md was cut to 2,000 words).
+        rules = (SKILL / "references/output-rules.md").read_text()
+        self.assertIn("(v<N>, approved)", rules)
         for phrase in ("Next step", "in the PRD's section 8 by hand",
                        "These documents cite <ID> at an older version; review them against <ID> version <N> by hand "
                        "until their skills do it (cycle C)."):
@@ -311,19 +314,18 @@ class Skill(unittest.TestCase):
                 "step 10 included",
                 "The order is the block, the checklist, the findings, then the Next step paragraph, then nothing.",
                 "each brief in full in a fenced block",                            # BEH-23, #115: a brief is shown first
-                "each brief in full in its own fenced block",                    # step 4 words it as an instruction
-                "put the same briefs in the \"Create the canvas\" option's preview",
                 "`run stopped at ERR-NN`",                                        # a form to copy for a step not reached
                 "first reply is also its last",                                   # the checklist appears once there
-                "plus one more after a publish that the tool refuses",            # BEH-29: the one retry
-                "K taken from the latest `boards` output",                        # BEH-06: a stale K reads another board
-                "text written in the same turn before a question is not reliably shown",
                 "no file name is ever put on a command line",                     # BEH-06, #118: head takes a position
                 "one plain `read` of the canvas URL",                             # BEH-29, #117 and #121
                 "Share menu",                                                     # BEH-29, #121: sharing is reported, never changed
             ],
             "references/canvas.md": [
                 "no `paths`",                                                     # BEH-29
+                "the one more plain read that a refused publish gets",           # BEH-29: the one retry (moved from SKILL.md)
+                "each confirmed flow's brief in full in a fenced block of its own",  # BEH-23, #115 (moved from SKILL.md)
+                "in the preview of the option that confirms",
+                "Text written in the same turn before a question is not reliably shown",
                 "preview repeats the briefs",                                     # BEH-23, #115
                 "haven't viewed the latest version",                              # BEH-27, BEH-29: one more plain read, one retry
                 "a second refusal is ERR-23",
@@ -341,6 +343,7 @@ class Skill(unittest.TestCase):
                 "Never grep or run `ls` in Bash",                                 # BEH-07: the Grep tool only
                 "head <ID> <K>",                                                  # IF-04, #118
                 "latest `boards` output",
+                "Take K from the latest `boards` output",                         # BEH-06: a stale K reads another board (moved from SKILL.md)
             ],
             "references/briefs.md": ["each in full, in a fenced block"],          # ERR-19, ERR-22, #115
             "references/output-rules.md": [

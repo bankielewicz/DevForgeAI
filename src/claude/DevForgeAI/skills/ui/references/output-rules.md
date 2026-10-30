@@ -50,7 +50,7 @@ Keep exactly the template's keys, in its order. Unknown or misspelled keys are e
 | `created`, `updated` | Unquoted `YYYY-MM-DD`: today for a new DSN; an amend or an approval sets `updated` to today |
 | `owner` | Quoted: the BRN's `owner`, unless the user names another |
 | `authors` | `["<owner>", "claude-code"]` |
-| `generated_by` | `tool: "claude-code"`, `model:` your own model ID, `session:` the session ID SKILL.md gives, all quoted. When the host cannot provide one, write `"unavailable"` and say so in this write's Change Log row and in the report. An amend keeps the existing values |
+| `generated_by` | `tool: "claude-code"`, `model:` the model's own ID, `session:` the session ID SKILL.md gives, all quoted. When the host cannot provide one, write `"unavailable"` and say so in this write's Change Log row and in the report. An amend keeps the existing values |
 | `reviewed_by` | `[]` for a new DSN; kept otherwise. Humans only |
 | `approved_by`, `approved_on` | `""` and `null` until approval |
 | `upstream` | Link records (next section) |
@@ -194,6 +194,12 @@ session ID is the one SKILL.md gives.
 
 Only on the user's explicit words (SKILL.md step 9).
 
+**When it is allowed.** Approve only when the check passed (a links warning is reported with the approval and does
+not block it) and the DSN holds no `[NEEDS CLARIFICATION` marker anywhere, a board's notes included. When a marker
+remains, say which, approve nothing, and don't offer. When the request already approves the DSN (an approval-only
+run, or approving words in a create or amend run), approve; otherwise offer once. An `approve DSN-NNN` request
+that also asks for a change makes no approval (the interview reference, "Selecting the BRN and the kind of run").
+
 **The offer.** When the request does not already approve the DSN, offer approval once: with AskUserQuestion when
 it is available and the request does not say to proceed without questions, "Approve <ID> now?", with "Not now"
 first and marked (Recommended), then "Approve". No answer, or "Not now", leaves the status as it is. Without
@@ -217,14 +223,14 @@ approved, with the errors. If the undo fails, report "approval rollback failed" 
 ## The report
 
 Step 10 of SKILL.md gives the block and the next step. These are the rules of each line and of what follows. The
-final reply is the block, then the checklist, then the findings, then the Next step paragraph. A run whose first
-reply is also its last shows the checklist once, ticked, there.
-- **The checklist** is the ten lines of SKILL.md's Workflow with their titles, repeated right after the block
-  (BEH-01), every line ticked `- [x] N. <title>` and step 10 included, so that the tracker sees the run reach
-  step 10. A step the run did not do is written in the ticked skipped form on its own line,
-  `- [x] N. <title> (skipped: <reason>)`: never as prose ("steps 3 to 5 were skipped") and never as an unticked
-  box. The reason is the one that fits (SKILL.md, Workflow): `not needed on this route`, `run stopped at ERR-NN`
-  or `run ended after the canvas; run again to import`.
+final reply is the block, then the checklist, then the findings, then the Next step paragraph.
+- **The checklist** is SKILL.md's (Workflow), repeated right after the block (BEH-01): the ten lines, the skipped
+  form and its reasons are there. A step the run did not do is never written as prose ("steps 3 to 5 were
+  skipped") or as an unticked box: the tracker counts a `- [x] N.` line as done, a line ending `(skipped: …)` as
+  skipped and an unticked box without that ending as nothing, so only the ticked form closes the run, and every
+  line ticked with step 10 included lets the tracker see the run reach step 10. The checklist comes right after the
+  block, after the canvas report when the run ends after the canvas, or after the statement of why the run stopped
+  when it stops before writing, and before the findings.
 - **`Boards`** is printed in a create and in an amend run and names the copy in the boards folder that the run
   read: `boards_root`, the number of active boards, and `canvas_version` or `unknown`.
 - **`Flows`** lists the flows in the order they first appear in the boards block, each hyphen shown as a space,
@@ -253,12 +259,13 @@ reply is also its last shows the checklist once, ticked, there.
   has not been reviewed, and any provenance written as `unavailable`. The last finding is the plain-text
   approval offer or approver question of step 9 (see "Approval"), only when step 9 makes one: no marker left, no
   "proceed without questions", no approval already given in the request, and no AskUserQuestion. The Next step
-  paragraph follows it and ends the reply.
+  paragraph follows it and ends the reply: one paragraph outside any code block, with no list,
+  starting with the words Next step in plain text, and nothing after it (SKILL.md, step 10, has what it names).
 - **No block** for a run that stops before writing: ERR-01 to ERR-10, ERR-12, ERR-14 before the write, ERR-15
   without confirmation, ERR-16 to ERR-24, ERR-13 without a save, and an approval-only request for an approved
   DSN. A run that ends after making a canvas has the canvas report in its place (the canvas reference).
   ERR-11's report replaces the block and the next step. Each of those replies states why the run stopped, or
-  gives the canvas report, and then repeats the checklist all the same. Any briefs such a reply shows (ERR-19,
+  gives the canvas report, and then the checklist (SKILL.md, Workflow). Any briefs such a reply shows (ERR-19,
   ERR-22, ERR-23, the canvas report) follow the checklist.
 
 ## Checking with dsn_check.py
@@ -273,6 +280,9 @@ SKILL.md gives the commands. `check` prints one line for each error,
 - A suspect-link warning is named in the reply and never repaired by editing another document.
 - An error that cannot be repaired (one in a file this skill may not edit) ends the cycles early and is
   reported.
+- Exit 0 is `OK`: read the DSN back against the self-check list below.
+- An approval-only run runs `check <ID>` once. An error (a boards copy replaced since the last write) stops the
+  approval: report the errors, say an amend run comes first, and repair nothing.
 
 ## When validation still fails (ERR-11)
 
@@ -283,8 +293,9 @@ and the unresolved errors. Do not hand off to the PRD and do not name the DSN as
 
 ## When the script cannot run (ERR-14)
 
-- Before writing (a script command exits other than 0 or 1, `python3` or the script is missing, or a BRN it
-  needs cannot be read): stop, say the check could not run, quote its `Cannot run:` line, and write nothing.
+- Before writing (a script command exits other than 0 or 1: 2, or 126 or 127 when `python3` or the script is
+  missing; or a BRN it needs cannot be read): stop, say the check could not run, quote its `Cannot run:` line if
+  any, and write nothing.
 - After the run has written (`check` exits other than 0 or 1): name the file as written and not checked, leave
   its status as it is, approve nothing, and say so in the report. The block's last line is the script's
   `Cannot run: …` line in place of `OK …` (see "The report").

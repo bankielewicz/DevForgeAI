@@ -3,6 +3,7 @@
 ## Contents
 
 - When to use this
+- Selecting the BRN and the kind of run (step 1)
 - Draft first
 - The batches, in order
 - Writing what the answers give
@@ -15,10 +16,44 @@
 
 ## When to use this
 
-Read this at step 6 of SKILL.md, and before any other question the run asks. The interview confirms the
-mappings; it fills nothing a board or a promoted idea already answers, and it never decides for the user. The
+Read this at step 1 of SKILL.md, at step 6, and before any other question the run asks. The interview confirms
+the mappings; it fills nothing a board or a promoted idea already answers, and it never decides for the user. The
 grouping into flows and the briefs are confirmed earlier, at step 3; the questions about the canvas (create it,
 import it, iterate later) are in the canvas reference.
+
+## Selecting the BRN and the kind of run (step 1)
+
+The request and the files decide the kind of run, from the start:
+- `approve DSN-NNN`, or words that approve the design or a named DSN and ask for nothing else (an ID or none) →
+  **approval-only run** (BEH-21): steps 1, 8, 9 and 10. A request whose approval is the `approve DSN-NNN` form (a
+  command argument that starts with it, with or without the approver's name) is one even when more words ask for
+  a change: the change is not made, nothing is approved, and the reply says an amend run comes first
+  (`/devforgeai:ui BRN-NNN`). A request to record, write or update the design for a BRN is a create or amend run,
+  and its approving words apply at step 9 (BEH-16).
+- No active DSN cites the BRN → **create run.** One active DSN cites it → **amend run.**
+
+**A request that replaces the ID (ERR-02).** Write nothing, say the skill takes a BRN ID, optionally followed by
+the canvas's claude.ai artifact URL, or `approve DSN-NNN` and paths aren't accepted, and ask for the ID (listing
+the BRNs that have a promoted idea, or the DSNs).
+
+Then, in step 1's order (BEH-02, BEH-04, ERR-01, ERR-10, ERR-16, ERR-18):
+- **Approval-only run:** select the DSN the request names and take the BRN from that DSN's own `derives` link
+  without an item. No file matches, its status is `superseded` or `deprecated`, or the request names no ID
+  (ERR-18): write nothing, list the DSNs under `docs/specs/design/` with versions and statuses, say only a draft
+  or in-review DSN is approved, and ask for the ID. A DSN already `approved`: say so with its version, approver
+  and date, and write nothing. Otherwise go to step 8.
+- **A BRN ID** (in `$ARGUMENTS` or stated by the user; a canvas URL with it is kept): read
+  `docs/specs/brainstorm/<ID>.md`. Missing (ERR-01): list the BRN IDs that exist with their titles; write
+  nothing.
+- **No BRN named:** list each BRN with a promoted idea (title, status, number of promoted ideas, the DSN that
+  cites it or none) and ask which to use. None (ERR-16): write nothing; with no BRN at all say no brainstorm
+  exists yet, otherwise list each BRN with its status and say none has a promoted idea; point to
+  `/devforgeai:brainstorm`.
+- **Create or amend** is decided by the files, never asked. A DSN cites the BRN when its `upstream` holds a link
+  with the BRN's ID at any version; a superseded or deprecated DSN doesn't count. None cites it → create. One →
+  amend. More than one (ERR-10): list them with versions and statuses, say ADR-007 D4 allows one active DSN for
+  each BRN, and ask which to amend; with no answer write nothing. A request for a second DSN amends the first;
+  the user deprecates the old DSN to start over, which this skill never does.
 
 ## Draft first
 
@@ -115,6 +150,11 @@ A request that says to proceed without questions, or not to ask anything, asks n
   recorded: `declined:` in `considered`, or the board's `answers`. A document whose every candidate the request answered gets its `PRD-NNN@N` or `ADR-NNN@N` entry.
   Only the candidates the request leaves unanswered are reported as left for a later run, with their number, and
   no entry is written for their documents. Recorded candidates count toward the caps.
+- **A copy in the folder.** A copy in the folder with a canvas URL in the request is recorded as it is.
+- **The canvas gates.** The amend run's import question, a canvas URL that differs from the DSN's and the offer to
+  draw a flow or a screen are answered as the canvas reference says ("Importing a canvas", "Checking the canvas's
+  version in an amend run", "Adding a flow or a screen in an amend run"): the request to record the canvas is the
+  answer to the import question, a different URL is never a yes, and the offer adds nothing.
 - **Nothing to change.** When the pre-check prints no fact, the links are current, the request names no change
   and only unasked candidates remain, candidates left unasked don't prevent ERR-17: write nothing, stop with
   no check and no approval offer, say the DSN is current (ERR-17's report), and say how many candidates wait

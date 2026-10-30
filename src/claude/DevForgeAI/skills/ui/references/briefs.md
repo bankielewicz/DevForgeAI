@@ -15,8 +15,9 @@
 
 ## When to use this
 
-Read this at step 3 of SKILL.md, before listing the screens. It covers what the skill proposes before any
-canvas exists: the grouping of screens into flows, and one brief for each confirmed flow. A brief is a
+Read this at step 3 of SKILL.md, before listing the screens. The step is for a run that has to make a canvas
+(route B without a canvas URL), or for an amend run whose user accepts the offer to draw a flow or a screen;
+otherwise skip it. It covers what the skill proposes before any canvas exists: the grouping of screens into flows, and one brief for each confirmed flow. A brief is a
 decision that leaves the repository, so the user confirms the grouping and the briefs first, and sees each brief
 in full before the question that confirms it (the canvas reference, "Showing the briefs"). Nothing is sent
 before the question at step 4.
@@ -43,7 +44,8 @@ before the question at step 4.
 ## The brief's shape
 
 A brief is plain text, shown to the user and sent to the Design type. It is not a file, and no script checks it.
-It has six parts, in this order:
+Draft one for each confirmed flow, in DM-05's shape, which has six parts, in this order (step 4 of SKILL.md shows
+the briefs and asks):
 
 | Part | Holds |
 |---|---|
@@ -64,7 +66,8 @@ These are Anthropic's rules for prompting Claude Design, applied.
   to carry it across the flow's other screens.
 - Do not ask for every screen and every state at once.
 - The style is a reference to the design system that exists, so there is one owner of the look (the context
-  documents). The skill reads the user's design systems with `quickstart`, which changes nothing.
+  documents). The skill reads the user's design systems with `quickstart` (with `intent: design`, once, after checking that the
+  Artifact tool is available and before the first question), which changes nothing.
 - Real content makes the directions comparable: quote the BRN's wording, and leave out what the BRN does not
   support.
 - A brief holds no HTML comment.
@@ -131,8 +134,8 @@ When the user declines, asks for another grouping or a change, or no answer can 
 "proceed without questions"): make no canvas and send nothing.
 - A changed grouping: propose it again and redraft the briefs.
 - A changed brief: redraft it and ask again.
-- Otherwise show the grouping and the briefs, each in full, in a fenced block, say how to resume (run the skill
-  again), and write nothing.
+- Otherwise show the grouping and the briefs, each in full, in a fenced block (after the checklist), say how to
+  resume (run the skill again), and write nothing.
 
 ## When nothing names a screen (ERR-24)
 
@@ -145,5 +148,6 @@ screen, that this step is optional, and that the user can name the ideas to draw
 
 Check that the Artifact tool is available before asking anything (SKILL.md, Tools). Without it, list the screens
 and show the proposed grouping and the briefs for it, each in full, in a fenced block, unconfirmed, ask nothing,
-and say that they can be pasted into `/design` by hand. Then apply ERR-19 as SKILL.md says. Never draw a mockup of a screen, in a reply or in
-the terminal, in place of the canvas.
+and say that they can be pasted into `/design` by hand. Then apply ERR-19 (the canvas reference, "Problems"); the
+briefs follow the checklist. Never draw a mockup of a screen, in a reply or in the terminal, in place of the
+canvas.
