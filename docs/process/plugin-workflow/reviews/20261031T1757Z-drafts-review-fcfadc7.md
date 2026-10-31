@@ -40,4 +40,6 @@ Recorded in ADR-008's revision on the same branch, in its last Status history ro
 - **7 to 9:** settled in D2, D6 and D7 as described.
 - **10:** the questions are merged into four. EVAL.md's wording goes to #140.
 
-No second review round: EVAL.md ADR4 asks for the report to be saved and each finding answered.
+The revision changed the design (the path anchor, the protected rules file, the subtree hash, a CI-only check). Its
+second look was PR #141's close review (`20261031T1841Z-code-review-5dee512.md`), which found three D8 defects that
+were fixed before the merge.

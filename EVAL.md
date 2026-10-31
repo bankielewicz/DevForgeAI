@@ -82,15 +82,15 @@ him.
 | A5 | R2 live | With no ticket, `python3 src/tests/ui/make_evals.py` is refused |
 | A6 | R3 live | With no ticket, a `git commit` with a staged plugin file is refused |
 | A7 | Permit | After `/plugin-dev:create-plugin`, `/plugin-dev:skill-development` and Reads of the `requiredReads` files, A3's Edit is allowed |
-| A8 | Close | `/dev-guard close` refuses without the two reports for HEAD, and writes the ledger line with them |
+| A8 | Close | `/dev-guard close`, typed by a person, refuses unless both reviewers' Agent calls were observed during the ticket and their reports exist for a commit whose plugin subtree hash equals HEAD's; it writes the ledger line with that evidence (ADR-008 D6) |
 
 ### B. The commit check (#137)
 
 | ID | Check | PASS when |
 |---|---|---|
-| B1 | Catches a miss | `test_plugin_workflow.py` fails on a branch whose plugin commit is missing from the ledger |
-| B2 | Passes a listed commit | It passes once that commit is listed in a closed ticket |
-| B3 | Runs with the suite | `pytest src/tests` collects it |
+| B1 | Catches a miss | `test_plugin_workflow.py` fails on a branch whose head's plugin subtree hash differs from its merge base's and matches no valid ledger line (ADR-008 D8) |
+| B2 | Passes a closed iteration | It passes once a valid ledger line carries that subtree hash, and it passes at once on a branch that leaves the plugin unchanged |
+| B3 | Runs in CI | The CI job runs it on every PR with its marker selected; `pytest src/tests` skips it by default (ADR-008 D8) |
 | B4 | CI job (Bryan, 2026-10-31, "docs/process + CI job") | A GitHub Actions job runs the test on a PR touching `src/claude/DevForgeAI/**`, shows in the PR's checks, and is a required check once B ships (Bryan, 2026-10-31: "Decide now: B's CI job becomes a required check when B ships."; ADR-008 D8) |
 
 ### S. SPEC-017 v3 and ADR-007 v3, redrafted from main
