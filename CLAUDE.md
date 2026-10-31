@@ -229,9 +229,10 @@ building it"). The source of each item is named.
   draft), `ui`'s cycle C (the neighbours' changes: hand-offs, the DSN as input, `DSN` in `common.schema.json`, SPEC-017 v3's
   wording) and cycle D (the dashboard's eighth tile; ADR-007), `github-post` (SPEC-010 v3, awaiting approval; its templates are staged in
   `src/templates/github/`), `research-capture` (SPEC-018 v1, draft, issue #133: copies documentation
-  pages verbatim with provenance into `docs/research/`; SPEC-018 §13 items 2 (providers) and 3
-  (network in eval runs) come before approval), and the chain's final Spec step, which only PRD-001
-  FR-017 covers (no spec, no reserved SKL ID).
+  pages verbatim with provenance into `docs/research/`; an MVP for Claude's docs only, and its
+  capture checks run as unit tests and live items, since eval runs' Bash can't write: SPEC-018 §13
+  items 2 and 3), and the chain's final Spec step, which only PRD-001 FR-017 covers (no spec, no
+  reserved SKL ID).
 - **`git` SKL-006 v3:** native evaluation, the manual VER items and Bryan's approval
   (SPEC-007 §9, §13; `docs/runbooks/git-v3-checks.md`).
 - **Progress tracker** (SPEC-012 §11): the progress pane and its graphics, `progress.html`,
