@@ -291,8 +291,8 @@ SKILL.md gives the commands. `check` prints one line for each error,
 - Exit 0 is `OK`: read the DSN back against the self-check list below.
 - An approval-only run runs `check <ID>` once. An error (a boards copy replaced since the last write) stops the
   approval, and it is not ERR-11: repair nothing; the reply is the one-line block
-  `Design document: <ID> (v<N>, <status>; not approved)` ("The report"), the checklist, then the errors and that
-  an amend run comes first.
+  `Design document: <ID> (v<N>, <status>; not approved)` ("The report"), the checklist, the errors and that an
+  amend run comes first, then the Next step paragraph (SKILL.md, step 10).
 
 ## When validation still fails (ERR-11)
 

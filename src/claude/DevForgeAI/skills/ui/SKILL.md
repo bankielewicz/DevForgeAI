@@ -151,7 +151,8 @@ provenance is the actual tool, model and session (BEH-20).
 
 Read output-rules.md now if step 7 did not run (approval-only: "Checking with dsn_check.py", "Approval", "The
 report"). Run `check <ID>`. Gate: exit 0 (`OK`) and the DSN read back against the self-check
-list. After a write, ERR-11 stops the run with no hand-off ("When validation still fails"); at ERR-14 the DSN is written and not checked.
+list. After a write, ERR-11 stops the run with no hand-off ("When validation still fails"); at ERR-14 the DSN is
+written and not checked.
 
 ### 9. Approval: offered once (BEH-16, BEH-21)
 
