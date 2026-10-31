@@ -25,4 +25,19 @@
 
 ## Author's answers
 
-Recorded in the ADR's next revision and its Status history, after Bryan's direction on the design questions.
+Recorded in ADR-008's revision on the same branch, in its last Status history row:
+- **1 and 2:** closing and the commit check bind to the plugin's subtree hash, so rebases and the records commit
+  don't move it (checked: `1744e6c` on a docs commit, its parent and main). B is skipped by default and runs in CI with
+  `fetch-depth: 0`, and it validates each ledger line. A required check is an Owner's setting.
+- **3:** the path anchor (the plugin's own manifest names `devforgeai`) replaces scope-by-file. `guard.json` holds
+  only `requiredReads`, is protected, and refuses when missing or invalid.
+- **4:** no mode. Recovery from a broken guard is a person's act (`--safe-mode`, or drop the folder from
+  `CLAUDE_CODE_PLUGIN_DIRS`).
+- **5:** the departure from ADR-006's out-of-scope line is stated. Amending ADR-006 now or at its next change is
+  Bryan's question 2: amending now relinks SPEC-012, SPEC-013 and SPEC-016, each a version bump.
+- **6:** Bryan's words are quoted for the ledger, the report path, item 4 and the generator rule. A1's scope is moved
+  into question 1. The probes ran earlier than #137 asked, as a departure.
+- **7 to 9:** settled in D2, D6 and D7 as described.
+- **10:** the questions are merged into four. EVAL.md's wording goes to #140.
+
+No second review round: EVAL.md ADR4 asks for the report to be saved and each finding answered.
