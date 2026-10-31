@@ -96,6 +96,7 @@ its sandbox. Bryan's words are quoted exactly.
 | 9 | "run the workflow you documented as a test for https://code.claude.com/docs/en/skills & https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview via an opus 5.5 subagent.  this will help determine if a "cold session" is capable of running this workflow exactly as you did." | A fresh Opus 5.5 subagent, given only this spec (told not to read the drafts, the earlier captures or Claude's memory), carried out page mode by hand with provider `claude` and slugs `skills` and `agent-skills` (Claude's choice of slugs). The first page installed (`docs/research/Claude/skills/`, `sha256sum -c` passing); the second was refused at C6, as specified. It found one defect (C7 took a `# ` comment inside a code fence for a title), two contradictions and 34 other places where the spec left a choice open (G1 to G36). This revision closes them (§13 item 10) | Bryan: the test. The closures: Claude, listed in §13 item 10 |
 | 10 | A side agent's note, relayed by Bryan: approving SPEC-018 makes the drafter's closures requirements, and judgment calls are Bryan's, so skim §13 item 10 before approving | Asked Bryan the four closures that choose what the skill refuses or shows (G34, G6, G30, G28), and sorted the rest of item 10 into behaviour choices to skim and formats only | Bryan: "Use git's top folder", "Strict, as drafted", "Titles and labels allowed", "Refuse and ask on a link" |
 | 11 | "the workflow is to question each unique scenario as they are not the same via AskUserQuestion if you need clarification on any requirement or detect any ambiguity in subsequent web scraping requests" | Recorded it as the workflow's rule (BEH-01, BEH-14, ERR-10): each request is its own scenario; Claude asks about every unstated or ambiguous input before running and fills none in itself. A provider matching an existing folder only in letter case is now a question too (BEH-02, ERR-06). In row 9 Claude had chosen the slugs `skills` and `agent-skills` itself, which this rule forbids | Bryan |
+| 12 | "does the spec imply that it must go through the /plugin-dev:create-plugin plugin?  that's a requirement" | Answered that it was only implied (one line of §11, as in SPEC-014), with no constraint and no check. Made it a §2 constraint, carrying Bryan's full recorded rule (every iteration, the Skill tool invocations, the two guides, the advisor, Phase 6 before eval commands), and a check, VER-09 | Bryan |
 
 The session's own scripts were drafts. Its `sidebar.py` printed a flat list; the parser this spec specifies
 (BEH-06) was probed afterwards with `tmp/plans/2026-10-30-research-capture/sidebar_model.py`. Its `capture.py`
@@ -108,6 +109,24 @@ hard-coded the 30 pages and the overview's deployment. This spec specifies what 
   skill has a `claude plugin eval` suite run against the no-plugin baseline, every case at 0.8 or above over 3 runs.
 - **ADR-001** (version 4): built in a worktree from `src/claude/DevForgeAI/`; the owner deploys; evals run from a plain
   terminal.
+- **Built through `/plugin-dev:create-plugin`** (Bryan's requirement: every skill change goes through it, from
+  2026-10-01; "this is mandatory", 2026-10-02; `/plugin-dev:skill-development` named on 2026-10-03; restated for this
+  spec on 2026-10-31: "that's a requirement"). This covers the build and every later iteration that changes a file
+  under `src/claude/DevForgeAI/skills/research-capture/` or `src/claude/DevForgeAI/evals/research-capture/`, a fix
+  after an eval run included. The session that makes it does these, in order, before the iteration's first edit to
+  those files:
+  1. invokes `/plugin-dev:create-plugin` with the Skill tool, stating the iteration's scope (for the existing skill,
+     its Phases 5 and 6 apply);
+  2. invokes `/plugin-dev:skill-development` with the Skill tool;
+  3. checks the plan against Anthropic's two skill guides, `docs/research/Claude/Skill-authoring-best-practices.md`
+     and `docs/research/Claude/The-Complete-Guide-to-Building-Skill-for-Claude.pdf`;
+  4. calls the advisor with the plan.
+
+  After the edits and before any eval command is handed over, it runs Phase 6's `plugin-validator` and
+  `skill-reviewer`. Changes to this spec, to `src/tests/research-capture/` (the generator included) and to other
+  documentation are not skill edits. Where a guide conflicts with a project rule (the frontmatter fixed by the
+  schemas, the description fixed by §5), the project rule wins and the conflict is labelled "constrained". VER-09
+  checks the record.
 - **No PRD-001 requirement covers capturing research.** `find_spec.py` on 2026-10-30 found "curl", "mirror
   documentation", "SPEC-018" and "SKL-014" in none of 32 files. The only mention is ADR-007 version 2, lines 341–342:
   the user said the research "will be slated for another skill", a remark recorded with the ui decision. This spec
@@ -664,6 +683,13 @@ verifications:
       - BEH-05
       - BEH-09
       - BEH-10
+  - id: VER-09
+    status: active
+    obligation: "Process (section 2, Built through /plugin-dev:create-plugin): for the build and for every later iteration that changes a file under src/claude/DevForgeAI/skills/research-capture/ or src/claude/DevForgeAI/evals/research-capture/, section 9 records the session ID; the Skill tool calls of /plugin-dev:create-plugin (with the iteration's stated scope) and /plugin-dev:skill-development, both before the iteration's first edit to those files; the check against the two skill guides and the advisor call on the plan; and the plugin-validator and skill-reviewer results, before any eval command was handed over. The evidence is the session's transcript. An iteration without them fails VER-09, and its change is made again through the workflow before the iteration counts."
+    level: manual
+    covers:
+      - QR-01
+      - QR-02
 ```
 
 ## 10. Rollout, migration and rollback
@@ -680,8 +706,10 @@ verifications:
 
 ## 11. Implementation plan
 
-After approval, through `/plugin-dev:create-plugin` and `/plugin-dev:skill-development`, on its own branch and
-worktree (ADR-001):
+After approval, on its own branch and worktree (ADR-001). Steps 3, 4 and 6 change the skill's files, so each is
+made under §2's requirement: `/plugin-dev:create-plugin` and `/plugin-dev:skill-development` invoked with the Skill
+tool first, the guides and the advisor checked, and Phase 6's reviews run before eval commands. Each later iteration,
+a fix after an eval run included, starts the same way (VER-09).
 1. Write the fixture site and the golden files of §9 by hand from §4's templates and §5's lines, and run VER-08 on
    them before any code; a gap it finds is a spec change first.
 2. Write `test_capture.py`, `test_sidebar.py`, `test_section.py` (VER-01 to VER-03) and `test_structure.py` (VER-04);
@@ -690,7 +718,8 @@ worktree (ADR-001):
    `tmp/plans/2026-10-30-research-capture/capture.py`, `sidebar.py` and `sidebar_model.py`, are reference only.
 4. Write `SKILL.md` from §5 and §6, and `provenance.yaml` as SKL-014 implementing SPEC-018; add the CLAUDE.md row.
    VER-04 passes.
-5. Run plugin-validator and skill-reviewer; take any finding that would refuse valid work to Bryan.
+5. Run create-plugin's Phase 6, plugin-validator and skill-reviewer; take any finding that would refuse valid work to
+   Bryan. Record the iteration for VER-09.
 6. Generate the trigger cases and pass VER-05's `check_graders.py`; run them cheapest first, then VER-07 or Bryan's
    waiver; run VER-06 live; record §9.
 
@@ -778,6 +807,10 @@ For Bryan, in order. None of these is a requirement until he decides it.
       `/dev/null` (G35); `--session` written verbatim, SKILL.md passing only `${CLAUDE_SESSION_ID}` (G36).
     - **Open for Bryan:** work folders are kept and named in the report as holding the downloads (G26). Delete a
       successful run's work folder instead?
+11. **Enforcing the plugin-dev requirement.** §2's requirement is checked by the record (VER-09), after the fact.
+    Nothing stops an edit made without it. `docs/specs/devforgeai-claude-mods.md` A3, "skill-gate" (a proposal, not
+    approved), describes a mod that locks the plugin's skill files until `/plugin-dev:create-plugin` has run in the
+    session. Adopt it, in its own spec, so the requirement is enforced, not only recorded?
 
 ## Change Log
 
@@ -788,3 +821,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 1 | 2026-10-31 | claude-code (session 504f8573-69d8-42d7-885a-98c21d37ae70) | Before approval: the eval-run probe (five runs, $0.56: an eval run's Bash writes nothing and reaches no outside host, V13), so VER-05 holds trigger cases only; Bryan's cold test by a fresh Opus 5.5 subagent (§1.1 row 9; V14, V15), whose 36 gaps are closed: literal templates for every written file and output line (§4, §5), one ten-stage run order (BEH-04), C7 and the title skip fenced code (BEH-05), exit 3 for ERR-09, the provider folder and work folder lines, the project-root rule, curl and git as the only executables; VER-01 and VER-03 compare against golden files; new VER-08, the cold test as a standing check; §13 items 3 and 10 | §1, §1.1, §2, §3, §4, §5, all BEH, ERR-01 to ERR-11, VER-01 to VER-05, VER-08, §9 to §13 |
 | 1 | 2026-10-31 | claude-code (session 504f8573-69d8-42d7-885a-98c21d37ae70) | Before approval, Bryan's answers on four cold-test closures (§1.1 row 10): the script finds git's top folder wherever it starts (G34, BEH-04 stage 2, ERR-04); C6 stays byte-strict (G6); titles and sidebar labels are allowed (G30); a provider folder match that is a symbolic link is ERR-06 (G28, BEH-02). §13 item 10 now separates Bryan's decisions, the drafter's behaviour choices and the formats | §1.1, §4, §5, BEH-02, BEH-04, ERR-04, ERR-06, VER-01, §13 |
 | 1 | 2026-10-31 | claude-code (session 504f8573-69d8-42d7-885a-98c21d37ae70) | Before approval, Bryan's rule of 2026-10-31 (§1.1 row 11): each capture request is its own scenario, and Claude asks with AskUserQuestion about every unstated or ambiguous input (URL, mode, provider, slug) before running, filling none in itself (BEH-01, BEH-14, ERR-10); a provider matching an existing folder only in letter case is asked about (BEH-02, ERR-06, the report's provider folder line); VER-01, VER-04 and VER-06 (h), (i) check it | §1.1, §5, BEH-01, BEH-02, BEH-14, ERR-06, ERR-10, VER-01, VER-04, VER-06, §13 |
+| 1 | 2026-10-31 | claude-code (session 504f8573-69d8-42d7-885a-98c21d37ae70) | Before approval, Bryan's requirement of 2026-10-31 (§1.1 row 12, "that's a requirement"): the build and every later iteration of the skill's files go through `/plugin-dev:create-plugin` and `/plugin-dev:skill-development`, invoked with the Skill tool, with the two skill guides, the advisor and Phase 6's reviews before eval commands (§2); §11 states it for steps 3 to 6; new VER-09 checks the record; §13 item 11 asks whether to enforce it with a hook | §1.1, §2, §11, VER-09, §13 |
