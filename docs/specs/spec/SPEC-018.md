@@ -94,6 +94,7 @@ its sandbox. Bryan's words are quoted exactly.
 | 7 | A side agent's note, relayed by Bryan during drafting: verbatim copies are tested only on Claude's docs; decide whether the skill covers only them, or what "exact copy" means for other sites, before approval | Version 1 is limited to pages that pass BEH-05's checks, and the decision is §13 item 2 | Bryan, row 8 |
 | 8 | (After PR #134 and issue #133) on §13 item 2: "this is fine for mvp to demonstrate this workflow"; on item 3: "automation is always good but must be accurate" | Recorded both. Ran item 3's probe: five one-case eval runs from a herdr pane, $0.56 (§9). By Bryan's rule, VER-05 keeps only what an eval run can check accurately, the trigger cases | Bryan: version 1 is the MVP (Claude's docs only); automate only when accurate |
 | 9 | "run the workflow you documented as a test for https://code.claude.com/docs/en/skills & https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview via an opus 5.5 subagent.  this will help determine if a "cold session" is capable of running this workflow exactly as you did." | A fresh Opus 5.5 subagent, given only this spec (told not to read the drafts, the earlier captures or Claude's memory), carried out page mode by hand with provider `claude` and slugs `skills` and `agent-skills` (Claude's choice of slugs). The first page installed (`docs/research/Claude/skills/`, `sha256sum -c` passing); the second was refused at C6, as specified. It found one defect (C7 took a `# ` comment inside a code fence for a title), two contradictions and 34 other places where the spec left a choice open (G1 to G36). This revision closes them (§13 item 10) | Bryan: the test. The closures: Claude, listed in §13 item 10 |
+| 10 | A side agent's note, relayed by Bryan: approving SPEC-018 makes the drafter's closures requirements, and judgment calls are Bryan's, so skim §13 item 10 before approving | Asked Bryan the four closures that choose what the skill refuses or shows (G34, G6, G30, G28), and sorted the rest of item 10 into behaviour choices to skim and formats only | Bryan: "Use git's top folder", "Strict, as drafted", "Titles and labels allowed", "Refuse and ask on a link" |
 
 The session's own scripts were drafts. Its `sidebar.py` printed a flat list; the parser this spec specifies
 (BEH-06) was probed afterwards with `tmp/plans/2026-10-30-research-capture/sidebar_model.py`. Its `capture.py`
@@ -180,8 +181,8 @@ The skill has no `assets/` folder: the script writes every file, from the templa
 
 ## 4. Data model
 
-All paths are relative to the project root, which is the Bash working directory and must be the git repository's
-top level (BEH-04 stage 2).
+All paths are relative to the project root: the git repository's top level, which the script finds with
+`git rev-parse --show-toplevel` wherever it is started (BEH-04 stage 2; Bryan, 2026-10-31).
 
 ### Destination
 
@@ -386,7 +387,7 @@ when stage 6 has run. Subjects and reasons:
 | ERR-02 | the HTML page's URL | `R1 no element with id sidebar-content`; `R2 group with no header`; `R4 sub-group <name>: no button`; `R4 sub-group <name>: aria-expanded '<value>'`; `R4 sub-group <name>: collapsed with no data-nav-href`; `R4 sub-group <name>: inside another sub-group`; `R5 link outside a sidebar item: <href>`; `start page <path> not in its sidebar`; `start page li id <id> is not the end of <path>`; `R6 sub-group <name> missing`; `R6 sub-group <name> still collapsed`; `R6 sub-group <name> has no links` |
 | ERR-03 | the path | `not ignored by git` |
 | ERR-05 | the path | `exists with another sha256`; `headers file without its .md`; `named in SHA256SUMS but absent` |
-| ERR-06 | `docs/research/` | `<name>, <name> both match '<provider>' ignoring case` |
+| ERR-06 | `docs/research/` | `<name>, <name> both match '<provider>' ignoring case`; `<name> matches '<provider>' ignoring case and is a symbolic link` |
 | ERR-08 | the folder, file or page path | `two groups with the slug <slug>`; `two sub-groups with the slug <slug>`; `two pages named <name>.md`; `page appears twice in the sidebar` |
 
 Exit 2, one or more `error:` lines, then the `work folder` line if stage 6 has run:
@@ -398,7 +399,7 @@ error: <reason>
 
 The `usage` line is printed for ERR-11 only. Reasons: ERR-11 `URL must be http or https`, `URL has no host`,
 `URL has a query string`, `URL path has no last segment`, `<option> missing`, `unknown mode <mode>`; ERR-04
-`git not found`, `not a git repository`, `run from the repository root <top level>`; ERR-07 `curl not found`,
+`git not found`, `not a git repository`; ERR-07 `curl not found`,
 `<URL>: curl exited <code>: <curl's stderr, newlines replaced by spaces>`.
 
 Exit 3:
@@ -420,13 +421,13 @@ behaviors:
     rule: "Load on a request to copy, save, capture or archive a documentation page or section verbatim or with provenance into docs/research/, or on a question about a docs page's side navigation. Choose the mode from the request: a question about the side navigation's links or groups runs sidebar (IF-01); a request naming every page of a section, each subgroup, each group or the side navigation runs section (IF-03); any other capture runs page (IF-02). Run the script once per request, as a command of its own, from the project root."
   - id: BEH-02
     status: active
-    rule: "Destination. The provider and slug(s) come from the request in one of section 5's forms (Paths in a request); a destination that isn't under the project's docs/research/, or no provider or slug, is ERR-10. The script normalises each slug by BEH-07's slug rule. Provider folder (stage 3): the candidates are the entries directly in docs/research/ that are directories and not symbolic links; a candidate matches when its name, casefolded, equals the provider casefolded. Exactly one match is used as it is spelled (claude gives the existing Claude/); none: docs/research/<provider as given>/ is created at install (stage 10); two or more: ERR-06. The report's provider folder line says which (section 5)."
+    rule: "Destination. The provider and slug(s) come from the request in one of section 5's forms (Paths in a request); a destination that isn't under the project's docs/research/, or no provider or slug, is ERR-10. The script normalises each slug by BEH-07's slug rule. Provider folder (stage 3): the candidates are the entries directly in docs/research/ that are directories or symbolic links; a candidate matches when its name, casefolded, equals the provider casefolded. Any matching symbolic link is ERR-06, whatever it points to (Bryan, 2026-10-31: 'Refuse and ask on a link'), so the run never writes through a link or beside it. Otherwise exactly one match is used as it is spelled (claude gives the existing Claude/); none: docs/research/<provider as given>/ is created at install (stage 10); two or more: ERR-06. The report's provider folder line says which (section 5)."
   - id: BEH-03
     status: active
     rule: "Only capture.py fetches pages and writes the copies. Claude never fetches a page by WebFetch or any other tool, never reads a copy, a download or run.json into the conversation, never writes or edits a copy, and checks the result only through the script's report lines. Page titles and sidebar labels are metadata: the script writes them into PROVENANCE.md and run.json, and Claude may name them. No other page text appears in a reply or in a command Claude runs."
   - id: BEH-04
     status: active
-    rule: "The run order of page and section mode, stated once. Stage 1, arguments (ERR-11): the URL's scheme is http or https, it has a host and no query string, and its path has a non-empty last segment after the removals; the page URL is the URL given with any #fragment removed and then a trailing .md removed. Stage 2, root (ERR-04): git rev-parse --show-toplevel must succeed and equal the working directory. Stage 3, provider folder (BEH-02, ERR-06). Stage 4, section mode only: the sidebar and the plan (BEH-06, BEH-07, ERR-02, ERR-08), fetching the sidebar pages into the work folder, which is then made at this stage. Stage 5, ignore check: every destination path of every page (its four files) must be ignored by git (BEH-08, ERR-03). Stage 6, work folder: made unless stage 4 made it. Stage 7, fetch: every page in run order, each by reading the UTC time, then section 4's two curl commands; the first curl call that exits non-zero stops the run (ERR-07). Stage 8, checks C1 to C7 for every page (BEH-05, ERR-01). Stage 9, existing files (BEH-09, ERR-05). Stage 10, install (BEH-09, BEH-10, ERR-09). The run stops at the first stage that fails and reports every failure of that stage, in run order (section 5). run.json is written at the end of every run that made a work folder."
+    rule: "The run order of page and section mode, stated once. Stage 1, arguments (ERR-11): the URL's scheme is http or https, it has a host and no query string, and its path has a non-empty last segment after the removals; the page URL is the URL given with any #fragment removed and then a trailing .md removed. Stage 2, root (ERR-04): git rev-parse --show-toplevel must succeed, and its output is the project root for every path of the run, wherever the script is started (Bryan, 2026-10-31: 'Use git's top folder'). Stage 3, provider folder (BEH-02, ERR-06). Stage 4, section mode only: the sidebar and the plan (BEH-06, BEH-07, ERR-02, ERR-08), fetching the sidebar pages into the work folder, which is then made at this stage. Stage 5, ignore check: every destination path of every page (its four files) must be ignored by git (BEH-08, ERR-03). Stage 6, work folder: made unless stage 4 made it. Stage 7, fetch: every page in run order, each by reading the UTC time, then section 4's two curl commands; the first curl call that exits non-zero stops the run (ERR-07). Stage 8, checks C1 to C7 for every page (BEH-05, ERR-01). Stage 9, existing files (BEH-09, ERR-05). Stage 10, install (BEH-09, BEH-10, ERR-09). The run stops at the first stage that fails and reports every failure of that stage, in run order (section 5). run.json is written at the end of every run that made a work folder."
   - id: BEH-05
     status: active
     rule: "Checks of stage 8, for every page. C1: the .md fetch's status is 200. C2: the page URL's status is 200 (C2 is evaluated even when C1 fails). C3 to C7 are evaluated only when C1 passed: C3, the .md content type starts with text/markdown; C4, the .md effective URL equals the fetched URL; C5, the body decodes as UTF-8; C6, the bytes before the body's first newline byte are exactly the 23 bytes of '> ## Documentation Index' (a carriage return or a byte-order mark fails it); C7, the body has a line starting '# ' outside fenced code. A fence opens at a line whose first non-space characters are three or more backticks or three or more tildes, and closes at the next line whose first non-space characters are at least as many of the same character with nothing after them but spaces; a fence still open at the end runs to the end. The first '# ' line outside fences, without its '# ' and trailing whitespace, is the page title. Any failure is ERR-01."
@@ -480,7 +481,7 @@ errors:
     user_result: "No copy until the user ignores the folder"
   - id: ERR-04
     status: active
-    condition: "git is missing, the working directory isn't in a git repository, or it isn't the repository's top level (stage 2), or git check-ignore exits 128 (stage 5)"
+    condition: "git is missing, or the working directory isn't in a git repository (stage 2), or git check-ignore exits 128 (stage 5)"
     handling: "Print the error line of section 5; install nothing; exit 2"
     user_result: "No copy; the reason"
   - id: ERR-05
@@ -490,8 +491,8 @@ errors:
     user_result: "The existing copies unchanged"
   - id: ERR-06
     status: active
-    condition: "Two or more directories in docs/research/ match the provider ignoring case (stage 3)"
-    handling: "Print NOT INSTALLED naming them; install nothing; exit 1. Claude asks which to use; merging them is the user's"
+    condition: "Two or more directories in docs/research/ match the provider ignoring case, or a matching entry is a symbolic link (stage 3)"
+    handling: "Print NOT INSTALLED naming them; install nothing; exit 1. Claude asks which folder to use; merging folders or replacing a link is the user's"
     user_result: "No copy until the user picks a folder"
   - id: ERR-07
     status: active
@@ -581,7 +582,7 @@ expected `PROVENANCE.md`, `SHA256SUMS`, headers files and report lines for page 
 verifications:
   - id: VER-01
     status: active
-    obligation: "src/tests/research-capture/test_capture.py, page mode against the fixture server. Golden: the run's PROVENANCE.md, SHA256SUMS, headers file and report lines are byte-identical to golden/page/, with only the <utc>, date, work folder and session values substituted; the copy's bytes equal the served file's. Checks: C1 to C7 each fail on their own fixture (a 404 page giving the C1 and C2 lines only, a 404 .md, text/plain, a redirect, invalid UTF-8, a first line ending in a carriage return, no note, and a page whose only '# ' line is inside a fence) with section 5's reason, NOT INSTALLED, exit 1 and nothing in docs/research/; a page with a fenced '# ' line after its H1 takes the H1 as its title. Stages: a destination git doesn't ignore gives ERR-03 before any fetch (the fixture server logs no request), even for a page that would fail C6; a second identical run reports identical and writes nothing; a changed fixture gives ERR-05, as do a headers file without its .md and a SHA256SUMS line for an absent .md; a working directory below the top level, and one outside git, give ERR-04 and exit 2; an existing Claude/ is used for --provider claude, and directories claude/ and Claude/ give ERR-06 with no work folder line; a fragment and a trailing .md are removed; a query string, a path ending in '/', and an ftp URL give ERR-11 with the usage line. run.json has section 4's keys, the set-cookie count and no cookie value. No file outside docs/research/ and the work folder changes."
+    obligation: "src/tests/research-capture/test_capture.py, page mode against the fixture server. Golden: the run's PROVENANCE.md, SHA256SUMS, headers file and report lines are byte-identical to golden/page/, with only the <utc>, date, work folder and session values substituted; the copy's bytes equal the served file's. Checks: C1 to C7 each fail on their own fixture (a 404 page giving the C1 and C2 lines only, a 404 .md, text/plain, a redirect, invalid UTF-8, a first line ending in a carriage return, no note, and a page whose only '# ' line is inside a fence) with section 5's reason, NOT INSTALLED, exit 1 and nothing in docs/research/; a page with a fenced '# ' line after its H1 takes the H1 as its title. Stages: a destination git doesn't ignore gives ERR-03 before any fetch (the fixture server logs no request), even for a page that would fail C6; a second identical run reports identical and writes nothing; a changed fixture gives ERR-05, as do a headers file without its .md and a SHA256SUMS line for an absent .md; started from a folder below the top level, the run writes under the top level's docs/research/ exactly as from the top level; a working directory outside git gives ERR-04 and exit 2; an existing Claude/ is used for --provider claude; directories claude/ and Claude/, and a symbolic link Claude pointing at a directory, each give ERR-06 with no work folder line and nothing created beside them; a fragment and a trailing .md are removed; a query string, a path ending in '/', and an ftp URL give ERR-11 with the usage line. run.json has section 4's keys, the set-cookie count and no cookie value. No file outside docs/research/ and the work folder changes."
     level: unit
     covers:
       - IF-02
@@ -737,32 +738,39 @@ For Bryan, in order. None of these is a requirement until he decides it.
 9. **Older copies.** In the session Claude recognised the older copies by an earlier listing. The skill lists the
    provider folder's other entries (BEH-12) and judges nothing; matching by page title is possible but was never
    tried.
-10. **Cold-test closures, the drafter's choices** (2026-10-31; each closes a gap G1 to G36 of §9's cold test):
-    - **C7 and the title** skip fenced code (G1); the fence rule is BEH-05's.
-    - **Exact formats** are §4's templates and §5's lines (G2 to G5, G15 to G24, G33): work files `<k>.md` and
-      `<k>.headers`; UTC as `YYYY-MM-DDTHH:MM:SSZ`; the status line as curl writes it, trimmed; the header block with
-      its closing empty line and its CRLF endings kept; table labels and cells; `1 folders` literal; line counting;
-      the cache note only for `HIT`; the deployment note only in section mode; `|` escaped; and every reason string.
-    - **One run order** (G8, G31): BEH-04's ten stages, with the ignore check before any fetch. So ERR-03 is never
-      hidden by ERR-01, and an ERR-06 refusal prints no work folder line. C3 to C7 are skipped after a failed C1
-      (G7).
-    - **Contradictions:** the work folder line is printed on refusals too, once the work folder exists (G9); ERR-09
-      exits 3, apart from exit 1's "nothing written" (G12).
-    - **Exit-2 output** is `error:` lines (G10, G11), the run stops at the first failed curl call, and a URL path
-      ending in `/`, or with no host, is ERR-11.
-    - **Folders** are created at install with `os.makedirs` (G13). **Executables:** `curl` and `git` only, with sha256
-      recomputed by the script (G14, D2). **The provider folder line** is in the report (G16).
-    - **Other entries:** files and folders directly in the provider folder, except the run's own top folder, sorted
-      bytewise, folders with a trailing `/` (G17).
-    - **Requests:** a relative `docs/research/<provider>/<slug>/` path is a valid form (G27). **Provider matching:**
-      directories that aren't symbolic links, compared casefolded (G28). The C6 refusal is the scope boundary (G29).
-    - **Content:** titles and sidebar labels are metadata that Claude may name; Claude checks results only through
-      the report lines (G30). `run.json` keeps the cookie count, never a value; the raw `<k>.headers` in the work
-      folder keeps what curl wrote (G25, D4).
-    - **Records:** a `SHA256SUMS` line for an absent `.md` is ERR-05 (G32). **The project root** is the working
-      directory and must be git's top level (G34). `-L` stays, so C4 can name a redirect's target; the C2 fetch
-      downloads the page's HTML to `/dev/null` (G35). `--session` is written verbatim, and SKILL.md passes only
-      `${CLAUDE_SESSION_ID}` (G36).
+10. **Cold-test closures** (2026-10-31; each closes a gap G1 to G36 of §9's cold test). Approval makes each closure a
+    requirement (a side agent's note, relayed by Bryan), so the closures are listed by who decided them.
+    - **Decided by Bryan** (2026-10-31, AskUserQuestion; his chosen options quoted):
+      - G34, the project root: "Use git's top folder (Recommended)". The script finds the top level wherever it is
+        started (BEH-04 stage 2), and nothing is refused for running from a subfolder.
+      - G6, the first line: "Strict, as drafted (Recommended)". C6 compares bytes exactly, so a first line ending in
+        a carriage return, or a byte-order mark, is refused (BEH-05).
+      - G30, titles: "Titles and labels allowed (Recommended)". Page titles and sidebar labels may appear in
+        `PROVENANCE.md`, `run.json` and replies; no other page text appears anywhere (BEH-03).
+      - G28, symbolic links: "Refuse and ask on a link (Recommended)". A matching link is ERR-06, so the run never
+        writes through a link or creates a case twin beside it (BEH-02).
+    - **The drafter's, choosing behaviour** (for Bryan to skim before approval; each is a requirement once approved):
+      - C7 and the page title skip fenced code (G1), by BEH-05's fence rule.
+      - One run order, BEH-04's ten stages, with the ignore check before any fetch (G8, G31): ERR-03 is never hidden
+        by ERR-01, and an ERR-06 refusal prints no work folder line. C3 to C7 are skipped after a failed C1 (G7).
+      - The work folder line is printed on refusals too, once the work folder exists (G9).
+      - ERR-09 exits 3 and keeps the files written so far (G12).
+      - The run stops at the first failed curl call; a URL path ending in `/`, or with no host, is ERR-11 (G10, G11).
+      - The other-entries line lists files and folders directly in the provider folder, except the run's own top
+        folder (G17).
+      - `run.json` keeps the cookie count, never a value; the raw `<k>.headers` in the work folder keeps what curl
+        wrote (G25, D4).
+      - A `SHA256SUMS` line for an absent `.md` is ERR-05 (G32).
+      - A relative `docs/research/<provider>/<slug>/` path is a valid request form (G27); the C6 refusal is the scope
+        boundary (G29).
+    - **The drafter's, formats and mechanics only** (no behaviour choice): §4's templates and §5's lines (G2 to G5,
+      G15 to G24, G33): work files `<k>.md` and `<k>.headers`; UTC as `YYYY-MM-DDTHH:MM:SSZ`; the status line as curl
+      writes it, trimmed; the header block with its closing empty line and its CRLF endings kept; table labels and
+      cells; `1 folders` literal; line counting; the cache note only for `HIT`; the deployment note only in section
+      mode; `|` escaped; every reason string; error lines prefixed `error:`; folders made at install with
+      `os.makedirs` (G13); `curl` and `git` the only executables, sha256 recomputed by the script (G14, D2); the
+      provider folder line (G16); `-L` kept so C4 can name a redirect's target, and the C2 fetch's HTML sent to
+      `/dev/null` (G35); `--session` written verbatim, SKILL.md passing only `${CLAUDE_SESSION_ID}` (G36).
     - **Open for Bryan:** work folders are kept and named in the report as holding the downloads (G26). Delete a
       successful run's work folder instead?
 
@@ -773,3 +781,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 1 | 2026-10-30 | claude-code (session 504f8573-69d8-42d7-885a-98c21d37ae70) | Initial draft, at Bryan's request of 2026-10-30 to document as a plugin enhancement the capture workflow carried out in this session ("document the workflow you performed in docs/specs/spec for a plugin enhancement"), with the session record (§1.1), the facts verified in Claude Code's terminal (§2) and the side agent's scope note as §13 item 2 | all |
 | 1 | 2026-10-31 | claude-code (session 504f8573-69d8-42d7-885a-98c21d37ae70) | Before approval, Bryan's answers of 2026-10-31: on §13 item 2, "this is fine for mvp to demonstrate this workflow" (version 1 is the MVP, Claude's docs only); on item 3, "automation is always good but must be accurate" (VER-05 automated only after the network probe passes and its graders pass an offline check against passing and failing simulated runs); §1.1 row 8 | §1, §1.1, §3, VER-05, §11, §13 |
 | 1 | 2026-10-31 | claude-code (session 504f8573-69d8-42d7-885a-98c21d37ae70) | Before approval: the eval-run probe (five runs, $0.56: an eval run's Bash writes nothing and reaches no outside host, V13), so VER-05 holds trigger cases only; Bryan's cold test by a fresh Opus 5.5 subagent (§1.1 row 9; V14, V15), whose 36 gaps are closed: literal templates for every written file and output line (§4, §5), one ten-stage run order (BEH-04), C7 and the title skip fenced code (BEH-05), exit 3 for ERR-09, the provider folder and work folder lines, the project-root rule, curl and git as the only executables; VER-01 and VER-03 compare against golden files; new VER-08, the cold test as a standing check; §13 items 3 and 10 | §1, §1.1, §2, §3, §4, §5, all BEH, ERR-01 to ERR-11, VER-01 to VER-05, VER-08, §9 to §13 |
+| 1 | 2026-10-31 | claude-code (session 504f8573-69d8-42d7-885a-98c21d37ae70) | Before approval, Bryan's answers on four cold-test closures (§1.1 row 10): the script finds git's top folder wherever it starts (G34, BEH-04 stage 2, ERR-04); C6 stays byte-strict (G6); titles and sidebar labels are allowed (G30); a provider folder match that is a symbolic link is ERR-06 (G28, BEH-02). §13 item 10 now separates Bryan's decisions, the drafter's behaviour choices and the formats | §1.1, §4, §5, BEH-02, BEH-04, ERR-04, ERR-06, VER-01, §13 |
