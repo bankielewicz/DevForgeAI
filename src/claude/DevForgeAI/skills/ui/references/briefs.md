@@ -47,7 +47,7 @@ before the question at step 4.
 ## The brief's shape
 
 A brief is plain text, shown to the user and sent to the Design type. It is not a file, and no script checks it.
-Draft one for each confirmed flow, in DM-05's shape, which has six parts, in this order (step 4 of SKILL.md shows
+Draft one for each confirmed flow, in the shape below, which has six parts, in this order (step 4 of SKILL.md shows
 the briefs and asks):
 
 | Part | Holds |

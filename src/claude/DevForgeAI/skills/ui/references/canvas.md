@@ -52,7 +52,8 @@ It does two jobs.
    `paths` ("You haven't viewed the latest version of this artifact"), and a plain read lets it through, so an
    amend run publishes only after it. The skill removes no file from a canvas, so it reads no board for a
    removal. When a publish is refused for an unviewed version, because the canvas moved since the read, make one
-   more plain read and retry the publish once; a second refusal is ERR-23.
+   more plain read and retry the publish once, rebuilt as "Adding a flow or a screen in an amend run" says; a
+   second refusal is ERR-23.
 2. **It shows how the canvas is shared.** The first bracketed line of the result's header says who owns the
    canvas and how it is shared; a read with `paths` says nothing about sharing.
    - A canvas the user owns (the line begins `owned by you`): `owned by you, private` is the private canvas. Any
@@ -257,8 +258,8 @@ and keeping every board already in it unchanged (the skill removes no file from 
 `canvas.json` and no path is set to null), and publish them into the same canvas through the `files` map as the
 type's instructions say for an update; the canvas gets a new version identifier, and the sharing that the result
 states is checked (above). If the tool refuses the publish for an unviewed version ("haven't viewed the latest
-version"), the canvas moved since the read: make one more plain read, read `project/canvas.json` again, rebuild the
-updated `canvas.json` from that text (every board in it kept, the new boards added) and retry once; never resend the
+version"), the canvas moved since the read: make one more plain read, read `project/canvas.json` again (no `out_dir`),
+rebuild the updated `canvas.json` from that text (every board in it kept unchanged, the new boards added) and retry once; never resend the
 refused files unchanged. A second refusal is ERR-23. Only a canvas the user owns or can edit is changed (ERR-23 when
 the tool refuses). Then the open question above. "Proceed without questions" adds nothing.
 

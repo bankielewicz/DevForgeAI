@@ -1646,7 +1646,7 @@ LAYOUT = (r"\b(?:side ?bars?|headers?|footers?|toolbars?|nav ?bars?|top bars?|st
 # --------------------------------------------------------------------------------------------------------
 # VER-39 (SPEC-017 version 3): the briefs. The checks of the briefs' shape, the Content's shape and the Must-haves are regex graders
 # that read every brief of the reply; one judge stays, for what a regex cannot see: a fact the BRN does not hold (§9, §13 bf).
-# A brief is a fenced block (briefs.md, "Showing a brief"); a part is a label at the start of a line, bold, plain or with a colon.
+# A brief is a fenced block (canvas.md, "Showing the briefs"); a part is a label at the start of a line, bold, plain or with a colon.
 
 CLOSE = esc(BRIEF_CLOSING)
 CLOSE_LINE = r"\n[ \t]*" + CLOSE + r"[ \t]*(?=\n|$)"

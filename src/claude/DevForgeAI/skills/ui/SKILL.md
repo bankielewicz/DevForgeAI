@@ -10,7 +10,7 @@ metadata:
 # UI
 
 Design a release's screens in Claude Design and record them as one design document (DSN),
-`docs/specs/design/DSN-NNN.md` (ADR-007), from the converged brainstorm (BRN). A second run for the same BRN
+`docs/specs/design/DSN-NNN.md`, from the converged brainstorm (BRN). A second run for the same BRN
 amends its one active DSN (BEH-04). Two rules apply throughout:
 1. **The canvas is made in Claude Design, never in the terminal.** The session's model writes the boards from the
    confirmed briefs in the session's scratchpad and publishes them through the Artifact tool's Design type. Never
@@ -71,9 +71,9 @@ gate.
 
 ## Workflow
 
-Work through the checklist in order, in the main conversation (BEH-01). Copy it into the first reply and tick
-items off as the run goes; a run whose first reply is also its last (ERR-01, an approval-only run (BEH-21), ERR-17
-with nothing else to say) shows it once, in its final form. A step the run doesn't do is written ticked and
+Work through the checklist in order, in the main conversation (BEH-01); after a compaction, reread a step's named
+sections before acting. Copy it into the first reply and tick items off as the run goes; a run whose first reply is also its last (ERR-01, an approval-only run, ERR-17
+with nothing else to say) shows it once, in final form. A step the run doesn't do is written ticked and
 skipped, on its own line: `- [x] N. <title> (skipped: <reason>)`, never as prose or an unticked box (BEH-01;
 output-rules.md, "The report", says why). Copy the reason that fits:
 - `not needed on this route`: steps 2 to 7 in an approval-only run; steps 3 to 5 when a copy in the folder is
@@ -149,8 +149,8 @@ provenance is the actual tool, model and session (BEH-20).
 
 ### 8. Validate (BEH-15, ERR-11, ERR-14)
 
-Read output-rules.md now if step 7 did not run (approval-only: "Checking with dsn_check.py", "Approval", "The
-report"). Run `check <ID>`. Gate: exit 0 (`OK`) and the DSN read back against the self-check
+Read output-rules.md now if step 7 did not run (approval-only: "Approval", "The report", "Checking with
+dsn_check.py"). Run `check <ID>`. Gate: exit 0 (`OK`) and the DSN read back against the self-check
 list. After a write, ERR-11 stops the run with no hand-off ("When validation still fails"); at ERR-14 the DSN is
 written and not checked.
 
@@ -177,8 +177,7 @@ Markers left: <ID>: <count> | none
 OK docs/specs/design/<ID>.md
 ```
 
-For the Next step paragraph, check each skill with Glob on its SKILL.md path and never Read it
-(`${CLAUDE_SKILL_DIR}/../prd/SKILL.md`, `${CLAUDE_SKILL_DIR}/../architecture/SKILL.md`,
+For the Next step, Glob each skill's SKILL.md and never Read it (`${CLAUDE_SKILL_DIR}/../prd/SKILL.md`, `${CLAUDE_SKILL_DIR}/../architecture/SKILL.md`,
 `${CLAUDE_SKILL_DIR}/../context/SKILL.md`); when one is absent, say that workflow isn't built yet.
 - **After a create run or an approval-only run:** tell the user to run `/devforgeai:prd BRN-NNN` and to link the
   DSN's ID in the PRD's section 8 by hand, since the prd skill doesn't do it yet.
