@@ -41,5 +41,5 @@ Recorded in ADR-008's revision on the same branch, in its last Status history ro
 - **10:** the questions are merged into four. EVAL.md's wording goes to #140.
 
 The revision changed the design (the path anchor, the protected rules file, the subtree hash, a CI-only check). Its
-second look was PR #141's close review (`20261031T1841Z-code-review-5dee512.md`), which found three D8 defects that
-were fixed before the merge.
+second look was PR #141's close review (`20261031T1841Z-code-review-5dee512.md`), which found three D6 and D8 defects and
+the D2 allowlist limit, all fixed before the merge.
