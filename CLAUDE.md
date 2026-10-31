@@ -175,7 +175,10 @@ claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --outp
   hooks, manifest, generated eval cases) is made inside one iteration: invoke
   `/plugin-dev:create-plugin` with the iteration's scope and `/plugin-dev:skill-development`, read
   Anthropic's guides in `docs/research/Claude/`, and end with plugin-validator and skill-reviewer on
-  the final commit. A delegated subagent's edit and a review-fix round are iterations.
+  the final commit. A delegated subagent's edit and a review-fix round are iterations. A worktree reads
+  the main checkout's copy (the parent of `git rev-parse --git-common-dir`); a clone with no
+  docs/research/ captures the pages first, by the recipe in each PROVENANCE.md, before its first plugin
+  edit.
 - **Judgment calls are the user's.** In brainstorm, idea dispositions and convergence are written only
   when the user confirmed them; otherwise they stay `disposition: open`, `reason: null` and
   `status: draft` (VER-02). Each later spec names its own user-owned decisions.

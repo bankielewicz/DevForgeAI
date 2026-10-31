@@ -52,8 +52,8 @@ question.
 - Codex's review comments on the PR: `gh api repos/bankielewicz/DevForgeAI/pulls/<N>/comments` and `.../reviews`.
   Bryan, 2026-10-31: "include in your code review the codex reviews in the pr".
 - The plan's decision ledger, for Bryan's words.
-- For check 3, until issue #137's ledger exists: the session transcript's Skill calls, and the Phase 6 reports in
-  `tmp/plans/<topic>/reviews/`.
+- For check 3: the Phase 6 reports committed on the branch in `docs/process/plugin-workflow/reviews/`, named
+  `<UTC>-<tool>-<hash>.md`, and, until issue #137's ledger exists, the session transcript's Skill calls.
 
 ## Where a finding goes
 
@@ -76,4 +76,5 @@ question.
 
 List the findings most severe first. Give each its `file:line`, the check above or the EVAL.md row it breaks, and
 where it goes. Name the reviewed commit's short hash. Save the report as
-`tmp/plans/<topic>/reviews/<UTC>-code-review-<hash>.md`.
+`docs/process/plugin-workflow/reviews/<UTC>-code-review-<hash>.md` and commit it on the PR's branch, next to the
+Phase 6 reports.

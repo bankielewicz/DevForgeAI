@@ -28,7 +28,7 @@ wait for him; this file decides nothing.
 | G2 | Python tests | `PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests` exits 0 and its count is at least the baseline taken before the first change (ADR-005 D7) | both counts, with hashes |
 | G3 | Plugin kit and manifests (when the plugin changed) | `claude plugin test src/claude/DevForgeAI`, `claude plugin validate src/claude/DevForgeAI` and `claude plugin validate .` each exit 0 | the three outputs' last lines |
 | G4 | Approved documents | Each approved document the branch changes has a new `version`, a new `updated`, two new Change Log rows (the change; Bryan's approval) and every citing `upstream` link moved (CLAUDE.md, "Rules a change must not break") | `git diff origin/main...HEAD -- docs/specs` |
-| G5 | The plugin workflow | Every commit touching `src/claude/DevForgeAI/` lies inside an iteration: `/plugin-dev:create-plugin` with the iteration's scope and `/plugin-dev:skill-development` invoked before its first edit, and plugin-validator and skill-reviewer reports bound to the iteration's last commit. Until B ships: the session transcript's Skill calls and `tmp/plans/<topic>/reviews/<UTC>-{plugin-validator,skill-reviewer}-<hash>.md`. After B: `src/tests/process/test_plugin_workflow.py` passes | transcript lines; report paths |
+| G5 | The plugin workflow | Every commit touching `src/claude/DevForgeAI/` lies inside an iteration: `/plugin-dev:create-plugin` with the iteration's scope and `/plugin-dev:skill-development` invoked before its first edit, and plugin-validator and skill-reviewer reports bound to the iteration's last commit, committed on the branch as `docs/process/plugin-workflow/reviews/<UTC>-{plugin-validator,skill-reviewer}-<hash>.md` (Bryan, 2026-10-31: `tmp/` is gitignored, so a report there can't be verified from the PR). No hand-written `ledger.jsonl` lines: the mod writes those. Until B ships, the session transcript's Skill calls show the invocations. After B: `src/tests/process/test_plugin_workflow.py` passes | transcript lines; report paths |
 | G6 | One version | `plugin.json`, `.claude-plugin/marketplace.json` and the pin in `src/tests/progress/test_adapter_structure.py` show the same version | `grep -n '"version"'` on both manifests; the pin line |
 | G7 | Whitespace | `git diff --check origin/main...HEAD` prints nothing | its output |
 | G8 | No secrets | No token, key or password in the diff | the review's finding list |
@@ -106,7 +106,7 @@ wait for him; this file decides nothing.
 | U5 | Grader mutations | Every mutation class in plan §6 fails its named grader in `check_graders.py`, which exits 0 |
 | U6 | Real replies | Every grader passes the replies on file (plan §3), before the first paid run |
 | U7 | Bound runs | `record_revision.sh` ran on a clean tree, into a new folder, before each paid run |
-| U8 | Qualification | Once, on the commit to be merged: the ui suite with `--runs 3`, the no-plugin baseline, `--model claude-sonnet-5-5`, `--judge-model sonnet`, `--threshold 0.8` and `--max-cost-usd 90`. The command exits 0, every case scores at least 0.8, every `cases[].arms.with[].error` is null, and `partial` is false. No waiver (Bryan, 2026-10-31, "Sonnet, 3 runs + baseline") |
+| U8 | Qualification | Once, on the commit to be merged: the ui suite with `--runs 3`, the no-plugin baseline, `--model claude-sonnet-5-5`, `--judge-model sonnet`, `--threshold 0.8`, `--max-cost-usd 90` and `--keep-temp` (the rerun matrix needs its traces). The command exits 0, every case scores at least 0.8, every `cases[].arms.with[].error` is null, and `partial` is false. No waiver (Bryan, 2026-10-31, "Sonnet, 3 runs + baseline") |
 | U9 | Plugin effect | Every case the skill's output decides has Δ above 0; a case at 1.00 in both arms is listed as not showing the plugin's effect (plugin-evals.md, "The no-plugin baseline") |
 | U10 | Triggering | The trigger cases (should and shouldn't trigger) pass on `claude-sonnet-5-5` and on `claude-opus-5-5`, measured apart from the output cases (skills.md, "Evaluate and iterate on a skill"). Haiku is not a target model (Bryan, 2026-10-31, "Sonnet and Opus only") |
 | U11 | Live checks | Plan §5 step 2.7's list, run on the build commit with `--plugin-dir`, each recorded in SPEC-017 §9 |
@@ -130,15 +130,23 @@ wait for him; this file decides nothing.
 - **Qualification, once, before the merge:** U8.
 - **A change after qualification** reruns what the matrix below says.
 
-## Rerun matrix (plan §6) **[Bryan]**
+## Rerun matrix (plan §6; Bryan, 2026-10-31, approved with changes)
+
+Qualify last. Every rerun goes into a new results folder through `record_revision.sh`, and gets a cost-ledger line and
+a SPEC-017 §9 row.
 
 | Change after qualification | Rerun |
 |---|---|
-| SKILL.md, or a reference the eval paths read | the changed-path cases and the suite |
-| A reference path only live runs reach (Artifact) | the live check only |
-| A grader | the affected cases, and an offline re-grade of the corpus |
-| `dsn_check.py` | its unit tests in both arms, and the cases that exercise the change |
-| Docs or records | none |
+| SKILL.md, or a reference the eval paths read | U8 again, in full. A second U8 can't fit under the $100 ceiling, so the edit goes to Bryan as a budget decision for that event |
+| A reference only live runs reach (Artifact) | the live check only, with evidence: no Read of that path in the qualification run's transcripts |
+| A grader | offline first: `check_graders.py` on the mutations and the real-reply corpus, and a re-grade of the qualification run's saved outputs. A paid rerun of the affected cases only if those outputs can't be re-graded. The two-number §9 rule applies |
+| `dsn_check.py` | pytest, and the cases that exercise the script, at U8's settings |
+| `make_evals.py` or a case file | the changed or new cases at U8's settings. A case whose prompt changed has no evidence until then |
+| A version bump only (`plugin.json`, `marketplace.json`, the pin) | none beyond G6 |
+| Docs or records | none, provided nothing under `src/claude/DevForgeAI/` changed |
+
+Rows 2 and 3 need the qualification run's transcripts and outputs, so U8 runs with `--keep-temp`, and its
+`/tmp/claude-eval-*` traces are copied into the results folder before the OS clears them.
 
 ## Cost ledger
 
