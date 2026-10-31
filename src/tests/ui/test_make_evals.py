@@ -807,6 +807,32 @@ class V3BriefTests(unittest.TestCase):
         for case in self.CASES:
             self.assertEqual([False] * len(good) + [True] * len(bad), self.hits("ver39-quotes-are-the-brns-words", good + bad, case=case), case)
 
+    def test_what_the_code_review_found_the_regex_graders_let_through(self):
+        # the code review of PR #126 (Codex, 2026-10-30): the regex graders that replaced the judges let these briefs through
+        # (not_contains graders: True means the offence was found)
+        close = M.BRIEF_CLOSING
+        for case in self.CASES:
+            # an idea is quoted, between quotation marks, not only repeated
+            self.assertEqual([False, False, True], self.hits("ver39-every-content-quotes-an-idea", [
+                '\nContent: the idea "List shifts in a table". 1. List (the key screen).\nMust-haves: x\n',
+                '\nContent: the idea “A weekly report page”. 1. Report (the key screen).\nMust-haves: x\n',
+                "\nContent: the idea List shifts in a table. 1. List (the key screen).\nMust-haves: x\n"], case=case), case)
+            # a token in the Style, by name or as a dotted or CSS-variable token
+            self.assertEqual([True, True, True, False, False, False], self.hits("ver39-style-names-no-token", [
+                "\nStyle: propose one; use token color.primary.\n" + close + "\n",
+                "\nStyle: propose one, with the tokens of the brand.\n" + close + "\n",
+                "\nStyle: propose one; the accent is var(--accent).\n" + close + "\n",
+                "\nStyle: propose one.\n" + close + "\n",
+                "\nStyle: follow the design system Aurora.\n" + close + "\n",
+                BRIEF], case=case), case)
+            # a layout word anywhere in a brief: the Must-haves have their own grader, this one reads Context, Content and Style
+            self.assertEqual([True, True, True, False, False], self.hits("ver39-no-layout-word-outside-must-haves", [
+                "\nContext: A sidebar on the left lists the shifts. The one job: x.\nContent: y\nMust-haves: z\nStyle: propose one.\n",
+                "\nContent: the idea \"List shifts in a table\", in two columns.\nMust-haves: z\nStyle: propose one.\n",
+                "\nStyle: propose one; put a sidebar on the left and the toolbar at the top.\n" + close + "\n",
+                "\nMust-haves: a sidebar on the left\nStyle: propose one.\n" + close + "\n",
+                BRIEF], case=case), case)
+
     def test_one_judge_stays_and_the_five_old_ones_are_gone(self):
         for case in self.CASES:
             llm = sorted(g.name for g in case_by_name()[case].graders if g.type == "llm")

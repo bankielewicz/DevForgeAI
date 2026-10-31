@@ -1033,6 +1033,21 @@ class Boards(Base):
         self.canvas('{"v": 3, "boards": {"Home.dc.html": {"x": ' + "[" * 97 + "]" * 97 + "}}}")
         self.assertEqual(self.boards().code, 0)
 
+    def test_err04_a_recursion_error_from_the_decoder_is_the_same_fixed_line(self):
+        # a backstop (the code review of PR #126): if the count before the parse ever misses a case and json.loads overflows, the
+        # reply is still ERR-04's fixed line, never a traceback; the decoder is made to overflow on a valid file, in both arms
+        self.canvas('{"v": 3, "boards": {}}')
+        wrapper = ("import json, runpy, sys\n"
+                   "def loads(*a, **k):\n    raise RecursionError('maximum recursion depth exceeded while decoding a JSON array')\n"
+                   "json.loads = loads\nsys.argv = sys.argv[1:]\nrunpy.run_path(sys.argv[0], run_name='__main__')\n")
+        for flags in ([], ["-S"]):
+            with self.subTest(flags=flags):
+                r = subprocess.run([sys.executable, "-B", *flags, "-c", wrapper, str(SCRIPT), "boards", "--root", str(self.p.root),
+                                    "DSN-001"], capture_output=True, text=True, cwd=self.p.elsewhere)
+                self.assertEqual(r.returncode, 1, r.stderr)
+                self.assertNotIn("Traceback", r.stderr)
+                self.assertEqual(r.stdout.splitlines(), [nested_line(), "boards: 1 problem(s)"], r.stdout)
+
     def test_err04_the_depth_is_counted_before_the_file_is_parsed(self):
         # whatever else is wrong with the file, 101 levels is what it says, and with 100 levels the decoder speaks as before
         cases = {"a syntax error after the 101st level": '{"v": 3, "boards": {}, "future": ' + "[" * 100 + "]" * 100 + " oops}",
