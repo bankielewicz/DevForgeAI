@@ -33,6 +33,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | `story` | SKL-008, reserved | SPEC-009 v4, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
 | `ui` | SKL-013 v2, draft | SPEC-017 v2, approved 2026-10-10 | v2: e2e 1 run, every case ≥ 0.8; triggers 13 of 13 on sonnet and opus (negatives 10 of 10); 3-run qualification waived by Bryan; manual VER-43 to VER-49 run 2026-10-10, mostly passing; failures open in #115, #116, #117, a spec contradiction in #118 (SPEC-017 §9) | PR #110 (0.31.0) |
+| `research-capture` | SKL-014, reserved | SPEC-018 v1, draft | not built (#133) | — |
 
 - The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3, which is not
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
@@ -227,8 +228,11 @@ building it"). The source of each item is named.
 - **Unbuilt skills:** `qa` (SPEC-008, a stub whose review criteria are open), `story` (SPEC-009,
   draft), `ui`'s cycle C (the neighbours' changes: hand-offs, the DSN as input, `DSN` in `common.schema.json`, SPEC-017 v3's
   wording) and cycle D (the dashboard's eighth tile; ADR-007), `github-post` (SPEC-010 v3, awaiting approval; its templates are staged in
-  `src/templates/github/`), and the chain's final Spec step, which only PRD-001 FR-017 covers (no
-  spec, no reserved SKL ID).
+  `src/templates/github/`), `research-capture` (SPEC-018 v1, draft, issue #133: copies documentation
+  pages verbatim with provenance into `docs/research/`; an MVP for Claude's docs only, and its
+  capture checks run as unit tests and live items, since eval runs' Bash can't write: SPEC-018 §13
+  items 2 and 3), and the chain's final Spec step, which only PRD-001 FR-017 covers (no spec, no
+  reserved SKL ID).
 - **`git` SKL-006 v3:** native evaluation, the manual VER items and Bryan's approval
   (SPEC-007 §9, §13; `docs/runbooks/git-v3-checks.md`).
 - **Progress tracker** (SPEC-012 §11): the progress pane and its graphics, `progress.html`,
