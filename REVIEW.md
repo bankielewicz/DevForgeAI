@@ -26,8 +26,9 @@ question.
 
 1. **Correctness.** The change does what the cited BEH, ERR or VER items say, and introduces no bug. Name the item
    for each finding.
-2. **EVAL.md.** Each row for the work item is PASS on the reviewed commit, or waived in Bryan's recorded words.
-   A row with no evidence, or with evidence from another commit that the rerun matrix doesn't cover, is a finding.
+2. **EVAL.md.** Each row for the work item is PASS on the reviewed commit, or waived in Bryan's words recorded in
+   the spec's §9. A row with no evidence, or with evidence from another commit that the rerun matrix doesn't cover,
+   is a finding.
 3. **The plugin workflow** (EVAL.md G5). A commit that changes `src/claude/DevForgeAI/` outside a
    `/plugin-dev:create-plugin` iteration blocks the merge. A subagent's edit and a review-fix round are iterations
    too.
@@ -51,9 +52,11 @@ question.
 - `EVAL.md`, the work item's rows, and their evidence.
 - Codex's review comments on the PR: `gh api repos/bankielewicz/DevForgeAI/pulls/<N>/comments` and `.../reviews`.
   Bryan, 2026-10-31: "include in your code review the codex reviews in the pr".
-- The plan's decision ledger, for Bryan's words.
+- Bryan's words, as EVAL.md, the spec's §9 and the PR body quote them. The plan under `tmp/` is local, so a
+  reviewer can't check anything that only the plan holds, and a claim that rests on the plan alone is a finding.
 - For check 3: the Phase 6 reports committed on the branch in `docs/process/plugin-workflow/reviews/`, named
-  `<UTC>-<tool>-<hash>.md`, and, until issue #137's ledger exists, the session transcript's Skill calls.
+  `<UTC>-<tool>-<hash>.md`, and, until issue #137's ledger exists, the PR body's list of each iteration's
+  invocations (EVAL.md G5).
 
 ## Where a finding goes
 
@@ -77,4 +80,5 @@ question.
 List the findings most severe first. Give each its `file:line`, the check above or the EVAL.md row it breaks, and
 where it goes. Name the reviewed commit's short hash. Save the report as
 `docs/process/plugin-workflow/reviews/<UTC>-code-review-<hash>.md` and commit it on the PR's branch, next to the
-Phase 6 reports.
+Phase 6 reports. A commit that adds only reports in that folder doesn't change what was reviewed (EVAL.md, "How the
+check works"), so the review still counts as one of the final commit.
