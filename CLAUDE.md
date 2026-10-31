@@ -265,4 +265,5 @@ Claude Code doesn't load `AGENTS.md` in a project that has a CLAUDE.md; read it 
 | `.claude/rules/evals.md` | `src/claude/DevForgeAI/evals/**`, `src/tests/**`, `tmp/eval-results/**` | writing, generating, running or diagnosing an eval |
 | `.claude/rules/skills.md` | `src/claude/DevForgeAI/skills/**`, `src/claude/DevForgeAI/.claude-plugin/**`, `src/templates/**` | changing a skill, its shared files or hand-offs, or building the next skill |
 | `.claude/rules/progress.md` | `src/claude/DevForgeAI/progress/**`, `src/claude/DevForgeAI/hooks/**`, `src/tests/progress/**` | changing or debugging the progress tracker or its adapter |
+| `EVAL.md` | never by itself | starting or gating a piece of the planned work (the #137 gate, the ui v3 redo): its pass/fail rows, the paid-run plan, the rerun matrix and where Phase 6 reports are committed |
 | `REVIEW.md` | never by itself: GitHub's Code Review reads it at the root, the local `/code-review` doesn't | running `/code-review` or the close review of a PR that changes DevForgeAI. It points to the work item's pass/fail checks in `EVAL.md` |
