@@ -248,17 +248,19 @@ canvas myself" and "Not now". The offer repeats on every amend run while the ide
 because nothing remembers a decline.
 
 On "Draw it now", the user confirms the flow (a new flow, or the existing flow that the screen joins, which the
-skill proposes and never decides) and its brief, confirmed with the same question as the first canvas:
-"Add <the flow or screen> to the canvas from this brief?", the brief shown as "Showing the briefs" says. A new flow
-gets a new row (at most 4 flows in one pass), and a screen of an existing flow joins that flow's row at the step
-the user confirms. Write the new board files and the updated `canvas.json` in the scratchpad, starting from the
-`canvas.json` text the read returned and keeping every board already in it unchanged (the skill removes no file
-from a canvas: no board is dropped from `canvas.json` and no path is set to null), and publish them into the
-same canvas through the `files` map as the type's instructions say for an update; the canvas gets a new version
-identifier, and the sharing that the result states is checked (above). If the tool refuses the publish for an
-unviewed version, make one more plain read and retry once; a second refusal is ERR-23. Only a canvas the user
-owns or can edit is changed (ERR-23 when the tool refuses). Then the open question above. "Proceed without
-questions" adds nothing.
+skill proposes and never decides) and its brief, confirmed with the same question as the first canvas: "Add <the
+flow or screen> to the canvas from this brief?", the brief shown as "Showing the briefs" says. A new flow gets a new
+row (at most 4 flows in one pass), and a screen of an existing flow joins that flow's row at the step the user
+confirms. Write the new board files and the updated `canvas.json` in the scratchpad, starting from the
+`project/canvas.json` that read returned (the text in its result, or the file it saved when the result names one)
+and keeping every board already in it unchanged (the skill removes no file from a canvas: no board is dropped from
+`canvas.json` and no path is set to null), and publish them into the same canvas through the `files` map as the
+type's instructions say for an update; the canvas gets a new version identifier, and the sharing that the result
+states is checked (above). If the tool refuses the publish for an unviewed version ("haven't viewed the latest
+version"), the canvas moved since the read: make one more plain read, read `project/canvas.json` again, rebuild the
+updated `canvas.json` from that text (every board in it kept, the new boards added) and retry once; never resend the
+refused files unchanged. A second refusal is ERR-23. Only a canvas the user owns or can edit is changed (ERR-23 when
+the tool refuses). Then the open question above. "Proceed without questions" adds nothing.
 
 ## Problems (ERR-19 to ERR-21, ERR-23)
 

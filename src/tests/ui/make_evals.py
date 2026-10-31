@@ -1705,7 +1705,16 @@ LAYOUT_IN_MUST = MUST + r"(?:(?!```|" + STYLE + r")[\s\S])*?" + LAYOUT + r"(?:(?
 BRIEF_WITHOUT_CLOSING = r"(?:^|\n)```[^\n]*" + IN_BRIEF + CONTEXT + IN_BRIEF + "```"
 STYLE_WITHOUT_PROPOSE = span(STYLE, CLOSE, r"\bpropose one\b")
 STYLE_WITH_VALUE = STYLE + r"(?:(?!" + CLOSE + r")[\s\S])*?(?:#[0-9a-fA-F]{3,8}\b|\b\d+\s?px\b)"
-CONTENT_WITHOUT_IDEA = span(CONTENT, MUST, "(?:" + IDEA_TEXTS + ")")
+# a design token in the Style, by name, dotted (color.primary) or as a CSS variable (briefs.md: "no token, colour, hex value or size";
+# the code review of PR #126, Codex)
+TOKEN = r"\btokens?\b|\b[a-z]{2,}\.[a-z][a-z0-9-]*\b|var\(--"
+STYLE_WITH_TOKEN = STYLE + r"(?:(?!```|" + CLOSE + r")[\s\S])*?(?:" + TOKEN + ")"
+# a layout word in a Context, a Content or a Style (DM-05: a brief never prescribes the solution); the Must-haves have their own grader
+# (the code review of PR #126, Codex)
+LAYOUT_OUTSIDE_MUST = ("(?:" + CONTEXT + "|" + CONTENT + r")(?:(?!```|" + MUST + r")[\s\S])*?" + LAYOUT + "|" + STYLE
+                       + r"(?:(?!```|" + CLOSE + r")[\s\S])*?" + LAYOUT)
+# an idea is quoted, between quotation marks (DM-05 "quoted from the BRN"), not only repeated (the code review of PR #126, Codex)
+CONTENT_WITHOUT_IDEA = span(CONTENT, MUST, "[\"“](?:" + IDEA_TEXTS + ")[\"”]")
 # the screens in order: numbered or arrowed, said to be in order, or a lone screen that is the key screen ('The flow's screen: Report (the key
 # screen)'); and the key screen marked
 IN_ORDER = r"\b1[.)][ \t]*[A-Z]|→|->|\bin order\b|\bscreen:[ \t]*[A-Z]\w*[ \t]*\((?:the )?key screen\)"
@@ -1836,11 +1845,15 @@ def brief_drafted(one_flow=False):
                 match="not_contains", witness="\nMust-haves: nothing sized\nStyle: x\n"),
           reply("ver39-no-must-haves-holds-a-layout-word", LAYOUT_IN_MUST, match="not_contains",
                 witness="\nMust-haves: a sidebar on the left\nStyle: x\n"),
+          reply("ver39-no-layout-word-outside-must-haves", LAYOUT_OUTSIDE_MUST, match="not_contains",
+                witness="\nContext: a sidebar on the left. x.\nMust-haves: y\n"),
           # the Style: no design system was listed, so "propose one", and no value
           reply("ver39-every-style-says-propose-one", STYLE_WITHOUT_PROPOSE, match="not_contains",
                 witness="\nStyle: dark.\n" + BRIEF_CLOSING + "\n"),
           reply("ver39-style-holds-no-hex-or-px", STYLE_WITH_VALUE, match="not_contains",
                 witness="\nStyle: propose one, a dark palette #1a1b26\n" + BRIEF_CLOSING + "\n"),
+          reply("ver39-style-names-no-token", STYLE_WITH_TOKEN, match="not_contains",
+                witness="\nStyle: propose one; use token color.primary.\n" + BRIEF_CLOSING + "\n"),
           rx("ver39-no-hex-value-anywhere", "last_message", r"#[0-9a-fA-F]{6}\b", match="not_contains", witness="\ntext #1a1b26\n"),
           reply("ver39-says-no-artifact-tool", NO_ARTIFACT),
           reply("ver39-names-boards-folder", esc(f"{DESIGN}/DSN-001/boards/"), flags=""),

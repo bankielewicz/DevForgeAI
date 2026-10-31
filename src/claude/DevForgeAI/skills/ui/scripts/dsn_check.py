@@ -378,6 +378,9 @@ def read_canvas(root, dsn, sub="boards"):
         raise not_json("nested too deeply")
     try:
         data = json.loads(text, object_pairs_hook=_json_pairs, parse_float=RawNumber, parse_constant=_json_constant)
+    except RecursionError:
+        # a backstop: should the count above ever miss a case, the decoder's overflow is the same fixed line, never a traceback
+        raise not_json("nested too deeply")
     except ValueError as e:
         raise not_json(" ".join(str(e).split()))
     if not isinstance(data, JsonObject):
