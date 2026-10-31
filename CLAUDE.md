@@ -52,7 +52,9 @@ Change Log holds the history. Read those, not this file, for any number or date.
 - **The dashboard** (PRD-001 v12 FR-022; SPEC-016 v3, approved 2026-10-09, not built (v3's ledger hold shipped in 0.29.0); design `docs/specs/devforgeai-dashboard.md`; prototype `src/tools/dashboard-probe/`) is a pane of the tracker's mod, `/devforgeai:dashboard`. It needs SPEC-012 v17 and v18 and SPEC-013 v23 (the precompact row counted by fuel left) to v26 (the automatic precompact run's turn marked through BEH-41's set of names and, from v26, a pending mark in $.state with the turn-ID rule), all approved (v18, v25, v26 and SPEC-016 v2 on 2026-10-08), its evaluator and adapter parts and the odometer ledger writer (SPEC-016 BEH-10) shipped in 0.28.0 (PR #102, `7e5e3c7`); the pane is not built and waits for the design skill's place in the chain (0.29.0).
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels.
-- ADR-001 to ADR-007 in `docs/specs/adr/` are accepted; ADR-007 adds the `ui` step (the skill makes the release's
+- ADR-001 to ADR-008 in `docs/specs/adr/` are accepted. ADR-008 (2026-10-31) adds the dev-guard, a dev-only mod that
+  refuses plugin edits outside a plugin-dev iteration, and extends ADR-006 D1 so a guard may block outside the
+  tracker's gates. ADR-007 adds the `ui` step (the skill makes the release's
   Claude Design canvas through the Artifact tool and records its imported boards as a DSN; version 2 accepted 2026-10-10) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
   context → epic → story → spec. PRD-001 (DevForgeAI itself) and PRD-002
   (DevForgeAI CLI, draft) are in `docs/specs/prd/`.

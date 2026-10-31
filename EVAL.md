@@ -91,7 +91,7 @@ him.
 | B1 | Catches a miss | `test_plugin_workflow.py` fails on a branch whose plugin commit is missing from the ledger |
 | B2 | Passes a listed commit | It passes once that commit is listed in a closed ticket |
 | B3 | Runs with the suite | `pytest src/tests` collects it |
-| B4 | CI job (Bryan, 2026-10-31, "docs/process + CI job") | A GitHub Actions job runs the test on a PR touching `src/claude/DevForgeAI/**` and shows in the PR's checks |
+| B4 | CI job (Bryan, 2026-10-31, "docs/process + CI job") | A GitHub Actions job runs the test on a PR touching `src/claude/DevForgeAI/**`, shows in the PR's checks, and is a required check once B ships (Bryan, 2026-10-31: "Decide now: B's CI job becomes a required check when B ships."; ADR-008 D8) |
 
 ### S. SPEC-017 v3 and ADR-007 v3, redrafted from main
 
