@@ -3,22 +3,25 @@
 Written 2026-10-31 by session 7637882f, at Bryan's request: "Before the start of any development, create an eval.md
 … to pass a 'check' to determine as validation or failure metric based on proposed works." It covers the work after
 PR #126's close, in this order: the plugin-workflow gate (issue #137: C, the ADR, probes P1-P8, A, B), then the ui v3
-redo (SPEC-017 v3, ADR-007 v3, SKL-013 v3). Bryan's decisions are quoted where they apply, and the plan's decision
-ledger (`tmp/plans/2026-10-31-ui-v3-redo-plan-design.md` §11, local) holds them all. Cells marked **[Bryan]** still
-wait for him; this file decides nothing.
+redo (SPEC-017 v3, ADR-007 v3, SKL-013 v3). This file makes no decision. It records Bryan's, each quoted with its
+date, and that quote is the record a reviewer checks until a spec carries the decision. The plan's decision ledger
+(`tmp/plans/2026-10-31-ui-v3-redo-plan-design.md` §11) is a local copy only. Cells marked **[Bryan]** still wait for
+him.
 
 ## How the check works
 
 - **One check per work item.** A work item passes its gate when every one of its rows is PASS on one commit, the
-  commit the gate names. There is no partial pass. Two kinds of later commit keep that evidence, because the rerun
-  matrix's last row says they need no rerun: a commit adding only reports under
-  `docs/process/plugin-workflow/reviews/`, and a commit adding only records (a spec's §9 rows). The R rows are their
-  own work item, checked on main after the merge.
+  commit the gate names. There is no partial pass. Later commits keep that evidence only when `git diff --name-only
+  <evidence hash> HEAD` lists nothing but files under `docs/process/plugin-workflow/reviews/` and §9 status rows
+  (built, evaluated, merged: the rows CLAUDE.md lets change without a version bump). The rerun matrix's last row says
+  those need no rerun, and G4 still applies to anything else in a spec. The R rows are their own work item, checked on
+  main after the merge.
 - **Each row is binary.** PASS or FAIL, from the command or the evidence named in the row. A row that couldn't run
   is NOT_RUN, and NOT_RUN is not a pass (AGENTS.md, "Testing Guidelines").
-- **Waivers are Bryan's.** A row passes by waiver only when Bryan's words, their date and when the waiver ends are
-  recorded in the spec's §9 (CLAUDE.md, "Evaluating a skill"), where the PR shows them. The plan under `tmp/` is local
-  and can't be checked from a PR, so this file quotes Bryan's words where it relies on them.
+- **Waivers and decisions are Bryan's.** A row passes by waiver only when Bryan's words, their date and when the
+  waiver ends are recorded in the spec's §9 (CLAUDE.md, "Evaluating a skill"), where the PR shows them. A decision
+  that changes a row, such as the tiered ui suite, is not a waiver. It is quoted here with its date until its spec
+  carries it (S5). The plan under `tmp/` is local and can't be checked from a PR.
 - **Evidence is bound to a commit.** It names the short hash it ran on. Evidence from an earlier commit counts only
   when the rerun matrix below says the change since then needs no rerun.
 - **A failed row** is fixed and rerun. A fix under `src/claude/DevForgeAI/` starts a new plugin-dev iteration (G5).
@@ -115,9 +118,10 @@ wait for him; this file decides nothing.
 | U9 | Plugin effect | In U8's run, every core-set case has Δ above 0; a case at 1.00 in both arms is listed as not showing the plugin's effect (plugin-evals.md, "The no-plugin baseline"). The regression set (U14) and the trigger set (U10) run without a baseline, so they have no Δ and U9 doesn't apply to them (Bryan's tiering, 2026-10-31) |
 | U10 | Triggering | The trigger cases (should and shouldn't trigger) pass on `claude-sonnet-5-5` and on `claude-opus-5-5`, measured apart from the output cases (skills.md, "Evaluate and iterate on a skill"). Haiku is not a target model (Bryan, 2026-10-31, "Sonnet and Opus only") |
 | U11 | Live checks | Run on the build commit with `--plugin-dir`, each recorded in SPEC-017 §9: the briefs and the preview shown before the question; the rebuild after a refused publish (edit the canvas during "Draw it now"); the sharing line; VER-43 to VER-46, VER-48 and VER-49 (c). The redraft's BEH numbers name them |
-| U12 | Cost | Every paid run passes `--max-cost-usd`, and the ledger's sum for the build phase stays at or under $80 (Bryan, 2026-10-31, "$80", after the core set; estimate about $69: U8 about $19, U10 $28.55 measured, the regression set once about $9.50, the measuring run about $1.50, smoke runs about $10). A run that exits 2, or whose result has `partial: true` or `skippedPaidGraders`, is NOT_RUN |
+| U12 | Cost | Every paid run passes `--max-cost-usd`. Before a paid run starts, the ledger's sum plus that run's `--max-cost-usd` must be at most $80; if not, the run goes to Bryan first, a repeated run included. The ledger's sum for the build phase stays at or under $80 (Bryan, 2026-10-31, "$80", after the core set; estimate about $69: U8 about $19, U10 $28.55 measured, the regression set once about $9.50, the measuring run about $1.50, smoke runs about $10). A run that exits 2, or whose result has `partial: true` or `skippedPaidGraders`, is NOT_RUN |
 | U13 | Record | SPEC-017 §9 holds the results folders, the commit, the plugin digest, the models, the scores and the cost |
 | U14 | Regression set | Every ui case outside the core set and the trigger set has regex graders only. It runs once (`--runs 1 --ablation none --model claude-sonnet-5-5 --threshold 0.8`) when the VER item it covers changes, which in this build means once each, and never at qualification. Each scores at least 0.8 on the commit it ran on, and the rerun matrix carries it forward |
+| U15 | The sets are what they claim | A test in `src/tests/ui/` (written first, seen failing) checks the generated cases. Exactly the 11 core cases carry `ui-core`. Every ui case outside `ui-core` and the trigger set has no `llm` or `baseline` grader. The trigger cases carry no `ui` tag (QR-03) |
 
 ### R. Records and deploy
 
@@ -142,7 +146,7 @@ wait for him; this file decides nothing.
 - **Qualification, once, before the merge:** U8, the core set only.
 - **A change after qualification** reruns what the matrix below says.
 
-## Rerun matrix (plan §6; Bryan, 2026-10-31, approved with changes)
+## Rerun matrix (Bryan, 2026-10-31: "Rerun matrix. Approved with these changes")
 
 Qualify last. Every rerun goes into a new results folder through `record_revision.sh`, and gets a cost-ledger line and
 a SPEC-017 §9 row.
@@ -167,6 +171,8 @@ One line per paid run: date, results folder, commit, `--max-cost-usd`, `costUsd`
 a total only from that sum. The closed cycle spent $97.73. Its three full ui suites were 50 cases, 1 run each, with
 no baseline, on the unpinned default model (Opus): $26.15, $25.52 and $25.47, about $0.52 a run, of which the
 judge was $0.09 a suite. Sonnet 5.5's list price per token is half Opus 5.5's. The build phase's ceiling is $80
-(Bryan, 2026-10-31), set after the core set cut what qualifies from 50 cases to 11. The 11 cost $6.41 a run on Opus
-in the closed cycle, so about $3.21 on Sonnet. On a claude.ai subscription, `costUsd` is a list-price estimate of plan
+(Bryan, 2026-10-31), set after the core set cut what qualifies from 50 cases to 11. One run of all 11 cost $6.41 on
+Opus in the closed cycle, which is costlier than the 50-case average. Halving that gives about $3.21 on Sonnet. This is
+an estimate, not a measurement: Sonnet's turn count and the baseline arm are unmeasured, so the measuring run before
+U8 checks it. On a claude.ai subscription, `costUsd` is a list-price estimate of plan
 usage, not a charge.

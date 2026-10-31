@@ -80,5 +80,6 @@ question.
 List the findings most severe first. Give each its `file:line`, the check above or the EVAL.md row it breaks, and
 where it goes. Name the reviewed commit's short hash. Save the report as
 `docs/process/plugin-workflow/reviews/<UTC>-code-review-<hash>.md` and commit it on the PR's branch, next to the
-Phase 6 reports. A commit that adds only reports in that folder doesn't change what was reviewed (EVAL.md, "How the
-check works"), so the review still counts as one of the final commit.
+Phase 6 reports. The review still counts as one of the final commit when `git diff --name-only <reviewed hash> HEAD`
+lists only files in that folder (EVAL.md, "How the check works"). Any other change after the reviewed hash needs a
+new review.
