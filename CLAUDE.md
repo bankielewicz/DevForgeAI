@@ -169,6 +169,13 @@ claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --outp
   Bryan. Never build what no spec, ADR or recorded decision covers. During another devforgeai skill's
   workflow, hand the lookup to the `devforgeai:spec-lookup` agent, which leaves that run alone: a skill
   the user types ends the run, and one Claude loads pauses it until Claude goes back (SPEC-013 v15).
+- **Plugin changes go through `/plugin-dev:create-plugin`** (Bryan, 2026-10-02: "this is mandatory";
+  2026-10-31: "you must use /plugin-dev:create-plugin when modifying the devforgeai plugin. did you do
+  that? if not, halt!"). Every change under `src/claude/DevForgeAI/` (skill text, references, scripts,
+  hooks, manifest, generated eval cases) is made inside one iteration: invoke
+  `/plugin-dev:create-plugin` with the iteration's scope and `/plugin-dev:skill-development`, read
+  Anthropic's guides in `docs/research/Claude/`, and end with plugin-validator and skill-reviewer on
+  the final commit. A delegated subagent's edit and a review-fix round are iterations.
 - **Judgment calls are the user's.** In brainstorm, idea dispositions and convergence are written only
   when the user confirmed them; otherwise they stay `disposition: open`, `reason: null` and
   `status: draft` (VER-02). Each later spec names its own user-owned decisions.
@@ -251,3 +258,4 @@ Claude Code doesn't load `AGENTS.md` in a project that has a CLAUDE.md; read it 
 | `.claude/rules/evals.md` | `src/claude/DevForgeAI/evals/**`, `src/tests/**`, `tmp/eval-results/**` | writing, generating, running or diagnosing an eval |
 | `.claude/rules/skills.md` | `src/claude/DevForgeAI/skills/**`, `src/claude/DevForgeAI/.claude-plugin/**`, `src/templates/**` | changing a skill, its shared files or hand-offs, or building the next skill |
 | `.claude/rules/progress.md` | `src/claude/DevForgeAI/progress/**`, `src/claude/DevForgeAI/hooks/**`, `src/tests/progress/**` | changing or debugging the progress tracker or its adapter |
+| `REVIEW.md` | never by itself: GitHub's Code Review reads it at the root, the local `/code-review` doesn't | running `/code-review` or the close review of a PR that changes DevForgeAI. It points to the work item's pass/fail checks in `EVAL.md` |
