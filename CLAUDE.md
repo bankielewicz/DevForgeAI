@@ -53,7 +53,8 @@ Change Log holds the history. Read those, not this file, for any number or date.
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels.
 - ADR-001 to ADR-008 in `docs/specs/adr/` are accepted. ADR-008 (2026-10-31) decides the dev-guard, a dev-only mod
-  to refuse plugin edits outside a plugin-dev iteration, not built yet (SPEC-019 comes first). It extends ADR-006 D1
+  to refuse plugin edits outside a plugin-dev iteration; SPEC-019 (its requirements, with the mockups Bryan asked for; read its
+  frontmatter for the version) was approved on 2026-11-02, and the build through `/mod-builder:build` comes next. It extends ADR-006 D1
   so a guard may block outside the tracker's gates; ADR-006's own text gets the pointer at its next change. ADR-007 adds the `ui` step (the skill makes the release's
   Claude Design canvas through the Artifact tool and records its imported boards as a DSN; version 2 accepted 2026-10-10) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
   context → epic → story → spec. PRD-001 (DevForgeAI itself) and PRD-002
