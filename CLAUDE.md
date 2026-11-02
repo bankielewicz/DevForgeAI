@@ -21,7 +21,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | Skill | Record (provenance) | Spec | Evals on the current version | Merged |
 |---|---|---|---|---|
 | `brainstorm` | SKL-001 v10, in-review | SPEC-001 v17, approved | v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #99 (0.27.0) |
-| `prd` | SKL-002 v5, approved | SPEC-002 v5, approved | 3 runs, 35 of 35 at ≥ 0.8 | PR #57 (0.11.0) |
+| `prd` | SKL-002 v5, approved (implements SPEC-002 v5) | SPEC-002 v6, approved 2026-11-02 (the interview at scale, #142; SKL-002 v6 is built after the dev-guard) | 3 runs, 35 of 35 at ≥ 0.8 (SKL-002 v5) | PR #57 (0.11.0) |
 | `architecture` | SKL-003 v9, approved | SPEC-003 v11, approved | 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #83 (0.21.0) |
 | `epic` | SKL-004 v4, approved | SPEC-004 v4, approved | 3 runs, 25 of 25 at ≥ 0.8 | PR #62 (0.12.1) |
 | `context` | SKL-010 v2, approved | SPEC-011 v3, approved | 3 runs, 18 of 18 at ≥ 0.8 | PR #45 (0.8.1) |
