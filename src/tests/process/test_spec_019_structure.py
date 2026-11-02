@@ -1,6 +1,6 @@
 """Structural checks for SPEC-019, the dev-guard's requirements (EVAL.md W2): the document validates against
 spec.schema.json, its frontmatter version and status are the pinned ones, every BEH, ERR and QR item is covered by a
-VER item, and every JSON block parses. Self-contained: it imports nothing from the other test folders, since pytest
+VER item, every JSON block parses, and the initial guard.json example fits DM-02 with patterns that compile. Self-contained: it imports nothing from the other test folders, since pytest
 runs this tree in importlib mode. Run from the repository root:
 
     PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/process
@@ -62,8 +62,21 @@ class Spec019(unittest.TestCase):
         covered = {c for v in doc["verifications"] for c in v["covers"]}
         self.assertEqual(ids - covered, set(), "an item no VER item covers")
         self.assertEqual(covered - ids, set(), "a VER item covers an unknown item")
-        for block in re.findall(r"```json\n(.*?)```", text, re.S):
-            json.loads(block)
+        blocks = [json.loads(b) for b in re.findall(r"```json\n(.*?)```", text, re.S)]
+        schemas = {b["x-item-id"]: b for b in blocks if "x-item-id" in b}
+        self.assertEqual(set(schemas), {"DM-01", "DM-02", "DM-03"})
+        examples = [b for b in blocks if "x-item-id" not in b]
+        self.assertEqual(len(examples), 1, "one example block: the initial guard.json")
+        guard = examples[0]
+        dm02 = Draft202012Validator(schemas["DM-02"], format_checker=FormatChecker())
+        self.assertEqual([e.message for e in dm02.iter_errors(guard)], [], "the initial guard.json fits DM-02")
+        for entry in guard["allow"]:
+            expanded = entry["pattern"]
+            for name in ("P", "F", "V", "Q"):
+                expanded = re.sub(rf"(?<![A-Za-z]){name}(?![A-Za-z])", "x", expanded)
+            re.compile(expanded)
+            for flag in entry["flags"]:
+                re.compile(flag)
 
 
 if __name__ == "__main__":
