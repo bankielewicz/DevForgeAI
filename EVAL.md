@@ -118,7 +118,7 @@ The spec PR; A, B, M and N get their evidence at the build.
 | ID | Check | PASS when |
 |---|---|---|
 | W1 | Decisions cited | Every BEH, ERR and VER item in SPEC-019 names its ADR-008 decision, #137 item, review note or Bryan's answer, and §13 lists each reading the drafting session made beyond them, for his answer at approval |
-| W2 | Validates | SPEC-019 validates against `spec.schema.json` and every BEH, ERR and QR item is covered by a VER item (a script on `test_structure.py`'s helpers; the structure test pins only SPEC-002 and SPEC-003) |
+| W2 | Validates | `src/tests/process/test_spec_019_structure.py` passes in `pytest src/tests`: SPEC-019 validates against `spec.schema.json`, its version and status match the test's pin, every BEH, ERR and QR item is covered by a VER item, and every JSON block parses |
 | W3 | Found by lookup | `find_spec.py "SPEC-019 BEH-09"` cites the file and line |
 | W4 | Nothing under the plugin or the mod | `git diff --name-only origin/main...HEAD` lists no path under `src/claude/DevForgeAI/` or `src/tools/mods/` |
 | W5 | Drafts reviewed | An independent drafts review's report is committed in `docs/process/plugin-workflow/reviews/` and every finding is answered before the approval question |
