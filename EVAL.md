@@ -71,27 +71,59 @@ him.
 | P7 | Recorded. If it can, the close also requires the person's typed command. |
 | P8 | `git diff --cached --name-only` returns the staged list |
 
-### A. The dev-guard mod (#137 "Acceptance")
+### A. The dev-guard mod (#137 "Acceptance"; SPEC-019 VER-01 to VER-08)
+
+SPEC-019 carries these rows as VER-01 to VER-08 (ADR-008, Bryan's answer 3: one source); a change to a row here is a change to SPEC-019.
 
 | ID | Check | PASS when |
 |---|---|---|
-| A1 | Kit tests | A.7's tests pass under `claude plugin test <mod>` |
+| A1 | Kit tests | A.7's tests pass under `claude plugin test <mod>` (SPEC-019 VER-01) |
 | A2 | Strict validation | `claude plugin validate --strict <mod>` exits 0 |
 | A3 | R1 live | With no ticket, an Edit to `src/claude/DevForgeAI/skills/ui/SKILL.md` in `.claude/worktrees/<name>/` is refused with R1's reason |
 | A4 | Subagent | With no ticket, a subagent's Write there is refused |
 | A5 | R2 live | With no ticket, `python3 src/tests/ui/make_evals.py` is refused |
 | A6 | R3 live | With no ticket, a `git commit` with a staged plugin file is refused |
 | A7 | Permit | After `/plugin-dev:create-plugin`, `/plugin-dev:skill-development` and Reads of the `requiredReads` files, A3's Edit is allowed |
-| A8 | Close | `/dev-guard close`, typed by a person, refuses unless both reviewers' Agent calls were observed during the ticket and their reports exist for a commit whose plugin subtree hash equals HEAD's; it writes the ledger line with that evidence (ADR-008 D6) |
+| A8 | Close | `/dev-guard close`, typed by a person, refuses unless both reviewers' Agent calls were observed during the ticket, their reports exist for a commit whose plugin subtree hash equals HEAD's and the plugin tree is clean; it writes the ledger line with that evidence (ADR-008 D6; SPEC-019 BEH-09, VER-08) |
 
-### B. The commit check (#137)
+### B. The commit check (#137; SPEC-019 VER-09 to VER-12)
 
 | ID | Check | PASS when |
 |---|---|---|
 | B1 | Catches a miss | `test_plugin_workflow.py` fails on a branch whose head's plugin subtree hash differs from its merge base's and matches no valid ledger line (ADR-008 D8) |
 | B2 | Passes a closed iteration | It passes once a valid ledger line carries that subtree hash, and it passes at once on a branch that leaves the plugin unchanged |
 | B3 | Runs in CI | The CI job runs it on every PR with its marker selected; `pytest src/tests` skips it by default (ADR-008 D8) |
-| B4 | CI job (Bryan, 2026-10-31, "docs/process + CI job") | A GitHub Actions job runs the test on a PR touching `src/claude/DevForgeAI/**`, shows in the PR's checks, and is a required check once B ships (Bryan, 2026-10-31: "Decide now: B's CI job becomes a required check when B ships."; ADR-008 D8) |
+| B4 | CI job (Bryan, 2026-10-31, "docs/process + CI job") | A GitHub Actions job runs the test on every pull request with `fetch-depth: 0` and the PR's head commit (ADR-008 v2 D8; the earlier "PRs touching the plugin" wording was #141 round-3 note 2), passes at once when the plugin subtree is unchanged, fails when pytest exits 5, shows in the PR's checks, and is a required check once B ships (Bryan, 2026-10-31: "Decide now: B's CI job becomes a required check when B ships."; SPEC-019 BEH-15, VER-12) |
+
+### M. The dev-guard's mockups (Bryan, 2026-11-02; SPEC-019 BEH-16, BEH-17)
+
+| ID | Check | PASS when |
+|---|---|---|
+| M1 | Boards recorded | SPEC-019 Appendix A lists one board per surface (the refusal reason, `/dev-guard`, `/dev-guard close`, `/dev-guard log`) at the full and compact widths, each exported under `docs/specs/design/dev-guard/boards/` with a sha256 that `sha256sum` confirms, before A's first iteration (SPEC-019 VER-13) |
+| M2 | Live against the boards | On the build commit, a person compares each surface's rendering with its board at the board's width, pass or fail per surface and state, in `docs/runbooks/dev-guard-checks.md`; `/dev-guard demo` reaches every state a board shows (SPEC-019 VER-14) |
+
+### N. The review notes' checks (SPEC-019 VER-15 to VER-18)
+
+| ID | Check | PASS when |
+|---|---|---|
+| N1 | Kit tests for the notes | SPEC-019 VER-15's cases pass under `claude plugin test`: the origin allow-list, the clean tree at close, path normalisation, the allowlist's argument patterns, the detached-HEAD key, reads through Bash, the hooks' bounds, the refusal log |
+| N2 | B's cases | SPEC-019 VER-16's cases pass in `src/tests/process/`: the rebase case, invalid lines, the shallow clone, zero tests selected |
+| N3 | Install | SPEC-019 VER-17: `/dev-guard` answers in a terminal session, a herdr pane and a Remote Control session with `CLAUDE_CODE_PLUGIN_DIRS` set in `~/.claude/settings.json` (P4's remaining parts; Bryan's step) |
+| N4 | First close reviewed | SPEC-019 VER-18: the first iteration's refusals reviewed at its close, each a right refusal or an allowlist change in a records commit |
+
+### W. SPEC-019, the dev-guard's requirements, spec only
+
+The spec PR; A, B, M and N get their evidence at the build.
+
+| ID | Check | PASS when |
+|---|---|---|
+| W1 | Decisions cited | Every BEH, ERR and VER item in SPEC-019 names its ADR-008 decision, #137 item, review note or Bryan's answer, and §13 lists each reading the drafting session made beyond them, for his answer at approval |
+| W2 | Validates | SPEC-019 validates against `spec.schema.json` and every BEH, ERR and QR item is covered by a VER item (a script on `test_structure.py`'s helpers; the structure test pins only SPEC-002 and SPEC-003) |
+| W3 | Found by lookup | `find_spec.py "SPEC-019 BEH-09"` cites the file and line |
+| W4 | Nothing under the plugin or the mod | `git diff --name-only origin/main...HEAD` lists no path under `src/claude/DevForgeAI/` or `src/tools/mods/` |
+| W5 | Drafts reviewed | An independent drafts review's report is committed in `docs/process/plugin-workflow/reviews/` and every finding is answered before the approval question |
+| W6 | Approved | G4's rows for a new document: `status: approved`, Bryan's Change Log row; CLAUDE.md's ADR-008 line says SPEC-019 is approved |
+| W7 | #137 told | The comment ADR-008's follow-up names is posted on #137, pointing to SPEC-019 |
 
 ### S. SPEC-017 v3 and ADR-007 v3, redrafted from main
 
