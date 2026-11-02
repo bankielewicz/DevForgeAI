@@ -26,7 +26,7 @@ upstream:
   - {id: ADR-005, relation: constrains, version: 1, hash: null, note: "the testing keys this skill resolves and cites in testing.md; D7 restated there"}
   - {id: PRD-001, item: FR-019, relation: informed_by, version: 11, hash: null, note: "the requirement this skill implements; built on a spec branch, as no story exists (§11)"}
   - {id: PRD-001, item: FR-020, relation: informed_by, version: 11, hash: null, note: "testing policy: this skill resolves the six keys (ADR-005 D5)"}
-  - {id: SPEC-002, relation: informed_by, version: 5, hash: null, note: "the shared policy files and script (§5), which this skill ships byte-identical"}
+  - {id: SPEC-002, relation: informed_by, version: 8, hash: null, note: "the shared policy files and script (§5), which this skill ships byte-identical"}
   - {id: SPEC-003, relation: informed_by, version: 11, hash: null, note: "reads the ARCH: components and their kinds (§4), DEC items; reuses the inspection rule (BEH-05)"}
   - {id: SPEC-009, relation: informed_by, version: 4, hash: null, note: "the story skill reads these documents (BEH-04, BEH-06, BEH-11, BEH-12, BEH-13, ERR-04)"}
 supersedes: []
@@ -937,6 +937,12 @@ Bryan approved each design choice below with version 1 on 2026-09-30:
 - **A relink changes neither the version nor the status** (BEH-14).
 - **The next step goes to architecture** while any document of the set holds a `[NEEDS ADR]` marker
   (BEH-19).
+- Open (recorded 2026-11-02 at Bryan's direction (2026-11-02, "PRD now, with specific §13 questions for architecture and context"; issue #142)): should the context interview (BEH-07, where every question counts
+  against `interview.max_calls`) reuse settled conventions with their source, count the whole interview against the
+  budget before its first question, and offer the user modes when the count doesn't fit, as SPEC-002 version 8 does
+  (its BEH-19 to BEH-22)? A project's conventions are many and small, the shape issue #142 reports for requirements.
+  Decided with the next version that changes this spec.
+
 
 ## Change Log
 
@@ -951,3 +957,4 @@ Bryan approved each design choice below with version 1 on 2026-09-30:
 | 3 | 2026-10-01 | Bryan | Approved | status |
 | 3 | 2026-10-01 | claude-code (session 3553d47f-c5b8-4936-a203-336ec1805677) | Record-only update, with no version bump: §9 records SKL-010's build and evaluation: the baseline before the skill, the pilot and trace on v1, the trigger cases on v1 and v2, the full suite on v2 (QR-03 met, 18 of 18), QR-04 met on Sonnet and Opus with v2, the unit and structural tests, the grader form (`^…$` for `\A…\Z`), and Bryan's build decisions of 2026-10-01. The manual VER-21 and VER-22 are not run | §9 |
 | 3 | 2026-10-01 | claude-code (session 3553d47f-c5b8-4936-a203-336ec1805677) | Record-only update, with no version bump: §9 records Bryan's approval of SKL-010 v2 on 2026-10-01, after PR #45 merged it (plugin 0.8.1), with the manual VER-21 and VER-22 not run | §9 |
+| 3 | 2026-11-02 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | Record-only update, with no version bump: §13 adds an open question at Bryan's direction (2026-11-02, "PRD now, with specific §13 questions for architecture and context"; issue #142), whether this interview adopts SPEC-002 version 6's reuse line, count line and modes; the SPEC-002 link moves to version 8 (mechanical: the shared policy files §5 cites are unchanged). No behaviour changes | §13, frontmatter |
