@@ -131,7 +131,7 @@ him.
 | R2 | Marketplace copy | After `claude plugin update devforgeai@devforgeai`, a session's skill base directory names the new version |
 | R3 | Records PR | The records went out as their own PR, after the build PR merged |
 
-### V. SPEC-002 v6, the PRD interview at scale (#142), spec only
+### V. SPEC-002 v6 and v7, the PRD interview at scale (#142), spec only
 
 The spec PR. The build (SKL-002 v6) gets its own rows when it starts, after A and B (Bryan, 2026-11-02: "spec
 now, build under the guard, after the guard passes its own required checks"). These rows are the plan's
@@ -140,12 +140,12 @@ verification items for its steps 1 and 2 (`tmp/plans/2026-11-02-interview-at-sca
 
 | ID | Check | PASS when |
 |---|---|---|
-| V1 | Decisions cited | Every new BEH, ERR and VER item in SPEC-002 v6 names its plan W1 section or #142 direction, or #143, and §13 lists each reading the drafting session made beyond them, for Bryan's answer at approval |
-| V2 | Validates | `python3 -B src/tests/prd/test_structure.py` passes with `SPEC_STATE`'s SPEC-002 pin at 6 and `TARGETS`' prd pin at 5 |
-| V3 | Found by lookup | `find_spec.py "SPEC-002 BEH-25"` and `find_spec.py "SPEC-002 VER-48"` each cite the file and line at version 6 |
+| V1 | Decisions cited | Every new BEH, ERR and VER item in SPEC-002 v6 (and v7's fix) names its plan W1 section or #142 direction, or #143, and §13 lists each reading the drafting session made beyond them, for Bryan's answer at approval |
+| V2 | Validates | `python3 -B src/tests/prd/test_structure.py` passes with `SPEC_STATE`'s SPEC-002 pin at the spec's current version (7) and `TARGETS`' prd pin at 5 |
+| V3 | Found by lookup | `find_spec.py "SPEC-002 BEH-25"` and `find_spec.py "SPEC-002 VER-48"` each cite the file and line at the spec's current version |
 | V4 | Nothing under the plugin | `git diff --name-only origin/main...HEAD` lists no path under `src/claude/DevForgeAI/`, and `skills/prd/provenance.yaml` still implements version 5 |
 | V5 | Drafts reviewed | An independent drafts review's report is committed in `docs/process/plugin-workflow/reviews/` and every finding is answered before the approval question |
-| V6 | Approved | G4 holds: version 6, a new `updated`, two Change Log rows (the draft; Bryan's approval) and the four citing links moved (SPEC-003, SPEC-004, SPEC-011, SPEC-018); SPEC-003 and SPEC-011 carry their §13 question as record-only rows, PR #129's pattern |
+| V6 | Approved | G4 holds for each version on the PR (6, and 7 for Codex's fix): the version, a new `updated`, two Change Log rows (the change; Bryan's approval) and the four citing links moved (SPEC-003, SPEC-004, SPEC-011, SPEC-018); SPEC-003 and SPEC-011 carry their §13 question as record-only rows, PR #129's pattern |
 | V7 | Manual runbook | `docs/runbooks/prd-v6-interview-checks.md` has one step per clause of VER-46 to VER-48 and a results table, every row NOT_RUN until the build |
 
 ## Paid runs: smoke, then one qualification

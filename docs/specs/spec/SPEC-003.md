@@ -23,7 +23,7 @@ upstream:
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: the Architecture Definition step"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
-  - {id: SPEC-002, relation: informed_by, version: 6, hash: null, note: "consumes the prd skill's downstream contract (SPEC-002 §5)"}
+  - {id: SPEC-002, relation: informed_by, version: 7, hash: null, note: "consumes the prd skill's downstream contract (SPEC-002 §5)"}
   - {id: SPEC-012, relation: constrains, version: 18, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
 supersedes: []
 superseded_by: null
@@ -852,7 +852,7 @@ follows the same contract.
 - Resolved: PRD-001 v8 records FR-013 as must/current, decided by Bryan on 2026-09-24.
 - Open (recorded 2026-11-02 at Bryan's direction (2026-11-02, "PRD now, with specific §13 questions for architecture and context"; issue #142)): with many open architectural questions, should this interview reuse
   settled decisions with their source, count the whole interview against `interview.max_calls` before round 1, and
-  offer the user modes when the count doesn't fit, as SPEC-002 version 6 does (its BEH-19 to BEH-22)? Today the
+  offer the user modes when the count doesn't fit, as SPEC-002 version 7 does (its BEH-19 to BEH-22)? Today the
   budget is shared (BEH-18 keeps the waiver question outside it) and nothing says what stays open when it runs out.
   Decided with the next version that changes this spec.
 
@@ -904,4 +904,4 @@ follows the same contract.
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records SKL-003 v9's build, evals and VER-32 | §9 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: Bryan approved SKL-003 v9 and waived its 3-run qualification; §13 records two items from the end-of-workflow notes | §13 |
 | 11 | 2026-10-04 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: §9 records PR #83's merge (`ab8301c`) and the deploy of plugin 0.21.0 | §9 |
-| 11 | 2026-11-02 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | Record-only update, with no version bump: §13 adds an open question at Bryan's direction (2026-11-02, "PRD now, with specific §13 questions for architecture and context"; issue #142), whether this interview adopts SPEC-002 version 6's reuse line, count line and modes; the SPEC-002 link moves to version 6 (mechanical: the downstream contract §5 cites is unchanged). No behaviour changes | §13, frontmatter |
+| 11 | 2026-11-02 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | Record-only update, with no version bump: §13 adds an open question at Bryan's direction (2026-11-02, "PRD now, with specific §13 questions for architecture and context"; issue #142), whether this interview adopts SPEC-002 version 6's reuse line, count line and modes; the SPEC-002 link moves to version 7 (mechanical: the downstream contract §5 cites is unchanged). No behaviour changes | §13, frontmatter |
