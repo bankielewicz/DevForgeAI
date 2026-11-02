@@ -2,7 +2,7 @@
 id: SPEC-019
 type: spec
 title: "Dev-guard: the plugin-workflow guard (A) and the commit check (B)"
-status: in-review
+status: approved
 version: 1
 created: 2026-11-02
 updated: 2026-11-02
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-fable-5-1"
   session: "1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-11-02
 upstream:
   - {id: ADR-008, relation: constrains, version: 2, hash: null, note: "accepted: decisions D1 to D8, probes P1 to P8 and Bryan's answers; this spec carries A's and B's requirements"}
   - {id: ADR-006, relation: constrains, version: 2, hash: null, note: "accepted: D1, a guard fails closed and refuses with a reason; ADR-008 D3 extends it"}
@@ -352,7 +352,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
-| Version 1 | **Drafted 2026-11-02, revised after the drafts review, not approved, not built.** VER-01 to VER-12 are EVAL.md's A1 to A8 and B1 to B4 (ADR-008, Bryan's answer 3: one source); EVAL.md's rows cite them back. VER-13 and VER-14 are the mockups (Bryan, 2026-11-02); VER-15 to VER-18 the review notes, the install and the first close. Structural: validates against `spec.schema.json` with every BEH, ERR and QR item covered. Behavioural: NOT_RUN. Step 1 of §11 starts with a check that the Artifact tool reaches Claude Design from this account (ERR-08) |
+| Version 1 | **Approved by Bryan on 2026-11-02 ("Approve as drafted (Recommended)"), not built.** Drafted and revised after the drafts review the same day. VER-01 to VER-12 are EVAL.md's A1 to A8 and B1 to B4 (ADR-008, Bryan's answer 3: one source); EVAL.md's rows cite them back. VER-13 and VER-14 are the mockups (Bryan, 2026-11-02); VER-15 to VER-18 the review notes, the install and the first close. Structural: validates against `spec.schema.json` with every BEH, ERR and QR item covered. Behavioural: NOT_RUN. Step 1 of §11 starts with a check that the Artifact tool reaches Claude Design from this account (ERR-08) |
 
 ```yaml items
 verifications:
@@ -539,7 +539,7 @@ The order is Bryan's (2026-10-31). SKL-002 v6 and the ui redo wait for A and B t
 
 ## 13. Open questions
 
-- **Readings to confirm at approval** (the drafting session's, beyond ADR-008, #137, the review notes and Bryan's answers):
+- **The drafting session's readings**, beyond ADR-008, #137, the review notes and Bryan's answers, each confirmed by Bryan at approval on 2026-11-02 ("Approve as drafted (Recommended)", with (a) to (p) and the probes shown in the question's preview):
   - (a) The ticket key is per checkout and branch, with `detached` for a detached head (BEH-06); a branch switch inside a checkout doesn't carry the ticket.
   - (b) A required read counts through the Read tool (after success) or a read-only Bash command naming the file (BEH-07): a one-line `sed -n 1,1p` counts, as ADR-008's nudge does; the stricter forms (the Read tool only; a minimum range) are Bryan's to choose.
   - (c) The records commit: `git add`, `git rm --cached` and `git commit` naming `ledger.jsonl`, `guard.json` or a report run without a ticket, and staging them never refuses a commit, while any content write to the two files is refused whatever the ticket (BEH-01, BEH-03, BEH-04); `guard.json` is edited by a person outside Claude Code.
@@ -589,3 +589,4 @@ Canvas: (the Claude Design canvas's ID, private). Briefs: `docs/specs/design/dev
 |---|---|---|---|---|
 | 1 | 2026-11-02 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | Initial draft from ADR-008 v2 (D1 to D8, the probes, Bryan's answers of 2026-10-31), issue #137 with its two comments (the acceptance comment and Bryan's mockup requirement of 2026-11-02), the twelve notes of PR #141's close reviews (`docs/process/plugin-workflow/reviews/20261031T1844Z-code-review-aa99849.md`, `20261031T2204Z-code-review-2cbd868.md`) and Bryan's four answers of 2026-11-02 ("All four surfaces", "Appendix in SPEC-019", "Yes, as a manual VER item", "No, keep the path anchor"). BEH-01 to BEH-17, ERR-01 to ERR-09, QR-01 to QR-03, VER-01 to VER-18 (VER-01 to VER-12 are EVAL.md's A1 to A8 and B1 to B4); DM-01 to DM-05; IF-01 to IF-07. Status draft | all |
 | 1 | 2026-11-02 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | Before approval, the independent drafts review's fixes (`docs/process/plugin-workflow/reviews/20261102T1957Z-drafts-review-df1e844.md`, seven blocking findings and nine notes, each answered there). The records commit: guard.json and ledger.jsonl are refused whatever the ticket, and git add and git commit naming them run (BEH-01, BEH-03, BEH-04). agentId is optional and probed (DM-01, DM-03, BEH-08). Close and B match reports by a tree line and resolve a commit only when it exists, so a rewrite after close passes (DM-05, BEH-10, BEH-14, VER-10). R2 searches the whole command text, heredoc bodies and quoted strings included (BEH-03, VER-05, VER-15). NotebookEdit's field is notebook_path (BEH-02). The allowlist is anchored regular expressions with named expansions, and VER-15 runs CLAUDE.md's commands through it (DM-02). The detached key is the word detached (DM-01, BEH-06). The ticket is several store keys (DM-01); the refusal log is per session (DM-04); a recording hook never refuses (BEH-11); B checks only the matching line and reads guard.json and ledger.schema.json (BEH-14, ERR-05); no order between the load and the reads (BEH-07, BEH-10); each reviewer type once (DM-03). Readings (i) to (p) and four probes added; ERR-04 merged with the old ERR-05, so ERR-05 to ERR-08 renumbered; §2, §3 and §12 shortened; Appendix A has one row per board. Status in-review; Bryan's approval not yet given | frontmatter, §2, §3, DM-01 to DM-05, IF-01 to IF-07, BEH-01 to BEH-04, BEH-06 to BEH-11, BEH-13, BEH-14, BEH-16, BEH-17, ERR-01 to ERR-08, QR-03, VER-01, VER-05 to VER-08, VER-10, VER-11, VER-13, VER-15, VER-16, VER-18, §12, §13, Appendix A, status |
+| 1 | 2026-11-02 | Bryan | Approved ("Approve as drafted (Recommended)", with the readings (a) to (p) and the probes of §13 as they stand, shown in the question's preview) | status |
