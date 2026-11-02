@@ -428,19 +428,19 @@ quality_responses:
     response: "SKILL.md holds only the workflow checklist, decision rules, output contract and links. The BRN mapping, the question bank and the output rules live in references/."
     measured_by: "SKILL.md line count and description length"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 11, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 14, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance kept in provenance.yaml; metadata values quoted, with devforgeai-version equal to the provenance version"
     measured_by: "Reading against skill-frontmatter.schema.json and skill.schema.json, and comparing the two version values"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 11, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 14, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per automated VER item, tagged prd and ver-NN, run against the no-plugin baseline"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 11, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 14, hash: null}
 ```
 
 ## 9. Verification
