@@ -2,24 +2,24 @@
 id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
-status: approved
-version: 5
+status: in-review
+version: 6
 created: 2026-09-23
-updated: 2026-10-01
+updated: 2026-11-02
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
   tool: "claude-code"
-  model: "claude-opus-5-5"
-  session: "96018bc1-5ee7-423f-93a4-da37a8b6c392"
+  model: "claude-fable-5-1"
+  session: "1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc"
 reviewed_by: []
-approved_by: "Bryan"
-approved_on: 2026-10-01
+approved_by: ""
+approved_on: null
 upstream:
   - {id: STORY-002, relation: specifies, version: 7, hash: null}
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 14, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 14, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 14, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: Architecture Definition step between PRD and epics"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
@@ -40,8 +40,9 @@ The `prd` skill ships in the `devforgeai` plugin and is invoked as `/devforgeai:
 automatically when a user asks to write a PRD from a brainstorm. It:
 1. selects a brainstorm document (BRN);
 2. drafts requirements from the BRN's **promoted** ideas;
-3. interviews the user **only for what the BRN and the request leave open**;
-4. writes a new PRD or extends an existing one;
+3. interviews the user **only for what the BRN and the request leave open**, and sizes that interview
+   to what is unresolved before the first question (version 6);
+4. writes a new PRD, extends an existing one, or continues a draft whose decisions are still open;
 5. validates it;
 6. hands off to the architecture step (ADR-002).
 
@@ -54,13 +55,32 @@ Two rules shape everything else:
   constraints are recorded and cited. Open design decisions are flagged with a marker that blocks the
   affected epics, and are decided in ADRs, not in the PRD.
 
-This skill implements the spec and is recorded as `SKL-002` in its `provenance.yaml`.
+**Version 6** (issue #142) makes the interview adapt to the number of unresolved decisions and to the user's
+effort, without moving a decision to the AI (Bryan, 2026-11-02: "an interview that adapts to unresolved
+decisions and user effort while preserving decision ownership—not merely fitting more selections into each
+call"). A project testing DevForgeAI had a brainstorm of about 35 promoted ideas; one priority question per
+requirement (BEH-05) inside the default budget of 8 calls (`interview.max_calls`, ADR-003 A3) reaches about
+8 of them, and the interview asked for a stage the brainstorm had already named. Version 6 reuses settled
+values with their source (BEH-19), counts the whole interview against the budget and says so before the
+first call (BEH-20), lets the user choose how to settle priorities when the count doesn't fit (BEH-21 to
+BEH-24), continues a draft whose decisions are still open (BEH-25), and says what an answer that decides
+nothing writes: nothing (BEH-26, issue #143). Priority questions count against the budget (Bryan,
+2026-11-02: "inside the budget. Priority questions must count; treating them as gates would undermine the
+cap"). The architecture and context interviews share the budget mechanism; their adoption is a §13 question
+in SPEC-003 and SPEC-011 (Bryan, 2026-11-02: "PRD now, with specific §13 questions for architecture and
+context").
+
+This skill implements the spec and is recorded as `SKL-002` in its `provenance.yaml`. SKL-002 v5 implements
+version 5; version 6 is built only after the dev-guard of ADR-008 passes its own checks (Bryan, 2026-11-02:
+"spec now, build under the guard, after the guard passes its own required checks").
 
 ## 2. Constraints
 
 - **NFR-001 / NFR-002 / NFR-003**, as for SPEC-001: a short `SKILL.md` with detail in `references/`,
   spec-only frontmatter with provenance in the sidecar, and behavior proven by the eval suite in §9.
-- **ADR-001 v3:** built in a worktree from `src/`, deployed with rsync, and evaluated from a plain terminal.
+- **ADR-001 v4:** built in a worktree from `src/`, deployed with rsync, and evaluated from a plain terminal.
+- **ADR-008 (accepted 2026-10-31):** a change to the skill under `src/claude/DevForgeAI/` is made inside a
+  `/plugin-dev:create-plugin` iteration that the dev-guard records. The version 6 build waits for the guard.
 - **SPEC-001 §5 (downstream contract):**
   - BRNs are at `docs/specs/brainstorm/BRN-NNN.md` with stable item IDs.
   - Only `promoted` ideas are user-approved.
@@ -80,18 +100,29 @@ src/claude/DevForgeAI/
 │       ├── brn-mapping.md                # how each BRN section maps into the PRD
 │       ├── defaults.md                   # framework-default layer for the v1 settings (ADR-003 A2, A3)
 │       ├── policy.md                     # policy resolution, precedence and failure rules (ADR-003 A3–A5)
-│       └── interview.md                  # question bank per round and stage, batching rules
+│       └── interview.md                  # question bank per round and stage, batching rules; from version 6
+│                                         # also the reuse line, the count line, the modes and the review file
 └── evals/prd/<case>/                     # one case per automated VER item (§9), fixtures per case
 ```
+
+The review file (BEH-24) is a work file outside the documents, `devforgeai/drafts/prd/PRD-NNN-review.md`,
+in the gitignored folder the brainstorm skill's work file uses (SPEC-001 version 16; SPEC-012 version 15,
+`workFiles`).
 
 ```mermaid
 flowchart LR
     S[Select BRN BEH-01] --> R[Read BRN BEH-02]
     R -->|not converged / no promoted| X[Warn or stop ERR-02 ERR-03]
+    R -->|every idea cited, decisions open| C[Continue the draft BEH-25]
     R --> D[Draft from promoted ideas BEH-04]
     R --> A[Read architecture context BEH-16]
     A --> D
-    D --> Q[Interview only gaps BEH-05 BEH-03 BEH-07]
+    D --> U[Reuse settled values BEH-19]
+    U --> K[Count against the budget BEH-20]
+    K -->|fits| Q[Interview only gaps BEH-05 BEH-03 BEH-07]
+    K -->|doesn't fit| M[Choose a mode BEH-21: triage BEH-22, pasted list BEH-23, review file BEH-24, raise]
+    M --> Q
+    C --> U
     Q --> N{New or extend? BEH-09}
     N --> W[Write PRD BEH-06 BEH-08 BEH-10 BEH-11]
     W --> V[Validate BEH-12]
@@ -135,6 +166,53 @@ markers. A `release: later` item's `priority` may stay `null` until a release ta
 `docs/specs/prd/PRD-*.md` cites through an `upstream` link. This is derived from links alone.
 **Nothing is written into the BRN to mark it processed**, because downstream documents never edit upstream ones.
 
+**"Open decisions"** (version 6; used by BEH-20 and BEH-25): a PRD's `null` `stage`, `null`
+`operating_context`, `null` `release` on any FR or NFR, `null` `priority` on a `release: current` FR or NFR,
+and each `[NEEDS CLARIFICATION]` marker. A `release: later` item's `null` priority is not an open decision
+(§4 above). A **continuable PRD** is a `draft` or `in-review` PRD with at least one open decision.
+
+**Three write kinds** (version 6). A **new PRD** (BEH-08). An **extension** (BEH-09), which adds items for
+new promoted ideas and leaves every existing item unchanged. A **continue** (BEH-25), which settles a
+continuable PRD's open decisions: it changes only `null` fields of existing items and the markers it
+answers, adds no item, and never touches an approved PRD. The three are told apart in the reply and in the
+Change Log row.
+
+**The reuse line and the count line** (version 6) are written in the reply before the first call and in
+the write's Change Log row, in these forms (each entry's source is the request, `BRN-NNN` with the section
+or item it was read from, `PRD-NNN` when continuing, or `answer` for a value settled earlier in the run):
+
+```
+Reused: stage=mvp (BRN-001 §6); operating_context=internal (request); target_release="MVP" (BRN-001 §1)
+Interview budget: interview.max_calls=8 (default); open: 35 requirements (35 FR, 0 NFR), 2 framing, 3 architecture, 3 quality, 2 metrics, up to 3 NFR priorities; estimate: about 12 calls, 8 available
+```
+
+`Reused: none` when nothing was reused. "Up to N NFR priorities" is the bound BEH-20 counts for the NFRs the
+quality round may add. The budget's source takes ADR-003 A5's forms: `(default)`,
+`(POL-NNN#SET-NN)` or `(local)`. The Change Log row's text ends with the policy resolution line, as before;
+the two lines above come before it, and so does `Interview budget raised in the session to N calls` when
+BEH-20's raise applied, and `Continued: <ID>=<priority>/<release>; …` after a continue.
+
+**The review file** (version 6, BEH-24) at `devforgeai/drafts/prd/PRD-NNN-review.md`, written only after
+the draft PRD it reviews exists, so its rows carry the PRD's own IDs:
+
+```markdown
+# Review of PRD-001 (version 1): fill a cell to decide it; leave it blank to decide later
+# priority: must | should | could | wont      release: current | later
+# stage: prototype | mvp | evolution           operating_context: local | internal | pilot | production
+
+| Field | Value |
+|---|---|
+| stage | |
+| operating_context | |
+
+| ID | Statement | priority | release |
+|---|---|---|---|
+| FR-001 | The system shall … | | |
+```
+
+A row exists for each open decision of the four fields; markers aren't rows. A filled cell is the user's
+decision; a blank cell is none. The file never holds a suggestion.
+
 ## 5. Interfaces and contracts
 
 ```yaml
@@ -151,7 +229,7 @@ metadata:
 - **The version isn't fixed here.** `metadata.devforgeai-version` must equal `provenance.yaml`'s `version`,
   so a skill fix bumps the skill, not this spec.
 - **Arguments:** `$ARGUMENTS` is a BRN ID (`BRN-NNN`) or empty (BEH-01). File paths aren't accepted.
-- **Tools:** Read, plus Glob and Grep when available, otherwise `ls` on the named folder, to read BRNs and PRDs; Write and Edit for the PRD; the host's question tool for the interview (below); Bash only to run the skill's policy validation script with `python3`.
+- **Tools:** Read, plus Glob and Grep when available, otherwise `ls` on the named folder, to read BRNs and PRDs; Write and Edit for the PRD, and (version 6) for the review file and the `devforgeai/drafts/.gitignore` that BEH-24 writes when missing; the host's question tool for the interview (below); Bash only to run the skill's policy validation script with `python3`.
 - **Policy validation (D-09):** the skill ships `scripts/validate_policy.py` and unchanged copies of
   `src/schemas/policy.schema.json` and `common.schema.json` in `references/schemas/`. The script validates
   each approved policy document in full against those schemas (field types, date patterns, authors and
@@ -164,7 +242,7 @@ metadata:
   | | Claude Code | Codex |
   |---|---|---|
   | Invocation | `/devforgeai:prd [BRN-NNN]` | `$devforgeai:prd BRN-NNN`, skill selection or a natural request |
-  | Questions | AskUserQuestion: at most 4 questions per call, 2–4 options each | The host's question tool when it can show every choice (at most 3 per batch); otherwise numbered plain text, then wait. The same `interview.max_calls` budget |
+  | Questions | AskUserQuestion: at most 4 questions per call, 2–4 options each; a triage question (BEH-22) is a multiSelect question, and the table question shows its table in an option's preview | The host's question tool when it can show every choice (at most 3 per batch); otherwise numbered plain text, then wait. A triage question is a numbered list whose answer names the numbers ticked. The same `interview.max_calls` budget |
   | Local preferences (BEH-18) | `.claude/devforgeai.local.md` | `.codex/devforgeai.local.md` |
   | Provenance (BEH-10) | `tool: claude-code`; the current model ID; `${CLAUDE_SESSION_ID}` | `tool: codex`; model and session only from a supported host interface; otherwise `unavailable`, disclosed |
   | Resources | `${CLAUDE_SKILL_DIR}` | The loaded skill directory |
@@ -205,7 +283,7 @@ behaviors:
     rule: "Draft before asking. Map the BRN into a PRD draft following references/brn-mapping.md: problems into section 2 with frontmatter derives links; each promoted idea that no PRD cites yet (§4) into one or more functional requirements that start 'The system shall', each with an upstream derives link to its idea, so every FR derives from a promoted idea; assumptions carried over with derives links; success signals into metrics. NFRs cite their actual source: a BRN item only when one states the requirement; otherwise the policy setting, ADR or PRD it comes from, or no link when the user stated it. Never add a brainstorm link to a requirement the user stated or policy added. Leave out a promoted idea that an item of any PRD already cites, and name it in the reply with the item that cites it."
   - id: BEH-05
     status: active
-    rule: "Interview only for gaps, in batched rounds using references/interview.md: framing (stage, operating context, target_release name, primary users, non-goals), architecture context (BEH-16), requirements, quality and constraints (BEH-03), and success metrics (baseline and target). Each requirement gets one question that shows its drafted statement and offers must now, should now, later, or won't: must now and should now write that priority with release current; later writes release later and leaves priority null; won't writes priority wont with release current (an explicit exclusion from this release; a requirement that should never be built is edited or dropped instead). The user can edit the statement or answer 'decide later', which leaves priority and release null. Ask at most the host's per-call question limit (§5: four in Claude Code) and at most interview.max_calls calls (framework default 8, resolved by BEH-17) unless the user asks for more. Record anything left over when the budget runs out as [NEEDS CLARIFICATION]. Skip any question the BRN or the request already answers. When the request says to proceed without questions, ask none. A question with more choices than the host's per-call option limit allows (§5: four in Claude Code) is split into several questions. Gate questions (which BRN, an unconverged BRN, new versus extend) count toward interview.max_calls, but a gate is asked even when the budget is spent, because nothing is written without its answer."
+    rule: "Interview only for gaps, in batched rounds using references/interview.md: framing (stage, operating context, target_release name, primary users, non-goals), architecture context (BEH-16), requirements, quality and constraints (BEH-03), and success metrics (baseline and target). Each requirement gets one question that shows its drafted statement and offers must now, should now, later, or won't: must now and should now write that priority with release current; later writes release later and leaves priority null; won't writes priority wont with release current (an explicit exclusion from this release; a requirement that should never be built is edited or dropped instead). The user can edit the statement or answer 'decide later', which leaves priority and release null. One question per requirement is the requirements round's form whenever BEH-20's estimate fits the budget; when it doesn't, the user chooses a form (BEH-21), and triage by group (BEH-22) replaces it for the requirements the user settles that way. Ask at most the host's per-call question limit (§5: four in Claude Code) and at most interview.max_calls calls (framework default 8, resolved by BEH-17), raised only as BEH-20 allows (version 6: a request for more no longer exceeds a budget that policy locks). Record anything left over when the budget runs out as [NEEDS CLARIFICATION], and a requirement whose priority or release is still open stays null. Skip any question the BRN, the request, an earlier answer or the PRD being continued already answers (BEH-19). When the request says to proceed without questions, ask none. A question with more choices than the host's per-call option limit allows (§5: four in Claude Code) is split into several questions. Gate questions (which BRN, an unconverged BRN, new versus extend, continue a draft) count toward interview.max_calls, but a gate is asked even when the budget is spent, because nothing is written without its answer. Every other kind of call counts too (Bryan, 2026-11-02: 'Priority questions must count; treating them as gates would undermine the cap'): mode selection (BEH-21), each triage group, the table and each correction round (BEH-22), framing, architecture, quality, metrics, and a question asked again (ERR-10)."
   - id: BEH-06
     status: active
     rule: "Write stage, operating context, priority and release only when the user supplied or confirmed them. Otherwise write null. Questions may suggest a value, but a suggestion is never written unconfirmed. Mark any other unanswered gap [NEEDS CLARIFICATION]. Write a new PRD with status draft. Extending a draft or in-review PRD keeps its status; extending an approved PRD follows BEH-09. A failed validation (ERR-06) never restores approved. Never set approved."
@@ -241,10 +319,34 @@ behaviors:
     rule: "Validate after writing against the self-check list in references/output-rules.md, reading the file back. Run one initial check, then at most three repair-and-readback cycles, so at most four checks. A repair changes the file to address a reported error; when an error can't be repaired (for example an external limitation), stop early and report it instead of repeating an unchanged check. Record each check and repair in the reply. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2). A link this write adds cites the cited document's current version; an existing link to an older version is a suspect link (templates README §2.6), named in the reply and never an error."
   - id: BEH-13
     status: active
-    rule: "Hand off with counts of requirements, constraints and metrics, the number of open decisions (a null stage, operating context or release, or a null priority on a release current item), the open questions and the PRD path. List every [NEEDS ADR] marker and say that epics for the requirements it names must wait until the architecture step resolves that exact decision, by an accepted ADR or an approved mandated platform answering it. Then name the next step, which is the architecture step (ADR-002): tell the user to run /devforgeai:architecture with the PRD ID. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start architecture work or write an epic."
+    rule: "Hand off with counts of requirements, constraints and metrics, the number of open decisions (a null stage, operating context or release, or a null priority on a release current item), the open questions, the PRD path, the write kind (new, extended or continued), the calls used against the budget, and the mode chosen when one was (version 6). List every [NEEDS ADR] marker and say that epics for the requirements it names must wait until the architecture step resolves that exact decision, by an accepted ADR or an approved mandated platform answering it. Then name the next step, which is the architecture step (ADR-002): tell the user to run /devforgeai:architecture with the PRD ID. When this run wrote a review file (BEH-24), the next step is instead to fill devforgeai/drafts/prd/PRD-NNN-review.md and run /devforgeai:prd with the BRN ID to continue the PRD (BEH-25); the architecture hand-off follows the continue. A draft saved under ERR-07 hands off as any other write, and the reply says it can be continued. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start architecture work or write an epic."
   - id: BEH-14
     status: active
     rule: "Never modify a BRN document."
+  - id: BEH-19
+    status: active
+    rule: "Reuse before asking (version 6; issue #142, direction 1). After drafting, settle each framing value (stage, operating context, target_release, primary users, non-goals), each requirement's priority and release, each required quality category and each metric's baseline and target from what already states it, taking the sources in this order and stopping at the first: the request, an earlier answer in this run, the PRD being continued (BEH-25), and the BRN (its frontmatter, context, target users, convergence prose and candidate success signals). Record each value's source. A value counts as stated only by the test the skill's decision rules already give: a statement that clearly maps to one value ('this is our MVP' is stage mvp; 'real patients book through it from day one' is operating_context production), and for priority and release only a statement about importance or release. Stage and operating context stay independent (§4): a release called an MVP settles stage and nothing else. Ask only for a value that is missing, ambiguous (it has two readings), stale (its source is a BRN or PRD version older than the one read now) or conflicting (two sources disagree), and say which in the question. Write the reuse line (§4) in the reply before the first call, with or without an interview, and in the write's Change Log row; a value whose source is an earlier answer appears in the Change Log row only. A reused value is written as the user's own (BEH-06); the reuse line is where the user sees and corrects it."
+  - id: BEH-20
+    status: active
+    rule: "Count the whole interview before the first call (version 6; issue #142, direction 2; Bryan, 2026-11-02: 'inside the budget'). After drafting and reuse, count the questions still needed, by kind: each open gate; each framing value not reused; the architecture questions of interview.md round 2 (the accepted ADRs in groups of the host's option limit, each stated design preference, external conditions, open architecture questions); one per drafted FR and NFR whose priority or release is open, in the one-question form, or by BEH-22's arithmetic once triage is chosen; one per required quality category the draft doesn't cover plus the open question, and one priority question per required category as the bound for the NFRs round 4 adds; one per drafted metric whose baseline or target is open. When the operating context is unknown, count the production set (BEH-03's fail-safe). The estimate in calls is the question count divided by the host's per-call limit, rounded up, plus one for the mode question when BEH-21 asks it. Write the count line (§4) in the reply before the first call, with or without an interview: the resolved interview.max_calls with its ADR-003 A5 source form, the open requirements as a number with FRs and NFRs apart, the other open counts by kind, the NFR-priority bound as 'up to N NFR priorities', the estimate and the calls available. Restate it, as text, before the requirements round when the estimate changed (the context became known, or a mode was chosen). Count the actual calls as they are made, and give the number used in the reply after the write (BEH-13). A raise: the user may ask for a larger budget, in the mode question (BEH-21) or in words, and it applies only when the effective interview.max_calls setting's overridable_by includes local (a request made in the session is read as the local layer, ADR-003 A3: the framework default allows it, an organization or project setting may not) and the value asked for is at most 20 (ADR-003 A3's range); otherwise ERR-11. A raise changes neither the resolution line nor the links; the Change Log row records it as §4 says. When the budget is locked (overridable_by excludes local), say so with the setting's ID, offer no raise, and name in the count line what stays null under each mode that fits. When the open gates alone need the whole budget, say so: after the gates the run proceeds as if the request said to proceed without questions, every other decision stays null, and the reply says the PRD can be continued (BEH-25) with a pasted list in the request (BEH-23), which costs no call."
+  - id: BEH-21
+    status: active
+    rule: "The modes (version 6; issue #142, direction 3). When the estimate exceeds the calls available, the first question of the first call asks how to settle the open requirements. Its options, in this order, each with one line on what it costs in calls and what stays null under it: triage by group (BEH-22); a review file (BEH-24); a pasted list (BEH-23); raise the budget to N, N being the estimate, at most 20 (when the estimate exceeds 20: 'to 20, leaving about M requirements open'), offered only when BEH-20 allows a raise. No option is marked recommended, none is pre-selected, and the user may type another instruction. The mode question counts against the budget. Under 'proceed without questions' no mode question is asked: the open requirements stay null and the count line says so. With a mode chosen, the rounds run as before for everything the mode doesn't cover, and the mode is named in the reply and in the Change Log row. The user may change mode in a typed answer; that is an answer, not a call of its own."
+  - id: BEH-22
+    status: active
+    rule: "Triage by group, then the table (version 6; issue #142, direction 4; after get-shit-done's multi-select per category and agent-os's numbered-list confirmation). The triage pass: a multiSelect question per group of at most three open requirements in ID order (FRs, then NFRs), asking which of them are must now; each option's label is the requirement's ID and its description the statement, shortened where needed without changing its meaning; one more option, 'None of these'; four such questions per call, so twelve requirements a call. A ticked requirement gets priority must and release current. An unticked requirement stays null: it is not later, not won't, and not decided. 'None of these' alone means none of the group is must now, and the group stays null. 'None of these' with a ticked requirement is a contradiction (ERR-10). Requirements the quality round adds later join the next group, or get the one-question form, as the budget allows. The table pass: after the last group, one single-select question whose table lists every requirement still open with its ID, its statement, and a suggested release later with priority null, each row marked '(suggested)': the one rule is that a requirement nobody ticked is proposed for later, never for a priority. The table is shown in the preview of the first option, and in the question's text when the host shows no preview. The options: 'Accept every row as listed', which writes each row's values; 'Decide none now', which writes nothing for them; and typed text, read as a pasted list (BEH-23) that changes the rows it names, after which the table is shown again in a new call for acceptance. The reply after a bulk acceptance names each ID with the priority and release written, so the acceptance is on the record as the user's. could now, should now, won't and decide later stay available through the typed list. Nothing is written until the user's tick, acceptance or typed value sets it (BEH-06)."
+  - id: BEH-23
+    status: active
+    rule: "A pasted list (version 6; issue #142, direction 3; interview.md's skip rule made explicit). A list in the request, in a typed answer or in the table's typed text, each entry naming a requirement by its FR or NFR ID, or by the promoted idea it derives from (IDEA-NN, which then applies to every FR drafted from that idea), followed by one of must now, should now, could now, later, won't or decide later, settles those values as the user's: no question is asked for them, and each applied entry is named in the reply. One entry 'the rest: <value>' applies that value to every requirement the list doesn't name; 'the rest: decide later' leaves them null. An entry naming nothing drafted, or a value outside that list, is ERR-09. A requirement the list doesn't name stays null unless 'the rest' names a value. A list in the request costs no call."
+  - id: BEH-24
+    status: active
+    rule: "A review file (version 6; issue #142, direction 3; after OpenSpec's review of a draft and get-shit-done's answer file). When the user chooses the review file, or asks to answer at their own pace: write the PRD now as a draft with every undecided field null, validated and reported as any write (BEH-06, BEH-12); then write devforgeai/drafts/prd/PRD-NNN-review.md in §4's shape, one row per open decision of the four fields, after writing devforgeai/drafts/.gitignore with the single line * when it is missing (the brainstorm work file's rule, SPEC-001 version 16); then hand off as BEH-13 says for a pending review file. Reading it, on a continue (BEH-25): a filled cell applies only to a field that is null in the PRD; a cell that would change a non-null value is reported and not applied, and asked as a correction when a user is present; a value outside the header's lists is ERR-09; a blank cell stays null. The file is left in place after reading, and the reply names the rows applied, so reading it again changes nothing. A new PRD or an extension never reads a review file. The user may instead edit the draft PRD's null fields by hand: a continue reads the PRD as it is."
+  - id: BEH-25
+    status: active
+    rule: "Continue a draft (version 6; issue #142, direction 5, 'a resume asks only what's still unresolved'; the third write kind, §4). When the request names a PRD to continue, or $ARGUMENTS names a BRN whose promoted ideas are all cited by one continuable PRD (§4) and the request asks neither for a new PRD nor for an extension, ask as a gate whether to continue that PRD (options: continue PRD-NNN; write nothing), skipped when the request already says so, as BEH-09's stated choice is. A continue reads the PRD and its review file when one exists (BEH-24), lists what is open, writes the reuse line with the PRD's non-null values as reused from PRD-NNN (never asked again, BEH-26) and the count line (BEH-20), and interviews only for the open decisions, the modes included (BEH-21). The write: raise the version by one, update the date, set each answered null field to its value, remove each [NEEDS CLARIFICATION] marker the answer resolved (by BEH-03's rules for a quality answer), keep every other line byte-identical (no new item, no renumbering, no change to a non-null value), keep the status (draft or in-review), and add a Change Log row that names each value set (§4's Continued form) and ends with the resolution line. An approved PRD is never continued: an open decision in it, if any, is a scope change the owner makes through an extension (BEH-09) or by hand. With no answer for anything (no user, or every question unanswered), nothing is written and the PRD is unchanged. BEH-01's listing names each continuable PRD after the unprocessed BRNs."
+  - id: BEH-26
+    status: active
+    rule: "Answers that decide nothing (version 6; issue #143, Bryan, 2026-11-02: 'Distinguish an unanswered/dismissed prompt from an explicit none', 'Preserve previously confirmed values, and never interpret preselected defaults as submitted answers', 'Require behavior tests, not only wording changes'; worded to match the rule the other interviewing skills adopt under #143). An unanswered, dismissed, empty or unreadable answer decides nothing: the value stays what it was, null or the value confirmed earlier, and the question is not treated as answered. An explicit none is a decision, recorded as the user's answer (BEH-03's explicit none; 'None of these' in BEH-22). A recommended, suggested or preselected option is never a submitted answer: only the user's selection or typed text counts (BEH-06). A value confirmed earlier, in this run or in the PRD being continued, is never cleared or overwritten by a later unanswered question, and a continue changes no non-null value (BEH-25). A free-text answer ends the menu for that question: the skill acts on the text, or asks in plain text, and never shows another options menu for the same question (ERR-10's repeat is a selection asked again, not a menu after text)."
 ```
 
 ## 7. Errors and edge cases
@@ -268,8 +370,8 @@ errors:
     user_result: "An explanation and the next step (/devforgeai:brainstorm)"
   - id: ERR-04
     status: active
-    condition: "No BRN can be processed: no argument was given and no unprocessed BRN exists, or the BRN named has promoted ideas and a PRD already cites every one"
-    handling: "Say why, and write nothing. With no BRN at all, say that no brainstorm exists yet and point to /devforgeai:brainstorm. List each BRN that has no promoted idea, with its status, and point to /devforgeai:brainstorm to converge it. Say that every promoted idea of each remaining BRN is already cited by a PRD, naming the PRDs that cite them"
+    condition: "No BRN can be processed: no argument was given and no unprocessed BRN exists and no continuable PRD exists (BEH-25), or the BRN named has promoted ideas and a PRD already cites every one, and that PRD is not continuable or the request asks for a new PRD or an extension (version 6)"
+    handling: "Say why, and write nothing. With no BRN at all, say that no brainstorm exists yet and point to /devforgeai:brainstorm. List each BRN that has no promoted idea, with its status, and point to /devforgeai:brainstorm to converge it. Say that every promoted idea of each remaining BRN is already cited by a PRD, naming the PRDs that cite them, and, when a citing PRD is continuable, that it can be continued (BEH-25)"
     user_result: "Why no BRN can be processed, and the next step"
   - id: ERR-05
     status: active
@@ -284,13 +386,28 @@ errors:
   - id: ERR-07
     status: active
     condition: "The user stops mid-interview"
-    handling: "Ask whether to save a draft PRD. If yes, write it with every undecided field null, then validate it (BEH-12) and report it (BEH-13) as any other write"
+    handling: "Ask whether to save a draft PRD. If yes, write it with every undecided field null, then validate it (BEH-12) and report it (BEH-13) as any other write, saying that it can be continued (BEH-25) and that a review file (BEH-24) lets the user answer at their own pace"
     user_result: "Either a draft file or no file, as the user chose"
   - id: ERR-08
     status: active
     condition: "An approved policy document fails the schema, or breaks SV-01 (duplicate setting ID), SV-02 (two approved documents in one scope), SV-03 (interview.max_calls set twice), SV-04 (a project setting overrides a mandated platform that doesn't allow it) or SV-08 (a testing.* key set twice), or any lower layer overrides a setting whose overridable_by doesn't include that layer (ADR-003 A4), for example a project policy setting interview.max_calls when the organization setting allows only local; or the validation script can't run while approved policy exists"
     handling: "Stop before writing anything. Name the policy file, the setting and the rule broken (schema or SV-NN). Never guess or fall back silently"
     user_result: "The policy error to fix; no PRD file"
+  - id: ERR-09
+    status: active
+    condition: "A pasted list or review file entry can't be read (version 6): it names no drafted requirement or promoted idea, gives a value outside BEH-23's list or the review file's header, or (review file) would change a non-null value"
+    handling: "Report the entry as written and set nothing for it; apply every readable entry. With a user present, ask the entry as a correction question, which counts against the budget"
+    user_result: "The unreadable entries named; the readable ones applied"
+  - id: ERR-10
+    status: active
+    condition: "A triage answer ticks 'None of these' together with a requirement (BEH-22)"
+    handling: "No decision for that group. Ask the group's question again once, in the next call, which counts. If the answer is contradictory again, the group stays null and the reply names it"
+    user_result: "The group asked again, or left undecided and named"
+  - id: ERR-11
+    status: active
+    condition: "The user asks for a larger budget that the effective interview.max_calls setting doesn't allow (its overridable_by excludes local) or that is above 20 (version 6)"
+    handling: "Refuse, naming the setting (POL-NNN#SET-NN and its overridable_by, or ADR-003's range), keep the resolved budget, and offer the modes that fit it (BEH-21). The refusal is text, not a call, unless it is asked as a question"
+    user_result: "Why the budget can't be raised, and the modes that fit"
 ```
 
 ## 8. Non-functional design
@@ -323,6 +440,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
+| Version 6 | **Specified, not built.** Drafted on 2026-11-02 for issue #142 (the PRD interview at scale) and #143's prd part, from the plan Bryan approved on 2026-11-02 (`tmp/plans/2026-11-02-interview-at-scale-and-improve.md`, local; its W1 sections are named in the Change Log row). SKL-002 v5 implements version 5 and its `provenance.yaml` keeps `implements SPEC-002 version 5` until SKL-002 v6 is built under `/plugin-dev:create-plugin` and the dev-guard (ADR-008), after the guard passes its own checks (EVAL.md A and B). New: BEH-19 to BEH-26, ERR-09 to ERR-11, VER-39 to VER-45 (eval cases, written first with `src/tests/prd/make_evals.py` and run once on SKL-002 v5, where they should fail) and VER-46 to VER-48 (manual, `docs/runbooks/prd-v6-interview-checks.md`). Changed: BEH-05, BEH-13, ERR-04, ERR-07, §1, §3, §4, §5 (Tools and Questions rows only; the description is unchanged, so SKL-002 v5's frontmatter still matches). Structural: this version validates against `spec.schema.json` and every item is covered (`src/tests/prd/test_structure.py`, SPEC_STATE pinned to version 6). Behavioural: NOT_RUN until the build. Codex: not ported (ADR-005); the two prd skills drift until it is |
 | Version 5 | Claude: SKL-002 v5 implements it. It was requalified on 2026-10-02: 35 of 35 cases at ≥ 0.8 over 3 runs, 34 at 1.00 (row SKL-002 v5). VER-37 (case `needs-adr-handoff`, 3 graders) and VER-38 (case `unlinked-signal-keeps-target`, 4 graders) are new; both failed on SKL-002 v4 below the 0.8 bar (the red run in row SKL-002 v5). Codex: not ported. The changed items are §4's success-signal row, §5's `[NEEDS ADR]` contract and BEH-13 |
 | SKL-002 v5 | Built on 2026-10-01 and 2026-10-02 in Claude Code session 96018bc1-5ee7-423f-93a4-da37a8b6c392 through `/plugin-dev:create-plugin`, after an advisor check of the plan against this version and Anthropic's two skill guides: `599d347`, then `ddc1753` with the skill-reviewer's polish; plugin-validator found no critical issue. `main` was merged in at `a79ad0d` (`f81e869`), and the plugin set to 0.11.0 (`932f89e`, Bryan's choice). **Red run** on SKL-002 v4, run by Bryan, bound to `1d64ad3` (digest `bd2fe55d…`), once per case without the baseline (`tmp/eval-results/prd-v5-red-20261001T222354-*`): `needs-adr-handoff` scored 0.67, $0.62, and the judge failed 3 of 3 on "Epics for FR-001 and FR-002 must wait until an accepted ADR resolves it"; `unlinked-signal-keeps-target` scored 0.25, $0.57, because v4 named the metric "Average score in the quarterly volunteer survey" and the graders' anchor looked for "satisfaction". The anchor now accepts satisfaction or survey (`a4a0ec4`). Re-graded offline, v4's PRD scores 0.75: the baseline 3.4 and the survey were kept, the target 4.0 was replaced by `[NEEDS CLARIFICATION]` (issue #39 reproduced), and there is no upstream link. **Pass A** on SKL-002 v5, bound to `932f89e` (digest `e1f16d70…`; `tmp/eval-results/prd-v5-a-20261001T223854-*`): `unlinked-signal-keeps-target` 1.00, $0.55; `needs-adr-handoff` 0.67, $0.64, because the reply said epics "can't start until the architecture step settles this, through an accepted ADR", dropping the mandated platform when the resolution line read `architecture.mandated_platforms=none (default)`. Step 10 then gave the marker and its sentence as a template to copy, and says to name both ways even with no policy (`444a38c`; create-plugin re-invoked for this iteration, plugin-validator and skill-reviewer re-run: `5142ae0`, `fc2c02e`). SKILL.md is 430 lines. Structural at `fc2c02e`: passes (`test_structure.py` 3, `test_shared_files.py` 5, `test_validate_policy.py` 116, `check_graders.py` 103 of 103; no regeneration drift). Every later run is bound to `fc2c02e` (plugin 0.11.0, digest `598d8598…`), Claude Code 2.1.287, judge model sonnet: `needs-adr-handoff`, 3 runs without the baseline, 1.00 in each, $1.85 (`tmp/eval-results/prd-v5-a2-20261002T083218/`; the reply copies the marker and the sentence, in a code block); pass B, the whole prd tag once without the baseline, 35 of 35 at 1.00, $16.70 (`tmp/eval-results/prd-v5-b-20261002T091007/`). **Requalification (pass C)**, run by Bryan on 2026-10-02: the whole prd tag, 35 cases, 3 runs against the no-plugin baseline, concurrency 4, 3,253 s (`tmp/eval-results/prd-v5-c-20261002T092916/`). **All 35 cases met the 0.8 bar:** 34 at 1.00 in every plugin run, and `retired-setting-ignored` (VER-22) at 0.89. Its run 3 named the deprecated setting in section 7's prose ("the policy setting that mandated Keystone SSO … is deprecated and takes no part"), with no NFR and no link, so VER-22's obligation holds; the grader's whole-file "Keystone" pattern is stricter than the obligation (a follow-up). Mean Δ +0.57; $79.03. The result folders are in the worktree's `tmp/eval-results/` (local, untracked). **SKL-002 v5 approved by Bryan on 2026-10-02** |
 | SKL-002 v4 | Built on 2026-10-01 in Claude Code session 8619f756-390e-4265-a95c-03fa25310d46 through `/plugin-dev:create-plugin`, after an advisor check of the plan against this version and Anthropic's two skill guides: `c8f04df`, then `77b7b5d` with the plugin-validator's and skill-reviewer's findings. Structural: passes (`test_structure.py` 3, `test_shared_files.py` 5, `test_validate_policy.py` 116, `check_graders.py` 83 of 83; no regeneration drift); SKILL.md is 420 lines. Behavioural, run by Bryan on 2026-10-01 from the worktree, once per case without the baseline, bound to `51ae072` (plugin 0.9.0, digest `603628f1…`): pass A, the four new cases, 4 of 4 at 1.00, $1.35 (`tmp/eval-results/prd-v4-a-20261001T135909-no-brainstorm-yet/` and the three folders after it); pass B, the whole prd tag, 32 of 33 at 1.00, $15.41 (`tmp/eval-results/prd-v4-b-20261001T141649/`). `warns-unconverged` (VER-04) scored 0.50: the reply warned and asked, but called the draft BRN "finished in practice" instead of warning that ideas may not be decided, so ERR-02's wording was sharpened in `87ad053`. `main` (SKL-004 v2) was then merged in, and SPEC-004 relinked to this version. A preflight run of `warns-unconverged` on `6bc8860` scored 1.00 ($0.28). Requalification (pass C), run by Bryan on 2026-10-01, bound to `6bc8860` (plugin 0.9.0, digest `486d1914…`): the whole prd tag, 33 cases, 3 runs against the baseline, judge model sonnet. Bryan's session limit stopped the first invocation after 14 complete cases (`tmp/eval-results/prd-v4-c-20261001T143501/`); `tmp/prd-v4-requal.sh` reran the other 19 one case at a time, each in its own folder bound to the same commit (`tmp/eval-results/prd-v4-c2-*`). **All 33 cases met the 0.8 bar:** 32 at 1.00 in every plugin run, and `none-does-not-waive-policy` (VER-25) at 0.83, where 2 of 3 plugin runs failed `compliance-none-recorded`. The kept traces show both runs recorded the user's none in section 7 ("Compliance: the user confirmed that no regulation applies.") in words the grader's pattern doesn't list: a grader limit, not a skill failure. Mean Δ +0.53; $75.35 including the interrupted run. The Sonnet subset (VER-01, VER-07, VER-13, VER-27, VER-33 and VER-34, once each) is not run yet. After the requalification, the shared "none" pattern of VER-24's and VER-25's graders was widened to accept "no regulation applies" (`0a8b442`, Bryan's choice); the skill didn't change. **SKL-002 v4 approved by Bryan on 2026-10-01** |
@@ -685,6 +803,107 @@ verifications:
       - BEH-04
     upstream:
       - {id: STORY-002, item: AC-02, relation: verifies, version: 7, hash: null}
+  - id: VER-39
+    status: active
+    obligation: "Reused values with their source (version 6): a converged BRN-001 whose context or convergence prose calls the release an MVP and names 'MVP' as the release, with a request that states operating context internal and says to proceed without questions. PRD-001 has stage: mvp, operating_context: internal and target_release 'MVP'; its Change Log row holds a Reused: entry for stage=mvp with a BRN-001 source, operating_context=internal (request) and the target_release with a BRN-001 source, before the resolution line; the reply holds the reuse line and the count line, and no question. Eval case reuses-settled-values: regex on the file and on last_message."
+    level: e2e
+    covers:
+      - BEH-19
+    upstream:
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 7, hash: null}
+  - id: VER-40
+    status: active
+    obligation: "The count line and the mode question (version 6): a converged BRN-003 with 14 promoted ideas, no policy, and a request that names no priorities and doesn't say to proceed without questions. The reply, before any question, holds the count line with 'interview.max_calls=8 (default)', an open requirements count of at least 14, an estimate above 8 and '8 available'; its first question offers triage by group, a review file, a pasted list and a raise of the budget, none marked recommended; no PRD is written. Eval case states-the-count: regex and llm on last_message, file_exists false for docs/specs/prd/PRD-001.md."
+    level: e2e
+    covers:
+      - BEH-20
+      - BEH-21
+    upstream:
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 7, hash: null}
+  - id: VER-41
+    status: active
+    obligation: "A locked budget is respected (version 6): an approved organization POL-001 whose SET-01 sets interview.max_calls to 3 with overridable_by [], VER-40's BRN-003, and a request that says 'take as many calls as you need' and doesn't say to proceed without questions. The reply holds the count line with 'interview.max_calls=3 (POL-001#SET-01)', says the budget is locked by that setting, offers no raise (the mode question has triage, review file and pasted list only), and names what stays null under each; no PRD is written. Eval case locked-budget-respected: regex and llm on last_message, file_exists false for docs/specs/prd/PRD-001.md."
+    level: e2e
+    covers:
+      - BEH-20
+      - BEH-21
+      - ERR-11
+    upstream:
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
+  - id: VER-42
+    status: active
+    obligation: "A pasted list is honoured and unlisted items stay null (version 6): VER-40's BRN-003 with a request that pastes 'IDEA-01 must now; IDEA-02 should now; IDEA-03 later; IDEA-04 won't; the rest: decide later' and says to proceed without questions. PRD-001's FRs deriving from IDEA-01 are must/current, from IDEA-02 should/current, from IDEA-03 later with priority null, from IDEA-04 wont/current, and every other FR has priority null and release null; the reply names each applied entry. Eval case pasted-list-honoured: regex on the file and on last_message."
+    level: e2e
+    covers:
+      - BEH-23
+      - BEH-26
+    upstream:
+      - {id: STORY-002, item: AC-03, relation: verifies, version: 7, hash: null}
+  - id: VER-43
+    status: active
+    obligation: "A review file's blanks stay null (version 6): a draft PRD-001 (version 1, four FRs with priority and release null, stage mvp, operating_context null) citing every promoted idea of BRN-001, and devforgeai/drafts/prd/PRD-001-review.md in §4's shape with FR-001 must/current, FR-002 later and a blank priority, FR-003 blank, FR-004 priority 'soon', operating_context internal; the request says to continue PRD-001 from its review file and to proceed without questions. PRD-001 reaches version 2 with FR-001 must/current, FR-002 later and null, FR-003 null/null, FR-004 null/null, operating_context internal and stage mvp unchanged, every other line of version 1 byte-identical, a Change Log row with a Continued: entry; the review file still exists; the reply names FR-004's entry as unreadable. Eval case review-file-blanks-stay-null: regex on the file and on last_message."
+    level: e2e
+    covers:
+      - BEH-24
+      - BEH-25
+      - ERR-09
+    upstream:
+      - {id: STORY-002, item: AC-03, relation: verifies, version: 7, hash: null}
+  - id: VER-44
+    status: active
+    obligation: "A continue fills only nulls (version 6): a draft PRD-001 (version 1, FR-001 must/current, FR-002 null/null, FR-003 null/null, stage mvp, operating_context null) citing every promoted idea of BRN-001, with the request '/devforgeai:prd BRN-001. Continue PRD-001: FR-002 should now; the rest: decide later. Proceed without questions.' PRD-001 reaches version 2 with FR-002 should/current, FR-001's block and FR-003's block byte-identical to version 1, stage mvp, operating_context null, status draft, a Change Log row holding 'Continued: FR-002=should/current' and the reuse line with FR-001's values from PRD-001; the reply's write kind is continued, and no PRD-002 exists. Eval case continue-fills-only-nulls: regex on the file and on last_message, file_exists false for docs/specs/prd/PRD-002.md."
+    level: e2e
+    covers:
+      - BEH-25
+      - BEH-26
+      - ERR-04
+    upstream:
+      - {id: STORY-002, item: AC-03, relation: verifies, version: 7, hash: null}
+  - id: VER-45
+    status: active
+    obligation: "A continue asks only what is open (version 6): VER-44's PRD-001 and BRN-001 with the request 'Continue PRD-001.' and no answers. The reply asks for FR-002's and FR-003's priorities and the operating context and asks nothing about FR-001 or the stage; its reuse line lists stage=mvp and FR-001's values with the source PRD-001; PRD-001 is unchanged at version 1. Eval case continue-asks-only-open: regex on the file for version: 1 and FR-001's values, regex and llm on last_message."
+    level: e2e
+    covers:
+      - BEH-25
+      - BEH-19
+      - BEH-26
+    upstream:
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 7, hash: null}
+  - id: VER-46
+    status: active
+    obligation: "Manual, interactive (docs/runbooks/prd-v6-interview-checks.md, M1): triage and the table with a BRN of at least 14 promoted ideas. (a) The mode question comes first in the first call and counts. (b) Each triage question holds at most three requirements and 'None of these', four questions a call; a ticked requirement is written must/current, an unticked one stays null, 'None of these' alone leaves the group null. (c) 'None of these' with a tick is asked again once and then left null and named (ERR-10). (d) The table shows every open requirement with later (suggested); accepting writes every row and the reply names each; 'Decide none now' writes nothing; typed changes update the table, which is shown again in a new call. (e) The calls used equal the count the reply gives, and are within the budget, the mode question, the repeat and the correction round included."
+    level: manual
+    covers:
+      - BEH-20
+      - BEH-21
+      - BEH-22
+      - ERR-10
+    upstream:
+      - {id: STORY-002, item: AC-04, relation: verifies, version: 7, hash: null}
+  - id: VER-47
+    status: active
+    obligation: "Manual, interactive (runbook M2): the raise. (a) With no policy, choosing 'raise the budget to N' continues past 8 calls up to N, the resolution line still reads interview.max_calls=8 (default) and the Change Log row holds 'Interview budget raised in the session to N calls'. (b) A raise to 25 is refused with ADR-003's range named and the modes offered (ERR-11). (c) With an approved project policy that sets interview.max_calls 4 with overridable_by [], asking for more in words is refused with POL-NNN#SET-NN named, no raise appears in the mode question, and the count line names what stays null under each mode. (d) With the budget locked at 1, the gate takes the only call, the reply says so, every other decision stays null, and the PRD is continued afterwards with a pasted list in the request at no call."
+    level: manual
+    covers:
+      - BEH-20
+      - BEH-21
+      - BEH-23
+      - ERR-11
+    upstream:
+      - {id: STORY-002, item: AC-11, relation: verifies, version: 7, hash: null}
+  - id: VER-48
+    status: active
+    obligation: "Manual, interactive (runbook M3): the review file, the continue and the answers that decide nothing. (a) Choosing the review file writes the draft PRD, then the file in §4's shape under devforgeai/drafts/prd/ with devforgeai/drafts/.gitignore holding *, and the next step names the file and /devforgeai:prd BRN-NNN. (b) After filling some cells, the continue applies them, reports them, leaves blanks null, leaves the file in place, and a second continue changes nothing. (c) A dismissed question, an empty answer and an explicit none are each compared with what was written: the first two write nothing and keep an earlier confirmed value, the none is recorded as the answer. (d) A suggested option not picked stays unwritten. (e) A free-text answer leads to no new options menu for that question. (f) Stopping mid-interview (ERR-07) saves a draft whose reply says it can be continued; the continue asks only what is open."
+    level: manual
+    covers:
+      - BEH-13
+      - BEH-24
+      - BEH-25
+      - BEH-26
+      - ERR-07
+      - ERR-09
+    upstream:
+      - {id: STORY-002, item: AC-03, relation: verifies, version: 7, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -730,6 +949,33 @@ The shared policy files don't change. The new and changed cases, and every case 
 changes, are requalified in a run bound with `src/tests/prd/record_revision.sh`. The Codex prd skill follows
 in its own port.
 
+**Version 6** (after approval, and after the dev-guard of ADR-008 passes EVAL.md's A and B rows; Bryan,
+2026-11-02: "spec now, build under the guard, after the guard passes its own required checks. The PRD
+iteration can exercise the guard in practice; it cannot replace the guard's qualification"):
+1. The eval cases for VER-39 to VER-45 are written first, in `src/tests/prd/make_evals.py` (VER-40's BRN-003
+   with 14 promoted ideas is a new shared fixture; VER-43's and VER-44's draft PRD-001 and review file are
+   seeded by their scaffolds), with their graders checked offline by `check_graders.py`, and run once on
+   SKL-002 v5, where each should fail on the obligations version 6 adds. EVAL.md gets rows for this work
+   item before the first plugin edit.
+2. SKL-002 v6 is built in one or more `/plugin-dev:create-plugin` iterations that the dev-guard records:
+   `SKILL.md` (step 6 writes the reuse line and the count line, step 7 names the modes, step 4 gains the
+   continue gate, step 10 the new report lines), `references/interview.md` (the count, the modes, triage and
+   the table, the pasted list, the review file, the answers that decide nothing), `references/output-rules.md`
+   (the Change Log row's new entries, the continue's self-check: no non-null value changed, no item added)
+   and `provenance.yaml` (`implements SPEC-002 version 6`, with `src/tests/prd/test_structure.py`'s TARGETS).
+   `SKILL.md` is at 430 of its 500 lines, so the modes' detail goes to `interview.md`, and `SKILL.md` keeps
+   the checklist lines and the rules the user must see. The shared policy files don't change.
+3. The manual runbook `docs/runbooks/prd-v6-interview-checks.md` (VER-46 to VER-48) is run on the build
+   commit with `claude --plugin-dir` on a copy, and each item is recorded in §9 as VER-11, VER-12 and VER-23
+   are. The other project's brainstorm is the candidate fixture for M1, with Bryan's consent; each question
+   whose wording caused difficulty is noted for #142's deferred plain-language question.
+4. Requalification: the new cases and every case whose graded behaviour changes (VER-35 and VER-36 among
+   them, since ERR-04's listing now names a continuable PRD; VER-07, since BEH-13's block gains lines), in a
+   run bound with `record_revision.sh`. Whether the prd suite is tiered as the ui suite is (EVAL.md U8) is
+   Bryan's call at the build. The Codex prd skill follows separately (ADR-005).
+5. Close the loop (plan step 4): the other project's PRD interview is rerun on SKL-002 v6 and compared with
+   the side agent's warning; what it still misses becomes issues.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -744,6 +990,12 @@ in its own port.
 | Name the item field `scope: mvp` | "mvp" would mean two things: a stage and a release. `release: current \| later` is relative to `target_release` |
 | Mark every unlinked metric's target `[NEEDS CLARIFICATION]` (issue #39, Option A) | Discards a target the BRN's evidence or the user already gave. A metric that measures no promoted idea is no less measurable, so only a missing value is marked (Bryan, 2026-10-01) |
 | Say a `[NEEDS ADR]` marker waits for an accepted ADR | SPEC-003 BEH-07 also resolves a question by an approved, active mandated platform that answers exactly that question. Naming only ADRs would contradict the architecture step, and an ADR or setting on another question must not read as clearing the marker |
+| Treat priority questions as gates outside the budget (version 6) | Bryan, 2026-11-02: "inside the budget. Priority questions must count; treating them as gates would undermine the cap." The budget is policy's lever (ADR-003); the interview's shape is the spec's |
+| Raise the default `interview.max_calls` (version 6) | The default is a setting that policy and local preference already override (ADR-003 A3); the shape of one question per requirement doesn't fit any budget at 35 requirements, and a larger number would only move the cliff |
+| Sort unticked requirements silently, as get-shit-done's auto and assumptions modes do (version 6) | The AI would decide. Here a requirement nobody ticked gets one visible suggestion, `later`, written only on the user's bulk acceptance, and "silence is not acceptance" (OpenSpec) |
+| Let the skill assign `should` and `could` from the BRN's evaluation scores (version 6) | A score ranks ideas; it isn't a statement about this release's importance (the skill's own test for a supplied value). The table's one rule is stated, so a reviewer can check what was proposed |
+| A review of the draft PRD by hand instead of a review file (version 6) | Both work: a continue reads the PRD as it is (BEH-24). The review file exists for the user who won't edit YAML item blocks, and its blanks are the same `null` |
+| A separate plain-language mode for the questions (version 6) | Deferred by Bryan, 2026-11-02 (#142, comment 6581333817): "Gather examples where current wording causes difficulty before specifying a separate mode." The manual runbook and the close-the-loop rerun record the examples |
 
 ## 13. Open questions
 
@@ -751,6 +1003,19 @@ in its own port.
 - Resolved: the third stage value is `evolution` (Bryan, 2026-09-23).
 - Resolved: PRD-001 v6 has `stage: mvp` and `operating_context: internal` (Bryan, 2026-09-23). Its per-requirement release values remain `null` for Bryan.
 - Resolved: a candidate success signal that measures no promoted idea keeps a baseline, target and measured_by that the BRN's evidence or the user gives (issue #39, Option B; Bryan, 2026-10-01).
+- **Version 6, readings to confirm at approval** (each is the drafting session's reading of the approved plan, not Bryan's recorded words; each stays as drafted unless he changes it):
+  - (a) The table proposes `later` (priority null) for every unticked requirement, as the one stated rule (BEH-22); the alternative is a second triage pass for `should now` before the table, at one more call per twelve requirements.
+  - (b) A triage question holds three requirements plus 'None of these' (BEH-22), so twelve a call; 35 requirements take three triage calls and one table call.
+  - (c) A contradictory triage answer is asked again once, then left null (ERR-10).
+  - (d) The review file is written after the draft PRD, at `devforgeai/drafts/prd/PRD-NNN-review.md`, in §4's shape, and left in place after reading (BEH-24).
+  - (e) A continue is a third write kind that raises the PRD's version (as SPEC-011 BEH-13 and SPEC-017 BEH-11 do for a draft's content change) and is confined to draft and in-review PRDs and to null fields (BEH-25); ERR-04 gains its exception.
+  - (f) A request for a larger budget made in the session is read as the local layer for `overridable_by`, is capped at 20, and is recorded in the Change Log row, not in the resolution line (BEH-20); so a budget that an organization or project setting locks can no longer be exceeded by asking, which version 5's BEH-05 allowed.
+  - (g) #143's five points are carried in full for prd (BEH-26), not only the two that #142's direction names.
+- Open (version 6): once the prd skill has a progress-tracker manifest (SPEC-012 §11), its `workFiles` would name `devforgeai/drafts/prd/*.md`, and the tracker would delete a review file once the run's cleanup is due; whether a review file the user hasn't filled should outlive the run is then SPEC-012's question.
+- Open (version 6): whether an approved PRD's `release: later` items should be prioritised through a continue rather than an extension; today neither path sets them (BEH-25 excludes approved PRDs, BEH-09 leaves existing items unchanged), so the owner edits them by hand.
+- Open (version 6): the plain-language question (#142, comment 6581333817), revisited with the examples the runbook and the close-the-loop rerun record.
+- Open (version 6): whether SPEC-003 and SPEC-011 adopt the reuse line, the count line and the modes; each carries the question in its own §13 (Bryan, 2026-11-02).
+- Open (version 6): the Codex prd port drifts from this version until it is ported (ADR-005); its port decides how a multiSelect question and the table are shown with numbered plain text (§5).
 
 ## Appendix A — Illustrative interview (design example, not an executed run)
 
@@ -767,6 +1032,14 @@ day one. ClinicCore must stay our calendar."*
 **Draft before asking (BEH-04, BEH-16).** Three requirements from the two promoted ideas; stage `mvp` and
 operating context `production` from the request; ClinicCore recorded as a constraint; ADR-001 (a build
 process decision) proposed as not applicable.
+
+**Before the first call (version 6, BEH-19, BEH-20).** The reply shows the two lines; the estimate fits, so
+no mode question is asked:
+
+```
+Reused: stage=mvp (request); operating_context=production (request); primary_users=patients and front-desk staff (BRN-001 §3)
+Interview budget: interview.max_calls=8 (default); open: 3 requirements (3 FR, 0 NFR), 2 framing, 3 architecture, 8 quality, 2 metrics, up to 8 NFR priorities; estimate: about 7 calls, 8 available
+```
 
 | Call | Questions asked (at most 4 per call) | Skipped because |
 |---|---|---|
@@ -789,7 +1062,36 @@ Seven calls, within the default budget of eight (`interview.max_calls`). **Resul
 
 The handoff would say that epics for FR-001 and FR-002 wait until the architecture step resolves that
 decision, while FR-003 can proceed once
-its priority and release are decided.
+its priority and release are decided. (The estimate said about seven calls and seven were used; the reply
+states both numbers.)
+
+## Appendix B — Illustrative interview at scale (version 6; design example, not an executed run)
+
+The shape issue #142 reports: a converged BRN with 35 promoted ideas, an `internal` context stated in the
+request, the release called "MVP" in the BRN, no policy. The draft gives 35 FRs and one constraint NFR.
+
+```
+Reused: stage=mvp (BRN-001 §6); operating_context=internal (request); target_release="MVP" (BRN-001 §6); primary_users=dispatchers and drivers (BRN-001 §3)
+Interview budget: interview.max_calls=8 (default); open: 36 requirements (35 FR, 1 NFR), 1 framing, 2 architecture, 3 quality, 3 metrics, up to 3 NFR priorities; estimate: about 13 calls, 8 available
+```
+
+| Call | Questions asked | Notes |
+|---|---|---|
+| 1 | Mode? (triage by group: 3 calls for the requirements and 1 table call; review file: the draft now, continue later; pasted list; raise the budget to 13) · Non-goals? · Any architecture question still open? · Which accepted ADRs apply? | The user picks triage by group. The count line is restated: about 8 calls, 8 available (3 triage, 1 table, 4 for the rest), with no room for a repeat or a correction round |
+| 2 | Four triage questions, FR-001 to FR-012 in groups of three plus 'None of these' | 5 ticked: must/current |
+| 3 | Four triage questions, FR-013 to FR-024 | 3 ticked; one group answered 'None of these' with a tick: no decision, asked again in call 4 (ERR-10) |
+| 4 | The repeated group, then FR-025 to FR-033 | 4 ticked |
+| 5 | FR-034, FR-035 and NFR-001 in one group; three quality questions (security, privacy, anything else) | NFR-001 ticked; security answered (NFR-002), privacy partial (NFR-003 and a marker), anything else: none |
+| 6 | Table: the 22 requirements still open, each `later (suggested)` · the user types "FR-014 should now; FR-020 could now" | Nothing written yet: the table is shown again |
+| 7 | Table again, with the two rows changed · accepted | 22 rows written: FR-014 should/current, FR-020 could/current, 20 later with priority null; the reply lists them |
+| 8 | Baseline and target for the three metrics; NFR-002's priority | Budget spent: NFR-003's priority stays null and the reply names it; the privacy marker for the unanswered part stays |
+
+Eight calls, as the restated count line said; the repeat (call 4) and the correction round (call 7) cost the
+two calls that NFR-003's priority needed. Every one of the 36 requirements has a decided release; 20 keep a
+`null` priority on `release: later`, which doesn't block approval (§4); NFR-003 (`release: current`,
+`priority: null`) is the one open decision left, and a continue (BEH-25) settles it in one call. Under
+version 5, the same budget would have reached about eight requirements and left 28 with a `null` release,
+each blocking approval.
 
 ## Change Log
 
@@ -812,3 +1114,4 @@ its priority and release are decided.
 | 5 | 2026-10-02 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records SKL-002 v5's build, the red run on SKL-002 v4, passes A and B, the 3-run check of the step 10 fix, and the requalification (35 of 35 at ≥ 0.8 over 3 runs). No item changed | §9 |
 | 5 | 2026-10-02 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records Bryan's approval of SKL-002 v5 on 2026-10-02. No item changed | §9 |
 | 5 | 2026-10-02 | claude-code (session 96018bc1-5ee7-423f-93a4-da37a8b6c392) | Record-only update, with no version bump: §9 records SKL-002 v5's merge in PR #57 (`0011267`) and deployment in plugin 0.11.0. No item changed | §9 |
+| 6 | 2026-11-02 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | Issue #142, the PRD interview at scale, from the plan Bryan approved on 2026-11-02 and his decisions of that day ("inside the budget. Priority questions must count; treating them as gates would undermine the cap"; "PRD now, with specific §13 questions for architecture and context"; "spec now, build under the guard, after the guard passes its own required checks"; the objective, "an interview that adapts to unresolved decisions and user effort while preserving decision ownership—not merely fitting more selections into each call"). Plan W1 §1: BEH-19 reuses settled values with their source, listed before the first call and in the Change Log row. W1 §2: BEH-20 counts the whole interview after drafting and reuse, shows the count line against `interview.max_calls` with its A5 source, allows a raise only where `overridable_by` allows `local` and at most 20, and names what stays null under a locked budget; BEH-05 counts every kind of call and no longer exceeds a locked budget on request. W1 §3: BEH-21 offers the modes when the estimate doesn't fit (triage by group, review file, pasted list, raise); BEH-23 the pasted list; BEH-24 the review file. W1 §4: BEH-22 triage by group (three requirements and 'None of these' per multiSelect question) and the table with `later (suggested)` accepted in bulk, nothing written unconfirmed; ERR-10 the contradictory selection. W1 §6: BEH-25 continues a draft or in-review PRD's open decisions (a third write kind, §4; ERR-04's exception; BEH-13's next step when a review file is pending; ERR-07 points to it); VER-39 to VER-45 are eval cases and VER-46 to VER-48 the manual runbook `docs/runbooks/prd-v6-interview-checks.md`. Issue #143 (Bryan, 2026-11-02): BEH-26, the answers that decide nothing, prd's part. ERR-09 and ERR-11 added. §1, §3, §4 (open decisions, the three write kinds, the two lines, the review file), §5 (Tools and Questions rows; the description is unchanged), §9, §11, §12 and §13 updated; Appendix A shows the two lines and Appendix B a 35-idea interview. The drafting session's readings are listed in §13 for approval. Links: PRD-001 NFR-001 to NFR-003 re-read at version 14 (unchanged since 11); §2's ADR-001 text says v4, as the link does; SPEC-003, SPEC-004, SPEC-011 and SPEC-018 relinked to version 6 (mechanical, as for version 5). SKL-002's provenance stays at version 5 until SKL-002 v6 is built. Status in-review; Bryan's approval not yet given | frontmatter, §1, §2, §3, §4, §5, BEH-05, BEH-13, BEH-19 to BEH-26, ERR-04, ERR-07, ERR-09 to ERR-11, §9, VER-39 to VER-48, §11, §12, §13, Appendix A, Appendix B, status |
