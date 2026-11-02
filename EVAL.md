@@ -77,7 +77,7 @@ SPEC-019 carries these rows as VER-01 to VER-08 (ADR-008, Bryan's answer 3: one 
 
 | ID | Check | PASS when |
 |---|---|---|
-| A1 | Kit tests | A.7's tests pass under `claude plugin test <mod>` (SPEC-019 VER-01) |
+| A1 | Kit tests | SPEC-019 VER-01's tests pass under `claude plugin test <mod>` (#137 A.7's list, less its `repoRoots` test, which ADR-008 D2's path anchor replaced) |
 | A2 | Strict validation | `claude plugin validate --strict <mod>` exits 0 |
 | A3 | R1 live | With no ticket, an Edit to `src/claude/DevForgeAI/skills/ui/SKILL.md` in `.claude/worktrees/<name>/` is refused with R1's reason |
 | A4 | Subagent | With no ticket, a subagent's Write there is refused |
@@ -99,7 +99,7 @@ SPEC-019 carries these rows as VER-01 to VER-08 (ADR-008, Bryan's answer 3: one 
 
 | ID | Check | PASS when |
 |---|---|---|
-| M1 | Boards recorded | SPEC-019 Appendix A lists one board per surface (the refusal reason, `/dev-guard`, `/dev-guard close`, `/dev-guard log`) at the full and compact widths, each exported under `docs/specs/design/dev-guard/boards/` with a sha256 that `sha256sum` confirms, before A's first iteration (SPEC-019 VER-13) |
+| M1 | Boards recorded | SPEC-019 Appendix A lists the boards of each surface (the refusal reason, `/dev-guard`, `/dev-guard close`, `/dev-guard log`) at the full, medium and compact widths, each exported under `docs/specs/design/dev-guard/boards/` with a sha256 that `sha256sum` confirms, before A's first iteration (SPEC-019 VER-13) |
 | M2 | Live against the boards | On the build commit, a person compares each surface's rendering with its board at the board's width, pass or fail per surface and state, in `docs/runbooks/dev-guard-checks.md`; `/dev-guard demo` reaches every state a board shows (SPEC-019 VER-14) |
 
 ### N. The review notes' checks (SPEC-019 VER-15 to VER-18)
