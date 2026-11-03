@@ -1,6 +1,7 @@
 """Structural checks for SPEC-019, the dev-guard's requirements (EVAL.md W2): the document validates against
 spec.schema.json, its frontmatter version and status are the pinned ones, every BEH, ERR and QR item is covered by a
-VER item, every JSON block parses, and the initial guard.json example fits DM-02 with patterns that compile. Self-contained: it imports nothing from the other test folders, since pytest
+VER item, every JSON block parses, and the initial guard.json example fits DM-02 with patterns that compile. A compile
+check only: expanding the patterns and matching commands is the mod's kit tests' work (VER-15). Self-contained: it imports nothing from the other test folders, since pytest
 runs this tree in importlib mode. Run from the repository root:
 
     PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests/process
@@ -18,8 +19,8 @@ ROOT = Path(__file__).resolve().parents[3]
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-019.md"
 # SPEC-019 v1 approved by Bryan on 2026-11-02 ("Approve as drafted (Recommended)"); v2 the same day, the close
-# review's fixes ("Version 2 in this PR (Recommended)").
-PIN = (2, "approved")
+# review's fixes ("Version 2 in this PR (Recommended)"). v3 in review: the probes and the sixteen findings.
+PIN = (3, "in-review")
 
 
 class _Loader(yaml.SafeLoader):
@@ -77,6 +78,9 @@ class Spec019(unittest.TestCase):
             re.compile(expanded)
             for flag in entry["flags"]:
                 re.compile(flag)
+        self.assertTrue(guard["substitutions"], "the initial list of readable substitutions")
+        for entry in guard["substitutions"]:
+            re.compile(entry["pattern"])
 
 
 if __name__ == "__main__":
