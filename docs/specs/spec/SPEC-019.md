@@ -572,26 +572,38 @@ The order is Bryan's (2026-10-31). SKL-002 v6 and the ui redo wait for A and B t
 - Open: ADR-006 D1's pointer to ADR-008, at ADR-006's next change (Bryan, 2026-10-31).
 - Open: EVAL.md's carry-forward of `ledger.jsonl`, and its rows ADR1 and P5 (#140).
 
-## Appendix A — The mockups (filled by the record-only row that commits the boards)
+## Appendix A — The mockups
 
-One row per board: four surfaces at three widths, twelve boards, more where a surface's states need their own.
+Bryan's picks of 2026-11-03 ("go") from the round-1 directions, drawn on a character grid (one font size, one cell per
+character, block-character bars, box-drawing borders) so that the mod can reproduce each board exactly, and approved by
+Bryan on 2026-11-03 ("approved"). Each board is rendered from its source by `docs/specs/design/dev-guard/gen_grid.py`
+(the generator, which writes the `.dc.html` boards the canvas holds) and exported to PNG at twice the CSS size with
+headless Chrome. Colours follow the dataviz skill (data `#3987e5`; status colours on icons and borders only).
 
 | Surface | States shown | Width | File (`docs/specs/design/dev-guard/boards/`) | sha256 |
 |---|---|---|---|---|
-| The refusal reason (BEH-05) | | full | | |
-| The refusal reason (BEH-05) | | medium | | |
-| The refusal reason (BEH-05) | | compact | | |
-| `/dev-guard` (IF-01) | | full | | |
-| `/dev-guard` (IF-01) | | medium | | |
-| `/dev-guard` (IF-01) | | compact | | |
-| `/dev-guard close` (IF-02) | | full | | |
-| `/dev-guard close` (IF-02) | | medium | | |
-| `/dev-guard close` (IF-02) | | compact | | |
-| `/dev-guard log` (IF-04) | | full | | |
-| `/dev-guard log` (IF-04) | | medium | | |
-| `/dev-guard log` (IF-04) | | compact | | |
+| The refusal reason (BEH-05), direction B | no ticket, with the remedy; a ticket that lacks items | full (76 columns) | `Grid-Refusal-76.png` | `a2a1fb89286af05d737501d8cfd722cc69904ff26b2461e2e400ce9c43667148` |
+| The refusal reason (BEH-05), direction B | no ticket, with the remedy; a ticket that lacks items | medium (50 columns) | `Grid-Refusal-50.png` | `81b49965a55ecc6bf0870c795f276a8973e5f3a121f48426f0b9273fb3bd97b9` |
+| The refusal reason (BEH-05), direction B | no ticket, with the remedy; a ticket that lacks items | compact (36 columns) | `Grid-Refusal-36.png` | `449d60cfcc652caca7195a5c4e6e559eb7c710666c9fc2cfff6edadbe35a3e3c` |
+| `/dev-guard` (IF-01), direction A | does not permit yet, 2 missing | full (76 columns) | `Grid-Ticket-76.png` | `840ec7f4179cbc13b427a5682c0b3e7c0deafbed6bbe697965fc087c51f6fb4f` |
+| `/dev-guard` (IF-01), direction A | does not permit yet, 2 missing | medium (50 columns) | `Grid-Ticket-50.png` | `2dfff221708720dd20b69f838c4985322841747fa3c04b0c9981d612e77eee0b` |
+| `/dev-guard` (IF-01), direction A | does not permit yet, 2 missing | compact (36 columns) | `Grid-Ticket-36.png` | `2f6224cc19b746bbf65865641bdb202ad2024acf5a8b18c407b192a3cc12c6ed` |
+| `/dev-guard close` (IF-02), direction A | refused, 4 conditions fail | full (76 columns) | `Grid-CloseRefused-76.png` | `29dc5f9efd9acda42f8429ba876afe0ee072cd5687b2830fad9508ca8ad40b09` |
+| `/dev-guard close` (IF-02), direction A | refused, 4 conditions fail | medium (50 columns) | `Grid-CloseRefused-50.png` | `cf4e35d582d3b41e60122e63bdfc4860ec78d352d43a7c294296453d3cc85259` |
+| `/dev-guard close` (IF-02), direction A | refused, 4 conditions fail | compact (36 columns) | `Grid-CloseRefused-36.png` | `d5787808a2cdee0bce60cde25e93c9197756ffe66aecdfe2fca15e77cbb28289` |
+| `/dev-guard close` (IF-02), direction B | closed: the ledger line and the records commit | full (76 columns) | `Grid-CloseOk-76.png` | `d40c840ba7255fcad44335eb4da7804af40cca81b10bb76530337c08db3f7c75` |
+| `/dev-guard close` (IF-02), direction B | closed: the ledger line and the records commit | medium (50 columns) | `Grid-CloseOk-50.png` | `c26712726a6b151b56f014644f70cd2e44f91d5599c9dd9874f0dc5acc4b1755` |
+| `/dev-guard close` (IF-02), direction B | closed: the ledger line and the records commit | compact (36 columns) | `Grid-CloseOk-36.png` | `b39fe4aafd99ce58eeb4edc78acf9aa131d701c4807094a3bf9fbbad5235e911` |
+| `/dev-guard log` (IF-04), direction A | stat tiles, rule bars, day columns, recent list, selected row | full (76 columns) | `Grid-Log-76.png` | `6f3447a4cd6a9e7608fd7be21d6111f874b4312acf67e2564183bf314c00faf8` |
+| `/dev-guard log` (IF-04), direction A | stat tiles, rule bars, day columns, recent list, selected row | medium (50 columns) | `Grid-Log-50.png` | `7077ecc7c874b88ad5f07b5d343bc5c9eb67de806513a61bd9f23c02a8c2b240` |
+| `/dev-guard log` (IF-04), direction A | stat tiles, rule bars, day columns, recent list, selected row | compact (36 columns) | `Grid-Log-36.png` | `e709c9d6344ae297965f32c26b0a2729fdd11a0e4c25dc4467cb07f092cb9f17` |
+| `/dev-guard log` (IF-04), Enter on a row, direction B | full command, the reason the model read | full (76 columns) | `Grid-LogDetail-76.png` | `dc4bf299211687457a4fd6ab1df93920ff81600dfff35aac509ee13d967ab690` |
+| `/dev-guard log` (IF-04), Enter on a row, direction B | full command, the reason the model read | medium (50 columns) | `Grid-LogDetail-50.png` | `49b3d9596b674b47ca5e7202ed38f7548a1d1a690b78eee5ecce346f1e754650` |
+| `/dev-guard log` (IF-04), Enter on a row, direction B | full command, the reason the model read | compact (36 columns) | `Grid-LogDetail-36.png` | `518124ef48ad54bd760f720edbb6e746bb49110805981f8995c1f837e715eac7` |
 
-Canvas: (the Claude Design canvas's ID, private). Briefs: `docs/specs/design/dev-guard/briefs.md`.
+Canvas: "Dev-guard terminal surfaces", https://claude.ai/artifact/GTBwKjWK9Qxzx9MZow72LJ (private), version
+1793670955-c9c7, page "Round 2 · character grid" (the round-1 directions are on its first page). Briefs:
+`docs/specs/design/dev-guard/briefs.md`. Check: `cd docs/specs/design/dev-guard/boards && sha256sum Grid-*.png`.
 
 ## Change Log
 
@@ -602,3 +614,4 @@ Canvas: (the Claude Design canvas's ID, private). Briefs: `docs/specs/design/dev
 | 1 | 2026-11-02 | Bryan | Approved ("Approve as drafted (Recommended)", with the readings (a) to (p) and the probes of §13 as they stand, shown in the question's preview) | status |
 | 2 | 2026-11-02 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | The close review of PR #145 at 6d1ecdb (`docs/process/plugin-workflow/reviews/20261102T2020Z-code-review-6d1ecdb.md`): eight design defects and two record items, fixed as the advisor revised two of them. BEH-07: a read counts only while the ticket is open (ADR-008 D6), a read made before the load is repeated, and only the order between skill-development's load and the reads is free (the advisor's revision: the drafted "reads since the previous close" departed from D6). BEH-10: a lock-free ledger append, read, write, re-read and retry, with the residual race stated (the advisor's revision: no stale-takeover lock). BEH-01 and BEH-06: the innermost checkout, cached lookups, and the ticket's checkout as the working directory's at the load, so an iteration on a worktree is loaded from the worktree (VER-07). BEH-03: lexical normalisation with a cached realpath, and the records-commit exception as one invocation with no operator. DM-01, DM-03 and BEH-06: a digest key with the plain values inside. DM-02: per-entry flag forms, V as one word, a deploy-diff entry. QR-03 reworded. VER-15 lists the exact commands. Readings (q) to (t) and the stop rule in §13; row 1's ERR range explained. EVAL.md W2 cites the new structure test. Recorded as a version under the rule for an approved document, on Bryan's choice of 2026-11-02 ("Version 2 in this PR (Recommended)", after "prior to modifying it, run it by /advisor for guidance") | frontmatter, DM-01 to DM-03, BEH-01, BEH-03, BEH-06, BEH-07, BEH-10, QR-03, VER-07, VER-15, §9, §13, status |
 | 2 | 2026-11-02 | Bryan | Approved ("Version 2 in this PR (Recommended)", with the ten fixes as the advisor revised them shown in the question's preview) | status |
+| 2 | 2026-11-03 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | Record-only update, with no version bump (BEH-17: the row that commits the boards): Appendix A lists the 18 boards of Bryan's picks ("go", 2026-11-03) at three widths, approved by Bryan ("approved", 2026-11-03), with their files and sha256; the boards, the briefs and the generator are committed under `docs/specs/design/dev-guard/`. No item changed | Appendix A |
