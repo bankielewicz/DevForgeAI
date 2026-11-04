@@ -55,8 +55,7 @@ question.
 - Bryan's words, as EVAL.md, the spec's §9 and the PR body quote them. The plan under `tmp/` is local, so a
   reviewer can't check anything that only the plan holds, and a claim that rests on the plan alone is a finding.
 - For check 3: the Phase 6 reports committed on the branch in `docs/process/plugin-workflow/reviews/`, named
-  `<UTC>-<tool>-<hash>.md`, and, until issue #137's ledger exists, the PR body's list of each iteration's
-  invocations (EVAL.md G5).
+  `<UTC>-<tool>-<hash>.md`, and the PR body's list of each iteration's invocations (EVAL.md G5).
 
 ## Where a finding goes
 

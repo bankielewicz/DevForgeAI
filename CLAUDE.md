@@ -21,7 +21,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | Skill | Record (provenance) | Spec | Evals on the current version | Merged |
 |---|---|---|---|---|
 | `brainstorm` | SKL-001 v10, in-review | SPEC-001 v17, approved | v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #99 (0.27.0) |
-| `prd` | SKL-002 v5, approved (implements SPEC-002 v5) | SPEC-002 v8, approved 2026-11-02 (v6 the interview at scale, #142; v7 and v8 Codex's fixes; SKL-002 v6 is built after the dev-guard) | 3 runs, 35 of 35 at ≥ 0.8 (SKL-002 v5) | PR #57 (0.11.0) |
+| `prd` | SKL-002 v5, approved (implements SPEC-002 v5) | SPEC-002 v9, approved 2026-11-04 (v6 the interview at scale, #142; v7 and v8 Codex's fixes; v9 the dev-guard's cancellation; SKL-002 v6 not built) | 3 runs, 35 of 35 at ≥ 0.8 (SKL-002 v5) | PR #57 (0.11.0) |
 | `architecture` | SKL-003 v9, approved | SPEC-003 v11, approved | 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #83 (0.21.0) |
 | `epic` | SKL-004 v4, approved | SPEC-004 v4, approved | 3 runs, 25 of 25 at ≥ 0.8 | PR #62 (0.12.1) |
 | `context` | SKL-010 v2, approved | SPEC-011 v3, approved | 3 runs, 18 of 18 at ≥ 0.8 | PR #45 (0.8.1) |
@@ -52,10 +52,9 @@ Change Log holds the history. Read those, not this file, for any number or date.
 - **The dashboard** (PRD-001 v12 FR-022; SPEC-016 v3, approved 2026-10-09, not built (v3's ledger hold shipped in 0.29.0); design `docs/specs/devforgeai-dashboard.md`; prototype `src/tools/dashboard-probe/`) is a pane of the tracker's mod, `/devforgeai:dashboard`. It needs SPEC-012 v17 and v18 and SPEC-013 v23 (the precompact row counted by fuel left) to v26 (the automatic precompact run's turn marked through BEH-41's set of names and, from v26, a pending mark in $.state with the turn-ID rule), all approved (v18, v25, v26 and SPEC-016 v2 on 2026-10-08), its evaluator and adapter parts and the odometer ledger writer (SPEC-016 BEH-10) shipped in 0.28.0 (PR #102, `7e5e3c7`); the pane is not built and waits for the design skill's place in the chain (0.29.0).
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels.
-- ADR-001 to ADR-008 in `docs/specs/adr/` are accepted. ADR-008 (2026-10-31) decides the dev-guard, a dev-only mod
-  to refuse plugin edits outside a plugin-dev iteration; SPEC-019 (its requirements, with the mockups Bryan asked for; read its
-  frontmatter for the version) was approved on 2026-11-02, and the build through `/mod-builder:build` comes next. It extends ADR-006 D1
-  so a guard may block outside the tracker's gates; ADR-006's own text gets the pointer at its next change. ADR-007 adds the `ui` step (the skill makes the release's
+- ADR-001 to ADR-007 in `docs/specs/adr/` are accepted. ADR-008 and SPEC-019 (the dev-guard, a dev-only mod to refuse plugin
+  edits outside a plugin-dev iteration) are deprecated: Bryan cancelled it unbuilt on 2026-11-04 ("Cancel the dev-guard --> we are going in a different direction"). Nothing enforces
+  the `/plugin-dev:create-plugin` rule below except this file. ADR-007 adds the `ui` step (the skill makes the release's
   Claude Design canvas through the Artifact tool and records its imported boards as a DSN; version 2 accepted 2026-10-10) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
   context → epic → story → spec. PRD-001 (DevForgeAI itself) and PRD-002
   (DevForgeAI CLI, draft) are in `docs/specs/prd/`.
@@ -268,5 +267,5 @@ Claude Code doesn't load `AGENTS.md` in a project that has a CLAUDE.md; read it 
 | `.claude/rules/evals.md` | `src/claude/DevForgeAI/evals/**`, `src/tests/**`, `tmp/eval-results/**` | writing, generating, running or diagnosing an eval |
 | `.claude/rules/skills.md` | `src/claude/DevForgeAI/skills/**`, `src/claude/DevForgeAI/.claude-plugin/**`, `src/templates/**` | changing a skill, its shared files or hand-offs, or building the next skill |
 | `.claude/rules/progress.md` | `src/claude/DevForgeAI/progress/**`, `src/claude/DevForgeAI/hooks/**`, `src/tests/progress/**` | changing or debugging the progress tracker or its adapter |
-| `EVAL.md` | never by itself | starting or gating a piece of the planned work (the #137 gate, the ui v3 redo): its pass/fail rows, the paid-run plan, the rerun matrix and where Phase 6 reports are committed |
+| `EVAL.md` | never by itself | starting or gating a piece of the planned work (the ui v3 redo): its pass/fail rows, the paid-run plan, the rerun matrix and where Phase 6 reports are committed |
 | `REVIEW.md` | never by itself: GitHub's Code Review reads it at the root, the local `/code-review` doesn't | running `/code-review` or the close review of a PR that changes DevForgeAI. It points to the work item's pass/fail checks in `EVAL.md` |

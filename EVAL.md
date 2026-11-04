@@ -8,6 +8,9 @@ date, and that quote is the record a reviewer checks until a spec carries the de
 (`tmp/plans/2026-10-31-ui-v3-redo-plan-design.md` §11) is a local copy only. Cells marked **[Bryan]** still wait for
 him.
 
+**The dev-guard was cancelled on 2026-11-04, unbuilt** (Bryan: "Cancel the dev-guard --> we are going in a different direction"). Sections ADR, P, A, B, M, N and W are kept as history and gate
+nothing; the other sections stand.
+
 ## How the check works
 
 - **One check per work item.** A work item passes its gate when every one of its rows is PASS on one commit, the
@@ -35,7 +38,7 @@ him.
 | G2 | Python tests | `PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests` exits 0 and its count is at least the baseline taken before the first change (ADR-005 D7) | both counts, with hashes |
 | G3 | Plugin kit and manifests (when the plugin changed) | `claude plugin test src/claude/DevForgeAI`, `claude plugin validate src/claude/DevForgeAI` and `claude plugin validate .` each exit 0 | the three outputs' last lines |
 | G4 | Approved documents | Each approved document the branch changes has a new `version`, a new `updated`, two new Change Log rows (the change; Bryan's approval) and every citing `upstream` link moved (CLAUDE.md, "Rules a change must not break") | `git diff origin/main...HEAD -- docs/specs` |
-| G5 | The plugin workflow | Every commit touching `src/claude/DevForgeAI/` lies inside an iteration: `/plugin-dev:create-plugin` with the iteration's scope and `/plugin-dev:skill-development` invoked before its first edit, and plugin-validator and skill-reviewer reports bound to the iteration's last commit, committed on the branch as `docs/process/plugin-workflow/reviews/<UTC>-{plugin-validator,skill-reviewer}-<hash>.md` (Bryan, 2026-10-31: `tmp/` is gitignored, so a report there can't be verified from the PR). No hand-written `ledger.jsonl` lines: the mod writes those. In the order Bryan set (2026-10-31: the docs PR, ADR-008 and the probes, A, B, then the ui redo), no plugin change is made before A and B ship. If one has to be, the PR body lists each iteration's two invocations (session ID, UTC time, the scope argument), because a session transcript can't be checked from the PR. After B: `src/tests/process/test_plugin_workflow.py` passes | the PR body; report paths; after B, the test |
+| G5 | The plugin workflow | Every commit touching `src/claude/DevForgeAI/` lies inside an iteration: `/plugin-dev:create-plugin` with the iteration's scope and `/plugin-dev:skill-development` invoked before its first edit, and plugin-validator and skill-reviewer reports bound to the iteration's last commit, committed on the branch as `docs/process/plugin-workflow/reviews/<UTC>-{plugin-validator,skill-reviewer}-<hash>.md` (Bryan, 2026-10-31: `tmp/` is gitignored, so a report there can't be verified from the PR). The PR body lists each iteration's two invocations (session ID, UTC time, the scope argument), because a session transcript can't be checked from the PR | the PR body; report paths |
 | G6 | One version | `plugin.json`, `.claude-plugin/marketplace.json` and the pin in `src/tests/progress/test_adapter_structure.py` show the same version | `grep -n '"version"'` on both manifests; the pin line |
 | G7 | Whitespace | `git diff --check origin/main...HEAD` prints nothing | its output |
 | G8 | No secrets | No token, key or password in the diff | the review's finding list |
@@ -49,7 +52,7 @@ him.
 |---|---|---|
 | C1 | The rule is on main | `grep -c 'Plugin changes go through' CLAUDE.md` on main is 1, and the bullet's text, its line breaks joined, equals #137's "Enhancement C" block |
 
-### ADR. The guard's ADR (ADR-008, proposed)
+### ADR. The guard's ADR (ADR-008, proposed) (cancelled 2026-11-04)
 
 | ID | Check | PASS when |
 |---|---|---|
@@ -58,7 +61,7 @@ him.
 | ADR3 | Probes recorded | P1 to P8 each have a result, the Claude Code version and the date |
 | ADR4 | Drafts reviewed | An independent review's report is saved and each finding is answered before Bryan's approval |
 
-### P. Probes (#137's table; each in a scratch repository, the mod loaded by `--plugin-dir`)
+### P. Probes (#137's table; each in a scratch repository, the mod loaded by `--plugin-dir`) (cancelled 2026-11-04)
 
 | ID | PASS when (#137's words) |
 |---|---|
@@ -71,7 +74,7 @@ him.
 | P7 | Recorded. If it can, the close also requires the person's typed command. |
 | P8 | `git diff --cached --name-only` returns the staged list |
 
-### A. The dev-guard mod (#137 "Acceptance"; SPEC-019 VER-01 to VER-08)
+### A. The dev-guard mod (#137 "Acceptance"; SPEC-019 VER-01 to VER-08) (cancelled 2026-11-04)
 
 SPEC-019 carries these rows as VER-01 to VER-08 (ADR-008, Bryan's answer 3: one source); a change to a row here is a change to SPEC-019.
 
@@ -86,7 +89,7 @@ SPEC-019 carries these rows as VER-01 to VER-08 (ADR-008, Bryan's answer 3: one 
 | A7 | Permit | After `/plugin-dev:create-plugin`, `/plugin-dev:skill-development` and Reads of the `requiredReads` files, A3's Edit is allowed |
 | A8 | Close | `/dev-guard close`, typed by a person, refuses unless both reviewers' Agent calls were observed during the ticket, their reports exist for a commit whose plugin subtree hash equals HEAD's and the plugin tree is clean; it writes the ledger line with that evidence (ADR-008 D6; SPEC-019 BEH-09, VER-08) |
 
-### B. The commit check (#137; SPEC-019 VER-09 to VER-12)
+### B. The commit check (#137; SPEC-019 VER-09 to VER-12) (cancelled 2026-11-04)
 
 | ID | Check | PASS when |
 |---|---|---|
@@ -95,14 +98,14 @@ SPEC-019 carries these rows as VER-01 to VER-08 (ADR-008, Bryan's answer 3: one 
 | B3 | Runs in CI | The CI job runs it on every PR with its marker selected; `pytest src/tests` skips it by default (ADR-008 D8) |
 | B4 | CI job (Bryan, 2026-10-31, "docs/process + CI job") | A GitHub Actions job runs the test on every pull request with `fetch-depth: 0` and the PR's head commit (ADR-008 v2 D8; the earlier "PRs touching the plugin" wording was #141 round-3 note 2), passes at once when the plugin subtree is unchanged, fails when pytest exits 5, shows in the PR's checks, and is a required check once B ships (Bryan, 2026-10-31: "Decide now: B's CI job becomes a required check when B ships."; SPEC-019 BEH-15, VER-12) |
 
-### M. The dev-guard's mockups (Bryan, 2026-11-02; SPEC-019 BEH-16, BEH-17)
+### M. The dev-guard's mockups (Bryan, 2026-11-02; SPEC-019 BEH-16, BEH-17) (cancelled 2026-11-04)
 
 | ID | Check | PASS when |
 |---|---|---|
 | M1 | Boards recorded | SPEC-019 Appendix A lists the boards of each surface (the refusal reason, `/dev-guard`, `/dev-guard close`, `/dev-guard log`) at the full, medium and compact widths, each exported under `docs/specs/design/dev-guard/boards/` with a sha256 that `sha256sum` confirms, before A's first iteration (SPEC-019 VER-13) |
 | M2 | Live against the boards | On the build commit, a person compares each surface's rendering with its board at the board's width, pass or fail per surface and state, in `docs/runbooks/dev-guard-checks.md`; `/dev-guard demo` reaches every state a board shows (SPEC-019 VER-14) |
 
-### N. The review notes' checks (SPEC-019 VER-15 to VER-18)
+### N. The review notes' checks (SPEC-019 VER-15 to VER-18) (cancelled 2026-11-04)
 
 | ID | Check | PASS when |
 |---|---|---|
@@ -111,7 +114,7 @@ SPEC-019 carries these rows as VER-01 to VER-08 (ADR-008, Bryan's answer 3: one 
 | N3 | Install | SPEC-019 VER-17: `/dev-guard` answers in a terminal session, a herdr pane and a Remote Control session with `CLAUDE_CODE_PLUGIN_DIRS` set in `~/.claude/settings.json` (P4's remaining parts; Bryan's step) |
 | N4 | First close reviewed | SPEC-019 VER-18: the first iteration's refusals reviewed at its close, each a right refusal or an allowlist change in a records commit |
 
-### W. SPEC-019, the dev-guard's requirements, spec only
+### W. SPEC-019, the dev-guard's requirements, spec only (cancelled 2026-11-04)
 
 The spec PR; A, B, M and N get their evidence at the build.
 
@@ -165,8 +168,8 @@ The spec PR; A, B, M and N get their evidence at the build.
 
 ### V. SPEC-002 v6 to v8, the PRD interview at scale (#142), spec only
 
-The spec PR. The build (SKL-002 v6) gets its own rows when it starts, after A and B (Bryan, 2026-11-02: "spec
-now, build under the guard, after the guard passes its own required checks"). These rows are the plan's
+The spec PR. The build (SKL-002 v6) gets its own rows when it starts, when Bryan says (the wait for A and B ended with
+the guard's cancellation on 2026-11-04). These rows are the plan's
 verification items for its steps 1 and 2 (`tmp/plans/2026-11-02-interview-at-scale-and-improve.md`, approved
 2026-11-02, local), stated so a reviewer can check them from the PR.
 

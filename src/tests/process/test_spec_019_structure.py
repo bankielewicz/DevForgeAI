@@ -19,7 +19,8 @@ SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-019.md"
 # SPEC-019 v1 approved by Bryan on 2026-11-02 ("Approve as drafted (Recommended)"); v2 the same day, the close
 # review's fixes ("Version 2 in this PR (Recommended)").
-PIN = (2, "approved")
+# v3 (2026-11-04): deprecated, the dev-guard cancelled unbuilt ("Cancel the dev-guard --> we are going in a different direction").
+PIN = (3, "deprecated")
 
 
 class _Loader(yaml.SafeLoader):
