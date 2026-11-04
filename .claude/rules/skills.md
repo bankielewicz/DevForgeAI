@@ -33,8 +33,9 @@ paths:
     SV-01..06, and exits 0, 1 (invalid) or 2 (can't run). It must also
     work on a jsonschema with no `referencing` module (before 4.18). The system's jsonschema loads
     whenever the user site-packages are hidden, for example under another HOME, as eval workspaces
-    use. Its tests, run under both environments, are in `src/tests/prd/`. Since the system's packages
-    moved to 4.19.2 on 2026-10-14, no run on this machine reaches that branch (#122).
+    use. Its tests, run under both environments, are in `src/tests/prd/`. On this machine both
+    environments now import the system's 4.19.2 (python3 is 3.14, whose user site doesn't exist), so
+    no run reaches that branch (#122).
   - context's `context_check.py` snapshots, checks and restores the context documents and ambiguity
     logs against its copies of `context.schema.json` and `ambiguities.schema.json` (SPEC-011 §5); its
     tests are in `src/tests/context/`.

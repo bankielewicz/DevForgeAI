@@ -4,9 +4,10 @@ VER-27).
 Each test builds a project in a temporary folder from the example set
 (src/staging/examples/context-cli-service-rdbms/docs/specs/) and runs the script there as a subprocess:
 once with this interpreter's packages, and once with a throwaway HOME, which hides the user-site packages the
-way the eval harness does. What that second run imports is the system's jsonschema, whichever version the machine
-has: since the system's packages moved to 4.19.2 with referencing on 2026-10-14 (#122), the branch for a jsonschema
-with no referencing module can't run here, because jsonschema itself imports it from 4.18 on.
+way the eval harness does. On this machine the two runs now import the same packages (#122, checked 2026-11-04):
+python3 is 3.14, whose user site doesn't exist (jsonschema 4.26 sits in the 3.12 one), so both get the system's
+jsonschema 4.19.2, and the second run adds no coverage here until a user site exists. The branch for a jsonschema with
+no referencing module can't run here at all, because jsonschema itself imports it from 4.18 on.
 
 Run from the repository root:
     python3 -B src/tests/context/test_context_check.py
