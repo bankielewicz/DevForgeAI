@@ -39,8 +39,8 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILL = ROOT / "src/claude/DevForgeAI/skills/ui"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-017.md"
-SKL, SPEC_VERSION = "SKL-013", 3
-# What SKL-013 implements until the build of SPEC-017 v3 (#121), and what that spec adds that isn't built yet. The build
+SKL, SPEC_VERSION = "SKL-013", 4
+# What SKL-013 implements until the build of SPEC-017 v3 and v4 (#121), and what that spec adds that isn't built yet. The build
 # moves IMPLEMENTS to SPEC_VERSION and empties NOT_BUILT.
 IMPLEMENTS = 2
 NOT_BUILT = {"BEH-29", "ERR-25"}
