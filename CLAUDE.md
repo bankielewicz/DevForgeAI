@@ -9,10 +9,10 @@ work.
 
 ## What this workspace is
 
-DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.31.1 in
+DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.31.2 in
 `src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
 Brainstorm → UI → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
-Architecture and Epic are built; `ui` (optional, SKL-013 v2) designs a release's screens in Claude Design and records them as a DSN; `context` writes the project context documents between Architecture
+Architecture and Epic are built; `ui` (optional, SKL-013 v3) designs a release's screens in Claude Design and records them as a DSN; `context` writes the project context documents between Architecture
 and Story. Each skill implements an approved or in-review spec in `docs/specs/spec/`, and its eval
 suite is the evidence that it works. Each spec's §9 holds the build and eval record (results folders,
 bound commit, scores, cost, manual VER items run and not run); its §13 holds open questions; its
@@ -20,22 +20,22 @@ Change Log holds the history. Read those, not this file, for any number or date.
 
 | Skill | Record (provenance) | Spec | Evals on the current version | Merged |
 |---|---|---|---|---|
-| `brainstorm` | SKL-001 v10, in-review | SPEC-001 v17, approved | v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #99 (0.27.0) |
-| `prd` | SKL-002 v5, approved (implements SPEC-002 v5) | SPEC-002 v9, approved 2026-11-04 (v6 the interview at scale, #142; v7 and v8 Codex's fixes; v9 the dev-guard's cancellation; SKL-002 v6 not built) | 3 runs, 35 of 35 at ≥ 0.8 (SKL-002 v5) | PR #57 (0.11.0) |
-| `architecture` | SKL-003 v9, approved | SPEC-003 v11, approved | 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #83 (0.21.0) |
-| `epic` | SKL-004 v4, approved | SPEC-004 v4, approved | 3 runs, 25 of 25 at ≥ 0.8 | PR #62 (0.12.1) |
-| `context` | SKL-010 v2, approved | SPEC-011 v3, approved | 3 runs, 18 of 18 at ≥ 0.8 | PR #45 (0.8.1) |
-| `documents-updater` | SKL-005 v1, draft | SPEC-006 v1, approved | 1 run, 8 of 8 at 1.00 | PR #1 (0.2.0) |
-| `git` | SKL-006 v3, in-review | SPEC-007 v3, in-review | v3: not run. v2 (approved): 3 runs, 19 of 19 at ≥ 0.8 | PR #56 (0.10.1) |
-| `spec-lookup` | SKL-011 v1, approved | SPEC-014 v3, approved | 3 runs, 4 of 4 at 1.00 | PR #75 (0.19.0) |
+| `brainstorm` | SKL-001 v11, in-review | SPEC-001 v17, approved | v11 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #99 (0.27.0) |
+| `prd` | SKL-002 v6, approved (implements SPEC-002 v5) | SPEC-002 v9, approved 2026-11-04 (v6 the interview at scale, #142; v7 and v8 Codex's fixes; v9 the dev-guard's cancellation; the interview build, the next SKL-002 version, not built) | v6 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). 3 runs, 35 of 35 at ≥ 0.8 (SKL-002 v5) | PR #57 (0.11.0) |
+| `architecture` | SKL-003 v10, approved | SPEC-003 v11, approved | v10 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v9: 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #83 (0.21.0) |
+| `epic` | SKL-004 v5, approved | SPEC-004 v4, approved | v5 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v4: 3 runs, 25 of 25 at ≥ 0.8 | PR #62 (0.12.1) |
+| `context` | SKL-010 v3, approved | SPEC-011 v3, approved | v3 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31); cases that reach the snapshot can't pass under the eval sandbox (SPEC-011 §9). v2: 3 runs, 18 of 18 at ≥ 0.8 | PR #45 (0.8.1) |
+| `documents-updater` | SKL-005 v2, draft | SPEC-006 v1, approved | v2 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v1: 1 run, 8 of 8 at 1.00 | PR #1 (0.2.0) |
+| `git` | SKL-006 v4, in-review | SPEC-007 v3, in-review | v4 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v3: not run. v2 (approved): 3 runs, 19 of 19 at ≥ 0.8 | PR #56 (0.10.1) |
+| `spec-lookup` | SKL-011 v2, approved | SPEC-014 v3, approved | v2 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v1: 3 runs, 4 of 4 at 1.00 | PR #75 (0.19.0) |
 | `precompact` | SKL-012 v1, approved | SPEC-015 v2, approved | 1 run, 12 of 12 at 1.00; 3-run qualification waived by Bryan | PR #93 (0.26.0) |
 | `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
 | `story` | SKL-008, reserved | SPEC-009 v4, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
-| `ui` | SKL-013 v2, draft | SPEC-017 v2, approved 2026-10-10 | v2: e2e 1 run, every case ≥ 0.8; triggers 13 of 13 on sonnet and opus (negatives 10 of 10); 3-run qualification waived by Bryan; manual VER-43 to VER-49 run 2026-10-10, mostly passing; failures open in #115, #116, #117, a spec contradiction in #118 (SPEC-017 §9) | PR #110 (0.31.0) |
+| `ui` | SKL-013 v3, draft | SPEC-017 v2, approved 2026-10-10 | v3 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v2: e2e 1 run, every case ≥ 0.8; triggers 13 of 13 on sonnet and opus (negatives 10 of 10); 3-run qualification waived by Bryan; manual VER-43 to VER-49 run 2026-10-10, mostly passing; failures open in #115, #116, #117, a spec contradiction in #118 (SPEC-017 §9) | PR #110 (0.31.0) |
 | `research-capture` | SKL-014, reserved | SPEC-018 v1, draft | not built (#133) | — |
 
-- The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3, which is not
+- The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3 or later (v4, #135's text fix), which is not
   approved. Its remaining checks are in `docs/runbooks/git-v3-checks.md`.
 - `spec-lookup` also ships a plugin agent, `agents/spec-lookup.md` (`devforgeai:spec-lookup`), which
   runs the lookup script for another skill's workflow.
@@ -247,7 +247,7 @@ building it"). The source of each item is named.
   capture checks run as unit tests and live items, since eval runs' Bash can't write: SPEC-018 §13
   items 2 and 3), and the chain's final Spec step, which only PRD-001 FR-017 covers (no spec, no
   reserved SKL ID).
-- **`git` SKL-006 v3:** native evaluation, the manual VER items and Bryan's approval
+- **`git` SKL-006 v4:** native evaluation, the manual VER items and Bryan's approval
   (SPEC-007 §9, §13; `docs/runbooks/git-v3-checks.md`).
 - **Progress tracker** (SPEC-012 §11): the progress pane and its graphics, `progress.html`,
   `chain_state.py` and phases, manifests for the other skills, and a Codex copy.

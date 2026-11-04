@@ -94,7 +94,7 @@ class AdapterStructure(unittest.TestCase):
         self.assertIn("`--file=${p}`", body)
         self.assertNotIn("'--file'", body)
 
-    # SPEC-013 version 23 (DM-07, DM-08) and the plugin version of the ui skill's build (SPEC-017 cycle B, 0.31.0; set at the merge on Bryan's word, SPEC-017 §10), then 0.31.1 for the dsn_check.py fix (#119, Bryan 2026-10-30: patch for no behaviour change).
+    # SPEC-013 version 23 (DM-07, DM-08) and the plugin version of the ui skill's build (SPEC-017 cycle B, 0.31.0; 0.31.2 is #135's patch; set at the merge on Bryan's word, SPEC-017 §10), then 0.31.1 for the dsn_check.py fix (#119, Bryan 2026-10-30: patch for no behaviour change).
     def test_plugin_json_has_the_fuel_settings_and_the_new_version(self):
         manifest = json.loads((PLUGIN / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
         self.assertEqual(manifest["version"], "0.31.2")

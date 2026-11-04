@@ -1,6 +1,6 @@
 # SKL-006 v3 follow-up: decisions, verification and remaining qualification
 
-This prepares SPEC-007 v3 and SKL-006 v3 from approved v2. Both new revisions remain `in-review`.
+This prepares SPEC-007 v3 and SKL-006 v3 from approved v2. Both new revisions remain `in-review`. SKL-006 v4 is v3 plus #135's text fix, and these checks apply to it.
 Bryan chose the three policies in the 2026-10-01 Codex session; those choices do not approve the
 completed implementation or waive native and manual checks. The source plugin candidate is 0.10.1.
 
