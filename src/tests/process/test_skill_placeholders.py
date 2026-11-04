@@ -44,6 +44,10 @@ class Placeholders(unittest.TestCase):
                 with self.subTest(skill=path.parent.name, line=number):
                     self.assertIsNone(pattern.search(line), line)
 
+    def test_the_skill_template_has_no_live_placeholder(self):
+        """The next skill starts by copying this file (.claude/rules/skills.md)."""
+        self.assertIsNone(LIVE.search((ROOT / "src/templates/skill/SKILL.md").read_text()))
+
     def test_no_argument_word_in_a_reference(self):
         for path in sorted(SKILLS.glob("*/references/**/*.md")):
             for number, line in enumerate(path.read_text().splitlines(), 1):

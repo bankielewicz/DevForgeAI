@@ -111,8 +111,8 @@ answers the gates one by one:
 Work through the checklist in order, in the main conversation (BEH-01). Decide the kind of run at step 1, from
 the request and the files:
 - `approve DSN-NNN`, or words that approve the design or a named DSN and ask for nothing else (an ID or none) →
-  **approval-only run** (BEH-21): steps 1, 8, 9 and 10. A request whose approval is the `approve DSN-NNN` form (a
-  command argument that starts with it, with or without the approver's name) is one even when more words ask for
+  **approval-only run** (BEH-21): steps 1, 8, 9 and 10. A request whose approval is the `approve DSN-NNN` form (arguments
+  that start with it, with or without the approver's name) is one even when more words ask for
   a change: the change is not made, nothing is approved, and the reply says an amend run comes first
   (`/devforgeai:ui BRN-NNN`). A request to record, write or update the design for a BRN is a create or amend run,
   and its approving words apply at step 9 (BEH-16).
@@ -179,14 +179,14 @@ the first Artifact call.
 3. **Choose the route** by `ls` of the boards folder and the Artifact tool (load it with ToolSearch when the
    route needs it):
    - **A. Create run, the folder holds files (a copy):** run `boards <ID>`. The copy is recorded as it is, with no
-     brief and no import, whatever canvas URL the request names. When the request names a URL and the Artifact
+     brief and no import, whatever canvas URL the arguments or the request name. When either names a URL and the Artifact
      tool is available, ask once: "Import the canvas again" (Recommended) or "Record the copy as it is". Say in
      the report why the canvas was not checked: `no Artifact tool in this session` or `recorded as it is by
      choice`.
    - **B. Create run, the folder is absent or empty:** with a canvas URL, import it (step 5). Without one, draft
      the flows and the briefs and make the canvas (steps 3 and 4). Both need the Artifact tool; without it
      ERR-19 (with the briefs shown, when briefs were drafted).
-   - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL the request names): run
+   - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL in the arguments or the request): run
      `boards <ID>` and `check --before-amend <ID>` on the copy as it is (ERR-15 settled first), check the canvas's
      version read-only and, only when the canvas moved, its version is null, the digest differs or the copy is
      damaged, ask the import question first and alone, with a differing URL in the same call (canvas.md). Then

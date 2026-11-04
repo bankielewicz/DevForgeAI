@@ -19,7 +19,7 @@ This skill reads and never changes a file: it writes and edits nothing.
 ## Inputs
 
 - The arguments (the `ARGUMENTS:` line at the end of this text, when given), optional: a document ID (`SPEC-012`), a qualified item ID (`SPEC-012 BEH-18` or `SPEC-012#BEH-18`),
-  a bare item ID (`BEH-18`), or a term. With an argument, search it at once. With none, search the terms of the
+  a bare item ID (`BEH-18`), or a term. When they're given, search them at once, as one query. When they aren't, search the terms of the
   request the skill was loaded for.
 - The project's `docs/specs/`, read only through the bundled script.
 

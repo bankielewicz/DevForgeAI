@@ -16,7 +16,7 @@ claim decisions the user actually made.
 
 ## Inputs
 
-- The arguments (the `ARGUMENTS:` line at the end of this text, when given): the topic. It may be empty; then take the topic from the conversation, or ask for it.
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): the topic. They may be empty; then take the topic from the conversation, or ask for it.
 - Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
 - The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
 - The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md` (or the draft path the progress

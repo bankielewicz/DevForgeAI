@@ -142,7 +142,7 @@ Compute the set from the kinds of the active components ([documents.md](referenc
 "The document set"), with ERR-05 for a component without kinds.
 - **Scope:** the arguments; when they are empty, a request to update only one named document. A name of
   the set limits the writes to that document and index.md; the others are read, never written. No
-  argument and no such request: the whole set.
+  arguments and no such request: the whole set.
 - **A name outside the set (ERR-04):** write nothing. List the document names of the current set and
   ask which one, or whether to run for all. Stop. A path outside `docs/specs/context/`
   (`docs/guides/testing.md`) names no document of the set, whatever its file name: ERR-04 too.

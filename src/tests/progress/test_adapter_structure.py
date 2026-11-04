@@ -2,7 +2,7 @@
 
 - hooks/hooks.json names one module, and it exists;
 - .claude-plugin/plugin.json names the $.state contract (types), the tracking setting (DM-05), the
-  retentionDays setting (DM-06) and the two fuel settings (DM-07, DM-08), and its version is 0.31.1;
+  retentionDays setting (DM-06) and the two fuel settings (DM-07, DM-08), and its version is 0.31.2;
 - CLAUDE.md's deploy command and its source-and-deploy check leave the module's tests and the engine's generated
   files out of the deployed copy;
 - VER-04's expected event lines, kept in hooks/progress.test.ts between marker comments, validate against
