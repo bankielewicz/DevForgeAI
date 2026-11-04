@@ -39,7 +39,7 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILL = ROOT / "src/claude/DevForgeAI/skills/ui"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-017.md"
-SKL, SPEC_VERSION = "SKL-013", 3
+SKL, SPEC_VERSION = "SKL-013", 4
 # DM-01: the common keys, then the design-specific ones.
 DSN_KEYS = ["id", "type", "title", "status", "version", "created", "updated", "owner", "authors", "generated_by",
             "reviewed_by", "approved_by", "approved_on", "upstream", "supersedes", "superseded_by", "blocked_by",
@@ -259,16 +259,26 @@ class Skill(unittest.TestCase):
                 self.assertNotIn(phrase, " ".join(texts.values()))
         for phrase in ("## The plain read and the canvas's sharing (BEH-29, ERR-25)", "not by matching words", "Share menu",
                        "before the first read with `paths` of every import", "just before the DSN is written",
-                       "never published to a new URL"):
+                       "never published to a new URL", "**The question before an addition.**",
+                       "**No statement in any of the run's results:**", "outside the files' text"):
             with self.subTest(phrase):
                 self.assertIn(phrase, " ".join(canvas.split()) if " " in phrase else canvas)
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()
-        for number in ("5", "7"):
+        for number in ("2", "4", "5", "7", "10"):
             step = re.search(rf"^### {number}\. .*$", skill, re.M).group(0)
             with self.subTest(step=number):
                 self.assertIn("BEH-29", step)
+
+    def test_the_consent_question_tells_the_truth(self):
+        """SPEC-017 v4: after a canvas is found not private, the question to add to it doesn't say "private artifact"."""
+        skill = (SKILL / "SKILL.md").read_text()
+        rule = re.search(r"^5\. \*\*Write only the DSN.*?(?=^\S)", skill, re.M | re.S).group(0)
+        step4 = re.search(r"^### 4\. .*?(?=^### )", skill, re.M | re.S).group(0)
+        for name, text in (("rule 5", rule), ("step 4", step4)):
+            with self.subTest(name):
+                self.assertIn("found not private", " ".join(text.split()))
 
     def test_every_behaviour_and_error_is_cited(self):
         doc = spec_document(spec_text())

@@ -3,7 +3,7 @@
 Written 2026-10-31 by session 7637882f, at Bryan's request: "Before the start of any development, create an eval.md
 … to pass a 'check' to determine as validation or failure metric based on proposed works." It covers the work after
 PR #126's close, in this order: the plugin-workflow gate (issue #137: C, the ADR, probes P1-P8, A, B), then the ui v3
-redo (the next versions of SPEC-017, ADR-007 and SKL-013: #135's text fix took SKL-013 v3, and section X takes SPEC-017 v3 and SKL-013 v4). This file makes no decision. It records Bryan's, each quoted with its
+redo (the next versions of SPEC-017, ADR-007 and SKL-013: #135's text fix took SKL-013 v3, and section X takes SPEC-017 v3 and v4 and SKL-013 v4). This file makes no decision. It records Bryan's, each quoted with its
 date, and that quote is the record a reviewer checks until a spec carries the decision. The plan's decision ledger
 (`tmp/plans/2026-10-31-ui-v3-redo-plan-design.md` §11) is a local copy only. Cells marked **[Bryan]** still wait for
 him.
@@ -128,7 +128,7 @@ The spec PR; A, B, M and N get their evidence at the build.
 | W6 | Approved | G4's rows for a new document: `status: approved`, Bryan's Change Log row; CLAUDE.md's ADR-008 line says SPEC-019 is approved |
 | W7 | #137 told | The comment ADR-008's follow-up names is posted on #137, pointing to SPEC-019 |
 
-### X. SPEC-017 v3 and SKL-013 v4, the canvas's sharing (#121, #117)
+### X. SPEC-017 v3 and v4 and SKL-013 v4, the canvas's sharing (#121, #117)
 
 Bryan, 2026-11-04: "proceed with stacked PRs for the following 3 issues" (#135, #121, #122); "Warn and continue (Recommended)". This takes #121 and #117 out of the redo in S and U, and does not inherit U8's qualification: the Artifact tool is off in eval runs (`plugin-evals.md`), so no eval reaches this path.
 
@@ -137,7 +137,7 @@ Bryan, 2026-11-04: "proceed with stacked PRs for the following 3 issues" (#135, 
 | X1 | Spec reviewed and approved | An independent drafts review's report is committed with every finding answered, then G4 holds with Bryan's approval row |
 | X2 | Structure | `src/tests/ui/test_structure.py` passes; at the build `NOT_BUILT` is empty and `IMPLEMENTS` equals `SPEC_VERSION` |
 | X3 | Smoke | At the build, one or two ui cases, once, at or above 0.8 with their cost recorded. Requalification: Bryan's word, in SPEC-017 §9 |
-| X4 | Live | SPEC-017 VER-50 (a) to (d) pass on the build commit, recorded in §9, and (e) is run or recorded as not reachable |
+| X4 | Live | SPEC-017 VER-50 (a) to (d) and (g) pass on the build commit, recorded in §9, and (e) and (f) are run or recorded as not reachable |
 | X5 | The plugin workflow | G5's reports on the build's last commit |
 
 ### S. The next SPEC-017 and ADR-007 versions, redrafted from main
