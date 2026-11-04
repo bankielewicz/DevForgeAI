@@ -32,12 +32,13 @@ Five rules shape everything below:
 5. **Write only the DSN and the boards copy** (BEH-19), and in the session's scratchpad the files it publishes and
    an import's digest file. Every other document is read-only. Never delete a file or an artifact, run git or
    project code, or resolve policy. Send claude.ai only the confirmed briefs and the boards made from them, as a
-   private artifact on the user's own account, except an addition to a canvas found not private, which the question
-   says (canvas.md): never share, pin or comment on it.
+   private artifact on the user's own account, except an addition to a canvas a read found not private, or whose
+   sharing it couldn't read, where the question says so (canvas.md): never share, pin or comment on it.
 
 ## Inputs
 
-- The arguments (the `ARGUMENTS:` line at the end of this text, when given): empty, a BRN ID, a BRN ID followed by one canvas URL (`https://claude.ai/artifact/<id>` or
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): empty, a BRN ID, a BRN ID followed by
+  one canvas URL (`https://claude.ai/artifact/<id>` or
   `https://claude.ai/code/artifact/<uuid>`), or `approve DSN-NNN`, which may be followed by the approver's name
   (step 9). A canvas URL stated in the request counts as stated. Anything that replaces the ID (a file path, a
   boards folder, a URL without a BRN ID, other words), in the arguments or in the request, is refused (ERR-02), even
@@ -112,7 +113,8 @@ answers the gates one by one:
 Work through the checklist in order, in the main conversation (BEH-01). Decide the kind of run at step 1, from
 the request and the files:
 - `approve DSN-NNN`, or words that approve the design or a named DSN and ask for nothing else (an ID or none) →
-  **approval-only run** (BEH-21): steps 1, 8, 9 and 10. A request whose approval is the `approve DSN-NNN` form (arguments
+  **approval-only run** (BEH-21): steps 1, 8, 9 and 10. A request whose approval is the `approve DSN-NNN` form
+  (arguments
   that start with it, with or without the approver's name) is one even when more words ask for
   a change: the change is not made, nothing is approved, and the reply says an amend run comes first
   (`/devforgeai:ui BRN-NNN`). A request to record, write or update the design for a BRN is a create or amend run,
@@ -180,7 +182,8 @@ the first Artifact call.
 3. **Choose the route** by `ls` of the boards folder and the Artifact tool (load it with ToolSearch when the
    route needs it):
    - **A. Create run, the folder holds files (a copy):** run `boards <ID>`. The copy is recorded as it is, with no
-     brief and no import, whatever canvas URL is named in the arguments or the request. When either names a URL and the Artifact
+     brief and no import, whatever canvas URL is named in the arguments or the request. When either names a URL and
+     the Artifact
      tool is available, ask once: "Import the canvas again" (Recommended) or "Record the copy as it is". Say in
      the report why the canvas was not checked: `no Artifact tool in this session` or `recorded as it is by
      choice`.
@@ -224,8 +227,8 @@ and apply ERR-19. Nothing is sent to claude.ai before step 4's question.
 
 Only after the grouping and the briefs are confirmed in this run. Ask once: "Create the canvas from these
 briefs?", saying that the briefs and the boards made from them are sent to the user's claude.ai account as a
-private artifact (an addition to a canvas found not private says that instead, canvas.md). Then make the canvas
-as canvas.md says (an amend run adds the new flow or screen to the
+private artifact (an addition to a canvas a read found not private, or whose sharing it couldn't read, says
+that instead, canvas.md). Then make the canvas as canvas.md says (an amend run adds the new flow or screen to the
 existing one), only through the Artifact tool.
 
 ### 5. Wait, then import (BEH-24, BEH-25, BEH-28, BEH-29, ERR-20, ERR-21, ERR-25)
@@ -236,9 +239,10 @@ existing one), only through the Artifact tool.
   the run: write nothing in the repository, mark steps 6 to 9 skipped, and make the final reply the canvas report
   with the line that resumes the run (canvas.md, "Ending after the canvas").
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
-  again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain read, `canvas.json`
-  next, then at most 4 boards a read, then `place`, then `boards`), and in an amend run run
-  `check --before-amend <ID>` again. The canvas URL and `canvas_version` are the tool's, not asked.
+  again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain
+  read, then `canvas.json`, then at most 4 boards a read, then `place`, then `boards`), and in an amend run run
+  `check --before-amend <ID>` again. When the plain read finds the canvas not private, give ERR-25's warning in reply
+  text before the next tool call. The canvas URL and `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.
 
@@ -260,7 +264,8 @@ says ("Nothing to change"), and stop: no check and no approval offer.
 
 ### 7. Write DSN-NNN (BEH-12 to BEH-14, BEH-20, BEH-29, ERR-25)
 
-Read [references/output-rules.md](references/output-rules.md) first. When the run read a canvas, make the plain read again
+Read [references/output-rules.md](references/output-rules.md) first. When the run read a canvas, make the plain read
+again
 just before writing (canvas.md).
 - **Create run:** Write the DSN once from `${CLAUDE_SKILL_DIR}/assets/dsn.md`, deleting every author comment.
   Version 1, status `draft`, `session: "${CLAUDE_SESSION_ID}"` under `generated_by`, one board item for each

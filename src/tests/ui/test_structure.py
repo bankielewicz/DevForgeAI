@@ -6,7 +6,7 @@
   against skill-frontmatter.schema.json;
 - the description is the one SPEC-017 §5 fixes, at most 1024 characters, with no < or >;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02), and provenance.yaml validates against
-  skill.schema.json and records SKL-013 implementing SPEC-017 v2;
+  skill.schema.json and records SKL-013 implementing SPEC-017's pinned version;
 - the checklist has the ten numbered items of §5, in the Workflow section;
 - SKILL.md carries the substituted variables and the six dsn_check.py commands (Claude Code substitutes
   ${CLAUDE_SKILL_DIR} and ${CLAUDE_SESSION_ID} only in SKILL.md), the report block of BEH-17 and BEH-18's hand-off;
@@ -165,7 +165,7 @@ class Skill(unittest.TestCase):
         self.assertEqual(errors("skill.schema.json", {"frontmatter": self.prov}), [])
         self.assertEqual((self.prov["id"], self.prov["skill_name"], self.prov["eval_tag"]), (SKL, "ui", "ui"))
         self.assertEqual((self.prov["packaging"], self.prov["plugin"]), ("plugin", "devforgeai"))
-        self.assertEqual(self.prov["version"], 4)  # version 3 is #135's text fix; version 4 builds SPEC-017 v3 (#121, #117)
+        self.assertEqual(self.prov["version"], 4)  # version 3 is #135's text fix; version 4 builds SPEC-017 v3 and v4 (#121, #117)
         self.assertIn({"id": "SPEC-017", "relation": "implements", "version": SPEC_VERSION, "hash": None},
                       self.prov["upstream"])
         # Not approved until the suite and the manual checks have run and Bryan has said so.
@@ -260,7 +260,8 @@ class Skill(unittest.TestCase):
         for phrase in ("## The plain read and the canvas's sharing (BEH-29, ERR-25)", "not by matching words", "Share menu",
                        "before the first read with `paths` of every import", "just before the DSN is written",
                        "never published to a new URL", "**The question before an addition.**",
-                       "**No statement in any of the run's results:**", "outside the files' text"):
+                       "**No statement in any plain read or read with `paths` the run made**", "outside the files' text",
+                       "warning in reply text before the next tool call"):
             with self.subTest(phrase):
                 self.assertIn(phrase, " ".join(canvas.split()) if " " in phrase else canvas)
 
@@ -278,7 +279,7 @@ class Skill(unittest.TestCase):
         step4 = re.search(r"^### 4\. .*?(?=^### )", skill, re.M | re.S).group(0)
         for name, text in (("rule 5", rule), ("step 4", step4)):
             with self.subTest(name):
-                self.assertIn("found not private", " ".join(text.split()))
+                self.assertIn("found not private, or whose sharing it couldn't read", " ".join(text.split()))
 
     def test_every_behaviour_and_error_is_cited(self):
         doc = spec_document(spec_text())
