@@ -4,7 +4,7 @@
 - provenance.yaml against skill.schema.json, implementing the spec version this build targets;
 - metadata.devforgeai-version equals provenance.yaml's version (QR-02);
 - SKILL.md is at most 500 lines (NFR-001, QR-01), and every relative link in it resolves;
-- SPEC-002 v8 (approved 2026-11-02; SKL-002 v5 implements v5) and SPEC-003 v11 (approved 2026-10-04;
+- SPEC-002 v9 (approved 2026-11-04; SKL-002 v5 implements v5) and SPEC-003 v11 (approved 2026-10-04;
   SKL-003 v9 implements it) validate against spec.schema.json, and every BEH, ERR and QR item is
   covered by a VER item.
 
@@ -40,8 +40,8 @@ APPROVAL = {"prd": ("approved", "Bryan", "2026-10-02"), "architecture": ("approv
 # SPEC-002 v6 (2026-11-02, issue #142): the interview at scale (BEH-19 to BEH-26), approved by Bryan on 2026-11-02;
 # v7 and v8 the same day (Codex's findings on PR #144: a partially settled requirement never enters the triage table,
 # and the triage cost prices it at one question). SKL-002 v5 still implements version 5 (TARGETS) until SKL-002 v6
-# is built under the dev-guard.
-SPEC_STATE = {"SPEC-002": (8, "approved"), "SPEC-003": (11, "approved")}
+# is built. SPEC-002 v9 (2026-11-04): the dev-guard cancelled, so that build no longer waits for it.
+SPEC_STATE = {"SPEC-002": (9, "approved"), "SPEC-003": (11, "approved")}
 
 
 class _Loader(yaml.SafeLoader):

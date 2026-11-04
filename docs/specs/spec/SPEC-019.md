@@ -2,21 +2,21 @@
 id: SPEC-019
 type: spec
 title: "Dev-guard: the plugin-workflow guard (A) and the commit check (B)"
-status: approved
-version: 2
+status: deprecated
+version: 3
 created: 2026-11-02
-updated: 2026-11-02
+updated: 2026-11-04
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
   tool: "claude-code"
-  model: "claude-fable-5-1"
-  session: "1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc"
+  model: "claude-opus-5-5"
+  session: "ff2b61f5-d9cf-4808-aa2e-6c0ebf931d91"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-11-02
+approved_on: 2026-11-04
 upstream:
-  - {id: ADR-008, relation: constrains, version: 2, hash: null, note: "accepted: decisions D1 to D8, probes P1 to P8 and Bryan's answers; this spec carries A's and B's requirements"}
+  - {id: ADR-008, relation: constrains, version: 3, hash: null, note: "deprecated with this spec: decisions D1 to D8, probes P1 to P8 and Bryan's answers; this spec carries A's and B's requirements"}
   - {id: ADR-006, relation: constrains, version: 2, hash: null, note: "accepted: D1, a guard fails closed and refuses with a reason; ADR-008 D3 extends it"}
   - {id: ADR-001, relation: informed_by, version: 4, hash: null, note: "work happens in worktrees under .claude/worktrees/"}
   - {id: ADR-005, relation: informed_by, version: 1, hash: null, note: "D7: disposable detached worktrees for investigating a failing test"}
@@ -30,6 +30,8 @@ components: ["src/tools/mods/dev-guard", "src/tests/process", ".github/workflows
 ---
 
 # SPEC-019 — Dev-guard: the plugin-workflow guard (A) and the commit check (B)
+
+**Deprecated on 2026-11-04, unbuilt.** Bryan: "Cancel the dev-guard --> we are going in a different direction". The rest of this file is the requirements as they stood, kept as history.
 
 ## 1. Overview
 
@@ -335,19 +337,19 @@ quality_responses:
     measured_by: "Kit tests with a throwing hook, a timed-out git call and a missing guard.json (VER-15); claude plugin validate --strict passes (VER-02)"
     upstream:
       - {id: ADR-006, relation: satisfies, version: 2, hash: null}
-      - {id: ADR-008, relation: satisfies, version: 2, hash: null}
+      - {id: ADR-008, relation: satisfies, version: 3, hash: null}
   - id: QR-02
     status: active
     response: "No machine path and no off switch in the repository: the scope is the path anchor, the rules file is protected, recovery is --safe-mode (BEH-01, BEH-12)"
     measured_by: "Reading plugin.json (no userConfig) and guard.json (no path, no mode); a kit test that an edit to guard.json is refused under a permitting ticket"
     upstream:
-      - {id: ADR-008, relation: satisfies, version: 2, hash: null}
+      - {id: ADR-008, relation: satisfies, version: 3, hash: null}
   - id: QR-03
     status: active
     response: "A refusal is quick: R1 and R2 make no process call on the hot path (the checkout, anchor and realpath lookups are cached per directory, and only a cache miss runs one), R3 one git call; the refusal log is written per session and never read on the hot path. Targets (reading (p)): under 100 ms for R1 and R2, under 5 s for R3"
     measured_by: "The kit tests' timings; VER-14's live checks note each refusal's delay"
     upstream:
-      - {id: ADR-008, relation: satisfies, version: 2, hash: null}
+      - {id: ADR-008, relation: satisfies, version: 3, hash: null}
 ```
 
 ## 9. Verification
@@ -356,6 +358,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
+| Version 3 | **Deprecated by Bryan on 2026-11-04 ("Cancel the dev-guard --> we are going in a different direction"), not built.** Behavioural: NOT_RUN, and it won't run. Step M is the only part done; its boards and briefs stay under `docs/specs/design/dev-guard/` as a record. The unmerged draft on `docs/spec-019-v3` (PR #147, closed, head 929dcbe) holds the six probes' results, on Claude Code 2.1.317, and the settlement of the sixteen close-review findings; `tmp/probes/v3/` is local |
 | Version 2 | **Approved by Bryan on 2026-11-02 ("Version 2 in this PR (Recommended)"), not built.** The close review of PR #145 at 6d1ecdb found eight design defects and two record items; version 2 fixes them as the advisor revised (reads count only while the ticket is open; a lock-free ledger append; the innermost checkout; cached realpath; per-entry flags; the records-commit exception as one invocation; digest keys; VER-15's exact commands). Structural: `src/tests/process/test_spec_019_structure.py` (new, seen failing on the version-1 pin first) validates the document and its coverage in `pytest src/tests`. Behavioural: NOT_RUN |
 | Version 1 | **Approved by Bryan on 2026-11-02 ("Approve as drafted (Recommended)"), not built.** Drafted and revised after the drafts review the same day. VER-01 to VER-12 are EVAL.md's A1 to A8 and B1 to B4 (ADR-008, Bryan's answer 3: one source); EVAL.md's rows cite them back. VER-13 and VER-14 are the mockups (Bryan, 2026-11-02); VER-15 to VER-18 the review notes, the install and the first close. Structural: validates against `spec.schema.json` with every BEH, ERR and QR item covered. Behavioural: NOT_RUN. Step 1 of §11 starts with a check that the Artifact tool reaches Claude Design from this account (ERR-08) |
 
@@ -615,3 +618,5 @@ Canvas: "Dev-guard terminal surfaces", https://claude.ai/artifact/GTBwKjWK9Qxzx9
 | 2 | 2026-11-02 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | The close review of PR #145 at 6d1ecdb (`docs/process/plugin-workflow/reviews/20261102T2020Z-code-review-6d1ecdb.md`): eight design defects and two record items, fixed as the advisor revised two of them. BEH-07: a read counts only while the ticket is open (ADR-008 D6), a read made before the load is repeated, and only the order between skill-development's load and the reads is free (the advisor's revision: the drafted "reads since the previous close" departed from D6). BEH-10: a lock-free ledger append, read, write, re-read and retry, with the residual race stated (the advisor's revision: no stale-takeover lock). BEH-01 and BEH-06: the innermost checkout, cached lookups, and the ticket's checkout as the working directory's at the load, so an iteration on a worktree is loaded from the worktree (VER-07). BEH-03: lexical normalisation with a cached realpath, and the records-commit exception as one invocation with no operator. DM-01, DM-03 and BEH-06: a digest key with the plain values inside. DM-02: per-entry flag forms, V as one word, a deploy-diff entry. QR-03 reworded. VER-15 lists the exact commands. Readings (q) to (t) and the stop rule in §13; row 1's ERR range explained. EVAL.md W2 cites the new structure test. Recorded as a version under the rule for an approved document, on Bryan's choice of 2026-11-02 ("Version 2 in this PR (Recommended)", after "prior to modifying it, run it by /advisor for guidance") | frontmatter, DM-01 to DM-03, BEH-01, BEH-03, BEH-06, BEH-07, BEH-10, QR-03, VER-07, VER-15, §9, §13, status |
 | 2 | 2026-11-02 | Bryan | Approved ("Version 2 in this PR (Recommended)", with the ten fixes as the advisor revised them shown in the question's preview) | status |
 | 2 | 2026-11-03 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | Record-only update, with no version bump (BEH-17: the row that commits the boards): Appendix A lists the 18 boards of Bryan's picks ("go", 2026-11-03) at three widths, approved by Bryan ("approved", 2026-11-03), with their files and sha256; the boards, the briefs and the generator are committed under `docs/specs/design/dev-guard/`. No item changed | Appendix A |
+| 3 | 2026-11-04 | claude-code (session ff2b61f5-d9cf-4808-aa2e-6c0ebf931d91) | The dev-guard cancelled before it was built: status deprecated, the note under the title, §9's row, and the links to ADR-008 v3. No requirement changed. A draft also numbered version 3 (PR #147) was never merged, and this version doesn't include it | frontmatter, §9, status |
+| 3 | 2026-11-04 | Bryan | Approved: "Cancel the dev-guard --> we are going in a different direction" | status |

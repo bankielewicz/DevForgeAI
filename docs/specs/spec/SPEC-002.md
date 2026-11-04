@@ -3,18 +3,18 @@ id: SPEC-002
 type: spec
 title: "PRD skill (MVP)"
 status: approved
-version: 8
+version: 9
 created: 2026-09-23
-updated: 2026-11-02
+updated: 2026-11-04
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
   tool: "claude-code"
-  model: "claude-fable-5-1"
-  session: "1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc"
+  model: "claude-opus-5-5"
+  session: "ff2b61f5-d9cf-4808-aa2e-6c0ebf931d91"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-11-02
+approved_on: 2026-11-04
 upstream:
   - {id: STORY-002, relation: specifies, version: 7, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 14, hash: null}
@@ -24,7 +24,7 @@ upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: Architecture Definition step between PRD and epics"}
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
   - {id: ADR-005, relation: constrains, version: 1, hash: null, note: "accepted: SV-08, and testing keys that prd validates but does not resolve"}
-  - {id: ADR-008, relation: constrains, version: 2, hash: null, note: "accepted: the dev-guard; the version 6 build waits for it (§2)"}
+  - {id: ADR-008, relation: informed_by, version: 3, hash: null, note: "deprecated: the dev-guard, cancelled unbuilt; the version 6 build no longer waits for it (§2)"}
   - {id: SPEC-001, relation: informed_by, version: 17, hash: null, note: "consumes the brainstorm skill's downstream contract (SPEC-001 §5)"}
 supersedes: []
 superseded_by: null
@@ -72,16 +72,17 @@ in SPEC-003 and SPEC-011 (Bryan, 2026-11-02: "PRD now, with specific §13 questi
 context").
 
 This skill implements the spec and is recorded as `SKL-002` in its `provenance.yaml`. SKL-002 v5 implements
-version 5; version 6 is built only after the dev-guard of ADR-008 passes its own checks (Bryan, 2026-11-02:
-"spec now, build under the guard, after the guard passes its own required checks").
+version 5; version 6 isn't built. It was to wait for the dev-guard of ADR-008 (Bryan, 2026-11-02), which Bryan cancelled
+on 2026-11-04; when it is built is Bryan's to say.
 
 ## 2. Constraints
 
 - **NFR-001 / NFR-002 / NFR-003**, as for SPEC-001: a short `SKILL.md` with detail in `references/`,
   spec-only frontmatter with provenance in the sidecar, and behavior proven by the eval suite in §9.
 - **ADR-001 v4:** built in a worktree from `src/`, deployed with rsync, and evaluated from a plain terminal.
-- **ADR-008 (accepted 2026-10-31):** a change to the skill under `src/claude/DevForgeAI/` is made inside a
-  `/plugin-dev:create-plugin` iteration that the dev-guard records. The version 6 build waits for the guard.
+- **CLAUDE.md, "Plugin changes go through `/plugin-dev:create-plugin`":** a change to the skill under
+  `src/claude/DevForgeAI/` is made inside such an iteration. ADR-008's guard, which would have enforced it, was
+  cancelled on 2026-11-04.
 - **SPEC-001 §5 (downstream contract):**
   - BRNs are at `docs/specs/brainstorm/BRN-NNN.md` with stable item IDs.
   - Only `promoted` ideas are user-approved.
@@ -449,6 +450,7 @@ quality_responses:
 
 | Kind | Status |
 |---|---|
+| Version 9 | **Approved by Bryan on 2026-11-04 ("Cancel the dev-guard --> we are going in a different direction"), not built.** The dev-guard cancelled: the version 6 build no longer waits for it (§1, §2, §11). No behaviour changed |
 | Version 8 | **Approved by Bryan on 2026-11-02 ("Version 8 in this PR (Recommended)"), not built.** Codex's review of PR #144 at 488d9e7 found that BEH-21's triage cost still priced every open requirement at twelve a call after version 7 sent partially settled requirements to the one-question form; version 8 prices those at one question each in the cost line. Nothing else changes; the version 7 and version 6 rows hold |
 | Version 7 | **Approved by Bryan on 2026-11-02 ("Version 7 in this PR (Recommended)"), not built.** Codex's review of PR #144 at 176906d found that BEH-22's table could change a settled release during a continue, against BEH-25; version 7 adds the partially-settled-requirement rule to BEH-22, a pointer in BEH-25 and ERR-09's pasted-list case, and the runbook's M3 (c) to (e) move the dismissal, empty-answer and explicit-none checks to a fresh interview. Recorded as a version under the rule for an approved document, as ADR-008 version 2 was (Bryan, 2026-10-31). Everything else in the version 6 row holds; SKL-002 v5 still implements version 5 |
 | Version 6 | **Approved by Bryan on 2026-11-02, not built.** Drafted on 2026-11-02 for issue #142 (the PRD interview at scale) and #143's prd part, from the plan Bryan approved on 2026-11-02 (`tmp/plans/2026-11-02-interview-at-scale-and-improve.md`, local; its W1 sections are named in the Change Log row). SKL-002 v5 implements version 5 and its `provenance.yaml` keeps `implements SPEC-002 version 5` until SKL-002 v6 is built under `/plugin-dev:create-plugin` and the dev-guard (ADR-008), after the guard passes its own checks (EVAL.md A and B). New: BEH-19 to BEH-26, ERR-09 to ERR-11, VER-39 to VER-45 and VER-49 (eval cases, written first with `src/tests/prd/make_evals.py` and run once on SKL-002 v5, where they should fail) and VER-46 to VER-48 (manual, `docs/runbooks/prd-v6-interview-checks.md`). Changed: BEH-01, BEH-05, BEH-13, ERR-04, ERR-07, §1, §3, §4, §5 (Tools and Questions rows only; the description is unchanged, so SKL-002 v5's frontmatter still matches). Reviewed before approval by an independent drafts review (`docs/process/plugin-workflow/reviews/20261102T1713Z-drafts-review-2babfc3.md`), whose findings the second Change Log row answers. Structural: this version validates against `spec.schema.json` and every item is covered (`src/tests/prd/test_structure.py`, whose SPEC_STATE pins the spec's current version: 6 at this version's approval, 7 since version 7). Behavioural: NOT_RUN until the build. Codex: not ported (ADR-005); the two prd skills drift until it is |
@@ -969,15 +971,13 @@ The shared policy files don't change. The new and changed cases, and every case 
 changes, are requalified in a run bound with `src/tests/prd/record_revision.sh`. The Codex prd skill follows
 in its own port.
 
-**Version 6** (after approval, and after the dev-guard of ADR-008 passes EVAL.md's A and B rows; Bryan,
-2026-11-02: "spec now, build under the guard, after the guard passes its own required checks. The PRD
-iteration can exercise the guard in practice; it cannot replace the guard's qualification"):
+**Version 6** (after approval, when Bryan says; the wait for ADR-008's dev-guard ended when Bryan cancelled it on 2026-11-04):
 1. The eval cases for VER-39 to VER-45 and VER-49 are written first, in `src/tests/prd/make_evals.py` (VER-40's BRN-003
    with 14 promoted ideas is a new shared fixture; VER-43's and VER-44's draft PRD-001 and review file are
    seeded by their scaffolds), with their graders checked offline by `check_graders.py`, and run once on
    SKL-002 v5, where each should fail on the obligations version 6 adds. EVAL.md gets rows for this work
    item before the first plugin edit.
-2. SKL-002 v6 is built in one or more `/plugin-dev:create-plugin` iterations that the dev-guard records:
+2. SKL-002 v6 is built in one or more `/plugin-dev:create-plugin` iterations:
    `SKILL.md` (step 6 writes the reuse line and the count line, step 7 names the modes, step 4 gains the
    continue gate, step 10 the new report lines), `references/interview.md` (the count, the modes, triage and
    the table, the pasted list, the review file, the answers that decide nothing), `references/output-rules.md`
@@ -1039,7 +1039,7 @@ iteration can exercise the guard in practice; it cannot replace the guard's qual
   - (l) In triage, 'None of these' is recorded as 'Not must now: <IDs>' in the reply and the Change Log row, so it is told apart from no answer; an answer with no tick decides nothing and isn't asked again; should now, could now, won't and decide later come through the typed list (BEH-22).
   - (m) A pasted list takes 'the rest: <value>' once and IDEA-NN entries that apply to every FR drafted from the idea, an FR entry winning over an IDEA-NN entry for the same requirement (BEH-23).
 - Open (version 6): the tracker's work-file sweep (SPEC-013 BEH-19, BEH-32) reads the patterns of manifests' `workFiles`, and the prd skill has no manifest, so nothing deletes `devforgeai/drafts/prd/` today. Once the prd skill has a manifest (SPEC-012 §11), its `workFiles` would name `devforgeai/drafts/prd/*.md`, and the tracker would delete a review file once the run's cleanup is due; whether a review file the user hasn't filled should outlive the run is then SPEC-012's question.
-- Open (version 6): SPEC-011 BEH-13, SPEC-012 §11, SPEC-013 and SPEC-017 BEH-13 are cited in prose as precedents, not as `upstream` links, since nothing here depends on their versions; ADR-008 is linked, since §2 depends on it.
+- Open (version 6): SPEC-011 BEH-13, SPEC-012 §11, SPEC-013 and SPEC-017 BEH-13 are cited in prose as precedents, not as `upstream` links, since nothing here depends on their versions; ADR-008 is linked, since §2 depended on it until 2026-11-04.
 - Open (version 6): whether an approved PRD's `release: later` items should be prioritised through a continue rather than an extension; today neither path sets them (BEH-25 excludes approved PRDs, BEH-09 leaves existing items unchanged), so the owner edits them by hand.
 - Open (version 6): the plain-language question (#142, comment 6581333817), revisited with the examples the runbook and the close-the-loop rerun record.
 - Open (version 6): whether SPEC-003 and SPEC-011 adopt the reuse line, the count line and the modes; each carries the question in its own §13 (Bryan, 2026-11-02).
@@ -1150,3 +1150,5 @@ requirements and left 28 with a `null` release, each blocking approval.
 | 7 | 2026-11-02 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | Record-only update, with no version bump: §9's Version 6 row no longer says the structure test's pin is 6 (it pins the current version, 7), found by the second close review of PR #144 (`docs/process/plugin-workflow/reviews/20261102T1816Z-code-review-9724009.md`). No item changed | §9 |
 | 8 | 2026-11-02 | claude-code (session 1c98fbaa-c1b5-46cd-b918-3dde63e1c8dc) | Codex's review of PR #144 at 488d9e7 (P2): "When continuing a PRD with partially settled requirements, the advertised triage cost undercounts the calls required by BEH-22 … Count partially settled requirements separately at the host's ordinary question limit and apply the twelve-per-call formula only to requirements eligible for grouped triage." BEH-21's triage cost line now counts one call per twelve requirements with both fields open, plus the table call, plus one question per partially settled requirement at the host's per-call limit. Recorded as a version under the rule for an approved document, as version 7 was, on Bryan's choice of 2026-11-02 ("Version 8 in this PR (Recommended)", the fix text shown in the question's preview). SPEC-003, SPEC-004, SPEC-011 and SPEC-018 relinked to version 8 (mechanical) | frontmatter, BEH-21, §9, status |
 | 8 | 2026-11-02 | Bryan | Approved ("Version 8 in this PR (Recommended)", with the fix text shown in the question's preview) | status |
+| 9 | 2026-11-04 | claude-code (session ff2b61f5-d9cf-4808-aa2e-6c0ebf931d91) | The dev-guard cancelled: §1, §2 and §11 no longer make the version 6 build wait for it, and the ADR-008 link moves to version 3 as `informed_by`. No behaviour or verification item changed | frontmatter, §1, §2, §9, §11, §13 |
+| 9 | 2026-11-04 | Bryan | Approved: "Cancel the dev-guard --> we are going in a different direction" | status |

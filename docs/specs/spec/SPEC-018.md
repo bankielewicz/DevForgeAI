@@ -23,7 +23,7 @@ upstream:
   - {id: ADR-007, relation: informed_by, version: 2, hash: null, note: "lines 341-342: the research notes in docs/research/ are input, and the user said the research 'will be slated for another skill'; a remark recorded with the ui decision, not a decision to build this skill"}
   - {id: SPEC-013, relation: informed_by, version: 28, hash: null, note: "BEH-02: a plugin skill whose SKILL.md metadata holds devforgeai-tracked \"false\" is untracked (version 18); this skill proposes it (BEH-13)"}
   - {id: SPEC-014, relation: informed_by, version: 3, hash: null, note: "precedent: a skill whose work is a bundled standard-library script run by Bash (IF-01, BEH-02, BEH-07)"}
-  - {id: SPEC-002, relation: informed_by, version: 8, hash: null, note: "precedent: ${CLAUDE_SESSION_ID} in a SKILL.md body gives the session for provenance (§5)"}
+  - {id: SPEC-002, relation: informed_by, version: 9, hash: null, note: "precedent: ${CLAUDE_SESSION_ID} in a SKILL.md body gives the session for provenance (§5)"}
 supersedes: []
 superseded_by: null
 blocked_by: []
