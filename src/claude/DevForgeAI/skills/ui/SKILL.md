@@ -114,8 +114,7 @@ Work through the checklist in order, in the main conversation (BEH-01). Decide t
 the request and the files:
 - `approve DSN-NNN`, or words that approve the design or a named DSN and ask for nothing else (an ID or none) →
   **approval-only run** (BEH-21): steps 1, 8, 9 and 10. A request whose approval is the `approve DSN-NNN` form
-  (arguments
-  that start with it, with or without the approver's name) is one even when more words ask for
+  (arguments that start with it, with or without the approver's name) is one even when more words ask for
   a change: the change is not made, nothing is approved, and the reply says an amend run comes first
   (`/devforgeai:ui BRN-NNN`). A request to record, write or update the design for a BRN is a create or amend run,
   and its approving words apply at step 9 (BEH-16).
@@ -183,8 +182,7 @@ the first Artifact call.
    route needs it):
    - **A. Create run, the folder holds files (a copy):** run `boards <ID>`. The copy is recorded as it is, with no
      brief and no import, whatever canvas URL is named in the arguments or the request. When either names a URL and
-     the Artifact
-     tool is available, ask once: "Import the canvas again" (Recommended) or "Record the copy as it is". Say in
+     the Artifact tool is available, ask once: "Import the canvas again" (Recommended) or "Record the copy as it is". Say in
      the report why the canvas was not checked: `no Artifact tool in this session` or `recorded as it is by
      choice`.
    - **B. Create run, the folder is absent or empty:** with a canvas URL, import it (step 5). Without one, draft
@@ -265,8 +263,7 @@ says ("Nothing to change"), and stop: no check and no approval offer.
 ### 7. Write DSN-NNN (BEH-12 to BEH-14, BEH-20, BEH-29, ERR-25)
 
 Read [references/output-rules.md](references/output-rules.md) first. When the run read a canvas, make the plain read
-again
-just before writing (canvas.md).
+again just before writing (canvas.md).
 - **Create run:** Write the DSN once from `${CLAUDE_SKILL_DIR}/assets/dsn.md`, deleting every author comment.
   Version 1, status `draft`, `session: "${CLAUDE_SESSION_ID}"` under `generated_by`, one board item for each
   board in canvas order, and one Change Log row authored `claude-code (session ${CLAUDE_SESSION_ID})` that ends
