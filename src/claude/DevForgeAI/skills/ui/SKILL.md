@@ -32,7 +32,8 @@ Five rules shape everything below:
 5. **Write only the DSN and the boards copy** (BEH-19), and in the session's scratchpad the files it publishes and
    an import's digest file. Every other document is read-only. Never delete a file or an artifact, run git or
    project code, or resolve policy. Send claude.ai only the confirmed briefs and the boards made from them, as a
-   private artifact on the user's own account: never share, pin or comment on it.
+   private artifact on the user's own account, except an addition to a canvas found not private, which the question
+   says (canvas.md): never share, pin or comment on it.
 
 ## Inputs
 
@@ -157,7 +158,7 @@ opens with the report of step 10, so the checklist does not repeat there.
   each BRN, and ask which to amend; with no answer write nothing. A request for a second DSN amends the first;
   the user deprecates the old DSN to start over, which this skill never does.
 
-### 2. Read the BRN and find the boards (BEH-03, BEH-05 to BEH-08, BEH-26, BEH-29, ERR-03 to ERR-09, ERR-12, ERR-14, ERR-15)
+### 2. Read the BRN and find the boards (BEH-03, BEH-05 to BEH-08, BEH-26, BEH-29, ERR-03 to ERR-09, ERR-12, ERR-14, ERR-15, ERR-20, ERR-25)
 
 Read [references/boards.md](references/boards.md) first, and [references/canvas.md](references/canvas.md) before
 the first Artifact call.
@@ -219,11 +220,12 @@ system in its Style ("propose one" only when none is listed), and show them. Dra
 with 3 boards for each. Without the tool, show the proposed grouping and the briefs, unconfirmed, ask nothing,
 and apply ERR-19. Nothing is sent to claude.ai before step 4's question.
 
-### 4. Canvas (BEH-23, BEH-27, ERR-23)
+### 4. Canvas (BEH-23, BEH-27, BEH-29, ERR-23)
 
 Only after the grouping and the briefs are confirmed in this run. Ask once: "Create the canvas from these
 briefs?", saying that the briefs and the boards made from them are sent to the user's claude.ai account as a
-private artifact. Then make the canvas as canvas.md says (an amend run adds the new flow or screen to the
+private artifact (an addition to a canvas found not private says that instead, canvas.md). Then make the canvas
+as canvas.md says (an amend run adds the new flow or screen to the
 existing one), only through the Artifact tool.
 
 ### 5. Wait, then import (BEH-24, BEH-25, BEH-28, BEH-29, ERR-20, ERR-21, ERR-25)
@@ -298,7 +300,7 @@ BRN-NNN`, or from another document citing the DSN. After ERR-11 or ERR-14, appro
   and the undo are in output-rules.md, "Approval". An `approve DSN-NNN` request that also asks for a change makes
   no approval (run kinds above).
 
-### 10. Report and hand off (BEH-17, BEH-18)
+### 10. Report and hand off (BEH-17, BEH-18, BEH-29)
 
 When the run wrote or checked a DSN, the final reply opens with this block. Nothing comes before it, not even
 the checklist. output-rules.md, "The report", gives the rules of each line, the findings that follow it, and the
@@ -344,8 +346,8 @@ and a named approver, and never send claude.ai anything the user did not confirm
 - [references/boards.md](references/boards.md): read at step 2. The boards folder, the commands' output, reading a
   board, the boards problems, and the amend run's inputs.
 - [references/briefs.md](references/briefs.md): read at step 3. Flows, the brief's shape and worked examples.
-- [references/canvas.md](references/canvas.md): read before the first Artifact call. Making, importing and
-  checking the canvas, adding a flow, and the canvas problems.
+- [references/canvas.md](references/canvas.md): read before the first Artifact call. The plain read and the
+  canvas's sharing; making, importing and checking the canvas; adding a flow; and the canvas problems.
 - [references/interview.md](references/interview.md): read at step 6 and before any question.
 - [references/output-rules.md](references/output-rules.md): read at steps 7, 8, 9 and 10. Frontmatter, board
   items, Change Log rows, approval, the repair loop, the report, and the self-check list.

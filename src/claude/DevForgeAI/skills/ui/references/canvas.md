@@ -42,8 +42,8 @@ The plain read is `read` with the canvas URL and no `paths`. Make it:
   came first in the run;
 - once more just before the DSN is written at step 7, when the run read a canvas.
 
-A run that makes a canvas publishes with no read, and one that ends after the canvas makes none. The result holds
-the Design type's instructions, about 5k tokens: don't repeat them.
+Publishing a new canvas takes no read, and a run that ends after the canvas makes no read for step 7. The result
+also holds the Design type's long instructions: don't repeat them in a reply.
 
 **It lets a publish through.** The tool refuses a publish into a canvas the run has read only with `paths`. A publish
 refused for an unviewed version gets one more plain read and one retry. A second refusal, or that read finding no
@@ -55,24 +55,31 @@ not by matching words, because the tool's wording changes:
 - **Not private (ERR-25):** anyone with the link, the public or a whole organization can open it.
 - Words about what the owner could choose, such as the options the Share menu offers, say nothing about the canvas's
   state. A private canvas's result can name those options.
-- A statement about sharing on any other read counts the same. Don't look for sharing in a publish result.
-- **No statement the skill can read:** say that the sharing could not be read, in the reply and the report. Treat the
+- A statement by the tool about this canvas's sharing, outside the files' text, counts the same on any other read.
+  Don't look for sharing in a publish result.
+- **No statement in any of the run's results:** say that the sharing could not be read, in the reply and the report. Treat the
   canvas neither as private nor as not private.
 - **A canvas another person owns:** a plain read may return a summary, which isn't ERR-20 (that judges the reads with
   `paths`). Report its sharing words as they stand in the findings and say nothing about the Share menu, since the
   settings aren't the user's. ERR-25 doesn't apply.
 
-Say no more than the results do: the skill doesn't know how a canvas became shared.
+Say no more than the results do: the skill doesn't know how a canvas stopped being private.
 
-**When the read finds no canvas.** At an import or in an amend run's check, ERR-20. Just before the DSN is written,
-don't stop: the boards copy and the user's answers are in hand, so write the DSN from the copy, and say in the reply
-and the findings that the canvas could not be read. A canvas is never published to a new URL.
+**When the read fails.** At an import, or in an amend run's check or offer, a read that finds no canvas is ERR-20.
+Just before the DSN is written, a read that fails for any reason doesn't stop the run: the boards copy and the user's
+answers are in hand, so write the DSN from the copy, and say in the reply and the findings that the canvas could not
+be read. A canvas is never published to a new URL.
+
+**The question before an addition.** When a read in this run found the canvas not private, or couldn't read its
+sharing, the question that asks to add to it says so in place of "as a private artifact": the boards go to the
+canvas's URL, which others can open, or whose sharing could not be read. The user still chooses.
 
 ## Making the canvas (BEH-23)
 
 Only after the user confirms the grouping and the briefs in this run (ERR-22 otherwise).
 1. Ask once, with AskUserQuestion when it is available: "Create the canvas from these briefs?", saying that the
-   briefs and the boards made from them are sent to the user's claude.ai account as a private artifact. Options:
+   briefs and the boards made from them are sent to the user's claude.ai account as a private artifact (an
+   addition to a canvas found not private says that instead: "The question before an addition"). Options:
    "Create the canvas" (Recommended), "Change a brief", "Change the grouping", "Not now". "Change a brief"
    redrafts it and asks again, "Change the grouping" returns to the grouping, and "Not now" is ERR-22: make no
    canvas and write nothing.
@@ -134,8 +141,8 @@ Canvas: <URL> · version <identifier> · <number> boards
 Design document: none yet (the boards are imported when the run is resumed)
 ```
 
-In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs, and a last
-paragraph outside any code block, starting with the words Next step, that gives the line that resumes the run, to
+In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs, a canvas that is not
+private or whose sharing could not be read (ERR-25), and a last paragraph outside any code block, starting with the words Next step, that gives the line that resumes the run, to
 run once the user has finished iterating: `/devforgeai:ui BRN-NNN <canvas URL>` in a create run, and
 `/devforgeai:ui BRN-NNN` in an amend run (the DSN holds the URL).
 
@@ -214,15 +221,17 @@ canvas myself" and "Not now". The offer repeats on every amend run while the ide
 because nothing remembers a decline.
 
 On "Draw it now", the user confirms the flow (a new flow, or the existing flow that the screen joins, which the
-skill proposes and never decides) and its brief, confirmed with the same question as the first canvas. A new flow
+skill proposes and never decides) and its brief, confirmed with the same question as the first canvas, worded for the canvas's sharing ("The
+question before an addition"). A new flow
 gets a new row (at most 4 flows in one pass), and a screen of an existing flow joins that flow's row at the step
 the user confirms. Write the new board files and the updated `canvas.json` in the scratchpad, starting from the
 `canvas.json` text the read returned and keeping every board already in it unchanged, and publish them into the
 same canvas through the `files` map as the type's instructions say for an update; the canvas gets a new version
-identifier. Only a canvas the user owns or can edit is changed (ERR-23 when the tool refuses). Then the open
+identifier. Only a canvas the user owns or can edit is changed: a refusal for an unviewed version gets the retry
+above, and any other refusal is ERR-23. Then the open
 question above. "Proceed without questions" adds nothing.
 
-## Problems (ERR-19 to ERR-21, ERR-23)
+## Problems (ERR-19 to ERR-21, ERR-23, ERR-25)
 
 - **ERR-19** (the run needs the Artifact tool and it is not available, to make a canvas, to add a flow to one, or
   to import a canvas the request names, with no copy in the boards folder to record instead): write nothing and
@@ -233,11 +242,11 @@ question above. "Proceed without questions" adds nothing.
   used. When briefs were drafted, show them with the proposed grouping, unconfirmed, and say they can be pasted
   into `/design` by hand. Never draw a mockup in place of the canvas.
 - **ERR-20** (the canvas cannot be read: the URL is not found or is not a Design canvas, it has no
-  `project/canvas.json`, the tool refuses the read or returns a summary instead of the files, or a board that
+  `project/canvas.json`, the tool refuses the read or a read with `paths` returns a summary instead of the files, or a board that
   `canvas.json` names cannot be read): write nothing. Name the URL and quote the tool's message, and say the user
   can check the link or open the canvas in Claude Design. In an amend run, say the user may tell the skill to use
   the copy already in the folder, which is then recorded as it is with the canvas not checked. Never fetch the
-  page any other way.
+  page any other way. The plain read just before the DSN is written doesn't stop the run (above).
 - **ERR-21** (an import fails: a file the tool was to save is not in the staging folder, the canvas changed during
   the import twice running, or `place` reports a problem, a staged file whose digest differs from the sha256 the
   tool returned included): write no DSN. Name the file and what differs. After a digest difference or any problem
@@ -252,8 +261,8 @@ question above. "Proceed without questions" adds nothing.
   stays on the user's account (the skill deletes nothing), give the URL if the tool returned one, and show the
   briefs so that the user can use them by hand. A canvas the tool can't find: stop, quote the tool's message, and ask
   the user to check that Claude Code is signed in to the account that owns it, since a different account gives the
-  same message.
-- **ERR-25** (a canvas the user owns that others can open, such as anyone with the link): say so in the reply text
+  same message. Never publish it to a new URL.
+- **ERR-25** (a canvas the user owns that is not private, as above): say so in the reply text
   before the run goes on, naming the canvas, that others can open it and that the canvas page's Share menu changes
   that. Say it once in the run, at the first read that finds it. Never change sharing. Go on with the run, since the
   user may have shared it on purpose, and name it in the findings of the report the run ends with, or in the canvas
