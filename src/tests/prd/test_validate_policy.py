@@ -3,8 +3,10 @@
 The script ships byte-identical in skills/prd/ and skills/architecture/ (test_shared_files.py checks
 that), so these tests run the prd copy. Each case writes its own policy documents, independent of the
 eval fixtures, and runs the script as a subprocess: once with this interpreter's packages, and once
-with a throwaway HOME, which hides user-site packages the way the eval harness does. On this machine the
-two runs now import the same system jsonschema, 4.19.2 (#122, checked 2026-11-04).
+with a throwaway HOME, which hides user-site packages the way the eval harness does. On this machine those
+two runs import the same system jsonschema (#122, checked 2026-11-04), so two more classes pin what is covered:
+OldJsonschema (4.10.3, no `referencing` module) and NewJsonschema (4.26.0), each in an environment built by
+src/tests/process/make_jsonschema_envs.sh. They skip, naming that file, when it is missing.
 
 Run from the repository root:
     python3 -B src/tests/prd/test_validate_policy.py
@@ -193,6 +195,7 @@ class Base:
     """Runs every test; subclasses choose the environment."""
 
     ENV = {}
+    PYTHON = sys.executable
 
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
@@ -208,7 +211,7 @@ class Base:
 
     def run_script(self, folder="docs/specs/policy", script=SCRIPT, env=None):
         full = dict(os.environ, **self.ENV, **(env or {}))
-        p = subprocess.run([sys.executable, "-B", str(script), folder], cwd=self.tmp, env=full,
+        p = subprocess.run([self.PYTHON, "-B", str(script), folder], cwd=self.tmp, env=full,
                            capture_output=True, text=True, timeout=60)
         self.assertEqual(p.stderr, "", p.stderr)
         return p.returncode, p.stdout.splitlines()
@@ -652,6 +655,43 @@ class WithoutUserSite(Base, unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         shutil.rmtree(_HOME, ignore_errors=True)
+
+
+def _pinned_python(version):
+    """A worktree uses the main checkout's environments (src/tests/process/make_jsonschema_envs.sh)."""
+    p = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--path-format=absolute", "--git-common-dir"],
+                       capture_output=True, text=True)
+    base = Path(p.stdout.strip()).parent if p.returncode == 0 else ROOT
+    return base / f"tmp/test-envs/jsonschema-{version}/bin/python"
+
+
+_SETUP = "no pinned environment: run bash src/tests/process/make_jsonschema_envs.sh"
+_OLD, _NEW = _pinned_python("4.10.3"), _pinned_python("4.26.0")
+
+
+class Pinned:
+    """Runs every test under one pinned jsonschema; a machine's own packages can't change what these cover."""
+
+    VERSION = None
+
+    def test_the_interpreter_has_the_pinned_jsonschema(self):
+        code = "import importlib.metadata as m; print(m.version('jsonschema'))"
+        p = subprocess.run([self.PYTHON, "-c", code], capture_output=True, text=True)
+        self.assertEqual(p.stdout.strip(), self.VERSION, p.stderr)
+
+
+@unittest.skipUnless(_OLD.exists(), _SETUP)
+class OldJsonschema(Pinned, Base, unittest.TestCase):
+    """The script's branch for a jsonschema with no referencing module: no machine's own packages reach it now."""
+
+    PYTHON = str(_OLD)
+    VERSION = "4.10.3"
+
+
+@unittest.skipUnless(_NEW.exists(), _SETUP)
+class NewJsonschema(Pinned, Base, unittest.TestCase):
+    PYTHON = str(_NEW)
+    VERSION = "4.26.0"
 
 
 if __name__ == "__main__":
