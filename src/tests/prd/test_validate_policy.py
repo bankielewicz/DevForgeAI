@@ -3,8 +3,8 @@
 The script ships byte-identical in skills/prd/ and skills/architecture/ (test_shared_files.py checks
 that), so these tests run the prd copy. Each case writes its own policy documents, independent of the
 eval fixtures, and runs the script as a subprocess: once with this interpreter's packages, and once
-with a throwaway HOME, which hides user-site packages the way the eval harness does (on this machine
-that switches jsonschema 4.26 for the system's 4.10, which has no `referencing` module).
+with a throwaway HOME, which hides user-site packages the way the eval harness does. That second run
+imports the system's jsonschema, whichever version the machine has (#122).
 
 Run from the repository root:
     python3 -B src/tests/prd/test_validate_policy.py

@@ -3,15 +3,17 @@ VER-27).
 
 Each test builds a project in a temporary folder from the example set
 (src/staging/examples/context-cli-service-rdbms/docs/specs/) and runs the script there as a subprocess:
-once with this interpreter's packages (jsonschema 4.26 with referencing), and once with a throwaway HOME,
-which hides the user-site packages the way the eval harness does (on this machine, jsonschema 4.10 with no
-referencing module).
+once with this interpreter's packages, and once with a throwaway HOME, which hides the user-site packages the
+way the eval harness does. What that second run imports is the system's jsonschema, whichever version the machine
+has: since the system's packages moved to 4.19.2 with referencing on 2026-10-14 (#122), the branch for a jsonschema
+with no referencing module can't run here, because jsonschema itself imports it from 4.18 on.
 
 Run from the repository root:
     python3 -B src/tests/context/test_context_check.py
 """
 import hashlib
 import os
+import site
 import re
 import shutil
 import subprocess
@@ -104,6 +106,8 @@ class Base:
     # --- The environment ------------------------------------------------------------------------
 
     def test_runs_with_the_expected_jsonschema(self):
+        if self.REFERENCING is None:
+            self.skipTest("the system's packages decide; WithoutUserSite checks the user site is hidden instead")
         full = dict(os.environ, **self.ENV)
         p = subprocess.run([sys.executable, "-c", "import importlib.util as u; print(bool(u.find_spec('referencing')))"],
                            env=full, capture_output=True, text=True)
@@ -649,11 +653,17 @@ class WithoutUserSite(Base, unittest.TestCase):
     """As the eval harness runs it: HOME points elsewhere, so user-site packages are hidden."""
 
     ENV = {"HOME": _HOME}
-    REFERENCING = False
+    REFERENCING = None  # the system's packages decide, and they change (#122)
 
     def setUp(self):
         super().setUp()
         Path(_HOME).mkdir(exist_ok=True)
+
+    def test_the_user_site_is_hidden(self):
+        """What this class exists for: the run can't see this user's site-packages, as in an eval workspace."""
+        code = f"import sys; print({site.getusersitepackages()!r} in sys.path)"
+        p = subprocess.run([sys.executable, "-c", code], env=dict(os.environ, **self.ENV), capture_output=True, text=True)
+        self.assertEqual(p.stdout.strip(), "False", p.stderr)
 
     @classmethod
     def tearDownClass(cls):
