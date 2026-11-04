@@ -3,7 +3,7 @@
 Written 2026-10-31 by session 7637882f, at Bryan's request: "Before the start of any development, create an eval.md
 … to pass a 'check' to determine as validation or failure metric based on proposed works." It covers the work after
 PR #126's close, in this order: the plugin-workflow gate (issue #137: C, the ADR, probes P1-P8, A, B), then the ui v3
-redo (SPEC-017 v3, ADR-007 v3, SKL-013 v3). This file makes no decision. It records Bryan's, each quoted with its
+redo (SPEC-017 v3, ADR-007 v3, and the next SKL-013 version: #135's text fix took v3). This file makes no decision. It records Bryan's, each quoted with its
 date, and that quote is the record a reviewer checks until a spec carries the decision. The plan's decision ledger
 (`tmp/plans/2026-10-31-ui-v3-redo-plan-design.md` §11) is a local copy only. Cells marked **[Bryan]** still wait for
 him.
@@ -138,7 +138,7 @@ The spec PR; A, B, M and N get their evidence at the build.
 | S4 | Approved | G4 holds for both, and the test pins and links a spec bump moves are moved |
 | S5 | Three eval sets | QR-03 and VER-26 name the three sets (the core set at 3 runs with the baseline, the regression set once with regex graders, the trigger set per QR-04). They record the regression set as a departure from PRD-001 NFR-003's "every case … over 3 runs" in Bryan's words of 2026-10-31, as QR-04 records the negative triggers' 10 runs |
 
-### U. SKL-013 v3, built from main
+### U. The next SKL-013 version, built from main
 
 | ID | Check | PASS when |
 |---|---|---|
@@ -168,7 +168,7 @@ The spec PR; A, B, M and N get their evidence at the build.
 
 ### V. SPEC-002 v6 to v8, the PRD interview at scale (#142), spec only
 
-The spec PR. The build (SKL-002 v6) gets its own rows when it starts, when Bryan says (the wait for A and B ended with
+The spec PR. The build (the next SKL-002 version: #135's text fix took v6) gets its own rows when it starts, when Bryan says (the wait for A and B ended with
 the guard's cancellation on 2026-11-04). These rows are the plan's
 verification items for its steps 1 and 2 (`tmp/plans/2026-11-02-interview-at-scale-and-improve.md`, approved
 2026-11-02, local), stated so a reviewer can check them from the PR.

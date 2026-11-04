@@ -101,7 +101,7 @@ class Skill(unittest.TestCase):
                       self.prov["upstream"])
         # Approved by Bryan on 2026-10-01, after the full suite and the trigger cases on v2.
         self.assertEqual((self.prov["status"], self.prov["approved_by"], self.prov["approved_on"]),
-                         ("approved", "Bryan", "2026-10-01"))
+                         ("approved", "Bryan", "2026-11-04")  # SKL-010 v3, #135's text fix)
 
     def test_relative_links_resolve(self):
         for target in re.findall(r"\]\(([^)#\s]+)\)", self.text):

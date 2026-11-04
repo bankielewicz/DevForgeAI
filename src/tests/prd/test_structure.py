@@ -24,14 +24,14 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILLS = ROOT / "src/claude/DevForgeAI/skills"
 SCHEMAS = ROOT / "src/schemas"
 SPECS = ROOT / "docs/specs/spec"
-TARGETS = {"prd": ("SKL-002", 5, "SPEC-002", 5), "architecture": ("SKL-003", 9, "SPEC-003", 11)}
+TARGETS = {"prd": ("SKL-002", 6, "SPEC-002", 5), "architecture": ("SKL-003", 10, "SPEC-003", 11)}
 # Each skill's (status, approved_by, approved_on): SKL-002 v5 was approved by Bryan on 2026-10-02, after its
 # requalification. SKL-003 v7 (built 2026-10-03, implementing SPEC-003 v6 to v8) is in review until Bryan approves it
 # after its evals and live check; SKL-003 v6 was approved on 2026-10-01.
 # SKL-003 v8 (the waiver) approved by Bryan on 2026-10-04, its 3-run qualification waived.
 # SKL-003 v9 (SPEC-003 v10 and v11: step 8's Write nothing, the waiver outside max_calls) approved by Bryan on
 # 2026-10-04, its 3-run qualification waived.
-APPROVAL = {"prd": ("approved", "Bryan", "2026-10-02"), "architecture": ("approved", "Bryan", "2026-10-04")}
+APPROVAL = {"prd": ("approved", "Bryan", "2026-11-04"), "architecture": ("approved", "Bryan", "2026-11-04")}
 # SPEC-002 v5: issue #39, NEEDS ADR. SPEC-003 v6 to v8 (2026-10-03): the task list, step 8's confirmation and
 # question tags, which SKL-003 v7 implements (TARGETS).
 # SPEC-003 v9 (2026-10-04): the waiver question, approved by Bryan; SKL-003 v8 builds it.
@@ -39,8 +39,8 @@ APPROVAL = {"prd": ("approved", "Bryan", "2026-10-02"), "architecture": ("approv
 # SKL-003 v9 builds it.
 # SPEC-002 v6 (2026-11-02, issue #142): the interview at scale (BEH-19 to BEH-26), approved by Bryan on 2026-11-02;
 # v7 and v8 the same day (Codex's findings on PR #144: a partially settled requirement never enters the triage table,
-# and the triage cost prices it at one question). SKL-002 v5 still implements version 5 (TARGETS) until SKL-002 v6
-# is built. SPEC-002 v9 (2026-11-04): the dev-guard cancelled, so that build no longer waits for it.
+# and the triage cost prices it at one question). SKL-002 v6 (#135, a text fix) still implements version 5 (TARGETS)
+# until the interview build, the next SKL-002 version, is built. SPEC-002 v9 (2026-11-04): the dev-guard cancelled, so that build no longer waits for it.
 SPEC_STATE = {"SPEC-002": (9, "approved"), "SPEC-003": (11, "approved")}
 
 

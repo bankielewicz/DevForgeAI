@@ -110,9 +110,10 @@ class Skill(unittest.TestCase):
                          (SKL, "spec-lookup", "spec-lookup"))
         self.assertIn({"id": "SPEC-014", "relation": "implements", "version": SPEC_VERSION, "hash": None},
                       self.prov["upstream"])
-        # Approved by Bryan on 2026-10-04, after the qualification and the live VER-08.
+        # Approved by Bryan on 2026-10-04, after the qualification and the live VER-08; SKL-011 v2 (#135's text fix)
+        # on 2026-11-04.
         self.assertEqual((self.prov["status"], self.prov["approved_by"], self.prov["approved_on"]),
-                         ("approved", "Bryan", "2026-10-04"))
+                         ("approved", "Bryan", "2026-11-04"))
 
     def test_relative_links_resolve(self):
         for target in re.findall(r"\]\(([^)#\s]+)\)", self.text):

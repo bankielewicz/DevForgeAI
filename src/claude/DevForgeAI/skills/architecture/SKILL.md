@@ -4,7 +4,7 @@ description: Performs DevForgeAI Architecture Definition for a PRD. It identifie
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-003"
-  devforgeai-version: "9"
+  devforgeai-version: "10"
 ---
 
 # Architecture
@@ -26,7 +26,7 @@ Three rules shape everything below:
 
 ## Inputs
 
-- `$ARGUMENTS`: a PRD ID such as `PRD-002`, or empty. When it is empty, use a PRD ID the user
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): a PRD ID such as `PRD-002`, or empty. When they are empty, use a PRD ID the user
   stated in the conversation. Never accept a file path; if given one, ask for the ID.
 - Read by contract: PRDs in `docs/specs/prd/` (read-only), ARCHs in `docs/specs/arch/`, ADRs in
   `docs/specs/adr/`, policy in `docs/specs/policy/` and `.claude/devforgeai.local.md`. Reach them by

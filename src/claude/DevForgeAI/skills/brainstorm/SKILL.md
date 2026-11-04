@@ -4,7 +4,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "10"
+  devforgeai-version: "11"
 ---
 
 # Brainstorm
@@ -16,7 +16,7 @@ claim decisions the user actually made.
 
 ## Inputs
 
-- `$ARGUMENTS`: the topic. It may be empty; then take the topic from the conversation, or ask for it.
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): the topic. It may be empty; then take the topic from the conversation, or ask for it.
 - Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
 - The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
 - The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md` (or the draft path the progress
@@ -113,7 +113,7 @@ so. Without
 AskUserQuestion, ask nothing, in plain text or otherwise, and follow the request; when the request
 doesn't say to proceed without questions, never ask it.
 
-1. **Topic.** Use `$ARGUMENTS`, or the topic stated in the conversation. If there is none, ask
+1. **Topic.** Use the arguments, or the topic stated in the conversation. If there is none, ask
    "What topic should we brainstorm?" and stop. Create no file and no directory until the user
    gives a topic (the task list is not a file).
 2. **Existing BRNs.** Glob `docs/specs/brainstorm/BRN-*.md` and read each file's `title`. If one

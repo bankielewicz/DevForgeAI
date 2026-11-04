@@ -4,7 +4,7 @@ description: Looks up what a DevForgeAI project has already decided before Claud
 argument-hint: "[ID or term]"
 metadata:
   devforgeai-id: "SKL-011"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
 ---
 
 # Spec lookup
@@ -18,7 +18,7 @@ This skill reads and never changes a file: it writes and edits nothing.
 
 ## Inputs
 
-- `$ARGUMENTS`, optional: a document ID (`SPEC-012`), a qualified item ID (`SPEC-012 BEH-18` or `SPEC-012#BEH-18`),
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given), optional: a document ID (`SPEC-012`), a qualified item ID (`SPEC-012 BEH-18` or `SPEC-012#BEH-18`),
   a bare item ID (`BEH-18`), or a term. With an argument, search it at once. With none, search the terms of the
   request the skill was loaded for.
 - The project's `docs/specs/`, read only through the bundled script.

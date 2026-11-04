@@ -4,7 +4,7 @@ description: Designs a DevForgeAI release's screens in Claude Design and records
 argument-hint: "[BRN-NNN [canvas URL] | approve DSN-NNN]"
 metadata:
   devforgeai-id: "SKL-013"
-  devforgeai-version: "2"
+  devforgeai-version: "3"
 ---
 
 # UI
@@ -36,10 +36,10 @@ Five rules shape everything below:
 
 ## Inputs
 
-- `$ARGUMENTS`: empty, a BRN ID, a BRN ID followed by one canvas URL (`https://claude.ai/artifact/<id>` or
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): empty, a BRN ID, a BRN ID followed by one canvas URL (`https://claude.ai/artifact/<id>` or
   `https://claude.ai/code/artifact/<uuid>`), or `approve DSN-NNN`, which may be followed by the approver's name
   (step 9). A canvas URL stated in the request counts as stated. Anything that replaces the ID (a file path, a
-  boards folder, a URL without a BRN ID, other words), in `$ARGUMENTS` or in the request, is refused (ERR-02), even
+  boards folder, a URL without a BRN ID, other words), in the arguments or in the request, is refused (ERR-02), even
   a path to a BRN file such as `docs/specs/brainstorm/BRN-001.md`: never extract an ID from a path. Write nothing,
   say the skill takes a BRN ID, optionally followed by the canvas's claude.ai artifact URL, or `approve DSN-NNN`
   and paths aren't accepted, and ask for the ID (listing the BRNs that have a promoted idea, or the DSNs).
@@ -144,7 +144,7 @@ opens with the report of step 10, so the checklist does not repeat there.
   (ERR-18): write nothing, list the DSNs under `docs/specs/design/` with versions and statuses, say only a draft
   or in-review DSN is approved, and ask for the ID. A DSN already `approved`: say so with its version, approver
   and date, and write nothing. Otherwise go to step 8.
-- **A BRN ID** (in `$ARGUMENTS` or stated by the user; a canvas URL with it is kept): read
+- **A BRN ID** (in the arguments or stated by the user; a canvas URL with it is kept): read
   `docs/specs/brainstorm/<ID>.md`. Missing (ERR-01): list the BRN IDs that exist with their titles; write
   nothing.
 - **No BRN named:** list each BRN with a promoted idea (title, status, number of promoted ideas, the DSN that
