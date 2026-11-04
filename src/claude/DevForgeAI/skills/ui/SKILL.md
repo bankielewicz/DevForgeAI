@@ -4,7 +4,7 @@ description: Designs a DevForgeAI release's screens in Claude Design and records
 argument-hint: "[BRN-NNN [canvas URL] | approve DSN-NNN]"
 metadata:
   devforgeai-id: "SKL-013"
-  devforgeai-version: "3"
+  devforgeai-version: "4"
 ---
 
 # UI
@@ -157,7 +157,7 @@ opens with the report of step 10, so the checklist does not repeat there.
   each BRN, and ask which to amend; with no answer write nothing. A request for a second DSN amends the first;
   the user deprecates the old DSN to start over, which this skill never does.
 
-### 2. Read the BRN and find the boards (BEH-03, BEH-05 to BEH-08, BEH-26, ERR-03 to ERR-09, ERR-12, ERR-14, ERR-15)
+### 2. Read the BRN and find the boards (BEH-03, BEH-05 to BEH-08, BEH-26, BEH-29, ERR-03 to ERR-09, ERR-12, ERR-14, ERR-15)
 
 Read [references/boards.md](references/boards.md) first, and [references/canvas.md](references/canvas.md) before
 the first Artifact call.
@@ -226,7 +226,7 @@ briefs?", saying that the briefs and the boards made from them are sent to the u
 private artifact. Then make the canvas as canvas.md says (an amend run adds the new flow or screen to the
 existing one), only through the Artifact tool.
 
-### 5. Wait, then import (BEH-24, BEH-25, BEH-28, ERR-20, ERR-21)
+### 5. Wait, then import (BEH-24, BEH-25, BEH-28, BEH-29, ERR-20, ERR-21, ERR-25)
 
 - **After a canvas is made or added to:** give the canvas URL and version identifier, say what to do there, and
   leave one question open: "Tell me when you have finished iterating on the canvas", with "Import now" first
@@ -234,8 +234,8 @@ existing one), only through the Artifact tool.
   the run: write nothing in the repository, mark steps 6 to 9 skipped, and make the final reply the canvas report
   with the line that resumes the run (canvas.md, "Ending after the canvas").
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
-  again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (`canvas.json`
-  first, then at most 4 boards a read, then `place`, then `boards`), and in an amend run run
+  again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain read, `canvas.json`
+  next, then at most 4 boards a read, then `place`, then `boards`), and in an amend run run
   `check --before-amend <ID>` again. The canvas URL and `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.
@@ -256,9 +256,10 @@ change in the request; a request to update or amend that names no specific chang
 URL or version stated in the request counts as a change): write nothing and raise no version, reply as boards.md
 says ("Nothing to change"), and stop: no check and no approval offer.
 
-### 7. Write DSN-NNN (BEH-12 to BEH-14, BEH-20)
+### 7. Write DSN-NNN (BEH-12 to BEH-14, BEH-20, BEH-29, ERR-25)
 
-Read [references/output-rules.md](references/output-rules.md) first.
+Read [references/output-rules.md](references/output-rules.md) first. When the run read a canvas, make the plain read again
+just before writing (canvas.md).
 - **Create run:** Write the DSN once from `${CLAUDE_SKILL_DIR}/assets/dsn.md`, deleting every author comment.
   Version 1, status `draft`, `session: "${CLAUDE_SESSION_ID}"` under `generated_by`, one board item for each
   board in canvas order, and one Change Log row authored `claude-code (session ${CLAUDE_SESSION_ID})` that ends

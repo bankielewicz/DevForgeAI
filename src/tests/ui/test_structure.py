@@ -40,10 +40,6 @@ SKILL = ROOT / "src/claude/DevForgeAI/skills/ui"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-017.md"
 SKL, SPEC_VERSION = "SKL-013", 3
-# What SKL-013 implements until the build of SPEC-017 v3 (#121), and what that spec adds that isn't built yet. The build
-# moves IMPLEMENTS to SPEC_VERSION and empties NOT_BUILT.
-IMPLEMENTS = 2
-NOT_BUILT = {"BEH-29", "ERR-25"}
 # DM-01: the common keys, then the design-specific ones.
 DSN_KEYS = ["id", "type", "title", "status", "version", "created", "updated", "owner", "authors", "generated_by",
             "reviewed_by", "approved_by", "approved_on", "upstream", "supersedes", "superseded_by", "blocked_by",
@@ -169,8 +165,8 @@ class Skill(unittest.TestCase):
         self.assertEqual(errors("skill.schema.json", {"frontmatter": self.prov}), [])
         self.assertEqual((self.prov["id"], self.prov["skill_name"], self.prov["eval_tag"]), (SKL, "ui", "ui"))
         self.assertEqual((self.prov["packaging"], self.prov["plugin"]), ("plugin", "devforgeai"))
-        self.assertEqual(self.prov["version"], 3)  # SPEC-017 v2 §11 step 3 built "SKL-013 version 2"; version 3 is #135's text fix
-        self.assertIn({"id": "SPEC-017", "relation": "implements", "version": IMPLEMENTS, "hash": None},
+        self.assertEqual(self.prov["version"], 4)  # version 3 is #135's text fix; version 4 builds SPEC-017 v3 (#121, #117)
+        self.assertIn({"id": "SPEC-017", "relation": "implements", "version": SPEC_VERSION, "hash": None},
                       self.prov["upstream"])
         # Not approved until the suite and the manual checks have run and Bryan has said so.
         self.assertEqual((self.prov["status"], self.prov["approved_by"], self.prov["approved_on"]), ("draft", "", None))
@@ -253,13 +249,33 @@ class Skill(unittest.TestCase):
             with self.subTest(phrase):
                 self.assertIn(phrase, squashed)
 
+    def test_sharing_is_judged_by_meaning(self):
+        """BEH-29: the tool's wording changed within a week (SPEC-017 §5), so the skill quotes none of it, and a private
+        canvas's line holds "anyone with the link" as an option it offers."""
+        texts = skill_texts()
+        canvas = next(text for name, text in texts.items() if str(name).endswith("canvas.md"))
+        for phrase in ("owned by you", "readable by only", "This artifact is private"):
+            with self.subTest(phrase):
+                self.assertNotIn(phrase, " ".join(texts.values()))
+        for phrase in ("## The plain read and the canvas's sharing (BEH-29, ERR-25)", "not by matching words", "Share menu",
+                       "before the first read with `paths` of every import", "just before the DSN is written",
+                       "never published to a new URL"):
+            with self.subTest(phrase):
+                self.assertIn(phrase, " ".join(canvas.split()) if " " in phrase else canvas)
+
+    def test_the_plain_read_is_in_the_steps(self):
+        skill = (SKILL / "SKILL.md").read_text()
+        for number in ("5", "7"):
+            step = re.search(rf"^### {number}\. .*$", skill, re.M).group(0)
+            with self.subTest(step=number):
+                self.assertIn("BEH-29", step)
+
     def test_every_behaviour_and_error_is_cited(self):
         doc = spec_document(spec_text())
         text = " ".join(skill_texts().values())
         cited = set(re.findall(r"\b(?:BEH|ERR)-\d\d\b", text))
         for prefix, first, last in re.findall(r"\b(BEH|ERR)-(\d\d) to (?:BEH|ERR)-(\d\d)\b", text):  # "BEH-05 to BEH-08"
             cited |= {f"{prefix}-{n:02d}" for n in range(int(first), int(last) + 1)}
-        cited |= NOT_BUILT
         for key in ("behaviors", "errors"):
             for item in doc[key]:
                 with self.subTest(item["id"]):

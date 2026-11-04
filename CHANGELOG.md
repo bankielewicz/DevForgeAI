@@ -11,6 +11,9 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ### Fixed
 
+- The `ui` skill now reads a canvas's sharing before every import and just before writing the design document. When
+  others can open the canvas, it says so, points to the page's Share menu, carries on and names it in the report. It
+  never changes sharing itself (#121). The same read lets a publish into an existing canvas through (#117).
 - Nine skills no longer write `$ARGUMENTS` in their instructions. Claude Code replaced it with what the user typed, so
   the line describing a skill's input read as the input itself, or as empty backticks. They now say "the arguments"
   (#135).
