@@ -13,7 +13,6 @@ Run from the repository root:
 """
 import hashlib
 import os
-import site
 import re
 import shutil
 import subprocess
@@ -661,9 +660,9 @@ class WithoutUserSite(Base, unittest.TestCase):
 
     def test_the_user_site_is_hidden(self):
         """What this class exists for: the run can't see this user's site-packages, as in an eval workspace."""
-        code = f"import sys; print({site.getusersitepackages()!r} in sys.path)"
+        code = "import site; print(site.getusersitepackages())"
         p = subprocess.run([sys.executable, "-c", code], env=dict(os.environ, **self.ENV), capture_output=True, text=True)
-        self.assertEqual(p.stdout.strip(), "False", p.stderr)
+        self.assertTrue(p.stdout.startswith(_HOME), f"the child's user site is {p.stdout!r}, not under {_HOME}: {p.stderr}")
 
     @classmethod
     def tearDownClass(cls):
