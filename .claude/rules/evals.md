@@ -140,4 +140,4 @@ Other runbooks in `docs/runbooks/`:
 | `spec-011-manual-checks.md` | the context skill's evaluation and manual items VER-21 and VER-22 |
 | `spec-013-probe.md` | SPEC-013's runtime probe (VER-01), as run on 2026-10-02 |
 | `spec-002-v2-verification-plan.md` | SPEC-002 v2's verification plan |
-| `prd-v6-interview-checks.md` | The interview build's manual items (SPEC-002 v6 VER-46 to VER-48: triage and the table, the raise, the review file and the continue), NOT_RUN until SKL-002 v6 is built |
+| `prd-v6-interview-checks.md` | The interview build's manual items (SPEC-002 v6 VER-46 to VER-48: triage and the table, the raise, the review file and the continue), NOT_RUN until the next SKL-002 version is built |

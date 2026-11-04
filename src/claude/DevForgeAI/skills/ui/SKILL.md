@@ -179,7 +179,7 @@ the first Artifact call.
 3. **Choose the route** by `ls` of the boards folder and the Artifact tool (load it with ToolSearch when the
    route needs it):
    - **A. Create run, the folder holds files (a copy):** run `boards <ID>`. The copy is recorded as it is, with no
-     brief and no import, whatever canvas URL the arguments or the request name. When either names a URL and the Artifact
+     brief and no import, whatever canvas URL is named in the arguments or the request. When either names a URL and the Artifact
      tool is available, ask once: "Import the canvas again" (Recommended) or "Record the copy as it is". Say in
      the report why the canvas was not checked: `no Artifact tool in this session` or `recorded as it is by
      choice`.
