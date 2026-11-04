@@ -54,7 +54,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
   the `merge-approved`/`qa-failed` labels.
 - ADR-001 to ADR-007 in `docs/specs/adr/` are accepted. ADR-008 and SPEC-019 (the dev-guard, a dev-only mod to refuse plugin
   edits outside a plugin-dev iteration) are deprecated: Bryan cancelled it unbuilt on 2026-11-04 ("Cancel the dev-guard --> we are going in a different direction"). Nothing enforces
-  "Plugin changes go through `/plugin-dev:create-plugin`" below except this file. ADR-007 adds the `ui` step (the skill makes the release's
+  the `/plugin-dev:create-plugin` rule below except this file. ADR-007 adds the `ui` step (the skill makes the release's
   Claude Design canvas through the Artifact tool and records its imported boards as a DSN; version 2 accepted 2026-10-10) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
   context → epic → story → spec. PRD-001 (DevForgeAI itself) and PRD-002
   (DevForgeAI CLI, draft) are in `docs/specs/prd/`.
