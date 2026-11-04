@@ -26,7 +26,7 @@ upstream:
   - {id: SPEC-004, relation: informed_by, version: 4, hash: null, note: "consumes the epic skill's downstream contract (SPEC-004 §5)"}
   - {id: SPEC-003, relation: informed_by, version: 11, hash: null, note: "reads the ARCH's components (CMP) and deployment units (SPEC-003 §4, §5)"}
   - {id: ADR-007, relation: constrains, version: 2, hash: null, note: "accepted (version 2): the ui step and the DSN; story-level design stays with this skill (D6)"}
-  - {id: SPEC-017, relation: informed_by, version: 2, hash: null, note: "the ui skill, which writes the DSN that the PRD's section 8 links and BEH-11 reads"}
+  - {id: SPEC-017, relation: informed_by, version: 3, hash: null, note: "the ui skill, which writes the DSN that the PRD's section 8 links and BEH-11 reads"}
 supersedes: []
 superseded_by: null
 blocked_by: []
