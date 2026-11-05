@@ -162,10 +162,13 @@ asked in the same call as the import question ("Import the canvas at <new URL>, 
 "proceed without questions" that yes is never given: keep the DSN's canvas and report the other URL. With a null
 canvas in the DSN, the URL fills it. Reach the canvas only through the Artifact tool's `read`.
 
-**The steps.** Each step is a call of its own, and step 0 decides what is said before step 1.
-0. The plain read (above), alone. Read its result before any other call. When it finds a canvas the user owns
-   not private and no read in this run has: write ERR-25's warning now, as reply text, before step 1's call:
-   the canvas's URL, that others can open it, and that the canvas page's Share menu changes that. Then go on.
+**The steps.** Make no two of them in one batch of calls: step 0's result decides what is said before step 1.
+0. The plain read (above), alone. Read its result before any other call. A read that finds no canvas is ERR-20
+   (above). When it finds a canvas the user owns not private and no earlier read in this run found it so: write
+   ERR-25's warning now, as reply text, before step 1's call: the canvas's URL, that others can open it, and that
+   the canvas page's Share menu changes that. The report's finding repeats it later; it doesn't replace it. Then
+   go on. When the plain read states no sharing and a later read is the first to find it, the warning comes right
+   after that read instead.
 1. `read` with `paths` `["project/canvas.json"]` from the canvas and `out_dir` the absolute path of
    `docs/specs/design/<ID>` (the project root is in the environment details). Note the version identifier and
    the sha256 of the result.
@@ -178,8 +181,8 @@ canvas in the DSN, the URL fills it. Reach the canvas only through the Artifact 
    over once, then ERR-21.
 4. Write the digests the tool returned into a file in the session's scratchpad with Write, one line for
    `canvas.json` and each board: the digest, two spaces, and the file name as the key writes it in `canvas.json`,
-   without `project/` (`<hex>  canvas.json`, `<hex>  Home.dc.html`). Run `place`
-   (the command SKILL.md gives, with the absolute path of that file after `--sha-file`) as a command of its own.
+   without `project/` (`<hex>  canvas.json`, `<hex>  Home.dc.html`). Run `place` (the command SKILL.md gives,
+   with the absolute path of that file after `--sha-file`) as a command of its own.
    No board file name is ever put on a command line, because a name is untrusted data: the script reads the
    names from the file. `place` checks the staged files against the digests and places nothing on any
    difference. Exit 0: continue. Exit 1: stop with the ERR it names. Any other exit: ERR-14 (when `place` exits 2
@@ -271,6 +274,7 @@ open question above. "Proceed without questions" adds nothing.
   account that owns it, since a different account gives the same message. Never publish it to a new URL.
 - **ERR-25** (a canvas the user owns that is not private, as above): say so in reply text before the next tool
   call, even under "proceed without questions", naming the canvas, that others can open it and that the canvas
-  page's Share menu changes that. Say it once in the run, at the first read that finds it. Never change sharing.
-  Go on with the run, since the user may have shared it on purpose, and name it in the findings of the report the
-  run ends with, or in the canvas report when there is no block.
+  page's Share menu changes that. Give the warning once in the run, at the first read that finds it, and not
+  again at a later read. Never change sharing. Go on with the run, since the user may have shared it on purpose.
+  The findings of the report the run ends with (or the canvas report when there is no block) repeat it; they
+  never replace the warning at the read.

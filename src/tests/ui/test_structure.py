@@ -295,6 +295,14 @@ class Skill(unittest.TestCase):
         for name, text in (("canvas report", ending), ("findings", rules), ("SKILL.md step 5", skill)):
             with self.subTest(name):
                 self.assertRegex(text, r"others can open it,? and (that )?the canvas page's Share menu changes that")
+        # The third live miss (83f38f8): "once in the run" next to "name it in the findings" read as "pick one".
+        problems = re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1)
+        for name, text, phrase in (("ERR-25", problems, "never replace the warning at the read"),
+                                   ("findings", rules, "repeats the warning given at the read, which it never replaces"),
+                                   ("step 0", steps, "The report's finding repeats it later; it doesn't replace it"),
+                                   ("proceed without questions", skill, "It holds back no warning")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()

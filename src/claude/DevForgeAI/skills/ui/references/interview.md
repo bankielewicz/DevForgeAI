@@ -69,9 +69,9 @@ and the approver question of step 9 in SKILL.md: they are the last finding, befo
 
 The canvas URL and `canvas_version` are not an interview question: the user never saw the version, which only an
 import reports. After an import they come from the Artifact tool's results (the URL of the publish result, or the
-one the request gave; the identifier of the import's first read). Without an import in the run (a copy that was
-already in the folder, or an amend run without the Artifact tool), record them only as the request states them,
-and the date of the copy when the user gives it. A fact the request does not state is `null`, with
+one the request gave; the identifier of the import's step 1 read, canvas.md). Without an import in the run (a
+copy that was already in the folder, or an amend run without the Artifact tool), record them only as the request
+states them, and the date of the copy when the user gives it. A fact the request does not state is `null`, with
 `[NEEDS CLARIFICATION: canvas URL and version copied]` in section 4, and no question is asked. Never take the
 version from a file in the boards folder. In an amend run in which a board changed, was added or was removed
 without an import (the user replaced files by hand), `canvas_version` is `null` with the marker unless the request

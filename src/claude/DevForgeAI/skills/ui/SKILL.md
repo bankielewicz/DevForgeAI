@@ -107,6 +107,8 @@ answers the gates one by one:
   a URL in the request is recorded as it is. The offer to draw a flow adds nothing.
 - It never answers: which BRN, an unconverged BRN, which of several DSNs to amend, and the confirmation ERR-15
   asks for.
+- It holds back no warning: ERR-25's warning is reply text at the read that finds the canvas not private, as in
+  any run, and the report's finding repeats it later.
 
 ## Workflow
 
@@ -188,14 +190,15 @@ the first Artifact call.
    - **B. Create run, the folder is absent or empty:** with a canvas URL, import it (step 5). Without one, draft
      the flows and the briefs and make the canvas (steps 3 and 4). Both need the Artifact tool; without it
      ERR-19 (with the briefs shown, when briefs were drafted).
-   - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL in the arguments or the request): run
-     `boards <ID>` and `check --before-amend <ID>` on the copy as it is (ERR-15 settled first), check the canvas's
-     version read-only (its plain read is the run's first, and can give ERR-25's warning) and, only when the
-     canvas moved, its version is null, the digest differs or the copy is damaged, ask the import question first
-     and alone, with a differing URL in the same call (canvas.md). Then offer once to draw a flow or a screen the
-     canvas lacks; on "Draw it now", steps 3 and 4 follow, then step 5's open question. Nothing in the repository
-     changes before the answer; the import is step 5, after which `boards` and `check --before-amend` run again.
-     When `boards` reports ERR-03 to ERR-06 or ERR-12 for the copy, skip the pre-check: the import is the repair.
+   - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL in the arguments or the
+     request): run `boards <ID>` and `check --before-amend <ID>` on the copy as it is (ERR-15 settled first),
+     check the canvas's version read-only (its plain read is the run's first, followed at once by ERR-25's
+     warning as reply text when it finds a canvas the user owns not private) and, only when the canvas moved, its
+     version is null, the digest differs or the copy is damaged, ask the import question first and alone, with a
+     differing URL in the same call (canvas.md). Then offer once to draw a flow or a screen the canvas lacks; on
+     "Draw it now", steps 3 and 4 follow, then step 5's open question. Nothing in the repository changes before
+     the answer; the import is step 5, after which `boards` and `check --before-amend` run again. When `boards`
+     reports ERR-03 to ERR-06 or ERR-12 for the copy, skip the pre-check: the import is the repair.
    - **D. Amend run without the Artifact tool, or with no canvas known:** run `boards <ID>` and
      `check --before-amend <ID>` on the copy as it is, and say in the report `no Artifact tool in this session` (or
      `no canvas is recorded`) and that the canvas was not checked.
@@ -239,10 +242,11 @@ existing one), only through the Artifact tool.
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
   again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain
   read alone; ERR-25's warning as reply text right after it when it finds a canvas the user owns not private and
-  no read in this run has; then `canvas.json`, then at most 4 boards a read, then `place`, then `boards`), and in
-  an amend run run `check --before-amend <ID>` again. The warning names the canvas, says that others can open it
-  and that the canvas page's Share menu changes that, and comes once in the run (canvas.md). The canvas URL and
-  `canvas_version` are the tool's, not asked.
+  no earlier read in this run found it so; then `canvas.json`, then at most 4 boards a read, then `place`, then
+  `boards`), and, in an amend run, run `check --before-amend <ID>` again. The warning names the canvas, says that
+  others can open it and that the canvas page's Share menu changes that, and is given at that read even under
+  "proceed without questions"; the report's finding repeats it and never replaces it (canvas.md). The canvas URL
+  and `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.
 
