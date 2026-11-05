@@ -40,7 +40,8 @@ The plain read is `read` with the canvas URL and no `paths`. Make it:
 - before the first read with `paths` of every import, since a canvas can change while the user works on it;
 - as the first Artifact call on the canvas in an amend run's version check or offer to add a flow, when no import
   came first in the run;
-- once more just before the DSN is written at step 7, when the run read a canvas.
+- once more just before the DSN is written at step 7, when the run read a canvas: alone, with its result read
+  before the Write of the DSN.
 
 Publishing a new canvas takes no read, and a run that ends after the canvas makes no read for step 7. The plain
 read's result also holds the Design type's long instructions: don't repeat them in a reply.
@@ -58,9 +59,10 @@ and not by matching words, because the tool's wording changes:
   state. A private canvas's result can name those options.
 - A statement by the tool about this canvas's sharing, outside the files' text, counts the same on any other read.
   Don't look for sharing in a publish result.
-- **No statement in any plain read or read with `paths` the run made**, a run that only published included (it
-  makes none): say that the sharing could not be read, in the reply and the report. Treat the canvas neither as
-  private nor as not private.
+- **No statement in any plain read or read with `paths` the run made**, in a run that reached a canvas through the
+  tool, a run that only published included (it makes none): say that the sharing could not be read, in the reply
+  and the report. Treat the canvas neither as private nor as not private. A run that reached no canvas (a copy
+  recorded as it is, or no Artifact tool) says only that the canvas was not checked.
 - **A canvas another person owns:** a plain read may return a summary, which isn't ERR-20 (that judges the reads with
   `paths`). Report its sharing words as they stand in the findings and say nothing about the Share menu, since the
   settings aren't the user's. ERR-25 doesn't apply.
@@ -155,8 +157,9 @@ in a create run, and `/devforgeai:ui BRN-NNN` in an amend run (the DSN holds the
 
 **Which canvas.** In order: the URL in the arguments or in the request; in an amend run, the DSN's `canvas`. Any
 claude.ai canvas the user names is accepted when the tool can read its `project/canvas.json` and the boards that
-file names (one the user owns or has edit access to); it need not have been made by this skill. A result that is
-a summary instead of the files, has no `project/canvas.json`, or is refused is ERR-20. In an amend run, a URL
+file names (one the user owns or has edit access to); it need not have been made by this skill. A read with
+`paths` whose result is a summary instead of the files, a canvas with no `project/canvas.json`, or a refused read
+is ERR-20; the plain read's own result is never judged so (above). In an amend run, a URL
 that differs from the DSN's canvas replaces it only on the user's explicit yes, because every board may differ,
 asked in the same call as the import question ("Import the canvas at <new URL>, which replaces <old URL>?"); under
 "proceed without questions" that yes is never given: keep the DSN's canvas and report the other URL. With a null
@@ -200,10 +203,10 @@ place, where nothing reads it. `canvas` is the canvas URL and `canvas_version` t
 In an amend run with the Artifact tool and a canvas, after the pre-check of the copy as it is (ERR-15 settled),
 check the canvas without writing anything in the repository: the plain read (above), alone, followed at once by
 ERR-25's warning as reply text when it finds a canvas the user owns not private (as step 0 of the import says);
-then `read` with `paths` `["project/canvas.json"]` and no `out_dir`, and compare the version identifier of the
-result with the DSN's `canvas_version`. When the result carries no identifier, or the identifiers are equal, also
-compare the sha256 the result gives for `canvas.json` with the `canvas.json sha256` line that `boards` printed; a
-difference counts as moved.
+then `read` with `paths` `["project/canvas.json"]` and no `out_dir`, and compare the version identifier of that
+read's result with the DSN's `canvas_version`. When the result carries no identifier, or the identifiers are equal,
+also compare the sha256 the result gives for `canvas.json` with the `canvas.json sha256` line that `boards` printed;
+a difference counts as moved.
 
 An identifier that moved, a `canvas_version` that is null, a `canvas.json` digest that differs, or a copy that
 `boards` reports as damaged (ERR-03 to ERR-06, ERR-12) means the canvas is to be imported. The import is the

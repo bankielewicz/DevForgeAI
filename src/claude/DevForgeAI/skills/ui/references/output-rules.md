@@ -56,7 +56,7 @@ Keep exactly the template's keys, in its order. Unknown or misspelled keys are e
 | `upstream` | Link records (next section) |
 | `supersedes`, `superseded_by`, `blocked_by` | `[]`, `null`, `[]` |
 | `canvas` | The `https://` URL the boards were imported from, quoted: the URL of the publish result, or the one the request gave; `null` when the boards were already in the folder and the request gave none |
-| `canvas_version` | Quoted. After an import, the identifier the Artifact tool's read reported for the canvas as imported, never asked: the copy now in the boards folder. For a copy already in the folder, the version the request states, else `null` with a marker, and never asked. Never carried over from an earlier copy |
+| `canvas_version` | Quoted. After an import, the identifier the import's step 1 read (`canvas.json`, canvas.md) reported, not a plain read's, never asked: the copy now in the boards folder. For a copy already in the folder, the version the request states, else `null` with a marker, and never asked. Never carried over from an earlier copy |
 | `canvas_format` | The integer `v` of `canvas.json`, from the `boards` command |
 | `boards_root` | `docs/specs/design/<ID>/boards/` for this document's own ID |
 | `considered` | `[]` for a new DSN. In an amend run, entries of the form `PRD-NNN@N`, `ADR-NNN@N`, `declined:PRD-NNN#FR-NNN`, `declined:PRD-NNN#NFR-NNN` or `declined:ADR-NNN`, without repeats; no `declined:` entry names an item an active board's `answers` holds |

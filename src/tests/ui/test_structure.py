@@ -253,17 +253,40 @@ class Skill(unittest.TestCase):
         """BEH-29: the tool's wording changed within a week (SPEC-017 §5), so the skill quotes none of it, and a private
         canvas's line holds "anyone with the link" as an option it offers."""
         texts = skill_texts()
-        canvas = next(text for name, text in texts.items() if str(name).endswith("canvas.md"))
+        everything = " ".join(" ".join(text.split()) for text in texts.values())  # a quote broken across lines counts too
+        canvas = " ".join(next(text for name, text in texts.items() if str(name).endswith("canvas.md")).split())
         for phrase in ("owned by you", "readable by only", "This artifact is private"):
             with self.subTest(phrase):
-                self.assertNotIn(phrase, " ".join(texts.values()))
+                self.assertNotIn(phrase, everything)
         for phrase in ("## The plain read and the canvas's sharing (BEH-29, ERR-25)", "not by matching words", "Share menu",
                        "before the first read with `paths` of every import", "just before the DSN is written",
                        "never published to a new URL", "**The question before an addition.**",
                        "**No statement in any plain read or read with `paths` the run made**", "outside the files' text",
                        "warning in reply text before the next tool call"):
             with self.subTest(phrase):
-                self.assertIn(phrase, " ".join(canvas.split()) if " " in phrase else canvas)
+                self.assertIn(phrase, canvas)
+
+    def test_the_close_review_fixes(self):
+        """The close review of #152 (Bryan, 2026-11-05: "Fix + targeted reruns (Recommended)"): only a read with paths
+        is judged a summary (ERR-20), canvas_version is step 1's identifier, step 7's plain read is alone, the final
+        reply leaves the warning where it was given, and "could not be read" is for a run that reached a canvas."""
+        texts = {str(name): " ".join(text.split()) for name, text in skill_texts().items()}
+        canvas = next(text for name, text in texts.items() if name.endswith("canvas.md"))
+        rules = next(text for name, text in texts.items() if name.endswith("output-rules.md"))
+        skill = " ".join((SKILL / "SKILL.md").read_text().split())
+        step7 = re.search(r"### 7\. (.*?)### 8\. ", skill).group(1)
+        for name, text, phrase in (
+                ("ERR-20 judges reads with paths", canvas, "A read with `paths` whose result is a summary instead of the files"),
+                ("the plain read is not judged", canvas, "the plain read's own result is never judged so"),
+                ("canvas_version", rules, "the identifier the import's step 1 read (`canvas.json`, canvas.md) reported"),
+                ("step 7, SKILL.md", step7, "make the plain read again just before writing, alone, and read its result"),
+                ("step 7, canvas.md", canvas, "alone, with its result read before the Write of the DSN"),
+                ("the final reply", skill, "ERR-25's warning at the read included, stays where it was given"),
+                ("the scope", canvas, "in a run that reached a canvas through the tool"),
+                ("a run that reached no canvas", canvas, "says only that the canvas was not checked")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
+        self.assertNotIn("A result that is a summary instead of the files", canvas)
 
     def test_a_run_that_only_published_says_the_sharing_was_not_read(self):
         """BEH-29 has no exception for a run that made a canvas and read none (Bryan, 2026-11-05: "Follow the spec

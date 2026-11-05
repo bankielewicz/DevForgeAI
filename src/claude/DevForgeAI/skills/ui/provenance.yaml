@@ -6,7 +6,7 @@ title: "UI skill"
 status: draft          # draft | in-review | approved | superseded | deprecated
 version: 4             # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
 created: 2026-10-09
-updated: 2026-11-04
+updated: 2026-11-05
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
