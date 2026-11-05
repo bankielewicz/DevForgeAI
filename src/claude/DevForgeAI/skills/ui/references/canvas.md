@@ -52,14 +52,14 @@ canvas, is ERR-23.
 **It says who can open the canvas.** Go by what the result states about the canvas's owner and sharing, by meaning
 and not by matching words, because the tool's wording changes:
 - **Private:** only the owner and people the owner has given access by name can open it. Say nothing about it.
-- **Not private (ERR-25):** anyone with the link, the public or a whole organization can open it. Give ERR-25's
-  warning in reply text before the next tool call, even under "proceed without questions".
+- **Not private, a canvas the user owns (ERR-25):** anyone with the link, the public or a whole organization can
+  open it. Give ERR-25's warning in reply text before the next tool call, even under "proceed without questions".
 - Words about what the owner could choose, such as the options the Share menu offers, say nothing about the canvas's
   state. A private canvas's result can name those options.
 - A statement by the tool about this canvas's sharing, outside the files' text, counts the same on any other read.
   Don't look for sharing in a publish result.
-- **No statement in any plain read or read with `paths` the run made** (a run that only published makes none, and
-  says nothing): say that the sharing could not be read, in the reply and the report. Treat the canvas neither as
+- **No statement in any plain read or read with `paths` the run made**, a run that only published included (it
+  makes none): say that the sharing could not be read, in the reply and the report. Treat the canvas neither as
   private nor as not private.
 - **A canvas another person owns:** a plain read may return a summary, which isn't ERR-20 (that judges the reads with
   `paths`). Report its sharing words as they stand in the findings and say nothing about the Share menu, since the
@@ -72,7 +72,7 @@ Just before the DSN is written, a read that fails for any reason doesn't stop th
 answers are in hand, so write the DSN from the copy, and say in the reply and the findings that the canvas could not
 be read. A canvas is never published to a new URL.
 
-**The question before an addition.** When a read in this run found the canvas not private, or couldn't read its
+**The question before an addition.** When a read in this run found the canvas not private, or no read stated its
 sharing, the question that asks to add to it says so in place of "as a private artifact": the boards go to the
 canvas's URL, which others can open, or whose sharing could not be read. The user still chooses.
 
@@ -81,11 +81,10 @@ canvas's URL, which others can open, or whose sharing could not be read. The use
 Only after the user confirms the grouping and the briefs in this run (ERR-22 otherwise).
 1. Ask once, with AskUserQuestion when it is available: "Create the canvas from these briefs?", saying that the
    briefs and the boards made from them are sent to the user's claude.ai account as a private artifact (an
-   addition to a canvas a read found not private, or whose sharing it couldn't read, says that instead: "The
-   question before an addition"). Options:
-   "Create the canvas" (Recommended), "Change a brief", "Change the grouping", "Not now". "Change a brief"
-   redrafts it and asks again, "Change the grouping" returns to the grouping, and "Not now" is ERR-22: make no
-   canvas and write nothing.
+   addition to a canvas a read found not private, or whose sharing no read stated, says that instead: "The
+   question before an addition"). Options: "Create the canvas" (Recommended), "Change a brief", "Change the
+   grouping", "Not now". "Change a brief" redrafts it and asks again, "Change the grouping" returns to the
+   grouping, and "Not now" is ERR-22: make no canvas and write nothing.
 2. `quickstart` with `intent: design`, for the `type_url` and the design systems (step 3 of SKILL.md has already
    read it once; use that result).
 3. `publish` with the Design type's `type_url`, a `title` that begins with the BRN's ID
@@ -145,10 +144,11 @@ Design document: none yet (the boards are imported when the run is resumed)
 ```
 
 In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs. When a read
-found the canvas not private, say so (ERR-25); when no read could state its sharing, say that it could not be read
-(above). Then a last paragraph outside any code block, starting with the words Next step, that gives the line that
-resumes the run, to run once the user has finished iterating: `/devforgeai:ui BRN-NNN <canvas URL>` in a create
-run, and `/devforgeai:ui BRN-NNN` in an amend run (the DSN holds the URL).
+found the canvas not private, say so (ERR-25); when no read stated its sharing (a run that made the canvas and ends
+here made none), say that it could not be read (above). Then a last paragraph outside any code block, starting
+with the words Next step, that gives the line that resumes the run, to run once the user has finished iterating:
+`/devforgeai:ui BRN-NNN <canvas URL>` in a create run, and `/devforgeai:ui BRN-NNN` in an amend run (the DSN
+holds the URL).
 
 ## Importing a canvas (BEH-24, BEH-25)
 
@@ -200,12 +200,11 @@ moved.
 An identifier that moved, a `canvas_version` that is null, a `canvas.json` digest that differs, or a copy that
 `boards` reports as damaged (ERR-03 to ERR-06, ERR-12) means the canvas is to be imported. The import is the
 user's decision, asked first and alone, before the offer to add a flow and the interview (a different canvas URL
-in the request is asked in the same call), with the observation in
-the question (the canvas is at an identifier, the DSN records another): "Import the canvas now" (Recommended) or
-"Use the copy as it is". Under "proceed without questions" the request to record the canvas is the answer, and
-the canvas is imported. Nothing in the repository changes before the answer, and the import itself is carried out
-at step 5, after the offer to add a flow: a run that ends at the open question, or at ERR-15 without a yes,
-leaves the boards folder and the DSN as they were.
+in the request is asked in the same call), with the observation in the question (the canvas is at an identifier,
+the DSN records another): "Import the canvas now" (Recommended) or "Use the copy as it is". Under "proceed without
+questions" the request to record the canvas is the answer, and the canvas is imported. Nothing in the repository
+changes before the answer, and the import itself is carried out at step 5, after the offer to add a flow: a run
+that ends at the open question, or at ERR-15 without a yes, leaves the boards folder and the DSN as they were.
 
 Equal identifier and digest: the copy is current, no question is asked, and the report says so. A canvas that
 cannot be read is ERR-20 (stop; the user may say to use the copy, which is then recorded as it is with the canvas
@@ -217,13 +216,12 @@ digest the only second one; a board edited without touching `canvas.json` is see
 ## Adding a flow or a screen in an amend run (BEH-27)
 
 In an amend run with the Artifact tool, once the import question is settled and before the interview, `read`
-`project/canvas.json` of the canvas (no `out_dir`; the plain read above has been made, and it is what lets a publish
-through) and offer once to add a flow, or a screen to a flow, that no
-board of the canvas holds yet. Judge that from the boards' titles and file names against the promoted ideas at
-`no board yet` and the candidates that name a screen no board answers, so that the offer never draws what the
-canvas already has: "Draw <the flow or screen> now?" with "Draw it now" (Recommended), "I will add it on the
-canvas myself" and "Not now". The offer repeats on every amend run while the idea stays at `no board yet`,
-because nothing remembers a decline.
+`project/canvas.json` of the canvas (no `out_dir`; the plain read above has been made, and it is what lets a
+publish through) and offer once to add a flow, or a screen to a flow, that no board of the canvas holds yet. Judge
+that from the boards' titles and file names against the promoted ideas at `no board yet` and the candidates that
+name a screen no board answers, so that the offer never draws what the canvas already has: "Draw <the flow or
+screen> now?" with "Draw it now" (Recommended), "I will add it on the canvas myself" and "Not now". The offer
+repeats on every amend run while the idea stays at `no board yet`, because nothing remembers a decline.
 
 On "Draw it now", the user confirms the flow (a new flow, or the existing flow that the screen joins, which the
 skill proposes and never decides) and its brief, confirmed with the same question as the first canvas, worded

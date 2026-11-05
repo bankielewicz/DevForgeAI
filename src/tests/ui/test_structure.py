@@ -265,6 +265,17 @@ class Skill(unittest.TestCase):
             with self.subTest(phrase):
                 self.assertIn(phrase, " ".join(canvas.split()) if " " in phrase else canvas)
 
+    def test_a_run_that_only_published_says_the_sharing_was_not_read(self):
+        """BEH-29 has no exception for a run that made a canvas and read none (Bryan, 2026-11-05: "Follow the spec
+        (Recommended)"): its canvas report says the sharing could not be read."""
+        canvas = " ".join(next(text for name, text in skill_texts().items()
+                               if str(name).endswith("canvas.md")).split())
+        ending = re.search(r"## Ending after the canvas(.*?)## ", canvas).group(1)
+        self.assertIn("a run that made the canvas and ends here made none), say that it could not be read", ending)
+        self.assertIn("a run that only published included (it makes none): say that the sharing could not be read",
+                      canvas)
+        self.assertNotIn("says nothing):", canvas)
+
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()
         for number in ("2", "4", "5", "7", "10"):
@@ -279,7 +290,7 @@ class Skill(unittest.TestCase):
         step4 = re.search(r"^### 4\. .*?(?=^### )", skill, re.M | re.S).group(0)
         for name, text in (("rule 5", rule), ("step 4", step4)):
             with self.subTest(name):
-                self.assertIn("found not private, or whose sharing it couldn't read", " ".join(text.split()))
+                self.assertIn("found not private, or whose sharing no read stated", " ".join(text.split()))
 
     def test_every_behaviour_and_error_is_cited(self):
         doc = spec_document(spec_text())

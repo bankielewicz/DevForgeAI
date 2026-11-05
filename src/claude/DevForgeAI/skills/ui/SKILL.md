@@ -33,7 +33,7 @@ Five rules shape everything below:
    an import's digest file. Every other document is read-only. Never delete a file or an artifact, run git or
    project code, or resolve policy. Send claude.ai only the confirmed briefs and the boards made from them, as a
    private artifact on the user's own account, except an addition to a canvas a read found not private, or whose
-   sharing it couldn't read, where the question says so (canvas.md): never share, pin or comment on it.
+   sharing no read stated, where the question says so (canvas.md). Never share, pin or comment on a canvas.
 
 ## Inputs
 
@@ -190,12 +190,12 @@ the first Artifact call.
      ERR-19 (with the briefs shown, when briefs were drafted).
    - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL in the arguments or the request): run
      `boards <ID>` and `check --before-amend <ID>` on the copy as it is (ERR-15 settled first), check the canvas's
-     version read-only and, only when the canvas moved, its version is null, the digest differs or the copy is
-     damaged, ask the import question first and alone, with a differing URL in the same call (canvas.md). Then
-     offer once to draw a flow or a screen the canvas lacks; on "Draw it now", steps 3 and 4 follow, then step 5's
-     open question. Nothing in the repository changes before the answer; the import is step 5, after which
-     `boards` and `check --before-amend` run again. When `boards` reports ERR-03 to ERR-06 or ERR-12 for the copy,
-     skip the pre-check: the import is the repair.
+     version read-only (its plain read is the run's first, and can give ERR-25's warning) and, only when the
+     canvas moved, its version is null, the digest differs or the copy is damaged, ask the import question first
+     and alone, with a differing URL in the same call (canvas.md). Then offer once to draw a flow or a screen the
+     canvas lacks; on "Draw it now", steps 3 and 4 follow, then step 5's open question. Nothing in the repository
+     changes before the answer; the import is step 5, after which `boards` and `check --before-amend` run again.
+     When `boards` reports ERR-03 to ERR-06 or ERR-12 for the copy, skip the pre-check: the import is the repair.
    - **D. Amend run without the Artifact tool, or with no canvas known:** run `boards <ID>` and
      `check --before-amend <ID>` on the copy as it is, and say in the report `no Artifact tool in this session` (or
      `no canvas is recorded`) and that the canvas was not checked.
@@ -225,7 +225,7 @@ and apply ERR-19. Nothing is sent to claude.ai before step 4's question.
 
 Only after the grouping and the briefs are confirmed in this run. Ask once: "Create the canvas from these
 briefs?", saying that the briefs and the boards made from them are sent to the user's claude.ai account as a
-private artifact (an addition to a canvas a read found not private, or whose sharing it couldn't read, says
+private artifact (an addition to a canvas a read found not private, or whose sharing no read stated, says
 that instead, canvas.md). Then make the canvas as canvas.md says (an amend run adds the new flow or screen to the
 existing one), only through the Artifact tool.
 
@@ -239,9 +239,9 @@ existing one), only through the Artifact tool.
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
   again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain
   read, then `canvas.json`, then at most 4 boards a read, then `place`, then `boards`), and in an amend run run
-  `check --before-amend <ID>` again. When a plain read finds the canvas not private (the import's, or in an amend
-  run the first, made at route C's version check before any import), give ERR-25's warning in reply text before
-  the next tool call, once in the run. The canvas URL and `canvas_version` are the tool's, not asked.
+  `check --before-amend <ID>` again. When this or any earlier read finds a canvas the user owns not private, give
+  ERR-25's warning in reply text before the next tool call, once in the run (canvas.md). The canvas URL and
+  `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.
 
