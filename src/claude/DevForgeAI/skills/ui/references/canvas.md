@@ -61,9 +61,9 @@ and not by matching words, because the tool's wording changes:
   Don't look for sharing in a publish result.
 - **No statement in any plain read or read with `paths` the run made**, in a run that reached a canvas through the
   tool, a run that only published included (it makes none): say that the sharing could not be read, in the reply
-  and the report. Treat the canvas neither as private nor as not private. A run that reached no canvas (a copy
-  recorded as it is, or no Artifact tool) gives the reason the canvas was not checked (output-rules.md's
-  findings) and says nothing about its sharing.
+  and the report. Treat the canvas neither as private nor as not private. A run in which no read found the canvas
+  and nothing was published (route A without an import, route D) gives the reason the canvas was not checked
+  (output-rules.md's findings) and says nothing about its sharing.
 - **A canvas another person owns:** a plain read may return a summary, which isn't ERR-20 (that judges the reads with
   `paths`). Report its sharing words as they stand in the findings and say nothing about the Share menu, since the
   settings aren't the user's. ERR-25 doesn't apply.
@@ -170,9 +170,9 @@ URL. With a null canvas in the DSN, the URL fills it. Reach the canvas only thro
 0. The plain read (above), alone. Read its result before any other call. A read that finds no canvas is ERR-20
    (above). When it finds a canvas the user owns not private and no earlier read in this run found it so: write
    ERR-25's warning now, as reply text, before step 1's call: the canvas's URL, that others can open it, and that
-   the canvas page's Share menu changes that. The report's finding names it again later; it doesn't replace it. Then
-   go on. When the plain read states no sharing and a later read is the first to find it, the warning comes right
-   after that read instead.
+   the canvas page's Share menu changes that. The report's finding states the canvas's sharing again later; it
+   doesn't replace the warning. Then go on. When the plain read states no sharing and a later read is the first to
+   find it, the warning comes right after that read instead.
 1. `read` with `paths` `["project/canvas.json"]` from the canvas and `out_dir` the absolute path of
    `docs/specs/design/<ID>` (the project root is in the environment details). Note the version identifier and
    the sha256 of the result.
