@@ -144,11 +144,12 @@ Design document: none yet (the boards are imported when the run is resumed)
 ```
 
 In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs. When a read
-found the canvas not private, say so (ERR-25); when no read stated its sharing (a run that made the canvas and ends
-here made none), say that it could not be read (above). Then a last paragraph outside any code block, starting
-with the words Next step, that gives the line that resumes the run, to run once the user has finished iterating:
-`/devforgeai:ui BRN-NNN <canvas URL>` in a create run, and `/devforgeai:ui BRN-NNN` in an amend run (the DSN
-holds the URL).
+found a canvas the user owns not private, say so: others can open it, and the canvas page's Share menu changes that
+(ERR-25). For a canvas another person owns, give its sharing words as they stand. When no read stated its sharing
+(a run that made the canvas and ends here made none), say that it could not be read (above). Then a last paragraph
+outside any code block, starting with the words Next step, that gives the line that resumes the run, to run once
+the user has finished iterating: `/devforgeai:ui BRN-NNN <canvas URL>` in a create run, and `/devforgeai:ui
+BRN-NNN` in an amend run (the DSN holds the URL).
 
 ## Importing a canvas (BEH-24, BEH-25)
 
@@ -161,7 +162,10 @@ asked in the same call as the import question ("Import the canvas at <new URL>, 
 "proceed without questions" that yes is never given: keep the DSN's canvas and report the other URL. With a null
 canvas in the DSN, the URL fills it. Reach the canvas only through the Artifact tool's `read`.
 
-**The steps.** First make the plain read (above). Then each step is a call of its own.
+**The steps.** Each step is a call of its own, and step 0 decides what is said before step 1.
+0. The plain read (above), alone. Read its result before any other call. When it finds a canvas the user owns
+   not private and no read in this run has: write ERR-25's warning now, as reply text, before step 1's call:
+   the canvas's URL, that others can open it, and that the canvas page's Share menu changes that. Then go on.
 1. `read` with `paths` `["project/canvas.json"]` from the canvas and `out_dir` the absolute path of
    `docs/specs/design/<ID>` (the project root is in the environment details). Note the version identifier and
    the sha256 of the result.
@@ -191,11 +195,12 @@ place, where nothing reads it. `canvas` is the canvas URL and `canvas_version` t
 ## Checking the canvas's version in an amend run (BEH-26)
 
 In an amend run with the Artifact tool and a canvas, after the pre-check of the copy as it is (ERR-15 settled),
-check the canvas without writing anything in the repository: the plain read (above), then `read` with `paths`
-`["project/canvas.json"]` and no `out_dir`, and compare the version identifier of the result with the DSN's
-`canvas_version`. When the result carries no identifier, or the identifiers are equal, also compare the sha256 the
-result gives for `canvas.json` with the `canvas.json sha256` line that `boards` printed; a difference counts as
-moved.
+check the canvas without writing anything in the repository: the plain read (above), alone, followed at once by
+ERR-25's warning as reply text when it finds a canvas the user owns not private (as step 0 of the import says);
+then `read` with `paths` `["project/canvas.json"]` and no `out_dir`, and compare the version identifier of the
+result with the DSN's `canvas_version`. When the result carries no identifier, or the identifiers are equal, also
+compare the sha256 the result gives for `canvas.json` with the `canvas.json sha256` line that `boards` printed; a
+difference counts as moved.
 
 An identifier that moved, a `canvas_version` that is null, a `canvas.json` digest that differs, or a copy that
 `boards` reports as damaged (ERR-03 to ERR-06, ERR-12) means the canvas is to be imported. The import is the

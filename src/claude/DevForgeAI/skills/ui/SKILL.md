@@ -238,9 +238,10 @@ existing one), only through the Artifact tool.
   with the line that resumes the run (canvas.md, "Ending after the canvas").
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
   again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain
-  read, then `canvas.json`, then at most 4 boards a read, then `place`, then `boards`), and in an amend run run
-  `check --before-amend <ID>` again. When this or any earlier read finds a canvas the user owns not private, give
-  ERR-25's warning in reply text before the next tool call, once in the run (canvas.md). The canvas URL and
+  read alone; ERR-25's warning as reply text right after it when it finds a canvas the user owns not private and
+  no read in this run has; then `canvas.json`, then at most 4 boards a read, then `place`, then `boards`), and in
+  an amend run run `check --before-amend <ID>` again. The warning names the canvas, says that others can open it
+  and that the canvas page's Share menu changes that, and comes once in the run (canvas.md). The canvas URL and
   `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.

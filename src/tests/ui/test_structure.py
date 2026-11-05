@@ -276,6 +276,26 @@ class Skill(unittest.TestCase):
                       canvas)
         self.assertNotIn("says nothing):", canvas)
 
+    def test_the_warning_is_a_step_right_after_the_plain_read(self):
+        """VER-50 (a) failed live twice (4a67876, e29c84d): the run read on after a plain read found the canvas shared
+        by link and named it only in the final report, without the Share menu. The warning is now step 0 of the
+        import, before step 1's call, and every place that reports it names the Share menu."""
+        texts = {str(name): " ".join(text.split()) for name, text in skill_texts().items()}
+        canvas = next(text for name, text in texts.items() if name.endswith("canvas.md"))
+        rules = next(text for name, text in texts.items() if name.endswith("output-rules.md"))
+        skill = " ".join((SKILL / "SKILL.md").read_text().split())
+        steps = re.search(r"\*\*The steps\.\*\*(.*?) 1\. `read`", canvas).group(1)
+        for phrase in ("0. The plain read (above), alone.", "write ERR-25's warning now, as reply text, before step 1's call",
+                       "Share menu"):
+            with self.subTest(phrase):
+                self.assertIn(phrase, steps)
+        check = re.search(r"## Checking the canvas's version in an amend run(.*?)## ", canvas).group(1)
+        self.assertIn("followed at once by ERR-25's warning as reply text", check)
+        ending = re.search(r"## Ending after the canvas(.*?)## ", canvas).group(1)
+        for name, text in (("canvas report", ending), ("findings", rules), ("SKILL.md step 5", skill)):
+            with self.subTest(name):
+                self.assertRegex(text, r"others can open it,? and (that )?the canvas page's Share menu changes that")
+
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()
         for number in ("2", "4", "5", "7", "10"):
