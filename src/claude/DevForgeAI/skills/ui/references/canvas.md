@@ -62,8 +62,8 @@ and not by matching words, because the tool's wording changes:
 - **No statement in any plain read or read with `paths` the run made**, in a run that reached a canvas through the
   tool, a run that only published included (it makes none): say that the sharing could not be read, in the reply
   and the report. Treat the canvas neither as private nor as not private. A run that reached no canvas (a copy
-  recorded as it is, no Artifact tool, or a copy the user chose after ERR-20) says that the canvas was not checked,
-  with the reason SKILL.md's step 2 gives, and nothing about its sharing.
+  recorded as it is, or no Artifact tool) gives the reason the canvas was not checked (output-rules.md's
+  findings) and says nothing about its sharing.
 - **A canvas another person owns:** a plain read may return a summary, which isn't ERR-20 (that judges the reads with
   `paths`). Report its sharing words as they stand in the findings and say nothing about the Share menu, since the
   settings aren't the user's. ERR-25 doesn't apply.
@@ -148,11 +148,11 @@ Design document: none yet (the boards are imported when the run is resumed)
 
 In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs. When a read
 found a canvas the user owns not private, say so: others can open it, and the canvas page's Share menu changes that
-(ERR-25; this repeats the warning given at the read). For a canvas another person owns, give its sharing words as
-they stand. When no read stated its sharing (a run that made the canvas and ends here made none), say that it could
-not be read (above). Then a last paragraph outside any code block, starting with the words Next step, that gives
-the line that resumes the run, to run once the user has finished iterating: `/devforgeai:ui BRN-NNN <canvas URL>`
-in a create run, and `/devforgeai:ui BRN-NNN` in an amend run (the DSN holds the URL).
+(ERR-25; a fact about the canvas, never a claim about an earlier warning). For a canvas another person owns, give
+its sharing words as they stand. When no read stated its sharing (a run that made the canvas and ends here made
+none), say that it could not be read (above). Then a last paragraph outside any code block, starting with the words
+Next step, that gives the line that resumes the run, to run once the user has finished iterating: `/devforgeai:ui
+BRN-NNN <canvas URL>` in a create run, and `/devforgeai:ui BRN-NNN` in an amend run (the DSN holds the URL).
 
 ## Importing a canvas (BEH-24, BEH-25)
 
@@ -170,7 +170,7 @@ URL. With a null canvas in the DSN, the URL fills it. Reach the canvas only thro
 0. The plain read (above), alone. Read its result before any other call. A read that finds no canvas is ERR-20
    (above). When it finds a canvas the user owns not private and no earlier read in this run found it so: write
    ERR-25's warning now, as reply text, before step 1's call: the canvas's URL, that others can open it, and that
-   the canvas page's Share menu changes that. The report's finding repeats it later; it doesn't replace it. Then
+   the canvas page's Share menu changes that. The report's finding names it again later; it doesn't replace it. Then
    go on. When the plain read states no sharing and a later read is the first to find it, the warning comes right
    after that read instead.
 1. `read` with `paths` `["project/canvas.json"]` from the canvas and `out_dir` the absolute path of
@@ -280,5 +280,5 @@ open question above. "Proceed without questions" adds nothing.
   call, even under "proceed without questions", naming the canvas, that others can open it and that the canvas
   page's Share menu changes that. Give the warning once in the run, at the first read that finds it, and not
   again at a later read. Never change sharing. Go on with the run, since the user may have shared it on purpose.
-  The findings of the report the run ends with (or the canvas report when there is no block) repeat it; they
-  never replace the warning at the read.
+  The findings of the report the run ends with (or the canvas report when there is no block) name it again, as a
+  fact about the canvas; they never replace the warning at the read, and never say that a warning was given.

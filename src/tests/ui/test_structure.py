@@ -283,12 +283,16 @@ class Skill(unittest.TestCase):
                 ("step 7, canvas.md", canvas, "alone, with its result read before the DSN is written"),
                 ("the final reply", skill, "ERR-25's warning at the read included, stays where it was given"),
                 ("the scope", canvas, "in a run that reached a canvas through the tool"),
-                ("a run that reached no canvas", canvas, "says that the canvas was not checked, with the reason SKILL.md's step 2 gives, and nothing about its sharing"),
+                ("a run that reached no canvas", canvas, "gives the reason the canvas was not checked (output-rules.md's findings) and says nothing about its sharing"),
                 ("the scope, in the findings", rules, "a canvas the run reached through the tool whose sharing no read stated")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
         self.assertNotIn("A result that is a summary instead of the files", canvas)
         self.assertNotIn("never judged so", canvas)
+        # Live runs said "I gave this warning at the first read" when it had shown only as a thinking summary.
+        everything = " ".join(texts.values())
+        self.assertNotIn("repeats the warning", everything)
+        self.assertIn("never say that a warning was given", canvas)
 
     def test_a_run_that_only_published_says_the_sharing_was_not_read(self):
         """BEH-29 has no exception for a run that made a canvas and read none (Bryan, 2026-11-05: "Follow the spec
@@ -323,8 +327,8 @@ class Skill(unittest.TestCase):
         # The third live miss (83f38f8): "once in the run" next to "name it in the findings" read as "pick one".
         problems = re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1)
         for name, text, phrase in (("ERR-25", problems, "never replace the warning at the read"),
-                                   ("findings", rules, "repeats the warning given at the read, which it never replaces"),
-                                   ("step 0", steps, "The report's finding repeats it later; it doesn't replace it"),
+                                   ("findings", rules, "a fact about the canvas, never a claim that a warning was given, and never in place of the warning at the read"),
+                                   ("step 0", steps, "The report's finding names it again later; it doesn't replace it"),
                                    ("proceed without questions", skill, "It holds back no warning")):
             with self.subTest(name):
                 self.assertIn(phrase, text)

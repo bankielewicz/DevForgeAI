@@ -108,7 +108,7 @@ answers the gates one by one:
 - It never answers: which BRN, an unconverged BRN, which of several DSNs to amend, and the confirmation ERR-15
   asks for.
 - It holds back no warning: ERR-25's warning is reply text at the read that finds a canvas the user owns not
-  private, as in any run, and the report's finding repeats it later.
+  private, as in any run, and the report's finding names it again later.
 
 ## Workflow
 
@@ -245,7 +245,7 @@ existing one), only through the Artifact tool.
   no earlier read in this run found it so; then `canvas.json`, then at most 4 boards a read, then `place`, then
   `boards`), and, in an amend run, run `check --before-amend <ID>` again. The warning names the canvas, says that
   others can open it and that the canvas page's Share menu changes that, and is given at that read even under
-  "proceed without questions"; the report's finding repeats it and never replaces it (canvas.md). The canvas URL
+  "proceed without questions"; the report's finding names it again and never replaces it (canvas.md). The canvas URL
   and `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.
