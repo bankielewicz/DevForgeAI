@@ -9,11 +9,19 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ## Unreleased
 
+### Changed
+
+- The `ui` skill now reads a canvas plainly before it imports from it, checks its version, adds to it or writes the
+  design document, and judges the canvas's sharing by what that read states (#121, #117). When others can open a
+  canvas you own, the run's report says so and points to the canvas page's Share menu; the run carries on and never
+  changes sharing itself. The skill also asks for that warning as soon as the read finds it, but in live runs on
+  Sonnet and Opus it came only in the report (SPEC-017 §9). The question before adding boards to a canvas now says
+  when others can open it, or when no read stated its sharing, instead of "private artifact". A run that reached a
+  canvas and read no sharing statement says the sharing could not be read. The same read lets a publish into an
+  existing canvas through (#117).
+
 ### Fixed
 
-- The `ui` skill now reads a canvas's sharing before every import and just before writing the design document. When
-  others can open the canvas, it says so, points to the page's Share menu, carries on and names it in the report. It
-  never changes sharing itself (#121). The same read lets a publish into an existing canvas through (#117).
 - Nine skills no longer write `$ARGUMENTS` in their instructions. Claude Code replaced it with what the user typed, so
   the line describing a skill's input read as the input itself, or as empty backticks. They now say "the arguments"
   (#135).
