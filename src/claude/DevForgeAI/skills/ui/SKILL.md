@@ -269,7 +269,7 @@ says ("Nothing to change"), and stop: no check and no approval offer.
 ### 7. Write DSN-NNN (BEH-12 to BEH-14, BEH-20, BEH-29, ERR-25)
 
 Read [references/output-rules.md](references/output-rules.md) first. When the run read a canvas, make the plain read
-again just before writing, alone, and read its result before the Write (canvas.md).
+again just before writing, alone, and read its result before the DSN is written (canvas.md).
 - **Create run:** Write the DSN once from `${CLAUDE_SKILL_DIR}/assets/dsn.md`, deleting every author comment.
   Version 1, status `draft`, `session: "${CLAUDE_SESSION_ID}"` under `generated_by`, one board item for each
   board in canvas order, and one Change Log row authored `claude-code (session ${CLAUDE_SESSION_ID})` that ends
@@ -310,10 +310,10 @@ BRN-NNN`, or from another document citing the DSN. After ERR-11 or ERR-14, appro
 
 ### 10. Report and hand off (BEH-17, BEH-18, BEH-29)
 
-When the run wrote or checked a DSN, the final reply opens with this block. Nothing comes before it, not even
-the checklist; text the run gave earlier, ERR-25's warning at the read included, stays where it was given.
-output-rules.md, "The report", gives the rules of each line, the findings that follow it, and the
-runs that have no block. The order is the block, the findings, then the Next step paragraph, then nothing.
+When the run wrote or checked a DSN, the final reply opens with this block. Nothing comes before it, not even the
+checklist; text the run gave earlier, ERR-25's warning at the read included, stays where it was given.
+output-rules.md, "The report", gives the rules of each line, the findings that follow it, and the runs that have no
+block. The order is the block, the findings, then the Next step paragraph, then nothing.
 
 ```
 Design document: <ID> (v<N>, <status>; new | amended)

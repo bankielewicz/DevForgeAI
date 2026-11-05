@@ -277,16 +277,18 @@ class Skill(unittest.TestCase):
         step7 = re.search(r"### 7\. (.*?)### 8\. ", skill).group(1)
         for name, text, phrase in (
                 ("ERR-20 judges reads with paths", canvas, "A read with `paths` whose result is a summary instead of the files"),
-                ("the plain read is not judged", canvas, "the plain read's own result is never judged so"),
+                ("the plain read is not judged", canvas, "A plain read's result is never judged a summary, though a plain read that finds no canvas is ERR-20 too"),
                 ("canvas_version", rules, "the identifier the import's step 1 read (`canvas.json`, canvas.md) reported"),
                 ("step 7, SKILL.md", step7, "make the plain read again just before writing, alone, and read its result"),
-                ("step 7, canvas.md", canvas, "alone, with its result read before the Write of the DSN"),
+                ("step 7, canvas.md", canvas, "alone, with its result read before the DSN is written"),
                 ("the final reply", skill, "ERR-25's warning at the read included, stays where it was given"),
                 ("the scope", canvas, "in a run that reached a canvas through the tool"),
-                ("a run that reached no canvas", canvas, "says only that the canvas was not checked")):
+                ("a run that reached no canvas", canvas, "says that the canvas was not checked, with the reason SKILL.md's step 2 gives, and nothing about its sharing"),
+                ("the scope, in the findings", rules, "a canvas the run reached through the tool whose sharing no read stated")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
         self.assertNotIn("A result that is a summary instead of the files", canvas)
+        self.assertNotIn("never judged so", canvas)
 
     def test_a_run_that_only_published_says_the_sharing_was_not_read(self):
         """BEH-29 has no exception for a run that made a canvas and read none (Bryan, 2026-11-05: "Follow the spec

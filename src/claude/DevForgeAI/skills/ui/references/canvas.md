@@ -41,7 +41,7 @@ The plain read is `read` with the canvas URL and no `paths`. Make it:
 - as the first Artifact call on the canvas in an amend run's version check or offer to add a flow, when no import
   came first in the run;
 - once more just before the DSN is written at step 7, when the run read a canvas: alone, with its result read
-  before the Write of the DSN.
+  before the DSN is written.
 
 Publishing a new canvas takes no read, and a run that ends after the canvas makes no read for step 7. The plain
 read's result also holds the Design type's long instructions: don't repeat them in a reply.
@@ -62,7 +62,8 @@ and not by matching words, because the tool's wording changes:
 - **No statement in any plain read or read with `paths` the run made**, in a run that reached a canvas through the
   tool, a run that only published included (it makes none): say that the sharing could not be read, in the reply
   and the report. Treat the canvas neither as private nor as not private. A run that reached no canvas (a copy
-  recorded as it is, or no Artifact tool) says only that the canvas was not checked.
+  recorded as it is, no Artifact tool, or a copy the user chose after ERR-20) says that the canvas was not checked,
+  with the reason SKILL.md's step 2 gives, and nothing about its sharing.
 - **A canvas another person owns:** a plain read may return a summary, which isn't ERR-20 (that judges the reads with
   `paths`). Report its sharing words as they stand in the findings and say nothing about the Share menu, since the
   settings aren't the user's. ERR-25 doesn't apply.
@@ -157,13 +158,13 @@ in a create run, and `/devforgeai:ui BRN-NNN` in an amend run (the DSN holds the
 
 **Which canvas.** In order: the URL in the arguments or in the request; in an amend run, the DSN's `canvas`. Any
 claude.ai canvas the user names is accepted when the tool can read its `project/canvas.json` and the boards that
-file names (one the user owns or has edit access to); it need not have been made by this skill. A read with
-`paths` whose result is a summary instead of the files, a canvas with no `project/canvas.json`, or a refused read
-is ERR-20; the plain read's own result is never judged so (above). In an amend run, a URL
-that differs from the DSN's canvas replaces it only on the user's explicit yes, because every board may differ,
-asked in the same call as the import question ("Import the canvas at <new URL>, which replaces <old URL>?"); under
-"proceed without questions" that yes is never given: keep the DSN's canvas and report the other URL. With a null
-canvas in the DSN, the URL fills it. Reach the canvas only through the Artifact tool's `read`.
+file names (one the user owns or has edit access to); it need not have been made by this skill. A read with `paths`
+whose result is a summary instead of the files, a canvas with no `project/canvas.json`, or a refused read is ERR-20.
+A plain read's result is never judged a summary, though a plain read that finds no canvas is ERR-20 too (above). In
+an amend run, a URL that differs from the DSN's canvas replaces it only on the user's explicit yes, because every
+board may differ, asked in the same call as the import question ("Import the canvas at <new URL>, which replaces
+<old URL>?"); under "proceed without questions" that yes is never given: keep the DSN's canvas and report the other
+URL. With a null canvas in the DSN, the URL fills it. Reach the canvas only through the Artifact tool's `read`.
 
 **The steps.** Make no two of them in one batch of calls: step 0's result decides what is said before step 1.
 0. The plain read (above), alone. Read its result before any other call. A read that finds no canvas is ERR-20

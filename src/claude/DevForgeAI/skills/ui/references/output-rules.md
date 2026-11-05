@@ -239,8 +239,9 @@ Step 10 of SKILL.md gives the block and the next step. These are the rules of ea
   stale (a deprecated PRD item, an ADR no longer accepted); the boards `head` reported as read in part; in an
   amend run the documents that cite the DSN at an older version; a canvas the user owns that is not private,
   saying that others can open it and that the canvas page's Share menu changes that (ERR-25; this repeats the
-  warning given at the read, which it never replaces); a canvas whose sharing no read stated, saying that the
-  sharing could not be read; a canvas another person owns, with its sharing words as they stand; a canvas that
+  warning given at the read, which it never replaces); a canvas the run reached through the tool whose sharing no
+  read stated, saying that the sharing could not be read (a run that reached no canvas says only why the canvas
+  was not checked, above); a canvas another person owns, with its sharing words as they stand; a canvas that
   could not be read just before the write, the DSN written from the copy (BEH-29); the candidates the user
   declined or that were left for a later run, with their number; the unconfirmed mappings; and, after an amend,
   that the new version has not been reviewed, and any provenance written as `unavailable`. The last finding is
