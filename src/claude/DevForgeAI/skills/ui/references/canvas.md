@@ -170,9 +170,9 @@ URL. With a null canvas in the DSN, the URL fills it. Reach the canvas only thro
 0. The plain read (above), alone. Read its result before any other call. A read that finds no canvas is ERR-20
    (above). When it finds a canvas the user owns not private and no earlier read in this run found it so: write
    ERR-25's warning now, as reply text, before step 1's call: the canvas's URL, that others can open it, and that
-   the canvas page's Share menu changes that. The report's finding states the canvas's sharing again later; it
-   doesn't replace the warning. Then go on. When the plain read states no sharing and a later read is the first to
-   find it, the warning comes right after that read instead.
+   the canvas page's Share menu changes that. The report's finding states the canvas's sharing too, with the Share
+   menu; it doesn't replace the warning. Then go on. When the plain read states no sharing and a later read is the
+   first to find it, the warning comes right after that read instead.
 1. `read` with `paths` `["project/canvas.json"]` from the canvas and `out_dir` the absolute path of
    `docs/specs/design/<ID>` (the project root is in the environment details). Note the version identifier and
    the sha256 of the result.
@@ -276,9 +276,9 @@ open question above. "Proceed without questions" adds nothing.
   the URL if the tool returned one, and show the briefs so that the user can use them by hand. A canvas the tool
   can't find: stop, quote the tool's message, and ask the user to check that Claude Code is signed in to the
   account that owns it, since a different account gives the same message. Never publish it to a new URL.
-- **ERR-25** (a canvas the user owns that is not private, as above): say so in reply text before the next tool
-  call, even under "proceed without questions", naming the canvas, that others can open it and that the canvas
-  page's Share menu changes that. Give the warning once in the run, at the first read that finds it, and not
-  again at a later read. Never change sharing. Go on with the run, since the user may have shared it on purpose.
-  The findings of the report the run ends with (or the canvas report when there is no block) name it again, as a
-  fact about the canvas; they never replace the warning at the read, and never say that a warning was given.
+- **ERR-25** (a canvas the user owns that is not private, as above): say so in reply text before the next tool call,
+  even under "proceed without questions", naming the canvas, that others can open it and that the canvas page's
+  Share menu changes that. Give the warning once in the run, at the first read that finds it, and not again at a
+  later read. Never change sharing. Go on with the run, since the user may have shared it on purpose. The findings
+  of the final report (or the canvas report when there is no block) state the canvas's sharing, with the Share menu,
+  as a fact about the canvas; they never replace the warning at the read, and never say that a warning was given.

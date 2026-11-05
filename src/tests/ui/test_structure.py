@@ -293,7 +293,10 @@ class Skill(unittest.TestCase):
         everything = " ".join(texts.values())
         self.assertNotIn("repeats the warning", everything)
         self.assertIn("never say that a warning was given", canvas)
-        self.assertNotIn("names it again", everything)  # "it" read as the warning (plugin-validator W-B on 60db182)
+        # "again" beside the finding invited "I warned about this at the first read" (live, c2c5314; Bryan, 2026-11-05:
+        # "One more small edit (Recommended)").
+        self.assertNotRegex(everything, r"\bnames? it again\b|sharing again")
+        self.assertIn("state the canvas's sharing, with the Share menu, as a fact about the canvas", canvas)
         self.assertIn("A run in which no read found the canvas and nothing was published", canvas)
 
     def test_a_run_that_only_published_says_the_sharing_was_not_read(self):
@@ -330,7 +333,7 @@ class Skill(unittest.TestCase):
         problems = re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1)
         for name, text, phrase in (("ERR-25", problems, "never replace the warning at the read"),
                                    ("findings", rules, "a fact about the canvas, never a claim that a warning was given, and never in place of the warning at the read"),
-                                   ("step 0", steps, "The report's finding states the canvas's sharing again later; it doesn't replace the warning"),
+                                   ("step 0", steps, "The report's finding states the canvas's sharing too, with the Share menu; it doesn't replace the warning"),
                                    ("proceed without questions", skill, "It holds back no warning")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
