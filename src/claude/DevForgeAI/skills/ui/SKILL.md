@@ -182,9 +182,9 @@ the first Artifact call.
    route needs it):
    - **A. Create run, the folder holds files (a copy):** run `boards <ID>`. The copy is recorded as it is, with no
      brief and no import, whatever canvas URL is named in the arguments or the request. When either names a URL and
-     the Artifact tool is available, ask once: "Import the canvas again" (Recommended) or "Record the copy as it is". Say in
-     the report why the canvas was not checked: `no Artifact tool in this session` or `recorded as it is by
-     choice`.
+     the Artifact tool is available, ask once: "Import the canvas again" (Recommended) or "Record the copy as it
+     is". Say in the report why the canvas was not checked: `no Artifact tool in this session` or `recorded as it
+     is by choice`.
    - **B. Create run, the folder is absent or empty:** with a canvas URL, import it (step 5). Without one, draft
      the flows and the briefs and make the canvas (steps 3 and 4). Both need the Artifact tool; without it
      ERR-19 (with the briefs shown, when briefs were drafted).
@@ -239,8 +239,9 @@ existing one), only through the Artifact tool.
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
   again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain
   read, then `canvas.json`, then at most 4 boards a read, then `place`, then `boards`), and in an amend run run
-  `check --before-amend <ID>` again. When the plain read finds the canvas not private, give ERR-25's warning in reply
-  text before the next tool call. The canvas URL and `canvas_version` are the tool's, not asked.
+  `check --before-amend <ID>` again. When a plain read finds the canvas not private (the import's, or in an amend
+  run the first, made at route C's version check before any import), give ERR-25's warning in reply text before
+  the next tool call, once in the run. The canvas URL and `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.
 

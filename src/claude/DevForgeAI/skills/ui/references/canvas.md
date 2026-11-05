@@ -49,8 +49,8 @@ read's result also holds the Design type's long instructions: don't repeat them 
 refused for an unviewed version gets one more plain read and one retry. A second refusal, or that read finding no
 canvas, is ERR-23.
 
-**It says who can open the canvas.** Go by what the result states about the canvas's owner and sharing, by meaning and
-not by matching words, because the tool's wording changes:
+**It says who can open the canvas.** Go by what the result states about the canvas's owner and sharing, by meaning
+and not by matching words, because the tool's wording changes:
 - **Private:** only the owner and people the owner has given access by name can open it. Say nothing about it.
 - **Not private (ERR-25):** anyone with the link, the public or a whole organization can open it. Give ERR-25's
   warning in reply text before the next tool call, even under "proceed without questions".
@@ -145,10 +145,10 @@ Design document: none yet (the boards are imported when the run is resumed)
 ```
 
 In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs. When a read
-found the canvas not private, or couldn't read its sharing, say so (ERR-25). Then a last paragraph outside any code
-block, starting with the words Next step, that gives the line that resumes the run, to run once the user has
-finished iterating: `/devforgeai:ui BRN-NNN <canvas URL>` in a create run, and
-`/devforgeai:ui BRN-NNN` in an amend run (the DSN holds the URL).
+found the canvas not private, say so (ERR-25); when no read could state its sharing, say that it could not be read
+(above). Then a last paragraph outside any code block, starting with the words Next step, that gives the line that
+resumes the run, to run once the user has finished iterating: `/devforgeai:ui BRN-NNN <canvas URL>` in a create
+run, and `/devforgeai:ui BRN-NNN` in an amend run (the DSN holds the URL).
 
 ## Importing a canvas (BEH-24, BEH-25)
 
@@ -192,9 +192,10 @@ place, where nothing reads it. `canvas` is the canvas URL and `canvas_version` t
 
 In an amend run with the Artifact tool and a canvas, after the pre-check of the copy as it is (ERR-15 settled),
 check the canvas without writing anything in the repository: the plain read (above), then `read` with `paths`
-`["project/canvas.json"]` and no `out_dir`, and compare the version identifier of the result with the DSN's `canvas_version`. When the result
-carries no identifier, or the identifiers are equal, also compare the sha256 the result gives for `canvas.json`
-with the `canvas.json sha256` line that `boards` printed; a difference counts as moved.
+`["project/canvas.json"]` and no `out_dir`, and compare the version identifier of the result with the DSN's
+`canvas_version`. When the result carries no identifier, or the identifiers are equal, also compare the sha256 the
+result gives for `canvas.json` with the `canvas.json sha256` line that `boards` printed; a difference counts as
+moved.
 
 An identifier that moved, a `canvas_version` that is null, a `canvas.json` digest that differs, or a copy that
 `boards` reports as damaged (ERR-03 to ERR-06, ERR-12) means the canvas is to be imported. The import is the
@@ -226,12 +227,13 @@ because nothing remembers a decline.
 
 On "Draw it now", the user confirms the flow (a new flow, or the existing flow that the screen joins, which the
 skill proposes and never decides) and its brief, confirmed with the same question as the first canvas, worded
-for the canvas's sharing ("The question before an addition"). A new flow gets a new row (at most 4 flows in one pass), and a screen of an existing flow joins that flow's row at the step
-the user confirms. Write the new board files and the updated `canvas.json` in the scratchpad, starting from the
-`canvas.json` text the read returned and keeping every board already in it unchanged, and publish them into the
-same canvas through the `files` map as the type's instructions say for an update; the canvas gets a new version
-identifier. Only a canvas the user owns or can edit is changed: a refusal for an unviewed version gets the retry
-above, and any other refusal is ERR-23. Then the open question above. "Proceed without questions" adds nothing.
+for the canvas's sharing ("The question before an addition"). A new flow gets a new row (at most 4 flows in one
+pass), and a screen of an existing flow joins that flow's row at the step the user confirms. Write the new board
+files and the updated `canvas.json` in the scratchpad, starting from the `canvas.json` text the read returned and
+keeping every board already in it unchanged, and publish them into the same canvas through the `files` map as the
+type's instructions say for an update; the canvas gets a new version identifier. Only a canvas the user owns or can
+edit is changed: a refusal for an unviewed version gets the retry above, and any other refusal is ERR-23. Then the
+open question above. "Proceed without questions" adds nothing.
 
 ## Problems (ERR-19 to ERR-21, ERR-23, ERR-25)
 
@@ -244,28 +246,28 @@ above, and any other refusal is ERR-23. Then the open question above. "Proceed w
   used. When briefs were drafted, show them with the proposed grouping, unconfirmed, and say they can be pasted
   into `/design` by hand. Never draw a mockup in place of the canvas.
 - **ERR-20** (the canvas cannot be read: the URL is not found or is not a Design canvas, it has no
-  `project/canvas.json`, the tool refuses the read or a read with `paths` returns a summary instead of the files, or a board that
-  `canvas.json` names cannot be read): write nothing. Name the URL and quote the tool's message, and say the user
-  can check the link or open the canvas in Claude Design. In an amend run, say the user may tell the skill to use
-  the copy already in the folder, which is then recorded as it is with the canvas not checked. Never fetch the
-  page any other way. The plain read just before the DSN is written doesn't stop the run (above).
+  `project/canvas.json`, the tool refuses the read or a read with `paths` returns a summary instead of the files,
+  or a board that `canvas.json` names cannot be read): write nothing. Name the URL and quote the tool's message,
+  and say the user can check the link or open the canvas in Claude Design. In an amend run, say the user may tell
+  the skill to use the copy already in the folder, which is then recorded as it is with the canvas not checked.
+  Never fetch the page any other way. The plain read just before the DSN is written doesn't stop the run (above).
 - **ERR-21** (an import fails: a file the tool was to save is not in the staging folder, the canvas changed during
   the import twice running, or `place` reports a problem, a staged file whose digest differs from the sha256 the
   tool returned included): write no DSN. Name the file and what differs. After a digest difference or any problem
   `place` reports, nothing is placed; what the tool saved stays where it is (the staging folder
   `docs/specs/design/<ID>/project/`; nothing is deleted), and a later import replaces it. A move that fails
   partway prints `files placed:` and `files not placed:`; name both lists, and say nothing is moved back and a
-  later import replaces them. Print the canvas URL and,
-  when the tool gave one, the version identifier, and say the skill is run again with the URL to import.
+  later import replaces them. Print the canvas URL and, when the tool gave one, the version identifier, and say
+  the skill is run again with the URL to import.
 - **ERR-23** (the Artifact tool fails to make the canvas or to add boards to it: an error result, a size or quota
-  limit, a refusal to update the canvas, a canvas the tool now says it can't find, or a publish that a permission prompt or an auto-mode block denies or that
-  the user declines): write nothing in the repository. Report the tool's message, say that anything the tool made
-  stays on the user's account (the skill deletes nothing), give the URL if the tool returned one, and show the
-  briefs so that the user can use them by hand. A canvas the tool can't find: stop, quote the tool's message, and ask
-  the user to check that Claude Code is signed in to the account that owns it, since a different account gives the
-  same message. Never publish it to a new URL.
+  limit, a refusal to update the canvas, a canvas the tool now says it can't find, or a publish that a permission
+  prompt or an auto-mode block denies or that the user declines): write nothing in the repository. Report the
+  tool's message, say that anything the tool made stays on the user's account (the skill deletes nothing), give
+  the URL if the tool returned one, and show the briefs so that the user can use them by hand. A canvas the tool
+  can't find: stop, quote the tool's message, and ask the user to check that Claude Code is signed in to the
+  account that owns it, since a different account gives the same message. Never publish it to a new URL.
 - **ERR-25** (a canvas the user owns that is not private, as above): say so in reply text before the next tool
-  call, even under "proceed without questions", naming the canvas, that others can open it and that the canvas page's Share menu changes
-  that. Say it once in the run, at the first read that finds it. Never change sharing. Go on with the run, since the
-  user may have shared it on purpose, and name it in the findings of the report the run ends with, or in the canvas
-  report when there is no block.
+  call, even under "proceed without questions", naming the canvas, that others can open it and that the canvas
+  page's Share menu changes that. Say it once in the run, at the first read that finds it. Never change sharing.
+  Go on with the run, since the user may have shared it on purpose, and name it in the findings of the report the
+  run ends with, or in the canvas report when there is no block.
