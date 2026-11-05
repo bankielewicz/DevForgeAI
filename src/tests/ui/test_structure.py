@@ -1,4 +1,4 @@
-"""Structural checks for the ui skill, SKL-013 (SPEC-017 version 2, VER-25; QR-01, QR-02).
+"""Structural checks for the ui skill, SKL-013 (SPEC-017 version 4, VER-25; QR-01, QR-02).
 
 - SKILL.md has at most 500 lines (QR-01), and every reference, asset and script it names exists;
 - its frontmatter has exactly SPEC-017 §5's fields (name, description, argument-hint, and metadata with
