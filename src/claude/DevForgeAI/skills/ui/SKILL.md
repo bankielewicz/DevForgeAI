@@ -107,8 +107,8 @@ answers the gates one by one:
   a URL in the request is recorded as it is. The offer to draw a flow adds nothing.
 - It never answers: which BRN, an unconverged BRN, which of several DSNs to amend, and the confirmation ERR-15
   asks for.
-- It holds back no warning: ERR-25's warning is reply text at the read that finds the canvas not private, as in
-  any run, and the report's finding repeats it later.
+- It holds back no warning: ERR-25's warning is reply text at the read that finds a canvas the user owns not
+  private, as in any run, and the report's finding repeats it later.
 
 ## Workflow
 

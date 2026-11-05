@@ -145,11 +145,11 @@ Design document: none yet (the boards are imported when the run is resumed)
 
 In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs. When a read
 found a canvas the user owns not private, say so: others can open it, and the canvas page's Share menu changes that
-(ERR-25). For a canvas another person owns, give its sharing words as they stand. When no read stated its sharing
-(a run that made the canvas and ends here made none), say that it could not be read (above). Then a last paragraph
-outside any code block, starting with the words Next step, that gives the line that resumes the run, to run once
-the user has finished iterating: `/devforgeai:ui BRN-NNN <canvas URL>` in a create run, and `/devforgeai:ui
-BRN-NNN` in an amend run (the DSN holds the URL).
+(ERR-25; this repeats the warning given at the read). For a canvas another person owns, give its sharing words as
+they stand. When no read stated its sharing (a run that made the canvas and ends here made none), say that it could
+not be read (above). Then a last paragraph outside any code block, starting with the words Next step, that gives
+the line that resumes the run, to run once the user has finished iterating: `/devforgeai:ui BRN-NNN <canvas URL>`
+in a create run, and `/devforgeai:ui BRN-NNN` in an amend run (the DSN holds the URL).
 
 ## Importing a canvas (BEH-24, BEH-25)
 
