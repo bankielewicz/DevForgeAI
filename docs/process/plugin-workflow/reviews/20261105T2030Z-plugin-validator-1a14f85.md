@@ -6,9 +6,10 @@ tree: b0cb044edcf4b9ef7f69c78bd06790799003976e
 The rounds from the build (4a67876) to 3489054 are in `20261105T1536Z-plugin-validator-3489054.md`. This report adds
 the rounds after the close review of PR #152 (REVIEW.md, 14 findings; Bryan, 2026-11-05: "Fix + targeted reruns
 (Recommended)"), each with `/plugin-dev:create-plugin` and `/plugin-dev:skill-development`, in session
-ff2b61f5-d9cf-4808-aa2e-6c0ebf931d91, restarted as 15e49669-ae2d-4c17-badc-913a843f5936, on 2026-11-05 (UTC):
-3354561 (17:50), ea87f43 (18:08), 60db182 (18:35), c2c5314 (18:53) and 1a14f85 (20:13). Taken from each pass's
-handback in the session's subagent transcripts.
+ff2b61f5-d9cf-4808-aa2e-6c0ebf931d91, restarted as 15e49669-ae2d-4c17-badc-913a843f5936, on 2026-11-05, each
+invoked before the round's first edit (UTC, invocation then commit): 17:48 (3354561, 17:50), 18:07 (ea87f43,
+18:08), 18:32 (60db182, 18:35), 18:51 (c2c5314, 18:53) and 20:10 (1a14f85, 20:13). Taken from the session
+transcript and each pass's handback in its subagent transcripts.
 
 - **3354561, the close review's five findings: PASS, 3 warnings, 5 notes.** W1: `canvas.md`'s "the plain read's own
   result is never judged so" read as "never judged ERR-20" (fixed in ea87f43: "never judged a summary", and a plain
