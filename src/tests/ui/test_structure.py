@@ -39,7 +39,11 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILL = ROOT / "src/claude/DevForgeAI/skills/ui"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-017.md"
-SKL, SPEC_VERSION = "SKL-013", 2
+SKL, SPEC_VERSION = "SKL-013", 4
+# What SKL-013 implements until the build of SPEC-017 v3 and v4 (#121), and what that spec adds that isn't built yet. The build
+# moves IMPLEMENTS to SPEC_VERSION and empties NOT_BUILT.
+IMPLEMENTS = 2
+NOT_BUILT = {"BEH-29", "ERR-25"}
 # DM-01: the common keys, then the design-specific ones.
 DSN_KEYS = ["id", "type", "title", "status", "version", "created", "updated", "owner", "authors", "generated_by",
             "reviewed_by", "approved_by", "approved_on", "upstream", "supersedes", "superseded_by", "blocked_by",
@@ -166,7 +170,7 @@ class Skill(unittest.TestCase):
         self.assertEqual((self.prov["id"], self.prov["skill_name"], self.prov["eval_tag"]), (SKL, "ui", "ui"))
         self.assertEqual((self.prov["packaging"], self.prov["plugin"]), ("plugin", "devforgeai"))
         self.assertEqual(self.prov["version"], 3)  # SPEC-017 v2 §11 step 3 built "SKL-013 version 2"; version 3 is #135's text fix
-        self.assertIn({"id": "SPEC-017", "relation": "implements", "version": SPEC_VERSION, "hash": None},
+        self.assertIn({"id": "SPEC-017", "relation": "implements", "version": IMPLEMENTS, "hash": None},
                       self.prov["upstream"])
         # Not approved until the suite and the manual checks have run and Bryan has said so.
         self.assertEqual((self.prov["status"], self.prov["approved_by"], self.prov["approved_on"]), ("draft", "", None))
@@ -255,6 +259,7 @@ class Skill(unittest.TestCase):
         cited = set(re.findall(r"\b(?:BEH|ERR)-\d\d\b", text))
         for prefix, first, last in re.findall(r"\b(BEH|ERR)-(\d\d) to (?:BEH|ERR)-(\d\d)\b", text):  # "BEH-05 to BEH-08"
             cited |= {f"{prefix}-{n:02d}" for n in range(int(first), int(last) + 1)}
+        cited |= NOT_BUILT
         for key in ("behaviors", "errors"):
             for item in doc[key]:
                 with self.subTest(item["id"]):

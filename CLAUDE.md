@@ -32,7 +32,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 | `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
 | `story` | SKL-008, reserved | SPEC-009 v4, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
-| `ui` | SKL-013 v3, draft | SPEC-017 v2, approved 2026-10-10 | v3 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v2: e2e 1 run, every case ≥ 0.8; triggers 13 of 13 on sonnet and opus (negatives 10 of 10); 3-run qualification waived by Bryan; manual VER-43 to VER-49 run 2026-10-10, mostly passing; failures open in #115, #116, #117, a spec contradiction in #118 (SPEC-017 §9) | PR #110 (0.31.0) |
+| `ui` | SKL-013 v3, draft (implements SPEC-017 v2) | SPEC-017 v4, approved 2026-11-04 (v3 and v4 the canvas's sharing, #121 and #117, not built) | v3 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v2: e2e 1 run, every case ≥ 0.8; triggers 13 of 13 on sonnet and opus (negatives 10 of 10); 3-run qualification waived by Bryan; manual VER-43 to VER-49 run 2026-10-10, mostly passing; failures open in #115, #116, #117, a spec contradiction in #118 (SPEC-017 §9) | PR #110 (0.31.0) |
 | `research-capture` | SKL-014, reserved | SPEC-018 v1, draft | not built (#133) | — |
 
 - The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3 or later (v4, #135's text fix), which is not
