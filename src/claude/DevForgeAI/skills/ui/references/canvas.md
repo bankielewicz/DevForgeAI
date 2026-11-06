@@ -218,9 +218,9 @@ ERR-25) is this one line. First find the canvas it names:
   a new canvas names none, and a copy names its source;
 - and after a copy's reads of its source don't agree, before anything is published (ERR-21): the source.
 
-Then the line is `/devforgeai:ui BRN-NNN <canvas URL>` with that canvas's URL, or `/devforgeai:ui BRN-NNN` with
-no URL when it names none or when, in an amend run, the canvas it names is the DSN's canvas. The DSN holds its
-canvas until an import, and the run the line starts asks before it replaces it (BEH-24).
+Then the line is `/devforgeai:ui BRN-NNN <canvas URL>` with that canvas's URL, or `/devforgeai:ui BRN-NNN` with no
+URL when it names none or when, in an amend run, the canvas it names is the DSN's canvas. The DSN holds its canvas
+until an amend run writes it, and the run the line starts asks before it replaces it (BEH-24).
 
 ## Importing a canvas (BEH-24, BEH-25)
 
@@ -364,11 +364,13 @@ open question above. "Proceed without questions" adds nothing.
   published to the canvas just made, that it stays empty on the user's account (the skill deletes nothing) and
   needn't be made private, that the line to run again makes a new canvas or offers the copy again, and that a second
   stop there means the account's default sharing for new artifacts needs checking; then show the briefs. For another
-  person's canvas: its owner controls its sharing, so the user can ask the owner to make it private, or run again
-  with that line and accept the copy. For one the user can only view: it can't be copied, so the user can ask the
-  owner for edit access or a private copy. When the reply didn't say who can open the user's canvas: check its Share
-  menu and run again with that line. When it didn't say who owns the canvas, say so. Never change sharing. When the
-  stop comes at the read just before the DSN is written, after the import placed boards, what was placed stays where
-  it is: name that folder, say that a later import, once the canvas is private, replaces it, and that a later create
-  run with no canvas URL would record it only as an unchecked copy (a null canvas and a marker, so no approval until
-  an import). In an amend run the DSN keeps its version and digests, and the next run reads the canvas first.
+  person's canvas, give one piece of advice by its case, never two: one stated not private that the user can edit,
+  its owner controls its sharing, so the user can ask the owner to make it private, or run again with that line and
+  accept the copy; one the user can only view, it can't be copied, so the user can ask the owner for edit access or
+  a private copy; one whose sharing the reply didn't state, no copy is offered, so the user can ask the owner to
+  make it private. When the reply didn't say who can open the user's canvas: check its Share menu and run again with
+  that line. When it didn't say who owns the canvas, say so. Never change sharing. When the stop comes at the read
+  just before the DSN is written, after the import placed boards, what was placed stays where it is: name that
+  folder, say that a later import, once the canvas is private, replaces it, and that a later create run with no
+  canvas URL would record it only as an unchecked copy (a null canvas and a marker, so no approval until an import).
+  In an amend run the DSN keeps its version and digests, and the next run reads the canvas first.

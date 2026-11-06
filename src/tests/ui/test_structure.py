@@ -513,7 +513,7 @@ class Skill(unittest.TestCase):
                  "may say to use the copy"),
                 ("B1: ERR-20's hint", entry["ERR-20"], "In an amend run, unless a read in the run found the canvas not "
                  "private (ERR-25), say the user may tell the skill to use the copy already in the folder"),
-                ("B1: ERR-25 for view-only", entry["ERR-25"], "For one the user can only view: it can't be copied, so the "
+                ("B1: ERR-25 for view-only", entry["ERR-25"], "one the user can only view, it can't be copied, so the "
                  "user can ask the owner for edit access or a private copy"),
                 ("B1: ERR-25's condition", entry["ERR-25"], "or the copy finds the user can only view it"),
                 ("N6: the amend-run question", copy, "which in an amend run ends \"…and use that in place of <the DSN's "
@@ -536,6 +536,29 @@ class Skill(unittest.TestCase):
             with self.subTest(name):
                 self.assertIn(phrase, text)
         self.assertLess(steps.index("first compare, before `place`"), steps.index("Run `place`"))
+
+    def test_err25_advice_by_case_and_the_dsn_canvas(self):
+        """#153 items 45 and 55 (Bryan, 2026-11-06: "Fix both now (Recommended)"): ERR-25 gives another person's canvas
+        one piece of advice by its case, never two; the DSN holds its canvas until an amend run writes it."""
+        texts = {str(name): " ".join(text.split()) for name, text in skill_texts().items()}
+        canvas = next(text for name, text in texts.items() if name.endswith("canvas.md"))
+        err25 = re.split(r"- \*\*ERR-", re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1))[0]
+        line = re.search(r"## The line to run again \(BEH-28\)(.*?)## ", canvas).group(1)
+        for name, text, phrase in (
+                ("one piece of advice", err25, "For another person's canvas, give one piece of advice by its case, never "
+                 "two"),
+                ("the copy only when editable", err25, "one stated not private that the user can edit, its owner controls "
+                 "its sharing, so the user can ask the owner to make it private, or run again with that line and accept "
+                 "the copy"),
+                ("view-only", err25, "one the user can only view, it can't be copied, so the user can ask the owner for "
+                 "edit access or a private copy"),
+                ("sharing not stated", err25, "one whose sharing the reply didn't state, no copy is offered, so the user "
+                 "can ask the owner to make it private"),
+                ("until an amend run writes it", line, "The DSN holds its canvas until an amend run writes it")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
+        self.assertNotIn("until an import", line)
+        self.assertNotIn("For one the user can only view:", err25)
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()
