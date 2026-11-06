@@ -431,6 +431,20 @@ class Skill(unittest.TestCase):
                 ("rule 5's scratchpad", skill, "the files a copy's reads save")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
+        # Codex on #157 (Bryan, 2026-11-06: "Fix it, as the import does (Recommended)"): the copy's reads of its
+        # source agree on one version, or the run reads again once, then stops at ERR-21.
+        err21 = re.search(r"- \*\*ERR-21\*\*(.*?)(?=- \*\*ERR-|$)", canvas).group(1)
+        for name, text, phrase in (
+                ("canvas.json's version", copy_section, "`project/canvas.json` with `paths` and `out_dir` the session's "
+                 "scratchpad, never the repository, noting the result's version identifier"),
+                ("each board read's version", copy_section, "noting each file's sha256 and each result's version identifier"),
+                ("one more read, no new question", copy_section, "read `canvas.json` and the boards again once, without "
+                 "asking again (ERR-20, ERR-12 and ERR-06 still apply), then ERR-21"),
+                ("nothing published first", copy_section, "nothing is published to the new canvas before these reads agree"),
+                ("ERR-21 names the copy", err21, "a copy's reads of its source don't agree twice running (BEH-30)"),
+                ("ERR-21's rerun after a copy", err21, "the line to run again names the source's URL")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()

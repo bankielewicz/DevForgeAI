@@ -102,26 +102,29 @@ plain read. The user still chooses.
 When the import's or the version check's plain read reaches a canvas another person owns and states that it is not
 private (a canvas whose sharing a read doesn't state is ERR-25, not a copy), offer a copy. Every read of the source
 in this section is exempt from the stop: the source is known not to be private. First `read` its
-`project/canvas.json` with `paths` and `out_dir` the session's scratchpad, never the repository. A summary instead
-of the file (the user can view the canvas but not edit it) or a failed read is ERR-20, more than 99 boards ERR-12,
-and a key with a folder segment ERR-06, each before any question. Then ask once, with AskUserQuestion when it is
-available: "<URL> belongs to <owner>, and others can open it. Copy its boards into a new private canvas on your
-account and use that?", with "Copy into a new private canvas" (Recommended) and "Don't use this canvas". "Don't use
-this canvas", no answer, and "proceed without questions" are ERR-25: nothing is copied.
+`project/canvas.json` with `paths` and `out_dir` the session's scratchpad, never the repository, noting the result's
+version identifier. A summary instead of the file (the user can view the canvas but not edit it) or a failed read is
+ERR-20, more than 99 boards ERR-12, and a key with a folder segment ERR-06, each before any question. Then ask once,
+with AskUserQuestion when it is available: "<URL> belongs to <owner>, and others can open it. Copy its boards into a
+new private canvas on your account and use that?", with "Copy into a new private canvas" (Recommended) and "Don't
+use this canvas". "Don't use this canvas", no answer, and "proceed without questions" are ERR-25: nothing is copied.
 
 On the yes: `read` every board `canvas.json` names with `paths`, at most 4 a call, into the same scratchpad folder,
-noting each file's sha256 (ERR-20 when a read fails). Call `quickstart` with `intent: design` for the `type_url`, or
-use its result when the run has it; `publish` a new canvas with the Design type, the title "Making the canvas" gives
-followed by ` (copied from <URL>)`, `auto_open: "after_first_write"` and no files; make the plain read of the new
-canvas, which must find it private before anything else is published to it (ERR-25 otherwise; the empty canvas stays
-on the user's account, since the skill deletes nothing); then `publish` `canvas.json` and every board, unchanged,
-through the `files` map (ERR-23 on a failure). Then go on with the copy in place of the other: that read counts as
-the import's plain read, and every later read in the run, the one just before the DSN included, reads the copy,
-never the source. A create run imports the copy. In an amend run the yes is also the yes to replace the DSN's canvas
-and the answer to the import question, so the import question isn't asked: the copy is imported, never used as it
-is; and replacing the canvas counts as a change (ERR-17 doesn't apply), so the DSN is amended even when no board
-changed. The DSN records the copy's URL, version identifier and digests; the report names both URLs. Nothing changes
-on the other person's canvas.
+noting each file's sha256 and each result's version identifier (ERR-20 when a read fails). If two of these reads,
+the read of `canvas.json` included, report different identifiers, the source changed during the copy: read
+`canvas.json` and the boards again once, without asking again (ERR-20, ERR-12 and ERR-06 still apply), then ERR-21;
+nothing is published to the new canvas before these reads agree. Call `quickstart` with `intent: design` for the
+`type_url`, or use its result when the run has it; `publish` a new canvas with the Design type, the title "Making
+the canvas" gives followed by ` (copied from <URL>)`, `auto_open: "after_first_write"` and no files; make the plain
+read of the new canvas, which must find it private before anything else is published to it (ERR-25 otherwise; the
+empty canvas stays on the user's account, since the skill deletes nothing); then `publish` `canvas.json` and every
+board, unchanged, through the `files` map (ERR-23 on a failure). Then go on with the copy in place of the other:
+that read counts as the import's plain read, and every later read in the run, the one just before the DSN included,
+reads the copy, never the source. A create run imports the copy. In an amend run the yes is also the yes to replace
+the DSN's canvas and the answer to the import question, so the import question isn't asked: the copy is imported,
+never used as it is; and replacing the canvas counts as a change (ERR-17 doesn't apply), so the DSN is amended even
+when no board changed. The DSN records the copy's URL, version identifier and digests; the report names both URLs.
+Nothing changes on the other person's canvas.
 
 ## Making the canvas (BEH-23)
 
@@ -311,13 +314,14 @@ open question above. "Proceed without questions" adds nothing.
   which is then recorded as it is with the canvas not checked. Never fetch the page any other way. The plain read
   just before the DSN is written that can't reach the canvas doesn't stop the run (above).
 - **ERR-21** (an import fails: a file the tool was to save is not in the staging folder, the canvas changed during
-  the import twice running, or `place` reports a problem, a staged file whose digest differs from the sha256 the
-  tool returned included): write no DSN. Name the file and what differs. After a digest difference or any problem
-  `place` reports, nothing is placed; what the tool saved stays where it is (the staging folder
-  `docs/specs/design/<ID>/project/`; nothing is deleted), and a later import replaces it. A move that fails
-  partway prints `files placed:` and `files not placed:`; name both lists, and say nothing is moved back and a
-  later import replaces them. Print the canvas URL and, when the tool gave one, the version identifier, and say
-  the skill is run again with the URL to import.
+  the import twice running, a copy's reads of its source don't agree twice running (BEH-30), or `place` reports a
+  problem, a staged file whose digest differs from the sha256 the tool returned included): write no DSN. Name the
+  file and what differs. After a digest difference or any problem `place` reports, nothing is placed; what the tool
+  saved stays where it is (the staging folder `docs/specs/design/<ID>/project/`; nothing is deleted), and a later
+  import replaces it. A move that fails partway prints `files placed:` and `files not placed:`; name both lists, and
+  say nothing is moved back and a later import replaces them. Print the canvas URL and, when the tool gave one, the
+  version identifier, and say the skill is run again with the URL to import. After a copy's reads don't agree,
+  nothing has been published or placed, and the line to run again names the source's URL.
 - **ERR-23** (the Artifact tool fails to make the canvas or to add boards to it: an error result, a size or quota
   limit, a refusal to update the canvas, a canvas the tool now says it can't find, the plain read before a question
   to add to it finds no canvas, fails or returns a summary instead of the canvas's statement, or a publish that a
