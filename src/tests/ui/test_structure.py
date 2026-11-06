@@ -357,10 +357,17 @@ class Skill(unittest.TestCase):
                        "A read with `paths` stops the run only when it states that the canvas isn't private"):
             with self.subTest(plain=phrase):
                 self.assertIn(phrase, canvas)
-        for phrase in ("/devforgeai:ui BRN-NNN <canvas URL>", "ask the owner to make it private, or run again and accept the copy",
-                       "check the canvas page's Share menu and run again"):
+        # Codex on #158 at a97a928 (#153 item 38; Bryan, 2026-11-06: "I agree as it sounds broken"): an amend run's
+        # line names the canvas that stopped the run whenever it isn't the DSN's.
+        err25 = re.split(r"- \*\*ERR-", problems)[0]
+        for phrase in ("/devforgeai:ui BRN-NNN <canvas URL>",
+                       "ask the owner to make it private, or run again with that line and accept the copy",
+                       "check the canvas page's Share menu and run again with that line",
+                       "in an amend run, with `/devforgeai:ui BRN-NNN` when the canvas that stopped the run is the DSN's "
+                       "canvas, and with `/devforgeai:ui BRN-NNN <canvas URL>`, the URL of the canvas that stopped it, when "
+                       "it isn't (a canvas the request named, or a copy made in the run)"):
             with self.subTest(next_step=phrase):
-                self.assertIn(phrase, problems)
+                self.assertIn(phrase, err25)
         self.assertIn("could not be reached just before the write", rules)
         self.assertIn("ERR-25's message names the canvas, who can open it and what the user can do", rules)
 
