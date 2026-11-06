@@ -11,6 +11,7 @@ src/tests/process/make_jsonschema_envs.sh. They skip, naming that file, when it 
 Run from the repository root:
     python3 -B src/tests/prd/test_validate_policy.py
 """
+import importlib.util
 import os
 import re
 import shutil
@@ -657,16 +658,18 @@ class WithoutUserSite(Base, unittest.TestCase):
         shutil.rmtree(_HOME, ignore_errors=True)
 
 
-def _pinned_python(version):
-    """A worktree uses the main checkout's environments (src/tests/process/make_jsonschema_envs.sh)."""
-    p = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--path-format=absolute", "--git-common-dir"],
-                       capture_output=True, text=True)
-    base = Path(p.stdout.strip()).parent if p.returncode == 0 else ROOT
-    return base / f"tmp/test-envs/jsonschema-{version}/bin/python"
+def _load_pinned_envs():
+    """A worktree uses the main checkout's environments (src/tests/process/pinned_envs.py, #155)."""
+    helper = Path(__file__).resolve().parents[1] / "process/pinned_envs.py"
+    spec = importlib.util.spec_from_file_location("pinned_envs", helper)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
-_SETUP = "no pinned environment: run bash src/tests/process/make_jsonschema_envs.sh"
-_OLD, _NEW = _pinned_python("4.10.3"), _pinned_python("4.26.0")
+_ENVS = _load_pinned_envs()
+_SETUP = _ENVS.SETUP
+_OLD, _NEW = _ENVS.python("4.10.3"), _ENVS.python("4.26.0")
 
 
 class Pinned:

@@ -26,7 +26,10 @@ WORD = re.compile(r"\$ARGUMENTS\b")
 
 
 def split(text):
-    m = re.match(r"---\n(.*?)\n---\n", text, re.S)
+    """The frontmatter mapping and the body; (None, text) when there's no frontmatter, or it's empty (#155)."""
+    m = re.match(r"---\n(.*?)\n?---\n", text, re.S)
+    if not m:
+        return None, text
     return yaml.safe_load(m.group(1)), text[m.end():]
 
 
@@ -37,12 +40,21 @@ class Placeholders(unittest.TestCase):
     def test_no_live_placeholder_in_a_skill_body(self):
         for path in sorted(SKILLS.glob("*/SKILL.md")):
             meta, body = split(path.read_text())
+            with self.subTest(skill=path.parent.name, frontmatter=True):
+                self.assertIsInstance(meta, dict, f"{path} doesn't open with a frontmatter mapping")
+            if not isinstance(meta, dict):
+                continue
             names = meta.get("arguments") or []
             names = names.split() if isinstance(names, str) else names
             pattern = LIVE if not names else re.compile(LIVE.pattern + "|" + "|".join(rf"(?<!\\)\${n}\b" for n in names))
             for number, line in enumerate(body.splitlines(), 1):
                 with self.subTest(skill=path.parent.name, line=number):
                     self.assertIsNone(pattern.search(line), line)
+
+    def test_a_skill_with_no_frontmatter_is_reported_not_a_crash(self):
+        """A SKILL.md that doesn't open with frontmatter fails with a message, not an AttributeError (#155)."""
+        self.assertEqual(split("# A skill\n\nNo frontmatter.\n"), (None, "# A skill\n\nNo frontmatter.\n"))
+        self.assertEqual(split("---\n\n---\nBody\n"), (None, "Body\n"))
 
     def test_the_skill_template_has_no_live_placeholder(self):
         """The next skill starts by copying this file (.claude/rules/skills.md)."""

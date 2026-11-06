@@ -12,6 +12,7 @@ Run from the repository root:
     python3 -B src/tests/context/test_context_check.py
 """
 import hashlib
+import importlib.util
 import os
 import re
 import shutil
@@ -662,7 +663,7 @@ class WithoutUserSite(Base, unittest.TestCase):
     def test_the_user_site_is_hidden(self):
         """What this class exists for: the run can't see this user's site-packages, as in an eval workspace."""
         code = "import site; print(site.getusersitepackages())"
-        p = subprocess.run([sys.executable, "-c", code], env=dict(os.environ, **self.ENV), capture_output=True, text=True)
+        p = subprocess.run([self.PYTHON, "-c", code], env=dict(os.environ, **self.ENV), capture_output=True, text=True)
         self.assertTrue(p.stdout.startswith(_HOME), f"the child's user site is {p.stdout!r}, not under {_HOME}: {p.stderr}")
 
     @classmethod
@@ -670,16 +671,18 @@ class WithoutUserSite(Base, unittest.TestCase):
         shutil.rmtree(_HOME, ignore_errors=True)
 
 
-def _pinned_python(version):
-    """A worktree uses the main checkout's environments (src/tests/process/make_jsonschema_envs.sh)."""
-    p = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--path-format=absolute", "--git-common-dir"],
-                       capture_output=True, text=True)
-    base = Path(p.stdout.strip()).parent if p.returncode == 0 else ROOT
-    return base / f"tmp/test-envs/jsonschema-{version}/bin/python"
+def _load_pinned_envs():
+    """A worktree uses the main checkout's environments (src/tests/process/pinned_envs.py, #155)."""
+    helper = Path(__file__).resolve().parents[1] / "process/pinned_envs.py"
+    spec = importlib.util.spec_from_file_location("pinned_envs", helper)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
-_SETUP = "no pinned environment: run bash src/tests/process/make_jsonschema_envs.sh"
-_OLD, _NEW = _pinned_python("4.10.3"), _pinned_python("4.26.0")
+_ENVS = _load_pinned_envs()
+_SETUP = _ENVS.SETUP
+_OLD, _NEW = _ENVS.python("4.10.3"), _ENVS.python("4.26.0")
 
 
 class Pinned:
