@@ -237,9 +237,9 @@ Step 10 of SKILL.md gives the block and the next step. These are the rules of ea
   run, in order (`dsn_check.py boards DSN-NNN`, then `dsn_check.py check --before-amend DSN-NNN`), each with its
   last line and its `fact:` lines; the suspect-link warnings; the `answers` entries gone stale (a deprecated PRD
   item, an ADR no longer accepted); the boards `head` reported as read in part; in an amend run the documents that
-  cite the DSN at an older version; a canvas the user owns that is not private, saying that others can open it and
-  that the canvas page's Share menu changes that (ERR-25; a fact about the canvas, never a claim that a warning was
-  given, and never in place of the warning at the read); a canvas the run reached through the tool whose sharing no
+  cite the DSN at an older version; each canvas the run read that the user owns and that is not private, saying
+  that others can open it and that the canvas page's Share menu changes that (ERR-25; a fact about the canvas,
+  never a claim that the user was warned at a read); a canvas the run reached through the tool whose sharing no
   read stated, saying that the sharing could not be read (a run that reached no canvas says only why the canvas was
   not checked, above); a canvas another person owns, with its sharing words as they stand; a canvas that could not
   be read just before the write, the DSN written from the copy (BEH-29); the candidates the user declined or that

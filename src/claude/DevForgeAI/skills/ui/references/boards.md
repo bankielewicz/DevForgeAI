@@ -107,12 +107,12 @@ where the import or the canvas goes. Tell the user:
 - **ERR-06** (a board file absent, not a regular file, unreadable, or its name not a flat plain file name): each
   such board, as the script reports it. For a name with a folder segment, say that the Design type allows it and
   this skill does not, and that the board is renamed on the canvas and the canvas imported again; for the others,
-  ask the user to import or copy the boards again. On the import path nothing is placed, though step 1's read
-  has saved `project/canvas.json` in the staging folder.
+  ask the user to import or copy the boards again. On the import path nothing is placed, though the import's
+  `canvas.json` read (canvas.md, step 1) has saved `project/canvas.json` in the staging folder.
 - **ERR-12** (more than 99 boards, or an amend would need a BRD number above 99, deprecated items counted):
   that the DSN's board IDs hold 99 items, the number needed, and a request that the owner split the canvas or
-  change the spec. On the import path nothing is placed, though step 1's read has saved `project/canvas.json`
-  in the staging folder.
+  change the spec. On the import path nothing is placed, though the import's `canvas.json` read (canvas.md,
+  step 1) has saved `project/canvas.json` in the staging folder.
 
 ## Amend runs: the facts
 
