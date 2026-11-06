@@ -62,13 +62,14 @@ Entries start with the epic skill. Earlier work is described in each specificati
   run stops before anything more is imported, published or written: at the import, an amend run's version check, the
   read before adding boards, the read just after a new canvas is made and the read just before the design document
   is written. The message names the canvas, says to make it private in its Share menu and gives the command to run
-  again; the skill never changes sharing itself. For another person's canvas that others can open, it offers to copy
-  the boards into a new private canvas on your account and to import from that, checking that every board it copies
-  comes from one version of that canvas; on a no, or under "proceed without questions", it refuses. Every command it
-  gives to run again or resume names the canvas you were working on (one you named, or the copy) whenever that isn't
-  the design document's own. Adding boards to an existing canvas now asks "Add the boards made from these briefs to
-  the canvas <URL>?" with "Add to the canvas", not "Create the canvas". A canvas the tool can't find also prompts
-  you to check which account Claude Code is signed in to.
+  again; the skill never changes sharing itself. For another person's canvas that others can open, it offers, when
+  you can edit it, to copy the boards into a new private canvas on your account and to import from that, checking
+  that every board it copies comes from one version of that canvas; one you can only view is refused; on a no, or
+  under "proceed without questions", it refuses. Every command it gives to run again or resume names the canvas you
+  were working on (one you named, or the copy) whenever that isn't the design document's own. Adding boards to an
+  existing canvas now asks "Add the boards made from these briefs to the canvas <URL>?" with "Add to the canvas",
+  not "Create the canvas". A canvas the tool can't find also prompts you to check which account Claude Code is
+  signed in to.
 - The `ui` skill now reads a canvas plainly before it imports from it, checks its version, adds to it or writes the
   design document, and judges the canvas's sharing by what that read states (#121, #117). When others can open a
   canvas you own, the run's report says so and points to the canvas page's Share menu; the run carries on and never
