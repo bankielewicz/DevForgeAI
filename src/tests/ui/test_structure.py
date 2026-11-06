@@ -40,8 +40,9 @@ SKILL = ROOT / "src/claude/DevForgeAI/skills/ui"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-017.md"
 SKL, SPEC_VERSION = "SKL-013", 5
-# SKL-013 v5 implements SPEC-017 v5 (#153); IMPLEMENTS equals SPEC_VERSION at the build (EVAL.md Y2).
+# SKL-013 v5 implements SPEC-017 v5 (#153); at the build IMPLEMENTS equals SPEC_VERSION and NOT_BUILT is empty (EVAL.md Y2).
 IMPLEMENTS = SPEC_VERSION
+NOT_BUILT = set()
 # DM-01: the common keys, then the design-specific ones.
 DSN_KEYS = ["id", "type", "title", "status", "version", "created", "updated", "owner", "authors", "generated_by",
             "reviewed_by", "approved_by", "approved_on", "upstream", "supersedes", "superseded_by", "blocked_by",
@@ -409,7 +410,7 @@ class Skill(unittest.TestCase):
     def test_every_behaviour_and_error_is_cited(self):
         doc = spec_document(spec_text())
         text = " ".join(skill_texts().values())
-        cited = set(re.findall(r"\b(?:BEH|ERR)-\d\d\b", text))
+        cited = set(re.findall(r"\b(?:BEH|ERR)-\d\d\b", text)) | NOT_BUILT
         for prefix, first, last in re.findall(r"\b(BEH|ERR)-(\d\d) to (?:BEH|ERR)-(\d\d)\b", text):  # "BEH-05 to BEH-08"
             cited |= {f"{prefix}-{n:02d}" for n in range(int(first), int(last) + 1)}
         for key in ("behaviors", "errors"):
