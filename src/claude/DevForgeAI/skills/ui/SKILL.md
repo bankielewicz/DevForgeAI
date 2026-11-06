@@ -239,10 +239,10 @@ canvas.md says (an amend run adds the new flow or screen to the existing one), o
 ### 5. Wait, then import (BEH-24, BEH-25, BEH-28, BEH-29, BEH-30, ERR-20, ERR-21, ERR-25)
 
 - **After a canvas is made or added to:** give the canvas URL and version identifier, say what to do there, and
-  leave one question open: "Tell me when you have finished iterating on the canvas", with "Import now" first
-  and marked (Recommended) and "Iterate later" (canvas.md). "Iterate later" and "proceed without questions" end
-  the run: write nothing in the repository, mark steps 6 to 9 skipped, and make the final reply the canvas report
-  with the line that resumes the run (canvas.md, "Ending after the canvas").
+  leave one question open: "Tell me when you have finished iterating on the canvas", with "Import now" first and
+  marked (Recommended) and "Iterate later" (canvas.md). "Iterate later" and "proceed without questions" end the run:
+  write nothing in the repository, mark steps 6 to 9 skipped, and make the final reply the canvas report with the
+  line that resumes the run (canvas.md, "The line to run again").
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
   again", on an amend run's "Import the canvas now", or after the yes to a copy in an amend run (BEH-30): read and
   place the boards as canvas.md says (the plain read alone, then `canvas.json`, then at most 4 boards a read, then
@@ -360,8 +360,8 @@ and a named approver, and never send claude.ai anything the user did not confirm
 - [references/boards.md](references/boards.md): read at step 2. The boards folder, the commands' output, reading a
   board, the boards problems, and the amend run's inputs.
 - [references/briefs.md](references/briefs.md): read at step 3. Flows, the brief's shape and worked examples.
-- [references/canvas.md](references/canvas.md): read before the first Artifact call. The plain read and the
-  canvas's sharing; making, importing and checking the canvas; adding a flow; and the canvas problems.
+- [references/canvas.md](references/canvas.md): read before the first Artifact call. The plain read and the canvas's
+  sharing; making, importing and checking the canvas; adding a flow; the line to run again; and the canvas problems.
 - [references/interview.md](references/interview.md): read at step 6 and before any question.
 - [references/output-rules.md](references/output-rules.md): read at steps 7, 8, 9 and 10. Frontmatter, board
   items, Change Log rows, approval, the repair loop, the report, and the self-check list.

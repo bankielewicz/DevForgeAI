@@ -426,7 +426,7 @@ class Skill(unittest.TestCase):
                 ("every source read exempt", copy_section, "Every read of the source in this section"),
                 ("the check only right after", steps, "When the import directly follows a copy (BEH-30), before anything is added to it"),
                 ("an addition skips it", steps, "an import after an addition to the copy skips that check"),
-                ("the rerun after read (e)", canvas, "after a stop at the plain read of a canvas the run just made"),
+                ("the rerun after read (e)", canvas, "after a stop at the plain read made just after the publish that creates a canvas"),
                 ("the briefs at ERR-25", canvas, "show the briefs, when the run has any"),
                 ("a new canvas's report", canvas, "Say nothing about a canvas the user owns in the replies or the report, except the canvas report of a canvas the run made"),
                 ("step 5's triggers", skill, "or after the yes to a copy in an amend run (BEH-30)"),
@@ -439,20 +439,25 @@ class Skill(unittest.TestCase):
         self.assertIn("- The line to run again (BEH-28)", canvas)
         line = re.search(r"## The line to run again \(BEH-28\)(.*?)## ", canvas).group(1)
         for name, phrase in (
-                ("the run's canvas", "the canvas that stopped the run, else the canvas the run made, copied or added "
-                 "to, else a canvas the request named that the user didn't decline"),
-                ("a create run", "A create run: `/devforgeai:ui BRN-NNN <canvas URL>`"),
-                ("the DSN's canvas", "An amend run whose canvas is the DSN's canvas, or that has no canvas: "
-                 "`/devforgeai:ui BRN-NNN`"),
-                ("another canvas", "An amend run whose canvas isn't the DSN's (a canvas the request named, or a copy): "
-                 "`/devforgeai:ui BRN-NNN <canvas URL>`"),
-                ("BEH-24 still asks", "asks before it replaces it (BEH-24)"),
-                ("read (e)", "a new canvas's line is `/devforgeai:ui BRN-NNN`, and a copy's names the source's URL, in "
-                 "either kind of run"),
-                ("a copy's reads disagree", "A copy whose reads of its source don't agree (ERR-21): the line names the "
-                 "source's URL")):
+                ("the canvas named", "the canvas that stopped the run; else the canvas the run made (a copy included, "
+                 "never its source) or added to; else a canvas the request named that the user didn't decline"),
+                ("read (e)", "just after the publish that creates a canvas, while it is still empty: a new canvas "
+                 "names none, and a copy names its source"),
+                ("a copy's reads disagree", "after a copy's reads of its source don't agree, before anything is "
+                 "published (ERR-21): the source"),
+                ("the line", "Then the line is `/devforgeai:ui BRN-NNN <canvas URL>` with that canvas's URL, or "
+                 "`/devforgeai:ui BRN-NNN` with no URL when it names none or when, in an amend run, the canvas it "
+                 "names is the DSN's canvas"),
+                ("BEH-24 still asks", "asks before it replaces it (BEH-24)")):
             with self.subTest(line=name):
                 self.assertIn(phrase, line)
+        self.assertNotIn("copied or added to", line)
+        raw_canvas = (SKILL / "references/canvas.md").read_text()
+        self.assertIn("- The line to run again (BEH-28)\n- Importing a canvas", raw_canvas)
+        self.assertIn('the resume line ("The line to run again")', canvas)
+        self.assertIn('the line that resumes the run (canvas.md, "The line to run again")', skill)
+        reference = re.search(r"- \[references/canvas\.md\]\(references/canvas\.md\): (.*?)- \[", skill).group(1)
+        self.assertIn("the line to run again", reference)
         ending = re.search(r"## Ending after the canvas(.*?)## ", canvas).group(1)
         err25 = re.split(r"- \*\*ERR-", re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1))[0]
         err21_text = re.search(r"- \*\*ERR-21\*\*(.*?)(?=- \*\*ERR-|$)", canvas).group(1)
@@ -465,6 +470,9 @@ class Skill(unittest.TestCase):
                 self.assertIn('"The line to run again"', text)
                 self.assertNotIn("`/devforgeai:ui BRN-NNN", text)
         self.assertNotIn("(run the skill again)", err22)
+        self.assertNotIn("it names that canvas", err22)
+        self.assertNotIn("it names the canvas that stopped the run", err25)
+        self.assertNotIn("names the source's URL", err21_text)
         self.assertNotIn("that run replaces it", ending)
         # Codex on #157 (Bryan, 2026-11-06: "Fix it, as the import does (Recommended)"): the copy's reads of its
         # source agree on one version, or the run reads again once, then stops at ERR-21.
@@ -477,7 +485,7 @@ class Skill(unittest.TestCase):
                  "asking again (ERR-20, ERR-12 and ERR-06 still apply), then ERR-21"),
                 ("nothing published first", copy_section, "nothing is published to the new canvas before these reads agree"),
                 ("ERR-21 names the copy", err21, "a copy's reads of its source don't agree twice running (BEH-30)"),
-                ("ERR-21's rerun after a copy", err21, "and that line names the source's URL")):
+                ("ERR-21 after a copy", err21, "After a copy's reads don't agree, nothing has been published or placed")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
 

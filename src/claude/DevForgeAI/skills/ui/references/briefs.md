@@ -131,8 +131,7 @@ When the user declines, asks for another grouping or a change, or no answer can 
 - A changed grouping: propose it again and redraft the briefs.
 - A changed brief: redraft it and ask again.
 - Otherwise show the grouping and the briefs, say how to resume with the line to run again (canvas.md, "The line to
-  run again"; in an amend run after a copy, or after a yes to a canvas the request named, it names that canvas), and
-  write nothing.
+  run again"), and write nothing.
 
 ## When nothing names a screen (ERR-24)
 

@@ -12,7 +12,6 @@
 - After the canvas: the open question (BEH-28)
 - Ending after the canvas
 - The line to run again (BEH-28)
-
 - Importing a canvas (BEH-24, BEH-25)
 - Checking the canvas's version in an amend run (BEH-26)
 - Adding a flow or a screen in an amend run (BEH-27)
@@ -183,8 +182,8 @@ active board, the directions not picked included. The run waits at the question 
 repository until an import. "Import now" continues with the import below (in an amend run, then `boards` and
 `check --before-amend` again).
 
-Without AskUserQuestion, ask the same in plain text at the end of the reply and end the turn: the resume line
-(below) is in the reply, and the user's next message "import now" continues the run.
+Without AskUserQuestion, ask the same in plain text at the end of the reply and end the turn: the resume line ("The
+line to run again") is in the reply, and the user's next message "import now" continues the run.
 
 ## Ending after the canvas
 
@@ -206,18 +205,17 @@ run again"), to run once the user has finished iterating.
 ## The line to run again (BEH-28)
 
 Every line that resumes the run or runs the skill again (the canvas report's Next step, ERR-13, ERR-21, ERR-22 and
-ERR-25) is this one line. It names the run's canvas: the canvas that stopped the run, else the canvas the run made,
-copied or added to, else a canvas the request named that the user didn't decline.
+ERR-25) is this one line. First find the canvas it names:
 
-- A create run: `/devforgeai:ui BRN-NNN <canvas URL>`, with the run's canvas's URL; with no canvas,
-  `/devforgeai:ui BRN-NNN`.
-- An amend run whose canvas is the DSN's canvas, or that has no canvas: `/devforgeai:ui BRN-NNN`.
-- An amend run whose canvas isn't the DSN's (a canvas the request named, or a copy):
-  `/devforgeai:ui BRN-NNN <canvas URL>`, with that canvas's URL. The DSN holds its canvas until an import, and the
-  run the line starts asks before it replaces it (BEH-24).
-- A stop at the plain read of a canvas the run just made, which is empty: a new canvas's line is
-  `/devforgeai:ui BRN-NNN`, and a copy's names the source's URL, in either kind of run.
-- A copy whose reads of its source don't agree (ERR-21): the line names the source's URL.
+- the canvas that stopped the run; else the canvas the run made (a copy included, never its source) or added to;
+  else a canvas the request named that the user didn't decline (BEH-24);
+- except after a stop at the plain read made just after the publish that creates a canvas, while it is still empty:
+  a new canvas names none, and a copy names its source;
+- and after a copy's reads of its source don't agree, before anything is published (ERR-21): the source.
+
+Then the line is `/devforgeai:ui BRN-NNN <canvas URL>` with that canvas's URL, or `/devforgeai:ui BRN-NNN` with
+no URL when it names none or when, in an amend run, the canvas it names is the DSN's canvas. The DSN holds its
+canvas until an import, and the run the line starts asks before it replaces it (BEH-24).
 
 ## Importing a canvas (BEH-24, BEH-25)
 
@@ -337,7 +335,7 @@ open question above. "Proceed without questions" adds nothing.
   import replaces it. A move that fails partway prints `files placed:` and `files not placed:`; name both lists, and
   say nothing is moved back and a later import replaces them. Print the canvas URL and, when the tool gave one, the
   version identifier, and give the line to run again ("The line to run again") to import. After a copy's reads don't
-  agree, nothing has been published or placed, and that line names the source's URL.
+  agree, nothing has been published or placed.
 - **ERR-23** (the Artifact tool fails to make the canvas or to add boards to it: an error result, a size or quota
   limit, a refusal to update the canvas, a canvas the tool now says it can't find, the plain read before a question
   to add to it finds no canvas, fails or returns a summary instead of the canvas's statement, or a publish that a
@@ -353,13 +351,11 @@ open question above. "Proceed without questions" adds nothing.
   check's read only once the user hasn't taken the copy): stop the run at that read. Import nothing more, send
   nothing, and write no DSN. Name the canvas and say that others can open it, or that the tool's reply didn't say
   who can open it. For the user's canvas: the canvas page's Share menu makes it private, then run the skill again
-  with the line to run again ("The line to run again": it names the canvas that stopped the run, unless that is the
-  DSN's canvas in an amend run; after a stop at the plain read of a canvas the run just made, a new canvas's line
-  has no URL and a copy's names the source). Then show the briefs, when the run has any. For another person's
-  canvas: its owner controls its sharing, so the user can ask the owner to make it private, or run again with that
-  line and accept the copy. When the reply didn't say who can open it: check the canvas page's Share menu and run
-  again with that line. Never change sharing. When the stop comes at the read just before the DSN is written, after
-  the import placed boards, what was placed stays where it is: name that folder, say that a later import, once the
-  canvas is private, replaces it, and that a later create run with no canvas URL would record it only as an
-  unchecked copy (a null canvas and a marker, so no approval until an import). In an amend run the DSN keeps its
-  version and digests, and the next run reads the canvas first.
+  ("The line to run again"). Then show the briefs, when the run has any. For another person's canvas: its owner
+  controls its sharing, so the user can ask the owner to make it private, or run again with that line and accept the
+  copy. When the reply didn't say who can open it: check the canvas page's Share menu and run again with that line.
+  Never change sharing. When the stop comes at the read just before the DSN is written, after the import placed
+  boards, what was placed stays where it is: name that folder, say that a later import, once the canvas is private,
+  replaces it, and that a later create run with no canvas URL would record it only as an unchecked copy (a null
+  canvas and a marker, so no approval until an import). In an amend run the DSN keeps its version and digests, and
+  the next run reads the canvas first.
