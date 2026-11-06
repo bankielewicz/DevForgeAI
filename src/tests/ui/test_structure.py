@@ -402,7 +402,7 @@ class Skill(unittest.TestCase):
                        "states that it is not private", "A summary instead of the file", "ERR-12", "ERR-06",
                        "the session's scratchpad", "(copied from <URL>)", "must find it private",
                        "counts as a change", "proceed without questions",
-                       "These reads of the source don't stop the copy", "the import question isn't asked",
+                       "the import question isn't asked",
                        "every later read in the run, the one just before the DSN included, reads the copy",
                        "before anything else is published to it"):
             with self.subTest(phrase):
@@ -410,12 +410,27 @@ class Skill(unittest.TestCase):
         self.assertIn("BEH-30", skill)
         self.assertIn("whether to copy another person's shared canvas", skill)
         steps = re.search(r"\*\*The steps\.\*\*(.*?)## ", canvas).group(1)
-        self.assertIn("After a copy (BEH-30), each board's digest must equal the sha256 the source read noted for it", steps)
+        self.assertIn("each board's digest must equal the sha256 the source read noted for it", steps)
         self.assertIn("compared by its board keys and their order", steps)
         self.assertIn("a copy that replaced the DSN's canvas (BEH-30)", rules)
         interview = next(text for name, text in texts.items() if name.endswith("interview.md"))
         self.assertIn("the offer of a copy of another person's shared canvas", interview)
         self.assertRegex(skill, r"### 4\. Canvas \([^)]*ERR-25\)")
+        # The build's reviewers on 780e20a (Bryan, 2026-11-06: "Check only right after (Recommended)").
+        copy_section = re.search(r"## Copying another person's canvas \(BEH-30\)(.*?)## ", canvas).group(1)
+        for name, text, phrase in (
+                ("every source read exempt", copy_section, "Every read of the source in this section"),
+                ("the check only right after", steps, "When the import directly follows a copy (BEH-30), before anything is added to it"),
+                ("an addition skips it", steps, "an import after an addition to the copy skips that check"),
+                ("the rerun after read (e)", canvas, "after a stop at the plain read of a canvas the run just made"),
+                ("the briefs at ERR-25", canvas, "show the briefs, when the run has any"),
+                ("the resume line after a copy", canvas, "after a copy, `/devforgeai:ui BRN-NNN <the copy's URL>`"),
+                ("a new canvas's report", canvas, "Say nothing about a canvas the user owns in the replies or the report, except the canvas report of a canvas the run made"),
+                ("step 5's triggers", skill, "or after the yes to a copy in an amend run (BEH-30)"),
+                ("route C after a copy", skill, "after a copy, the import question isn't asked"),
+                ("rule 5's scratchpad", skill, "the files a copy's reads save")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()
