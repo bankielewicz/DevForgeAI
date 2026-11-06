@@ -109,8 +109,8 @@ answers the gates one by one:
   a URL in the request is recorded as it is. The offer to draw a flow adds nothing.
 - It never answers: which BRN, an unconverged BRN, which of several DSNs to amend, and the confirmation ERR-15
   asks for.
-- A canvas a read doesn't find private stops the run (ERR-25), as in any run; the copy of another person's
-  shared canvas is never answered, so that canvas is refused too.
+- A canvas a read states isn't private, or whose sharing its plain read doesn't state, stops the run (ERR-25), as in
+  any run; the copy of another person's shared canvas is never answered, so that canvas is refused too.
 
 ## Workflow
 
@@ -226,7 +226,7 @@ system in its Style ("propose one" only when none is listed), and show them. Dra
 with 3 boards for each. Without the tool, show the proposed grouping and the briefs, unconfirmed, ask nothing,
 and apply ERR-19. Nothing is sent to claude.ai before step 4's question.
 
-### 4. Canvas (BEH-23, BEH-27, BEH-29, ERR-23)
+### 4. Canvas (BEH-23, BEH-27, BEH-29, ERR-23, ERR-25)
 
 Only after the grouping and the briefs are confirmed in this run. Ask once: "Create the canvas from these briefs?",
 saying that the briefs and the boards made from them are sent to the user's claude.ai account as a private artifact.
@@ -245,9 +245,9 @@ canvas.md says (an amend run adds the new flow or screen to the existing one), o
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
   again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain read
   alone, then `canvas.json`, then at most 4 boards a read, then `place`, then `boards`), and, in an amend run, run
-  `check --before-amend <ID>` again. A canvas a read doesn't find private stops the run (ERR-25); another person's
-  canvas stated not private gets the offer of a private copy first (BEH-30, canvas.md). The canvas URL and
-  `canvas_version` are the tool's, not asked.
+  `check --before-amend <ID>` again. A canvas a read states isn't private, or whose sharing its plain read doesn't
+  state, stops the run (ERR-25); another person's canvas stated not private gets the offer of a private copy first
+  (BEH-30, canvas.md). The canvas URL and `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.
 

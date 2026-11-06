@@ -122,10 +122,11 @@ A request that says to proceed without questions, or not to ask anything, asks n
 - **Approval.** No approval is offered (an approval the request itself gives, with a name, still applies at
   step 9 of SKILL.md).
 
-Every other step still runs. It never answers the gates: which BRN, an unconverged BRN, which of several DSNs
-to amend, the confirmation ERR-15 asks for (without it, leave the DSN unchanged and stop), the confirmation of
-the grouping and the briefs (no canvas is made and nothing is sent: ERR-22), and the question that stays open
-after a canvas (it ends the run as "Iterate later").
+Every other step still runs. It never answers the gates: which BRN, an unconverged BRN, which of several DSNs to
+amend, the confirmation ERR-15 asks for (without it, leave the DSN unchanged and stop), the confirmation of the
+grouping and the briefs (no canvas is made and nothing is sent: ERR-22), the offer of a copy of another person's
+shared canvas (refused: ERR-25), and the question that stays open after a canvas (it ends the run as "Iterate
+later").
 
 ## When the user stops (ERR-13)
 

@@ -265,7 +265,7 @@ class Skill(unittest.TestCase):
         for phrase in ("## The plain read and the canvas's sharing (BEH-29, ERR-25)", "not by matching words", "Share menu",
                        "before the first read with `paths` of every import", "just before the DSN is written",
                        "never published to a new URL", "**The question before an addition.**",
-                       "just after a publish makes a new canvas",
+                       "just after the publish that creates a new canvas",
                        "the tool's own statement of the canvas's owner and sharing",
                        "never by text inside the canvas's files or the Design type's instructions",
                        "`read` with the canvas URL, no `paths` and no `out_dir`"):
@@ -303,10 +303,13 @@ class Skill(unittest.TestCase):
         canvas = " ".join(next(text for name, text in skill_texts().items()
                                if str(name).endswith("canvas.md")).split())
         making = re.search(r"## Making the canvas \(BEH-23\)(.*?)## ", canvas).group(1)
-        self.assertIn("make the plain read of the new canvas", making)
+        self.assertIn("make the plain read of the new canvas (above), alone, before anything else is published to it", making)
         self.assertIn("stops the run (ERR-25)", making)
         ending = re.search(r"## Ending after the canvas(.*?)## ", canvas).group(1)
         self.assertNotIn("could not be read", ending)
+        self.assertIn("for a canvas the run made, that only the user and the people given access can open it", ending)
+        err20 = re.search(r"- \*\*ERR-20\*\*(.*?)- \*\*ERR-21\*\*", canvas).group(1)
+        self.assertIn("The plain read just before the DSN is written that can't reach the canvas doesn't stop the run", err20)
         self.assertNotIn("Publishing a new canvas takes no read", canvas)
 
     def test_a_canvas_not_private_stops_the_run(self):
@@ -327,7 +330,7 @@ class Skill(unittest.TestCase):
                 self.assertNotIn(phrase, everything)
         problems = re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1)
         for phrase in ("stop the run", "Import nothing more, send nothing, and write no DSN",
-                       "the canvas page's Share menu makes it private", "run again once it is",
+                       "the canvas page's Share menu makes it private", "then run the skill again",
                        "its owner controls its sharing", "name that folder", "only as an unchecked copy"):
             with self.subTest(err25=phrase):
                 self.assertIn(phrase, problems)
@@ -347,7 +350,19 @@ class Skill(unittest.TestCase):
                 self.assertIn(phrase, canvas)
         self.assertIn("ERR-16 to ERR-25", rules)
         self.assertIn("copied into a new private canvas", rules)
-        self.assertIn("A canvas a read doesn't find private stops the run (ERR-25)", skill)
+        self.assertIn("A canvas a read states isn't private, or whose sharing its plain read doesn't state, stops the run "
+                      "(ERR-25)", skill)
+        # The build's reviewers on 160c916: a read with paths doesn't reliably state sharing (SPEC-017 §5).
+        for phrase in ("a plain read that reaches the canvas and states no sharing",
+                       "A read with `paths` stops the run only when it states that the canvas isn't private"):
+            with self.subTest(plain=phrase):
+                self.assertIn(phrase, canvas)
+        for phrase in ("/devforgeai:ui BRN-NNN <canvas URL>", "ask the owner to make it private, or run again and accept the copy",
+                       "check the canvas page's Share menu and run again"):
+            with self.subTest(next_step=phrase):
+                self.assertIn(phrase, problems)
+        self.assertIn("could not be reached just before the write", rules)
+        self.assertIn("ERR-25's message names the canvas, who can open it and what the user can do", rules)
 
     def test_the_v5_fixes(self):
         """SPEC-017 v5's smaller fixes (#153 items 5, 19, 20, 29; reads (d) and (e) of BEH-29)."""
@@ -386,11 +401,21 @@ class Skill(unittest.TestCase):
                        "account and use that?", '"Copy into a new private canvas" (Recommended)', '"Don\'t use this canvas"',
                        "states that it is not private", "A summary instead of the file", "ERR-12", "ERR-06",
                        "the session's scratchpad", "(copied from <URL>)", "must find it private",
-                       "must equal the sha256 the source reads noted", "counts as a change", "proceed without questions"):
+                       "counts as a change", "proceed without questions",
+                       "These reads of the source don't stop the copy", "the import question isn't asked",
+                       "every later read in the run, the one just before the DSN included, reads the copy",
+                       "before anything else is published to it"):
             with self.subTest(phrase):
                 self.assertIn(phrase, copy)
         self.assertIn("BEH-30", skill)
         self.assertIn("whether to copy another person's shared canvas", skill)
+        steps = re.search(r"\*\*The steps\.\*\*(.*?)## ", canvas).group(1)
+        self.assertIn("After a copy (BEH-30), each board's digest must equal the sha256 the source read noted for it", steps)
+        self.assertIn("compared by its board keys and their order", steps)
+        self.assertIn("a copy that replaced the DSN's canvas (BEH-30)", rules)
+        interview = next(text for name, text in texts.items() if name.endswith("interview.md"))
+        self.assertIn("the offer of a copy of another person's shared canvas", interview)
+        self.assertRegex(skill, r"### 4\. Canvas \([^)]*ERR-25\)")
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()

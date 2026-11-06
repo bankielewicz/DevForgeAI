@@ -55,7 +55,7 @@ Keep exactly the template's keys, in its order. Unknown or misspelled keys are e
 | `approved_by`, `approved_on` | `""` and `null` until approval |
 | `upstream` | Link records (next section) |
 | `supersedes`, `superseded_by`, `blocked_by` | `[]`, `null`, `[]` |
-| `canvas` | The `https://` URL the boards were imported from, quoted: the URL of the publish result, or the one the request gave; `null` when the boards were already in the folder and the request gave none |
+| `canvas` | The `https://` URL the boards were imported from, quoted: the URL of the publish result, or the one the request gave, or a copy that replaced the DSN's canvas (BEH-30), whose URL is written even when no board changed; `null` when the boards were already in the folder and the request gave none |
 | `canvas_version` | Quoted. After an import, the identifier the import's step 1 read (`canvas.json`, canvas.md) reported, not a plain read's, never asked: the copy now in the boards folder. For a copy already in the folder, the version the request states, else `null` with a marker, and never asked. Never carried over from an earlier copy |
 | `canvas_format` | The integer `v` of `canvas.json`, from the `boards` command |
 | `boards_root` | `docs/specs/design/<ID>/boards/` for this document's own ID |
@@ -162,11 +162,12 @@ Use Edit, never Write, starting from the document's current text.
   and a new flow's items after the last item; the insertion is for ordering only, and no number changes. Add the
   confirmed `answers` entries (never to `upstream`). Update `sha256` for every changed board.
 - **`canvas_version`:** replaced by the new identifier only in a run that writes for another reason. A run that
-  imports and then finds nothing to change ends at ERR-17, leaves the recorded version, and names the canvas's
-  newer identifier in its report as recorded nowhere yet. Without an import, in a run in which a board changed,
-  was added or was removed, it is `null` with the marker unless the request states one, never the old value.
-  When no board changed, keep it. A DSN written on the copy path with a null canvas or `canvas_version` keeps its
-  marker in section 4 and cannot be approved until an import, or a run whose request states the fact, fills it.
+  imports and then finds nothing to change ends at ERR-17, leaves the recorded version, and names the canvas's newer
+  identifier in its report as recorded nowhere yet. Without an import, in a run in which a board changed, was added
+  or was removed, it is `null` with the marker unless the request states one, never the old value. When no board
+  changed, keep it, unless a copy replaced the DSN's canvas (BEH-30): that is a change, and the copy's identifier is
+  written. A DSN written on the copy path with a null canvas or `canvas_version` keeps its marker in section 4 and
+  cannot be approved until an import, or a run whose request states the fact, fills it.
 - **Status:** an approved DSN becomes `in-review` with `approved_by` cleared and `approved_on` null, so the
   change is reviewed explicitly; a draft or in-review DSN keeps its status.
 - **Keep** the existing `authors` (adding the tool if it is missing), `reviewed_by` and every Change Log row.
@@ -238,18 +239,18 @@ Step 10 of SKILL.md gives the block and the next step. These are the rules of ea
   last line and its `fact:` lines; the suspect-link warnings; the `answers` entries gone stale (a deprecated PRD
   item, an ADR no longer accepted); the boards `head` reported as read in part; in an amend run the documents that
   cite the DSN at an older version; a canvas another person owns, with its sharing words as they stand; a canvas
-  copied into a new private canvas, with both URLs (BEH-30); a canvas that could not
-  be read just before the write, the DSN written from the copy (BEH-29); the candidates the user declined or that
+  copied into a new private canvas, with both URLs (BEH-30); a canvas that could not be reached just before the
+  write, the DSN written from the copy (BEH-29); the candidates the user declined or that
   were left for a later run, with their number; the unconfirmed mappings; and, after an amend, that the new version
   has not been reviewed, and any provenance written as `unavailable`. The last finding is the plain-text approval
   offer or approver question of step 9 (see "Approval"), only when step 9 makes one: no marker left, no "proceed
   without questions", no approval already given in the request, and no AskUserQuestion. The Next step paragraph
   follows it and ends the reply.
 - **No block** for a run that stops before writing: ERR-01 to ERR-10, ERR-12, ERR-14 before the write, ERR-15
-  without confirmation, ERR-16 to ERR-25, ERR-13 without a save, and an approval-only request for an approved
-  DSN. A run that ends after making a canvas has the canvas report in its place (the canvas reference). ERR-25's
-  message names the canvas, who can open it and how to make it private.
-  ERR-11's report replaces the block and the next step.
+  without confirmation, ERR-16 to ERR-25, ERR-13 without a save, and an approval-only request for an approved DSN. A
+  run that ends after making a canvas has the canvas report in its place (the canvas reference). ERR-25's message
+  names the canvas, who can open it and what the user can do (canvas.md). ERR-11's report replaces the block and the
+  next step.
 
 ## Checking with dsn_check.py
 
