@@ -20,19 +20,19 @@ Change Log holds the history. Read those, not this file, for any number or date.
 
 | Skill | Record (provenance) | Spec | Evals on the current version | Merged |
 |---|---|---|---|---|
-| `brainstorm` | SKL-001 v11, in-review | SPEC-001 v17, approved | v11 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #99 (0.27.0) |
-| `prd` | SKL-002 v6, approved (implements SPEC-002 v5) | SPEC-002 v9, approved 2026-11-04 (v6 the interview at scale, #142; v7 and v8 Codex's fixes; v9 the dev-guard's cancellation; the interview build, the next SKL-002 version, not built) | v6 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). 3 runs, 35 of 35 at ≥ 0.8 (SKL-002 v5) | PR #57 (0.11.0) |
-| `architecture` | SKL-003 v10, approved | SPEC-003 v11, approved | v10 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v9: 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #83 (0.21.0) |
-| `epic` | SKL-004 v5, approved | SPEC-004 v4, approved | v5 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v4: 3 runs, 25 of 25 at ≥ 0.8 | PR #62 (0.12.1) |
-| `context` | SKL-010 v3, approved | SPEC-011 v3, approved | v3 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31); cases that reach the snapshot can't pass under the eval sandbox (SPEC-011 §9). v2: 3 runs, 18 of 18 at ≥ 0.8 | PR #45 (0.8.1) |
-| `documents-updater` | SKL-005 v2, draft | SPEC-006 v1, approved | v2 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v1: 1 run, 8 of 8 at 1.00 | PR #1 (0.2.0) |
-| `git` | SKL-006 v4, in-review | SPEC-007 v3, in-review | v4 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v3: not run. v2 (approved): 3 runs, 19 of 19 at ≥ 0.8 | PR #56 (0.10.1) |
-| `spec-lookup` | SKL-011 v2, approved | SPEC-014 v3, approved | v2 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v1: 3 runs, 4 of 4 at 1.00 | PR #75 (0.19.0) |
+| `brainstorm` | SKL-001 v11, in-review | SPEC-001 v17, approved | v11 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #150 (0.31.2) |
+| `prd` | SKL-002 v6, approved (implements SPEC-002 v5) | SPEC-002 v9, approved 2026-11-04 (v6 the interview at scale, #142; v7 and v8 Codex's fixes; v9 the dev-guard's cancellation; the interview build, the next SKL-002 version, not built) | v6 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). 3 runs, 35 of 35 at ≥ 0.8 (SKL-002 v5) | PR #150 (0.31.2) |
+| `architecture` | SKL-003 v10, approved | SPEC-003 v11, approved | v10 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v9: 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #150 (0.31.2) |
+| `epic` | SKL-004 v5, approved | SPEC-004 v4, approved | v5 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v4: 3 runs, 25 of 25 at ≥ 0.8 | PR #150 (0.31.2) |
+| `context` | SKL-010 v3, approved | SPEC-011 v3, approved | v3 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31); cases that reach the snapshot can't pass under the eval sandbox (SPEC-011 §9). v2: 3 runs, 18 of 18 at ≥ 0.8 | PR #150 (0.31.2) |
+| `documents-updater` | SKL-005 v2, draft | SPEC-006 v1, approved | v2 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v1: 1 run, 8 of 8 at 1.00 | PR #150 (0.31.2) |
+| `git` | SKL-006 v4, in-review | SPEC-007 v3, in-review | v4 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v3: not run. v2 (approved): 3 runs, 19 of 19 at ≥ 0.8 | PR #150 (0.31.2) |
+| `spec-lookup` | SKL-011 v2, approved | SPEC-014 v3, approved | v2 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v1: 3 runs, 4 of 4 at 1.00 | PR #150 (0.31.2) |
 | `precompact` | SKL-012 v1, approved | SPEC-015 v2, approved | 1 run, 12 of 12 at 1.00; 3-run qualification waived by Bryan | PR #93 (0.26.0) |
 | `qa` | SKL-007, reserved | SPEC-008 v1, draft stub | not built | — |
 | `story` | SKL-008, reserved | SPEC-009 v4, draft | not built | — |
 | `github-post` | SKL-009, reserved | SPEC-010 v3, in-review | not built | — |
-| `ui` | SKL-013 v4, draft (implements SPEC-017 v4) | SPEC-017 v4, approved 2026-11-04 (v3 and v4 the canvas's sharing, #121 and #117, built in SKL-013 v4) | v4: smoke, 2 cases at ≥ 0.8; live VER-50 on 2026-11-04 and 2026-11-05, (a)'s timing clause waived by Bryan; 3 runs waived until the next version or 2026-12-31 (SPEC-017 §9). v3 (#135's text fix, smoke only). v2: e2e 1 run, every case ≥ 0.8; triggers 13 of 13 on sonnet and opus (negatives 10 of 10); 3-run qualification waived by Bryan; manual VER-43 to VER-49 run 2026-10-10, mostly passing; failures open in #115, #116, #117, a spec contradiction in #118 (SPEC-017 §9) | PR #110 (0.31.0) |
+| `ui` | SKL-013 v4, draft (implements SPEC-017 v4) | SPEC-017 v4, approved 2026-11-04 (v3 and v4 the canvas's sharing, #121 and #117, built in SKL-013 v4) | v4: smoke, 2 cases at ≥ 0.8; live VER-50 on 2026-11-04 and 2026-11-05, (a)'s timing clause waived by Bryan; 3 runs waived until the next version or 2026-12-31 (SPEC-017 §9). v3 (#135's text fix, smoke only). v2: e2e 1 run, every case ≥ 0.8; triggers 13 of 13 on sonnet and opus (negatives 10 of 10); 3-run qualification waived by Bryan; manual VER-43 to VER-49 run 2026-10-10, mostly passing; failures open in #115, #116, #117, a spec contradiction in #118 (SPEC-017 §9) | PR #152 (0.32.0) |
 | `research-capture` | SKL-014, reserved | SPEC-018 v1, draft | not built (#133) | — |
 
 - The `git` skill on `main`, and in every plugin version since 0.10.1, is SKL-006 v3 or later (v4, #135's text fix), which is not
@@ -223,11 +223,14 @@ claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --outp
   and commands whose paths contain `git` in a form it can't verify (such as `skills/git/`). Run test
   files directly (`python3 -B src/tests/git/test_repo_state.py`), and write scratch scripts with the
   Write tool before running them.
-- On the owner's machine (`enabledPlugins` in `~/.claude/settings.json`, 2026-10-30), two copies of
-  `devforgeai` load here: the deployed copy (`devforgeai@skills-dir`) and a user-scope marketplace
-  install of this repository (`devforgeai@devforgeai`, from GitHub at the commit it was installed or last updated at). ADR-001 forbids only a
-  project-scope marketplace install here. Which copy runs a skill both ship is not verified: confirm
-  it before taking a live check as a test of the deployed copy.
+- On the owner's machine, the deployed copy doesn't run: `claude plugin list` (2.1.318, 2026-11-06)
+  reports `devforgeai@skills-dir` "Not loaded", because the user-scope marketplace install of this
+  repository, `devforgeai@devforgeai`, takes the name. Skills run from that install's cache
+  (`~/.claude/plugins/cache/devforgeai/devforgeai/<version>/`), at the commit it was installed or last
+  updated at, so a deploy changes nothing here until it is updated from a plain shell:
+  `claude plugin marketplace update devforgeai`, then `claude plugin update devforgeai@devforgeai -s user`,
+  and a restart. A skill's "Base directory" line shows which copy ran. ADR-001 forbids only a
+  project-scope marketplace install here.
 - **Never investigate a failing test by changing the working tree** (ADR-005 D7). Record a baseline
   test run before the first change; compare old code only in a disposable worktree
   (`git worktree add --detach <path> <commit>`) or with `git show <commit>:<path>`; commit work in
