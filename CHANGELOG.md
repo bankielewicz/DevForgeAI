@@ -57,6 +57,12 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ### Changed
 
+- The `ui` skill reports a canvas you own that others can open only in the run's report, as a fact with the canvas
+  page's Share menu, and never claims it warned you earlier; live runs never gave the mid-run warning version 4 asked
+  for (#153). Adding boards to an existing canvas now asks "Add the boards made from these briefs to the canvas?"
+  with "Add to the canvas", not "Create the canvas", and says whose canvas it is and who can open it, from a read
+  made just before the question; another person's canvas is never called "private" on your account. A canvas the
+  tool can't find also prompts you to check which account Claude Code is signed in to.
 - The `ui` skill now reads a canvas plainly before it imports from it, checks its version, adds to it or writes the
   design document, and judges the canvas's sharing by what that read states (#121, #117). When others can open a
   canvas you own, the run's report says so and points to the canvas page's Share menu; the run carries on and never
