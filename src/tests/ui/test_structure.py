@@ -431,13 +431,31 @@ class Skill(unittest.TestCase):
                 ("an addition skips it", steps, "an import after an addition to the copy skips that check"),
                 ("the rerun after read (e)", canvas, "after a stop at the plain read of a canvas the run just made"),
                 ("the briefs at ERR-25", canvas, "show the briefs, when the run has any"),
-                ("the resume line after a copy", canvas, "after a copy, `/devforgeai:ui BRN-NNN <the copy's URL>`"),
                 ("a new canvas's report", canvas, "Say nothing about a canvas the user owns in the replies or the report, except the canvas report of a canvas the run made"),
                 ("step 5's triggers", skill, "or after the yes to a copy in an amend run (BEH-30)"),
                 ("route C after a copy", skill, "after a copy, the import question isn't asked"),
                 ("rule 5's scratchpad", skill, "the files a copy's reads save")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
+        # The build's reviewers on d13db23 (#153 items 38 and 43; Bryan, 2026-11-06: "Fix it now, one rule
+        # (Recommended)"): every resume or rerun line names the canvas the run made, drew on or stopped on whenever
+        # it isn't the DSN's.
+        ending = re.search(r"## Ending after the canvas(.*?)## ", canvas).group(1)
+        err25 = re.split(r"- \*\*ERR-", re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1))[0]
+        for name, text, phrase in (
+                ("resume: a create run", ending, "`/devforgeai:ui BRN-NNN <canvas URL>`, with the URL of the canvas "
+                 "the run made or added to, in a create run"),
+                ("resume: the DSN's canvas", ending, "in an amend run, `/devforgeai:ui BRN-NNN` when that canvas is the "
+                 "DSN's canvas"),
+                ("resume: another canvas", ending, "with its URL when it isn't (a canvas the request named, or a copy)"),
+                ("resume: BEH-24 still asks", ending, "a run given a different URL asks before it replaces it"),
+                ("ERR-25: a create run", err25, "`/devforgeai:ui BRN-NNN <canvas URL>`, the URL of the canvas that "
+                 "stopped the run, in a create run"),
+                ("ERR-25: read (e)", err25, "a new canvas's line is `/devforgeai:ui BRN-NNN` with no URL, and a copy's "
+                 "line names the source's URL in either kind of run")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
+        self.assertNotIn("that run replaces it", ending)
         # Codex on #157 (Bryan, 2026-11-06: "Fix it, as the import does (Recommended)"): the copy's reads of its
         # source agree on one version, or the run reads again once, then stops at ERR-21.
         err21 = re.search(r"- \*\*ERR-21\*\*(.*?)(?=- \*\*ERR-|$)", canvas).group(1)
