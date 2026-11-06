@@ -362,7 +362,7 @@ class Skill(unittest.TestCase):
         err25 = re.split(r"- \*\*ERR-", problems)[0]
         for phrase in ('"The line to run again"',
                        "ask the owner to make it private, or run again with that line and accept the copy",
-                       "check the canvas page's Share menu and run again with that line"):
+                       "check its Share menu and run again with that line"):
             with self.subTest(next_step=phrase):
                 self.assertIn(phrase, err25)
         self.assertIn("could not be reached just before the write", rules)
@@ -381,7 +381,8 @@ class Skill(unittest.TestCase):
                 ("ERR-20's account hint", err20, "signed in to the account that owns it"),
                 ("restart from the plain read", canvas, "start over once, from step 0, then ERR-21"),
                 ("read (d)", canvas, "just before each question that asks to add to an existing canvas"),
-                ("read (d) failing", err23, "the plain read before a question to add to it finds no canvas, fails or returns a summary instead of the canvas's statement"),
+                ("read (d) failing", err23, "the plain read before a question to add to it, or just after the publish that "
+                 "creates a new canvas, finds no canvas, fails or returns a summary instead of the canvas's statement"),
                 ("boards.md's step 1", boards, "the import's `canvas.json` read (canvas.md, step 1)"),
                 ("the statement's subject", canvas, "A statement by the tool about this canvas's sharing counts the same on any other read"),
                 ("another person's summary", canvas, "returns a summary instead of the canvas's statement is ERR-23"),
@@ -414,8 +415,9 @@ class Skill(unittest.TestCase):
         self.assertIn("BEH-30", skill)
         self.assertIn("whether to copy another person's shared canvas", skill)
         steps = re.search(r"\*\*The steps\.\*\*(.*?)## ", canvas).group(1)
-        self.assertIn("each board's digest must equal the sha256 the source read noted for it", steps)
-        self.assertIn("compared by its board keys and their order", steps)
+        self.assertIn("each board's sha256 must equal the sha256 that the copy's last agreeing reads of the source "
+                      "noted for it", steps)
+        self.assertIn("must hold the same board keys in the same order", steps)
         self.assertIn("a copy that replaced the DSN's canvas (BEH-30)", rules)
         interview = next(text for name, text in texts.items() if name.endswith("interview.md"))
         self.assertIn("the offer of a copy of another person's shared canvas", interview)
@@ -425,7 +427,7 @@ class Skill(unittest.TestCase):
         for name, text, phrase in (
                 ("every source read exempt", copy_section, "Every read of the source in this section"),
                 ("the check only right after", steps, "When the import directly follows a copy (BEH-30), before anything is added to it"),
-                ("an addition skips it", steps, "an import after an addition to the copy skips that check"),
+                ("an addition skips it", steps, "an import after an addition to the copy skips this check"),
                 ("the rerun after read (e)", canvas, "after a stop at the plain read made just after the publish that creates a canvas"),
                 ("the briefs at ERR-25", canvas, "show the briefs, when the run has any"),
                 ("a new canvas's report", canvas, "Say nothing about a canvas the user owns in the replies or the report, except the canvas report of a canvas the run made"),
@@ -488,6 +490,52 @@ class Skill(unittest.TestCase):
                 ("ERR-21 after a copy", err21, "After a copy's reads don't agree, nothing has been published or placed")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
+
+    def test_the_third_drafts_review(self):
+        """SPEC-017 v5 at 50b3405, the third drafts review answered (B1 to B3; Bryan, 2026-11-06: "Say it in amend
+        runs (Recommended)")."""
+        texts = {str(name): " ".join(text.split()) for name, text in skill_texts().items()}
+        canvas = next(text for name, text in texts.items() if name.endswith("canvas.md"))
+        copy = re.search(r"## Copying another person's canvas \(BEH-30\)(.*?)## ", canvas).group(1)
+        steps = re.search(r"\*\*The steps\.\*\*(.*?)## ", canvas).group(1)
+        plain = re.search(r"## The plain read and the canvas's sharing \(BEH-29, ERR-25\)(.*?)## ", canvas).group(1)
+        check = re.search(r"## Checking the canvas's version in an amend run(.*?)## ", canvas).group(1)
+        line = re.search(r"## The line to run again \(BEH-28\)(.*?)## ", canvas).group(1)
+        problems = re.search(r"## Problems(.*)$", canvas).group(1)
+        entry = {e: re.search(rf"- \*\*{e}\*\*(.*?)(?=- \*\*ERR-|$)", problems).group(1)
+                 for e in ("ERR-20", "ERR-21", "ERR-23", "ERR-25")}
+        for name, text, phrase in (
+                ("B1: view-only refused", copy, "A summary instead of the file (the user can view the canvas but not "
+                 "edit it, so it can't be copied) is ERR-25: the user can ask the owner for edit access or a private copy"),
+                ("B1: no hint after a not-private read", copy, "A failed read is ERR-20, without its offer to use the "
+                 "copy in the folder"),
+                ("B1: the version check's hint", check, "unless a read in the run found the canvas not private, the user "
+                 "may say to use the copy"),
+                ("B1: ERR-20's hint", entry["ERR-20"], "In an amend run, unless a read in the run found the canvas not "
+                 "private (ERR-25), say the user may tell the skill to use the copy already in the folder"),
+                ("B1: ERR-25 for view-only", entry["ERR-25"], "For one the user can only view: it can't be copied, so the "
+                 "user can ask the owner for edit access or a private copy"),
+                ("B1: ERR-25's condition", entry["ERR-25"], "or the copy finds the user can only view it"),
+                ("N6: the amend-run question", copy, "which in an amend run ends \"…and use that in place of <the DSN's "
+                 "canvas URL>?\""),
+                ("B2: before place", steps, "first compare, before `place`"),
+                ("B2: nothing placed", steps, "A difference is ERR-21, and nothing is placed"),
+                ("B2: ERR-21's condition", entry["ERR-21"], "an import that directly follows a copy doesn't match the "
+                 "source (step 4)"),
+                ("B3: read (e) failing", plain, "Just after the publish that creates a new canvas, a read that finds no "
+                 "canvas, fails or returns a summary is ERR-23 too"),
+                ("B3: ERR-23 names read (e)", entry["ERR-23"], "or just after the publish that creates a new canvas, finds "
+                 "no canvas"),
+                ("B3: the empty canvas", entry["ERR-25"], "and needn't be made private"),
+                ("B3: a second stop", entry["ERR-25"], "the account's default sharing for new artifacts needs checking"),
+                ("N5: owner not stated", plain, "Stated not private without saying who owns it: ERR-25, with no copy"),
+                ("N5: ERR-25 says so", entry["ERR-25"], "When it didn't say who owns the canvas, say so"),
+                ("N5: the Share menu is the user's", entry["ERR-25"], "When the reply didn't say who can open the user's "
+                 "canvas"),
+                ("N4: the decline's question", line, "didn't decline at the question to replace the DSN's canvas (BEH-24)")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
+        self.assertLess(steps.index("first compare, before `place`"), steps.index("Run `place`"))
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()
