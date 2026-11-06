@@ -282,7 +282,7 @@ class Skill(unittest.TestCase):
         step7 = re.search(r"### 7\. (.*?)### 8\. ", skill).group(1)
         for name, text, phrase in (
                 ("ERR-20 judges reads with paths", canvas, "A read with `paths` whose result is a summary instead of the files"),
-                ("the plain read is not judged", canvas, "A plain read's result is never judged a summary, though a plain read that finds no canvas is ERR-20 too"),
+                ("the plain read is not judged", canvas, "A plain read's summary isn't ERR-20 (just before a question to add to a canvas it is ERR-23, above), though a plain read that finds no canvas is ERR-20 too"),
                 ("canvas_version", rules, "the identifier the import's step 1 read (`canvas.json`, canvas.md) reported"),
                 ("step 7, SKILL.md", step7, "make the plain read again just before writing, alone, and read its result"),
                 ("step 7, canvas.md", canvas, "alone, with its result read before the DSN is written"),
@@ -332,7 +332,7 @@ class Skill(unittest.TestCase):
                       "warning here.", steps)
         problems = re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1)
         for phrase in ("Give no warning mid-run", "never say that the user was warned at a read",
-                       "Name each such canvas the run read once", "the message of the error that stops the run"):
+                       "Name each such canvas once, whichever read found it", "the message of the error that stops the run"):
             with self.subTest(phrase):
                 self.assertIn(phrase, problems)
         ending = re.search(r"## Ending after the canvas(.*?)## ", canvas).group(1)
@@ -355,7 +355,7 @@ class Skill(unittest.TestCase):
                 ("ERR-20's account hint", err20, "signed in to the account that owns it"),
                 ("restart from the plain read", canvas, "start over once, from step 0, then ERR-21"),
                 ("read (d)", canvas, "just before each question that asks to add to an existing canvas"),
-                ("read (d) failing", err23, "the plain read before a question to add to it finds no canvas, fails or returns only a summary"),
+                ("read (d) failing", err23, "the plain read before a question to add to it finds no canvas, fails or returns a summary instead of the canvas's statement"),
                 ("boards.md's step 1", boards, "the import's `canvas.json` read (canvas.md, step 1)"),
                 # The build's reviewers on 6db01e1:
                 ("the statement's subject", canvas, "A statement by the tool about this canvas's sharing counts the same on any other read"),

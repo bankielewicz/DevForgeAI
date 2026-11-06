@@ -173,11 +173,12 @@ BRN-NNN <canvas URL>` in a create run, and `/devforgeai:ui BRN-NNN` in an amend 
 claude.ai canvas the user names is accepted when the tool can read its `project/canvas.json` and the boards that
 file names (one the user owns or has edit access to); it need not have been made by this skill. A read with `paths`
 whose result is a summary instead of the files, a canvas with no `project/canvas.json`, or a refused read is ERR-20.
-A plain read's result is never judged a summary, though a plain read that finds no canvas is ERR-20 too (above). In
-an amend run, a URL that differs from the DSN's canvas replaces it only on the user's explicit yes, because every
-board may differ, asked in the same call as the import question ("Import the canvas at <new URL>, which replaces
-<old URL>?"); under "proceed without questions" that yes is never given: keep the DSN's canvas and report the other
-URL. With a null canvas in the DSN, the URL fills it. Reach the canvas only through the Artifact tool's `read`.
+A plain read's summary isn't ERR-20 (just before a question to add to a canvas it is ERR-23, above), though a plain
+read that finds no canvas is ERR-20 too (above). In an amend run, a URL that differs from the DSN's canvas replaces
+it only on the user's explicit yes, because every board may differ, asked in the same call as the import question
+("Import the canvas at <new URL>, which replaces <old URL>?"); under "proceed without questions" that yes is never
+given: keep the DSN's canvas and report the other URL. With a null canvas in the DSN, the URL fills it. Reach the
+canvas only through the Artifact tool's `read`.
 
 **The steps.** Make no two of them in one batch of calls.
 0. The plain read (above), alone. Read its result before any other call. A read that finds no canvas is ERR-20
@@ -281,15 +282,15 @@ open question above. "Proceed without questions" adds nothing.
   the skill is run again with the URL to import.
 - **ERR-23** (the Artifact tool fails to make the canvas or to add boards to it: an error result, a size or quota
   limit, a refusal to update the canvas, a canvas the tool now says it can't find, the plain read before a question
-  to add to it finds no canvas, fails or returns only a summary, or a publish that a permission prompt or an
-  auto-mode block denies or that the user declines): write nothing in the repository. Report the
-  tool's message, say that anything the tool made stays on the user's account (the skill deletes nothing), give
+  to add to it finds no canvas, fails or returns a summary instead of the canvas's statement, or a publish that a
+  permission prompt or an auto-mode block denies or that the user declines): write nothing in the repository. Report
+  the tool's message, say that anything the tool made stays on the user's account (the skill deletes nothing), give
   the URL if the tool returned one, and show the briefs so that the user can use them by hand. A canvas the tool
-  can't find: stop, quote the tool's message, and ask the user to check that Claude Code is signed in to the
-  account that owns it, since a different account gives the same message. Never publish it to a new URL.
+  can't find: stop, quote the tool's message, and ask the user to check that Claude Code is signed in to the account
+  that owns it, since a different account gives the same message. Never publish it to a new URL.
 - **ERR-25** (a canvas the user owns that is not private, as above): name it in the findings of the final reply, in
   the canvas report when there is no block, or in the message of the error that stops the run: the canvas's URL,
   that others can open it, and that the canvas page's Share menu changes that, as a fact about the canvas. Name each
-  such canvas the run read once. Give no warning mid-run, and never say that the user was warned at a read; after an
-  addition whose question said that others can open the canvas, the finding may say so. Never change sharing. Go
-  on with the run, since the user may have shared it on purpose.
+  such canvas once, whichever read found it. Give no warning mid-run, and never say that the user was warned at a
+  read; after an addition whose question said that others can open the canvas, the finding may say so. Never change
+  sharing. Go on with the run, since the user may have shared it on purpose.
