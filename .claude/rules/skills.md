@@ -31,9 +31,10 @@ paths:
     checks it. The script validates approved policy in full with jsonschema and a format checker,
     so an impossible date such as `2026-13-45` and a YAML `.nan` are schema errors, then applies
     SV-01..06, and exits 0, 1 (invalid) or 2 (can't run). It must also
-    work on the system's jsonschema 4.10 (no `referencing` module), which loads whenever the user
-    site-packages are hidden, for example under another HOME, as eval workspaces use. Its tests, run
-    under both, are in `src/tests/prd/`.
+    work on a jsonschema with no `referencing` module (before 4.18). The system's jsonschema loads
+    whenever the user site-packages are hidden, for example under another HOME, as eval workspaces
+    use. Its tests are in `src/tests/prd/`, and they reach that branch through the pinned
+    environments `src/tests/process/make_jsonschema_envs.sh` builds (#122).
   - context's `context_check.py` snapshots, checks and restores the context documents and ambiguity
     logs against its copies of `context.schema.json` and `ambiguities.schema.json` (SPEC-011 §5); its
     tests are in `src/tests/context/`.

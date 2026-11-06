@@ -113,6 +113,8 @@ Run from the repository root. Eval generators and offline grader checks: `.claud
 # The deployed copy matches the source, apart from what the deploy leaves out
 D=(-x '*.test.ts' -x '*.test.tsx' -x tsconfig.json -x __pycache__ -x results)
 diff -rq "${D[@]}" src/claude/DevForgeAI .claude/skills/devforgeai
+# The pinned jsonschema environments those tests use: once per clone, from a plain shell (needs the network)
+bash src/tests/process/make_jsonschema_envs.sh
 # Every Python test under src/tests (pytest.ini sets importlib mode; see "Traps")
 PYTHONDONTWRITEBYTECODE=1 python3 -B -m pytest -q -p no:cacheprovider src/tests
 # One folder or one test file

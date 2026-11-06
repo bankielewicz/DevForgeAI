@@ -53,8 +53,8 @@ PYTHONDONTWRITEBYTECODE=1 python3 src/tests/ui/check_graders.py
 bash src/tests/prd/record_revision.sh tmp/eval-results/<new-folder> <tag>
 ```
 
-The `make_evals.py` generators import `referencing`, which only the user site-packages' jsonschema
-has, so run them under your normal HOME.
+The `make_evals.py` generators import `referencing`. On a machine where only the user site-packages'
+jsonschema has it, run them under your normal HOME.
 
 Running a generator rewrites its case files. To check fixtures without touching tracked files, load
 the generator with `importlib` and call its `validate()` over `FIXTURES`. Importing writes nothing,

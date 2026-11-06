@@ -3,9 +3,10 @@ VER-27).
 
 Each test builds a project in a temporary folder from the example set
 (src/staging/examples/context-cli-service-rdbms/docs/specs/) and runs the script there as a subprocess:
-once with this interpreter's packages (jsonschema 4.26 with referencing), and once with a throwaway HOME,
-which hides the user-site packages the way the eval harness does (on this machine, jsonschema 4.10 with no
-referencing module).
+once with this interpreter's packages, and once with a throwaway HOME, which hides the user-site packages the
+way the eval harness does. On this machine those two runs import the same system jsonschema (#122, checked 2026-11-04),
+so two more classes pin what is covered: OldJsonschema (4.10.3, no referencing module) and NewJsonschema (4.26.0), each
+in an environment built by src/tests/process/make_jsonschema_envs.sh. They skip, naming that file, when it is missing.
 
 Run from the repository root:
     python3 -B src/tests/context/test_context_check.py
@@ -41,6 +42,7 @@ class Base:
 
     ENV = {}
     REFERENCING = True
+    PYTHON = sys.executable
 
     def setUp(self):
         self.tmp = Path(tempfile.mkdtemp())
@@ -69,7 +71,7 @@ class Base:
 
     def run_script(self, *args, script=SCRIPT, env=None):
         full = dict(os.environ, TMPDIR=str(self.temp), **self.ENV, **(env or {}))
-        p = subprocess.run([sys.executable, "-B", str(script), *args], cwd=self.project, env=full,
+        p = subprocess.run([self.PYTHON, "-B", str(script), *args], cwd=self.project, env=full,
                            capture_output=True, text=True, timeout=60)
         self.assertEqual(p.stderr, "", p.stderr)
         return p.returncode, p.stdout.splitlines()
@@ -104,8 +106,10 @@ class Base:
     # --- The environment ------------------------------------------------------------------------
 
     def test_runs_with_the_expected_jsonschema(self):
+        if self.REFERENCING is None:
+            self.skipTest("the system's packages decide; WithoutUserSite checks the user site is hidden instead")
         full = dict(os.environ, **self.ENV)
-        p = subprocess.run([sys.executable, "-c", "import importlib.util as u; print(bool(u.find_spec('referencing')))"],
+        p = subprocess.run([self.PYTHON, "-c", "import importlib.util as u; print(bool(u.find_spec('referencing')))"],
                            env=full, capture_output=True, text=True)
         self.assertEqual(p.stdout.strip(), str(self.REFERENCING))
 
@@ -649,15 +653,60 @@ class WithoutUserSite(Base, unittest.TestCase):
     """As the eval harness runs it: HOME points elsewhere, so user-site packages are hidden."""
 
     ENV = {"HOME": _HOME}
-    REFERENCING = False
+    REFERENCING = None  # the system's packages decide, and they change (#122)
 
     def setUp(self):
         super().setUp()
         Path(_HOME).mkdir(exist_ok=True)
 
+    def test_the_user_site_is_hidden(self):
+        """What this class exists for: the run can't see this user's site-packages, as in an eval workspace."""
+        code = "import site; print(site.getusersitepackages())"
+        p = subprocess.run([sys.executable, "-c", code], env=dict(os.environ, **self.ENV), capture_output=True, text=True)
+        self.assertTrue(p.stdout.startswith(_HOME), f"the child's user site is {p.stdout!r}, not under {_HOME}: {p.stderr}")
+
     @classmethod
     def tearDownClass(cls):
         shutil.rmtree(_HOME, ignore_errors=True)
+
+
+def _pinned_python(version):
+    """A worktree uses the main checkout's environments (src/tests/process/make_jsonschema_envs.sh)."""
+    p = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--path-format=absolute", "--git-common-dir"],
+                       capture_output=True, text=True)
+    base = Path(p.stdout.strip()).parent if p.returncode == 0 else ROOT
+    return base / f"tmp/test-envs/jsonschema-{version}/bin/python"
+
+
+_SETUP = "no pinned environment: run bash src/tests/process/make_jsonschema_envs.sh"
+_OLD, _NEW = _pinned_python("4.10.3"), _pinned_python("4.26.0")
+
+
+class Pinned:
+    """Runs every test under one pinned jsonschema; a machine's own packages can't change what these cover."""
+
+    VERSION = None
+
+    def test_the_interpreter_has_the_pinned_jsonschema(self):
+        code = "import importlib.metadata as m; print(m.version('jsonschema'))"
+        p = subprocess.run([self.PYTHON, "-c", code], capture_output=True, text=True)
+        self.assertEqual(p.stdout.strip(), self.VERSION, p.stderr)
+
+
+@unittest.skipUnless(_OLD.exists(), _SETUP)
+class OldJsonschema(Pinned, Base, unittest.TestCase):
+    """The scripts' branch for a jsonschema with no referencing module: no machine's own packages reach it now."""
+
+    PYTHON = str(_OLD)
+    VERSION = "4.10.3"
+    REFERENCING = False
+
+
+@unittest.skipUnless(_NEW.exists(), _SETUP)
+class NewJsonschema(Pinned, Base, unittest.TestCase):
+    PYTHON = str(_NEW)
+    VERSION = "4.26.0"
+    REFERENCING = True
 
 
 if __name__ == "__main__":
