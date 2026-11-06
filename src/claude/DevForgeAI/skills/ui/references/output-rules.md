@@ -56,7 +56,7 @@ Keep exactly the template's keys, in its order. Unknown or misspelled keys are e
 | `upstream` | Link records (next section) |
 | `supersedes`, `superseded_by`, `blocked_by` | `[]`, `null`, `[]` |
 | `canvas` | The `https://` URL the boards were imported from, quoted: the URL of the publish result, or the one the request gave; `null` when the boards were already in the folder and the request gave none |
-| `canvas_version` | Quoted. After an import, the identifier the Artifact tool's read reported for the canvas as imported, never asked: the copy now in the boards folder. For a copy already in the folder, the version the request states, else `null` with a marker, and never asked. Never carried over from an earlier copy |
+| `canvas_version` | Quoted. After an import, the identifier the import's step 1 read (`canvas.json`, canvas.md) reported, not a plain read's, never asked: the copy now in the boards folder. For a copy already in the folder, the version the request states, else `null` with a marker, and never asked. Never carried over from an earlier copy |
 | `canvas_format` | The integer `v` of `canvas.json`, from the `boards` command |
 | `boards_root` | `docs/specs/design/<ID>/boards/` for this document's own ID |
 | `considered` | `[]` for a new DSN. In an amend run, entries of the form `PRD-NNN@N`, `ADR-NNN@N`, `declined:PRD-NNN#FR-NNN`, `declined:PRD-NNN#NFR-NNN` or `declined:ADR-NNN`, without repeats; no `declined:` entry names an item an active board's `answers` holds |
@@ -232,17 +232,22 @@ Step 10 of SKILL.md gives the block and the next step. These are the rules of ea
   approved nothing, the line shows the status as it is: `(v<N>, <status>; not approved)`.
 - **Findings follow the block,** briefly: where the boards came from (imported from the canvas at version
   `<identifier>`; or a copy recorded as it is, with `no Artifact tool in this session`, `no canvas is recorded` or
-  `recorded as it is by choice`, and the canvas not checked); a pending boards folder under another number that
-  the run did not use; each check and repair, quoting the script's lines; in an amend run both
-  pre-check commands as run, in order (`dsn_check.py boards DSN-NNN`, then `dsn_check.py check --before-amend
-  DSN-NNN`), each with its last line and its `fact:` lines; the suspect-link warnings; the `answers` entries gone
-  stale (a deprecated PRD item, an ADR no longer accepted); the boards `head` reported as read in part; in an
-  amend run the documents that cite the DSN at an older version; the candidates the user declined or that were
-  left for a later run, with their number; the unconfirmed mappings; and, after an amend, that the new version
-  has not been reviewed, and any provenance written as `unavailable`. The last finding is the plain-text
-  approval offer or approver question of step 9 (see "Approval"), only when step 9 makes one: no marker left, no
-  "proceed without questions", no approval already given in the request, and no AskUserQuestion. The Next step
-  paragraph follows it and ends the reply.
+  `recorded as it is by choice`, and the canvas not checked); a pending boards folder under another number that the
+  run did not use; each check and repair, quoting the script's lines; in an amend run both pre-check commands as
+  run, in order (`dsn_check.py boards DSN-NNN`, then `dsn_check.py check --before-amend DSN-NNN`), each with its
+  last line and its `fact:` lines; the suspect-link warnings; the `answers` entries gone stale (a deprecated PRD
+  item, an ADR no longer accepted); the boards `head` reported as read in part; in an amend run the documents that
+  cite the DSN at an older version; a canvas the user owns that is not private, saying that others can open it and
+  that the canvas page's Share menu changes that (ERR-25; a fact about the canvas, never a claim that a warning was
+  given, and never in place of the warning at the read); a canvas the run reached through the tool whose sharing no
+  read stated, saying that the sharing could not be read (a run that reached no canvas says only why the canvas was
+  not checked, above); a canvas another person owns, with its sharing words as they stand; a canvas that could not
+  be read just before the write, the DSN written from the copy (BEH-29); the candidates the user declined or that
+  were left for a later run, with their number; the unconfirmed mappings; and, after an amend, that the new version
+  has not been reviewed, and any provenance written as `unavailable`. The last finding is the plain-text approval
+  offer or approver question of step 9 (see "Approval"), only when step 9 makes one: no marker left, no "proceed
+  without questions", no approval already given in the request, and no AskUserQuestion. The Next step paragraph
+  follows it and ends the reply.
 - **No block** for a run that stops before writing: ERR-01 to ERR-10, ERR-12, ERR-14 before the write, ERR-15
   without confirmation, ERR-16 to ERR-24, ERR-13 without a save, and an approval-only request for an approved
   DSN. A run that ends after making a canvas has the canvas report in its place (the canvas reference).

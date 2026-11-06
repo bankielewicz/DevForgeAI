@@ -57,6 +57,14 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ### Changed
 
+- The `ui` skill now reads a canvas plainly before it imports from it, checks its version, adds to it or writes the
+  design document, and judges the canvas's sharing by what that read states (#121, #117). When others can open a
+  canvas you own, the run's report says so and points to the canvas page's Share menu; the run carries on and never
+  changes sharing itself. The skill also asks for that warning as soon as the read finds it, but in live runs on
+  Sonnet and Opus it came only in the report (SPEC-017 §9). The question before adding boards to a canvas now says
+  when others can open it, or when no read stated its sharing, instead of "private artifact". A run that reached a
+  canvas and read no sharing statement says the sharing could not be read. The same read lets a publish into an
+  existing canvas through (#117).
 - Prepared git SKL-006 v3: push and PR requests check the requested
   branch for unrelated history before rebasing; carrying work from any branch asks before including
   commits outside the default branch, while reusing explicit inclusion; password assignments in

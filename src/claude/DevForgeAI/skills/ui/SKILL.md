@@ -4,7 +4,7 @@ description: Designs a DevForgeAI release's screens in Claude Design and records
 argument-hint: "[BRN-NNN [canvas URL] | approve DSN-NNN]"
 metadata:
   devforgeai-id: "SKL-013"
-  devforgeai-version: "3"
+  devforgeai-version: "4"
 ---
 
 # UI
@@ -32,11 +32,13 @@ Five rules shape everything below:
 5. **Write only the DSN and the boards copy** (BEH-19), and in the session's scratchpad the files it publishes and
    an import's digest file. Every other document is read-only. Never delete a file or an artifact, run git or
    project code, or resolve policy. Send claude.ai only the confirmed briefs and the boards made from them, as a
-   private artifact on the user's own account: never share, pin or comment on it.
+   private artifact on the user's own account, except an addition to a canvas a read found not private, or whose
+   sharing no read stated, where the question says so (canvas.md). Never share, pin or comment on a canvas.
 
 ## Inputs
 
-- The arguments (the `ARGUMENTS:` line at the end of this text, when given): empty, a BRN ID, a BRN ID followed by one canvas URL (`https://claude.ai/artifact/<id>` or
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): empty, a BRN ID, a BRN ID followed by
+  one canvas URL (`https://claude.ai/artifact/<id>` or
   `https://claude.ai/code/artifact/<uuid>`), or `approve DSN-NNN`, which may be followed by the approver's name
   (step 9). A canvas URL stated in the request counts as stated. Anything that replaces the ID (a file path, a
   boards folder, a URL without a BRN ID, other words), in the arguments or in the request, is refused (ERR-02), even
@@ -105,14 +107,16 @@ answers the gates one by one:
   a URL in the request is recorded as it is. The offer to draw a flow adds nothing.
 - It never answers: which BRN, an unconverged BRN, which of several DSNs to amend, and the confirmation ERR-15
   asks for.
+- It holds back no warning: ERR-25's warning is reply text at the read that finds a canvas the user owns not
+  private, as in any run, and the report's finding states the canvas's sharing too.
 
 ## Workflow
 
 Work through the checklist in order, in the main conversation (BEH-01). Decide the kind of run at step 1, from
 the request and the files:
 - `approve DSN-NNN`, or words that approve the design or a named DSN and ask for nothing else (an ID or none) →
-  **approval-only run** (BEH-21): steps 1, 8, 9 and 10. A request whose approval is the `approve DSN-NNN` form (arguments
-  that start with it, with or without the approver's name) is one even when more words ask for
+  **approval-only run** (BEH-21): steps 1, 8, 9 and 10. A request whose approval is the `approve DSN-NNN` form
+  (arguments that start with it, with or without the approver's name) is one even when more words ask for
   a change: the change is not made, nothing is approved, and the reply says an amend run comes first
   (`/devforgeai:ui BRN-NNN`). A request to record, write or update the design for a BRN is a create or amend run,
   and its approving words apply at step 9 (BEH-16).
@@ -157,7 +161,7 @@ opens with the report of step 10, so the checklist does not repeat there.
   each BRN, and ask which to amend; with no answer write nothing. A request for a second DSN amends the first;
   the user deprecates the old DSN to start over, which this skill never does.
 
-### 2. Read the BRN and find the boards (BEH-03, BEH-05 to BEH-08, BEH-26, ERR-03 to ERR-09, ERR-12, ERR-14, ERR-15)
+### 2. Read the BRN and find the boards (BEH-03, BEH-05 to BEH-08, BEH-26, BEH-29, ERR-03 to ERR-09, ERR-12, ERR-14, ERR-15, ERR-20, ERR-25)
 
 Read [references/boards.md](references/boards.md) first, and [references/canvas.md](references/canvas.md) before
 the first Artifact call.
@@ -179,21 +183,22 @@ the first Artifact call.
 3. **Choose the route** by `ls` of the boards folder and the Artifact tool (load it with ToolSearch when the
    route needs it):
    - **A. Create run, the folder holds files (a copy):** run `boards <ID>`. The copy is recorded as it is, with no
-     brief and no import, whatever canvas URL is named in the arguments or the request. When either names a URL and the Artifact
-     tool is available, ask once: "Import the canvas again" (Recommended) or "Record the copy as it is". Say in
-     the report why the canvas was not checked: `no Artifact tool in this session` or `recorded as it is by
-     choice`.
+     brief and no import, whatever canvas URL is named in the arguments or the request. When either names a URL and
+     the Artifact tool is available, ask once: "Import the canvas again" (Recommended) or "Record the copy as it
+     is". Say in the report why the canvas was not checked: `no Artifact tool in this session` or `recorded as it
+     is by choice`.
    - **B. Create run, the folder is absent or empty:** with a canvas URL, import it (step 5). Without one, draft
      the flows and the briefs and make the canvas (steps 3 and 4). Both need the Artifact tool; without it
      ERR-19 (with the briefs shown, when briefs were drafted).
-   - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL in the arguments or the request): run
-     `boards <ID>` and `check --before-amend <ID>` on the copy as it is (ERR-15 settled first), check the canvas's
-     version read-only and, only when the canvas moved, its version is null, the digest differs or the copy is
-     damaged, ask the import question first and alone, with a differing URL in the same call (canvas.md). Then
-     offer once to draw a flow or a screen the canvas lacks; on "Draw it now", steps 3 and 4 follow, then step 5's
-     open question. Nothing in the repository changes before the answer; the import is step 5, after which
-     `boards` and `check --before-amend` run again. When `boards` reports ERR-03 to ERR-06 or ERR-12 for the copy,
-     skip the pre-check: the import is the repair.
+   - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL in the arguments or the
+     request): run `boards <ID>` and `check --before-amend <ID>` on the copy as it is (ERR-15 settled first),
+     check the canvas's version read-only (its plain read is the run's first, followed at once by ERR-25's
+     warning as reply text when it finds a canvas the user owns not private) and, only when the canvas moved, its
+     version is null, the digest differs or the copy is damaged, ask the import question first and alone, with a
+     differing URL in the same call (canvas.md). Then offer once to draw a flow or a screen the canvas lacks; on
+     "Draw it now", steps 3 and 4 follow, then step 5's open question. Nothing in the repository changes before
+     the answer; the import is step 5, after which `boards` and `check --before-amend` run again. When `boards`
+     reports ERR-03 to ERR-06 or ERR-12 for the copy, skip the pre-check: the import is the repair.
    - **D. Amend run without the Artifact tool, or with no canvas known:** run `boards <ID>` and
      `check --before-amend <ID>` on the copy as it is, and say in the report `no Artifact tool in this session` (or
      `no canvas is recorded`) and that the canvas was not checked.
@@ -219,14 +224,15 @@ system in its Style ("propose one" only when none is listed), and show them. Dra
 with 3 boards for each. Without the tool, show the proposed grouping and the briefs, unconfirmed, ask nothing,
 and apply ERR-19. Nothing is sent to claude.ai before step 4's question.
 
-### 4. Canvas (BEH-23, BEH-27, ERR-23)
+### 4. Canvas (BEH-23, BEH-27, BEH-29, ERR-23)
 
 Only after the grouping and the briefs are confirmed in this run. Ask once: "Create the canvas from these
 briefs?", saying that the briefs and the boards made from them are sent to the user's claude.ai account as a
-private artifact. Then make the canvas as canvas.md says (an amend run adds the new flow or screen to the
+private artifact (an addition to a canvas a read found not private, or whose sharing no read stated, says
+that instead, canvas.md). Then make the canvas as canvas.md says (an amend run adds the new flow or screen to the
 existing one), only through the Artifact tool.
 
-### 5. Wait, then import (BEH-24, BEH-25, BEH-28, ERR-20, ERR-21)
+### 5. Wait, then import (BEH-24, BEH-25, BEH-28, BEH-29, ERR-20, ERR-21, ERR-25)
 
 - **After a canvas is made or added to:** give the canvas URL and version identifier, say what to do there, and
   leave one question open: "Tell me when you have finished iterating on the canvas", with "Import now" first
@@ -234,9 +240,13 @@ existing one), only through the Artifact tool.
   the run: write nothing in the repository, mark steps 6 to 9 skipped, and make the final reply the canvas report
   with the line that resumes the run (canvas.md, "Ending after the canvas").
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
-  again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (`canvas.json`
-  first, then at most 4 boards a read, then `place`, then `boards`), and in an amend run run
-  `check --before-amend <ID>` again. The canvas URL and `canvas_version` are the tool's, not asked.
+  again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain read
+  alone; ERR-25's warning as reply text right after it when it finds a canvas the user owns not private and no
+  earlier read in this run found it so; then `canvas.json`, then at most 4 boards a read, then `place`, then
+  `boards`), and, in an amend run, run `check --before-amend <ID>` again. The warning names the canvas, says that
+  others can open it and that the canvas page's Share menu changes that, and is given at that read even under
+  "proceed without questions"; the report's finding states the canvas's sharing too and never replaces the warning
+  (canvas.md). The canvas URL and `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.
 
@@ -256,9 +266,10 @@ change in the request; a request to update or amend that names no specific chang
 URL or version stated in the request counts as a change): write nothing and raise no version, reply as boards.md
 says ("Nothing to change"), and stop: no check and no approval offer.
 
-### 7. Write DSN-NNN (BEH-12 to BEH-14, BEH-20)
+### 7. Write DSN-NNN (BEH-12 to BEH-14, BEH-20, BEH-29, ERR-25)
 
-Read [references/output-rules.md](references/output-rules.md) first.
+Read [references/output-rules.md](references/output-rules.md) first. When the run read a canvas, make the plain read
+again just before writing, alone, and read its result before the DSN is written (canvas.md).
 - **Create run:** Write the DSN once from `${CLAUDE_SKILL_DIR}/assets/dsn.md`, deleting every author comment.
   Version 1, status `draft`, `session: "${CLAUDE_SESSION_ID}"` under `generated_by`, one board item for each
   board in canvas order, and one Change Log row authored `claude-code (session ${CLAUDE_SESSION_ID})` that ends
@@ -297,11 +308,12 @@ BRN-NNN`, or from another document citing the DSN. After ERR-11 or ERR-14, appro
   and the undo are in output-rules.md, "Approval". An `approve DSN-NNN` request that also asks for a change makes
   no approval (run kinds above).
 
-### 10. Report and hand off (BEH-17, BEH-18)
+### 10. Report and hand off (BEH-17, BEH-18, BEH-29)
 
-When the run wrote or checked a DSN, the final reply opens with this block. Nothing comes before it, not even
-the checklist. output-rules.md, "The report", gives the rules of each line, the findings that follow it, and the
-runs that have no block. The order is the block, the findings, then the Next step paragraph, then nothing.
+When the run wrote or checked a DSN, the final reply opens with this block. Nothing comes before it, not even the
+checklist; text the run gave earlier, ERR-25's warning at the read included, stays where it was given.
+output-rules.md, "The report", gives the rules of each line, the findings that follow it, and the runs that have no
+block. The order is the block, the findings, then the Next step paragraph, then nothing.
 
 ```
 Design document: <ID> (v<N>, <status>; new | amended)
@@ -343,8 +355,8 @@ and a named approver, and never send claude.ai anything the user did not confirm
 - [references/boards.md](references/boards.md): read at step 2. The boards folder, the commands' output, reading a
   board, the boards problems, and the amend run's inputs.
 - [references/briefs.md](references/briefs.md): read at step 3. Flows, the brief's shape and worked examples.
-- [references/canvas.md](references/canvas.md): read before the first Artifact call. Making, importing and
-  checking the canvas, adding a flow, and the canvas problems.
+- [references/canvas.md](references/canvas.md): read before the first Artifact call. The plain read and the
+  canvas's sharing; making, importing and checking the canvas; adding a flow; and the canvas problems.
 - [references/interview.md](references/interview.md): read at step 6 and before any question.
 - [references/output-rules.md](references/output-rules.md): read at steps 7, 8, 9 and 10. Frontmatter, board
   items, Change Log rows, approval, the repair loop, the report, and the self-check list.
