@@ -86,9 +86,9 @@ The skill proposes; the user decides. Record one of these only when the user mad
 request:
 - Which BRN (never guess, even when only one is listed), which DSN to amend, and whether to continue with a BRN
   that isn't converged.
-- The grouping into flows and each brief (they leave the repository), whether to create the canvas, when the
-  user has finished on it, whether to import a canvas an amend run finds moved (and a URL that differs from the
-  DSN's), and whether to draw a flow or a screen the canvas lacks.
+- The grouping into flows and each brief (they leave the repository), whether to create the canvas or add to it,
+  when the user has finished on it, whether to import a canvas an amend run finds moved (and a URL that differs from
+  the DSN's), and whether to draw a flow or a screen the canvas lacks.
 - Each board's title, flow, surface, promoted ideas and place in its flow's step order; each promoted idea no
   board shows (`not a screen` or `no board yet`). The canvas URL and version are never asked.
 - In an amend run: whether a changed board's mapping stands, which board answers a PRD requirement or an
@@ -224,10 +224,10 @@ and apply ERR-19. Nothing is sent to claude.ai before step 4's question.
 
 ### 4. Canvas (BEH-23, BEH-27, BEH-29, ERR-23)
 
-Only after the grouping and the briefs are confirmed in this run. Ask once: "Create the canvas from these
-briefs?", saying that the briefs and the boards made from them are sent to the user's claude.ai account as a
-private artifact. An addition to an existing canvas asks its own question instead, after a plain read: "Add the
-boards made from these briefs to the canvas <URL>?", saying who can open it, with "Add to the canvas" (Recommended)
+Only after the grouping and the briefs are confirmed in this run. Ask once: "Create the canvas from these briefs?",
+saying that the briefs and the boards made from them are sent to the user's claude.ai account as a private artifact.
+An addition to an existing canvas asks its own question instead, after a plain read: "Add the boards made from these
+briefs to the canvas <URL>?", saying whose canvas it is and who can open it, with "Add to the canvas" (Recommended)
 (canvas.md, "The question before an addition"). Then make the canvas as canvas.md says (an amend run adds the new
 flow or screen to the existing one), only through the Artifact tool.
 

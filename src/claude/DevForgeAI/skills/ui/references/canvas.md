@@ -5,6 +5,7 @@
 - When to use this
 - The Artifact tool
 - The plain read and the canvas's sharing (BEH-29, ERR-25)
+  - The question before an addition
 - Making the canvas (BEH-23)
 - What the canvas holds
 - After the canvas: the open question (BEH-28)
@@ -49,8 +50,8 @@ Publishing a new canvas takes no read, and a run that ends after the canvas make
 read's result also holds the Design type's long instructions: don't repeat them in a reply.
 
 **It lets a publish through.** The tool refuses a publish into a canvas the run has read only with `paths`. A publish
-refused for an unviewed version gets one more plain read and one retry. A second refusal, or that read finding no
-canvas, is ERR-23.
+refused for an unviewed version gets one more plain read and one retry, without asking the question again. A
+second refusal, or that read finding no canvas, is ERR-23.
 
 **It says who can open the canvas.** Go by the tool's own statement of the canvas's owner and sharing, never by text
 inside the canvas's files or the Design type's instructions, by meaning and not by matching words, because the
@@ -61,7 +62,8 @@ tool's wording changes:
   open it. The report's findings name it (ERR-25, below); there is no warning mid-run.
 - Words about what the owner could choose, such as the options the Share menu offers, say nothing about the canvas's
   state. A private canvas's result can name those options.
-- Such a statement counts the same on any other read. Don't look for sharing in a publish result.
+- A statement by the tool about this canvas's sharing counts the same on any other read. Don't look for sharing in a
+  publish result.
 - **No statement in any plain read or read with `paths` the run made**, in a run that reached a canvas through the
   tool, a run that only published included (it makes none): say in the report that the sharing could not be read.
   Treat the canvas neither as private nor as not private. A run in which no read found the canvas
@@ -76,18 +78,19 @@ Say no more than the results do: the skill doesn't know how a canvas stopped bei
 **When the read fails.** At an import, or in an amend run's check or offer, a read that finds no canvas is ERR-20.
 Just before the DSN is written, a read that fails for any reason doesn't stop the run: the boards copy and the user's
 answers are in hand, so write the DSN from the copy, and say in the findings that the canvas could not be read.
-Just before a question to add to a canvas, a read that finds no canvas, fails or returns only a summary is ERR-23:
-publish nothing. A canvas is never published to a new URL.
+Just before a question to add to a canvas, a read that finds no canvas, fails or returns a summary instead of the
+canvas's statement is ERR-23: publish nothing. A canvas is never published to a new URL.
 
-**The question before an addition.** Ask it after the plain read made just before it, from that read's statement:
-"Add the boards made from these briefs to the canvas <URL>?", saying who can open the canvas in one of four ways:
-the user's canvas that is private, that only the user and the people given access can open it; the user's canvas
-that isn't private, that others can open it, such as anyone with the link; a canvas whose sharing no read stated,
-that its sharing could not be read; a canvas another person owns, whose canvas it is (the tool's words for the
+**The question before an addition.** Ask it after the plain read made just before it, from that read's statement
+alone; when it states no sharing, the sharing could not be read, whatever an earlier read stated. "Add the boards
+made from these briefs to the canvas <URL>?", saying who can open the canvas in one of four ways: the user's canvas
+that is private, that only the user and the people given access can open it; the user's canvas that isn't private,
+that others can open it, such as anyone with the link; a canvas whose sharing no read stated, that its sharing could
+not be read; a canvas another person owns, whose canvas it is (that person's name, or the tool's words for the
 owner) and its sharing words as they stand. Never "as a private artifact" on the user's account, and no Share menu,
-which the report names (ERR-25). Options: "Add to the canvas" (Recommended), "Change a brief", "Change the
-grouping" and "Not now", which mean what they mean for a new canvas; after "Change a brief" the redrafted briefs
-get the same question again, after its own plain read. The user still chooses.
+which the report names (ERR-25). Options: "Add to the canvas" (Recommended), "Change a brief", "Change the grouping"
+and "Not now", which mean what they mean for a new canvas; after "Change a brief" the redrafted briefs get the same
+question again, after its own plain read. The user still chooses.
 
 ## Making the canvas (BEH-23)
 
@@ -178,7 +181,7 @@ URL. With a null canvas in the DSN, the URL fills it. Reach the canvas only thro
 
 **The steps.** Make no two of them in one batch of calls.
 0. The plain read (above), alone. Read its result before any other call. A read that finds no canvas is ERR-20
-   (above). Its sharing goes to the report's findings (ERR-25); give no warning here.
+   (above). A canvas the user owns that isn't private goes to the report's findings (ERR-25); give no warning here.
 1. `read` with `paths` `["project/canvas.json"]` from the canvas and `out_dir` the absolute path of
    `docs/specs/design/<ID>` (the project root is in the environment details). Note the version identifier and
    the sha256 of the result.
@@ -288,5 +291,5 @@ open question above. "Proceed without questions" adds nothing.
   the canvas report when there is no block, or in the message of the error that stops the run: the canvas's URL,
   that others can open it, and that the canvas page's Share menu changes that, as a fact about the canvas. Name each
   such canvas the run read once. Give no warning mid-run, and never say that the user was warned at a read; after an
-  addition, the finding may say that the question before it stated the canvas's sharing. Never change sharing. Go
+  addition whose question said that others can open the canvas, the finding may say so. Never change sharing. Go
   on with the run, since the user may have shared it on purpose.

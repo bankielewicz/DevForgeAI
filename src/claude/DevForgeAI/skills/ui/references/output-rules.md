@@ -250,7 +250,8 @@ Step 10 of SKILL.md gives the block and the next step. These are the rules of ea
   follows it and ends the reply.
 - **No block** for a run that stops before writing: ERR-01 to ERR-10, ERR-12, ERR-14 before the write, ERR-15
   without confirmation, ERR-16 to ERR-24, ERR-13 without a save, and an approval-only request for an approved
-  DSN. A run that ends after making a canvas has the canvas report in its place (the canvas reference).
+  DSN. A run that ends after making a canvas has the canvas report in its place (the canvas reference). The
+  message of an error that stops a run that read a canvas names a canvas the user owns that isn't private (ERR-25).
   ERR-11's report replaces the block and the next step.
 
 ## Checking with dsn_check.py

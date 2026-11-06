@@ -273,8 +273,8 @@ class Skill(unittest.TestCase):
 
     def test_the_close_review_fixes(self):
         """The close review of #152 (Bryan, 2026-11-05: "Fix + targeted reruns (Recommended)"): only a read with paths
-        is judged a summary (ERR-20), canvas_version is step 1's identifier, step 7's plain read is alone, the final
-        reply leaves the warning where it was given, and "could not be read" is for a run that reached a canvas."""
+        is judged a summary (ERR-20), canvas_version is step 1's identifier, step 7's plain read is alone, and "could
+        not be read" is for a run that reached a canvas."""
         texts = {str(name): " ".join(text.split()) for name, text in skill_texts().items()}
         canvas = next(text for name, text in texts.items() if name.endswith("canvas.md"))
         rules = next(text for name, text in texts.items() if name.endswith("output-rules.md"))
@@ -328,7 +328,8 @@ class Skill(unittest.TestCase):
             with self.subTest(absent=phrase):
                 self.assertNotIn(phrase, everything)
         steps = re.search(r"\*\*The steps\.\*\*(.*?) 1\. `read`", canvas).group(1)
-        self.assertIn("Its sharing goes to the report's findings (ERR-25); give no warning here.", steps)
+        self.assertIn("A canvas the user owns that isn't private goes to the report's findings (ERR-25); give no "
+                      "warning here.", steps)
         problems = re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1)
         for phrase in ("Give no warning mid-run", "never say that the user was warned at a read",
                        "Name each such canvas the run read once", "the message of the error that stops the run"):
@@ -347,6 +348,7 @@ class Skill(unittest.TestCase):
         texts = {str(name): " ".join(text.split()) for name, text in skill_texts().items()}
         canvas = next(text for name, text in texts.items() if name.endswith("canvas.md"))
         boards = next(text for name, text in texts.items() if name.endswith("boards.md"))
+        rules = next(text for name, text in texts.items() if name.endswith("output-rules.md"))
         err20 = re.search(r"- \*\*ERR-20\*\*(.*?)- \*\*ERR-21\*\*", canvas).group(1)
         err23 = re.search(r"- \*\*ERR-23\*\*(.*?)- \*\*ERR-25\*\*", canvas).group(1)
         for name, text, phrase in (
@@ -354,7 +356,15 @@ class Skill(unittest.TestCase):
                 ("restart from the plain read", canvas, "start over once, from step 0, then ERR-21"),
                 ("read (d)", canvas, "just before each question that asks to add to an existing canvas"),
                 ("read (d) failing", err23, "the plain read before a question to add to it finds no canvas, fails or returns only a summary"),
-                ("boards.md's step 1", boards, "the import's `canvas.json` read (canvas.md, step 1)")):
+                ("boards.md's step 1", boards, "the import's `canvas.json` read (canvas.md, step 1)"),
+                # The build's reviewers on 6db01e1:
+                ("the statement's subject", canvas, "A statement by the tool about this canvas's sharing counts the same on any other read"),
+                ("another person's summary", canvas, "returns a summary instead of the canvas's statement is ERR-23"),
+                ("read (d) alone", canvas, "from that read's statement alone; when it states no sharing, the sharing could not be read, whatever an earlier read stated"),
+                ("the retry", canvas, "one more plain read and one retry, without asking the question again"),
+                ("ERR-25's back-reference", canvas, "after an addition whose question said that others can open the canvas, the finding may say so"),
+                ("the stop message", rules, "names a canvas the user owns that isn't private (ERR-25)"),
+                ("the Contents", canvas, "- The plain read and the canvas's sharing (BEH-29, ERR-25) - The question before an addition")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
         self.assertNotIn("step 1's read", boards)
@@ -374,7 +384,9 @@ class Skill(unittest.TestCase):
         step4 = " ".join(re.search(r"^### 4\. .*?(?=^### )", skill, re.M | re.S).group(0).split())
         self.assertIn("an addition to the canvas it is added to, whose owner and sharing its question states", rule)
         self.assertNotIn("private artifact on the user's own account, except", rule)
-        for phrase in ("Add the boards made from these briefs to the canvas <URL>?", '"Add to the canvas" (Recommended)'):
+        self.assertIn("whether to create the canvas or add to it", " ".join(skill.split()))
+        for phrase in ("Add the boards made from these briefs to the canvas <URL>?", '"Add to the canvas" (Recommended)',
+                       "saying whose canvas it is and who can open it"):
             with self.subTest(phrase):
                 self.assertIn(phrase, step4)
         canvas = " ".join(next(text for name, text in skill_texts().items()
