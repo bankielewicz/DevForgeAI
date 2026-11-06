@@ -146,8 +146,9 @@ After every change to the items, `upstream` holds one item link for each distinc
 kept `withdrawn` idea included) and no other: add a link for a newly named idea, and drop the link of an idea
 no active board names any more.
 
-**Nothing to change (ERR-17).** With no fact line, the links current, no candidate left to put to the user and no
-change in the request, write nothing and raise no version. Say that the DSN is current, give its version and the
+**Nothing to change (ERR-17).** With no fact line, the links current, no candidate left to put to the user, no
+change in the request and no copy that replaced the DSN's canvas (BEH-30), write nothing and raise no version. Say
+that the DSN is current, give its version and the
 `canvas_version` it records, and say that the canvas was checked at that version, or that without the Artifact
 tool it was not checked and a board changed on the canvas is seen only when a run with the Artifact tool imports
 it, or when the boards are copied into the folder again by hand. When the run imported and the canvas's

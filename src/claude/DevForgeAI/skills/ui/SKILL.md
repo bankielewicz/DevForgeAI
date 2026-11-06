@@ -31,9 +31,10 @@ Five rules shape everything below:
 4. **One slot, re-runnable.** One active DSN for each BRN: a run for a BRN that a DSN cites amends it.
 5. **Write only the DSN and the boards copy** (BEH-19), and in the session's scratchpad the files it publishes and
    an import's digest file. Every other document is read-only. Never delete a file or an artifact, run git or
-   project code, or resolve policy. Send claude.ai only the confirmed briefs and the boards made from them: a new
-   canvas as a private artifact on the user's own account, and an addition to the canvas it is added to, whose
-   owner and sharing its question states (canvas.md). Never share, pin or comment on a canvas.
+   project code, or resolve policy. Send claude.ai only the confirmed briefs and the boards made from them, and, on
+   the user's yes, a private copy of another person's shared canvas (BEH-30): every canvas the skill makes is a
+   private artifact on the user's own account, and an addition goes only to a canvas a read found private
+   (canvas.md). Never share, pin or comment on a canvas.
 
 ## Inputs
 
@@ -87,8 +88,9 @@ request:
 - Which BRN (never guess, even when only one is listed), which DSN to amend, and whether to continue with a BRN
   that isn't converged.
 - The grouping into flows and each brief (they leave the repository), whether to create the canvas or add to it,
-  when the user has finished on it, whether to import a canvas an amend run finds moved (and a URL that differs from
-  the DSN's), and whether to draw a flow or a screen the canvas lacks.
+  whether to copy another person's shared canvas, when the user has finished on it, whether to import a canvas an
+  amend run finds moved (and a URL that differs from the DSN's), and whether to draw a flow or a screen the canvas
+  lacks.
 - Each board's title, flow, surface, promoted ideas and place in its flow's step order; each promoted idea no
   board shows (`not a screen` or `no board yet`). The canvas URL and version are never asked.
 - In an amend run: whether a changed board's mapping stands, which board answers a PRD requirement or an
@@ -107,7 +109,8 @@ answers the gates one by one:
   a URL in the request is recorded as it is. The offer to draw a flow adds nothing.
 - It never answers: which BRN, an unconverged BRN, which of several DSNs to amend, and the confirmation ERR-15
   asks for.
-- The report still names a canvas the user owns that isn't private (ERR-25), as in any run.
+- A canvas a read doesn't find private stops the run (ERR-25), as in any run; the copy of another person's
+  shared canvas is never answered, so that canvas is refused too.
 
 ## Workflow
 
@@ -191,7 +194,8 @@ the first Artifact call.
      ERR-19 (with the briefs shown, when briefs were drafted).
    - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL in the arguments or the
      request): run `boards <ID>` and `check --before-amend <ID>` on the copy as it is (ERR-15 settled first),
-     check the canvas's version read-only (its plain read is the run's first) and, only when the canvas moved, its
+     check the canvas's version read-only (its plain read is the run's first; a canvas it doesn't find private
+     stops the whole run, ERR-25, or gets the offer of a copy, BEH-30) and, only when the canvas moved, its
      version is null, the digest differs or the copy is damaged, ask the import question first and alone, with a
      differing URL in the same call (canvas.md). Then offer once to draw a flow or a screen the canvas lacks; on
      "Draw it now", steps 3 and 4 follow, then step 5's open question. Nothing in the repository changes before
@@ -227,11 +231,11 @@ and apply ERR-19. Nothing is sent to claude.ai before step 4's question.
 Only after the grouping and the briefs are confirmed in this run. Ask once: "Create the canvas from these briefs?",
 saying that the briefs and the boards made from them are sent to the user's claude.ai account as a private artifact.
 An addition to an existing canvas asks its own question instead, after a plain read: "Add the boards made from these
-briefs to the canvas <URL>?", saying whose canvas it is and who can open it, with "Add to the canvas" (Recommended)
-(canvas.md, "The question before an addition"). Then make the canvas as canvas.md says (an amend run adds the new
-flow or screen to the existing one), only through the Artifact tool.
+briefs to the canvas <URL>?", saying whose canvas it is and that only its owner and the people given access can open
+it, with "Add to the canvas" (Recommended) (canvas.md, "The question before an addition"). Then make the canvas as
+canvas.md says (an amend run adds the new flow or screen to the existing one), only through the Artifact tool.
 
-### 5. Wait, then import (BEH-24, BEH-25, BEH-28, BEH-29, ERR-20, ERR-21, ERR-25)
+### 5. Wait, then import (BEH-24, BEH-25, BEH-28, BEH-29, BEH-30, ERR-20, ERR-21, ERR-25)
 
 - **After a canvas is made or added to:** give the canvas URL and version identifier, say what to do there, and
   leave one question open: "Tell me when you have finished iterating on the canvas", with "Import now" first
@@ -241,8 +245,9 @@ flow or screen to the existing one), only through the Artifact tool.
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
   again", or on an amend run's "Import the canvas now": read and place the boards as canvas.md says (the plain read
   alone, then `canvas.json`, then at most 4 boards a read, then `place`, then `boards`), and, in an amend run, run
-  `check --before-amend <ID>` again. A canvas the user owns that isn't private is named in the report's findings,
-  not in a warning mid-run (ERR-25). The canvas URL and `canvas_version` are the tool's, not asked.
+  `check --before-amend <ID>` again. A canvas a read doesn't find private stops the run (ERR-25); another person's
+  canvas stated not private gets the offer of a private copy first (BEH-30, canvas.md). The canvas URL and
+  `canvas_version` are the tool's, not asked.
 - **No import** on route D, nor on route A unless the user chose "Import the canvas again", nor when the user
   chose "Use the copy as it is": skip the step.
 
@@ -258,14 +263,16 @@ on it. Write a mapping only when the user supplied or confirmed it. When the use
 draft (ERR-13).
 
 In an amend run, first check for nothing to change (ERR-17: no fact line, links current, no candidate left, no
-change in the request; a request to update or amend that names no specific change counts as none, and a canvas
-URL or version stated in the request counts as a change): write nothing and raise no version, reply as boards.md
+change in the request; a request to update or amend that names no specific change counts as none, and a canvas URL
+or version stated in the request, or a copy that replaced the DSN's canvas (BEH-30), counts as a change): write
+nothing and raise no version, reply as boards.md
 says ("Nothing to change"), and stop: no check and no approval offer.
 
 ### 7. Write DSN-NNN (BEH-12 to BEH-14, BEH-20, BEH-29, ERR-25)
 
 Read [references/output-rules.md](references/output-rules.md) first. When the run read a canvas, make the plain read
-again just before writing, alone, and read its result before the DSN is written (canvas.md).
+again just before writing, alone, and read its result before the DSN is written: a canvas it reaches and doesn't
+find private stops the run with no DSN written (ERR-25; canvas.md).
 - **Create run:** Write the DSN once from `${CLAUDE_SKILL_DIR}/assets/dsn.md`, deleting every author comment.
   Version 1, status `draft`, `session: "${CLAUDE_SESSION_ID}"` under `generated_by`, one board item for each
   board in canvas order, and one Change Log row authored `claude-code (session ${CLAUDE_SESSION_ID})` that ends

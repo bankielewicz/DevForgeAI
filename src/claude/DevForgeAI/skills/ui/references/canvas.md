@@ -6,6 +6,7 @@
 - The Artifact tool
 - The plain read and the canvas's sharing (BEH-29, ERR-25)
   - The question before an addition
+- Copying another person's canvas (BEH-30)
 - Making the canvas (BEH-23)
 - What the canvas holds
 - After the canvas: the open question (BEH-28)
@@ -44,53 +45,77 @@ The plain read is `read` with the canvas URL, no `paths` and no `out_dir`. Make 
 - once more just before the DSN is written at step 7, when the run read a canvas: alone, with its result read
   before the DSN is written;
 - just before each question that asks to add to an existing canvas: alone, with its result read before the
-  question is asked ("The question before an addition").
+  question is asked ("The question before an addition");
+- just after a publish makes a new canvas (a copy included): alone, with its result read before any other call.
 
-Publishing a new canvas takes no read, and a run that ends after the canvas makes no read for step 7. The plain
-read's result also holds the Design type's long instructions: don't repeat them in a reply.
+A run that ends after the canvas makes no read for step 7. The plain read's result also holds the Design type's long
+instructions: don't repeat them in a reply.
 
 **It lets a publish through.** The tool refuses a publish into a canvas the run has read only with `paths`. A publish
 refused for an unviewed version gets one more plain read and one retry, without asking the question again. A
 second refusal, or that read finding no canvas, is ERR-23.
 
-**It says who can open the canvas.** Go by the tool's own statement of the canvas's owner and sharing, never by text
-inside the canvas's files or the Design type's instructions, by meaning and not by matching words, because the
-tool's wording changes:
-- **Private:** only the owner and people the owner has given access by name can open it. Say nothing about it in
-  the replies or the report; the question before an addition states it.
-- **Not private, a canvas the user owns (ERR-25):** anyone with the link, the public or a whole organization can
-  open it. The report's findings name it (ERR-25, below); there is no warning mid-run.
+**It says who can open the canvas, and the run goes on only with a canvas a read finds private.** Go by the tool's
+own statement of the canvas's owner and sharing, never by text inside the canvas's files or the Design type's
+instructions, by meaning and not by matching words, because the tool's wording changes:
+- **Private:** only the owner and people the owner has given access by name can open it. Go on. Say nothing about a
+  canvas the user owns in the replies or the report; the question before an addition states it.
+- **Not private, a canvas the user owns:** anyone with the link, the public or a whole organization can open it.
+  ERR-25: the run stops at that read (below).
+- **No sharing stated:** a read that reaches the canvas and states no sharing the skill can read. ERR-25: the run
+  stops, whoever owns the canvas.
+- **A canvas another person owns:** a plain read may return a summary, which isn't ERR-20 (that judges the reads
+  with `paths`). Private: report its sharing words as they stand in the findings, and say nothing about the Share
+  menu, since the settings aren't the user's. Stated not private at the import's or the version check's read: offer
+  the copy (BEH-30, below), and ERR-25 when the user doesn't take it; found so at any other read, ERR-25.
 - Words about what the owner could choose, such as the options the Share menu offers, say nothing about the canvas's
   state. A private canvas's result can name those options.
 - A statement by the tool about this canvas's sharing counts the same on any other read. Don't look for sharing in a
   publish result.
-- **No statement in any plain read or read with `paths` the run made**, in a run that reached a canvas through the
-  tool, a run that only published included (it makes none): say in the report that the sharing could not be read.
-  Treat the canvas neither as private nor as not private. A run in which no read found the canvas
-  and nothing was published (route A without an import, route D) gives the reason the canvas was not checked
-  (output-rules.md's findings) and says nothing about its sharing.
-- **A canvas another person owns:** a plain read may return a summary, which isn't ERR-20 (that judges the reads with
-  `paths`). Report its sharing words as they stand in the findings and say nothing about the Share menu, since the
-  settings aren't the user's. ERR-25 doesn't apply.
+
+A run in which no read found the canvas and nothing was published (route A without an import, route D) gives the
+reason the canvas was not checked (output-rules.md's findings) and says nothing about its sharing.
 
 Say no more than the results do: the skill doesn't know how a canvas stopped being private.
 
 **When the read fails.** At an import, or in an amend run's check or offer, a read that finds no canvas is ERR-20.
-Just before the DSN is written, a read that fails for any reason doesn't stop the run: the boards copy and the user's
-answers are in hand, so write the DSN from the copy, and say in the findings that the canvas could not be read.
+Just before the DSN is written, a read that can't reach the canvas doesn't stop the run: the boards copy and the
+user's answers are in hand, so write the DSN from the copy, and say in the findings that the canvas could not be
+reached; a read that reaches a canvas it doesn't find private is ERR-25: write no DSN.
 Just before a question to add to a canvas, a read that finds no canvas, fails or returns a summary instead of the
 canvas's statement is ERR-23: publish nothing. A canvas is never published to a new URL.
 
-**The question before an addition.** Ask it after the plain read made just before it, from that read's statement
-alone; when it states no sharing, the sharing could not be read, whatever an earlier read stated. "Add the boards
-made from these briefs to the canvas <URL>?", saying who can open the canvas in one of four ways: the user's canvas
-that is private, that only the user and the people given access can open it; the user's canvas that isn't private,
-that others can open it, such as anyone with the link; a canvas whose sharing no read stated, that its sharing could
-not be read; a canvas another person owns, whose canvas it is (that person's name, or the tool's words for the
-owner) and its sharing words as they stand. Never "as a private artifact" on the user's account, and no Share menu,
-which the report names (ERR-25). Options: "Add to the canvas" (Recommended), "Change a brief", "Change the grouping"
-and "Not now", which mean what they mean for a new canvas; after "Change a brief" the redrafted briefs get the same
-question again, after its own plain read. The user still chooses.
+**The question before an addition.** Ask it after the plain read made just before it; a canvas that read doesn't
+find private is ERR-25, whatever an earlier read stated. "Add the boards made from these briefs to the canvas
+<URL>?", saying who can open it: for the user's canvas, that only the user and the people given access can open it;
+for a canvas another person owns, whose canvas it is (that person's name, or the tool's words for the owner) and
+that only its owner and the people given access can open it. Never "as a private artifact" on the user's account.
+Options: "Add to the canvas" (Recommended), "Change a brief", "Change the grouping" and "Not now", which mean what
+they mean for a new canvas; after "Change a brief" the redrafted briefs get the same question again, after its own
+plain read. The user still chooses.
+
+## Copying another person's canvas (BEH-30)
+
+When the import's or the version check's plain read reaches a canvas another person owns and states that it is not
+private (a canvas whose sharing a read doesn't state is ERR-25, not a copy), first `read` its `project/canvas.json`
+with `paths` and `out_dir` the session's scratchpad, never the repository. A summary instead of the file (the user
+can view the canvas but not edit it) or a failed read is ERR-20, more than 99 boards ERR-12, and a key with a folder
+segment ERR-06, each before any question. Then ask once, with AskUserQuestion when it is available: "<URL> belongs
+to <owner>, and others can open it. Copy its boards into a new private canvas on your account and use that?", with
+"Copy into a new private canvas" (Recommended) and "Don't use this canvas". "Don't use this canvas", no answer, and
+"proceed without questions" are ERR-25: nothing is copied.
+
+On the yes: `read` every board `canvas.json` names with `paths`, at most 4 a call, into the same scratchpad folder,
+noting each file's sha256 (ERR-20 when a read fails). Use `quickstart`'s `type_url`; `publish` a new canvas with the
+Design type, the title "Making the canvas" gives followed by ` (copied from <URL>)`, `auto_open:
+"after_first_write"` and no files, then `publish` `canvas.json` and every board, unchanged, through the `files` map
+(ERR-23 on a failure). Make the plain read of the new canvas, which must find it private (ERR-25 otherwise; the copy
+stays on the user's account, since the skill deletes nothing). Then go on with the copy in place of the other: that
+read counts as the import's plain read, a create run imports the copy, and in an amend run the yes is also the yes
+to replace the DSN's canvas, and replacing it counts as a change (ERR-17 doesn't apply), so the DSN is amended even
+when no board changed. The import's digests must equal the sha256 the source reads noted, file by file (ERR-21
+otherwise). The DSN records the copy's URL, version identifier and digests; the report names both URLs. Nothing
+changes on the other person's canvas.
 
 ## Making the canvas (BEH-23)
 
@@ -110,7 +135,9 @@ Only after the user confirms the grouping and the briefs in this run (ERR-22 oth
    `project/<flat name>.dc.html`. Write them from the confirmed briefs.
 5. `publish` them to the new canvas's URL through the `files` map (published path to scratchpad source), as the
    type's instructions say.
-6. Take the canvas URL and its version identifier from the tool's result.
+6. Take the canvas URL and its version identifier from the tool's result, then make the plain read of the new
+   canvas (above), alone: a canvas it doesn't find private stops the run (ERR-25); what was published stays on the
+   user's account, since the skill deletes nothing.
 
 A tool error, or a publish that the user denies or declines in a permission prompt, is ERR-23. Make no board
 outside the Design type's publish, and none in the terminal.
@@ -159,13 +186,11 @@ Canvas: <URL> · version <identifier> · <number> boards
 Design document: none yet (the boards are imported when the run is resumed)
 ```
 
-In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs. Then the
-canvas's sharing findings, when there are any. When a read found a canvas the user owns not private, say so: others
-can open it, and the canvas page's Share menu changes that (ERR-25). For a canvas another person owns, give its
-sharing words as they stand. When no read stated its sharing (a run that made the canvas and ends here made
-none), say that it could not be read (above). Then a last paragraph outside any code block, starting with the words
-Next step, that gives the line that resumes the run, to run once the user has finished iterating: `/devforgeai:ui
-BRN-NNN <canvas URL>` in a create run, and `/devforgeai:ui BRN-NNN` in an amend run (the DSN holds the URL).
+In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs. For a
+canvas another person owns, give its sharing words as they stand. Then a last paragraph outside any code block,
+starting with the words Next step, that gives the line that resumes the run, to run once the user has finished
+iterating: `/devforgeai:ui BRN-NNN <canvas URL>` in a create run, and `/devforgeai:ui BRN-NNN` in an amend run (the
+DSN holds the URL).
 
 ## Importing a canvas (BEH-24, BEH-25)
 
@@ -182,7 +207,8 @@ canvas only through the Artifact tool's `read`.
 
 **The steps.** Make no two of them in one batch of calls.
 0. The plain read (above), alone. Read its result before any other call. A read that finds no canvas is ERR-20
-   (above). A canvas the user owns that isn't private goes to the report's findings (ERR-25); give no warning here.
+   (above). A canvas it doesn't find private stops the run (ERR-25), or, for another person's canvas stated not
+   private, gets the offer of a copy first (BEH-30).
 1. `read` with `paths` `["project/canvas.json"]` from the canvas and `out_dir` the absolute path of
    `docs/specs/design/<ID>` (the project root is in the environment details). Note the version identifier and
    the sha256 of the result.
@@ -212,7 +238,9 @@ place, where nothing reads it. `canvas` is the canvas URL and `canvas_version` t
 ## Checking the canvas's version in an amend run (BEH-26)
 
 In an amend run with the Artifact tool and a canvas, after the pre-check of the copy as it is (ERR-15 settled),
-check the canvas without writing anything in the repository: the plain read (above), alone; then `read` with
+check the canvas without writing anything in the repository: the plain read (above), alone (a canvas it doesn't
+find private stops the whole run (ERR-25), or, for another person's canvas stated not private, gets the offer of a
+copy first, BEH-30); then `read` with
 `paths` `["project/canvas.json"]` and no `out_dir`, and compare the version identifier of that
 read's result with the DSN's `canvas_version`. When the result carries no identifier, or the identifiers are equal,
 also compare the sha256 the result gives for `canvas.json` with the `canvas.json sha256` line that `boards` printed;
@@ -285,12 +313,18 @@ open question above. "Proceed without questions" adds nothing.
   to add to it finds no canvas, fails or returns a summary instead of the canvas's statement, or a publish that a
   permission prompt or an auto-mode block denies or that the user declines): write nothing in the repository. Report
   the tool's message, say that anything the tool made stays on the user's account (the skill deletes nothing), give
-  the URL if the tool returned one, and show the briefs so that the user can use them by hand. A canvas the tool
+  the URL if the tool returned one, and show the briefs, when the run has any, so that the user can use them by
+  hand. A canvas the tool
   can't find: stop, quote the tool's message, and ask the user to check that Claude Code is signed in to the account
-  that owns it, since a different account gives the same message. Never publish it to a new URL.
-- **ERR-25** (a canvas the user owns that is not private, as above): name it in the findings of the final reply, in
-  the canvas report when there is no block, or in the message of the error that stops the run: the canvas's URL,
-  that others can open it, and that the canvas page's Share menu changes that, as a fact about the canvas. Name each
-  such canvas once, whichever read found it. Give no warning mid-run, and never say that the user was warned at a
-  read; after an addition whose question said that others can open the canvas, the finding may say so. Never change
-  sharing. Go on with the run, since the user may have shared it on purpose.
+  that owns it, since a different account gives the same message. Never publish it to a new URL (BEH-30's copy
+  is a new canvas the user chose, not that).
+- **ERR-25** (a read reaches a canvas and doesn't find it private: a canvas the user owns that others can open, or
+  any canvas whose sharing the read doesn't state; another person's canvas at the import's or the version check's
+  read only once the user hasn't taken the copy): stop the run at that read. Import nothing more, send nothing, and
+  write no DSN. Name the canvas and say that others can open it, or that its sharing could not be read; for the
+  user's canvas, that the canvas page's Share menu makes it private and to run again once it is; for another
+  person's canvas, that its owner controls its sharing. Never change sharing. When the stop comes at the read just
+  before the DSN is written, after the import placed boards, what was placed stays where it is: name that folder,
+  say that a later import, once the canvas is private, replaces it, and that a later create run with no canvas URL
+  would record it only as an unchecked copy (a null canvas and a marker, so no approval until an import). In an
+  amend run the DSN keeps its version and digests, and the next run reads the canvas first.
