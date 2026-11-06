@@ -4,7 +4,7 @@ description: Takes work in a git repository from changed files to merged, synced
 argument-hint: "[status|connect|start|commit|push|pr|merge|sync|prune] [details]"
 metadata:
   devforgeai-id: "SKL-006"
-  devforgeai-version: "3"
+  devforgeai-version: "4"
 ---
 
 # Git
@@ -25,7 +25,7 @@ Three rules shape everything below:
 
 ## Inputs
 
-- `$ARGUMENTS`, optional: a phase (`status`, `connect`, `start`, `commit`, `push`, `pr`, `merge`,
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given), optional: a phase (`status`, `connect`, `start`, `commit`, `push`, `pr`, `merge`,
   `sync`, `prune`), then free text: a remote URL for `connect`, a branch or task for `start`, a PR
   number for `merge`, idle and stale ages in days for `prune` (defaults 14 and 30). With no phase,
   infer the phases from the request and the state report.

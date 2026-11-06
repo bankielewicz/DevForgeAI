@@ -4,7 +4,7 @@ description: Turns a DevForgeAI brainstorm (BRN) document into a product require
 argument-hint: "[BRN-NNN]"
 metadata:
   devforgeai-id: "SKL-002"
-  devforgeai-version: "5"
+  devforgeai-version: "6"
 ---
 
 # PRD
@@ -16,7 +16,7 @@ must record only decisions the user actually made.
 
 ## Inputs
 
-- `$ARGUMENTS`: a BRN ID such as `BRN-002`, or empty. When it is empty, use a BRN ID the user
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): a BRN ID such as `BRN-002`, or empty. When they are empty, use a BRN ID the user
   stated in the conversation. Never accept a file path; if given one, ask for the ID.
 - BRNs: `docs/specs/brainstorm/BRN-*.md` (read-only). PRDs: `docs/specs/prd/PRD-*.md`.
 - Architecture context: `docs/specs/adr/ADR-*.md`, plus documents the BRN or the request names.
@@ -109,7 +109,7 @@ Follow [references/policy.md](references/policy.md) with the framework defaults 
 
 ### 2. Select the BRN
 
-- **An ID was given** (`$ARGUMENTS` or the conversation). Read `docs/specs/brainstorm/<ID>.md`. If
+- **An ID was given** (in the arguments or the conversation). Read `docs/specs/brainstorm/<ID>.md`. If
   it doesn't exist (ERR-01), say so, list the BRN IDs that do exist with their titles, and stop.
 - **No ID.** List the *unprocessed* BRNs. A BRN is unprocessed when it has at least one
   `disposition: promoted` idea that no PRD cites. To check, search `docs/specs/prd/PRD-*.md` for

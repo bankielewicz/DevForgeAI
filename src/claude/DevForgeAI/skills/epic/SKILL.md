@@ -4,7 +4,7 @@ description: Turns a DevForgeAI PRD into epic documents for the requirements tha
 argument-hint: "PRD-NNN"
 metadata:
   devforgeai-id: "SKL-004"
-  devforgeai-version: "4"
+  devforgeai-version: "5"
 ---
 
 # Epic
@@ -27,7 +27,7 @@ Three rules shape everything below:
 
 ## Inputs
 
-- `$ARGUMENTS`: a PRD ID such as `PRD-002`, or empty. When it is empty, use a PRD ID the user stated in
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): a PRD ID such as `PRD-002`, or empty. When they are empty, use a PRD ID the user stated in
   the conversation. Never accept a file path; if given one, ask for the ID.
 - Read by contract, all read-only: the PRD at `docs/specs/prd/<ID>.md`, ARCHs in `docs/specs/arch/`, ADRs
   in `docs/specs/adr/`, existing epics in `docs/specs/epic/`, and approved policy documents in

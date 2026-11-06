@@ -4,7 +4,7 @@ description: Designs a DevForgeAI release's screens in Claude Design and records
 argument-hint: "[BRN-NNN [canvas URL] | approve DSN-NNN]"
 metadata:
   devforgeai-id: "SKL-013"
-  devforgeai-version: "2"
+  devforgeai-version: "3"
 ---
 
 # UI
@@ -36,10 +36,10 @@ Five rules shape everything below:
 
 ## Inputs
 
-- `$ARGUMENTS`: empty, a BRN ID, a BRN ID followed by one canvas URL (`https://claude.ai/artifact/<id>` or
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): empty, a BRN ID, a BRN ID followed by one canvas URL (`https://claude.ai/artifact/<id>` or
   `https://claude.ai/code/artifact/<uuid>`), or `approve DSN-NNN`, which may be followed by the approver's name
   (step 9). A canvas URL stated in the request counts as stated. Anything that replaces the ID (a file path, a
-  boards folder, a URL without a BRN ID, other words), in `$ARGUMENTS` or in the request, is refused (ERR-02), even
+  boards folder, a URL without a BRN ID, other words), in the arguments or in the request, is refused (ERR-02), even
   a path to a BRN file such as `docs/specs/brainstorm/BRN-001.md`: never extract an ID from a path. Write nothing,
   say the skill takes a BRN ID, optionally followed by the canvas's claude.ai artifact URL, or `approve DSN-NNN`
   and paths aren't accepted, and ask for the ID (listing the BRNs that have a promoted idea, or the DSNs).
@@ -111,8 +111,8 @@ answers the gates one by one:
 Work through the checklist in order, in the main conversation (BEH-01). Decide the kind of run at step 1, from
 the request and the files:
 - `approve DSN-NNN`, or words that approve the design or a named DSN and ask for nothing else (an ID or none) →
-  **approval-only run** (BEH-21): steps 1, 8, 9 and 10. A request whose approval is the `approve DSN-NNN` form (a
-  command argument that starts with it, with or without the approver's name) is one even when more words ask for
+  **approval-only run** (BEH-21): steps 1, 8, 9 and 10. A request whose approval is the `approve DSN-NNN` form (arguments
+  that start with it, with or without the approver's name) is one even when more words ask for
   a change: the change is not made, nothing is approved, and the reply says an amend run comes first
   (`/devforgeai:ui BRN-NNN`). A request to record, write or update the design for a BRN is a create or amend run,
   and its approving words apply at step 9 (BEH-16).
@@ -144,7 +144,7 @@ opens with the report of step 10, so the checklist does not repeat there.
   (ERR-18): write nothing, list the DSNs under `docs/specs/design/` with versions and statuses, say only a draft
   or in-review DSN is approved, and ask for the ID. A DSN already `approved`: say so with its version, approver
   and date, and write nothing. Otherwise go to step 8.
-- **A BRN ID** (in `$ARGUMENTS` or stated by the user; a canvas URL with it is kept): read
+- **A BRN ID** (in the arguments or stated by the user; a canvas URL with it is kept): read
   `docs/specs/brainstorm/<ID>.md`. Missing (ERR-01): list the BRN IDs that exist with their titles; write
   nothing.
 - **No BRN named:** list each BRN with a promoted idea (title, status, number of promoted ideas, the DSN that
@@ -179,14 +179,14 @@ the first Artifact call.
 3. **Choose the route** by `ls` of the boards folder and the Artifact tool (load it with ToolSearch when the
    route needs it):
    - **A. Create run, the folder holds files (a copy):** run `boards <ID>`. The copy is recorded as it is, with no
-     brief and no import, whatever canvas URL the request names. When the request names a URL and the Artifact
+     brief and no import, whatever canvas URL is named in the arguments or the request. When either names a URL and the Artifact
      tool is available, ask once: "Import the canvas again" (Recommended) or "Record the copy as it is". Say in
      the report why the canvas was not checked: `no Artifact tool in this session` or `recorded as it is by
      choice`.
    - **B. Create run, the folder is absent or empty:** with a canvas URL, import it (step 5). Without one, draft
      the flows and the briefs and make the canvas (steps 3 and 4). Both need the Artifact tool; without it
      ERR-19 (with the briefs shown, when briefs were drafted).
-   - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL the request names): run
+   - **C. Amend run with the Artifact tool and a canvas** (the DSN's, or the URL in the arguments or the request): run
      `boards <ID>` and `check --before-amend <ID>` on the copy as it is (ERR-15 settled first), check the canvas's
      version read-only and, only when the canvas moved, its version is null, the digest differs or the copy is
      damaged, ask the import question first and alone, with a differing URL in the same call (canvas.md). Then

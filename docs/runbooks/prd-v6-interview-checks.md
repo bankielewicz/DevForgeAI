@@ -1,8 +1,8 @@
-# Runbook: SKL-002 v6 manual checks (SPEC-002 v6 VER-46, VER-47, VER-48)
+# Runbook: the interview build's manual checks (SPEC-002 v6 VER-46, VER-47, VER-48)
 
 Covers what the eval suite can't show for the prd skill's version 6 interview (SPEC-002 v6, issue #142):
 eval runs are `claude -p` sessions that nobody answers, so every behaviour that needs a live answer is
-checked here. Each item stays **NOT_RUN** until someone runs it on the SKL-002 v6 build commit. Record each
+checked here. Each item stays **NOT_RUN** until someone runs it on the commit of the build that implements SPEC-002 v6 (the next SKL-002 version: SKL-002 v6 itself is #135's text fix). Record each
 result in section 4: **pass**, **fail** (with what happened), or **not run** (with why). A failure stays a
 failure: if the spec turns out to be wrong, record it and raise it with the owner; don't adjust the check.
 

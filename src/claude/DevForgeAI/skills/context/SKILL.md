@@ -4,7 +4,7 @@ description: Writes and maintains a DevForgeAI project's context documents in do
 argument-hint: "[document]"
 metadata:
   devforgeai-id: "SKL-010"
-  devforgeai-version: "2"
+  devforgeai-version: "3"
 ---
 
 # Context
@@ -27,7 +27,7 @@ Four rules shape everything below:
 
 ## Inputs
 
-- `$ARGUMENTS`: empty, or one document name of the set (`tech-stack`, `testing`, `rdbms`, …), with or
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): empty, or one document name of the set (`tech-stack`, `testing`, `rdbms`, …), with or
   without `.md`. Never accept a file path.
 - Read by contract, by these fixed paths, never by listing the repository:
   - `docs/specs/arch/ARCH-*.md`: the current ARCHs (status neither `superseded` nor `deprecated`);
@@ -140,9 +140,9 @@ Before any question, follow [policy.md](references/policy.md) R1 to R5 with
 
 Compute the set from the kinds of the active components ([documents.md](references/documents.md),
 "The document set"), with ERR-05 for a component without kinds.
-- **Scope:** `$ARGUMENTS`; when it is empty, a request to update only one named document. A name of
+- **Scope:** the arguments; when they are empty, a request to update only one named document. A name of
   the set limits the writes to that document and index.md; the others are read, never written. No
-  argument and no such request: the whole set.
+  arguments and no such request: the whole set.
 - **A name outside the set (ERR-04):** write nothing. List the document names of the current set and
   ask which one, or whether to run for all. Stop. A path outside `docs/specs/context/`
   (`docs/guides/testing.md`) names no document of the set, whatever its file name: ERR-04 too.

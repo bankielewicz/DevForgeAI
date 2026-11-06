@@ -9,6 +9,12 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ## Unreleased
 
+### Fixed
+
+- Nine skills no longer write `$ARGUMENTS` in their instructions. Claude Code replaced it with what the user typed, so
+  the line describing a skill's input read as the input itself, or as empty backticks. They now say "the arguments"
+  (#135).
+
 ### Added
 
 - Added the `epic` skill, `/devforgeai:epic PRD-NNN`: it groups a PRD's ready, current-release

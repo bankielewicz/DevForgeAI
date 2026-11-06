@@ -14,7 +14,7 @@ metadata:
 
 ## Inputs
 
-- `$ARGUMENTS`: <what the user passes; what to do when it is empty>
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): <what the user passes; what to do when they are empty>
 - <files or context the skill reads, with paths>
 
 ## Workflow

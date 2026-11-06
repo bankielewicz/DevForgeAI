@@ -4,7 +4,7 @@ description: Updates or creates a repository's README, CHANGELOG and other affec
 argument-hint: "[base-revision-or-range] [propose]"
 metadata:
   devforgeai-id: "SKL-005"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
 ---
 
 # Documents updater
@@ -16,7 +16,7 @@ confirmed against the repository. An unchanged document set is a valid result.
 
 ## Inputs
 
-- `$ARGUMENTS`, all optional: a base revision (`abc1234`, `v1.2.0`) or a range (`v1.2.0..HEAD`),
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given), all optional: a base revision (`abc1234`, `v1.2.0`) or a range (`v1.2.0..HEAD`),
   the word `propose`, or free text describing the scope. Otherwise use the scope the conversation
   already established.
 - The repository: its instructions (`CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, documentation

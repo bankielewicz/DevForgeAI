@@ -106,7 +106,7 @@ run once the user has finished iterating: `/devforgeai:ui BRN-NNN <canvas URL>` 
 
 ## Importing a canvas (BEH-24, BEH-25)
 
-**Which canvas.** In order: the URL in `$ARGUMENTS` or in the request; in an amend run, the DSN's `canvas`. Any
+**Which canvas.** In order: the URL in the arguments or in the request; in an amend run, the DSN's `canvas`. Any
 claude.ai canvas the user names is accepted when the tool can read its `project/canvas.json` and the boards that
 file names (one the user owns or has edit access to); it need not have been made by this skill. A result that is
 a summary instead of the files, has no `project/canvas.json`, or is refused is ERR-20. In an amend run, a URL
