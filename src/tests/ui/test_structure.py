@@ -360,12 +360,9 @@ class Skill(unittest.TestCase):
         # Codex on #158 at a97a928 (#153 item 38; Bryan, 2026-11-06: "I agree as it sounds broken"): an amend run's
         # line names the canvas that stopped the run whenever it isn't the DSN's.
         err25 = re.split(r"- \*\*ERR-", problems)[0]
-        for phrase in ("/devforgeai:ui BRN-NNN <canvas URL>",
+        for phrase in ('"The line to run again"',
                        "ask the owner to make it private, or run again with that line and accept the copy",
-                       "check the canvas page's Share menu and run again with that line",
-                       "in an amend run, with `/devforgeai:ui BRN-NNN` when the canvas that stopped the run is the DSN's "
-                       "canvas, and with `/devforgeai:ui BRN-NNN <canvas URL>`, the URL of the canvas that stopped it, when "
-                       "it isn't (a canvas the request named, or a copy made in the run)"):
+                       "check the canvas page's Share menu and run again with that line"):
             with self.subTest(next_step=phrase):
                 self.assertIn(phrase, err25)
         self.assertIn("could not be reached just before the write", rules)
@@ -437,24 +434,37 @@ class Skill(unittest.TestCase):
                 ("rule 5's scratchpad", skill, "the files a copy's reads save")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
-        # The build's reviewers on d13db23 (#153 items 38 and 43; Bryan, 2026-11-06: "Fix it now, one rule
-        # (Recommended)"): every resume or rerun line names the canvas the run made, drew on or stopped on whenever
-        # it isn't the DSN's.
+        # Bryan, 2026-11-06: "Fix it now, one rule (Recommended)" (#153 items 38 and 43; the build's reviewers on
+        # d13db23 and d9cc7cc): the line to run again is defined once, and every place that gives one points to it.
+        self.assertIn("- The line to run again (BEH-28)", canvas)
+        line = re.search(r"## The line to run again \(BEH-28\)(.*?)## ", canvas).group(1)
+        for name, phrase in (
+                ("the run's canvas", "the canvas that stopped the run, else the canvas the run made, copied or added "
+                 "to, else a canvas the request named that the user didn't decline"),
+                ("a create run", "A create run: `/devforgeai:ui BRN-NNN <canvas URL>`"),
+                ("the DSN's canvas", "An amend run whose canvas is the DSN's canvas, or that has no canvas: "
+                 "`/devforgeai:ui BRN-NNN`"),
+                ("another canvas", "An amend run whose canvas isn't the DSN's (a canvas the request named, or a copy): "
+                 "`/devforgeai:ui BRN-NNN <canvas URL>`"),
+                ("BEH-24 still asks", "asks before it replaces it (BEH-24)"),
+                ("read (e)", "a new canvas's line is `/devforgeai:ui BRN-NNN`, and a copy's names the source's URL, in "
+                 "either kind of run"),
+                ("a copy's reads disagree", "A copy whose reads of its source don't agree (ERR-21): the line names the "
+                 "source's URL")):
+            with self.subTest(line=name):
+                self.assertIn(phrase, line)
         ending = re.search(r"## Ending after the canvas(.*?)## ", canvas).group(1)
         err25 = re.split(r"- \*\*ERR-", re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1))[0]
-        for name, text, phrase in (
-                ("resume: a create run", ending, "`/devforgeai:ui BRN-NNN <canvas URL>`, with the URL of the canvas "
-                 "the run made or added to, in a create run"),
-                ("resume: the DSN's canvas", ending, "in an amend run, `/devforgeai:ui BRN-NNN` when that canvas is the "
-                 "DSN's canvas"),
-                ("resume: another canvas", ending, "with its URL when it isn't (a canvas the request named, or a copy)"),
-                ("resume: BEH-24 still asks", ending, "a run given a different URL asks before it replaces it"),
-                ("ERR-25: a create run", err25, "`/devforgeai:ui BRN-NNN <canvas URL>`, the URL of the canvas that "
-                 "stopped the run, in a create run"),
-                ("ERR-25: read (e)", err25, "a new canvas's line is `/devforgeai:ui BRN-NNN` with no URL, and a copy's "
-                 "line names the source's URL in either kind of run")):
-            with self.subTest(name):
-                self.assertIn(phrase, text)
+        err21_text = re.search(r"- \*\*ERR-21\*\*(.*?)(?=- \*\*ERR-|$)", canvas).group(1)
+        briefs = next(text for name, text in texts.items() if name.endswith("briefs.md"))
+        err22 = re.search(r"## When the grouping or the briefs are not confirmed \(ERR-22\)(.*?)## ", briefs).group(1)
+        err13 = re.search(r"## When the user stops \(ERR-13\)(.*?)(?:## |$)", interview).group(1)
+        for name, text in (("the canvas report", ending), ("ERR-25", err25), ("ERR-21", err21_text),
+                           ("ERR-22", err22), ("ERR-13", err13)):
+            with self.subTest(points_to=name):
+                self.assertIn('"The line to run again"', text)
+                self.assertNotIn("`/devforgeai:ui BRN-NNN", text)
+        self.assertNotIn("(run the skill again)", err22)
         self.assertNotIn("that run replaces it", ending)
         # Codex on #157 (Bryan, 2026-11-06: "Fix it, as the import does (Recommended)"): the copy's reads of its
         # source agree on one version, or the run reads again once, then stops at ERR-21.
@@ -467,7 +477,7 @@ class Skill(unittest.TestCase):
                  "asking again (ERR-20, ERR-12 and ERR-06 still apply), then ERR-21"),
                 ("nothing published first", copy_section, "nothing is published to the new canvas before these reads agree"),
                 ("ERR-21 names the copy", err21, "a copy's reads of its source don't agree twice running (BEH-30)"),
-                ("ERR-21's rerun after a copy", err21, "the line to run again names the source's URL")):
+                ("ERR-21's rerun after a copy", err21, "and that line names the source's URL")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
 

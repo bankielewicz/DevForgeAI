@@ -130,10 +130,10 @@ later").
 
 ## When the user stops (ERR-13)
 
-When the user stops before the interview ends, offer to save the DSN with every unanswered mapping `null` and
-marked (a create run) or unchanged (an amend run; a board that was removed is still deprecated, because the
-script's fact requires it, and the report says so). On a yes, write it, then validate and report it as any
-other write. With no answer to the offer, write nothing and say how to resume: run `/devforgeai:ui BRN-NNN <canvas URL>`,
-printing the canvas URL in the reply and, when the run imported, the identifier of the import. The copy in the
-boards folder is then recorded as it is, or, with the Artifact tool, imported again on the user's yes, and no
+When the user stops before the interview ends, offer to save the DSN with every unanswered mapping `null` and marked
+(a create run) or unchanged (an amend run; a board that was removed is still deprecated, because the script's fact
+requires it, and the report says so). On a yes, write it, then validate and report it as any other write. With no
+answer to the offer, write nothing and say how to resume with the line to run again (canvas.md, "The line to run
+again"), printing the canvas URL in the reply and, when the run imported, the identifier of the import. The copy in
+the boards folder is then recorded as it is, or, with the Artifact tool, imported again on the user's yes, and no
 canvas fact is asked.
