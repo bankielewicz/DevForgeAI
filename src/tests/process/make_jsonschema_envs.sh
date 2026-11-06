@@ -7,7 +7,8 @@ set -euo pipefail
 base="$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")/tmp/test-envs"
 for version in 4.10.3 4.26.0; do
   env="$base/jsonschema-$version"
-  [ -x "$env/bin/python" ] || python3 -m venv "$env"
+  # Built only when its pip runs: an interrupted venv, or one made without ensurepip, is rebuilt (#155).
+  "$env/bin/python" -m pip --version >/dev/null 2>&1 || python3 -m venv --clear "$env"
   "$env/bin/python" -m pip install --quiet "jsonschema==$version" pyyaml
   "$env/bin/python" -W ignore -c "import importlib.metadata as m, sys; print(sys.version.split()[0], 'jsonschema', m.version('jsonschema'))"
 done
