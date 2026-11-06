@@ -149,7 +149,7 @@ Bryan, 2026-11-06: "begin working on stacked PRs for 153, 149 & 150"; "Defects, 
 | Y1 | Spec reviewed and approved | An independent drafts review's report is committed with every finding answered, then G4 holds with Bryan's approval row |
 | Y2 | Structure | `src/tests/ui/test_structure.py` passes; at the build `IMPLEMENTS` equals `SPEC_VERSION` and `NOT_BUILT` is empty, and the guard tests that pinned version 4's mid-run warning are rewritten to version 5 and were seen failing first |
 | Y3 | Smoke | At the build, one or two ui cases, once, at or above 0.8 with their cost recorded |
-| Y4 | Live | SPEC-017 VER-50 (b), (c) and (g) pass on the build commit, recorded in §9; (d) and (f)'s private canvas pass or are recorded as not reachable live, as VER-50 allows; (a), (e) and (f)'s copy are recorded as not run by Bryan's choice (no canvas is shared). Needs a test login with the Artifact tool |
+| Y4 | Live | SPEC-017 VER-50 (b), (c) and (g) pass on the build commit, recorded in §9; (d) and (f)'s private canvas pass or are recorded as not reachable live, as VER-50 allows; (a), (e) and (f)'s offer are recorded as not run by Bryan's choice (no canvas is shared) until the next SPEC-017 version or 2026-12-31; (h) passes. Needs a test login with the Artifact tool |
 | Y5 | The plugin workflow | G5's reports on the build's last commit |
 
 ### S. The next SPEC-017 and ADR-007 versions, redrafted from main
