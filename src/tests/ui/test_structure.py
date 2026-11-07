@@ -573,11 +573,11 @@ class Skill(unittest.TestCase):
                  "project"),
                 ("step 5's real title", making, "with the canvas's title, which begins with the BRN's ID (`BRN-001: <the "
                  "BRN's title>, release design`), in that publish"),
-                ("no rename", making, "it keeps the neutral title, and the canvas report says so"),
+                ("no rename", making, "when the result's title isn't the real one, the canvas kept the neutral title"),
                 ("the copy's neutral title", copy, "`publish` a new canvas with the Design type, the neutral title "
                  "\"Making the canvas\" gives"),
-                ("the copy's real title", copy, "through the `files` map, with the title \"Making the canvas\" gives "
-                 "followed by ` (copied from <URL>)`"),
+                ("the copy's real title", copy, "through the `files` map, with the title `BRN-001: <the BRN's title>, "
+                 "release design` followed by ` (copied from <URL>)`"),
                 ("ERR-25 after read (e)", err25, "only an empty canvas with the neutral title was published, naming no "
                  "project and no source")):
             with self.subTest(name):
@@ -585,6 +585,35 @@ class Skill(unittest.TestCase):
         step3 = re.search(r"3\. `publish` with the Design type's `type_url`(.*?) 4\. ", making).group(1)
         self.assertNotIn("BRN-001", step3)
         self.assertNotIn("nothing was published to the canvas just made", err25)
+
+    def test_the_title_read_back_retried_and_reported(self):
+        """The build's reviewers on b5a0245 (Bryan, 2026-11-06: "Retry, then report (Recommended)"): the first publish
+        sends nothing beyond the neutral title; the files' publish reads the title back, retries a refused title once
+        without it, and a kept neutral title is said after the canvas and in the findings, for a copy too."""
+        texts = {str(name): " ".join(text.split()) for name, text in skill_texts().items()}
+        canvas = next(text for name, text in texts.items() if name.endswith("canvas.md"))
+        rules = next(text for name, text in texts.items() if name.endswith("output-rules.md"))
+        making = re.search(r"## Making the canvas \(BEH-23\)(.*?)## ", canvas).group(1)
+        copy = re.search(r"## Copying another person's canvas \(BEH-30\)(.*?)## ", canvas).group(1)
+        after = re.search(r"## After the canvas: the open question \(BEH-28\)(.*?)## ", canvas).group(1)
+        err25 = re.split(r"- \*\*ERR-", re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1))[0]
+        for name, text, phrase in (
+                ("nothing else first", making, "and no files and nothing else (no description; when the tool requires "
+                 "one, the neutral title again)"),
+                ("read back", making, "Read the title back from that publish's result"),
+                ("one retry", making, "when the tool refuses the title, publish the files once more without it (ERR-23 "
+                 "if that fails too)"),
+                ("reported", making, "A kept neutral title is said in the message right after the canvas and among the "
+                 "report's findings, for a copy too"),
+                ("the copy applies it", copy, "the read-back, retry and report of \"Making the canvas\" apply"),
+                ("after the canvas", after, "that the canvas kept the neutral title when it did"),
+                ("the finding", rules, "a canvas that kept the neutral title because its files' publish didn't rename "
+                 "it"),
+                ("ERR-25 gives the URL", err25, "say instead, giving its URL, that only an empty canvas with the neutral "
+                 "title was published"),
+                ("ERR-25's briefs", err25, "needs checking; then show the briefs, when the run has any")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()
