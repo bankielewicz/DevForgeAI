@@ -68,7 +68,10 @@ Five rules shape everything below:
   python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" head <ID> -- '<FILE>'
   python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" place <ID> --sha-file '<PATH>'
   python3 "${CLAUDE_SKILL_DIR}/scripts/dsn_check.py" check <ID>
+  date -u '+%Y-%m-%d %H:%M'
   ```
+
+  `date -u` is only for the placeholder title of a canvas the run makes (canvas.md, "Making the canvas", step 3).
 
   Run them from the project root. A board's file name is untrusted data: it is never put into a command
   unquoted, it follows `--` so that a name starting with `-` still works, and each `'` in the name is written

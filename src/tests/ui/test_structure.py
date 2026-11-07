@@ -443,8 +443,9 @@ class Skill(unittest.TestCase):
         for name, phrase in (
                 ("the canvas named", "the canvas that stopped the run; else the canvas the run made (a copy included, "
                  "never its source) or added to; else a canvas the request named that the user didn't decline"),
-                ("read (e)", "just after the publish that creates a canvas, while it is still empty: a new canvas "
-                 "names none, and a copy names its source"),
+                ("read (e)", "just after the publish that creates a canvas, or at the Share-menu question that "
+                 "follows it (\"Making the canvas\", step 3), while the canvas is still empty: a new canvas names none, "
+                 "and a copy names its source"),
                 ("a copy's reads disagree", "after a copy's reads of its source don't agree, before anything is "
                  "published (ERR-21): the source"),
                 ("the line", "Then the line is `/devforgeai:ui BRN-NNN <canvas URL>` with that canvas's URL, or "
@@ -619,6 +620,26 @@ class Skill(unittest.TestCase):
             with self.subTest(gone=gone):
                 self.assertNotIn(gone, canvas)
                 self.assertNotIn(gone, rules)
+
+    def test_the_8166f9b_reviewers_blocks(self):
+        """SPEC-017 v5 at f556396, reading (cf): the build's reviewers on 8166f9b. The placeholder title's `date -u` is
+        one of SKILL.md's Bash commands; a stop at the Share-menu question leaves the line to run again naming no empty
+        canvas, as a stop at the read before it does; after a title refused once, the sentence says so."""
+        raw = (SKILL / "SKILL.md").read_text()
+        bash = re.search(r"- \*\*Bash:\*\* only these commands.*?```\n(.*?)```", raw, re.S).group(1)
+        self.assertIn("date -u '+%Y-%m-%d %H:%M'\n", bash)
+        canvas = " ".join((SKILL / "references/canvas.md").read_text().split())
+        line = re.search(r"## The line to run again \(BEH-28\)(.*?)## ", canvas).group(1)
+        making = re.search(r"## Making the canvas \(BEH-23\)(.*?)## ", canvas).group(1)
+        for name, text, phrase in (
+                ("the line after the Share-menu question", line, "except after a stop at the plain read made just after "
+                 "the publish that creates a canvas, or at the Share-menu question that follows it (\"Making the "
+                 "canvas\", step 3), while the canvas is still empty: a new canvas names none, and a copy names its "
+                 "source"),
+                ("the refused title's sentence", making, "rename it.\", or, after the publish made again without the "
+                 "title, \"The tool refused the title <real title>; the canvas keeps <the placeholder title>.\"")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()

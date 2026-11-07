@@ -163,7 +163,8 @@ Only after the user confirms the grouping and the briefs in this run (ERR-22 oth
    (`BRN-001: <the BRN's title>, release design`), in that publish. A publish the tool refuses for its title is made
    once more without it (ERR-23 if that fails too). Don't check the title afterwards: the question after the canvas,
    the canvas report and the report's findings each say "The canvas's title was set to <real title> with its boards;
-   if Claude Design still shows <the placeholder title>, the tool didn't rename it."
+   if Claude Design still shows <the placeholder title>, the tool didn't rename it.", or, after the publish made
+   again without the title, "The tool refused the title <real title>; the canvas keeps <the placeholder title>."
 6. Take the canvas URL and its version identifier from the tool's result.
 
 A tool error (except a title refused once, step 5), or a publish that the user denies or declines in a permission
@@ -226,8 +227,9 @@ ERR-25) is this one line. First find the canvas it names:
 
 - the canvas that stopped the run; else the canvas the run made (a copy included, never its source) or added to;
   else a canvas the request named that the user didn't decline at the question to replace the DSN's canvas (BEH-24);
-- except after a stop at the plain read made just after the publish that creates a canvas, while it is still empty:
-  a new canvas names none, and a copy names its source;
+- except after a stop at the plain read made just after the publish that creates a canvas, or at the Share-menu
+  question that follows it ("Making the canvas", step 3), while the canvas is still empty: a new canvas names none,
+  and a copy names its source;
 - and after a copy's reads of its source don't agree, before anything is published (ERR-21): the source.
 
 Then the line is `/devforgeai:ui BRN-NNN <canvas URL>` with that canvas's URL, or `/devforgeai:ui BRN-NNN` with no
