@@ -69,7 +69,9 @@ Entries start with the epic skill. Earlier work is described in each specificati
   were working on (one you named, or the copy) whenever that isn't the design document's own. Adding boards to an
   existing canvas now asks "Add the boards made from these briefs to the canvas <URL>?" with "Add to the canvas",
   not "Create the canvas". A canvas the tool can't find also prompts you to check which account Claude Code is
-  signed in to.
+  signed in to. A canvas the run makes, a copy included, is first created empty under a placeholder title that names
+  no project, `Release design (checking sharing), <date and time> UTC`; once a read finds it private, you confirm in
+  its Share menu that only you can open it, and the boards and the real title go only after that yes.
 - The `ui` skill now reads a canvas plainly before it imports from it, checks its version, adds to it or writes the
   design document, and judges the canvas's sharing by what that read states (#121, #117). When others can open a
   canvas you own, the run's report says so and points to the canvas page's Share menu; the run carries on and never
