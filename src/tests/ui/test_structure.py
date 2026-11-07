@@ -560,6 +560,32 @@ class Skill(unittest.TestCase):
         self.assertNotIn("until an import", line)
         self.assertNotIn("For one the user can only view:", err25)
 
+    def test_a_neutral_title_until_private(self):
+        """Codex's adversarial review of #157 (Bryan, 2026-11-06: "Neutral title until private (Recommended)"): a canvas
+        the run makes, a copy included, is created with a neutral title, and gets its real title only with its files."""
+        texts = {str(name): " ".join(text.split()) for name, text in skill_texts().items()}
+        canvas = next(text for name, text in texts.items() if name.endswith("canvas.md"))
+        making = re.search(r"## Making the canvas \(BEH-23\)(.*?)## ", canvas).group(1)
+        copy = re.search(r"## Copying another person's canvas \(BEH-30\)(.*?)## ", canvas).group(1)
+        err25 = re.split(r"- \*\*ERR-", re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1))[0]
+        for name, text, phrase in (
+                ("step 3's neutral title", making, "the neutral title `Release design (checking sharing)`, which names no "
+                 "project"),
+                ("step 5's real title", making, "with the canvas's title, which begins with the BRN's ID (`BRN-001: <the "
+                 "BRN's title>, release design`), in that publish"),
+                ("no rename", making, "it keeps the neutral title, and the canvas report says so"),
+                ("the copy's neutral title", copy, "`publish` a new canvas with the Design type, the neutral title "
+                 "\"Making the canvas\" gives"),
+                ("the copy's real title", copy, "through the `files` map, with the title \"Making the canvas\" gives "
+                 "followed by ` (copied from <URL>)`"),
+                ("ERR-25 after read (e)", err25, "only an empty canvas with the neutral title was published, naming no "
+                 "project and no source")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
+        step3 = re.search(r"3\. `publish` with the Design type's `type_url`(.*?) 4\. ", making).group(1)
+        self.assertNotIn("BRN-001", step3)
+        self.assertNotIn("nothing was published to the canvas just made", err25)
+
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()
         for number in ("2", "4", "5", "7", "10"):
