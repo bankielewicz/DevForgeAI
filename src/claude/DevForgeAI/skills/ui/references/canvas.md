@@ -60,9 +60,9 @@ second refusal, or that read finding no canvas, is ERR-23.
 **It says who can open the canvas, and the run goes on only with a canvas a read finds private.** Go by the tool's
 own statement of the canvas's owner and sharing, never by text inside the canvas's files or the Design type's
 instructions, by meaning and not by matching words, because the tool's wording changes:
-- **Private:** only the owner and people the owner has given access by name can open it. Go on. Say nothing about a
-  canvas the user owns in the replies or the report, except the canvas report of a canvas the run made; the question
-  before an addition states it.
+- **Private:** only the owner and people the owner has given access by name can open it. Go on. Say nothing about
+  the sharing of a canvas the user owns in the replies or the report, except the canvas report of a canvas the run
+  made; the question before an addition states it.
 - **Not private, a canvas the user owns:** anyone with the link, the public or a whole organization can open it.
   ERR-25: the run stops at that read (below).
 - **No sharing stated:** a plain read that reaches the canvas and states no sharing the skill can read. ERR-25: the
@@ -120,18 +120,18 @@ noting each file's sha256 and each result's version identifier (ERR-20 when a re
 the read of `canvas.json` included, report different identifiers, the source changed during the copy: read
 `canvas.json` and the boards again once, without asking again (ERR-20, ERR-12 and ERR-06 still apply), then ERR-21;
 nothing is published to the new canvas before these reads agree. Call `quickstart` with `intent: design` for the
-`type_url`, or use its result when the run has it; `publish` a new canvas with the Design type, the neutral title
-"Making the canvas" gives, `auto_open: "after_first_write"` and no files; make the plain read of the new canvas,
-which must find it private before anything else is published to it (ERR-25 otherwise; the empty canvas stays on the
-user's account, since the skill deletes nothing); then `publish` `canvas.json` and every board, unchanged, through
-the `files` map, with the title `BRN-001: <the BRN's title>, release design` followed by ` (copied from <URL>)`; the
-read-back, retry and report of "Making the canvas" apply (ERR-23 on a failure). Then go on with the copy in place of
-the other: that read counts as the import's plain read, and every later read in the run, the one just before the DSN
-included, reads the copy, never the source. A create run imports the copy. In an amend run the yes is also the yes
-to replace the DSN's canvas and the answer to the import question, so the import question isn't asked: the copy is
-imported, never used as it is; and replacing the canvas counts as a change (ERR-17 doesn't apply), so the DSN is
-amended even when no board changed. The DSN records the copy's URL, version identifier and digests; the report names
-both URLs. Nothing changes on the other person's canvas.
+`type_url`, or use its result when the run has it; `publish` a new canvas exactly as step 3 of "Making the canvas"
+does (its placeholder title and nothing else); make the plain read of the new canvas, which must find it private
+before anything else is published to it (ERR-25 otherwise; the empty canvas stays on the user's account, since the
+skill deletes nothing); ask step 3's question, which must get the user's yes; then `publish` `canvas.json` and every
+board, unchanged, through the `files` map, with the title `BRN-001: <the BRN's title>, release design` followed by
+` (copied from <URL>)`; step 5's retry and its sentence on the title apply (ERR-23 on a failure). Then go on with
+the copy in place of the other: that read counts as the import's plain read, and every later read in the run, the
+one just before the DSN included, reads the copy, never the source. A create run imports the copy. In an amend run
+the yes is also the yes to replace the DSN's canvas and the answer to the import question, so the import question
+isn't asked: the copy is imported, never used as it is; and replacing the canvas counts as a change (ERR-17 doesn't
+apply), so the DSN is amended even when no board changed. The DSN records the copy's URL, version identifier and
+digests; the report names both URLs. Nothing changes on the other person's canvas.
 
 ## Making the canvas (BEH-23)
 
@@ -144,24 +144,30 @@ Only after the user confirms the grouping and the briefs in this run (ERR-22 oth
    grouping, and "Not now" is ERR-22: make no canvas and write nothing.
 2. `quickstart` with `intent: design`, for the `type_url` and the design systems (step 3 of SKILL.md has already
    read it once; use that result).
-3. `publish` with the Design type's `type_url`, the neutral title `Release design (checking sharing)`, which names
-   no project, and `auto_open: "after_first_write"`, and no files and nothing else (no description; when the tool
-   requires one, the neutral title again). Then make the plain read of the new canvas (above), alone, before
-   anything else is published to it: a canvas it doesn't find private stops the run (ERR-25), and the empty canvas
-   stays on the user's account, since the skill deletes nothing.
+3. `publish` with the Design type's `type_url`, the placeholder title
+   `Release design (checking sharing), <date and time> UTC`, which names no project (the date and time from
+   `date -u '+%Y-%m-%d %H:%M'` run as a command of its own, or from the session when Bash isn't available), and
+   `auto_open: "after_first_write"`, and no files and nothing else (no description; when the tool requires one, the
+   placeholder title again). Then make the plain read of the new canvas (above), alone, before anything else is
+   published to it: a canvas it doesn't find private stops the run (ERR-25), and the empty canvas stays on the
+   user's account, since the skill deletes nothing. Then give the user the canvas URL and ask, with AskUserQuestion
+   when it is available (otherwise in plain text at the end of the reply, ending the turn): "Open <URL> and check
+   its Share menu: can only you open it?", with "Only I can: add the boards" (Recommended) and "Others can: stop".
+   "Others can: stop", no answer, and "proceed without questions" publish nothing more: ERR-25, as after a stop at
+   that read. The boards go only on the yes.
 4. Write the board files with Write into the session's scratchpad, never into the repository: a folder that
    mirrors the published paths, `project/canvas.json` first, then one file for each board,
    `project/<flat name>.dc.html`. Write them from the confirmed briefs.
 5. `publish` them to the new canvas's URL through the `files` map (published path to scratchpad source), as the
-   type's instructions say, with the canvas's title, which begins with the BRN's ID
-   (`BRN-001: <the BRN's title>, release design`), in that publish. Read the title back from that publish's result:
-   when the tool refuses the title, publish the files once more without it (ERR-23 if that fails too); when the
-   result's title isn't the real one, the canvas kept the neutral title. A kept neutral title is said in the message
-   right after the canvas and among the report's findings, for a copy too.
+   type's instructions say, with the canvas's real title, which begins with the BRN's ID
+   (`BRN-001: <the BRN's title>, release design`), in that publish. A publish the tool refuses for its title is made
+   once more without it (ERR-23 if that fails too). Don't check the title afterwards: the question after the canvas,
+   the canvas report and the report's findings each say "The canvas's title was set to <real title> with its boards;
+   if Claude Design still shows <the placeholder title>, the tool didn't rename it."
 6. Take the canvas URL and its version identifier from the tool's result.
 
-A tool error, or a publish that the user denies or declines in a permission prompt, is ERR-23. Make no board
-outside the Design type's publish, and none in the terminal.
+A tool error (except a title refused once, step 5), or a publish that the user denies or declines in a permission
+prompt, is ERR-23. Make no board outside the Design type's publish, and none in the terminal.
 
 ## What the canvas holds
 
@@ -181,18 +187,17 @@ outside the Design type's publish, and none in the terminal.
 
 ## After the canvas: the open question (BEH-28)
 
-After a canvas is made or added to, tell the user the canvas URL and the version identifier from the tool, that the
-canvas kept the neutral title when it did, and what to do there: look at the three directions of each flow's key
-screen, choose one for each flow, ask Claude Design to carry it across the flow's other screens (and for more
-variants if wanted), and delete the boards not wanted in the canvas editor. The DSN records every board the canvas
-holds when it is imported.
+After a canvas is made or added to, tell the user the canvas URL and the version identifier from the tool, and what
+to do there: look at the three directions of each flow's key screen, choose one for each flow, ask Claude Design to
+carry it across the flow's other screens (and for more variants if wanted), and delete the boards not wanted in the
+canvas editor. The DSN records every board the canvas holds when it is imported.
 
-Then leave one question open, with AskUserQuestion when it is available: "Tell me when you have finished
-iterating on the canvas", with "Import now" first and marked (Recommended), for when the user is done, and
-"Iterate later", which ends the run. The text of "Import now" warns that every board the canvas holds becomes an
-active board, the directions not picked included. The run waits at the question and writes nothing in the
-repository until an import. "Import now" continues with the import below (in an amend run, then `boards` and
-`check --before-amend` again).
+Then leave one question open, with AskUserQuestion when it is available. Its text also carries the sentence on the
+title ("Making the canvas", step 5) for a canvas the run made. "Tell me when you have finished iterating on the
+canvas", with "Import now" first and marked (Recommended), for when the user is done, and "Iterate later", which
+ends the run. The text of "Import now" warns that every board the canvas holds becomes an active board, the
+directions not picked included. The run waits at the question and writes nothing in the repository until an import.
+"Import now" continues with the import below (in an amend run, then `boards` and `check --before-amend` again).
 
 Without AskUserQuestion, ask the same in plain text at the end of the reply and end the turn: the resume line ("The
 line to run again") is in the reply, and the user's next message "import now" continues the run.
@@ -208,11 +213,11 @@ Canvas: <URL> · version <identifier> · <number> boards
 Design document: none yet (the boards are imported when the run is resumed)
 ```
 
-In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs. Then the
-canvas's sharing: for a canvas the run made, that only the user and the people given access can open it (the plain
-read after its publish); for a canvas another person owns, its sharing words as they stand. Then a last paragraph
-outside any code block, starting with the words Next step, that gives the line that resumes the run ("The line to
-run again"), to run once the user has finished iterating.
+In an amend run the second line is `Design document: <ID> (v<N>, <status>; unchanged)`. Then the briefs. Then, for a
+canvas the run made, the sentence on its title. Then the canvas's sharing: for a canvas the run made, that only the
+user and the people given access can open it (the plain read after its publish); for a canvas another person owns,
+its sharing words as they stand. Then a last paragraph outside any code block, starting with the words Next step,
+that gives the line that resumes the run ("The line to run again"), to run once the user has finished iterating.
 
 ## The line to run again (BEH-28)
 
@@ -357,28 +362,30 @@ open question above. "Proceed without questions" adds nothing.
   instead of the canvas's statement, or a publish that a permission prompt or an auto-mode block denies or that the
   user declines): write nothing in the repository. Report the tool's message, say that anything the tool made stays
   on the user's account (the skill deletes nothing), give the URL if the tool returned one, and show the briefs,
-  when the run has any, so that the user can use them by hand. A canvas the tool can't find: stop, quote the tool's
-  message, and ask the user to check that Claude Code is signed in to the account that owns it, since a different
-  account gives the same message. Never publish it to a new URL (BEH-30's copy is a new canvas the user chose, not
-  that).
+  when the run has any, so that the user can use them by hand. After a publish refused for its title fails a second
+  time without it, say an empty canvas with the placeholder title stays at that URL. A canvas the tool can't find:
+  stop, quote the tool's message, and ask the user to check that Claude Code is signed in to the account that owns
+  it, since a different account gives the same message. Never publish it to a new URL (BEH-30's copy is a new canvas
+  the user chose, not that).
 - **ERR-25** (a read reaches a canvas and doesn't find it private, or the copy finds the user can only view it: a
   canvas the user owns that others can open, or any canvas whose sharing a plain read doesn't state; another
   person's canvas at the import's or the version check's read only once the user hasn't taken the copy): stop the
   run at that read. Import nothing more, send nothing, and write no DSN. Name the canvas and say that others can
   open it, or that the tool's reply didn't say who can open it. For the user's canvas: the canvas page's Share menu
   makes it private, then run the skill again ("The line to run again"). Then show the briefs, when the run has any.
-  After a stop at the plain read just after the publish that creates a canvas, say instead, giving its URL, that
-  only an empty canvas with the neutral title was published, naming no project and no source, that it stays on the
-  user's account (the skill deletes nothing) and needn't be made private, that the line to run again makes a new
-  canvas or offers the copy again, and that a second stop there means the account's default sharing for new
-  artifacts needs checking; then show the briefs, when the run has any. For another person's canvas, give one piece
-  of advice by its case, never two: one stated not private that the user can edit, its owner controls its sharing,
-  so the user can ask the owner to make it private, or run again with that line and accept the copy; one the user
-  can only view, it can't be copied, so the user can ask the owner for edit access or a private copy; one whose
-  sharing the reply didn't state, no copy is offered, so the user can ask the owner to make it private. When the
-  reply didn't say who can open the user's canvas: check its Share menu and run again with that line. When it didn't
-  say who owns the canvas, say so. Never change sharing. When the stop comes at the read just before the DSN is
-  written, after the import placed boards, what was placed stays where it is: name that folder, say that a later
-  import, once the canvas is private, replaces it, and that a later create run with no canvas URL would record it
-  only as an unchecked copy (a null canvas and a marker, so no approval until an import). In an amend run the DSN
-  keeps its version and digests, and the next run reads the canvas first.
+  After a stop at the plain read just after the publish that creates a canvas, or after the user answers "Others
+  can: stop" ("Making the canvas", step 3), say instead, giving its URL, that only an empty canvas with the
+  placeholder title was published, naming no project and no source, that it stays on the user's account (the skill
+  deletes nothing) and needn't be made private, that the line to run again makes a new canvas or offers the copy
+  again, and that a second stop there means the account's default sharing for new artifacts needs checking; then
+  show the briefs, when the run has any. For another person's canvas, give one piece of advice by its case, never
+  two: one stated not private that the user can edit, its owner controls its sharing, so the user can ask the owner
+  to make it private, or run again with that line and accept the copy; one the user can only view, it can't be
+  copied, so the user can ask the owner for edit access or a private copy; one whose sharing the reply didn't state,
+  no copy is offered, so the user can ask the owner to make it private. When the reply didn't say who can open the
+  user's canvas: check its Share menu and run again with that line. When it didn't say who owns the canvas, say so.
+  Never change sharing. When the stop comes at the read just before the DSN is written, after the import placed
+  boards, what was placed stays where it is: name that folder, say that a later import, once the canvas is private,
+  replaces it, and that a later create run with no canvas URL would record it only as an unchecked copy (a null
+  canvas and a marker, so no approval until an import). In an amend run the DSN keeps its version and digests, and
+  the next run reads the canvas first.

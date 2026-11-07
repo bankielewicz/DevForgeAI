@@ -430,7 +430,7 @@ class Skill(unittest.TestCase):
                 ("an addition skips it", steps, "an import after an addition to the copy skips this check"),
                 ("the rerun after read (e)", canvas, "after a stop at the plain read made just after the publish that creates a canvas"),
                 ("the briefs at ERR-25", canvas, "show the briefs, when the run has any"),
-                ("a new canvas's report", canvas, "Say nothing about a canvas the user owns in the replies or the report, except the canvas report of a canvas the run made"),
+                ("a new canvas's report", canvas, "Say nothing about the sharing of a canvas the user owns in the replies or the report, except the canvas report of a canvas the run made"),
                 ("step 5's triggers", skill, "or after the yes to a copy in an amend run (BEH-30)"),
                 ("route C after a copy", skill, "after a copy, the import question isn't asked"),
                 ("rule 5's scratchpad", skill, "the files a copy's reads save")):
@@ -560,60 +560,65 @@ class Skill(unittest.TestCase):
         self.assertNotIn("until an import", line)
         self.assertNotIn("For one the user can only view:", err25)
 
-    def test_a_neutral_title_until_private(self):
-        """Codex's adversarial review of #157 (Bryan, 2026-11-06: "Neutral title until private (Recommended)"): a canvas
-        the run makes, a copy included, is created with a neutral title, and gets its real title only with its files."""
+    def test_the_users_check_and_the_title(self):
+        """Codex's adversarial review of #157 and the build's reviewers on b5a0245 and 6ca04c4 (Bryan, 2026-11-07: "Add
+        date and time (Recommended)"; "Option 1 - demand human verification to see if its shared or not", "Before the
+        boards go (Recommended)"): a canvas the run makes is created with a placeholder title and nothing else; after the
+        read finds it private the user confirms it in its Share menu; the boards go with the real title, which isn't
+        read back but is stated in one sentence."""
         texts = {str(name): " ".join(text.split()) for name, text in skill_texts().items()}
         canvas = next(text for name, text in texts.items() if name.endswith("canvas.md"))
+        rules = next(text for name, text in texts.items() if name.endswith("output-rules.md"))
+        skill = " ".join((SKILL / "SKILL.md").read_text().split())
         making = re.search(r"## Making the canvas \(BEH-23\)(.*?)## ", canvas).group(1)
         copy = re.search(r"## Copying another person's canvas \(BEH-30\)(.*?)## ", canvas).group(1)
+        after = re.search(r"## After the canvas: the open question \(BEH-28\)(.*?)## ", canvas).group(1)
+        ending = re.search(r"## Ending after the canvas(.*?)## ", canvas).group(1)
+        problems = re.search(r"## Problems(.*)$", canvas).group(1)
+        err23 = re.search(r"- \*\*ERR-23\*\*(.*?)(?=- \*\*ERR-|$)", problems).group(1)
         err25 = re.split(r"- \*\*ERR-", re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1))[0]
+        sentence = ("\"The canvas's title was set to <real title> with its boards; if Claude Design still shows <the "
+                    "placeholder title>, the tool didn't rename it.\"")
         for name, text, phrase in (
-                ("step 3's neutral title", making, "the neutral title `Release design (checking sharing)`, which names no "
-                 "project"),
-                ("step 5's real title", making, "with the canvas's title, which begins with the BRN's ID (`BRN-001: <the "
-                 "BRN's title>, release design`), in that publish"),
-                ("no rename", making, "when the result's title isn't the real one, the canvas kept the neutral title"),
-                ("the copy's neutral title", copy, "`publish` a new canvas with the Design type, the neutral title "
-                 "\"Making the canvas\" gives"),
+                ("the placeholder", making, "the placeholder title `Release design (checking sharing), <date and time> "
+                 "UTC`"),
+                ("its time", making, "`date -u '+%Y-%m-%d %H:%M'` run as a command of its own"),
+                ("nothing else first", making, "and no files and nothing else (no description; when the tool requires "
+                 "one, the placeholder title again)"),
+                ("the user's check", making, "\"Open <URL> and check its Share menu: can only you open it?\""),
+                ("its options", making, "\"Only I can: add the boards\" (Recommended) and \"Others can: stop\""),
+                ("no yes, no boards", making, "The boards go only on the yes"),
+                ("the real title", making, "with the canvas's real title, which begins with the BRN's ID "
+                 "(`BRN-001: <the BRN's title>, release design`), in that publish"),
+                ("one retry", making, "A publish the tool refuses for its title is made once more without it (ERR-23 if "
+                 "that fails too)"),
+                ("the sentence", making, sentence),
+                ("the copy's first publish", copy, "`publish` a new canvas exactly as step 3 of \"Making the canvas\" "
+                 "does (its placeholder title and nothing else)"),
+                ("the copy's check", copy, "ask step 3's question, which must get the user's yes"),
                 ("the copy's real title", copy, "through the `files` map, with the title `BRN-001: <the BRN's title>, "
                  "release design` followed by ` (copied from <URL>)`"),
-                ("ERR-25 after read (e)", err25, "only an empty canvas with the neutral title was published, naming no "
-                 "project and no source")):
+                ("the copy's sentence", copy, "step 5's retry and its sentence on the title apply"),
+                ("in the open question", after, "Its text also carries the sentence on the title (\"Making the "
+                 "canvas\", step 5) for a canvas the run made"),
+                ("in the canvas report", ending, "Then, for a canvas the run made, the sentence on its title"),
+                ("in the findings", rules, "for a canvas the run made or copied, the sentence on its title"),
+                ("ERR-23 after the retry", err23, "After a publish refused for its title fails a second time without it, "
+                 "say an empty canvas with the placeholder title stays at that URL"),
+                ("ERR-25 after the user's no", err25, "or after the user answers \"Others can: stop\""),
+                ("ERR-25's message", err25, "say instead, giving its URL, that only an empty canvas with the placeholder "
+                 "title was published, naming no project and no source"),
+                ("ERR-25's briefs", err25, "needs checking; then show the briefs, when the run has any"),
+                ("the tool error's exception", making, "A tool error (except a title refused once, step 5)"),
+                ("SKILL.md step 5", skill, "with the sentence on the title for a canvas the run made")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
         step3 = re.search(r"3\. `publish` with the Design type's `type_url`(.*?) 4\. ", making).group(1)
         self.assertNotIn("BRN-001", step3)
-        self.assertNotIn("nothing was published to the canvas just made", err25)
-
-    def test_the_title_read_back_retried_and_reported(self):
-        """The build's reviewers on b5a0245 (Bryan, 2026-11-06: "Retry, then report (Recommended)"): the first publish
-        sends nothing beyond the neutral title; the files' publish reads the title back, retries a refused title once
-        without it, and a kept neutral title is said after the canvas and in the findings, for a copy too."""
-        texts = {str(name): " ".join(text.split()) for name, text in skill_texts().items()}
-        canvas = next(text for name, text in texts.items() if name.endswith("canvas.md"))
-        rules = next(text for name, text in texts.items() if name.endswith("output-rules.md"))
-        making = re.search(r"## Making the canvas \(BEH-23\)(.*?)## ", canvas).group(1)
-        copy = re.search(r"## Copying another person's canvas \(BEH-30\)(.*?)## ", canvas).group(1)
-        after = re.search(r"## After the canvas: the open question \(BEH-28\)(.*?)## ", canvas).group(1)
-        err25 = re.split(r"- \*\*ERR-", re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1))[0]
-        for name, text, phrase in (
-                ("nothing else first", making, "and no files and nothing else (no description; when the tool requires "
-                 "one, the neutral title again)"),
-                ("read back", making, "Read the title back from that publish's result"),
-                ("one retry", making, "when the tool refuses the title, publish the files once more without it (ERR-23 "
-                 "if that fails too)"),
-                ("reported", making, "A kept neutral title is said in the message right after the canvas and among the "
-                 "report's findings, for a copy too"),
-                ("the copy applies it", copy, "the read-back, retry and report of \"Making the canvas\" apply"),
-                ("after the canvas", after, "that the canvas kept the neutral title when it did"),
-                ("the finding", rules, "a canvas that kept the neutral title because its files' publish didn't rename "
-                 "it"),
-                ("ERR-25 gives the URL", err25, "say instead, giving its URL, that only an empty canvas with the neutral "
-                 "title was published"),
-                ("ERR-25's briefs", err25, "needs checking; then show the briefs, when the run has any")):
-            with self.subTest(name):
-                self.assertIn(phrase, text)
+        for gone in ("Read the title back", "kept the neutral title", "neutral title"):
+            with self.subTest(gone=gone):
+                self.assertNotIn(gone, canvas)
+                self.assertNotIn(gone, rules)
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()

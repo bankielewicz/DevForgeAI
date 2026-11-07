@@ -239,10 +239,11 @@ canvas.md says (an amend run adds the new flow or screen to the existing one), o
 ### 5. Wait, then import (BEH-24, BEH-25, BEH-28, BEH-29, BEH-30, ERR-20, ERR-21, ERR-25)
 
 - **After a canvas is made or added to:** give the canvas URL and version identifier, say what to do there, and
-  leave one question open: "Tell me when you have finished iterating on the canvas", with "Import now" first and
-  marked (Recommended) and "Iterate later" (canvas.md). "Iterate later" and "proceed without questions" end the run:
-  write nothing in the repository, mark steps 6 to 9 skipped, and make the final reply the canvas report with the
-  line that resumes the run (canvas.md, "The line to run again").
+  leave one question open, with the sentence on the title for a canvas the run made: "Tell me when you have finished
+  iterating on the canvas", with "Import now" first and marked (Recommended) and "Iterate later" (canvas.md).
+  "Iterate later" and "proceed without questions" end the run: write nothing in the repository, mark steps 6 to 9
+  skipped, and make the final reply the canvas report with the line that resumes the run (canvas.md, "The line to
+  run again").
 - **Import** on "Import now", for a create run with a canvas URL and no copy, on route A's "Import the canvas
   again", on an amend run's "Import the canvas now", or after the yes to a copy in an amend run (BEH-30): read and
   place the boards as canvas.md says (the plain read alone, then `canvas.json`, then at most 4 boards a read, then
