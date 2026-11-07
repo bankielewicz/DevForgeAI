@@ -130,7 +130,8 @@ When the user declines, asks for another grouping or a change, or no answer can 
 "proceed without questions"): make no canvas and send nothing.
 - A changed grouping: propose it again and redraft the briefs.
 - A changed brief: redraft it and ask again.
-- Otherwise show the grouping and the briefs, say how to resume (run the skill again), and write nothing.
+- Otherwise show the grouping and the briefs, say how to resume with the line to run again (canvas.md, "The line to
+  run again"), and write nothing.
 
 ## When nothing names a screen (ERR-24)
 
