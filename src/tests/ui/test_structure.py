@@ -526,7 +526,7 @@ class Spec(unittest.TestCase):
     def test_spec_validates_and_every_item_is_covered(self):
         doc = spec_document(spec_text())
         self.assertEqual(errors("spec.schema.json", doc), [])
-        self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (SPEC_VERSION, "in-review"))
+        self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (SPEC_VERSION, "approved"))
         covered = {c for v in doc["verifications"] for c in v.get("covers", [])}
         for key in ("behaviors", "errors", "quality_responses"):
             for item in doc[key]:
