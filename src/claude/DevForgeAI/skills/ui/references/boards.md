@@ -107,12 +107,12 @@ where the import or the canvas goes. Tell the user:
 - **ERR-06** (a board file absent, not a regular file, unreadable, or its name not a flat plain file name): each
   such board, as the script reports it. For a name with a folder segment, say that the Design type allows it and
   this skill does not, and that the board is renamed on the canvas and the canvas imported again; for the others,
-  ask the user to import or copy the boards again. On the import path nothing is placed, though step 1's read
-  has saved `project/canvas.json` in the staging folder.
+  ask the user to import or copy the boards again. On the import path nothing is placed, though the import's
+  `canvas.json` read (canvas.md, step 1) has saved `project/canvas.json` in the staging folder.
 - **ERR-12** (more than 99 boards, or an amend would need a BRD number above 99, deprecated items counted):
   that the DSN's board IDs hold 99 items, the number needed, and a request that the owner split the canvas or
-  change the spec. On the import path nothing is placed, though step 1's read has saved `project/canvas.json`
-  in the staging folder.
+  change the spec. On the import path nothing is placed, though the import's `canvas.json` read (canvas.md,
+  step 1) has saved `project/canvas.json` in the staging folder.
 
 ## Amend runs: the facts
 
@@ -146,8 +146,9 @@ After every change to the items, `upstream` holds one item link for each distinc
 kept `withdrawn` idea included) and no other: add a link for a newly named idea, and drop the link of an idea
 no active board names any more.
 
-**Nothing to change (ERR-17).** With no fact line, the links current, no candidate left to put to the user and no
-change in the request, write nothing and raise no version. Say that the DSN is current, give its version and the
+**Nothing to change (ERR-17).** With no fact line, the links current, no candidate left to put to the user, no
+change in the request and no copy that replaced the DSN's canvas (BEH-30), write nothing and raise no version. Say
+that the DSN is current, give its version and the
 `canvas_version` it records, and say that the canvas was checked at that version, or that without the Artifact
 tool it was not checked and a board changed on the canvas is seen only when a run with the Artifact tool imports
 it, or when the boards are copied into the folder again by hand. When the run imported and the canvas's

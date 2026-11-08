@@ -574,6 +574,24 @@ class V2CaseTests(unittest.TestCase):
     def bodies(self):
         return {n: " ".join(front_matter(GENERATED / "brief-drafted" / "graders" / f"{n}.md")[1].split()) for n in self.BRIEF_JUDGES}
 
+    def test_writes_dsn_keeps_the_reply_of_a_run_that_stops(self):
+        # #153 item 73 (Bryan, 2026-11-07: "first add what item 73 suggests (a grader on the run's last turn, or a case
+        # note, that makes the exit-1 stop visible in the result)"): the eval sandbox ends every Bash command with exit 1
+        # after its output, and a run that stopped on it wrote no DSN and left no reply behind. A judge on the final reply
+        # keeps that reply in report.html, and the case's description names the mechanism.
+        c = case_by_name()["writes-dsn"]
+        self.assertEqual(["ver01-reply-says-dsn-001-written"], [g.name for g in c.graders if g.type == "llm"])
+        fm, body = front_matter(GENERATED / "writes-dsn" / "graders" / "ver01-reply-says-dsn-001-written.md")
+        self.assertEqual({"type": "llm"}, fm)
+        self.assertNotRegex(body, r"\bFAIL\b")   # the harness counts a vote as a pass only if the reply holds no FAIL
+        body = " ".join(body.split())
+        for phrase in ("Judge only its final reply", "DSN-001 was written in this run", "is not a pass"):
+            self.assertIn(phrase, body)
+        fm, _ = front_matter(GENERATED / "writes-dsn" / "prompt.md")
+        for phrase in ("every Bash command exits 1 after printing its output", "Read-only file system",
+                       "#153 item 73", "report.html"):
+            self.assertIn(phrase, fm["description"])
+
     def test_the_brief_llm_graders(self):
         # The harness's judge answers one word and keeps no reasons (only PASS or FAIL votes), so a seven-part rubric that fails
         # says nothing about which part: one criterion group for each grader, each with the facts it needs to be checked.
