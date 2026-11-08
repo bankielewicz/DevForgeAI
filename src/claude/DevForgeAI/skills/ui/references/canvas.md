@@ -228,8 +228,8 @@ ERR-25) is this one line. First find the canvas it names:
 - the canvas that stopped the run; else the canvas the run made (a copy included, never its source) or added to;
   else a canvas the request named that the user didn't decline at the question to replace the DSN's canvas (BEH-24);
 - except after a stop at the plain read made just after the publish that creates a canvas, or at the Share-menu
-  question that follows it ("Making the canvas", step 3), while the canvas is still empty: a new canvas names none,
-  and a copy names its source;
+  question that follows it on any reply but the yes ("Making the canvas", step 3), while the canvas is still empty:
+  a new canvas names none, and a copy names its source;
 - and after a copy's reads of its source don't agree, before anything is published (ERR-21): the source.
 
 Then the line is `/devforgeai:ui BRN-NNN <canvas URL>` with that canvas's URL, or `/devforgeai:ui BRN-NNN` with no
@@ -375,8 +375,9 @@ open question above. "Proceed without questions" adds nothing.
   run at that read. Import nothing more, send nothing, and write no DSN. Name the canvas and say that others can
   open it, or that the tool's reply didn't say who can open it. For the user's canvas: the canvas page's Share menu
   makes it private, then run the skill again ("The line to run again"). Then show the briefs, when the run has any.
-  After a stop at the plain read just after the publish that creates a canvas, or after the user answers "Others
-  can: stop" ("Making the canvas", step 3), say instead, giving its URL, that only an empty canvas with the
+  After a stop at the plain read just after the publish that creates a canvas, or at the Share-menu question that
+  follows it on any reply but the yes ("Others can: stop", no answer, a dismissed question; "Making the canvas",
+  step 3), say instead, giving its URL, that only an empty canvas with the
   placeholder title was published, naming no project and no source, that it stays on the user's account (the skill
   deletes nothing) and needn't be made private, that the line to run again makes a new canvas or offers the copy
   again, and that a second stop there means the account's default sharing for new artifacts needs checking; then

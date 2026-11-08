@@ -444,8 +444,8 @@ class Skill(unittest.TestCase):
                 ("the canvas named", "the canvas that stopped the run; else the canvas the run made (a copy included, "
                  "never its source) or added to; else a canvas the request named that the user didn't decline"),
                 ("read (e)", "just after the publish that creates a canvas, or at the Share-menu question that "
-                 "follows it (\"Making the canvas\", step 3), while the canvas is still empty: a new canvas names none, "
-                 "and a copy names its source"),
+                 "follows it on any reply but the yes (\"Making the canvas\", step 3), while the canvas is still empty: "
+                 "a new canvas names none, and a copy names its source"),
                 ("a copy's reads disagree", "after a copy's reads of its source don't agree, before anything is "
                  "published (ERR-21): the source"),
                 ("the line", "Then the line is `/devforgeai:ui BRN-NNN <canvas URL>` with that canvas's URL, or "
@@ -606,7 +606,8 @@ class Skill(unittest.TestCase):
                 ("in the findings", rules, "for a canvas the run made or copied, the sentence on its title"),
                 ("ERR-23 after the retry", err23, "After a publish refused for its title fails a second time without it, "
                  "say an empty canvas with the placeholder title stays at that URL"),
-                ("ERR-25 after the user's no", err25, "or after the user answers \"Others can: stop\""),
+                ("ERR-25 after the user's no", err25, "or at the Share-menu question that follows it on any reply "
+                 "but the yes (\"Others can: stop\""),
                 ("ERR-25's message", err25, "say instead, giving its URL, that only an empty canvas with the placeholder "
                  "title was published, naming no project and no source"),
                 ("ERR-25's briefs", err25, "needs checking; then show the briefs, when the run has any"),
@@ -633,13 +634,32 @@ class Skill(unittest.TestCase):
         making = re.search(r"## Making the canvas \(BEH-23\)(.*?)## ", canvas).group(1)
         for name, text, phrase in (
                 ("the line after the Share-menu question", line, "except after a stop at the plain read made just after "
-                 "the publish that creates a canvas, or at the Share-menu question that follows it (\"Making the "
-                 "canvas\", step 3), while the canvas is still empty: a new canvas names none, and a copy names its "
-                 "source"),
+                 "the publish that creates a canvas, or at the Share-menu question that follows it on any reply but the "
+                 "yes (\"Making the canvas\", step 3), while the canvas is still empty: a new canvas names none, and a "
+                 "copy names its source"),
                 ("the refused title's sentence", making, "rename it.\", or, after the publish made again without the "
                  "title, \"The tool refused the title <real title>; the canvas keeps <the placeholder title>.\"")):
             with self.subTest(name):
                 self.assertIn(phrase, text)
+
+    def test_any_reply_but_the_yes_at_the_share_menu_question(self):
+        """SPEC-017 v5 at 3e76654, reading (cg) (#153 item 66; Bryan, 2026-11-07: "Item 66: fix it in v5, now"; "Fold in
+        item 67's BEH-28 half, since it's the same sentence"): a stop at the Share-menu question on any reply but the
+        yes, a dismissed question included, gets ERR-25's message for the empty placeholder canvas, never the general
+        one, and the line to run again words that stop the same way."""
+        canvas = " ".join((SKILL / "references/canvas.md").read_text().split())
+        line = re.search(r"## The line to run again \(BEH-28\)(.*?)## ", canvas).group(1)
+        err25 = re.split(r"- \*\*ERR-", re.search(r"- \*\*ERR-25\*\*(.*)$", canvas).group(1))[0]
+        for name, text, phrase in (
+                ("ERR-25's message", err25, "After a stop at the plain read just after the publish that creates a "
+                 "canvas, or at the Share-menu question that follows it on any reply but the yes (\"Others can: "
+                 "stop\", no answer, a dismissed question; \"Making the canvas\", step 3), say instead, giving its URL, "
+                 "that only an empty canvas with the placeholder title was published"),
+                ("the line", line, "or at the Share-menu question that follows it on any reply but the yes "
+                 "(\"Making the canvas\", step 3), while the canvas is still empty")):
+            with self.subTest(name):
+                self.assertIn(phrase, text)
+        self.assertNotIn("or after the user answers \"Others can: stop\"", canvas)
 
     def test_the_plain_read_is_in_the_steps(self):
         skill = (SKILL / "SKILL.md").read_text()
