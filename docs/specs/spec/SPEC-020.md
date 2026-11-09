@@ -2,7 +2,7 @@
 id: SPEC-020
 type: spec
 title: "Test-first agents: three plugin agents that carry out one test-first change from a written plan"
-status: draft          # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 1
 created: 2026-11-09
 updated: 2026-11-09
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-fable-5-2"
   session: "9037a656-70d0-43bb-828a-447520233f48"
 reviewed_by: []
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-11-09
 upstream:
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 14, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
@@ -32,8 +32,8 @@ components: ["src/claude/DevForgeAI/agents/tdd-test-writer.md", "src/claude/DevF
 
 # SPEC-020 — Test-first agents: three plugin agents that carry out one test-first change from a written plan
 
-> **Status:** version 1, draft. Written on 2026-11-09 from a design Bryan approved that day for writing, and from his
-> four answers of the same day on how to record it (§2). Not reviewed, not approved, not built. The agents' texts have
+> **Status:** version 1, approved by Bryan on 2026-11-09 ("i approve"). Written that day from a design he approved
+> for writing, and from his four answers on how to record it (§2). Not built. The agents' texts have
 > never been run (§9, §13).
 
 ## 1. Overview
@@ -721,3 +721,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 |---|---|---|---|---|
 | 1 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Initial draft, from Bryan's design of 2026-11-09 for three test-first agents and his answers of the same day: a new spec; workers, not experts; the verifier in disposable worktrees with a recorded reading of ADR-005 D7 for the implementer's undo and the retry's reset; structure tests plus one live run on a scratch repository | all |
 | 1 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Before approval, Bryan's answers to §13 items 1, 2 and 5: only VER-02 gates the first release; §4 item 9 and its two checks confirmed, with the verifier's wording; the orchestrator's rules are restated by the first plan and ship with the plugin before a further repository uses the agents | §9, §11, §13 |
+| 1 | 2026-11-09 | Bryan | Approved ("i approve"), with only VER-02 gating the first release | status |
