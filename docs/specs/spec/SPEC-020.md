@@ -635,7 +635,8 @@ verifications:
       - ERR-08
 ```
 
-Bryan asked for VER-02 before release. Whether VER-03 also gates the first release is §13 item 1.
+VER-02 gates the first release; VER-03 doesn't, and stays recorded as not run until it is (Bryan, 2026-11-09; §13
+item 1).
 
 ## 10. Rollout, migration and rollback
 
@@ -665,7 +666,7 @@ tdd-test-writer, tdd-implementer, tdd-verifier", with `/plugin-dev:skill-develop
    `claude plugin validate`.
 4. Run plugin-validator and skill-reviewer on the final commit; take any finding that would change §5's texts to
    Bryan, since a text change is a spec change.
-5. Run VER-02 on a scratch repository (and VER-03, by §13 item 1's answer); record the results in §9.
+5. Run VER-02 on a scratch repository and record the results in §9. VER-03 doesn't gate the release (§13 item 1).
 6. Commit, push, pull request, version bump and release only on Bryan's go-ahead, each separately.
 
 ## 12. Alternatives considered
@@ -686,12 +687,14 @@ tdd-test-writer, tdd-implementer, tdd-verifier", with `/plugin-dev:skill-develop
 
 For Bryan, in order. None of these is a requirement until he decides it.
 
-1. **Does VER-03 (the failure paths and the second run) gate the first release, or only VER-02?** His answer named
-   one live run. VER-03 is written so the paths are recorded as not run, not forgotten.
+1. **Resolved (Bryan, 2026-11-09): only VER-02 gates the first release.** VER-03 stays recorded as not run. As
+   sent: running it "means staging six failure scenarios by hand", and the riskiest path, the automatic second run,
+   "keeps the failed commit on a backup branch, so a broken retry" on a real change "costs time, not work".
 2. **§4 item 9 and the two texts it touches.** Moving the verifier to disposable worktrees needs the input document
    to name their folder and how to prepare one. This draft adds that as item 9, and adds it to the lists the
-   test-writer and the implementer check, so a missing folder stops the work at its start and not at its end. Those
-   two additions change texts Bryan approved; confirm or strike them.
+   test-writer and the implementer check, so a missing folder stops the work at its start and not at its end. **Resolved
+   (Bryan, 2026-11-09): confirmed**, with the verifier's wording in §5.3. As sent: "otherwise a missing folder is
+   discovered only after the tests and code are already committed."
 3. **Not verified** (VER-02 records the first three):
    - that `effort: medium` and a full model ID take effect for a plugin agent on the installed Claude Code build
      (source: `docs/research/Claude/subagents.md`, read 2026-11-09; not tried);
@@ -705,6 +708,9 @@ For Bryan, in order. None of these is a requirement until he decides it.
 5. **The orchestrator's rules have no carrier.** BEH-11 and BEH-12 bind the main conversation, which in another
    repository sees only the three descriptions. Until something carries them (a skill, a reference file the
    descriptions point to, or the input document itself), each input document or its session must restate them.
+   Bryan, 2026-11-09: this doesn't block the first use, whose plan states the run order, the checks between agents
+   and the second run itself and points at this spec; before the agents are used in a further repository the rules
+   should ship with the plugin, as a small skill or a reference file. Which of the two is undecided.
 6. **An eval suite.** None is specified (§9). A probe would show whether an eval run can start a plugin agent, and whether
    the agents can commit in a repository the run makes itself.
 7. **The dev step.** Whether the later dev spec (ADR-005 D1) uses these agents for its `tdd` variant.
@@ -714,3 +720,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | Version | Date | Author | Change | Items affected |
 |---|---|---|---|---|
 | 1 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Initial draft, from Bryan's design of 2026-11-09 for three test-first agents and his answers of the same day: a new spec; workers, not experts; the verifier in disposable worktrees with a recorded reading of ADR-005 D7 for the implementer's undo and the retry's reset; structure tests plus one live run on a scratch repository | all |
+| 1 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Before approval, Bryan's answers to §13 items 1, 2 and 5: only VER-02 gates the first release; §4 item 9 and its two checks confirmed, with the verifier's wording; the orchestrator's rules are restated by the first plan and ship with the plugin before a further repository uses the agents | §9, §11, §13 |
