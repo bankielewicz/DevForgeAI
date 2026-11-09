@@ -86,13 +86,14 @@ them. They are recorded by this spec alone.
 - A finished agent is never continued. Every run is a new agent with an empty context.
 - A verifier verdict of `FAIL` gets one automatic second run of the implementer: "One automatic retry" (BEH-12).
 
-**Decided by Bryan on 2026-11-09, on how to record and fit them:**
+**Decided by Bryan on 2026-11-09, on how to record and fit them** (his four choices; the words quoted are as sent
+in his answer):
 - **A new spec** ("Record form: 1, New spec"), since the limits (§1) and the orchestrator's rules (BEH-11, BEH-12)
   need a home and the structure tests need something to cite.
 - **Workers, not experts** ("ADR fit: 1, Workers, not experts. These agents recommend nothing and only carry out a
   written plan, so the 'experts never get Write, Edit or Bash' rule isn't about them").
-  - ADR-003 A7's contract (an expert recommends only) doesn't apply to them, and neither does any later decision
-    about experts.
+  - ADR-003 A7's contract (an expert recommends only) doesn't apply to them. Neither does the draft ADR-009's D2
+    (experts are read-only; PR #164, not on `main`), which is about experts.
   - They are not the dev step. ADR-005 D1 ("There is no separate skill for any method") still governs the later dev
     spec, which may use these agents or not; nothing here selects on `testing.method`.
 - **ADR-005 D7: the verifier moves to disposable worktrees; the other two keep a recorded reading** ("D7 conflict:
@@ -587,17 +588,17 @@ quality_responses:
 | Structural: this spec against `spec.schema.json` | Passes, with every BEH, ERR and QR item covered (checked 2026-11-09, version 1) |
 | VER-01 | Not run: not built |
 | VER-02 | Not run: not built |
-| VER-03 | Not run: not released |
+| VER-03 | Not run: not built |
 
-There is no eval suite. The agents belong to no skill, and their work is commits in a git repository, which an eval
-run's Bash can't make in a scaffold-built repository (CLAUDE.md, "Evaluating a skill"). Whether a suite is worth
-building is §13's question. This spec specifies no story, so its VER items carry no `upstream`.
+There is no eval suite. The agents belong to no skill, and no eval case here has exercised a plugin agent (SPEC-014
+§13 item 7: "no case allows the Agent tool"). Whether an eval run can start these agents and let them commit is not
+verified; a suite is §13's question. This spec specifies no story, so its VER items carry no `upstream`.
 
 ```yaml items
 verifications:
   - id: VER-01
     status: active
-    obligation: "src/tests/tdd-agents/test_structure.py, for each of the three files: the file equals §5's block for it byte for byte; the frontmatter keys are exactly name, description, tools, model, effort, in that order; name equals the file name without .md; tools, split on commas and trimmed, equals §5's list, and Agent is in none; model is claude-opus-5-5 and effort is medium; the description is one double-quoted line; the body holds none of these strings in any case: /home/, bankielewicz, npm run, claude plugin, 95; the body holds the headings ## Steps, ## Rules and ## Reply format, and the test-writer's and the implementer's also ## Stop and report, changing nothing more, when; the body holds [evidence: command N], and [UNVERIFIED] (test-writer, implementer) or NOT REPRODUCED (verifier); the body holds Refactor: none, Refactor: allowed and input document incomplete:; the implementer's body holds GREEN:, and the verifier's Green commit: and criterion <number>; the descriptions hold 'three lines' (test-writer), 'four lines' (implementer) and 'six lines' (verifier); the verifier's body holds git worktree add --detach and ## Earlier commits, and no command that checks out or resets the worktree (its only mentions of checkout, switch, reset, restore, stash and clean are the rule forbidding them). Also: the agents folder holds exactly spec-lookup.md and the three files; this spec validates against spec.schema.json and every BEH, ERR and QR item is covered by a VER item."
+    obligation: "src/tests/tdd-agents/test_structure.py, for each of the three files: the file equals §5's block for it byte for byte; the frontmatter keys are exactly name, description, tools, model, effort, in that order; name equals the file name without .md; tools, split on commas and trimmed, equals §5's list, and Agent is in none; model is claude-opus-5-5 and effort is medium; the description is one double-quoted line; the body holds none of these strings in any case: /home/, bankielewicz, npm run, claude plugin, 95; the body holds the headings ## Steps, ## Rules and ## Reply format, and the test-writer's and the implementer's also ## Stop and report, changing nothing more, when; the body holds [evidence: command N], and [UNVERIFIED] (test-writer, implementer) or NOT REPRODUCED (verifier); the body holds Refactor: none, Refactor: allowed and input document incomplete:; the implementer's body holds GREEN:, and the verifier's Green commit: and criterion <number>; the descriptions hold 'three lines' (test-writer), 'four lines' (implementer) and 'six lines' (verifier); the verifier's body holds git worktree add --detach and ## Earlier commits, and names git checkout, git switch, git reset, git restore, git stash and git clean only in the one rule that forbids them. Also: the three files exist in the agents folder; this spec validates against spec.schema.json and every BEH, ERR and QR item is covered by a VER item."
     level: unit
     covers:
       - BEH-01
@@ -606,7 +607,7 @@ verifications:
       - QR-01
   - id: VER-02
     status: active
-    obligation: "Live, before any release, in a plain Claude Code session started with --plugin-dir on a copy of the build, on a scratch git repository made for the run, outside every project. The scratch input document holds §4's nine items, says 'Refactor: allowed', gives test code holding one \\u escape, and has at least one mutant and one criterion about the red commit. The main conversation follows BEH-11. Pass when: (a) the three agents run in order from new contexts and each reply has exactly its headings; (b) the test-writer's commit holds only the test files and the tests fail as required; (c) the implementer's green commit holds no test file, and its refactor step either commits separately or changes nothing; (d) the verifier's VERDICT is PASS, with one CHECKS line per point, the red failure reproduced in a disposable worktree, and afterwards a clean status at the final commit and no leftover worktree; (e) the committed test file holds the escape as the input document gives it. Recorded with it, pass or not: each agent's model and effort as its row in /tasks shows them; whether a command starting with cd <folder> && raises a permission prompt in a subagent; every reply as returned."
+    obligation: "Live, before any release, in a plain Claude Code session started with --plugin-dir on a copy of the build, on a scratch git repository made for the run, outside every project. The scratch input document holds §4's nine items, says 'Refactor: allowed', gives test code holding one \\u escape, and has one criterion about the red commit and no mutant (§4 item 3: mutants given as replacements of exact lines need 'Refactor: none'; VER-03 (e) runs one). The main conversation follows BEH-11. Pass when: (a) the three agents run in order from new contexts and each reply has exactly its headings; (b) the test-writer's commit holds only the test files and the tests fail as required; (c) the implementer's green commit holds no test file, and its refactor step either commits separately or changes nothing; (d) the verifier's VERDICT is PASS, with one CHECKS line per point, the red failure reproduced in a disposable worktree, and afterwards a clean status at the final commit and no leftover worktree. Recorded with it, pass or not: whether the committed test file holds the \\u escape as the input document gives it, or the character it stands for; each agent's model and effort as its row in /tasks shows them; whether a command starting with cd <folder> && raises a permission prompt in a subagent; every reply as returned."
     level: manual
     covers:
       - BEH-02
@@ -704,8 +705,8 @@ For Bryan, in order. None of these is a requirement until he decides it.
 5. **The orchestrator's rules have no carrier.** BEH-11 and BEH-12 bind the main conversation, which in another
    repository sees only the three descriptions. Until something carries them (a skill, a reference file the
    descriptions point to, or the input document itself), each input document or its session must restate them.
-6. **An eval suite.** None is specified (§9). A probe would show whether a run's own `git init` repository lets the
-   agents commit under the eval sandbox.
+6. **An eval suite.** None is specified (§9). A probe would show whether an eval run can start a plugin agent, and whether
+   the agents can commit in a repository the run makes itself.
 7. **The dev step.** Whether the later dev spec (ADR-005 D1) uses these agents for its `tdd` variant.
 
 ## Change Log
