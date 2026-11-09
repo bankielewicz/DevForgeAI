@@ -7,7 +7,7 @@ For agents/tdd-test-writer.md, agents/tdd-implementer.md and agents/tdd-verifier
   double-quoted line that names the task message's line count;
 - the body names no repository, owner, absolute path, test command or coverage figure (BEH-03);
 - the body holds the headings, the evidence markers and the input-document checks §5 fixes;
-- the verifier runs earlier commits in a disposable worktree, and names the git commands that would change the
+- the verifier makes its fixed checks, runs earlier commits and mutants in a disposable worktree, and names the git commands that would change the
   worktree only in the one rule that forbids them (BEH-07);
 - SPEC-020 validates against spec.schema.json, and every BEH, ERR and QR item is covered by a VER item.
 
@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[3]
 AGENTS = ROOT / "src/claude/DevForgeAI/agents"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-020.md"
-SPEC_VERSION = 1
+SPEC_VERSION, SPEC_STATUS = 2, "in-review"   # version 1 approved 2026-11-09; version 2 awaits Bryan
 
 WRITE_TOOLS = ["Read", "Grep", "Glob", "Edit", "Write", "Bash"]
 TOOLS = {"tdd-test-writer": WRITE_TOOLS, "tdd-implementer": WRITE_TOOLS,
@@ -138,17 +138,33 @@ class Agents(unittest.TestCase):
                 for s in ("Refactor: none", "Refactor: allowed", "input document incomplete:", "missing input:"):
                     self.assertIn(s, body)
                 self.assertIn("disposable worktrees", body)
+                # ERR-07, in all three.
+                self.assertIn("Never create what it's missing, and never claim its result.", body)
 
     def test_commit_names_in_the_replies(self):
         bodies = {name: body for name, *_, body in self.each()}
-        self.assertIn("\nGREEN: ", bodies["tdd-implementer"])
+        self.assertIn("\nGREEN: <the green commit from step 8, or none when you stopped before making it>\n",
+                      bodies["tdd-implementer"])
+        # The refactor's undo deletes created files by name (ADR-005 D7 names git clean).
+        self.assertEqual(bodies["tdd-implementer"].count("git clean"), 1)
+        self.assertIn("never with `git clean`", bodies["tdd-implementer"])
+        self.assertNotIn("git clean", bodies["tdd-test-writer"])
         self.assertIn("`Green commit:`", bodies["tdd-verifier"])
         self.assertIn("criterion <number>", bodies["tdd-verifier"])
         self.assertIn("VERDICT: PASS | FAIL | INCOMPLETE", bodies["tdd-verifier"])
 
+    def test_verifier_s_fixed_checks(self):
+        body = next(body for name, *_, body in self.each() if name == "tdd-verifier")
+        checks = body.split("\nCHECKS:\n")[1].split("\nMUTANTS:\n")[0].splitlines()
+        self.assertEqual([line.split(":")[0].split(",")[0] for line in checks],
+                         ["- start", "- commits", "- red", "- command <number>", "- paths", "- criterion <number>",
+                          "- end"])
+        self.assertIn("don't run it\n   again: its line cites that command", body)
+        self.assertIn("`INCOMPLETE` when the `start` line is `NOT REPRODUCED`", body)
+
     def test_verifier_never_changes_the_worktree(self):
         body = next(body for name, *_, body in self.each() if name == "tdd-verifier")
-        self.assertIn("\n## Earlier commits\n", body)
+        self.assertIn("\n## Disposable worktrees\n", body)
         self.assertIn("git -C <worktree> worktree add --detach <folder> <commit>", body)
         self.assertIn("git -C <worktree> worktree remove --force <folder>", body)
         # The one rule that forbids them is the first bullet under "## Rules"; they appear nowhere else.
@@ -159,13 +175,15 @@ class Agents(unittest.TestCase):
                 self.assertIn(f"`{command}`", rule)
                 self.assertEqual(body.count(command), 1)
         self.assertNotIn("git -C <worktree> checkout", body)
+        self.assertIn("Remove only a folder you added in this run.", body)
+        self.assertIn("never in the\n   worktree", body)
 
 
 class Spec(unittest.TestCase):
     def test_spec_validates_and_every_item_is_covered(self):
         doc = spec_document(SPEC.read_text())
         self.assertEqual(errors("spec.schema.json", doc), [])
-        self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (SPEC_VERSION, "approved"))
+        self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (SPEC_VERSION, SPEC_STATUS))
         covered = {c for v in doc["verifications"] for c in v.get("covers", [])}
         for key in ("behaviors", "errors", "quality_responses"):
             for item in doc[key]:

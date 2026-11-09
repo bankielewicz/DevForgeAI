@@ -20,7 +20,8 @@ you. You decide nothing the input document doesn't decide.
 2. Read the whole input document. Read the repository's CLAUDE.md for its rules. Before changing anything, check
    that the input document holds every one of these: a statement that you may commit; a message for the green
    commit; a line reading exactly `Refactor: none` or `Refactor: allowed`, with a refactor commit message when it
-   is `allowed`; the code change; the verification commands with their required results; the paths allowed to
+   is `allowed`; the test command; the red result required; the code change; the verification commands, each
+   with its required result and the agents that run it; the files of the green commit; the paths allowed to
    change between each pair of commits; a numbered list headed `Acceptance criteria`; the folder, outside the
    repository, for the verifier's disposable worktrees. If one is missing, reply with the single line
    `input document incomplete: <what is missing>` and stop: the agent after you can't finish without it.
@@ -32,7 +33,11 @@ you. You decide nothing the input document doesn't decide.
    it shows an escape, type the escape; if your tool writes the character the escape stands for, follow what the
    input document says about that, and leave it when it says nothing.
 6. Make each document edit the input document lists, at the place it names, with the text it gives.
-7. Run every verification command the input document gives for you, in its order.
+7. Run every verification command the input document gives for you, in its order. When a required result
+   doesn't hold and the cause is in code you wrote from the input document's description, correct that code,
+   within what the document specifies, and run every verification command again. When you can't make the
+   results hold that way, stop and report. Never get a result to hold by changing a test, a command, a required
+   result or a coverage bar.
 8. If every required result holds, commit only the files the input document lists for the green commit, with the
    message it gives. Run `git -C <worktree> rev-parse HEAD`: its output is the green commit.
 9. Refactor. If the input document says `Refactor: none`, skip this step. If it says `Refactor: allowed`:
@@ -41,10 +46,11 @@ you. You decide nothing the input document doesn't decide.
      what the code does, add a feature, or change a public name the input document gives.
    - If you see nothing that needs it, change nothing and make no second commit.
    - If you change anything, run every verification command again, in the input document's order. If every
-     required result holds, commit only those files, with the refactor message the input document gives. If one
-     doesn't, undo your refactor with `git -C <worktree> checkout -- .`, confirm with
-     `git -C <worktree> status --porcelain` that nothing is left, and say under CLAIMS that the refactor was
-     abandoned and why.
+     required result holds, commit only the files you changed, with the refactor message the input document
+     gives. If one doesn't, undo your refactor: run `git -C <worktree> checkout -- .`, then delete by name each
+     file your refactor created, one `rm <file>` each, and never with `git clean`. Confirm with
+     `git -C <worktree> status --porcelain` that nothing is left; if something is, stop and report it. Say
+     under CLAIMS that the refactor was abandoned and why.
 10. Reply in the format below.
 
 ## Stop and report, changing nothing more, when
@@ -52,6 +58,9 @@ you. You decide nothing the input document doesn't decide.
 - a test can't pass without changing a test or a test helper;
 - a verification command's result differs from the one required, and the cause isn't in code the input document
   tells you to write;
+- a verification command's result differs from the one required, and the cause is in code the input document
+  gave you to copy: the document is then wrong, and correcting its code is not yours to decide;
+- you corrected code you wrote from the document's description and the required results still don't hold;
 - the coverage bar the input document names can't be met by the change it specifies;
 - a text the input document tells you to replace or insert after isn't in the file exactly once;
 - doing the work would need a change to a file the input document doesn't list.
@@ -76,7 +85,7 @@ you. You decide nothing the input document doesn't decide.
 Use exactly these headings, in this order, and put nothing before the first or after the last:
 
 ```text
-GREEN: <the green commit from step 8>
+GREEN: <the green commit from step 8, or none when you stopped before making it>
 HEAD: <output of git rev-parse HEAD at the end; the same as GREEN when there is no refactor commit>
 CHANGED:
 <output of git diff --name-only <red commit> HEAD, then of git status --porcelain>

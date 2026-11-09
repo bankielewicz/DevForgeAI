@@ -3,7 +3,7 @@
 # Usage: bash src/tests/tdd-agents/make_scratch.sh <new-folder>
 # The folder must not exist and must be outside every project. It gets:
 #   repo/     a git repository with one commit: slug.py, tests/test_slug.py and a .gitignore for __pycache__
-#   plan.md   the input document (SPEC-020 §4's nine items; Refactor: allowed; one \u escape; no mutant)
+#   plan.md   the input document (SPEC-020 §4's twelve items; Refactor: allowed; one \u escape; no mutant)
 # The verifier's disposable worktrees go in <new-folder>/verifier-wt, which this script does not create.
 set -euo pipefail
 
@@ -66,7 +66,7 @@ Refactor: allowed
 
 ## 2. The test command
 
-Run in the worktree:
+The one command that runs the tests. Run in the worktree:
 
 \`\`\`
 cd $R && python3 -m unittest discover -s tests -v
@@ -101,13 +101,17 @@ an \`AssertionError\`; \`test_spaces_become_hyphens\` passes (\`ok\`).
 
 In \`slug.py\`, \`slugify\` must fold accented letters to their base letters before lowercasing: decompose the text
 with \`unicodedata.normalize("NFKD", text)\` and drop every character for which \`unicodedata.combining\` is non-zero.
-Its name, its one parameter and its existing behaviour (strip, lowercase, spaces to hyphens) stay.
+Its name, its one parameter and its existing behaviour (strip, lowercase, spaces to hyphens) stay. The code is
+described here, not given to copy.
+
+Files of the green commit: \`slug.py\`. Files of the refactor commit, when there is one: \`slug.py\`.
 
 There are no document edits.
 
 ## 5. Verification commands
 
-1. The test command of section 2. Required result: exit 0, \`Ran 2 tests\`, \`OK\`.
+1. The test command of section 2. Required result: exit 0, \`Ran 2 tests\`, \`OK\`. Run by: the implementer and
+   the verifier.
 
 ## 6. Paths allowed to change
 
@@ -119,11 +123,9 @@ There are no document edits.
 
 ## 7. The verifier's disposable worktrees
 
-Folder: \`$S/verifier-wt\` (outside the repository). No command is needed to prepare one. In it, the test command is:
-
-\`\`\`
-cd $S/verifier-wt && python3 -m unittest discover -s tests -v
-\`\`\`
+Folder: \`$S/verifier-wt\` (outside the repository; it doesn't exist until the verifier adds a worktree there, and
+its parent does). No command is needed to prepare one. In it, the test command of section 2 runs with that folder
+in place of the worktree.
 
 There are no mutants.
 

@@ -18,14 +18,17 @@ You decide nothing the input document doesn't decide.
 2. Read the whole input document. Read the repository's CLAUDE.md for its test rules. Before changing anything,
    check that the input document holds every one of these: a statement that you and the implementer may commit;
    a message for the red commit and for the green commit; a line reading exactly `Refactor: none` or
-   `Refactor: allowed`, with a refactor commit message when it is `allowed`; the tests and the red result
-   required; the code change; the verification commands with their required results; the paths allowed to change
-   between each pair of commits; a numbered list headed `Acceptance criteria`; the folder, outside the
-   repository, for the verifier's disposable worktrees. If one is missing, reply with the single line
-   `input document incomplete: <what is missing>` and stop: the agents after you can't finish without it.
+   `Refactor: allowed`, with a refactor commit message when it is `allowed`; the test command; the baseline
+   commands you run before any change, with their required results; the tests and the red result required; the
+   code change; the verification commands, each with its required result and the agents that run it; the files
+   of the green commit; the paths allowed to change between each pair of commits; a numbered list headed
+   `Acceptance criteria`; the folder, outside the repository, for the verifier's disposable worktrees. If one is
+   missing, reply with the single line `input document incomplete: <what is missing>` and stop: the agents after
+   you can't finish without it.
 3. Run `git -C <worktree> status --porcelain` and `git -C <worktree> rev-parse HEAD`. If the status isn't empty,
-   stop and report it.
-4. Run the baseline commands the input document gives for you, in its order, and record each one's output.
+   or HEAD isn't the base commit, stop and report it.
+4. Run the baseline commands the input document gives for you, in its order, and record each one's output. If a
+   result differs from the one required, stop and report.
 5. Write the tests exactly as the input document gives them, in the files and at the places it names. Copy code
    it gives character for character. Where it shows an escape, type the escape; if your tool writes the character
    the escape stands for, follow what the input document says about that, and leave it when it says nothing.
@@ -50,6 +53,8 @@ You decide nothing the input document doesn't decide.
 - Never write a test that prints or fakes a coverage figure or a test count.
 - Never push, open or edit a pull request, merge, or change a branch other than by the one commit above.
 - Never edit a file the input document or the repository's CLAUDE.md calls protected.
+- When a command the input document names can't run for a reason it describes, list it under NOT RUN with that
+  reason. Never create what it's missing, and never claim its result.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.

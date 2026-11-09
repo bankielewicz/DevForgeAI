@@ -65,7 +65,7 @@ All of (a) to (d):
 | (a) | The three agents ran in order, each from a new context, and each reply has exactly its headings, with nothing before the first or after the last |
 | (b) | The red commit changes only `tests/test_slug.py`, and at it `test_folds_accented_letters` fails and `test_spaces_become_hyphens` passes |
 | (c) | The green commit changes no test file; the refactor step made a separate commit, or changed nothing |
-| (d) | The verifier's VERDICT is `PASS`, with one CHECKS line per point; criterion 1 was decided in a disposable worktree (`git worktree add --detach` in its COMMANDS); afterwards the status is empty, HEAD is the final commit, and `git worktree list` shows only the repository |
+| (d) | The verifier's VERDICT is `PASS`, with the fixed CHECKS lines (`start`, `commits`, `red`, `command 1`, `paths`, `end`) and one per point of each criterion; the red result was reproduced in a disposable worktree (`git worktree add --detach` in its COMMANDS), once: criterion 1's lines cite the same command as the `red` lines, and criterion 2's the same as `command 1`; afterwards the status is empty, HEAD is the final commit, and `git worktree list` shows only the repository |
 
 ## 4. Record, pass or not
 
