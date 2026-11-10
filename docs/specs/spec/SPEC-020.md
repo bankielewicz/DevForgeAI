@@ -157,8 +157,16 @@ answer):
 - **A clean worktree tolerates the sandbox's placeholders** ("Yes: the 'A clean worktree' section as worded, with
   stat and 'character special file 1,3'"). An untracked entry counts as a placeholder only when `stat` shows the
   null device; anything else makes the status not empty (BEH-13).
-- **A real file under `.claude/.cc-writes` makes the status not empty** ("Yes"). On his machine that folder is
-  empty on disk, and his global git ignore excludes it.
+- **The section's commands, after the reviews of version 3's first build** (`07b2b39`) reproduced two defects in
+  that wording: a file named `-L` read by `stat` as an option, which let a dirty tree read as empty, and untracked
+  names run as shell text. He replaced them ("Yes: replace the section's commands with the two you propose"): no
+  file name goes into a command; `git ls-files --others --exclude-standard -z` feeds `xargs -0 -r stat`, and the
+  status is empty only when the line counts match and every line is the null device.
+- **Ignored files never count** ("Keep git's own meaning: ignored files never count... No --ignored"). So a real
+  file under `.claude/.cc-writes` makes the status not empty only where git doesn't ignore that folder; his global
+  git ignore excludes it, and on his machine it is empty on disk.
+- **No command before step 3** ("Steps 1 and 2 only read, with the Read tool: run no command before step 3"), so a
+  single-line reply never follows a command that nothing lists.
 - **Every command is listed** ("List every command you ran under COMMANDS, in the order you ran it; run none you
   don't list"), in all three agents (BEH-09).
 - **The runbook** drops "in the foreground" from its prompt; records whether the sandbox lets the verifier's
@@ -306,17 +314,20 @@ You decide nothing the input document doesn't decide.
 
 Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices
 with names such as `.bashrc` or `.mcp.json`. They are no part of the repository, and git can't hold one.
-Wherever a step asks whether the status is empty, decide it this way:
+Wherever a step asks whether the status is empty, decide it with these two commands, typed as given apart
+from the worktree's path:
 
-1. Run `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
-2. If any line doesn't start with `??`, the status is not empty.
-3. Otherwise run `cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`. The status is empty only when
-   every line it prints starts with `character special file 1,3`. Any other line, or a path it can't read,
-   makes the status not empty.
+a. `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
+   If any line doesn't start with `??`, the status is not empty.
+b. Otherwise `cd <worktree> && git ls-files --others --exclude-standard -z | xargs -0 -r stat -c '%F %t,%T %n' --`.
+   The status is empty only when it prints as many lines as command a did, and every one starts with
+   `character special file 1,3 `. Anything else makes the status not empty.
 
-Never add, delete, move or write to a placeholder, and stage files only by path. Where the reply format asks
-for the output of `git status --porcelain`, give the output of the command in step 1, and after it, when you
-ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`, naming the `stat` command.
+Never put a path from command a's output into a command: a file's name can hold text a shell would run. Never
+add, delete, move or write to a placeholder, and stage files only by path. Files that git ignores never count.
+Where the reply format asks for the output of `git status --porcelain`, make this check at that point unless a
+step just made it, give command a's output, and after it, when you ran command b, the line
+`placeholders: <number of lines command b printed>, not counted [evidence: command N]`, naming command b.
 
 ## Rules
 
@@ -331,6 +342,7 @@ ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`
   under NOT RUN with that reason: its required result then counts as holding. The test command is never one of
   these. Never create what it's missing, and never claim its result.
 - List every command you ran under COMMANDS, in the order you ran it; run none you don't list.
+- Steps 1 and 2 only read, with the Read tool: run no command before step 3.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.
@@ -440,17 +452,20 @@ you. You decide nothing the input document doesn't decide.
 
 Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices
 with names such as `.bashrc` or `.mcp.json`. They are no part of the repository, and git can't hold one.
-Wherever a step asks whether the status is empty, decide it this way:
+Wherever a step asks whether the status is empty, decide it with these two commands, typed as given apart
+from the worktree's path:
 
-1. Run `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
-2. If any line doesn't start with `??`, the status is not empty.
-3. Otherwise run `cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`. The status is empty only when
-   every line it prints starts with `character special file 1,3`. Any other line, or a path it can't read,
-   makes the status not empty.
+a. `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
+   If any line doesn't start with `??`, the status is not empty.
+b. Otherwise `cd <worktree> && git ls-files --others --exclude-standard -z | xargs -0 -r stat -c '%F %t,%T %n' --`.
+   The status is empty only when it prints as many lines as command a did, and every one starts with
+   `character special file 1,3 `. Anything else makes the status not empty.
 
-Never add, delete, move or write to a placeholder, and stage files only by path. Where the reply format asks
-for the output of `git status --porcelain`, give the output of the command in step 1, and after it, when you
-ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`, naming the `stat` command.
+Never put a path from command a's output into a command: a file's name can hold text a shell would run. Never
+add, delete, move or write to a placeholder, and stage files only by path. Files that git ignores never count.
+Where the reply format asks for the output of `git status --porcelain`, make this check at that point unless a
+step just made it, give command a's output, and after it, when you ran command b, the line
+`placeholders: <number of lines command b printed>, not counted [evidence: command N]`, naming command b.
 
 ## Rules
 
@@ -465,6 +480,7 @@ ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`
   under NOT RUN with that reason: its required result then counts as holding. The test command is never one of
   these. Never create what it's missing, and never claim its result.
 - List every command you ran under COMMANDS, in the order you ran it; run none you don't list.
+- Steps 1 and 2 only read, with the Read tool: run no command before step 3.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.
@@ -588,23 +604,26 @@ use a disposable worktree instead, as above.
 
 Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices
 with names such as `.bashrc` or `.mcp.json`. They are no part of the repository, and git can't hold one.
-Wherever a step asks whether the status is empty, decide it this way:
+Wherever a step asks whether the status is empty, decide it with these two commands, typed as given apart
+from the worktree's path:
 
-1. Run `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
-2. If any line doesn't start with `??`, the status is not empty.
-3. Otherwise run `cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`. The status is empty only when
-   every line it prints starts with `character special file 1,3`. Any other line, or a path it can't read,
-   makes the status not empty.
+a. `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
+   If any line doesn't start with `??`, the status is not empty.
+b. Otherwise `cd <worktree> && git ls-files --others --exclude-standard -z | xargs -0 -r stat -c '%F %t,%T %n' --`.
+   The status is empty only when it prints as many lines as command a did, and every one starts with
+   `character special file 1,3 `. Anything else makes the status not empty.
 
-Never add, delete, move or write to a placeholder, and stage files only by path. Where the reply format asks
-for the output of `git status --porcelain`, give the output of the command in step 1, and after it, when you
-ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`, naming the `stat` command.
+Never put a path from command a's output into a command: a file's name can hold text a shell would run. Never
+add, delete, move or write to a placeholder, and stage files only by path. Files that git ignores never count.
+Where the reply format asks for the output of `git status --porcelain`, make this check at that point unless a
+step just made it, give command a's output, and after it, when you ran command b, the line
+`placeholders: <number of lines command b printed>, not counted [evidence: command N]`, naming command b.
 
 ## Rules
 
 - Never change the worktree: fix, edit, add or delete nothing in it, never commit, and never run `git checkout`,
   `git switch`, `git reset`, `git restore`, `git stash` or `git clean` in it. All you run there are the input
-  document's commands at the final commit, git commands that only read, the `stat` command of "A clean
+  document's commands at the final commit, git commands that only read, the two commands of "A clean
   worktree", and the `git worktree` commands of "Disposable worktrees", which change no file in it. Files you
   change go only in a disposable worktree.
 - Never mark a check `REPRODUCED` on the strength of anything but your own command's output in this run.
@@ -614,6 +633,7 @@ ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`
 - When a command the input document names can't run, its line is `NOT RUN` with the reason, and never
   `NOT REPRODUCED`: you saw no result. Never create what it's missing, and never claim its result.
 - List every command you ran under COMMANDS, in the order you ran it; run none you don't list.
+- Steps 1 and 2 only read, with the Read tool: run no command before step 3.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.
@@ -685,7 +705,7 @@ behaviors:
     rule: "The verifier makes the same fixed checks for every input document, from its own commands' output in that run and nothing else: start (a clean tree at the final commit); commits (with 'Refactor: none' the green and final commits are the same; when they differ under 'Refactor: allowed', the tests show no failure at the green commit); red (the test command at the red commit gives the required red result, point by point); every verification command the document gives for it, rerun at the final commit; the paths changed between base and red, red and green, and green and final, each within the document's allowed set; then each numbered acceptance criterion, by the command or check it names; the mutants; and the end state of BEH-07. A criterion that names a command already run at the same commit is not run again: its line cites that command. It has seen no other agent's reply, gives no opinion on design, style or wording, and adds no criterion. After applying each mutant it runs git diff in the disposable folder: an empty diff means the mutant was not applied, its line is NOT RUN [not applied] and its tests aren't run. A mutant that leaves every test passing makes its criterion NOT REPRODUCED; one that is NOT RUN makes it NOT RUN unless another already made it NOT REPRODUCED. A command that can't run is NOT RUN with the reason, never NOT REPRODUCED. The verdict is computed from the CHECKS lines alone: INCOMPLETE when the start line is NOT REPRODUCED; otherwise FAIL when any line is NOT REPRODUCED; PASS when every one is REPRODUCED, or NOT RUN for a reason the input document describes and allows; otherwise INCOMPLETE."
   - id: BEH-09
     status: active
-    rule: "Every reply has exactly the headings §5 gives for that agent, in that order, with nothing before the first or after the last. Every command an agent ran is listed under COMMANDS, in the order it ran, and it runs none it doesn't list. Each command is shown as run, with its exit code and the last 30 lines of its output unchanged, plus any earlier lines a claim or check rests on. Every claim of the test-writer and the implementer ends with [evidence: command N] or [UNVERIFIED]. Every CHECKS line of the verifier ends with [evidence: command N], or is NOT RUN with its reason in brackets; a verifier that stops early still replies in full, with the lines it didn't reach NOT RUN. The implementer's GREEN: is 'none' when it stopped before the green commit. No agent alters, summarises or shortens an output line it shows, or states a result it didn't see in one."
+    rule: "Every reply has exactly the headings §5 gives for that agent, in that order, with nothing before the first or after the last. Every command an agent ran is listed under COMMANDS, in the order it ran, and it runs none it doesn't list; steps 1 and 2 only read, with the Read tool, so no command runs before step 3 and none precedes a single-line reply. Each command is shown as run, with its exit code and the last 30 lines of its output unchanged, plus any earlier lines a claim or check rests on. Every claim of the test-writer and the implementer ends with [evidence: command N] or [UNVERIFIED]. Every CHECKS line of the verifier ends with [evidence: command N], or is NOT RUN with its reason in brackets; a verifier that stops early still replies in full, with the lines it didn't reach NOT RUN. The implementer's GREEN: is 'none' when it stopped before the green commit. No agent alters, summarises or shortens an output line it shows, or states a result it didn't see in one."
   - id: BEH-10
     status: active
     rule: "No agent pushes, opens or edits a pull request, or merges, and none changes a branch other than by the commits its text names. Push, pull request and merge are the owner's to approve, each separately."
@@ -697,7 +717,7 @@ behaviors:
     rule: "One automatic second run, and only one. It is made on the first FAIL when all of these hold: every NOT REPRODUCED line concerns the implementer's work (the commits line, a command line, a paths line after the red commit, a criterion about the green or final commit, or the mutants criterion); the start, red and end lines are REPRODUCED; and no CHECKS or MUTANTS line is NOT RUN for a reason the input document doesn't describe and allow. A failed start or end line never starts it: an end line can fail because one of the verifier's own commands left a file behind, and a second run would then reset the branch and rerun the implementer on correct code. A red line that is NOT RUN doesn't start it, and neither does a mutant that was not applied. All of those go to the owner (ERR-03, ERR-06, ERR-10 to ERR-12). When they hold, the main conversation, running each command alone: (1) keeps the failed commit with git branch <branch>-attempt-1 <final commit>; (2) runs git worktree list and removes, with git worktree remove --force, any folder the input document names for the verifier's disposable worktrees or its mutants; (3) runs git reset --hard <red commit>, after which the status must be empty and HEAD the red commit; (4) starts a new implementer with the same four lines plus 'Previous failure:' and, under it, the verifier's NOT REPRODUCED lines with the output lines they cite, copied unchanged, and nothing else from any reply; (5) starts a new verifier with the new green and final commits and no word of the first attempt. The reset runs only after step 1 has kept the commit, on a tree the preceding check showed clean (§2's reading of ADR-005 D7). The backup branch is never pushed; the owner is told it exists, and deleting it is the owner's."
   - id: BEH-13
     status: active
-    rule: "A clean worktree. Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices that git status lists and git can't hold. Wherever this spec or an agent's text asks whether the status is empty, for an agent or for the main conversation (BEH-11, BEH-12), it is decided this way: (1) git status --porcelain --untracked-files=all; if it prints nothing, the status is empty; (2) if any line doesn't start with ??, it is not empty; (3) otherwise stat -c '%F %t,%T %n' on every path listed, run in the worktree: the status is empty only when every line printed starts with 'character special file 1,3'; any other line, or a path stat can't read, makes it not empty, a real file under .claude/.cc-writes included. No agent adds, deletes, moves or writes to a placeholder, and files are staged only by path. Where a reply gives the status, it gives the first command's output and, when the third step ran, the line 'placeholders: <number>, not counted' citing the stat command. The three agents carry this as one section, A clean worktree, word for word the same."
+    rule: "A clean worktree. Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices that git status lists and git can't hold. Wherever this spec or an agent's text asks whether the status is empty, for an agent or for the main conversation (BEH-11, BEH-12), it is decided by two commands, typed as given apart from the worktree's path: (a) git status --porcelain --untracked-files=all; if it prints nothing, the status is empty; if any line doesn't start with ??, it is not empty; (b) otherwise, in the worktree, git ls-files --others --exclude-standard -z piped to xargs -0 -r stat -c '%F %t,%T %n' --; the status is empty only when it prints as many lines as command a did and every one starts with 'character special file 1,3 '; anything else makes it not empty. No path from command a's output is ever put into a command, since a file's name can hold text a shell would run. Files that git ignores never count, as in git's own status; a real file in a folder git doesn't ignore, .claude/.cc-writes included, makes the status not empty. No agent adds, deletes, moves or writes to a placeholder, and files are staged only by path. Where a reply gives the status, the check is made at that point, and the reply gives command a's output and, when command b ran, the line 'placeholders: <number of lines command b printed>, not counted' citing command b. The three agents carry this as one section, A clean worktree, word for word the same."
 ```
 
 ## 7. Errors and edge cases
@@ -785,6 +805,7 @@ quality_responses:
 | Structural: this spec against `spec.schema.json` | Passes, with every BEH, ERR and QR item covered (checked 2026-11-09, version 2) |
 | Version 1's build | `6dce940` (2026-11-09): the three files byte for byte from version 1's §5; VER-01 as version 1 gave it, 10 tests, failing before the files existed and passing after; `pytest src/tests` 1742 passed, 1 skipped; `claude plugin validate` passes. plugin-validator: nothing blocking. skill-reviewer: nothing critical, eight major and thirteen minor notes on the texts; Bryan took all eight majors and five smaller notes into version 2. Not released, and VER-02 not run on it |
 | Version 2's first build | `f1203ac` (2026-11-09): VER-01 as it then stood, 11 tests; `pytest src/tests` 1743 passed, 1 skipped; `claude plugin validate` passes. plugin-validator: nothing blocking, six notes. skill-reviewer: nothing critical; the eight first-round notes resolved except M3 and M5 in part; five more major notes. Bryan decided all five and six smaller notes into this version, and no further review before VER-02 |
+| Version 3's first build | `07b2b39` (2026-11-09): `pytest src/tests` 1748 passed, 1 skipped; `claude plugin validate` passes. plugin-validator: loads; reproduced a fail-open (an untracked file named `-L` beside a symlink to the null device read as empty) and shell injection through untracked names pasted into the `stat` command. skill-reviewer: nothing critical; three major notes. Bryan replaced the section's commands the same day. Probes of the two new commands, in throwaway repositories: by this session, 11 cases (clean; a plain untracked file; `-L` with a symlink to the null device; the symlink alone; names holding a command substitution, backticks, a semicolon, a newline, the text `character special file 1,3 x`, a space; a modified tracked file), and by another session of Bryan's, 9 cases: clean read as empty, every other case as not empty, and no marker file was created |
 | VER-01, version 2 | `5f79173` (2026-11-09): `src/tests/tdd-agents/test_structure.py`, 14 tests, pass; `pytest src/tests` 1746 passed, 1 skipped; `claude plugin validate` passes; plugin-validator, for loading and fields only: pass. No text review of this build, on Bryan's decision |
 | VER-02 | **Not passed.** Run by Bryan on 2026-11-09 on `5913bca`, Claude Code 2.1.321, the `--plugin-dir` copy, by `docs/runbooks/tdd-agents-ver-02.md`. The test-writer stopped at step 3 before any change: inside Claude Code's command sandbox, `git status --porcelain` in the clean scratch repository listed 12 untracked entries (`.bash_profile`, `.bashrc`, `.claude/`, `.gitconfig`, `.gitmodules`, `.idea`, `.mcp.json`, `.profile`, `.ripgreprc`, `.vscode`, `.zprofile`, `.zshrc`): character devices 1,3 owned by nobody:nogroup, the sandbox's placeholders in the folder the session runs in, with a `.claude/` folder of twelve more and an empty-but-for-`__pycache__` `.claude/.cc-writes`. Outside the sandbox the repository was clean at the base commit. The stop was the text working as written (ERR-03); the implementer and the verifier never ran, so (a) to (d) are undecided. Recorded: `/tasks` showed `devforgeai:tdd-test-writer`, Opus 5.5 (medium), and the transcript's model was `claude-opus-5-5`; no permission prompt, the session being in auto mode, so the `cd` question is unanswered; the Agent tool started the agent in the background although the prompt said foreground; before its listed commands the agent chained orientation commands with `;` and disclosed them as unlisted `[UNVERIFIED]` claims; the `\u` escape wasn't reached and there is no red commit. Its reply is in Bryan's run folder (local). The clean-tree checks must tolerate the placeholders: a version 3 change, for Bryan's decision (§13 item 10) |
 | VER-03 | Not run; it doesn't gate the release (§13 item 1) |
@@ -797,7 +818,7 @@ verified; a suite is §13's question. This spec specifies no story, so its VER i
 verifications:
   - id: VER-01
     status: active
-    obligation: "src/tests/tdd-agents/test_structure.py, for each of the three files: the file equals §5's block for it byte for byte; the frontmatter keys are exactly name, description, tools, model, effort, in that order; name equals the file name without .md; tools, split on commas and trimmed, equals §5's list, and Agent is in none; model is claude-opus-5-5 and effort is medium; the description is one double-quoted line; the body holds none of these strings in any case: /home/, bankielewicz, npm run, claude plugin, 95; the body holds the headings ## Steps, ## Rules and ## Reply format, and the test-writer's and the implementer's also ## Stop and report, changing nothing more, when; the body holds [evidence: command N], and [UNVERIFIED] (test-writer, implementer) or NOT REPRODUCED (verifier); the body holds Refactor: none, Refactor: allowed, input document incomplete: and missing input:, and the rule against creating what a command that can't run is missing; the test-writer's and the implementer's bodies say a command that can't run for a reason the document describes and allows counts as holding, and name a command that didn't run as a stop condition; the implementer's body holds GREEN: with none for an early stop, and names git clean only to forbid it; the verifier's body holds Green commit:, criterion <number> and the fixed CHECKS lines start, commits, red, command, paths and end; the descriptions hold 'three lines' (test-writer), 'four lines' (implementer) and 'six lines' (verifier); the verifier's body holds git worktree add --detach, ## Disposable worktrees, the git diff after each mutant with NOT RUN [not applied], the replacement of the worktree's path in a disposable worktree's commands, and no separate NOT RUN: heading, and names git checkout, git switch, git reset, git restore, git stash and git clean only in the one rule that forbids them. Each body holds the section ## A clean worktree, word for word the same in all three, with git status --porcelain --untracked-files=all, the stat command and 'character special file 1,3'; no step outside that section runs git status itself; and each body holds the rule to list every command it ran and run none it doesn't list. Also: the three files exist in the agents folder; this spec validates against spec.schema.json and every BEH, ERR and QR item is covered by a VER item."
+    obligation: "src/tests/tdd-agents/test_structure.py, for each of the three files: the file equals §5's block for it byte for byte; the frontmatter keys are exactly name, description, tools, model, effort, in that order; name equals the file name without .md; tools, split on commas and trimmed, equals §5's list, and Agent is in none; model is claude-opus-5-5 and effort is medium; the description is one double-quoted line; the body holds none of these strings in any case: /home/, bankielewicz, npm run, claude plugin, 95; the body holds the headings ## Steps, ## Rules and ## Reply format, and the test-writer's and the implementer's also ## Stop and report, changing nothing more, when; the body holds [evidence: command N], and [UNVERIFIED] (test-writer, implementer) or NOT REPRODUCED (verifier); the body holds Refactor: none, Refactor: allowed, input document incomplete: and missing input:, and the rule against creating what a command that can't run is missing; the test-writer's and the implementer's bodies say a command that can't run for a reason the document describes and allows counts as holding, and name a command that didn't run as a stop condition; the implementer's body holds GREEN: with none for an early stop, and names git clean only to forbid it; the verifier's body holds Green commit:, criterion <number> and the fixed CHECKS lines start, commits, red, command, paths and end; the descriptions hold 'three lines' (test-writer), 'four lines' (implementer) and 'six lines' (verifier); the verifier's body holds git worktree add --detach, ## Disposable worktrees, the git diff after each mutant with NOT RUN [not applied], the replacement of the worktree's path in a disposable worktree's commands, and no separate NOT RUN: heading, and names git checkout, git switch, git reset, git restore, git stash and git clean only in the one rule that forbids them. Each body holds the section ## A clean worktree, word for word the same in all three, with git status --porcelain --untracked-files=all, the git ls-files and xargs stat command, 'character special file 1,3 ', the ban on putting a listed path into a command, and 'Files that git ignores never count'; no step outside that section runs git status itself; and each body holds the rule to list every command it ran and run none it doesn't list, and the rule that steps 1 and 2 only read. Also: the three files exist in the agents folder; this spec validates against spec.schema.json and every BEH, ERR and QR item is covered by a VER item."
     level: unit
     covers:
       - BEH-01
@@ -942,10 +963,10 @@ For Bryan, in order. None of these is a requirement until he decides it.
     2026-11-09): BEH-13.** Two more observations from that run, also decided by him: every command an agent ran is
     listed under COMMANDS (BEH-09), after the agent ran commands it didn't list and chained them with `;`; and the
     runbook's prompt no longer asks for the foreground, the Agent tool having run the agent in the background.
-    Not verified: this session couldn't reproduce the placeholders, so BEH-13's commands rest on that run's
-    evidence, and VER-02's rerun is their first test. The reading added to the approved wording, for Bryan to
-    confirm or strike: the `placeholders:` line is written only "when you ran step 3", since otherwise there is no
-    `stat` command for it to cite.
+    Not verified: no session has reproduced the placeholders outside that run, so BEH-13's commands rest on its
+    evidence for what the sandbox lists, and VER-02's rerun is their first test against real placeholders. Part of
+    the wording Bryan took with the two commands: the `placeholders:` line is written only "when you ran command
+    b", since otherwise there is no command for it to cite.
 
 ## Change Log
 
@@ -959,3 +980,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 2 | 2026-11-09 | Bryan | Approved ("SPEC-020 v2 is approved"), with the test-command exception confirmed (§13 item 9) and §13 item 8's notes left open | status, §13 |
 | 2 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Record-only update, with no version bump: §9 records VER-02's run by Bryan on 5913bca, not passed (the test-writer stopped at step 3 on the command sandbox's placeholders in git status), and what the run showed; §13 item 3's model and effort verified for the test-writer; §13 item 10 opens the clean-tree question for version 3 | §9, §13 |
 | 3 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Bryan's decisions of 2026-11-09 after VER-02's run on version 2 did not pass: the section A clean worktree in all three agents and BEH-13 (an untracked entry counts as the sandbox's placeholder only when stat shows character special file 1,3; a real file under .claude/.cc-writes makes the status not empty), with every status check of an agent and of the main conversation decided by it; every command run is listed under COMMANDS and none is run unlisted (BEH-09); VER-02 records whether the sandbox lets git worktree add write outside the repository, and the cd prompt as not applicable in auto mode; the runbook's prompt drops 'in the foreground'; status in-review | frontmatter, §2, §5, BEH-09, BEH-13, ERR-03, ERR-11, VER-01 to VER-03, §13 |
+| 3 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Before approval, Bryan's decisions of 2026-11-09 on the reviews of version 3's first build (07b2b39), which reproduced a fail-open and a shell injection in the section's stat command: the status is decided by two fixed commands, with no file name ever put into a command (git ls-files --others --exclude-standard -z piped to xargs -0 -r stat), empty only when the line counts match and every line is the null device; ignored files never count, as in git's own status; steps 1 and 2 only read, so no command precedes step 3 or a single-line reply; the placeholders line is written when command b ran | §2, §5, BEH-09, BEH-13, VER-01, §9, §13 |

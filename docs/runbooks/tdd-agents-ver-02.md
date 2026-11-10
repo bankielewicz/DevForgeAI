@@ -49,11 +49,13 @@ Base commit: <base commit>
    commit is the implementer's HEAD: line.
 3. After each agent returns and before starting the next, decide yourself whether the worktree's status is empty,
    and run `git -C <worktree> diff --name-only <previous commit> HEAD`, each as its own command, and compare the
-   paths with the input document's allowed set for that step. The status is decided this way: run
-   `git -C <worktree> status --porcelain --untracked-files=all`; if it prints nothing it is empty; if any line
-   doesn't start with `??` it is not; otherwise run `cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`,
-   and it is empty only when every line printed starts with `character special file 1,3` (the command sandbox's
-   placeholders). A status that isn't empty stops the run: show me the replies.
+   paths with the input document's allowed set for that step. The status is decided by two commands, typed as given
+   apart from the worktree's path. (a) `git -C <worktree> status --porcelain --untracked-files=all`: if it
+   prints nothing the status is empty, and if any line doesn't start with `??` it is not. (b) Otherwise
+   `cd <worktree> && git ls-files --others --exclude-standard -z | xargs -0 -r stat -c '%F %t,%T %n' --`: the
+   status is empty only when it prints as many lines as (a) did and every one starts with
+   `character special file 1,3 ` (the command sandbox's placeholders). Never put a path from (a) into a command.
+   A status that isn't empty stops the run: show me the replies.
 4. If an agent's STOPPED line isn't `no`, or its reply is a single line, or the verifier's VERDICT isn't PASS, stop
    and show me every reply. Do not run anything again.
 5. At the end, show me every reply exactly as returned, not a summary, then the output of

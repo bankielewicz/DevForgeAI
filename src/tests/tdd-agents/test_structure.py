@@ -192,11 +192,17 @@ class Agents(unittest.TestCase):
                 section = body.split("\n## A clean worktree\n")[1].split("\n## ")[0]
                 sections[name] = section
                 self.assertIn("`git -C <worktree> status --porcelain --untracked-files=all`", section)
-                self.assertIn("`cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`", section)
-                self.assertIn("starts with `character special file 1,3`", section)
+                self.assertIn("`cd <worktree> && git ls-files --others --exclude-standard -z | xargs -0 -r stat -c "
+                              "'%F %t,%T %n' --`", section)
+                self.assertIn("as many lines as command a did", section)
+                self.assertIn("`character special file 1,3 `", section)
                 self.assertIn("If any line doesn't start with `??`, the status is not empty.", section)
-                self.assertIn("Never add, delete, move or write to a placeholder, and stage files only by path.", section)
-                self.assertIn("`placeholders: <number>, not counted [evidence: command N]`", section)
+                self.assertIn("Never put a path from command a's output into a command", section)
+                self.assertIn("Files that git ignores never count.", section)
+                self.assertIn("`placeholders: <number of lines command b printed>, not counted [evidence: command N]`",
+                              section)
+                # No file name is ever handed to stat by the agent.
+                self.assertNotIn("<every path listed>", body)
                 steps = body.split("\n## Steps\n")[1].split("\n## A clean worktree\n")[0]
                 self.assertNotIn("status --porcelain", steps)
                 self.assertIn('as "A clean worktree" says', steps)
@@ -207,7 +213,8 @@ class Agents(unittest.TestCase):
             with self.subTest(name):
                 rules = body.split("\n## Rules\n")[1].split("\n## ")[0]
                 self.assertIn("\n- List every command you ran under COMMANDS, in the order you ran it; run none you "
-                              "don't list.\n", rules)
+                              "don't list.\n- Steps 1 and 2 only read, with the Read tool: run no command before "
+                              "step 3.\n", rules)
 
     def test_a_refactor_creates_no_file(self):
         body = next(body for name, *_, body in self.each() if name == "tdd-implementer")

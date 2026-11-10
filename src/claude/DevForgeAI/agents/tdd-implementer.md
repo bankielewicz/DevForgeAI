@@ -73,17 +73,20 @@ you. You decide nothing the input document doesn't decide.
 
 Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices
 with names such as `.bashrc` or `.mcp.json`. They are no part of the repository, and git can't hold one.
-Wherever a step asks whether the status is empty, decide it this way:
+Wherever a step asks whether the status is empty, decide it with these two commands, typed as given apart
+from the worktree's path:
 
-1. Run `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
-2. If any line doesn't start with `??`, the status is not empty.
-3. Otherwise run `cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`. The status is empty only when
-   every line it prints starts with `character special file 1,3`. Any other line, or a path it can't read,
-   makes the status not empty.
+a. `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
+   If any line doesn't start with `??`, the status is not empty.
+b. Otherwise `cd <worktree> && git ls-files --others --exclude-standard -z | xargs -0 -r stat -c '%F %t,%T %n' --`.
+   The status is empty only when it prints as many lines as command a did, and every one starts with
+   `character special file 1,3 `. Anything else makes the status not empty.
 
-Never add, delete, move or write to a placeholder, and stage files only by path. Where the reply format asks
-for the output of `git status --porcelain`, give the output of the command in step 1, and after it, when you
-ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`, naming the `stat` command.
+Never put a path from command a's output into a command: a file's name can hold text a shell would run. Never
+add, delete, move or write to a placeholder, and stage files only by path. Files that git ignores never count.
+Where the reply format asks for the output of `git status --porcelain`, make this check at that point unless a
+step just made it, give command a's output, and after it, when you ran command b, the line
+`placeholders: <number of lines command b printed>, not counted [evidence: command N]`, naming command b.
 
 ## Rules
 
@@ -98,6 +101,7 @@ ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`
   under NOT RUN with that reason: its required result then counts as holding. The test command is never one of
   these. Never create what it's missing, and never claim its result.
 - List every command you ran under COMMANDS, in the order you ran it; run none you don't list.
+- Steps 1 and 2 only read, with the Read tool: run no command before step 3.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.
