@@ -716,7 +716,7 @@ quality_responses:
 | Version 1's build | `6dce940` (2026-11-09): the three files byte for byte from version 1's §5; VER-01 as version 1 gave it, 10 tests, failing before the files existed and passing after; `pytest src/tests` 1742 passed, 1 skipped; `claude plugin validate` passes. plugin-validator: nothing blocking. skill-reviewer: nothing critical, eight major and thirteen minor notes on the texts; Bryan took all eight majors and five smaller notes into version 2. Not released, and VER-02 not run on it |
 | Version 2's first build | `f1203ac` (2026-11-09): VER-01 as it then stood, 11 tests; `pytest src/tests` 1743 passed, 1 skipped; `claude plugin validate` passes. plugin-validator: nothing blocking, six notes. skill-reviewer: nothing critical; the eight first-round notes resolved except M3 and M5 in part; five more major notes. Bryan decided all five and six smaller notes into this version, and no further review before VER-02 |
 | VER-01 | Version 2, `5f79173` (2026-11-09): `src/tests/tdd-agents/test_structure.py`, 14 tests, pass; `pytest src/tests` 1746 passed, 1 skipped; `claude plugin validate` passes; plugin-validator, for loading and fields only: pass. No text review of this build, on Bryan's decision |
-| VER-02 | Not run: Bryan runs it from a plain terminal, by `docs/runbooks/tdd-agents-ver-02.md` |
+| VER-02 | **Not passed.** Run by Bryan on 2026-11-09 on `5913bca`, Claude Code 2.1.321, the `--plugin-dir` copy, by `docs/runbooks/tdd-agents-ver-02.md`. The test-writer stopped at step 3 before any change: inside Claude Code's command sandbox, `git status --porcelain` in the clean scratch repository listed 12 untracked entries (`.bash_profile`, `.bashrc`, `.claude/`, `.gitconfig`, `.gitmodules`, `.idea`, `.mcp.json`, `.profile`, `.ripgreprc`, `.vscode`, `.zprofile`, `.zshrc`): character devices 1,3 owned by nobody:nogroup, the sandbox's placeholders in the folder the session runs in, with a `.claude/` folder of twelve more and an empty-but-for-`__pycache__` `.claude/.cc-writes`. Outside the sandbox the repository was clean at the base commit. The stop was the text working as written (ERR-03); the implementer and the verifier never ran, so (a) to (d) are undecided. Recorded: `/tasks` showed `devforgeai:tdd-test-writer`, Opus 5.5 (medium), and the transcript's model was `claude-opus-5-5`; no permission prompt, the session being in auto mode, so the `cd` question is unanswered; the Agent tool started the agent in the background although the prompt said foreground; before its listed commands the agent chained orientation commands with `;` and disclosed them as unlisted `[UNVERIFIED]` claims; the `\u` escape wasn't reached and there is no red commit. Its reply is in Bryan's run folder (local). The clean-tree checks must tolerate the placeholders: a version 3 change, for Bryan's decision (§13 item 10) |
 | VER-03 | Not run; it doesn't gate the release (§13 item 1) |
 
 There is no eval suite. The agents belong to no skill, and no eval case here has exercised a plugin agent (SPEC-014
@@ -829,8 +829,9 @@ For Bryan, in order. None of these is a requirement until he decides it.
    (Bryan, 2026-11-09): confirmed**, with the verifier's wording in §5.3. As sent: "otherwise a missing folder is
    discovered only after the tests and code are already committed."
 3. **Not verified** (VER-02 records the first three):
-   - that `effort: medium` and a full model ID take effect for a plugin agent on the installed Claude Code build
-     (source: `docs/research/Claude/subagents.md`, read 2026-11-09; not tried);
+   - ~~that `effort: medium` and a full model ID take effect for a plugin agent on the installed Claude Code
+     build~~ **verified for the test-writer** in VER-02's run of 2026-11-09 (2.1.321): `/tasks` showed Opus 5.5
+     (medium), and the transcript's model was `claude-opus-5-5`;
    - whether a command that starts with `cd <folder> && ` raises a permission prompt in a subagent. If it does, the
      owner sees a prompt per command; the agents' rule isn't changed for it without his say;
    - whether an agent's Edit or Write turns a `\u` escape into the character it stands for;
@@ -860,6 +861,13 @@ For Bryan, in order. None of these is a requirement until he decides it.
    show and no failing tests to confirm. Bryan's answer didn't name that exception; it was this draft's reading.
    **Resolved (Bryan, 2026-11-09): confirmed.** As sent: "Without the test command's result there is no red result
    to show, so a stop is right."
+10. **The sandbox's placeholders and the clean-tree checks** (VER-02's run of 2026-11-09, §9). Inside Claude Code's
+    command sandbox, the folder a session runs in holds untracked character devices that `git status --porcelain`
+    lists, so every agent's "the status must be empty" stops a sandboxed run on a clean repository. The checks, and
+    the main conversation's own in BEH-11 and BEH-12, must tolerate them: version 3, wording for Bryan's decision.
+    Two more observations from that run, also undecided: the agent ran commands it didn't list under COMMANDS and
+    chained them with `;`, against "Chain nothing else to it"; and the Agent tool ran the agent in the background
+    although asked for the foreground.
 
 ## Change Log
 
@@ -871,3 +879,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 2 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Bryan's decisions of 2026-11-09 on the build's reviews ("v2 now with all eight"): the verifier's checks fixed for every plan, with a shared command run once (M8); its end state a CHECKS line and a full reply on an early stop (M2); in a disposable worktree every command runs there (M3); mutants in a disposable worktree at the final commit (M4); the folder is the worktree's own path, an add that fails, where to prepare, and removing only what it added (M5); the test-writer's rule for a command that can't run, and its HEAD checked against the base commit (M1); the implementer stops when the plan's own code fails and corrects only code it wrote, loosening nothing (M6); §4 items 10 to 12 and item 6 widened (M7); GREEN: none on an early stop; a refactor's undo deletes created files by name, never with git clean; ERR-09 to ERR-11; status in-review | frontmatter, §2, §4, §5, BEH-02, BEH-04 to BEH-09, BEH-12, ERR-03, ERR-04, ERR-06 to ERR-11, VER-01 to VER-03, §9, §13 |
 | 2 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Before approval, Bryan's decisions of 2026-11-09 on the reviews of version 2's first build (f1203ac): in a disposable worktree the worktree's path is replaced wherever a command names it; a failed prepare command or removal makes the checks NOT RUN; git diff proves each mutant was applied, else NOT RUN [not applied]; a NOT RUN the document describes and allows counts as holding for the test-writer and the implementer, and any other command that didn't run is a stop; the second run needs the start, red and end lines REPRODUCED and no unallowed NOT RUN; ERR-10 reworded, ERR-12 added; a refactor creates no file; corrections may repeat; the verifier's separate NOT RUN heading removed; no further review before VER-02 | §2, §5, BEH-05 to BEH-08, BEH-12, ERR-03, ERR-04, ERR-06, ERR-07, ERR-10 to ERR-12, VER-01, VER-03, §9, §13 |
 | 2 | 2026-11-09 | Bryan | Approved ("SPEC-020 v2 is approved"), with the test-command exception confirmed (§13 item 9) and §13 item 8's notes left open | status, §13 |
+| 2 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Record-only update, with no version bump: §9 records VER-02's run by Bryan on 5913bca, not passed (the test-writer stopped at step 3 on the command sandbox's placeholders in git status), and what the run showed; §13 item 3's model and effort verified for the test-writer; §13 item 10 opens the clean-tree question for version 3 | §9, §13 |
