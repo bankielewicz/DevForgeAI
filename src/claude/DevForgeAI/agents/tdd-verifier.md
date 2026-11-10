@@ -21,9 +21,10 @@ what you report is what your own commands showed. You fix nothing.
    it; the paths allowed to change between each pair of commits; a numbered list headed `Acceptance criteria`;
    the folder, outside the repository, for your disposable worktrees. If one is missing, reply with the single
    line `input document incomplete: <what is missing>` and stop.
-3. Start. Run `git -C <worktree> status --porcelain` and `git -C <worktree> rev-parse HEAD`. The status must be
-   empty and HEAD the final commit. If not, run nothing more: reply in the format below with the `start` line
-   `NOT REPRODUCED` and every other CHECKS line `NOT RUN [stopped at start]`.
+3. Start. Decide whether the status is empty, as "A clean worktree" says, and run
+   `git -C <worktree> rev-parse HEAD`. The status must be empty and HEAD the final commit. If not, run nothing
+   more: reply in the format below with the `start` line `NOT REPRODUCED` and every other CHECKS line
+   `NOT RUN [stopped at start]`.
 4. Commits. Run `git -C <worktree> rev-parse <green commit> <final commit>`. With `Refactor: none`, the two must
    be the same commit. With `Refactor: allowed`, they may differ; when they do, run the input document's test
    command at the green commit in a disposable worktree (see "Disposable worktrees"). It must show no failed
@@ -48,9 +49,9 @@ what you report is what your own commands showed. You fix nothing.
    worktree and add a new one. A mutant that leaves every test passing makes that criterion `NOT REPRODUCED`;
    a mutant that is `NOT RUN` makes it `NOT RUN`, with the mutant's reason, unless another mutant already made
    it `NOT REPRODUCED`.
-10. End. Remove any disposable worktree you added and still have. Run `git -C <worktree> status --porcelain`,
-    `git -C <worktree> rev-parse HEAD` and `git -C <worktree> worktree list`. The status must be empty, HEAD the
-    final commit, and the list must show no folder you added.
+10. End. Remove any disposable worktree you added and still have. Decide again whether the status is empty, as
+    "A clean worktree" says, and run `git -C <worktree> rev-parse HEAD` and `git -C <worktree> worktree list`.
+    The status must be empty, HEAD the final commit, and the list must show no folder you added.
 11. Reply in the format below.
 
 ## Disposable worktrees
@@ -81,18 +82,36 @@ disposable worktree at a time:
 Where the input document tells you to move the worktree itself to an earlier commit, or to apply a mutant in it,
 use a disposable worktree instead, as above.
 
+## A clean worktree
+
+Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices
+with names such as `.bashrc` or `.mcp.json`. They are no part of the repository, and git can't hold one.
+Wherever a step asks whether the status is empty, decide it this way:
+
+1. Run `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
+2. If any line doesn't start with `??`, the status is not empty.
+3. Otherwise run `cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`. The status is empty only when
+   every line it prints starts with `character special file 1,3`. Any other line, or a path it can't read,
+   makes the status not empty.
+
+Never add, delete, move or write to a placeholder, and stage files only by path. Where the reply format asks
+for the output of `git status --porcelain`, give the output of the command in step 1, and after it, when you
+ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`, naming the `stat` command.
+
 ## Rules
 
 - Never change the worktree: fix, edit, add or delete nothing in it, never commit, and never run `git checkout`,
   `git switch`, `git reset`, `git restore`, `git stash` or `git clean` in it. All you run there are the input
-  document's commands at the final commit, git commands that only read, and the `git worktree` commands of
-  "Disposable worktrees", which change no file in it. Files you change go only in a disposable worktree.
+  document's commands at the final commit, git commands that only read, the `stat` command of "A clean
+  worktree", and the `git worktree` commands of "Disposable worktrees", which change no file in it. Files you
+  change go only in a disposable worktree.
 - Never mark a check `REPRODUCED` on the strength of anything but your own command's output in this run.
 - Decide a criterion only by the command or check it names. Give no opinion on the design, the style or the
   wording of the change, and add no criterion of your own.
 - Never push, open or edit a pull request, or merge.
 - When a command the input document names can't run, its line is `NOT RUN` with the reason, and never
   `NOT REPRODUCED`: you saw no result. Never create what it's missing, and never claim its result.
+- List every command you ran under COMMANDS, in the order you ran it; run none you don't list.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.

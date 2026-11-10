@@ -9,6 +9,8 @@ For agents/tdd-test-writer.md, agents/tdd-implementer.md and agents/tdd-verifier
 - the body holds the headings, the evidence markers and the input-document checks §5 fixes;
 - the verifier makes its fixed checks, runs earlier commits and mutants in a disposable worktree, and names the git commands that would change the
   worktree only in the one rule that forbids them (BEH-07);
+- each body holds the section "A clean worktree", identical in all three, and the rule to list every command
+  (BEH-13, BEH-09);
 - SPEC-020 validates against spec.schema.json, and every BEH, ERR and QR item is covered by a VER item.
 
 Run from the repository root:
@@ -27,7 +29,7 @@ ROOT = Path(__file__).resolve().parents[3]
 AGENTS = ROOT / "src/claude/DevForgeAI/agents"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-020.md"
-SPEC_VERSION, SPEC_STATUS = 2, "approved"   # versions 1 and 2 approved by Bryan on 2026-11-09
+SPEC_VERSION, SPEC_STATUS = 3, "in-review"   # versions 1 and 2 approved 2026-11-09; version 3 awaits Bryan
 
 WRITE_TOOLS = ["Read", "Grep", "Glob", "Edit", "Write", "Bash"]
 TOOLS = {"tdd-test-writer": WRITE_TOOLS, "tdd-implementer": WRITE_TOOLS,
@@ -180,6 +182,32 @@ class Agents(unittest.TestCase):
                 stops = body.split("\n## Stop and report, changing nothing more, when\n")[1].split("\n## Rules\n")[0]
                 self.assertIn("didn't run, for a reason the document doesn't describe and allow", stops)
                 self.assertIn("\nNOT RUN:\n", body)
+
+    def test_a_clean_worktree(self):
+        # BEH-13: one section, word for word the same in all three, and no step checks the status any other way.
+        sections = {}
+        for name, *_, body in self.each():
+            with self.subTest(name):
+                self.assertEqual(body.count("\n## A clean worktree\n"), 1)
+                section = body.split("\n## A clean worktree\n")[1].split("\n## ")[0]
+                sections[name] = section
+                self.assertIn("`git -C <worktree> status --porcelain --untracked-files=all`", section)
+                self.assertIn("`cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`", section)
+                self.assertIn("starts with `character special file 1,3`", section)
+                self.assertIn("If any line doesn't start with `??`, the status is not empty.", section)
+                self.assertIn("Never add, delete, move or write to a placeholder, and stage files only by path.", section)
+                self.assertIn("`placeholders: <number>, not counted [evidence: command N]`", section)
+                steps = body.split("\n## Steps\n")[1].split("\n## A clean worktree\n")[0]
+                self.assertNotIn("status --porcelain", steps)
+                self.assertIn('as "A clean worktree" says', steps)
+        self.assertEqual(len(set(sections.values())), 1)
+
+    def test_every_command_is_listed(self):
+        for name, *_, body in self.each():
+            with self.subTest(name):
+                rules = body.split("\n## Rules\n")[1].split("\n## ")[0]
+                self.assertIn("\n- List every command you ran under COMMANDS, in the order you ran it; run none you "
+                              "don't list.\n", rules)
 
     def test_a_refactor_creates_no_file(self):
         body = next(body for name, *_, body in self.each() if name == "tdd-implementer")

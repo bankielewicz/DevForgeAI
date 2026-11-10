@@ -2,8 +2,8 @@
 id: SPEC-020
 type: spec
 title: "Test-first agents: three plugin agents that carry out one test-first change from a written plan"
-status: approved       # draft | in-review | approved | superseded | deprecated
-version: 2
+status: in-review      # draft | in-review | approved | superseded | deprecated
+version: 3
 created: 2026-11-09
 updated: 2026-11-09
 owner: "Bryan"
@@ -12,9 +12,9 @@ generated_by:
   tool: "claude-code"
   model: "claude-fable-5-2"
   session: "9037a656-70d0-43bb-828a-447520233f48"
-reviewed_by: ["plugin-validator and skill-reviewer on the build of version 1 (6dce940), 2026-11-09"]
-approved_by: "Bryan"
-approved_on: 2026-11-09
+reviewed_by: ["plugin-validator and skill-reviewer on the build of version 1 (6dce940), 2026-11-09", "plugin-validator and skill-reviewer on the first build of version 2 (f1203ac), 2026-11-09"]
+approved_by: ""
+approved_on: null
 upstream:
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 14, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
@@ -32,8 +32,10 @@ components: ["src/claude/DevForgeAI/agents/tdd-test-writer.md", "src/claude/DevF
 
 # SPEC-020 — Test-first agents: three plugin agents that carry out one test-first change from a written plan
 
-> **Status:** version 2, approved by Bryan on 2026-11-09 ("SPEC-020 v2 is approved"); built (`5f79173`), not
-> released: the live run, VER-02, gates the release and is not run (§9). Version 1 was approved by Bryan on
+> **Status:** version 3, in review. Version 2 was approved by Bryan on 2026-11-09 ("SPEC-020 v2 is approved") and
+> built (`5f79173`); its live run, VER-02, did not pass: the test-writer stopped on the command sandbox's
+> placeholders in `git status` (§9). Version 3 is his decisions of the same day on that run (§2). Not released.
+> Version 1 was approved by Bryan on
 > 2026-11-09 ("i approve") and built
 > (`6dce940`); the build's two closing reviews found nothing blocking and eight major notes on the texts, and Bryan
 > decided the same day to take all eight, with five smaller ones, into this version before the live run
@@ -151,6 +153,19 @@ answer):
   a retry would then reset the branch and rerun the implementer on correct code."
 - **A refactor creates no file**; the undo's deletion by name stays as a safeguard (BEH-06).
 
+**Decided by Bryan on 2026-11-09, after VER-02's run on version 2** (version 3; the words quoted are as sent):
+- **A clean worktree tolerates the sandbox's placeholders** ("Yes: the 'A clean worktree' section as worded, with
+  stat and 'character special file 1,3'"). An untracked entry counts as a placeholder only when `stat` shows the
+  null device; anything else makes the status not empty (BEH-13).
+- **A real file under `.claude/.cc-writes` makes the status not empty** ("Yes"). On his machine that folder is
+  empty on disk, and his global git ignore excludes it.
+- **Every command is listed** ("List every command you ran under COMMANDS, in the order you ran it; run none you
+  don't list"), in all three agents (BEH-09).
+- **The runbook** drops "in the foreground" from its prompt; records whether the sandbox lets the verifier's
+  `git worktree add` write to the disposable folder outside the repository ("If the sandbox refuses, record the
+  error and the NOT RUN lines it produces; I'll then decide where disposable folders should live"); and records
+  the `cd` prompt question as "not applicable in auto mode" unless a run in default mode is made.
+
 **Standing constraints:**
 - **PRD-001 NFR-002** (v14): what the plugin ships validates against Claude Code's formats; here, the agent
   frontmatter fields of `docs/research/Claude/subagents.md` (§5).
@@ -266,8 +281,8 @@ You decide nothing the input document doesn't decide.
    `Acceptance criteria`; the folder, outside the repository, for the verifier's disposable worktrees. If one is
    missing, reply with the single line `input document incomplete: <what is missing>` and stop: the agents after
    you can't finish without it.
-3. Run `git -C <worktree> status --porcelain` and `git -C <worktree> rev-parse HEAD`. If the status isn't empty,
-   or HEAD isn't the base commit, stop and report it.
+3. Decide whether the status is empty, as "A clean worktree" says, and run `git -C <worktree> rev-parse HEAD`.
+   If the status isn't empty, or HEAD isn't the base commit, stop and report it.
 4. Run the baseline commands the input document gives for you, in its order, and record each one's output. If a
    result differs from the one required, stop and report.
 5. Write the tests exactly as the input document gives them, in the files and at the places it names. Copy code
@@ -287,6 +302,22 @@ You decide nothing the input document doesn't decide.
   test command didn't run at all;
 - doing the work would need a change outside the test files the input document names.
 
+## A clean worktree
+
+Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices
+with names such as `.bashrc` or `.mcp.json`. They are no part of the repository, and git can't hold one.
+Wherever a step asks whether the status is empty, decide it this way:
+
+1. Run `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
+2. If any line doesn't start with `??`, the status is not empty.
+3. Otherwise run `cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`. The status is empty only when
+   every line it prints starts with `character special file 1,3`. Any other line, or a path it can't read,
+   makes the status not empty.
+
+Never add, delete, move or write to a placeholder, and stage files only by path. Where the reply format asks
+for the output of `git status --porcelain`, give the output of the command in step 1, and after it, when you
+ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`, naming the `stat` command.
+
 ## Rules
 
 - Change only the test files the input document names. Never change the code under test, a test helper it doesn't
@@ -299,6 +330,7 @@ You decide nothing the input document doesn't decide.
 - When a command the input document names can't run for a reason the document describes and allows, list it
   under NOT RUN with that reason: its required result then counts as holding. The test command is never one of
   these. Never create what it's missing, and never claim its result.
+- List every command you ran under COMMANDS, in the order you ran it; run none you don't list.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.
@@ -360,8 +392,8 @@ you. You decide nothing the input document doesn't decide.
    change between each pair of commits; a numbered list headed `Acceptance criteria`; the folder, outside the
    repository, for the verifier's disposable worktrees. If one is missing, reply with the single line
    `input document incomplete: <what is missing>` and stop: the agent after you can't finish without it.
-3. Run `git -C <worktree> status --porcelain` and `git -C <worktree> rev-parse HEAD`. If the status isn't empty,
-   or HEAD isn't the red commit, stop and report it.
+3. Decide whether the status is empty, as "A clean worktree" says, and run `git -C <worktree> rev-parse HEAD`.
+   If the status isn't empty, or HEAD isn't the red commit, stop and report it.
 4. Run the test command the input document names, and record which tests fail. If they aren't the tests the input
    document says fail at the red commit, stop and report.
 5. Make the code change exactly as the input document gives it. Copy code it gives character for character. Where
@@ -385,9 +417,8 @@ you. You decide nothing the input document doesn't decide.
      required result holds, commit only the files you changed, with the refactor message the input document
      gives. If one doesn't, undo your refactor: run `git -C <worktree> checkout -- .`, then, as a safeguard,
      delete by name any file your refactor created all the same, one `rm <file>` each, and
-     never with `git clean`. Confirm with
-     `git -C <worktree> status --porcelain` that nothing is left; if something is, stop and report it. Say
-     under CLAIMS that the refactor was abandoned and why.
+     never with `git clean`. Confirm that the status is empty, as "A clean worktree" says; if it isn't, stop
+     and report it. Say under CLAIMS that the refactor was abandoned and why.
 10. Reply in the format below.
 
 ## Stop and report, changing nothing more, when
@@ -405,6 +436,22 @@ you. You decide nothing the input document doesn't decide.
 - a text the input document tells you to replace or insert after isn't in the file exactly once;
 - doing the work would need a change to a file the input document doesn't list.
 
+## A clean worktree
+
+Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices
+with names such as `.bashrc` or `.mcp.json`. They are no part of the repository, and git can't hold one.
+Wherever a step asks whether the status is empty, decide it this way:
+
+1. Run `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
+2. If any line doesn't start with `??`, the status is not empty.
+3. Otherwise run `cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`. The status is empty only when
+   every line it prints starts with `character special file 1,3`. Any other line, or a path it can't read,
+   makes the status not empty.
+
+Never add, delete, move or write to a placeholder, and stage files only by path. Where the reply format asks
+for the output of `git status --porcelain`, give the output of the command in step 1, and after it, when you
+ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`, naming the `stat` command.
+
 ## Rules
 
 - Never edit, add or delete a test file or a test helper. `git diff --name-only <red commit> HEAD` must show none.
@@ -417,6 +464,7 @@ you. You decide nothing the input document doesn't decide.
 - When a command the input document names can't run for a reason the document describes and allows, list it
   under NOT RUN with that reason: its required result then counts as holding. The test command is never one of
   these. Never create what it's missing, and never claim its result.
+- List every command you ran under COMMANDS, in the order you ran it; run none you don't list.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.
@@ -475,9 +523,10 @@ what you report is what your own commands showed. You fix nothing.
    it; the paths allowed to change between each pair of commits; a numbered list headed `Acceptance criteria`;
    the folder, outside the repository, for your disposable worktrees. If one is missing, reply with the single
    line `input document incomplete: <what is missing>` and stop.
-3. Start. Run `git -C <worktree> status --porcelain` and `git -C <worktree> rev-parse HEAD`. The status must be
-   empty and HEAD the final commit. If not, run nothing more: reply in the format below with the `start` line
-   `NOT REPRODUCED` and every other CHECKS line `NOT RUN [stopped at start]`.
+3. Start. Decide whether the status is empty, as "A clean worktree" says, and run
+   `git -C <worktree> rev-parse HEAD`. The status must be empty and HEAD the final commit. If not, run nothing
+   more: reply in the format below with the `start` line `NOT REPRODUCED` and every other CHECKS line
+   `NOT RUN [stopped at start]`.
 4. Commits. Run `git -C <worktree> rev-parse <green commit> <final commit>`. With `Refactor: none`, the two must
    be the same commit. With `Refactor: allowed`, they may differ; when they do, run the input document's test
    command at the green commit in a disposable worktree (see "Disposable worktrees"). It must show no failed
@@ -502,9 +551,9 @@ what you report is what your own commands showed. You fix nothing.
    worktree and add a new one. A mutant that leaves every test passing makes that criterion `NOT REPRODUCED`;
    a mutant that is `NOT RUN` makes it `NOT RUN`, with the mutant's reason, unless another mutant already made
    it `NOT REPRODUCED`.
-10. End. Remove any disposable worktree you added and still have. Run `git -C <worktree> status --porcelain`,
-    `git -C <worktree> rev-parse HEAD` and `git -C <worktree> worktree list`. The status must be empty, HEAD the
-    final commit, and the list must show no folder you added.
+10. End. Remove any disposable worktree you added and still have. Decide again whether the status is empty, as
+    "A clean worktree" says, and run `git -C <worktree> rev-parse HEAD` and `git -C <worktree> worktree list`.
+    The status must be empty, HEAD the final commit, and the list must show no folder you added.
 11. Reply in the format below.
 
 ## Disposable worktrees
@@ -535,18 +584,36 @@ disposable worktree at a time:
 Where the input document tells you to move the worktree itself to an earlier commit, or to apply a mutant in it,
 use a disposable worktree instead, as above.
 
+## A clean worktree
+
+Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices
+with names such as `.bashrc` or `.mcp.json`. They are no part of the repository, and git can't hold one.
+Wherever a step asks whether the status is empty, decide it this way:
+
+1. Run `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
+2. If any line doesn't start with `??`, the status is not empty.
+3. Otherwise run `cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`. The status is empty only when
+   every line it prints starts with `character special file 1,3`. Any other line, or a path it can't read,
+   makes the status not empty.
+
+Never add, delete, move or write to a placeholder, and stage files only by path. Where the reply format asks
+for the output of `git status --porcelain`, give the output of the command in step 1, and after it, when you
+ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`, naming the `stat` command.
+
 ## Rules
 
 - Never change the worktree: fix, edit, add or delete nothing in it, never commit, and never run `git checkout`,
   `git switch`, `git reset`, `git restore`, `git stash` or `git clean` in it. All you run there are the input
-  document's commands at the final commit, git commands that only read, and the `git worktree` commands of
-  "Disposable worktrees", which change no file in it. Files you change go only in a disposable worktree.
+  document's commands at the final commit, git commands that only read, the `stat` command of "A clean
+  worktree", and the `git worktree` commands of "Disposable worktrees", which change no file in it. Files you
+  change go only in a disposable worktree.
 - Never mark a check `REPRODUCED` on the strength of anything but your own command's output in this run.
 - Decide a criterion only by the command or check it names. Give no opinion on the design, the style or the
   wording of the change, and add no criterion of your own.
 - Never push, open or edit a pull request, or merge.
 - When a command the input document names can't run, its line is `NOT RUN` with the reason, and never
   `NOT REPRODUCED`: you saw no result. Never create what it's missing, and never claim its result.
+- List every command you ran under COMMANDS, in the order you ran it; run none you don't list.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.
@@ -618,7 +685,7 @@ behaviors:
     rule: "The verifier makes the same fixed checks for every input document, from its own commands' output in that run and nothing else: start (a clean tree at the final commit); commits (with 'Refactor: none' the green and final commits are the same; when they differ under 'Refactor: allowed', the tests show no failure at the green commit); red (the test command at the red commit gives the required red result, point by point); every verification command the document gives for it, rerun at the final commit; the paths changed between base and red, red and green, and green and final, each within the document's allowed set; then each numbered acceptance criterion, by the command or check it names; the mutants; and the end state of BEH-07. A criterion that names a command already run at the same commit is not run again: its line cites that command. It has seen no other agent's reply, gives no opinion on design, style or wording, and adds no criterion. After applying each mutant it runs git diff in the disposable folder: an empty diff means the mutant was not applied, its line is NOT RUN [not applied] and its tests aren't run. A mutant that leaves every test passing makes its criterion NOT REPRODUCED; one that is NOT RUN makes it NOT RUN unless another already made it NOT REPRODUCED. A command that can't run is NOT RUN with the reason, never NOT REPRODUCED. The verdict is computed from the CHECKS lines alone: INCOMPLETE when the start line is NOT REPRODUCED; otherwise FAIL when any line is NOT REPRODUCED; PASS when every one is REPRODUCED, or NOT RUN for a reason the input document describes and allows; otherwise INCOMPLETE."
   - id: BEH-09
     status: active
-    rule: "Every reply has exactly the headings §5 gives for that agent, in that order, with nothing before the first or after the last. Each command is shown as run, with its exit code and the last 30 lines of its output unchanged, plus any earlier lines a claim or check rests on. Every claim of the test-writer and the implementer ends with [evidence: command N] or [UNVERIFIED]. Every CHECKS line of the verifier ends with [evidence: command N], or is NOT RUN with its reason in brackets; a verifier that stops early still replies in full, with the lines it didn't reach NOT RUN. The implementer's GREEN: is 'none' when it stopped before the green commit. No agent alters, summarises or shortens an output line it shows, or states a result it didn't see in one."
+    rule: "Every reply has exactly the headings §5 gives for that agent, in that order, with nothing before the first or after the last. Every command an agent ran is listed under COMMANDS, in the order it ran, and it runs none it doesn't list. Each command is shown as run, with its exit code and the last 30 lines of its output unchanged, plus any earlier lines a claim or check rests on. Every claim of the test-writer and the implementer ends with [evidence: command N] or [UNVERIFIED]. Every CHECKS line of the verifier ends with [evidence: command N], or is NOT RUN with its reason in brackets; a verifier that stops early still replies in full, with the lines it didn't reach NOT RUN. The implementer's GREEN: is 'none' when it stopped before the green commit. No agent alters, summarises or shortens an output line it shows, or states a result it didn't see in one."
   - id: BEH-10
     status: active
     rule: "No agent pushes, opens or edits a pull request, or merges, and none changes a branch other than by the commits its text names. Push, pull request and merge are the owner's to approve, each separately."
@@ -628,6 +695,9 @@ behaviors:
   - id: BEH-12
     status: active
     rule: "One automatic second run, and only one. It is made on the first FAIL when all of these hold: every NOT REPRODUCED line concerns the implementer's work (the commits line, a command line, a paths line after the red commit, a criterion about the green or final commit, or the mutants criterion); the start, red and end lines are REPRODUCED; and no CHECKS or MUTANTS line is NOT RUN for a reason the input document doesn't describe and allow. A failed start or end line never starts it: an end line can fail because one of the verifier's own commands left a file behind, and a second run would then reset the branch and rerun the implementer on correct code. A red line that is NOT RUN doesn't start it, and neither does a mutant that was not applied. All of those go to the owner (ERR-03, ERR-06, ERR-10 to ERR-12). When they hold, the main conversation, running each command alone: (1) keeps the failed commit with git branch <branch>-attempt-1 <final commit>; (2) runs git worktree list and removes, with git worktree remove --force, any folder the input document names for the verifier's disposable worktrees or its mutants; (3) runs git reset --hard <red commit>, after which the status must be empty and HEAD the red commit; (4) starts a new implementer with the same four lines plus 'Previous failure:' and, under it, the verifier's NOT REPRODUCED lines with the output lines they cite, copied unchanged, and nothing else from any reply; (5) starts a new verifier with the new green and final commits and no word of the first attempt. The reset runs only after step 1 has kept the commit, on a tree the preceding check showed clean (§2's reading of ADR-005 D7). The backup branch is never pushed; the owner is told it exists, and deleting it is the owner's."
+  - id: BEH-13
+    status: active
+    rule: "A clean worktree. Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices that git status lists and git can't hold. Wherever this spec or an agent's text asks whether the status is empty, for an agent or for the main conversation (BEH-11, BEH-12), it is decided this way: (1) git status --porcelain --untracked-files=all; if it prints nothing, the status is empty; (2) if any line doesn't start with ??, it is not empty; (3) otherwise stat -c '%F %t,%T %n' on every path listed, run in the worktree: the status is empty only when every line printed starts with 'character special file 1,3'; any other line, or a path stat can't read, makes it not empty, a real file under .claude/.cc-writes included. No agent adds, deletes, moves or writes to a placeholder, and files are staged only by path. Where a reply gives the status, it gives the first command's output and, when the third step ran, the line 'placeholders: <number>, not counted' citing the stat command. The three agents carry this as one section, A clean worktree, word for word the same."
 ```
 
 ## 7. Errors and edge cases
@@ -646,7 +716,7 @@ errors:
     user_result: "The owner sees what the input document lacks; no second run"
   - id: ERR-03
     status: active
-    condition: "The worktree's status isn't empty at an agent's start, or HEAD isn't the base commit (test-writer), the red commit (implementer) or the final commit (verifier)"
+    condition: "The worktree's status isn't empty by BEH-13's rule at an agent's start, or HEAD isn't the base commit (test-writer), the red commit (implementer) or the final commit (verifier)"
     handling: "The test-writer and the implementer stop and report the status and HEAD, changing nothing. The verifier runs nothing more and replies in full, with the start line NOT REPRODUCED, every other line NOT RUN and the verdict INCOMPLETE"
     user_result: "The replies so far; no second run. A verifier's failed start line goes to the owner and never starts the second run (BEH-12)"
   - id: ERR-04
@@ -686,7 +756,7 @@ errors:
     user_result: "The reply, naming the folder; the owner clears it"
   - id: ERR-11
     status: active
-    condition: "At the verifier's end the status isn't empty, HEAD isn't the final commit, or the worktree list shows a folder it added"
+    condition: "At the verifier's end the status isn't empty by BEH-13's rule, HEAD isn't the final commit, or the worktree list shows a folder it added"
     handling: "The end line is NOT REPRODUCED and the verdict FAIL. The verifier deletes nothing in the worktree to get there"
     user_result: "Every reply, with no second run: a failed end line never starts one (BEH-12, ERR-06). Something the plan's commands leave behind is the plan's to ignore or clean"
   - id: ERR-12
@@ -715,7 +785,7 @@ quality_responses:
 | Structural: this spec against `spec.schema.json` | Passes, with every BEH, ERR and QR item covered (checked 2026-11-09, version 2) |
 | Version 1's build | `6dce940` (2026-11-09): the three files byte for byte from version 1's §5; VER-01 as version 1 gave it, 10 tests, failing before the files existed and passing after; `pytest src/tests` 1742 passed, 1 skipped; `claude plugin validate` passes. plugin-validator: nothing blocking. skill-reviewer: nothing critical, eight major and thirteen minor notes on the texts; Bryan took all eight majors and five smaller notes into version 2. Not released, and VER-02 not run on it |
 | Version 2's first build | `f1203ac` (2026-11-09): VER-01 as it then stood, 11 tests; `pytest src/tests` 1743 passed, 1 skipped; `claude plugin validate` passes. plugin-validator: nothing blocking, six notes. skill-reviewer: nothing critical; the eight first-round notes resolved except M3 and M5 in part; five more major notes. Bryan decided all five and six smaller notes into this version, and no further review before VER-02 |
-| VER-01 | Version 2, `5f79173` (2026-11-09): `src/tests/tdd-agents/test_structure.py`, 14 tests, pass; `pytest src/tests` 1746 passed, 1 skipped; `claude plugin validate` passes; plugin-validator, for loading and fields only: pass. No text review of this build, on Bryan's decision |
+| VER-01, version 2 | `5f79173` (2026-11-09): `src/tests/tdd-agents/test_structure.py`, 14 tests, pass; `pytest src/tests` 1746 passed, 1 skipped; `claude plugin validate` passes; plugin-validator, for loading and fields only: pass. No text review of this build, on Bryan's decision |
 | VER-02 | **Not passed.** Run by Bryan on 2026-11-09 on `5913bca`, Claude Code 2.1.321, the `--plugin-dir` copy, by `docs/runbooks/tdd-agents-ver-02.md`. The test-writer stopped at step 3 before any change: inside Claude Code's command sandbox, `git status --porcelain` in the clean scratch repository listed 12 untracked entries (`.bash_profile`, `.bashrc`, `.claude/`, `.gitconfig`, `.gitmodules`, `.idea`, `.mcp.json`, `.profile`, `.ripgreprc`, `.vscode`, `.zprofile`, `.zshrc`): character devices 1,3 owned by nobody:nogroup, the sandbox's placeholders in the folder the session runs in, with a `.claude/` folder of twelve more and an empty-but-for-`__pycache__` `.claude/.cc-writes`. Outside the sandbox the repository was clean at the base commit. The stop was the text working as written (ERR-03); the implementer and the verifier never ran, so (a) to (d) are undecided. Recorded: `/tasks` showed `devforgeai:tdd-test-writer`, Opus 5.5 (medium), and the transcript's model was `claude-opus-5-5`; no permission prompt, the session being in auto mode, so the `cd` question is unanswered; the Agent tool started the agent in the background although the prompt said foreground; before its listed commands the agent chained orientation commands with `;` and disclosed them as unlisted `[UNVERIFIED]` claims; the `\u` escape wasn't reached and there is no red commit. Its reply is in Bryan's run folder (local). The clean-tree checks must tolerate the placeholders: a version 3 change, for Bryan's decision (§13 item 10) |
 | VER-03 | Not run; it doesn't gate the release (§13 item 1) |
 
@@ -727,7 +797,7 @@ verified; a suite is §13's question. This spec specifies no story, so its VER i
 verifications:
   - id: VER-01
     status: active
-    obligation: "src/tests/tdd-agents/test_structure.py, for each of the three files: the file equals §5's block for it byte for byte; the frontmatter keys are exactly name, description, tools, model, effort, in that order; name equals the file name without .md; tools, split on commas and trimmed, equals §5's list, and Agent is in none; model is claude-opus-5-5 and effort is medium; the description is one double-quoted line; the body holds none of these strings in any case: /home/, bankielewicz, npm run, claude plugin, 95; the body holds the headings ## Steps, ## Rules and ## Reply format, and the test-writer's and the implementer's also ## Stop and report, changing nothing more, when; the body holds [evidence: command N], and [UNVERIFIED] (test-writer, implementer) or NOT REPRODUCED (verifier); the body holds Refactor: none, Refactor: allowed, input document incomplete: and missing input:, and the rule against creating what a command that can't run is missing; the test-writer's and the implementer's bodies say a command that can't run for a reason the document describes and allows counts as holding, and name a command that didn't run as a stop condition; the implementer's body holds GREEN: with none for an early stop, and names git clean only to forbid it; the verifier's body holds Green commit:, criterion <number> and the fixed CHECKS lines start, commits, red, command, paths and end; the descriptions hold 'three lines' (test-writer), 'four lines' (implementer) and 'six lines' (verifier); the verifier's body holds git worktree add --detach, ## Disposable worktrees, the git diff after each mutant with NOT RUN [not applied], the replacement of the worktree's path in a disposable worktree's commands, and no separate NOT RUN: heading, and names git checkout, git switch, git reset, git restore, git stash and git clean only in the one rule that forbids them. Also: the three files exist in the agents folder; this spec validates against spec.schema.json and every BEH, ERR and QR item is covered by a VER item."
+    obligation: "src/tests/tdd-agents/test_structure.py, for each of the three files: the file equals §5's block for it byte for byte; the frontmatter keys are exactly name, description, tools, model, effort, in that order; name equals the file name without .md; tools, split on commas and trimmed, equals §5's list, and Agent is in none; model is claude-opus-5-5 and effort is medium; the description is one double-quoted line; the body holds none of these strings in any case: /home/, bankielewicz, npm run, claude plugin, 95; the body holds the headings ## Steps, ## Rules and ## Reply format, and the test-writer's and the implementer's also ## Stop and report, changing nothing more, when; the body holds [evidence: command N], and [UNVERIFIED] (test-writer, implementer) or NOT REPRODUCED (verifier); the body holds Refactor: none, Refactor: allowed, input document incomplete: and missing input:, and the rule against creating what a command that can't run is missing; the test-writer's and the implementer's bodies say a command that can't run for a reason the document describes and allows counts as holding, and name a command that didn't run as a stop condition; the implementer's body holds GREEN: with none for an early stop, and names git clean only to forbid it; the verifier's body holds Green commit:, criterion <number> and the fixed CHECKS lines start, commits, red, command, paths and end; the descriptions hold 'three lines' (test-writer), 'four lines' (implementer) and 'six lines' (verifier); the verifier's body holds git worktree add --detach, ## Disposable worktrees, the git diff after each mutant with NOT RUN [not applied], the replacement of the worktree's path in a disposable worktree's commands, and no separate NOT RUN: heading, and names git checkout, git switch, git reset, git restore, git stash and git clean only in the one rule that forbids them. Each body holds the section ## A clean worktree, word for word the same in all three, with git status --porcelain --untracked-files=all, the stat command and 'character special file 1,3'; no step outside that section runs git status itself; and each body holds the rule to list every command it ran and run none it doesn't list. Also: the three files exist in the agents folder; this spec validates against spec.schema.json and every BEH, ERR and QR item is covered by a VER item."
     level: unit
     covers:
       - BEH-01
@@ -736,7 +806,7 @@ verifications:
       - QR-01
   - id: VER-02
     status: active
-    obligation: "Live, before any release, in a plain Claude Code session started with --plugin-dir on a copy of the build, on a scratch git repository made for the run, outside every project. The scratch input document holds §4's twelve items, says 'Refactor: allowed', gives test code holding one \\u escape, and has one criterion about the red commit and no mutant (§4 item 3: mutants given as replacements of exact lines need 'Refactor: none'; VER-03 (e) runs one). The main conversation follows BEH-11. Pass when: (a) the three agents run in order from new contexts and each reply has exactly its headings; (b) the test-writer's commit holds only the test files and the tests fail as required; (c) the implementer's green commit holds no test file, and its refactor step either commits separately or changes nothing; (d) the verifier's VERDICT is PASS, with the fixed CHECKS lines and one per point of each criterion, a command a criterion shares with a fixed check run once, the red failure reproduced in a disposable worktree, and afterwards a clean status at the final commit and no leftover worktree. Recorded with it, pass or not: whether the committed test file holds the \\u escape as the input document gives it, or the character it stands for; each agent's model and effort as its row in /tasks shows them; whether a command starting with cd <folder> && raises a permission prompt in a subagent; every reply as returned."
+    obligation: "Live, before any release, in a plain Claude Code session started with --plugin-dir on a copy of the build, on a scratch git repository made for the run, outside every project. The scratch input document holds §4's twelve items, says 'Refactor: allowed', gives test code holding one \\u escape, and has one criterion about the red commit and no mutant (§4 item 3: mutants given as replacements of exact lines need 'Refactor: none'; VER-03 (e) runs one). The session runs in the scratch repository, inside the command sandbox, so the sandbox's placeholders are in its git status. The main conversation follows BEH-11, deciding the status by BEH-13. Pass when: (a) the three agents run in order from new contexts and each reply has exactly its headings; (b) the test-writer's commit holds only the test files and the tests fail as required; (c) the implementer's green commit holds no test file, and its refactor step either commits separately or changes nothing; (d) the verifier's VERDICT is PASS, with the fixed CHECKS lines and one per point of each criterion, a command a criterion shares with a fixed check run once, the red failure reproduced in a disposable worktree, and afterwards a clean status at the final commit and no leftover worktree. Recorded with it, pass or not: whether the sandbox let the verifier's git worktree add write to the disposable folder outside the repository, and if it refused, the error and the NOT RUN lines that followed; whether the committed test file holds the \\u escape as the input document gives it, or the character it stands for; each agent's model and effort as its row in /tasks shows them; whether a command starting with cd <folder> && raised a permission prompt in a subagent, or 'not applicable in auto mode' when the session ran in auto mode; every reply as returned."
     level: manual
     covers:
       - BEH-02
@@ -748,9 +818,10 @@ verifications:
       - BEH-09
       - BEH-10
       - BEH-11
+      - BEH-13
   - id: VER-03
     status: active
-    obligation: "Live, on the same scratch repository, the failure paths: (a) an input document lacking one of §4's items gets the single line 'input document incomplete: …' from the test-writer and no change; (b) a task message lacking a line gets 'missing input: …'; (c) a dirty worktree stops an agent with its status reported; (d) an input document whose required red result the repository can't give makes the test-writer stop with no commit, and one whose named command can't run for a reason it describes gets a NOT RUN line; (e) a verifier given an implementer's commit that a mutant survives returns FAIL, and the main conversation makes the backup branch, resets to the red commit, and starts a new implementer with only the NOT REPRODUCED lines, then a new verifier; a second FAIL, a FAIL on the red commit, and an INCOMPLETE each go to the owner with every reply and no further run; (f) a refactor that fails a verification command is undone, with the green commit left as the final one; (g) an implementer given code to copy that fails a verification command stops with no commit and GREEN: none; (h) a verifier whose disposable folder is already a registered worktree removes nothing and returns INCOMPLETE; (i) a verification command that leaves an untracked file in the worktree gives an end line NOT REPRODUCED and FAIL, with no second run; (j) a mutant whose replacement matches nothing is NOT RUN [not applied], and no second run follows; (k) a prepare command that fails, and a plan command that names the worktree's path as a plain argument, each behave as BEH-07 says; (l) an implementer whose verification command can't run for a reason the document allows commits with it under NOT RUN, and one whose command didn't run for another reason stops with no commit."
+    obligation: "Live, on the same scratch repository, the failure paths: (a) an input document lacking one of §4's items gets the single line 'input document incomplete: …' from the test-writer and no change; (b) a task message lacking a line gets 'missing input: …'; (c) a dirty worktree stops an agent with its status reported; (d) an input document whose required red result the repository can't give makes the test-writer stop with no commit, and one whose named command can't run for a reason it describes gets a NOT RUN line; (e) a verifier given an implementer's commit that a mutant survives returns FAIL, and the main conversation makes the backup branch, resets to the red commit, and starts a new implementer with only the NOT REPRODUCED lines, then a new verifier; a second FAIL, a FAIL on the red commit, and an INCOMPLETE each go to the owner with every reply and no further run; (f) a refactor that fails a verification command is undone, with the green commit left as the final one; (g) an implementer given code to copy that fails a verification command stops with no commit and GREEN: none; (h) a verifier whose disposable folder is already a registered worktree removes nothing and returns INCOMPLETE; (i) a verification command that leaves an untracked file in the worktree gives an end line NOT REPRODUCED and FAIL, with no second run; (j) a mutant whose replacement matches nothing is NOT RUN [not applied], and no second run follows; (k) a prepare command that fails, and a plan command that names the worktree's path as a plain argument, each behave as BEH-07 says; (m) a real untracked file beside the sandbox's placeholders stops an agent, as BEH-13 says; (l) an implementer whose verification command can't run for a reason the document allows commits with it under NOT RUN, and one whose command didn't run for another reason stops with no commit."
     level: manual
     covers:
       - BEH-12
@@ -833,7 +904,10 @@ For Bryan, in order. None of these is a requirement until he decides it.
      build~~ **verified for the test-writer** in VER-02's run of 2026-11-09 (2.1.321): `/tasks` showed Opus 5.5
      (medium), and the transcript's model was `claude-opus-5-5`;
    - whether a command that starts with `cd <folder> && ` raises a permission prompt in a subagent. If it does, the
-     owner sees a prompt per command; the agents' rule isn't changed for it without his say;
+     owner sees a prompt per command; the agents' rule isn't changed for it without his say. Not applicable in auto
+     mode (VER-02's run of 2026-11-09 raised none); open until a run is made in default mode (Bryan, 2026-11-09);
+   - whether the sandbox lets the verifier's `git worktree add` write to a disposable folder outside the
+     repository. VER-02 records it; if it refuses, where disposable folders live is Bryan's decision;
    - whether an agent's Edit or Write turns a `\u` escape into the character it stands for;
    - that a repository's Stop hooks run, or don't, for a subagent's turns.
 4. **Enforcement.** §1's limits say the duties are written rules. Bryan's direction of 2026-11-09 for the experts
@@ -864,10 +938,14 @@ For Bryan, in order. None of these is a requirement until he decides it.
 10. **The sandbox's placeholders and the clean-tree checks** (VER-02's run of 2026-11-09, §9). Inside Claude Code's
     command sandbox, the folder a session runs in holds untracked character devices that `git status --porcelain`
     lists, so every agent's "the status must be empty" stops a sandboxed run on a clean repository. The checks, and
-    the main conversation's own in BEH-11 and BEH-12, must tolerate them: version 3, wording for Bryan's decision.
-    Two more observations from that run, also undecided: the agent ran commands it didn't list under COMMANDS and
-    chained them with `;`, against "Chain nothing else to it"; and the Agent tool ran the agent in the background
-    although asked for the foreground.
+    the main conversation's own in BEH-11 and BEH-12, must tolerate them. **Resolved in version 3 (Bryan,
+    2026-11-09): BEH-13.** Two more observations from that run, also decided by him: every command an agent ran is
+    listed under COMMANDS (BEH-09), after the agent ran commands it didn't list and chained them with `;`; and the
+    runbook's prompt no longer asks for the foreground, the Agent tool having run the agent in the background.
+    Not verified: this session couldn't reproduce the placeholders, so BEH-13's commands rest on that run's
+    evidence, and VER-02's rerun is their first test. The reading added to the approved wording, for Bryan to
+    confirm or strike: the `placeholders:` line is written only "when you ran step 3", since otherwise there is no
+    `stat` command for it to cite.
 
 ## Change Log
 
@@ -880,3 +958,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 2 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Before approval, Bryan's decisions of 2026-11-09 on the reviews of version 2's first build (f1203ac): in a disposable worktree the worktree's path is replaced wherever a command names it; a failed prepare command or removal makes the checks NOT RUN; git diff proves each mutant was applied, else NOT RUN [not applied]; a NOT RUN the document describes and allows counts as holding for the test-writer and the implementer, and any other command that didn't run is a stop; the second run needs the start, red and end lines REPRODUCED and no unallowed NOT RUN; ERR-10 reworded, ERR-12 added; a refactor creates no file; corrections may repeat; the verifier's separate NOT RUN heading removed; no further review before VER-02 | §2, §5, BEH-05 to BEH-08, BEH-12, ERR-03, ERR-04, ERR-06, ERR-07, ERR-10 to ERR-12, VER-01, VER-03, §9, §13 |
 | 2 | 2026-11-09 | Bryan | Approved ("SPEC-020 v2 is approved"), with the test-command exception confirmed (§13 item 9) and §13 item 8's notes left open | status, §13 |
 | 2 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Record-only update, with no version bump: §9 records VER-02's run by Bryan on 5913bca, not passed (the test-writer stopped at step 3 on the command sandbox's placeholders in git status), and what the run showed; §13 item 3's model and effort verified for the test-writer; §13 item 10 opens the clean-tree question for version 3 | §9, §13 |
+| 3 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Bryan's decisions of 2026-11-09 after VER-02's run on version 2 did not pass: the section A clean worktree in all three agents and BEH-13 (an untracked entry counts as the sandbox's placeholder only when stat shows character special file 1,3; a real file under .claude/.cc-writes makes the status not empty), with every status check of an agent and of the main conversation decided by it; every command run is listed under COMMANDS and none is run unlisted (BEH-09); VER-02 records whether the sandbox lets git worktree add write outside the repository, and the cd prompt as not applicable in auto mode; the runbook's prompt drops 'in the foreground'; status in-review | frontmatter, §2, §5, BEH-09, BEH-13, ERR-03, ERR-11, VER-01 to VER-03, §13 |

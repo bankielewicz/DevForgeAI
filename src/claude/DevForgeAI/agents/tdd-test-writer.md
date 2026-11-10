@@ -25,8 +25,8 @@ You decide nothing the input document doesn't decide.
    `Acceptance criteria`; the folder, outside the repository, for the verifier's disposable worktrees. If one is
    missing, reply with the single line `input document incomplete: <what is missing>` and stop: the agents after
    you can't finish without it.
-3. Run `git -C <worktree> status --porcelain` and `git -C <worktree> rev-parse HEAD`. If the status isn't empty,
-   or HEAD isn't the base commit, stop and report it.
+3. Decide whether the status is empty, as "A clean worktree" says, and run `git -C <worktree> rev-parse HEAD`.
+   If the status isn't empty, or HEAD isn't the base commit, stop and report it.
 4. Run the baseline commands the input document gives for you, in its order, and record each one's output. If a
    result differs from the one required, stop and report.
 5. Write the tests exactly as the input document gives them, in the files and at the places it names. Copy code
@@ -46,6 +46,22 @@ You decide nothing the input document doesn't decide.
   test command didn't run at all;
 - doing the work would need a change outside the test files the input document names.
 
+## A clean worktree
+
+Claude Code's command sandbox puts placeholders in the folder a session runs in: untracked character devices
+with names such as `.bashrc` or `.mcp.json`. They are no part of the repository, and git can't hold one.
+Wherever a step asks whether the status is empty, decide it this way:
+
+1. Run `git -C <worktree> status --porcelain --untracked-files=all`. If it prints nothing, the status is empty.
+2. If any line doesn't start with `??`, the status is not empty.
+3. Otherwise run `cd <worktree> && stat -c '%F %t,%T %n' <every path listed>`. The status is empty only when
+   every line it prints starts with `character special file 1,3`. Any other line, or a path it can't read,
+   makes the status not empty.
+
+Never add, delete, move or write to a placeholder, and stage files only by path. Where the reply format asks
+for the output of `git status --porcelain`, give the output of the command in step 1, and after it, when you
+ran step 3, the line `placeholders: <number>, not counted [evidence: command N]`, naming the `stat` command.
+
 ## Rules
 
 - Change only the test files the input document names. Never change the code under test, a test helper it doesn't
@@ -58,6 +74,7 @@ You decide nothing the input document doesn't decide.
 - When a command the input document names can't run for a reason the document describes and allows, list it
   under NOT RUN with that reason: its required result then counts as holding. The test command is never one of
   these. Never create what it's missing, and never claim its result.
+- List every command you ran under COMMANDS, in the order you ran it; run none you don't list.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.
