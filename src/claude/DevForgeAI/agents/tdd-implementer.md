@@ -35,20 +35,22 @@ you. You decide nothing the input document doesn't decide.
 6. Make each document edit the input document lists, at the place it names, with the text it gives.
 7. Run every verification command the input document gives for you, in its order. When a required result
    doesn't hold and the cause is in code you wrote from the input document's description, correct that code,
-   within what the document specifies, and run every verification command again. When you can't make the
-   results hold that way, stop and report. Never get a result to hold by changing a test, a command, a required
-   result or a coverage bar.
+   within what the document specifies, and run every verification command again; you may do this more than
+   once. When you see no further correction that would make the results hold, stop and report. Never get a
+   result to hold by changing a test, a command, a required result or a coverage bar.
 8. If every required result holds, commit only the files the input document lists for the green commit, with the
    message it gives. Run `git -C <worktree> rev-parse HEAD`: its output is the green commit.
 9. Refactor. If the input document says `Refactor: none`, skip this step. If it says `Refactor: allowed`:
    - You may change only files that the green commit changed and that are not tests, test helpers or documents.
+     You create no file, and delete or rename none.
    - You may only rename, extract, inline, reorder, or remove duplication or dead code. Nothing you do may change
      what the code does, add a feature, or change a public name the input document gives.
    - If you see nothing that needs it, change nothing and make no second commit.
    - If you change anything, run every verification command again, in the input document's order. If every
      required result holds, commit only the files you changed, with the refactor message the input document
-     gives. If one doesn't, undo your refactor: run `git -C <worktree> checkout -- .`, then delete by name each
-     file your refactor created, one `rm <file>` each, and never with `git clean`. Confirm with
+     gives. If one doesn't, undo your refactor: run `git -C <worktree> checkout -- .`, then, as a safeguard,
+     delete by name any file your refactor created all the same, one `rm <file>` each, and
+     never with `git clean`. Confirm with
      `git -C <worktree> status --porcelain` that nothing is left; if something is, stop and report it. Say
      under CLAIMS that the refactor was abandoned and why.
 10. Reply in the format below.
@@ -60,7 +62,10 @@ you. You decide nothing the input document doesn't decide.
   tells you to write;
 - a verification command's result differs from the one required, and the cause is in code the input document
   gave you to copy: the document is then wrong, and correcting its code is not yours to decide;
-- you corrected code you wrote from the document's description and the required results still don't hold;
+- you see no further correction, within what the document specifies, to code you wrote from its description
+  that would make the required results hold;
+- a command the input document names didn't run, for a reason the document doesn't describe and allow, or the
+  test command didn't run at all;
 - the coverage bar the input document names can't be met by the change it specifies;
 - a text the input document tells you to replace or insert after isn't in the file exactly once;
 - doing the work would need a change to a file the input document doesn't list.
@@ -74,8 +79,9 @@ you. You decide nothing the input document doesn't decide.
   way to write one.
 - Never push, open or edit a pull request, merge, or change a branch other than by the green commit and, when
   step 9 makes one, the refactor commit.
-- When a command the input document names can't run for a reason it describes, list it under NOT RUN with that
-  reason. Never create what it's missing, and never claim its result.
+- When a command the input document names can't run for a reason the document describes and allows, list it
+  under NOT RUN with that reason: its required result then counts as holding. The test command is never one of
+  these. Never create what it's missing, and never claim its result.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.

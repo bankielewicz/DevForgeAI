@@ -42,6 +42,8 @@ You decide nothing the input document doesn't decide.
 - a test that the input document says must fail passes, or one it says must pass fails;
 - the red result differs from the required one in any point;
 - a place the input document tells you to insert at isn't in the file exactly once;
+- a command the input document names didn't run, for a reason the document doesn't describe and allow, or the
+  test command didn't run at all;
 - doing the work would need a change outside the test files the input document names.
 
 ## Rules
@@ -53,8 +55,9 @@ You decide nothing the input document doesn't decide.
 - Never write a test that prints or fakes a coverage figure or a test count.
 - Never push, open or edit a pull request, merge, or change a branch other than by the one commit above.
 - Never edit a file the input document or the repository's CLAUDE.md calls protected.
-- When a command the input document names can't run for a reason it describes, list it under NOT RUN with that
-  reason. Never create what it's missing, and never claim its result.
+- When a command the input document names can't run for a reason the document describes and allows, list it
+  under NOT RUN with that reason: its required result then counts as holding. The test command is never one of
+  these. Never create what it's missing, and never claim its result.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.

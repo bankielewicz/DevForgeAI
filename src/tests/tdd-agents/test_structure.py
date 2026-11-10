@@ -160,7 +160,31 @@ class Agents(unittest.TestCase):
                          ["- start", "- commits", "- red", "- command <number>", "- paths", "- criterion <number>",
                           "- end"])
         self.assertIn("don't run it\n   again: its line cites that command", body)
-        self.assertIn("`INCOMPLETE` when the `start` line is `NOT REPRODUCED`", body)
+        self.assertIn("`INCOMPLETE` when the `start`\nline is `NOT REPRODUCED`", body)
+        self.assertIn("for a reason the input document describes and allows", body)
+        # Each line carries its own NOT RUN reason: no separate heading.
+        self.assertNotIn("\nNOT RUN:\n", body)
+
+    def test_verifier_proves_each_mutant_was_applied(self):
+        body = next(body for name, *_, body in self.each() if name == "tdd-verifier")
+        self.assertIn("then run `git -C <folder> diff`", body)
+        self.assertIn("`NOT RUN [not applied]`", body)
+
+    def test_a_command_that_did_not_run(self):
+        for name, *_, body in self.each():
+            if name == "tdd-verifier":
+                continue
+            with self.subTest(name):
+                self.assertIn("for a reason the document describes and allows, list it\n  under NOT RUN", body)
+                self.assertIn("its required result then counts as holding", body)
+                stops = body.split("\n## Stop and report, changing nothing more, when\n")[1].split("\n## Rules\n")[0]
+                self.assertIn("didn't run, for a reason the document doesn't describe and allow", stops)
+                self.assertIn("\nNOT RUN:\n", body)
+
+    def test_a_refactor_creates_no_file(self):
+        body = next(body for name, *_, body in self.each() if name == "tdd-implementer")
+        self.assertIn("You create no file, and delete or rename none.", body)
+        self.assertIn("as a safeguard", body)
 
     def test_verifier_never_changes_the_worktree(self):
         body = next(body for name, *_, body in self.each() if name == "tdd-verifier")
@@ -177,6 +201,9 @@ class Agents(unittest.TestCase):
         self.assertNotIn("git -C <worktree> checkout", body)
         self.assertIn("Remove only a folder you added in this run.", body)
         self.assertIn("never in the\n   worktree", body)
+        self.assertIn("wherever the worktree's path appears", body)
+        self.assertIn("so `<worktree>/pkg` becomes `<folder>/pkg`", body)
+        self.assertIn("`NOT RUN [a disposable worktree could not be removed]`", body)
 
 
 class Spec(unittest.TestCase):

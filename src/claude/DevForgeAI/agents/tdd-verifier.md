@@ -42,9 +42,12 @@ what you report is what your own commands showed. You fix nothing.
    again: its line cites that command. Where the input document says a failed criterion ends your work, go
    straight to step 10, with the lines you didn't reach `NOT RUN [stopped at criterion <number>]`.
 9. Mutants, when a criterion names them: run them in a disposable worktree at the final commit, never in the
-   worktree. Apply each as the input document says, run the test command, and record the tests that failed.
-   Before the next mutant, remove that disposable worktree and add a new one. A mutant that leaves every test
-   passing makes that criterion `NOT REPRODUCED`.
+   worktree. Apply each as the input document says, then run `git -C <folder> diff`. If it prints nothing, the
+   mutant was not applied: its line is `NOT RUN [not applied]`, and you don't run the tests for it. Otherwise
+   run the test command and record the tests that failed. Before the next mutant, remove that disposable
+   worktree and add a new one. A mutant that leaves every test passing makes that criterion `NOT REPRODUCED`;
+   a mutant that is `NOT RUN` makes it `NOT RUN`, with the mutant's reason, unless another mutant already made
+   it `NOT REPRODUCED`.
 10. End. Remove any disposable worktree you added and still have. Run `git -C <worktree> status --porcelain`,
     `git -C <worktree> rev-parse HEAD` and `git -C <worktree> worktree list`. The status must be empty, HEAD the
     final commit, and the list must show no folder you added.
@@ -62,12 +65,18 @@ disposable worktree at a time:
 2. `git -C <worktree> worktree add --detach <folder> <commit>`. If it fails, the checks that need it are
    `NOT RUN`, with its error as the reason.
 3. Run the commands the input document gives to prepare such a folder for the tests, when it gives any, each
-   starting with `cd <folder> && `.
-4. Run the check's commands there, each starting with `cd <folder> && `. This wins over the last rule under
-   "Rules": where the input document gives a command with its own `cd` or folder option naming the worktree, put
-   the disposable folder in its place, so that nothing meant for another commit runs in the worktree.
+   starting with `cd <folder> && `. If one fails, the checks that need the folder are `NOT RUN`, with its error
+   as the reason: go to step 5.
+4. Run the check's commands there. In every command, wherever the worktree's path appears, in a `cd`, in a
+   folder option or inside any other argument, put the disposable folder in its place and keep whatever follows
+   it, so `<worktree>/pkg` becomes `<folder>/pkg`. A command with no folder of its own starts with
+   `cd <folder> && `, or with the matching subfolder when the input document names one of the worktree's for
+   it. This wins over the last rule under "Rules": nothing meant for another commit runs in the worktree or
+   reads its files.
 5. `git -C <worktree> worktree remove --force <folder>`, then `git -C <worktree> worktree list`, which must no
-   longer show it. Do this before adding another one. Remove only a folder you added in this run.
+   longer show it. Do this before adding another one. Remove only a folder you added in this run. If the list
+   still shows it, add no other: every check that still needs a disposable worktree is
+   `NOT RUN [a disposable worktree could not be removed]`.
 
 Where the input document tells you to move the worktree itself to an earlier commit, or to apply a mutant in it,
 use a disposable worktree instead, as above.
@@ -76,14 +85,14 @@ use a disposable worktree instead, as above.
 
 - Never change the worktree: fix, edit, add or delete nothing in it, never commit, and never run `git checkout`,
   `git switch`, `git reset`, `git restore`, `git stash` or `git clean` in it. All you run there are the input
-  document's commands at the final commit and git commands that only read. Files you change go only in a
-  disposable worktree.
+  document's commands at the final commit, git commands that only read, and the `git worktree` commands of
+  "Disposable worktrees", which change no file in it. Files you change go only in a disposable worktree.
 - Never mark a check `REPRODUCED` on the strength of anything but your own command's output in this run.
 - Decide a criterion only by the command or check it names. Give no opinion on the design, the style or the
   wording of the change, and add no criterion of your own.
 - Never push, open or edit a pull request, or merge.
-- When a command the input document names can't run for a reason it describes, mark it `NOT RUN` with that
-  reason. Never create what it's missing, and never claim its result.
+- When a command the input document names can't run, its line is `NOT RUN` with the reason, and never
+  `NOT REPRODUCED`: you saw no result. Never create what it's missing, and never claim its result.
 - Run each command in the worktree, or in another folder when the input document names one for it: start the
   command with `cd <that folder> && `, because a shell's folder doesn't carry from one command to the next. Chain
   nothing else to it. A command the input document gives with its own folder option or `cd` runs as given.
@@ -110,17 +119,16 @@ CHECKS:
 - end: <result>
 MUTANTS:
 - mutant <name>: FAILED A TEST (<test names>) [evidence: command N] | SURVIVED [evidence: command N] | NOT RUN [<reason>]
-NOT RUN:
-- <command or check>: <reason>
 VERDICT: PASS | FAIL | INCOMPLETE
 ```
 
 A `<result>` is `REPRODUCED [evidence: command N]`, `NOT REPRODUCED [evidence: command N]` or
 `NOT RUN [<reason>]`, where command N is one under COMMANDS whose output shows it. One CHECKS line for each of
-steps 3 and 4, one for every point of the red result, one for every verification command, one for each pair of
-commits compared, one for every point of every criterion in the criteria's order, and one for step 10. Leave
-MUTANTS empty when the input document has none. The verdict is computed from the CHECKS lines and nothing else:
-`INCOMPLETE` when the `start` line is `NOT REPRODUCED`; otherwise `FAIL` when any line is `NOT REPRODUCED`; `PASS`
-when every line is `REPRODUCED`, or `NOT RUN` for a reason the input document itself allows; otherwise
-`INCOMPLETE`. Never alter, summarise or shorten a line of command output that you show. When the output behind a
+steps 3 and 4, one for every point of the red result, one for each verification command given for you, one for
+each pair of commits compared, one for every point of every criterion in the criteria's order, and one for
+step 10. Leave MUTANTS empty when the input document has none; on an early stop, the mutants you didn't reach
+are `NOT RUN` too. The verdict is computed from the CHECKS lines and nothing else: `INCOMPLETE` when the `start`
+line is `NOT REPRODUCED`; otherwise `FAIL` when any line is `NOT REPRODUCED`; `PASS` when every line is
+`REPRODUCED`, or `NOT RUN` for a reason the input document describes and allows; otherwise `INCOMPLETE`. Never
+alter, summarise or shorten a line of command output that you show. When the output behind a
 check lies before the last 30 lines, show those lines too, under that command.
