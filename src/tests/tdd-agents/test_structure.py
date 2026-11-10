@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parents[3]
 AGENTS = ROOT / "src/claude/DevForgeAI/agents"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-020.md"
-SPEC_VERSION, SPEC_STATUS = 2, "in-review"   # version 1 approved 2026-11-09; version 2 awaits Bryan
+SPEC_VERSION, SPEC_STATUS = 2, "approved"   # versions 1 and 2 approved by Bryan on 2026-11-09
 
 WRITE_TOOLS = ["Read", "Grep", "Glob", "Edit", "Write", "Bash"]
 TOOLS = {"tdd-test-writer": WRITE_TOOLS, "tdd-implementer": WRITE_TOOLS,

@@ -2,7 +2,7 @@
 id: SPEC-020
 type: spec
 title: "Test-first agents: three plugin agents that carry out one test-first change from a written plan"
-status: in-review      # draft | in-review | approved | superseded | deprecated
+status: approved       # draft | in-review | approved | superseded | deprecated
 version: 2
 created: 2026-11-09
 updated: 2026-11-09
@@ -13,8 +13,8 @@ generated_by:
   model: "claude-fable-5-2"
   session: "9037a656-70d0-43bb-828a-447520233f48"
 reviewed_by: ["plugin-validator and skill-reviewer on the build of version 1 (6dce940), 2026-11-09"]
-approved_by: ""
-approved_on: null
+approved_by: "Bryan"
+approved_on: 2026-11-09
 upstream:
   - {id: PRD-001, item: NFR-002, relation: constrains, version: 14, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
@@ -32,7 +32,9 @@ components: ["src/claude/DevForgeAI/agents/tdd-test-writer.md", "src/claude/DevF
 
 # SPEC-020 — Test-first agents: three plugin agents that carry out one test-first change from a written plan
 
-> **Status:** version 2, in review. Version 1 was approved by Bryan on 2026-11-09 ("i approve") and built
+> **Status:** version 2, approved by Bryan on 2026-11-09 ("SPEC-020 v2 is approved"); built (`5f79173`), not
+> released: the live run, VER-02, gates the release and is not run (§9). Version 1 was approved by Bryan on
+> 2026-11-09 ("i approve") and built
 > (`6dce940`); the build's two closing reviews found nothing blocking and eight major notes on the texts, and Bryan
 > decided the same day to take all eight, with five smaller ones, into this version before the live run
 > (§2). The reviews of this version's first build (`f1203ac`) found nothing blocking and five more major notes; his
@@ -713,9 +715,9 @@ quality_responses:
 | Structural: this spec against `spec.schema.json` | Passes, with every BEH, ERR and QR item covered (checked 2026-11-09, version 2) |
 | Version 1's build | `6dce940` (2026-11-09): the three files byte for byte from version 1's §5; VER-01 as version 1 gave it, 10 tests, failing before the files existed and passing after; `pytest src/tests` 1742 passed, 1 skipped; `claude plugin validate` passes. plugin-validator: nothing blocking. skill-reviewer: nothing critical, eight major and thirteen minor notes on the texts; Bryan took all eight majors and five smaller notes into version 2. Not released, and VER-02 not run on it |
 | Version 2's first build | `f1203ac` (2026-11-09): VER-01 as it then stood, 11 tests; `pytest src/tests` 1743 passed, 1 skipped; `claude plugin validate` passes. plugin-validator: nothing blocking, six notes. skill-reviewer: nothing critical; the eight first-round notes resolved except M3 and M5 in part; five more major notes. Bryan decided all five and six smaller notes into this version, and no further review before VER-02 |
-| VER-01 | Version 2: see the Change Log's last build row |
-| VER-02 | Not run: not built |
-| VER-03 | Not run: not built |
+| VER-01 | Version 2, `5f79173` (2026-11-09): `src/tests/tdd-agents/test_structure.py`, 14 tests, pass; `pytest src/tests` 1746 passed, 1 skipped; `claude plugin validate` passes; plugin-validator, for loading and fields only: pass. No text review of this build, on Bryan's decision |
+| VER-02 | Not run: Bryan runs it from a plain terminal, by `docs/runbooks/tdd-agents-ver-02.md` |
+| VER-03 | Not run; it doesn't gate the release (§13 item 1) |
 
 There is no eval suite. The agents belong to no skill, and no eval case here has exercised a plugin agent (SPEC-014
 §13 item 7: "no case allows the Agent tool"). Whether an eval run can start these agents and let them commit is not
@@ -845,7 +847,8 @@ For Bryan, in order. None of these is a requirement until he decides it.
 6. **An eval suite.** None is specified (§9). A probe would show whether an eval run can start a plugin agent, and
    whether the agents can commit in a repository the run makes itself.
 7. **The dev step.** Whether the later dev spec (ADR-005 D1) uses these agents for its `tdd` variant.
-8. **Reviewer notes not taken into version 2** (the skill-reviewer's minors on version 1; none blocks): a plan that
+8. **Reviewer notes not taken into version 2** (the skill-reviewer's minors on version 1; none blocks, and they
+   stay open notes: Bryan, 2026-11-09): a plan that
    changes an existing test meets the test-writer's "never change or delete an existing test"; "leave it" for an
    escape the tool converted doesn't say to look at what was written; no instruction for a repository with no
    CLAUDE.md, or one whose rules conflict with the input document; and a multi-line commit message under "chain
@@ -854,8 +857,9 @@ For Bryan, in order. None of these is a requirement until he decides it.
    green-to-final paths line when `Refactor: none` and the two commits differ (the verdict is already FAIL).
 9. **"The test command is never one of these."** The rule that a `NOT RUN` the document allows counts as holding
    excepts the test command for the test-writer and the implementer: without its result there is no red result to
-   show and no failing tests to confirm. Bryan's answer didn't name that exception; it is this draft's reading,
-   for him to confirm or strike.
+   show and no failing tests to confirm. Bryan's answer didn't name that exception; it was this draft's reading.
+   **Resolved (Bryan, 2026-11-09): confirmed.** As sent: "Without the test command's result there is no red result
+   to show, so a stop is right."
 
 ## Change Log
 
@@ -866,3 +870,4 @@ For Bryan, in order. None of these is a requirement until he decides it.
 | 1 | 2026-11-09 | Bryan | Approved ("i approve"), with only VER-02 gating the first release | status |
 | 2 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Bryan's decisions of 2026-11-09 on the build's reviews ("v2 now with all eight"): the verifier's checks fixed for every plan, with a shared command run once (M8); its end state a CHECKS line and a full reply on an early stop (M2); in a disposable worktree every command runs there (M3); mutants in a disposable worktree at the final commit (M4); the folder is the worktree's own path, an add that fails, where to prepare, and removing only what it added (M5); the test-writer's rule for a command that can't run, and its HEAD checked against the base commit (M1); the implementer stops when the plan's own code fails and corrects only code it wrote, loosening nothing (M6); §4 items 10 to 12 and item 6 widened (M7); GREEN: none on an early stop; a refactor's undo deletes created files by name, never with git clean; ERR-09 to ERR-11; status in-review | frontmatter, §2, §4, §5, BEH-02, BEH-04 to BEH-09, BEH-12, ERR-03, ERR-04, ERR-06 to ERR-11, VER-01 to VER-03, §9, §13 |
 | 2 | 2026-11-09 | claude-code (session 9037a656-70d0-43bb-828a-447520233f48) | Before approval, Bryan's decisions of 2026-11-09 on the reviews of version 2's first build (f1203ac): in a disposable worktree the worktree's path is replaced wherever a command names it; a failed prepare command or removal makes the checks NOT RUN; git diff proves each mutant was applied, else NOT RUN [not applied]; a NOT RUN the document describes and allows counts as holding for the test-writer and the implementer, and any other command that didn't run is a stop; the second run needs the start, red and end lines REPRODUCED and no unallowed NOT RUN; ERR-10 reworded, ERR-12 added; a refactor creates no file; corrections may repeat; the verifier's separate NOT RUN heading removed; no further review before VER-02 | §2, §5, BEH-05 to BEH-08, BEH-12, ERR-03, ERR-04, ERR-06, ERR-07, ERR-10 to ERR-12, VER-01, VER-03, §9, §13 |
+| 2 | 2026-11-09 | Bryan | Approved ("SPEC-020 v2 is approved"), with the test-command exception confirmed (§13 item 9) and §13 item 8's notes left open | status, §13 |
