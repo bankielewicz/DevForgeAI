@@ -245,7 +245,7 @@ class Rules(unittest.TestCase):
 
     def test_one_folder_per_session_and_the_rule_for_writing(self):
         """SPEC-015 version 3, section 4: the session's own folder, and nothing written in any other."""
-        skill = squash(self.text)
+        skill = squash((SKILL / "SKILL.md").read_text())
         self.assertIn("devforgeai/handoff/<branch>/${CLAUDE_SESSION_ID}/", skill)
         self.assertIn("session-<YYYYMMDDTHHMMSSZ>", skill)  # the name when the ID isn't substituted
         self.assertIn("Write, move or delete nothing in any other folder under `devforgeai/handoff/`", skill)

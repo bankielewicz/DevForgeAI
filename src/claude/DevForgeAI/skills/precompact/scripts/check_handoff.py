@@ -2,7 +2,7 @@
 """Check a precompact handoff folder: START-HERE.md, RESUME-PROMPT.md and TASKS.md.
 
 Usage:
-    python3 check_handoff.py [--root DIR] HANDOFF_DIR
+    python3 check_handoff.py [--root DIR] [--session ID] HANDOFF_DIR
 
 HANDOFF_DIR is relative to DIR (the project root, `.` by default) unless absolute. The script reads and never
 writes, and reads only the three files (not TASKS-archive.md or any other file in the folder). It checks:
@@ -19,7 +19,10 @@ writes, and reads only the three files (not TASKS-archive.md or any other file i
   expanding `~/`; a relative one under DIR or beside the file that names it. A reference whose line or the line
   above says `(not yet created)` or `(session-only)` isn't checked, nor a section 4 item that says so on any of its
   lines, nor a path holding a variable that isn't set. No other backticked text is checked;
-- DIR/devforgeai/handoff/.gitignore holds the line `*`.
+- DIR/devforgeai/handoff/.gitignore holds the line `*`;
+- with --session ID, the folder is that session's own: HANDOFF_DIR's last path component is ID, and where START-HERE
+  section 1 says `by session <id>`, the id is ID. Without --session neither is checked, so a folder written before
+  folders were per session checks as it did.
 
 Prints `<file>:<line>: <problem>` and `<file>:<line>: warning: <text>` (START-HERE over 250 lines; today,
 yesterday, tomorrow or recently outside quotes and code), then `handoff: clean`, or
@@ -62,6 +65,7 @@ DATE = re.compile(r"(?<!\d)\d{4}-\d{2}-\d{2}(?!\d)")
 QUOTE = re.compile(r"\"[^\"]+\"|“[^”]+”")
 RELATIVE_DATE = re.compile(r"\b(today|yesterday|tomorrow|recently)\b", re.I)
 EMPHASIS = "*_ "
+BY_SESSION = re.compile(r"\bby\s+session\s+`?([A-Za-z0-9][A-Za-z0-9_.-]*)")
 
 
 class Doc:
@@ -140,9 +144,10 @@ def display(path, root):
 
 
 class Checker:
-    def __init__(self, root, handoff):
+    def __init__(self, root, handoff, session=None):
         self.root = root
         self.handoff = handoff
+        self.session = session
         self.out = []  # (file order, line, kind, text)
         self.problems = 0
         self.warnings = 0
@@ -214,8 +219,29 @@ class Checker:
                 self.problem(order, doc.path, line + 1, f"expected heading '{want}' here, found '{have}'")
                 return
 
+    def own_folder(self, order, doc):
+        """--session: the folder and START-HERE section 1 name this session, so no other session's handoff is written."""
+        if os.path.basename(self.handoff) != self.session:
+            self.problem(order, doc.path, 0,
+                         f"another session's folder: its name isn't this session's ID ({self.session}); "
+                         "write this session's handoff in its own folder and leave this one as it was")
+        s1 = doc.section(START_HEADINGS[0])
+        if not s1:
+            return
+        lines = [j for j in range(s1[0] + 1, s1[1]) if not doc.fenced[j]]
+        text = "\n".join(doc.lines[j] for j in lines)
+        for m in BY_SESSION.finditer(text):
+            other = m.group(1).rstrip(".")
+            if other != self.session:
+                line = lines[text.count("\n", 0, m.start(1))] + 1
+                self.problem(order, doc.path, line,
+                             f"written by session {other}, not this session ({self.session}): "
+                             "another session's handoff is never changed")
+
     def start_here(self, order, doc):
         self.headings(order, doc, START_HEADINGS)
+        if self.session:
+            self.own_folder(order, doc)
         if len(doc.lines) > START_WARN_LINES:
             self.warning(order, doc.path, START_WARN_LINES + 1,
                          f"START-HERE.md has {len(doc.lines)} lines: keep it within about {START_WARN_LINES}, "
@@ -330,6 +356,7 @@ class Checker:
 def main(argv):
     parser = argparse.ArgumentParser(description="Check a precompact handoff folder.")
     parser.add_argument("--root", default=".", help="the project root (default: .)")
+    parser.add_argument("--session", help="this session's ID: the folder and START-HERE section 1 must name it")
     parser.add_argument("handoff_dir", help="the handoff folder, relative to the root unless absolute")
     args = parser.parse_args(argv)
     root = os.path.abspath(args.root)
@@ -346,7 +373,7 @@ def main(argv):
         print(f"check_handoff: can't read the handoff folder {display(handoff, root)}: {e.strerror or e}",
               file=sys.stderr)
         return 2
-    return Checker(root, handoff).run()
+    return Checker(root, handoff, args.session).run()
 
 
 if __name__ == "__main__":

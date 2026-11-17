@@ -9,8 +9,13 @@ this file has what goes in each section, with examples, and the self-check.
 
 - `devforgeai/handoff/.gitignore` holds the single line `*`: the handoff is working notes for the next session on
   this machine, never committed.
-- `devforgeai/handoff/<folder>/` holds `START-HERE.md`, `RESUME-PROMPT.md`, `TASKS.md`, and `TASKS-archive.md` once
-  TASKS.md has more than 20 done entries (create it with the heading `# Tasks archive`).
+- `devforgeai/handoff/<branch>/<session>/`, this session's own folder (SKILL.md step 1 names it), holds
+  `START-HERE.md`, `RESUME-PROMPT.md`, `TASKS.md`, and `TASKS-archive.md` once TASKS.md has more than 20 done
+  entries (create it with the heading `# Tasks archive`).
+- Several sessions may work in one project at once, on one branch or several. Each writes only its own folder,
+  so none overwrites another's handoff. Every other folder under `devforgeai/handoff/` is read-only for this
+  session: don't write, move, tidy or delete one, however old it looks. Folders collect until the user deletes
+  them.
 - A path named in section 4 or in a Markdown link must exist. Mark one that will exist later `(not yet created)` on
   its line, and one valid only until the session ends (a scratch file) `(session-only)` on its line or the line
   above. Give evidence as text (a commit hash, a PR number), not as links, so an old entry never points at a file
@@ -23,8 +28,11 @@ doesn't apply. More `##` sections may follow section 7; `###` headings may go an
 
 **1. What this is.** Two or three sentences a stranger understands, then the project root, the work's branch (with
 its worktree's path when the session works in another worktree, and the checkout the session runs in), the time
-written (UTC) and the session ID. Several sessions may run in one checkout on one branch while each works in its own
-worktree: the folder follows the work's branch, so each keeps its own handoff. When the session's progress tracker has an open run, name it and its step.
+written (UTC) and the session ID. `Continues:` names the START-HERE.md of the handoff carried over from another
+folder, by its path; delete the line when there is none. `Other handoffs on this branch:` lists the names of the
+other folders, and of old files lying directly in the branch's folder, or says `none`: names only, from one listing,
+so the next session knows other work is recorded there without this session having read it. When the session's
+progress tracker has an open run, name it and its step.
 
 **2. Verified state.** One fact per bullet, each ending with how it was checked, or `(unverified: <source>, <date>)`.
 - Good: `- PR #12 is open as a draft [checked: gh pr view 12 --json isDraft -> true]`
@@ -58,9 +66,17 @@ memory (`references/memory.md`).
 **7. Before acting.** Commands to run first, each with what it shows if nothing changed:
 `- git log -n 1 --oneline - shows a1b2c3d`.
 
-**Carrying over an earlier handoff.** When the folder holds an earlier START-HERE.md, keep what still holds: its
-decisions, open questions, rules, traps and learnings, and its outstanding items not finished; drop what is done
-(TASKS.md keeps it). When the earlier handoff is about other work (another topic on the same branch), keep its
+**Carrying over an earlier handoff.** There is one source, in this order: this session's own earlier START-HERE.md;
+else the handoff the conversation shows this session resumed from, the START-HERE.md whose path it was given and
+read (in any folder, an old one directly in the branch's folder included). Keep what still holds: its decisions,
+open questions, rules, traps and learnings, and its outstanding items not finished; drop what is done (TASKS.md
+keeps it). A handoff carried over from another folder is copied, never changed: its files stay as they were.
+- Good: this session was started with a resume prompt naming another folder's START-HERE.md and read it; its
+  decisions go into this session's START-HERE, and section 1 says `Continues:` with that path.
+- Bad: the branch's folder holds another session's handoff that this session never read; copying its decisions,
+  or editing its TASKS.md, mixes two sessions' work.
+
+When this session's own earlier handoff is about other work (the same session, another topic), keep its
 TASKS.md entries under a `##` heading naming that work, after the required ones, write START-HERE for the current
 work, and name the earlier work in section 5 as not continued here, in a line before the numbered list.
 
@@ -68,7 +84,8 @@ work, and name the earlier work in section 5 as not continued here, in a line be
 
 Mark what this session finished as done, with its evidence
 (`- [x] Exporter written: commit 9f8e7d6, 12 tests pass (2026-10-05)`), and list what is next with its next action.
-Update an earlier TASKS.md, never replace it; keep the last 20 done entries and move older ones, oldest first, to
+Update this session's own earlier TASKS.md, never replace it; on the first run of a session that resumed from
+another handoff, copy that handoff's entries in first; keep the last 20 done entries and move older ones, oldest first, to
 TASKS-archive.md.
 
 ## The checker's warnings
