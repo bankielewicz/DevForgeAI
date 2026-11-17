@@ -1,5 +1,5 @@
 ---
-description: "VER-02: before /compact, the skill writes START-HERE (first), RESUME-PROMPT and TASKS in devforgeai/handoff/feat-export/, gitignored, ticks the plan file, runs its checker, and reports with the resume prompt."
+description: "VER-02: before /compact, the skill writes START-HERE (first), RESUME-PROMPT and TASKS in its session's folder under devforgeai/handoff/feat-export/, gitignored, ticks the plan file, runs its checker, and reports with the resume prompt."
 tags: [precompact, ver-02]
 max_turns: 60
 timeout_seconds: 1200

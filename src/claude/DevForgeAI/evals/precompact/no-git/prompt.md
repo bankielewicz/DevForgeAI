@@ -1,5 +1,5 @@
 ---
-description: "VER-05: in a project folder with no repository of its own (git's top level is a parent repository), the handoff goes to devforgeai/handoff/no-git/, section 2 says git couldn't be used, and the checker finds it clean."
+description: "VER-05: in a project folder with no repository of its own (git's top level is a parent repository), the handoff goes to the session's folder under devforgeai/handoff/no-git/, section 2 says git couldn't be used, and the checker finds it clean."
 tags: [precompact, ver-05]
 max_turns: 60
 timeout_seconds: 1200

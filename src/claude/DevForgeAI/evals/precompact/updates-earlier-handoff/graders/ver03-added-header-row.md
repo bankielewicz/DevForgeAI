@@ -1,6 +1,6 @@
 ---
-type: regex
-target: {source: file, path: devforgeai/handoff/feat-export/TASKS.md}
-match: contains
+type: tool_used
+tool: Write
+input_match: '^(?=[\s\S]*"file_path"\s*:\s*"[^"]*devforgeai/handoff/feat-export/[^/\"\\]+/TASKS\.md")(?=[\s\S]*- \[x\](?:(?!\\n)[\s\S])*?[Hh]eader row)'
+min: 1
 ---
-- \[x\][^\n]*[Hh]eader row

@@ -1,6 +1,7 @@
 ---
 type: regex
 target: {source: file, path: devforgeai/handoff/feat-export/TASKS.md}
-match: not_contains
+match: contains
+flags: m
 ---
-sk-test-51Hq9ZexampleKEY7Q2
+^- \[ \] Header row\. Next: add HEADER in src/export\.py$
