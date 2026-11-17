@@ -2,10 +2,10 @@
 id: SPEC-015
 type: spec
 title: "Pre-compaction handoff skill: save what the session learned and write a full-fidelity handoff before /compact"
-status: approved      # draft | in-review | approved | superseded | deprecated
-version: 2
+status: in-review     # draft | in-review | approved | superseded | deprecated
+version: 3
 created: 2026-10-05
-updated: 2026-10-08
+updated: 2026-11-17
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -31,7 +31,9 @@ components: ["src/claude/DevForgeAI/skills/precompact", "src/tests/precompact", 
 
 # SPEC-015 — Pre-compaction handoff skill: save what the session learned and write a full-fidelity handoff before /compact
 
-> **Status:** version 2 approved by Bryan on 2026-10-05 (version 1 the same day); SKL-012 v1 merged in PR #93 (`909a252`) and
+> **Status:** version 3 in review, drafted 2026-11-17, not built: one handoff folder per session, under its
+> branch, which no other session writes, and memory changed only by adding (Bryan, 2026-11-17, §13); SKL-012 v1,
+> the skill deployed today, implements version 2. Version 2 approved by Bryan on 2026-10-05 (version 1 the same day); SKL-012 v1 merged in PR #93 (`909a252`) and
 > deployed as plugin 0.26.0; version 2 fixes §5's description,
 > which the build found holding `<branch>`, refused by the frontmatter schema, and §4's project root, which
 > contradicted ERR-01. The drafting plan and its checkpoints
@@ -64,8 +66,10 @@ The skill, in this order, so that a session cut off midway still leaves the most
 5. saves the new, durable learnings to memory, in the format the session's own instructions give;
 6. checks the files with a bundled script, fixes what it reports, and reports.
 
-The files live in `devforgeai/handoff/<branch>/`, one folder per branch (gitignored), so sessions on different
-branches of one checkout don't overwrite each other's handoff. The skill works in any project that uses DevForgeAI: it
+The files live in `devforgeai/handoff/<branch>/<session>/`, one folder per session under its work's branch
+(gitignored). A session writes only its own folder and never changes another's, so sessions working at the same
+time, on one branch or on several, can't overwrite each other's handoff (version 3; until version 2 the folder was
+the branch's, and two sessions with work on one branch rewrote the same three files). The skill works in any project that uses DevForgeAI: it
 uses the project's own instructions, and its text names no machine, tab or path of this repository. The progress
 tracker ignores the skill (SPEC-013 BEH-02, version 18): running it in the middle of a brainstorm or architecture run
 leaves that run open and records nothing of the handoff's work in it.
@@ -148,9 +152,22 @@ work in several worktrees, it is the one with the outstanding work, and START-HE
 Bryan, 2026-10-05: "Folder follows the work's branch", on a side note that sessions running on `main` and editing
 worktrees would all share `main`'s folder). The state checks (BEH-02) run in that worktree.
 
-**The handoff folder** is `<root>/devforgeai/handoff/<branch>/`, `<branch>` being the work's branch name with each
-run of characters other than letters, digits, `.`, `_` and `-` replaced by `-` (`docs/precompact` becomes
-`docs-precompact`); `detached-<short hash>` on a detached HEAD; `no-git` where git can't be used (ERR-01).
+**The handoff folder** is `<root>/devforgeai/handoff/<branch>/<session>/` (version 3). `<branch>` is the work's
+branch name with each run of characters other than letters, digits, `.`, `_` and `-` replaced by `-`
+(`docs/precompact` becomes `docs-precompact`); `detached-<short hash>` on a detached HEAD; `no-git` where git can't
+be used (ERR-01). `<session>` is the session's ID, which Claude Code substitutes for `${CLAUDE_SESSION_ID}` in
+SKILL.md; when it arrives unsubstituted or empty, `session-<YYYYMMDDTHHMMSSZ>` from the first run's `date -u`, and
+a later run of the same session uses the folder the conversation shows it wrote before.
+
+**One rule for writing** (version 3; Bryan, 2026-11-17, "Per session (Recommended)"): a session writes handoff
+files only in its own folder. Every other folder under `devforgeai/handoff/` is another session's and is only
+read: another session's folder on the same branch, a folder of another branch, and files lying directly in
+`<branch>/` from versions 1 and 2. The skill never moves, merges or deletes one.
+
+**The handoff carried over** is, in this order: the earlier files of the session's own folder; else the handoff
+the conversation shows this session resumed from (the START-HERE.md whose path it was given and read, in any
+folder, the old layout's included). Its content that still holds is copied into the session's own files, and the
+source is left as it was. A handoff the session didn't resume from is never carried over, whatever its branch.
 `<root>/devforgeai/handoff/.gitignore` holds `*`, as the tracker's `devforgeai/progress/` does (SPEC-013 BEH-15): the
 handoff is working notes for the next session on this machine, not a project document.
 
@@ -162,7 +179,7 @@ the only placeholder form; IF-01 refuses any left in a written file.
 
 | Heading | Holds |
 |---|---|
-| `## 1. What this is` | the work in two or three sentences; the project root; the work's branch, with its worktree's path when that isn't the root, and the checkout the session runs in; the date and time written (UTC) and the session that wrote it |
+| `## 1. What this is` | the work in two or three sentences; the project root; the work's branch, with its worktree's path when that isn't the root, and the checkout the session runs in; the date and time written (UTC) and the session that wrote it; `Continues:` with the path of the handoff carried over from another folder, when there is one; `Other handoffs on this branch:` with the names of the other folders and old-layout files in `<branch>/`, or `none` (names only, from one listing; none is read) |
 | `## 2. Verified state` | facts checked while writing (BEH-02), one per bullet, each ending `[checked: <command> -> <what it showed>]` or `(unverified)` with where the fact came from and its date |
 | `## 3. Decisions` | `### Decided`: each decision as a bullet with who decided, the date as YYYY-MM-DD and their words in quotes; `### Open`: the questions still the user's, each with the options as the user saw them |
 | `## 4. Read first` | a numbered list, each item starting with the path in backticks, then why and when to read it; searches to run (`grep -n "<term>" <path>`) where a file is too long to read whole; a closing line: when something needed isn't here, search the repository and memory before asking the user |
@@ -171,8 +188,9 @@ the only placeholder form; IF-01 refuses any left in a written file.
 | `## 7. Before acting` | commands to run first, each with what it should show if nothing changed since the handoff |
 
 **DM-02. TASKS.md**, the checkpoint list: `## Done` and `## Next`. Each entry is a checkbox line naming the step, then
-its evidence (commit, pull request, file, test result with its date) or its next action. An earlier TASKS.md is
-updated, never replaced; past 20 done entries, the oldest move to `TASKS-archive.md` in the same folder, which TASKS.md
+its evidence (commit, pull request, file, test result with its date) or its next action. The session's own earlier TASKS.md is
+updated, never replaced, and on the first run of a session that resumed from another handoff its entries are
+copied in first (the handoff carried over); past 20 done entries, the oldest move to `TASKS-archive.md` in the same folder, which TASKS.md
 names once and RESUME-PROMPT.md doesn't send the next session to.
 
 **DM-03. RESUME-PROMPT.md**, about 15 lines and at most 40, with no required headings: the work in one sentence; the
@@ -202,7 +220,7 @@ the rest:
 ```yaml
 # Proposed SKILL.md frontmatter (validated by src/schemas/skill-frontmatter.schema.json)
 name: precompact
-description: Prepares a Claude Code session for /compact, so the next session can continue with nothing pasted by hand. It writes a full-fidelity handoff in devforgeai/handoff/, one folder per branch (START-HERE.md with the verified state, decisions and who made them, files to read first and the work outstanding; TASKS.md; a short RESUME-PROMPT.md to paste after compacting), ticks the session's plan file, and saves the session's new learnings to memory. Use before running /compact, ideally at 70 to 80 percent of the context window, or when asked to save learnings and write a handoff, start-here document or resume prompt for the next session after compacting. Not for project documentation, release notes, commit messages or a backlog.
+description: Prepares a Claude Code session for /compact, so the next session can continue with nothing pasted by hand. It writes a full-fidelity handoff in devforgeai/handoff/, one folder per session under its branch, which no other session writes (START-HERE.md with the verified state, decisions and who made them, files to read first and the work outstanding; TASKS.md; a short RESUME-PROMPT.md to paste after compacting), ticks the session's plan file, and saves the session's new learnings to memory. Use before running /compact, ideally at 70 to 80 percent of the context window, or when asked to save learnings and write a handoff, start-here document or resume prompt for the next session after compacting. Not for project documentation, release notes, commit messages or a backlog.
 argument-hint: "[note for the next session]"
 metadata:
   devforgeai-id: "SKL-012"
@@ -219,7 +237,7 @@ metadata:
 
 | Item | Command | Behaviour |
 | --- | --- | --- |
-| IF-01 | `python3 check_handoff.py [--root DIR] HANDOFF_DIR` | Checks the handoff folder `HANDOFF_DIR` (relative to `DIR`, which is `.` by default) against the self-check's script items (§4), reading only START-HERE.md, RESUME-PROMPT.md and TASKS.md (never TASKS-archive.md or another file): the three files exist; START-HERE.md and TASKS.md have their headings in order (DM-01, DM-02); RESUME-PROMPT.md has at most 40 lines and holds the absolute path of `HANDOFF_DIR/START-HERE.md` as a whole path (not part of a longer one); no file holds `[[fill:` outside code (a code span or a fenced block quotes the form; the assets never put a placeholder in backticks); §2's bullets, §3's `### Decided` bullets and §5's items have their shapes (DM-01): a §2 bullet's own text, before any nested list and with emphasis marks ignored, ends with its marker; a `### Decided` bullet may instead be `- None.`; §5 has at least one item or a line starting `Nothing outstanding`; an item runs on over indented lines, blank lines and fences; each path a reference names exists, a reference being a Markdown link's target that isn't a URL, an anchor or `mailto:`, or the first backticked token of an item of START-HERE §4, read after removing a trailing `:LINE`, `:LINE-LINE`, `:LINE:COL` or `#Lnn` (a link's target also URL-decoded), expanding a leading `~/` and any set variable, and resolved against `DIR`, or beside the file that names it, when relative (a link starting `/` may also be read from `DIR`), unless its line or the line above says `(not yet created)` or `(session-only)`, or, for a §4 item, any of the item's lines does; a path holding a variable that isn't set isn't checked; no other backticked text is checked; `DIR/devforgeai/handoff/.gitignore` holds `*`. Prints one line per problem, `<file>:<line>: <problem>` (line 0 for the file as a whole), and per warning, `<file>:<line>: warning: <text>` (START-HERE over 250 lines; `today`, `yesterday`, `tomorrow` or `recently` outside quotes and code), then `handoff: clean` when there is neither, else `handoff: <n> problems, <m> warnings`. Exit 0 with no problem (warnings allowed), 1 with problems, 2 when it can't run (`HANDOFF_DIR` missing or unreadable) |
+| IF-01 | `python3 check_handoff.py [--root DIR] [--session ID] HANDOFF_DIR` | Checks the handoff folder `HANDOFF_DIR` (relative to `DIR`, which is `.` by default) against the self-check's script items (§4), reading only START-HERE.md, RESUME-PROMPT.md and TASKS.md (never TASKS-archive.md or another file): the three files exist; START-HERE.md and TASKS.md have their headings in order (DM-01, DM-02); RESUME-PROMPT.md has at most 40 lines and holds the absolute path of `HANDOFF_DIR/START-HERE.md` as a whole path (not part of a longer one); no file holds `[[fill:` outside code (a code span or a fenced block quotes the form; the assets never put a placeholder in backticks); §2's bullets, §3's `### Decided` bullets and §5's items have their shapes (DM-01): a §2 bullet's own text, before any nested list and with emphasis marks ignored, ends with its marker; a `### Decided` bullet may instead be `- None.`; §5 has at least one item or a line starting `Nothing outstanding`; an item runs on over indented lines, blank lines and fences; each path a reference names exists, a reference being a Markdown link's target that isn't a URL, an anchor or `mailto:`, or the first backticked token of an item of START-HERE §4, read after removing a trailing `:LINE`, `:LINE-LINE`, `:LINE:COL` or `#Lnn` (a link's target also URL-decoded), expanding a leading `~/` and any set variable, and resolved against `DIR`, or beside the file that names it, when relative (a link starting `/` may also be read from `DIR`), unless its line or the line above says `(not yet created)` or `(session-only)`, or, for a §4 item, any of the item's lines does; a path holding a variable that isn't set isn't checked; no other backticked text is checked; `DIR/devforgeai/handoff/.gitignore` holds `*`; with `--session ID` (version 3), `HANDOFF_DIR`'s last path component is `ID`, and the line of START-HERE §1 that holds `by session` names `ID` and no other session (a problem each: the folder is another session's, or the file was written by another); without `--session` neither is checked, so a folder of the old layout checks as before. Prints one line per problem, `<file>:<line>: <problem>` (line 0 for the file as a whole), and per warning, `<file>:<line>: warning: <text>` (START-HERE over 250 lines; `today`, `yesterday`, `tomorrow` or `recently` outside quotes and code), then `handoff: clean` when there is neither, else `handoff: <n> problems, <m> warnings`. Exit 0 with no problem (warnings allowed), 1 with problems, 2 when it can't run (`HANDOFF_DIR` missing or unreadable) |
 
 ## 6. Behavior
 
@@ -230,28 +248,28 @@ behaviors:
     rule: "Run when the user types /devforgeai:precompact or asks, before /compact, to save the session's learnings and write a handoff, start-here document or resume prompt for the next session. Work through the checklist in order (BEH-02 to BEH-09) in the main conversation: a subagent can't see the conversation the handoff summarizes. Ask the user nothing; put what can't be established into START-HERE §3 as open. The progress tracker ignores this skill (SPEC-013 BEH-02, version 18): a tracked run open in the session stays open, and the handoff names it with its step (from the tracker's current.json for the session, when it exists)."
   - id: BEH-02
     status: active
-    rule: "Check the live state first, cheaply and read-only: don't re-read what the session already holds (its CLAUDE.md files and the memory index are in its context); read only the handoff folder's earlier files. Keep each command's output small: the branch and its upstream (GIT_OPTIONAL_LOCKS=0 git status --porcelain=v2 -b), the last commits (git log -n 5 --oneline), uncommitted changes (git diff --stat and git diff --stat --cached), open pull requests where gh works (gh pr list --limit 10). Run no test or build command: cite the last result the session saw, with its date and (unverified), unless the user's argument says to run one. Write the handoff folder and devforgeai/handoff/.gitignore before any other file. A fact the session believes but didn't check now goes into the handoff marked (unverified)."
+    rule: "Check the live state first, cheaply and read-only: don't re-read what the session already holds (its CLAUDE.md files and the memory index are in its context); read only the earlier files of the session's own handoff folder and, when the session resumed from another handoff, that handoff's files (§4, the handoff carried over); list the branch folder's names once for START-HERE §1, reading none of the others. Keep each command's output small: the branch and its upstream (GIT_OPTIONAL_LOCKS=0 git status --porcelain=v2 -b), the last commits (git log -n 5 --oneline), uncommitted changes (git diff --stat and git diff --stat --cached), open pull requests where gh works (gh pr list --limit 10). Run no test or build command: cite the last result the session saw, with its date and (unverified), unless the user's argument says to run one. Write the session's own handoff folder (§4: devforgeai/handoff/<branch>/<session>/) and devforgeai/handoff/.gitignore before any other file, and write, move or delete nothing in any other folder under devforgeai/handoff/ (§4, one rule for writing). A fact the session believes but didn't check now goes into the handoff marked (unverified)."
   - id: BEH-03
     status: active
-    rule: "Write START-HERE.md (DM-01) from the template assets/start-here.md in one write, first of the files, so a session cut off later still leaves it. Carry over from an earlier START-HERE in the same folder what still holds (decisions, open questions, rules, traps and learnings, outstanding items not finished). Write in full fidelity (the self-check, §4). Use progressive disclosure: name files with why and when to read them, and searches to run, instead of copying their content; copy in only what exists nowhere else (a decision said only in the conversation, a result not saved to a file). Quote the user's words for each decision, with the date. Put the user's argument, if any, first in §5. Never write a secret: no token, key or password, even one said in the conversation."
+    rule: "Write START-HERE.md (DM-01) from the template assets/start-here.md in one write, first of the files, so a session cut off later still leaves it. Carry over what still holds (decisions, open questions, rules, traps and learnings, outstanding items not finished) from the handoff carried over (§4): the session's own earlier START-HERE, else the one it resumed from, which is read and left unchanged and named in §1's Continues line. Carry over nothing from a handoff the session didn't resume from. Write in full fidelity (the self-check, §4). Use progressive disclosure: name files with why and when to read them, and searches to run, instead of copying their content; copy in only what exists nowhere else (a decision said only in the conversation, a result not saved to a file). Quote the user's words for each decision, with the date. Put the user's argument, if any, first in §5. Never write a secret: no token, key or password, even one said in the conversation."
   - id: BEH-04
     status: active
     rule: "Write RESUME-PROMPT.md (DM-03) from the template assets/resume-prompt.md: about 15 lines and at most 40, naming START-HERE.md by its absolute path, with the branch check, the 'Before acting' step, the first outstanding item, asking before any decision §3 or §5 says is the user's, and searching the repository and memory before asking."
   - id: BEH-05
     status: active
-    rule: "Update TASKS.md (DM-02) from the template assets/tasks.md when it doesn't exist: mark what this session finished as done, with its evidence (commit, pull request, file or test result with its date), and list what is next with its next action; keep every done entry, moving the oldest past 20 to TASKS-archive.md. When the session keeps a plan, task or checkpoint file of its own (one the project's instructions, memory or the conversation name), tick its checkpoints with their evidence too, and name it in START-HERE §4 as the source of truth for the steps it lists; TASKS.md then holds only what that file doesn't."
+    rule: "Update the session's own TASKS.md (DM-02), written from the template assets/tasks.md when it doesn't exist, with the entries of the handoff carried over copied in first (§4): mark what this session finished as done, with its evidence (commit, pull request, file or test result with its date), and list what is next with its next action; keep every done entry, moving the oldest past 20 to TASKS-archive.md. When the session keeps a plan, task or checkpoint file of its own (one the project's instructions, memory or the conversation name), tick its checkpoints with their evidence too, and name it in START-HERE §4 as the source of truth for the steps it lists; TASKS.md then holds only what that file doesn't."
   - id: BEH-06
     status: active
-    rule: "Save the session's new, durable learnings to memory when the session's instructions describe a memory system (a memory location and its format): follow that format exactly (for example, in Claude Code's memory, one fact per file with its frontmatter, an index line, written with Write or Edit), update an existing memory that covers the same fact rather than adding a duplicate, and save only what the repository and its instructions don't already record: decisions with their reasons, verified facts about tools and the environment, practices the user asked for or confirmed, and traps that cost time. Never save a secret. When the session has no memory system, or a memory write is refused, the learnings stay in START-HERE §6, and the report says so."
+    rule: "Save the session's new, durable learnings to memory when the session's instructions describe a memory system (a memory location and its format): follow that format exactly (for example, in Claude Code's memory, one fact per file with its frontmatter, an index line), update an existing memory that covers the same fact rather than adding a duplicate, and save only what the repository and its instructions don't already record: decisions with their reasons, verified facts about tools and the environment, practices the user asked for or confirmed, and traps that cost time. Never save a secret. Memory is shared by every session of the project, so change it only by adding (version 3; Bryan, 2026-11-17, 'Yes, add rules (Recommended)'): read a memory file or the index again immediately before changing it; change an existing one only with Edit, adding lines or amending lines this session wrote; never use Write on an existing memory file or on the index; never delete, reorder or reword what another session wrote, and when that content is wrong or out of date, add a dated line saying so. When the session has no memory system, a memory write is refused, or an Edit fails because the file changed, the learnings stay in START-HERE §6, and the report says so."
   - id: BEH-07
     status: active
     rule: "Never turn outstanding work into a decision: an item waiting for the user's choice says so under ### Open, with the options as the user saw them, and the handoff records no choice the user didn't make."
   - id: BEH-08
     status: active
-    rule: "Run python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root <project root> devforgeai/handoff/<branch> (IF-01) as a command of its own. On exit 1, fix each problem it lists in the file it names, and run it again, at most three runs in all; never change a correct reference only to satisfy the script. Problems left after the third run go into the report. On exit 2, the folder wasn't written: write the files and run it again. Then read the files back against the self-check's other items (§4, and references/handoff-rules.md)."
+    rule: "Run python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root <project root> --session <session> devforgeai/handoff/<branch>/<session> (IF-01) as a command of its own. On exit 1, fix each problem it lists in the file it names, and run it again, at most three runs in all; never change a correct reference only to satisfy the script. Problems left after the third run go into the report. On exit 2, the folder wasn't written: write the files and run it again. Then read the files back against the self-check's other items (§4, and references/handoff-rules.md)."
   - id: BEH-09
     status: active
-    rule: "Report in the reply: the folder and the files written, the plan or task file ticked, the memories saved or updated (or why none), anything left marked (unverified), any problem the script still reports, and the text of RESUME-PROMPT.md in a fence longer than any fence inside it, so the user can paste it after /compact. Change no file but the handoff folder's files, devforgeai/handoff/.gitignore, the plan or task file BEH-05 names and memory files."
+    rule: "Report in the reply: the folder and the files written, the plan or task file ticked, the memories saved or updated (or why none), anything left marked (unverified), any problem the script still reports, and the text of RESUME-PROMPT.md in a fence longer than any fence inside it, so the user can paste it after /compact. Change no file but the files of the session's own handoff folder, devforgeai/handoff/.gitignore, the plan or task file BEH-05 names and memory files (BEH-06's rules)."
 ```
 
 ## 7. Errors and edge cases
@@ -280,7 +298,7 @@ errors:
     user_result: "The learnings in the handoff, and the reason"
   - id: ERR-05
     status: active
-    condition: "The handoff folder holds an earlier handoff of other work (another topic on the same branch)"
+    condition: "The session's own handoff folder holds its earlier handoff of other work (the same session, another topic)"
     handling: "Keep its TASKS.md entries under a ## heading naming that work, after the required ones; write START-HERE for the current work, naming the earlier work in §5 as not continued here"
     user_result: "Both lines of work kept, the current one first"
   - id: ERR-06
@@ -288,6 +306,11 @@ errors:
     condition: "The session is cut off (the context limit) before the skill finishes"
     handling: "Nothing to do in the run; the order (BEH-03 first) leaves START-HERE.md written; the next session, given its path, finishes the rest by running the skill again"
     user_result: "At least START-HERE.md"
+  - id: ERR-07
+    status: active
+    condition: "The folder the skill is about to write isn't the session's own: its name isn't the session's ID (§4), or the START-HERE.md in it says in §1 that another session wrote it (another session's folder, or files of the old layout directly in <branch>/)"
+    handling: "Write nothing there and change nothing in it. Use the session's own folder, devforgeai/handoff/<branch>/<session>/, carrying the other handoff over only when this session resumed from it (§4), and say in the report which folder was left untouched"
+    user_result: "The other session's handoff unchanged, this session's beside it"
 ```
 
 ## 8. Non-functional design
@@ -326,6 +349,7 @@ quality_responses:
 | VER-02 to VER-05 (1 run, with baseline) | `tmp/eval-results/precompact-v1-20261005T194821` (commit `1e76614`, digest `e2d7b5b9`): writes-handoff 1.00 (baseline 0.07), decisions-stay-open 1.00 (0.07), no-git 1.00 (0.00); updates-earlier-handoff 0.73 (0.55), its with-plugin arm failing only file_exists, which counts only files a run creates, on the scaffold's earlier files: graders fixed (`429873f`) and rerun in `tmp/eval-results/precompact-v1-ver03-20261005T195113` (commit `429873f`, digest `6bc11ee9`): 1.00 (0.75). $2.39 and $0.66 |
 | VER-06 (1 run, with baseline) | `tmp/eval-results/precompact-v1-triggers-20261005T195400` (commit `429873f`, digest `6bc11ee9`): 8 of 8 at 1.00; the three positives load the skill, the five near-misses don't. $2.34. `--tag precompact-trigger` found no cases; `--case "precompact-trigger-*"` did |
 | VER-09 | Met under the waiver: every case of VER-02 to VER-06 at 1.00 in one run. Total evaluation cost $5.84 with the pilot |
+| Version 3 | In review: drafted 2026-11-17 on branch `docs/spec-015-v3`; Bryan's approval not yet given; not built (SKL-012 v2). VER-01's and VER-08's new cases, VER-10 and VER-11 are not run; the cases of VER-02 to VER-05 are to be regenerated for the session's folder, whose name a grader can't know, so their content graders read the trace's Write calls |
 | VER-07 (live) | worker1, `claude --plugin-dir` on a scratch copy of the build, 2026-10-05 (setup in the session's scratchpad, `v07-setup.sh`). (a) PASS in observe mode: with a brainstorm run open at step 3, `/devforgeai:precompact` added only its turn's start, replies and end to the run's log (42 → 48 events), no run-end, no switch line, current.json still step 3, band unchanged; enforce mode was ignored because the setup's preference file lacked `devforgeai_local: 1` (SPEC-013 VER-50 (c) covers enforce). (b) Memory on PASS: one new memory with its index line, no duplicate of the two the session had saved itself. Memory off (`autoMemoryEnabled: false`): the first run kept the learning in §6 but also appended it to the user's global papercuts log, a file outside BEH-09's list; fixed (`1e76614`: memory is the memory system only; another instruction's log is named in the report) and rerun: PASS, the log unchanged (same checksum), the learning in §6 only, the report naming the log. (c) Cold start PASS: after `/compact`, the pasted resume prompt checked the branch and §7 and went on with §5's first item, quoting §3; in a new session it quoted §3 Open's two unanswered questions with their options (written nowhere but START-HERE), then re-ran the brainstorm and continued it from step 3. Observed: two runs filed a learning the user stated under Decided; fixed in the skill text (`1e76614`) |
 
 Each automated VER item has one eval case under `evals/precompact/`, tagged `precompact` and `ver-NN` and generated by
@@ -342,14 +366,14 @@ before the suite shows which memory branch (BEH-06) an eval child takes, and VER
 verifications:
   - id: VER-01
     status: active
-    obligation: "src/tests/precompact/test_check_handoff.py, every case normally and under python3 -S. A complete handoff exits 0 with 'handoff: clean'. A valid handoff holding the forms references take in practice also exits 0: commands, globs, URLs, slash commands, branch names with '/', versions, ~/ paths, path:LINE and path#Lnn references, <...> command templates, all in backticks, and a reference marked (session-only) on the line above. Each of a missing file, a missing or misordered heading, a §2 bullet with no [checked: or (unverified), a ### Decided bullet with no date or no quote, a §5 item with no Next: or no Waits for:, an empty §5, a 41-line RESUME-PROMPT.md, one without START-HERE.md's absolute path, a leftover [[fill:, a §4 path or a link target that doesn't exist, and a missing .gitignore exits 1 with a '<file>:<line>: <problem>' line; a START-HERE over 250 lines and the word yesterday outside quotes give warnings and exit 0; a missing HANDOFF_DIR exits 2"
+    obligation: "src/tests/precompact/test_check_handoff.py, every case normally and under python3 -S. A complete handoff exits 0 with 'handoff: clean'. A valid handoff holding the forms references take in practice also exits 0: commands, globs, URLs, slash commands, branch names with '/', versions, ~/ paths, path:LINE and path#Lnn references, <...> command templates, all in backticks, and a reference marked (session-only) on the line above. Each of a missing file, a missing or misordered heading, a §2 bullet with no [checked: or (unverified), a ### Decided bullet with no date or no quote, a §5 item with no Next: or no Waits for:, an empty §5, a 41-line RESUME-PROMPT.md, one without START-HERE.md's absolute path, a leftover [[fill:, a §4 path or a link target that doesn't exist, a missing .gitignore, and, with --session, a HANDOFF_DIR whose last component isn't the ID or a START-HERE §1 'by session' line naming another session, exits 1 with a '<file>:<line>: <problem>' line; with --session and both matching, and without --session for a folder of the old layout, the complete handoff still exits 0; a START-HERE over 250 lines and the word yesterday outside quotes give warnings and exit 0; a missing HANDOFF_DIR exits 2"
     level: unit
     covers:
       - IF-01
       - BEH-08
   - id: VER-02
     status: active
-    obligation: "Case writes-handoff: a scaffolded git repository on branch feat/export with three commits (fixed author, committer and dates), a plan file with checkpoints and an unfinished task; the prompt says what the session did and asks to prepare for /compact. Graded: devforgeai/handoff/feat-export/ holds START-HERE.md, TASKS.md and RESUME-PROMPT.md and devforgeai/handoff/.gitignore holds *; START-HERE names the branch and the last commit's first 7 hex characters (computed by make_evals.py); §5 holds the unfinished task with Next:; RESUME-PROMPT.md names START-HERE.md by an absolute path; the plan file's finished checkpoint is ticked; check_handoff.py was called and printed 'handoff: clean'; START-HERE.md was written before TASKS.md (tool_order); the learnings are in memory or in §6 with the report saying why (the branch the pilot shows)"
+    obligation: "Case writes-handoff: a scaffolded git repository on branch feat/export with three commits (fixed author, committer and dates), a plan file with checkpoints and an unfinished task; the prompt says what the session did and asks to prepare for /compact. Graded: one folder devforgeai/handoff/feat-export/<session>/ receives START-HERE.md, TASKS.md and RESUME-PROMPT.md (the trace's Write calls: the folder's name isn't known to a grader) and devforgeai/handoff/.gitignore holds *; START-HERE names the branch and the last commit's first 7 hex characters (computed by make_evals.py); §5 holds the unfinished task with Next:; RESUME-PROMPT.md names START-HERE.md by an absolute path; the plan file's finished checkpoint is ticked; check_handoff.py was called and printed 'handoff: clean'; START-HERE.md was written before TASKS.md (tool_order); the learnings are in memory or in §6 with the report saying why (the branch the pilot shows)"
     level: e2e
     covers:
       - BEH-01
@@ -361,7 +385,7 @@ verifications:
       - ERR-04
   - id: VER-03
     status: active
-    obligation: "Case updates-earlier-handoff: the handoff folder holds an earlier TASKS.md with two done entries and an earlier START-HERE.md whose ### Decided records a decision in the user's words; after the run both done entries remain with their evidence, the session's finished work is added as done, and the decision is still there with its quote"
+    obligation: "Case updates-earlier-handoff: devforgeai/handoff/feat-export/ holds, in the old layout, an earlier TASKS.md with two done entries and an earlier START-HERE.md whose ### Decided records a decision in the user's words, and the prompt says the session started from that handoff. After the run the session's own folder beside them holds both done entries with their evidence, the session's finished work added as done, and the decision with its quote (the trace's Write calls), §1 names the earlier START-HERE as continued, and the earlier files are unchanged"
     level: e2e
     covers:
       - BEH-03
@@ -376,7 +400,7 @@ verifications:
       - BEH-07
   - id: VER-05
     status: active
-    obligation: "Case no-git: the scaffold creates no repository, so git's top level is the eval home, a parent of the project folder (make_evals.py checks this premise inside a parent repository); the handoff is written to devforgeai/handoff/no-git/, START-HERE §2 says git couldn't be used for the project, and check_handoff.py prints 'handoff: clean'"
+    obligation: "Case no-git: the scaffold creates no repository, so git's top level is the eval home, a parent of the project folder (make_evals.py checks this premise inside a parent repository); the handoff is written to a session folder under devforgeai/handoff/no-git/, START-HERE §2 says git couldn't be used for the project, and check_handoff.py prints 'handoff: clean'"
     level: e2e
     covers:
       - ERR-01
@@ -396,7 +420,7 @@ verifications:
       - ERR-04
   - id: VER-08
     status: active
-    obligation: "src/tests/precompact/test_structure.py: SKILL.md at most 500 lines, its frontmatter equal to §5's fields and valid per skill-frontmatter.schema.json, metadata devforgeai-tracked 'false', devforgeai-version equal to provenance.yaml's version, provenance valid per skill.schema.json with SKL-012 implementing SPEC-015; every reference and asset SKILL.md names exists; the assets hold DM-01's and DM-02's headings and use only [[fill: placeholders; references/handoff-rules.md holds every item of the self-check (§4); SKILL.md or its references state ERR-02's, ERR-03's, ERR-05's and ERR-06's handling; and SKILL.md, the references and the assets hold no absolute path, no /home/ and no person's name"
+    obligation: "src/tests/precompact/test_structure.py: SKILL.md at most 500 lines, its frontmatter equal to §5's fields and valid per skill-frontmatter.schema.json, metadata devforgeai-tracked 'false', devforgeai-version equal to provenance.yaml's version, provenance valid per skill.schema.json with SKL-012 implementing SPEC-015; every reference and asset SKILL.md names exists; the assets hold DM-01's and DM-02's headings and use only [[fill: placeholders; references/handoff-rules.md holds every item of the self-check (§4); SKILL.md or its references state ERR-02's, ERR-03's, ERR-05's, ERR-06's and ERR-07's handling, the one rule for writing (§4) and BEH-06's rules for changing memory; SKILL.md passes --session to the checker and its description doesn't say 'one folder per branch'; and SKILL.md, the references and the assets hold no absolute path, no /home/ and no person's name"
     level: unit
     covers:
       - QR-01
@@ -405,12 +429,29 @@ verifications:
       - ERR-03
       - ERR-05
       - ERR-06
+      - ERR-07
   - id: VER-09
     status: active
     obligation: "QR-03: every case of VER-02 to VER-06 at 0.8 or above against the no-plugin baseline, over the runs Bryan's waiver in §9 sets"
     level: e2e
     covers:
       - QR-03
+  - id: VER-10
+    status: active
+    obligation: "Case leaves-other-session-handoff (version 3): devforgeai/handoff/feat-export/ holds another session's folder, named by a fixed session ID, with a complete handoff of other work on the same branch, and the prompt doesn't say the session started from it. After the run that folder's three files are unchanged (each still holds its seeded line and nothing of this session's work), no Write or Edit names a path in it (tool_used, max 0), the session's START-HERE.md is written to another folder under devforgeai/handoff/feat-export/ and names the other folder under 'Other handoffs on this branch', the other session's decision isn't in this session's ### Decided, and check_handoff.py was called with --session and printed 'handoff: clean'"
+    level: e2e
+    covers:
+      - BEH-02
+      - BEH-03
+      - BEH-08
+      - ERR-07
+  - id: VER-11
+    status: active
+    obligation: "Live, two sessions at once (version 3), with --plugin-dir on the build in a scratch repository on one branch, recorded in §9: (a) each session runs /devforgeai:precompact; two folders exist under devforgeai/handoff/<branch>/, each START-HERE §1 names its own session and the other folder, and the first session's three files have the same checksums after the second's run as before it; (b) the first session runs the skill again, and only its own folder's files change; (c) memory on, each session saves a learning that touches the same memory file and the index: both sessions' lines are there afterwards, none removed or reworded; (d) after /compact in one session, a third run goes to the same folder (the session ID is kept), or §9 records that it isn't and that the handoff was carried over as §4 says"
+    level: manual
+    covers:
+      - BEH-06
+      - ERR-07
 ```
 
 ## 10. Rollout, migration and rollback
@@ -420,6 +461,10 @@ verifications:
   its evals and tests, the CLAUDE.md row, the schema's const, and SPEC-013 v18's clause.
 - **The tracker.** SPEC-013 versions 18 and 19 (BEH-02). After the deploy, an open session needs `/reload-plugins` before the
   key takes effect: until then typing the skill would end the open run, as any plugin skill did.
+- **Version 3, nothing to migrate.** The folders versions 1 and 2 wrote (`devforgeai/handoff/<branch>/` with the
+  three files directly in it) stay where they are and are only read: a session that resumed from one carries it
+  over into its own folder (§4). Old folders collect until the owner deletes them; the skill deletes none. Until a
+  session runs the new plugin version (the marketplace update and a restart), it still writes the branch's folder.
 - **Codex.** The Codex port isn't changed; a port is for Codex sessions to build.
 - **Records.** CLAUDE.md's skill table gains a `precompact` row (SKL-012, SPEC-015); `src/templates/skill/README.md`
   and `.claude/rules/skills.md` name the third metadata key; SPEC-014's text and link that say every plugin skill is
@@ -448,7 +493,8 @@ in `.claude/worktrees/precompact` (ADR-001):
 | Keep the tracker as is | Typing the skill in the middle of a tracked run would end that run (SPEC-013 BEH-03); Bryan chose "Yes, the tracker ignores it" |
 | One START-HERE.md only | Bryan chose the three files ("START-HERE + TASKS + resume prompt"): the paste-in prompt stays short and points to the master |
 | `tmp/plans/` or committed `docs/handoff/` | Bryan chose `devforgeai/handoff/`, gitignored: other projects may not ignore `tmp/`, and the handoff is working notes |
-| One folder for every branch, or one per session | Bryan chose "One handoff per branch": sessions on different branches don't overwrite each other, and the next session finds the folder from its branch |
+| One folder for every branch, or one per branch (versions 1 and 2) | Bryan chose "One handoff per branch" on 2026-10-05; two sessions with work on one branch then rewrote the same three files, and ERR-05 told each to write over the other's START-HERE. Version 3 keys the folder by session under the branch (Bryan, 2026-11-17, "Per session (Recommended)") |
+| The branch's folder for the first session, and `<branch>--<short session ID>/` for a session that finds another's handoff there (version 3) | The skill would judge whether a folder is its own before writing it, and a wrong judgment overwrites a file; with a folder per session a wrong call leaves an extra folder or a missed carry-over |
 | A checker that verifies every backticked path, and `<...>`, TODO or TBD as placeholders | The drafts review ran those rules over the two handoffs written by hand on 2026-10-05: 75 valid references and 22 command templates would have been refused, and the fix loop had no end |
 | Typed only (disable-model-invocation) | Bryan chose "Typed or asked": asking for a handoff before /compact works as well as the command |
 | Running it from the compaction hook now | Bryan: "eventually, it may run with the precompact hook"; recorded in §13 |
@@ -463,6 +509,18 @@ quoted in §1; "Yes, the tracker ignores it (Recommended)" (SPEC-013 version 18)
 load (Recommended)" (SPEC-013 BEH-02); "Key in SKILL.md; unreadable = tracked (Recommended)"; "One handoff per branch
 (Recommended)", with the folder following the work's branch ("Folder follows the work's branch", §4); "Typed or asked; run at 70-80% (Recommended)", on a side note that the skill spends context itself and
 a run cut off at the limit (automatic compaction off) would leave the handoff half-written.
+
+Decided by Bryan on 2026-11-17 (version 3), after reporting that one session's `/devforgeai:precompact` had
+modified another session's handoff files ("if there are more than one sessions working in a project, i believe the
+same issue exists where they 'stomp' on each other"): the folder key, "Per session (Recommended)"
+(`devforgeai/handoff/<branch>/<session-id>/`: a session writes only its own folder and treats every other folder as
+read-only; a new session that resumed from a handoff carries it over into its own folder), in place of "One handoff
+per branch"; and memory writes in scope, "Yes, add rules (Recommended)" (read again before changing, Edit only,
+never delete or rewrite another session's content, never Write over an existing memory file). Drafter's choices in
+version 3, for Bryan's accept or challenge: the fallback folder name `session-<time>` when the session ID isn't
+substituted; `Continues:` and `Other handoffs on this branch:` in START-HERE §1; the checker's `--session`; ERR-05
+kept for the session's own folder and ERR-07 added; old folders left in place and never deleted by the skill; a
+wrong or stale memory line of another session answered by a dated line, not an edit of it.
 
 Recorded for later: running the skill, or a check that the handoff is current, from a compaction hook (Bryan:
 "eventually, it may run with the precompact hook"); the tracker's adapter already sees `session.compact` (SPEC-013
@@ -491,3 +549,4 @@ named in BEH-06.
 | 2 | 2026-10-05 | claude-code (session a4f2ade8-0127-4b96-bc22-b3498b2ab3a9) | Record-only update, with no version bump: SKL-012 v1 approved, merged in PR #93 (`909a252`) and deployed as plugin 0.26.0 (§9, blockquote) | §9, blockquote |
 | 2 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Record-only update, with no version bump: §13 records that SPEC-013 version 21 (BEH-36), with version 25's set of pending names, runs this skill automatically at precompactRunFuel (20% fuel left by default), the 'eventually, it may run with the precompact hook' item §13 recorded for later; to be built with the dashboard (SPEC-016) | §13 |
 | 2 | 2026-10-08 | claude-code (session 7637882f-b2ec-465e-988a-9602340d1023) | Record-only update, with no version bump: §13's note on the automatic run points to SPEC-013 version 26's pending mark (in review) and says versions 21 and 23 to 25 are built on branch `feat/dashboard-build` (plugin 0.28.0, not merged) | §13 |
+| 3 | 2026-11-17 | claude-code (session fa59a935-ed2e-4502-b6c4-93bb6d847546) | Bryan reported one session's precompact run modifying another session's handoff files. The cause: one folder per branch (§4) shared by every session with work on that branch, and ERR-05 telling each to write its START-HERE over the other's. On his decisions of 2026-11-17 ('Per session (Recommended)', 'Yes, add rules (Recommended)'): the handoff folder is devforgeai/handoff/<branch>/<session>/, a session writes only its own folder and only reads any other, a handoff is carried over only by the session that resumed from it; START-HERE §1 gains the Continues and Other handoffs lines; check_handoff.py gains --session; ERR-05 narrowed to the session's own folder and ERR-07 added; memory is changed only by adding (BEH-06); VER-01, VER-02, VER-03, VER-05 and VER-08 reworded, VER-10 and VER-11 added; status in-review, not built | status, §1, §4, §5, BEH-02, BEH-03, BEH-05, BEH-06, BEH-08, BEH-09, ERR-05, ERR-07, VER-01, VER-02, VER-03, VER-05, VER-08, VER-10, VER-11, §9, §10, §12, §13 |
