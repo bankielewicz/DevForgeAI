@@ -21,7 +21,8 @@ writes, and reads only the three files (not TASKS-archive.md or any other file i
   lines, nor a path holding a variable that isn't set. No other backticked text is checked;
 - DIR/devforgeai/handoff/.gitignore holds the line `*`;
 - with --session ID, the folder is that session's own: HANDOFF_DIR's last path component is ID, and where START-HERE
-  section 1 says `by session <id>`, the id is ID. Without --session neither is checked, so a folder written before
+  section 1 says `Written ... by session <id>`, the id is ID (ID is the folder's name: the session's ID, or its
+  `session-<time>` name). Without --session neither is checked, so a folder written before
   folders were per session checks as it did.
 
 Prints `<file>:<line>: <problem>` and `<file>:<line>: warning: <text>` (START-HERE over 250 lines; today,
@@ -65,7 +66,9 @@ DATE = re.compile(r"(?<!\d)\d{4}-\d{2}-\d{2}(?!\d)")
 QUOTE = re.compile(r"\"[^\"]+\"|“[^”]+”")
 RELATIVE_DATE = re.compile(r"\b(today|yesterday|tomorrow|recently)\b", re.I)
 EMPHASIS = "*_ "
-BY_SESSION = re.compile(r"\bby\s+session\s+`?([A-Za-z0-9][A-Za-z0-9_.-]*)")
+# The statement that says who wrote the file: "Written ... by session <id>", on one line or wrapped onto the next;
+# "by session" anywhere else in section 1 (prose about an earlier session) isn't read.
+BY_SESSION = re.compile(r"\bWritten\b(?:(?!\n\s*\n|\n\s*[-*+]\s)[\s\S]){0,200}?\bby\s+session\s+`?([A-Za-z0-9][A-Za-z0-9_.-]*)")
 
 
 class Doc:

@@ -476,6 +476,21 @@ class Session(unittest.TestCase):
         self.assertRegex(p.stdout, rf"(?m)^{self.OWN}/START-HERE\.md:[1-9]\d*: .*zzz999")
         self.assertNotIn("another session's folder", p.stdout)
 
+    def test_prose_about_an_earlier_session_in_section_1_isnt_read(self):
+        """Only the Written statement says who wrote the file (the skill-reviewer's finding on d416d5b)."""
+        self.h.edit("START-HERE.md", "Adding CSV export to the reports page.",
+                    "Adding CSV export to the reports page; this continues work started by session zzz999.")
+        p = self.h.run("--session", "abc123", handoff=self.OWN)
+        self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
+    def test_a_session_time_folder_name_is_the_session(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            own = HANDOFF + "/session-20261005T140000Z"
+            h = Handoff(tmp, handoff=own)
+            h.edit("START-HERE.md", "session abc123.", "session session-20261005T140000Z.")
+            p = h.run("--session", "session-20261005T140000Z", handoff=own)
+            self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
     def test_by_session_outside_section_1_isnt_read(self):
         self.h.files["START-HERE.md"] += "\n- The earlier handoff was written by session zzz999.\n"
         self.h.save()

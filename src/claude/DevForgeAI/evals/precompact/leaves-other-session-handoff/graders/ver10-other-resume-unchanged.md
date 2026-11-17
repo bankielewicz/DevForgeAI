@@ -4,4 +4,4 @@ target: {source: file, path: devforgeai/handoff/feat-export/7c1d2e3f-0a4b-4c5d-8
 match: contains
 flags: m
 ---
-^Continue the report pagination in 
+^Continue the report pagination in\s

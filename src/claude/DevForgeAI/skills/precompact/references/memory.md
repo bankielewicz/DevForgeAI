@@ -26,7 +26,8 @@ Don't save:
 ## How to save
 
 1. Look for an existing memory that covers the same fact, by its index line or name. Update that one (Edit) rather
-   than adding a duplicate; name in the report one that should be deleted, for the user to decide.
+   than adding a duplicate, by the rules below: amend lines this session wrote, and add a dated line to a memory
+   another session wrote. Name in the report one that should be deleted, for the user to decide.
 2. Write each new memory in the system's format, one fact each, with the date as YYYY-MM-DD, not "today".
 3. Add or update its index line.
 4. Name each saved or updated memory in the report.
@@ -40,6 +41,7 @@ what this session read earlier drops what another session added since.
   existing memory file or on the index.
 - Leave other sessions' content as it is: never delete, reorder or reword what another session wrote. When
   that content is wrong or out of date, add a dated line beneath it saying so and why, and name it in the report.
+- A line this session can't tell it wrote is another session's.
 - When an Edit fails because the file changed, read it again and try once more; after a second failure the
   learning stays in START-HERE section 6.
 

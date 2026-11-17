@@ -28,8 +28,10 @@ doesn't apply. More `##` sections may follow section 7; `###` headings may go an
 
 **1. What this is.** Two or three sentences a stranger understands, then the project root, the work's branch (with
 its worktree's path when the session works in another worktree, and the checkout the session runs in), the time
-written (UTC) and the session ID. `Continues:` names the START-HERE.md of the handoff carried over from another
-folder, by its path; delete the line when there is none. `Other handoffs on this branch:` lists the names of the
+written (UTC) and the session ID (the folder's name, a `session-...` name included). Write another session's ID
+nowhere in this section but inside the `Continues:` path. `Continues:` names the START-HERE.md of the handoff
+carried over from another folder, by its path; keep the line on this session's later runs, and delete it when
+nothing was carried over. `Other handoffs on this branch:` lists the names of the
 other folders, and of old files lying directly in the branch's folder, or says `none`: names only, from one listing,
 so the next session knows other work is recorded there without this session having read it. When the session's
 progress tracker has an open run, name it and its step.
@@ -66,9 +68,10 @@ memory (`references/memory.md`).
 **7. Before acting.** Commands to run first, each with what it shows if nothing changed:
 `- git log -n 1 --oneline - shows a1b2c3d`.
 
-**Carrying over an earlier handoff.** There is one source, in this order: this session's own earlier START-HERE.md;
-else the handoff the conversation shows this session resumed from, the START-HERE.md whose path it was given and
-read (in any folder, an old one directly in the branch's folder included). Keep what still holds: its decisions,
+**Carrying over an earlier handoff.** There is one source, in this order: this session's own earlier START-HERE.md
+(in its folder under another branch's name, when the work changed branch since: name it on `Continues:`);
+else the handoff the conversation shows this session resumed from, the START-HERE.md it was given at its start to
+continue from and read (in any folder, an old one directly in the branch's folder included). Keep what still holds: its decisions,
 open questions, rules, traps and learnings, and its outstanding items not finished; drop what is done (TASKS.md
 keeps it). A handoff carried over from another folder is copied, never changed: its files stay as they were.
 - Good: this session was started with a resume prompt naming another folder's START-HERE.md and read it; its
