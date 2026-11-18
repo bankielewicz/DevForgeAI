@@ -1069,7 +1069,19 @@ def writes_dsn():
     g += [reply("ver01-says-copy-recorded-as-it-is", COPY_RECORDED_AS_IS),
           reply("ver01-says-no-artifact-tool-in-this-session", NO_ARTIFACT),
           reply("ver01-says-canvas-not-checked", CANVAS_NOT_CHECKED)]
+    # #153 item 73: a judge on the final reply, so that report.html keeps the reply of a run that stopped early
+    g.append(llm("ver01-reply-says-dsn-001-written", REPLY_SAYS_DSN_WRITTEN))
     return g
+
+
+REPLY_SAYS_DSN_WRITTEN = """\
+The agent was asked to record a release's UI design as the design document DSN-001, from the copy of the boards already
+in the repository, and to proceed without questions. Judge only its final reply. A pass needs the reply to show, in any
+wording, that DSN-001 was written in this run: for example a report block that opens "Design document: DSN-001 (v1,
+draft; new)", the check line "OK docs/specs/design/DSN-001.md", or a sentence such as "wrote docs/specs/design/DSN-001.md".
+The reply may also mention a "Read-only file system" message after each command; that alone counts neither way. A reply
+that only says it will write DSN-001, that describes a plan, that says the run stopped, or that reports a command's error
+or exit status without showing that DSN-001 was written is not a pass."""
 
 
 def coverage_and_report():
@@ -1804,7 +1816,10 @@ def case(name, ver, description, prompt, files, graders, stop=False, **kw):
 
 CASES = [
     case("writes-dsn", "01", "the shared fixture and prompt write DSN-001 as draft version 1 with four active board items "
-         "in canvas order, each with its digest, the derives links, the provenance and one Change Log row.",
+         "in canvas order, each with its digest, the derives links, the provenance and one Change Log row. Case note: in "
+         "the eval sandbox every Bash command exits 1 after printing its output (\"Read-only file system\"), so a run that "
+         "takes that exit for the script's failure stops before DSN-001 is written (SPEC-017 §9, #153 item 73); the "
+         "judge on the final reply keeps that run's reply in report.html.",
          SHARED_PROMPT, SHARED, writes_dsn()),
     case("coverage-and-report", "02", "section 3 has the five rows (IDEA-05 is parked), section 5 one marker naming IDEA-06, "
          "and the reply opens with the report block and ends with the next step to the PRD.",
