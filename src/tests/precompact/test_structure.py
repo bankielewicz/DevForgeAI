@@ -6,7 +6,7 @@
   validates against skill-frontmatter.schema.json, whose const refuses any other value (SPEC-013 v18);
 - the description is the one SPEC-015 §5 fixes, at most 1024 characters, with no < or >;
 - metadata.devforgeai-id and devforgeai-version equal provenance.yaml's id and version (QR-02), and provenance.yaml
-  validates against skill.schema.json and records SKL-012 v2, a draft, implementing SPEC-015 v3;
+  validates against skill.schema.json and records SKL-012 v2, approved, implementing SPEC-015 v4;
 - the assets hold DM-01's and DM-02's headings in order and use only [[fill: ...]] placeholders, never in backticks;
 - references/handoff-rules.md holds every item of SPEC-015 §4's self-check;
 - SKILL.md or its references state ERR-02's, ERR-03's, ERR-05's, ERR-06's and ERR-07's handling, the one rule for writing and BEH-06's rules for
@@ -165,8 +165,9 @@ class Skill(unittest.TestCase):
         self.assertIn({"id": "SPEC-015", "relation": "implements", "version": IMPLEMENTS, "hash": None},
                       self.prov["upstream"])
         self.assertEqual(self.prov["version"], 2)  # version 1 (approved 2026-10-05) implemented SPEC-015 v2
-        # Not approved until the suite and the live VER-11 have run and Bryan has said so.
-        self.assertEqual((self.prov["status"], self.prov["approved_by"], self.prov["approved_on"]), ("draft", "", None))
+        # Approved by Bryan on 2026-11-18 ('yes - approved'), after the suite and the live VER-11 (SPEC-015 section 9).
+        self.assertEqual((self.prov["status"], self.prov["approved_by"], str(self.prov["approved_on"])),
+                         ("approved", "Bryan", "2026-11-18"))
 
     def test_every_file_skill_md_names_exists(self):
         named = set(re.findall(r"\b((?:references|assets|scripts)/[\w.-]+)", self.text))
