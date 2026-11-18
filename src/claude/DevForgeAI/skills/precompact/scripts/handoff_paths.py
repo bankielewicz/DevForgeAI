@@ -2,7 +2,7 @@
 """Name where this session's precompact handoff goes, list the project's other handoffs, and prune old ones.
 
 Usage:
-    python3 handoff_paths.py --root DIR --session ID [--home DIR] [--no-prune]
+    python3 handoff_paths.py --root DIR --session ID [--keep PATH]... [--home DIR] [--no-prune]
 
 DIR is the project root. Prints, one per line:
     project: <key>          the main folder's name and 8 hex characters of the SHA-256 of its path. The main folder is
@@ -19,9 +19,11 @@ DIR is the project root. Prints, one per line:
     pruned: <path>          each folder deleted, and `prune: skipped: <why>` for one that couldn't be, or --no-prune.
 
 Pruning deletes a folder directly under the store's handoff/ that is a real directory, holds a START-HERE.md, isn't
-this session's, and whose newest file is older than `handoffRetentionDays` days: the number in
-<home>/.devforgeai/config.json, 30 when that file or key is absent or not a number, never when it is 0. It deletes
-nothing else, and nothing under DIR. A failed deletion is reported and the run goes on.
+this session's or one --keep names (the handoff this session resumed from: the folder, or a file in it), and whose
+newest file is older than `handoffRetentionDays` days: the number in <home>/.devforgeai/config.json, 30 when that
+file or key is absent or not a finite number, never when it is 0, and at least 1. A folder whose age can't be read
+counts as new. Nothing is pruned when the store's handoff/ is reached through a link. It deletes nothing else, and
+nothing under DIR. A failed deletion is reported and the run goes on.
 
 The script creates no folder and no file. --home replaces the user's home folder (tests). Exit 0, or 2 when DIR isn't
 a folder or ID isn't a single folder name. Standard library only: it runs under `python3 -S`.
@@ -29,6 +31,7 @@ a folder or ID isn't a single folder name. Standard library only: it runs under 
 import argparse
 import hashlib
 import json
+import math
 import os
 import re
 import shutil
@@ -79,7 +82,7 @@ def newest(folder):
     try:
         return max(times) if times else os.lstat(folder).st_mtime
     except OSError:
-        return 0.0
+        return float("inf")  # an age that can't be read counts as new: never pruned on a guess
 
 
 def real_dirs(folder):
@@ -105,17 +108,22 @@ def retention_days(home):
             value = json.load(f).get("handoffRetentionDays")
     except (OSError, ValueError, AttributeError):
         return DEFAULT_RETENTION_DAYS
-    if isinstance(value, bool) or not isinstance(value, (int, float)) or value < 0:
+    if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
         return DEFAULT_RETENTION_DAYS
-    return value
+    return value if value == 0 else max(value, 1)  # 0 is never; a fraction of a day would reach live sessions
 
 
-def prune(store, own, days, lines):
+def prune(home, store, own, keep, days, lines):
     if days == 0:
+        return
+    if os.path.realpath(store) != os.path.join(os.path.realpath(home), os.path.relpath(store, home)):
+        lines.append(f"prune: skipped: {store} is reached through a link")
         return
     limit = time.time() - days * 86400
     for folder in real_dirs(store):
-        if os.path.basename(folder) == own or not has_start(folder) or newest(folder) >= limit:
+        if os.path.basename(folder) == own or os.path.realpath(folder) in keep or not has_start(folder):
+            continue
+        if not newest(folder) < limit:
             continue
         try:
             shutil.rmtree(folder)
@@ -169,6 +177,8 @@ def main(argv):
     parser = argparse.ArgumentParser(description="Name a precompact handoff's folders, list the others, prune old ones.")
     parser.add_argument("--root", required=True, help="the project root")
     parser.add_argument("--session", required=True, help="this session's ID")
+    parser.add_argument("--keep", action="append", default=[], metavar="PATH",
+                        help="never prune this handoff: the folder this session resumed from, or a file in it")
     parser.add_argument("--home", help="use this folder as the user's home folder (tests)")
     parser.add_argument("--no-prune", action="store_true", help="delete nothing")
     args = parser.parse_args(argv)
@@ -193,7 +203,11 @@ def main(argv):
     if args.no_prune:
         pruned.append("prune: skipped: --no-prune")
     else:
-        prune(store, session, retention_days(home), pruned)
+        keep = set()
+        for path in args.keep:
+            real = os.path.realpath(path)
+            keep.update({real, os.path.dirname(real)})
+        prune(home, store, session, keep, retention_days(home), pruned)
     lines += others(store, project_handoffs, [folder, fallback]) + pruned
     print("\n".join(lines))
     return 0

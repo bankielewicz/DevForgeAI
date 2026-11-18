@@ -247,13 +247,13 @@ class Rules(unittest.TestCase):
     def test_one_folder_per_session_and_the_rule_for_writing(self):
         """SPEC-015 version 3, section 4: the session's own folder, and nothing written in any other."""
         skill = squash((SKILL / "SKILL.md").read_text())
-        self.assertIn("scripts/handoff_paths.py --root <project root> --session ${CLAUDE_SESSION_ID}", skill)  # IF-02
+        self.assertIn('scripts/handoff_paths.py --root <project root> --session "${CLAUDE_SESSION_ID}"', skill)  # IF-02
         self.assertIn("`session-...`", skill)  # the name the script gives when the ID isn't substituted
         self.assertIn("Write, move or delete nothing in any other handoff folder", skill)
         self.assertIn("Never delete a handoff folder", skill)  # pruning is the script's alone
         # ERR-08: the store's Write refused, decided by the Write tool and not by a Bash test
         self.assertIn("When that Write is refused, write to the `fallback:` folder instead", skill)
-        self.assertIn("--session ${CLAUDE_SESSION_ID}", skill)
+        self.assertIn('check_handoff.py --root <project root> --session "${CLAUDE_SESSION_ID}"', skill)  # quoted: an empty ID
         text = squash(" ".join(skill_texts().values()))
         self.assertIn("the handoff the conversation shows this session resumed from", text)
         self.assertIn("Wherever a later step asks for the session ID, give the `session:` name", skill)  # the fallback

@@ -69,16 +69,19 @@ before step 2.
 - Get the handoff's folders from the script, once, as a command of its own:
 
   ```bash
-  python3 ${CLAUDE_SKILL_DIR}/scripts/handoff_paths.py --root <project root> --session ${CLAUDE_SESSION_ID}
+  python3 ${CLAUDE_SKILL_DIR}/scripts/handoff_paths.py --root <project root> --session "${CLAUDE_SESSION_ID}"
   ```
+
+  When this session resumed from a handoff, add `--keep <that START-HERE.md's path>`, so it isn't pruned.
 
   It prints `folder:`, this session's handoff folder, outside the repository in the user's `.devforgeai` folder
   (one per project and session, so the handoff outlives a worktree that is removed); `fallback:`, a folder in the
   project for when the first can't be written; `session:`, the folder's name, which is this session's ID or a
   `session-...` name the script made up when the ID wasn't filled in (on a later run pass that same name as
   `--session`); `other:` lines, the project's other handoffs with their date, branch and title; and `pruned:`
-  lines for the old folders it deleted. Wherever a later step asks for the session ID, give the `session:` name.
-  Without `python3`, say so and use `devforgeai/handoff/<session ID>/` under the root, the fallback's form.
+  lines for the old folders it deleted, or `prune: skipped:` with the reason it deleted none. Wherever a later step asks for the session ID, give the `session:` name.
+  Without `python3`, say so and use `devforgeai/handoff/<session ID>/` under the root (`session-<UTC time>` when
+  the ID isn't filled in), with its `.gitignore` as step 2 says for the fallback.
 - This session writes only its own handoff folder. Write, move or delete nothing in any other handoff folder:
   the folders the `other:` lines name, in the user's `.devforgeai` folder or in a project's
   `devforgeai/handoff/`. Another session may be using them. Never delete a handoff folder, however old: removing
@@ -111,7 +114,7 @@ before step 2.
 - Carry over what still holds (decisions, open questions, rules, traps, learnings and unfinished items) from one
   source: this session's own earlier START-HERE.md, else the handoff this session resumed from, which stays as it
   was and is named on section 1's `Continues:` line. Carry over nothing from a handoff this session didn't resume
-  from, even one on the same branch.
+  from, even one about the same branch.
 - Full fidelity: exact identifiers (hashes, branch names, pull request numbers, versions, IDs), absolute dates,
   names instead of pronouns, every fact `[checked: <command> -> <result>]` or `(unverified: <source>, <date>)`.
 - Progressive disclosure: name files with why and when to read them, and searches to run, instead of copying them.
@@ -131,7 +134,8 @@ and searching the repository and memory before asking.
   on that first write only, copy in the entries of the handoff this session resumed from. Record what this
   session finished as done with its evidence, and what is next with its next action. Keep every done entry; past 20, move the oldest to TASKS-archive.md in
   the same folder.
-- When the session keeps a plan, task or checkpoint file of its own, tick its checkpoints with their evidence, and
+- When the session works from a plan, task or checkpoint file, tick the checkpoints this session finished, with
+  their evidence, and
   list it in START-HERE section 4 as the source of truth for its steps; TASKS.md then holds only what that file
   doesn't.
 - Other sessions may share that file (a backlog, a plan), so change it only by adding: read it again just before
@@ -156,7 +160,7 @@ Run the checker as a command of its own, on the folder this run wrote, by its ab
 `session:` name (a `session-...` name included) as `--session`:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root <project root> --session ${CLAUDE_SESSION_ID} <the folder written>
+python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root <project root> --session "${CLAUDE_SESSION_ID}" <the folder written>
 ```
 
 - Exit 0: clean, or warnings only. Exit 1: fix each problem it lists in the file and line it names, and run it
@@ -171,7 +175,7 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root <project root> --ses
 ### 7. Report
 
 In the reply: the folder and the files written (and, when it is the fallback, why), a handoff carried over or a
-folder left untouched, the old folders the script pruned, the plan or task file ticked, the memories saved or updated (or why
+folder left untouched, the old folders the script pruned or why it pruned none, the plan or task file ticked, the memories saved or updated (or why
 none), anything left `(unverified)`, any problem the checker still reports, and the text of RESUME-PROMPT.md in a
 fence longer than any fence inside it, so the user can paste it after `/compact`.
 

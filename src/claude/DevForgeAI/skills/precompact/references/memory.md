@@ -29,7 +29,7 @@ Don't save:
    than adding a duplicate, by the rules below: amend lines this session wrote, and add a dated line to a memory
    another session wrote. Name in the report one that should be deleted, for the user to decide.
 2. Write each new memory in the system's format, one fact each, with the date as YYYY-MM-DD, not "today".
-3. Add or update its index line.
+3. Add its index line. Leave an index line another session wrote as it is, even when the memory gained a line.
 4. Name each saved or updated memory in the report.
 
 ## Memory is shared: change it only by adding

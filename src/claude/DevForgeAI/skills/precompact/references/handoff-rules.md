@@ -10,7 +10,7 @@ this file has what goes in each section, with examples, and the self-check.
 - The handoff folder is outside the repository, in the user's home folder:
   `<home>/.devforgeai/<project>/handoff/<session>/`, `<project>` being the main checkout's folder name and a short
   hash of its path. Every worktree of a repository shares it, so a handoff outlives a worktree that is removed
-  and a session started anywhere in the project can find it. `scripts/handoff_paths.py` prints the path (SKILL.md
+  and a session started in any worktree of the repository can find it. `scripts/handoff_paths.py` prints the path (SKILL.md
   step 1); don't work it out by hand.
 - The fallback folder, `devforgeai/handoff/<session>/` under the project root, is used only when the Write to
   the handoff folder is refused. It needs `devforgeai/handoff/.gitignore` holding the line `*`: the handoff is
@@ -79,13 +79,14 @@ memory (`references/memory.md`).
 **Carrying over an earlier handoff.** There is one source, in this order: this session's own earlier START-HERE.md
 (in the fallback folder, when an earlier run had to use it: name it on `Continues:`);
 else the handoff the conversation shows this session resumed from, the START-HERE.md it was given at its start to
-continue from and read (in any folder, a project's `devforgeai/handoff/` included). A session that was given no handoff and needs
-one, for example after its worktree's session ended, finds it in the `other:` lines by branch and title. Keep what still holds: its decisions,
+continue from and read (in any folder, a project's `devforgeai/handoff/` included). The `other:` lines
+only show what else exists: a handoff listed there is another session's, and is never carried over because its
+branch or title matches. Keep what still holds: its decisions,
 open questions, rules, traps and learnings, and its outstanding items not finished; drop what is done (TASKS.md
 keeps it). A handoff carried over from another folder is copied, never changed: its files stay as they were.
 - Good: this session was started with a resume prompt naming another folder's START-HERE.md and read it; its
   decisions go into this session's START-HERE, and section 1 says `Continues:` with that path.
-- Bad: the branch's folder holds another session's handoff that this session never read; copying its decisions,
+- Bad: the listing shows another session's handoff that this session never read; copying its decisions,
   or editing its TASKS.md, mixes two sessions' work.
 
 When this session's own earlier handoff is about other work (the same session, another topic), keep its
