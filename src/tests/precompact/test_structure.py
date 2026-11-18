@@ -35,12 +35,9 @@ SKILL = PLUGIN / "skills/precompact"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-015.md"
 SKL, SPEC_VERSION = "SKL-012", 4
-# SKL-012 v2 was built from SPEC-015 v3 (one handoff folder per session, memory changed only by adding). Until its
-# rebuild from version 4 (the store in the user's home folder), IMPLEMENTS stays 3 and the description says version 3's
-# phrase; the rebuild moves IMPLEMENTS to SPEC_VERSION.
-IMPLEMENTS = 3
-V4_DESCRIPTION = ("outside the repository, in the user's .devforgeai folder, one folder per project and session, which no other "
-                  "session writes", "in devforgeai/handoff/, one folder per session under its branch, which no other session writes")
+# SKL-012 v2 builds SPEC-015 v4: one handoff folder per session in the user's home folder, with a fallback in the
+# project (version 3's build, in the project's folder, was never deployed).
+IMPLEMENTS = 4
 START_HEADINGS = ["## 1. What this is", "## 2. Verified state", "## 3. Decisions", "## 4. Read first",
                   "## 5. Outstanding", "## 6. Rules, traps and learnings", "## 7. Before acting"]
 TASKS_HEADINGS = ["## Done", "## Next"]
@@ -153,9 +150,6 @@ class Skill(unittest.TestCase):
     def test_description_is_the_one_spec_015_fixes(self):
         fixed = re.search(r"^description: (.*)$", spec_section(5), re.M).group(1)
         self.assertNotIn("one folder per branch", self.fm["description"])
-        if IMPLEMENTS < SPEC_VERSION:  # the skill still says version 3's phrase
-            self.assertEqual(fixed.count(V4_DESCRIPTION[0]), 1)
-            fixed = fixed.replace(*V4_DESCRIPTION)
         self.assertEqual(self.fm["description"], fixed)
         self.assertLessEqual(len(self.fm["description"]), 1024)
         self.assertNotRegex(self.fm["description"], r"[<>]")
@@ -191,7 +185,7 @@ class Skill(unittest.TestCase):
         self.assertEqual(sorted(p.name for p in (SKILL / "references").iterdir()), ["handoff-rules.md", "memory.md"])
         self.assertEqual(sorted(p.name for p in (SKILL / "assets").iterdir()),
                          ["resume-prompt.md", "start-here.md", "tasks.md"])
-        self.assertEqual(sorted(p.name for p in (SKILL / "scripts").iterdir()), ["check_handoff.py"])
+        self.assertEqual(sorted(p.name for p in (SKILL / "scripts").iterdir()), ["check_handoff.py", "handoff_paths.py"])
 
     def test_skill_md_runs_the_bundled_script(self):
         self.assertIn("python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root", self.text)
@@ -253,9 +247,12 @@ class Rules(unittest.TestCase):
     def test_one_folder_per_session_and_the_rule_for_writing(self):
         """SPEC-015 version 3, section 4: the session's own folder, and nothing written in any other."""
         skill = squash((SKILL / "SKILL.md").read_text())
-        self.assertIn("devforgeai/handoff/<branch>/${CLAUDE_SESSION_ID}/", skill)
-        self.assertIn("session-<YYYYMMDDTHHMMSSZ>", skill)  # the name when the ID isn't substituted
-        self.assertIn("Write, move or delete nothing in any other folder under `devforgeai/handoff/`", skill)
+        self.assertIn("scripts/handoff_paths.py --root <project root> --session ${CLAUDE_SESSION_ID}", skill)  # IF-02
+        self.assertIn("`session-...`", skill)  # the name the script gives when the ID isn't substituted
+        self.assertIn("Write, move or delete nothing in any other handoff folder", skill)
+        self.assertIn("Never delete a handoff folder", skill)  # pruning is the script's alone
+        # ERR-08: the store's Write refused, decided by the Write tool and not by a Bash test
+        self.assertIn("When that Write is refused, write to the `fallback:` folder instead", skill)
         self.assertIn("--session ${CLAUDE_SESSION_ID}", skill)
         text = squash(" ".join(skill_texts().values()))
         self.assertIn("the handoff the conversation shows this session resumed from", text)
@@ -265,7 +262,14 @@ class Rules(unittest.TestCase):
         self.assertNotIn("so each keeps its own handoff", text)  # version 2's claim that the branch keeps sessions apart
         start = (SKILL / "assets/start-here.md").read_text()
         self.assertRegex(start, r"(?m)^- Continues: \[\[fill: ")
-        self.assertRegex(start, r"(?m)^- Other handoffs on this branch: \[\[fill: ")
+        self.assertRegex(start, r"(?m)^- Other handoffs: \[\[fill: ")
+
+    def test_a_shared_plan_file_is_changed_only_by_adding(self):
+        """SPEC-015 version 4, BEH-05."""
+        text = squash(" ".join(skill_texts().values()))
+        for phrase in ("never rewrite, reorder or delete an entry", "tick only the checkpoints this session finished"):
+            with self.subTest(phrase):
+                self.assertIn(phrase, text)
 
     def test_memory_is_changed_only_by_adding(self):
         """SPEC-015 version 3, BEH-06."""
