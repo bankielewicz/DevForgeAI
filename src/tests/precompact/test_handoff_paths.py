@@ -256,6 +256,24 @@ class Pruning(Case):
                 self.assertEqual(sorted(Path(x).name for x in out.get("pruned", [])), pruned)
                 self.assertTrue(live.exists())
 
+    def test_a_retention_too_large_for_a_float_means_the_default(self):
+        old = handoff(self.store() / "old", age_days=31)
+        new = handoff(self.store() / "new", age_days=29)
+        self.config('{"handoffRetentionDays": 1' + "0" * 400 + "}")
+        out = self.lines()
+        self.assertEqual([Path(x).name for x in out["pruned"]], ["old"])
+        self.assertTrue(new.exists() and not old.exists())
+
+    def test_a_folder_whose_age_cant_be_read_is_listed_with_a_question_mark(self):
+        """A folder can vanish between the listing and the read, when two sessions prune at once (the review of b58476d)."""
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("handoff_paths", SCRIPT)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        gone = str(self.store() / "gone")
+        self.assertEqual(module.newest(gone), float("inf"))
+        self.assertEqual(module.describe(gone), f"other: {gone} | ? | ? | ?")
+
     def test_a_store_reached_through_a_link_isnt_pruned(self):
         real = self.tmp / "elsewhere" / "handoff"
         old = handoff(real / "old", age_days=90)
