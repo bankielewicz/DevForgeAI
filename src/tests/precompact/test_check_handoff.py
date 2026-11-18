@@ -406,6 +406,15 @@ class Problems(unittest.TestCase):
         self.h.edit("START-HERE.md", "not yet created).", "(not yet created)).")
         self.assertEqual(self.h.run().returncode, 0)
 
+    def test_a_folder_outside_the_project_needs_no_gitignore(self):
+        """SPEC-015 version 4: the handoff folder is in the user's .devforgeai folder; only the fallback is in the project."""
+        with tempfile.TemporaryDirectory() as tmp:
+            outside = Path(tmp) / "home/.devforgeai/project-1a2b3c4d/handoff/abc123"
+            h = Handoff(tmp, handoff=outside)
+            (h.root / "devforgeai/handoff/.gitignore").unlink()
+            p = h.run("--session", "abc123", handoff=str(outside))
+            self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
     def test_a_missing_gitignore(self):
         (self.h.root / "devforgeai/handoff/.gitignore").unlink()
         self.assertProblem("devforgeai/handoff/.gitignore", 0, "*")

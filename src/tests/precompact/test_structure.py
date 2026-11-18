@@ -256,7 +256,7 @@ class Rules(unittest.TestCase):
         self.assertIn("--session ${CLAUDE_SESSION_ID}", skill)
         text = squash(" ".join(skill_texts().values()))
         self.assertIn("the handoff the conversation shows this session resumed from", text)
-        self.assertIn("Wherever a later step asks for the session ID, give this folder's name", skill)  # the fallback
+        self.assertIn("Wherever a later step asks for the session ID, give the `session:` name", skill)  # the fallback
         self.assertIn("it adds nothing to the cut-off folder", skill)  # ERR-06 with a folder per session
         self.assertIn("on that first write only", skill)  # the carried-over TASKS entries, copied once
         self.assertNotIn("so each keeps its own handoff", text)  # version 2's claim that the branch keeps sessions apart

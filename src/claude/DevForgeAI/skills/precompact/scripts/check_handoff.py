@@ -19,7 +19,8 @@ writes, and reads only the three files (not TASKS-archive.md or any other file i
   expanding `~/`; a relative one under DIR or beside the file that names it. A reference whose line or the line
   above says `(not yet created)` or `(session-only)` isn't checked, nor a section 4 item that says so on any of its
   lines, nor a path holding a variable that isn't set. No other backticked text is checked;
-- DIR/devforgeai/handoff/.gitignore holds the line `*`;
+- DIR/devforgeai/handoff/.gitignore holds the line `*`, when HANDOFF_DIR is under DIR/devforgeai/handoff/ (a folder
+  outside the project, in the user's .devforgeai folder, needs none);
 - with --session ID, the folder is that session's own: HANDOFF_DIR's last path component is ID, and where START-HERE
   section 1 says `Written ... by session <id>`, the id is ID (ID is the folder's name: the session's ID, or its
   `session-<time>` name). Without --session neither is checked, so a folder written before
@@ -339,10 +340,16 @@ class Checker:
             self.common(order, doc)
         ignore = os.path.join(self.root, "devforgeai", "handoff", ".gitignore")
         order = len(FILES)
+        in_project = os.path.commonpath([os.path.dirname(ignore), self.handoff]) == os.path.dirname(ignore) \
+            if os.path.splitdrive(ignore)[0] == os.path.splitdrive(self.handoff)[0] else False
         try:
+            if not in_project:
+                raise StopIteration
             with open(ignore, encoding="utf-8", errors="replace") as f:
                 if "*" not in [l.strip() for l in f.read().splitlines()]:
                     self.problem(order, ignore, 0, "doesn't hold the line *")
+        except StopIteration:
+            pass  # a handoff folder outside the project needs no .gitignore
         except FileNotFoundError:
             self.problem(order, ignore, 0, "missing: write it with the line *")
         except OSError as e:

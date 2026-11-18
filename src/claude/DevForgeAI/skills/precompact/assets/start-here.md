@@ -9,7 +9,7 @@
 - Session runs in: [[fill: the checkout the session runs in and its branch, when that isn't the work's worktree, or delete this line]]
 - Written: [[fill: YYYY-MM-DD HH:MM from the date command]] UTC, by session [[fill: the session ID; with a session-... folder, that folder's name]]
 - Continues: [[fill: the path, in backticks, of the START-HERE.md this session resumed from and carried over, when it is in another folder; or delete this line]]
-- Other handoffs on this branch: [[fill: the names of the other folders and old files in the branch's handoff folder, from one listing, none of them read; or none]]
+- Other handoffs: [[fill: the script's other: lines, each handoff's folder, date, branch and title, none of them read; or none]]
 - Tracked run: [[fill: the progress tracker's open run and its step, from its current.json, or delete this line]]
 
 ## 2. Verified state
