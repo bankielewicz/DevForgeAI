@@ -265,8 +265,8 @@ class Spec(unittest.TestCase):
         self.assertEqual(errors("spec.schema.json", doc), [])
         # Version 2 (the description without <branch>, found by this test) approved by Bryan on 2026-10-05. Version 3
         # (one folder per session) approved by Bryan on 2026-11-17 ('Approve as drafted'). Version 4 (the store in the home
-        # folder, 2026-11-17) is in review until his approval row; then this says "approved".
-        self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (SPEC_VERSION, "in-review"))
+        # folder) approved by Bryan on 2026-11-17 ('Approve as drafted'); not built until IMPLEMENTS is 4.
+        self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (SPEC_VERSION, "approved"))
         covered = {c for v in doc["verifications"] for c in v.get("covers", [])}
         for key in ("behaviors", "errors", "quality_responses"):
             for item in doc[key]:
