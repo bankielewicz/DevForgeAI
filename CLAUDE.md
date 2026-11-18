@@ -52,7 +52,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 - **The dashboard** (PRD-001 v12 FR-022; SPEC-016 v3, approved 2026-10-09, not built (v3's ledger hold shipped in 0.29.0); design `docs/specs/devforgeai-dashboard.md`; prototype `src/tools/dashboard-probe/`) is a pane of the tracker's mod, `/devforgeai:dashboard`. It needs SPEC-012 v17 and v18 and SPEC-013 v23 (the precompact row counted by fuel left) to v26 (the automatic precompact run's turn marked through BEH-41's set of names and, from v26, a pending mark in $.state with the turn-ID rule), all approved (v18, v25, v26 and SPEC-016 v2 on 2026-10-08), its evaluator and adapter parts and the odometer ledger writer (SPEC-016 BEH-10) shipped in 0.28.0 (PR #102, `7e5e3c7`); the pane is not built and waits for the design skill's place in the chain (0.29.0).
 - `qa`'s stub fixes only the contract SPEC-007 reads: a verdict comment naming the reviewed SHA, and
   the `merge-approved`/`qa-failed` labels.
-- ADR-001 to ADR-007 in `docs/specs/adr/` are accepted. ADR-008 and SPEC-019 (the dev-guard, a dev-only mod to refuse plugin
+- ADR-001 to ADR-007, ADR-009 and ADR-010 in `docs/specs/adr/` are accepted. ADR-008 and SPEC-019 (the dev-guard, a dev-only mod to refuse plugin
   edits outside a plugin-dev iteration) are deprecated: Bryan cancelled it unbuilt on 2026-11-04 ("Cancel the dev-guard --> we are going in a different direction"). Nothing enforces
   the `/plugin-dev:create-plugin` rule below except this file. ADR-007 adds the `ui` step (the skill makes the release's
   Claude Design canvas through the Artifact tool and records its imported boards as a DSN; version 2 accepted 2026-10-10) between the brainstorm and the PRD, so the chain is brainstorm → ui → prd ⇄ architecture →
@@ -71,6 +71,12 @@ Other folders:
   draft). Not part of the plugin; the owner installs them into `~/.claude/`.
 - `docs/runbooks/`: manual VER checks. `docs/research/` and the skills-guide PDF in `docs/` are local
   only (gitignored). `tmp/` is gitignored.
+- `devforgeai/` at the root: gitignored runtime state, not the plugin. `progress/` is the tracker's
+  (logs, runs, the odometer ledger); `handoff/` holds precompact's fallback folders and the old
+  per-branch handoffs (since 0.34.0 a handoff goes to `~/.devforgeai/<project>/handoff/<session>/`).
+- `docs/process/plugin-workflow/reviews/`: the committed review reports `EVAL.md` cites.
+  `docs/archive/`: the 2026-09-27 spec reset. `docs/specs/design/dev-guard/`: boards left from the
+  cancelled dev-guard. `src/tests/process/`: the pinned-environment helper and structure tests.
 
 There is no build system or linter. Everything before 2026-09-28 was imported in one commit (PR #1);
 each spec's Change Log has the earlier history. Specs name paths from another repository's layout:
@@ -226,11 +232,19 @@ claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --outp
 - On the owner's machine, the deployed copy doesn't run: `claude plugin list` (2.1.318, 2026-11-06)
   reports `devforgeai@skills-dir` "Not loaded", because the user-scope marketplace install of this
   repository, `devforgeai@devforgeai`, takes the name. Skills run from that install's cache
-  (`~/.claude/plugins/cache/devforgeai/devforgeai/<version>/`), at the commit it was installed or last
-  updated at, so a deploy changes nothing here until it is updated from a plain shell:
+  (`~/.claude/plugins/cache/devforgeai/devforgeai/<version>/`; the owner's second config folder has
+  its own, `~/.claude-gmail/plugins/cache/devforgeai/devforgeai/<version>/`), at the commit it was
+  installed or last updated at, so a deploy changes nothing here until it is updated from a plain
+  shell, once per config folder (`CLAUDE_CONFIG_DIR=~/.claude-gmail` selects the second):
   `claude plugin marketplace update devforgeai`, then `claude plugin update devforgeai@devforgeai -s user`,
-  and a restart. A skill's "Base directory" line shows which copy ran. ADR-001 forbids only a
-  project-scope marketplace install here.
+  and a restart. A skill's "Base directory" line shows which copy ran.
+- The plugin is installed at user scope only, never project scope (Bryan, 2026-11-18: "the plugin
+  should be installed at the user level not project. project level portion of devforgeai would be
+  considered the 'adaptive' features/functionality"). Don't suggest `-s project`; remove a
+  project-scope install found in either config folder with
+  `claude plugin uninstall devforgeai@devforgeai -s project`, run from that project's folder.
+  ADR-001's own rule is narrower: no project-scope marketplace install in this repository, because
+  the main checkout's project-scope plugins also load in every worktree.
 - **Never investigate a failing test by changing the working tree** (ADR-005 D7). Record a baseline
   test run before the first change; compare old code only in a disposable worktree
   (`git worktree add --detach <path> <commit>`) or with `git show <commit>:<path>`; commit work in
@@ -272,5 +286,5 @@ Claude Code doesn't load `AGENTS.md` in a project that has a CLAUDE.md; read it 
 | `.claude/rules/evals.md` | `src/claude/DevForgeAI/evals/**`, `src/tests/**`, `tmp/eval-results/**` | writing, generating, running or diagnosing an eval |
 | `.claude/rules/skills.md` | `src/claude/DevForgeAI/skills/**`, `src/claude/DevForgeAI/.claude-plugin/**`, `src/templates/**` | changing a skill, its shared files or hand-offs, or building the next skill |
 | `.claude/rules/progress.md` | `src/claude/DevForgeAI/progress/**`, `src/claude/DevForgeAI/hooks/**`, `src/tests/progress/**` | changing or debugging the progress tracker or its adapter |
-| `EVAL.md` | never by itself | starting or gating a piece of the planned work (the ui v3 redo): its pass/fail rows, the paid-run plan, the rerun matrix and where Phase 6 reports are committed |
+| `EVAL.md` | never by itself | starting or gating a piece of the planned work (the ui redo, the precompact skill, the PRD interview): its pass/fail rows, the paid-run plan, the rerun matrix and where Phase 6 reports are committed |
 | `REVIEW.md` | never by itself: GitHub's Code Review reads it at the root, the local `/code-review` doesn't | running `/code-review` or the close review of a PR that changes DevForgeAI. It points to the work item's pass/fail checks in `EVAL.md` |
