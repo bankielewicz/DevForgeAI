@@ -275,6 +275,9 @@ building it"). The source of each item is named.
 - **Deferred work**, indexed in `docs/backlog.md` (IDs `DEF-NNN`, each row naming the spec section,
   review or issue that holds the detail). Check it before changing a skill it names; add a row when
   Bryan defers something.
+- **Brainstorm enhancements** (proposals, not built): `docs/specs/brainstorming/`, whose README is the
+  index and shared contract: four more frameworks, intake and evidence, brownfield runs, an MVP path,
+  the PRD hand-off, and prompts for Claude Design. Each takes effect only in SPEC-001's next version.
 
 ## Loaded on demand
 
