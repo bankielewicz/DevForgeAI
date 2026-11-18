@@ -1,0 +1,36 @@
+ DEVFORGEAI  BRAINSTORM  CONFIRM DECISIONS                                            BRN-001 draft
+ Cut appointment no-shows at our dental clinic                          diverge-converge · 10 ideas
+ █1 █2 █3 █4  5 Propose dispositions and ask the user to confirm  ░6 ░7 ░8
+
+ PROPOSED DISPOSITIONS  10 ideas                            │ QUESTION 1 OF 3
+ not decided until you answer                               │ ▌1 Confirm these dispositions?
+                                                            │  2 Has the brainstorm converged?
+ IDEA-01 Text a reminder two days before,       ╎ promote ╎ │  3 Confirm the first release cut?
+         with a one-tap reschedule link                     │
+         why  highest score, cheap to try                   │ Confirm these dispositions?
+                                                            │
+ IDEA-02 Let patients reschedule online         ╎ promote ╎ │ [ 1 Accept all as proposed ]
+         why  removes the phone call in PRB-03              │     recommended
+                                                            │     2 promoted, 7 parked, 1 rejected
+ IDEA-04 Take a deposit at booking                 ╎ park ╎ │
+         why  needs a legal check first                     │ [ 2 Leave them open ]
+                                                            │     every idea stays open,
+ IDEA-06 Overbook the busiest hours              ╎ reject ╎ │     BRN-001 stays a draft
+         why  harms patients who arrive on time             │
+                                                            │ Or type a change
+ + 6 more ideas                                    ╎ park ╎ │ ┌───────────────────────────────────┐
+                                                            │ │ >                                 │
+ IF ACCEPTED AS PROPOSED                                    │ └───────────────────────────────────┘
+ promote  ██████ 2                                          │ for example: park IDEA-02
+ park     █████████████████████ 7                           │
+ reject   ███ 1                                             │
+
+ ╎ promote ╎ proposed by Claude, not decided      promote  confirmed by you, decided
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+ 1-2 or up/down to choose · enter to answer · type to change a proposal

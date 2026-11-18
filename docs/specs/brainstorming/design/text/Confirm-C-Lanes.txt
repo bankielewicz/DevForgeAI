@@ -1,0 +1,36 @@
+ DevForgeAI  Brainstorm  Confirm decisions                                          BRN-001 · draft
+ Cut appointment no-shows at our dental clinic                          diverge-converge · 10 ideas
+ █1 █2 █3 █4  5 Propose dispositions and ask the user to confirm  ░6 ░7 ░8
+
+ PROPOSED  three lanes, nothing in them is decided until you answer
+ ┌╌ PROMOTE 2 ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐ ┌╌ PARK 7 ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐ ┌╌ REJECT 1 ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+ ╎ IDEA-01                      ╎ ╎ IDEA-04                      ╎ ╎ IDEA-06                      ╎
+ ╎ Text a reminder two days     ╎ ╎ Take a deposit at booking    ╎ ╎ Overbook the busiest hours   ╎
+ ╎ before, with a one-tap       ╎ ╎ needs a legal check first    ╎ ╎ harms patients who arrive on ╎
+ ╎ reschedule link              ╎ ╎                              ╎ ╎ time                         ╎
+ ╎ highest score, cheap to try  ╎ ╎ + 6 more ideas               ╎ ╎                              ╎
+ ╎                              ╎ ╎                              ╎ ╎                              ╎
+ ╎ IDEA-02                      ╎ ╎                              ╎ ╎                              ╎
+ ╎ Let patients reschedule      ╎ ╎                              ╎ ╎                              ╎
+ ╎ online                       ╎ ╎                              ╎ ╎                              ╎
+ ╎ removes the phone call in    ╎ ╎                              ╎ ╎                              ╎
+ ╎ PRB-03                       ╎ ╎                              ╎ ╎                              ╎
+ └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘ └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘ └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+ QUESTION 1 OF 3  Confirm these dispositions?
+
+ [ 1 Accept all as proposed ]  recommended · the three lanes become decisions
+ [ 2 Leave them open ]         every idea stays open, BRN-001 stays a draft
+
+ >    type a change to move an idea, for example: park IDEA-02
+
+ next  2 Has the brainstorm converged?  ·  3 Confirm the first release cut?
+
+ ╎ dashed ╎ proposed by Claude, not decided     ┃ solid ┃ confirmed by you, decided
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+ 1-2 or up/down to choose · enter to answer · type to change a proposal

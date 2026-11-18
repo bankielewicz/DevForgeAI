@@ -1,0 +1,32 @@
+ DevForgeAI / Brainstorm / Intake                                                       step 1 of 8
+────────────────────────────────────────────────────────────────────────────────────────────────────
+  1 Intake  ░2 ░3 ░4 ░5 ░6 ░7 ░8              before any idea: this is what the session starts from
+
+ Improve online booking for returning patients
+
+ READ  2 documents
+ █ PRD-001 v3: online booking for returning patients (FR-001 to FR-006)
+ █ BRN-001 v2: 2 promoted, 1 parked, 1 rejected, 1 assumption still open
+
+ SOURCES RECORDED  2
+   document: docs/specs/prd/PRD-001.md v3
+   data: booking funnel export, October 2026
+
+ ╌╌ CONCLUDED FROM WHAT WAS READ, CORRECT IT IF WRONG ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+ ╎ Project kind: brownfield ╎ because the project holds PRD-001          [ k Change to greenfield ]
+
+ CARRIED OVER FROM BRN-001  earlier decisions, not ideas of this session
+ Offered to you   reconsider the parked idea "Take a deposit at booking"        [ r Reconsider it ]
+ Not re-proposed  the rejected idea "Overbook the busiest hours"
+
+
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+ A brainstorm on a similar topic exists: BRN-001. Extend it or start a new document?
+
+ [ e Extend BRN-001 ]  [ n Start a new document ]

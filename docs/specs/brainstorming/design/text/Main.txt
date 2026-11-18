@@ -1,0 +1,40 @@
+ DevForgeAI / Brainstorm                    BRN-001 draft
+──────────────────────────────────────────────────────────
+ Cut appointment no-shows at our dental clinic
+ greenfield · diverge-converge
+ "the options are still wide open"
+
+ █ 1 Intake                                          done
+ █ 2 Select a framework                              done
+ █ 3 Diverge                                         done
+ █ 4 Evaluate with the framework              in progress
+ ░ 5 Propose dispositions and ask the user    not started
+     to confirm
+ ░ 6 Write the BRN                            not started
+ ░ 7 Validate the BRN                         not started
+ ░ 8 Report and hand off                      not started
+
+ PROBLEMS  3                                     severity
+ PRB-01 Patients forget appointments booked          high
+        weeks ahead
+ PRB-02 A missed visit leaves an empty chair the     high
+        clinic can't refill
+ PRB-03 Rescheduling needs a phone call during     medium
+        work hours
+
+ IDEAS  10 · 2 in your own words                 3 scored
+ IDEA-01 Text a reminder two days before, with a
+         one-tap reschedule link             ████ score 4
+         value high  effort low  risk low        ╎ open ╎
+ IDEA-04 Take a deposit at booking              █ score 1
+         value high  effort medium  risk high    ╎ open ╎
+ IDEA-06 Overbook the busiest hours               score 0
+         value medium  effort low  risk high     ╎ open ╎
+ 7 ideas not scored yet                          ╎ open ╎
+
+ ASSUMPTIONS  4 · riskiest shown               confidence
+ ASM-01 We believe that patients read texts from      low
+        the clinic
+ ╎ open ╎ proposed     confirmed  decided at step 5
+──────────────────────────────────────────────────────────
+ [ Problems ] [ Ideas ] [ Assumptions ]
