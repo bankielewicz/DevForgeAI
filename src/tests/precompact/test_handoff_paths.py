@@ -241,6 +241,42 @@ class Pruning(Case):
                 self.assertEqual(old.exists(), not gone, text)
                 self.assertEqual((self.store() / "older").exists(), "40" in text, text)  # 30 unless a number says otherwise
 
+    def test_a_retention_that_isnt_a_finite_number_of_days_never_deletes_what_is_new(self):
+        """NaN compares false with everything, and a fraction of a day would reach live sessions' folders (the reviews
+        of 4d76e83): a non-finite value means 30, and a positive one below 1 means 1."""
+        for text, pruned in (('{"handoffRetentionDays": NaN}', ["old"]), ('{"handoffRetentionDays": Infinity}', ["old"]),
+                             ('{"handoffRetentionDays": 0.0001}', ["old", "week"])):
+            with self.subTest(text):
+                s = self.store()
+                handoff(s / "old", age_days=31)
+                handoff(s / "week", age_days=7)
+                live = handoff(s / "live", age_days=0.25)
+                self.config(text)
+                out = self.lines()
+                self.assertEqual(sorted(Path(x).name for x in out.get("pruned", [])), pruned)
+                self.assertTrue(live.exists())
+
+    def test_a_store_reached_through_a_link_isnt_pruned(self):
+        real = self.tmp / "elsewhere" / "handoff"
+        old = handoff(real / "old", age_days=90)
+        self.store().parent.mkdir(parents=True)
+        self.store().symlink_to(real, target_is_directory=True)
+        out = self.lines()
+        self.assertTrue(old.exists())
+        self.assertTrue(any(v.startswith("skipped: ") and "link" in v for v in out["prune"]), out)
+        self.assertNotIn("pruned", out)
+
+    def test_keep_spares_the_handoff_this_session_resumed_from(self):
+        s = self.store()
+        resumed = handoff(s / "resumed", age_days=60)
+        handoff(s / "old", age_days=60)
+        out = self.lines("--keep", str(resumed / "START-HERE.md"))
+        self.assertEqual([Path(x).name for x in out["pruned"]], ["old"])
+        self.assertTrue(resumed.exists())
+        out = self.lines("--keep", str(resumed))
+        self.assertNotIn("pruned", out)
+        self.assertTrue(resumed.exists())
+
     @unittest.skipIf(hasattr(os, "geteuid") and os.geteuid() == 0, "root deletes anything")
     def test_a_folder_that_cant_be_deleted_is_named_and_the_run_goes_on(self):
         old = handoff(self.store() / "old", age_days=31)
