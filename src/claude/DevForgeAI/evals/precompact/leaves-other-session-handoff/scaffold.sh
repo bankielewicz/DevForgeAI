@@ -75,9 +75,9 @@ def export(rows, path, delimiter=","):
         writer.writerow(HEADER)
         writer.writerows(rows)
 PRECOMPACTFIXTURE
-mkdir -p devforgeai/handoff/feat-export/7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f
+mkdir -p devforgeai/handoff/7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f
 printf '*\n' > devforgeai/handoff/.gitignore
-cat > devforgeai/handoff/feat-export/7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f/START-HERE.md <<'PRECOMPACTFIXTURE'
+cat > devforgeai/handoff/7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f/START-HERE.md <<'PRECOMPACTFIXTURE'
 # Start here: report pagination on feat/export
 
 ## 1. What this is
@@ -121,7 +121,7 @@ When something you need isn't here, search the repository and memory before aski
 
 - `git log -n 1 --oneline` - shows Write rows as CSV
 PRECOMPACTFIXTURE
-cat > devforgeai/handoff/feat-export/7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f/TASKS.md <<'PRECOMPACTFIXTURE'
+cat > devforgeai/handoff/7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f/TASKS.md <<'PRECOMPACTFIXTURE'
 # Tasks: report pagination
 
 Checkpoints of this work, oldest first. Done entries past the last 20 move to TASKS-archive.md in this folder.
@@ -134,10 +134,10 @@ Checkpoints of this work, oldest first. Done entries past the last 20 move to TA
 
 - [ ] Page links. Next: add the previous and next links to the reports page
 PRECOMPACTFIXTURE
-cat > devforgeai/handoff/feat-export/7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f/RESUME-PROMPT.md <<PRECOMPACTFIXTURE
+cat > devforgeai/handoff/7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f/RESUME-PROMPT.md <<PRECOMPACTFIXTURE
 Continue the report pagination in $(pwd).
 
-1. Read $(pwd)/devforgeai/handoff/feat-export/7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f/START-HERE.md first, then TASKS.md in the same folder.
+1. Read $(pwd)/devforgeai/handoff/7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f/START-HERE.md first, then TASKS.md in the same folder.
 2. Check the branch: if it isn't feat/export, stop and tell the user before doing anything else.
 3. Run the commands in START-HERE section 7 and compare what they show with what it expects.
 4. Go on with the first item of section 5.

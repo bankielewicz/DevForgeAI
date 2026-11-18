@@ -14,10 +14,12 @@ Eval runs offer no AskUserQuestion and seal the home folder, so memory is checke
 JavaScript regular expressions (the harness's engine) on files at fixed paths, the trace and the reply, tool_used with
 input_match, file_exists, and llm graders on the reply only; each grader's name starts with the VER item it grades.
 
-Since SPEC-015 version 3 the handoff goes to devforgeai/handoff/<branch>/<session>/, and a grader can't know the
-run's session ID. So what the run writes there is graded by its Write call (`wrote`: tool_used with an input_match
-on the call's JSON-encoded input, where a newline is the two characters \\n and a quote is \\"), and its
-existence by file_exists with a `*` for the session's folder. A Write grader sees the first write of a file, not a
+Since SPEC-015 version 4 the handoff goes to <home>/.devforgeai/<project>/handoff/<session>/, or, when that Write is
+refused, to the fallback devforgeai/handoff/<session>/ in the project. A grader knows neither the run's session ID nor
+which of the two an eval run reaches (its home folder was not writable in the pilot of 2026-10-05), and a folder in
+the home is outside the workspace. So what the run writes is graded by its Write call, to either folder (`wrote`: tool_used with an input_match
+on the call's JSON-encoded input, where a newline is the two characters \\n and a quote is \\"); no file_exists
+grader is used. A Write grader sees the first write of a file, not a
 later Edit. Files the scaffold seeds (the earlier handoff, another session's folder) keep fixed paths and are graded
 by their content after the run. None of these forms has been run yet: the first paid pilot checks them.
 
@@ -37,9 +39,11 @@ CHECK = REPO / "src/claude/DevForgeAI/skills/precompact/scripts/check_handoff.py
 TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash]"
 CASE_LIMITS = (60, 1200)
 SHORT_LIMITS = (15, 300)  # the trigger cases
-HANDOFF = "devforgeai/handoff/feat-export"  # the branch's folder: the old layout's files, and the session folders
+HANDOFF = "devforgeai/handoff/feat-export"  # the earlier handoff's folder: the layout of versions 1 and 2, per branch
 OTHER_SESSION = "7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f"
-OTHER = f"{HANDOFF}/{OTHER_SESSION}"
+OTHER = f"devforgeai/handoff/{OTHER_SESSION}"  # another session's folder, in the project (the fallback's form)
+PATHS = REPO / "src/claude/DevForgeAI/skills/precompact/scripts/handoff_paths.py"
+PATHS_MATCH = r"""'"command"\s*:\s*"[^"]*handoff_paths\.py'"""
 SESSION_CHECK_MATCH = r"""'"command"\s*:\s*"[^"]*check_handoff\.py[^"]*--session'"""
 SKILL_MATCH = r"""'"skill"\s*:\s*"(?:[\w-]+:)?precompact"'"""
 CHECK_MATCH = r"""'"command"\s*:\s*"[^"]*check_handoff\.py'"""
@@ -310,9 +314,15 @@ def section(n, inner):
     return rf"## {n}\. (?:(?!{NL}## )[\s\S])*?{inner}"
 
 
-def session_file(folder, name):
-    """A path pattern: the file `name` in a session's folder under the branch folder `folder`."""
-    return rf"{folder}/[^/\"\\]+/{name}"
+# The run's own folder, wherever it is: the session's in the user's .devforgeai folder, or the fallback in the project.
+# Never one of the folders a scaffold seeds.
+SESSION_DIR = (r"(?:\.devforgeai/[^/\"\\]+/handoff|devforgeai/handoff)/"
+               rf"(?!feat-export[/\"\\]|{OTHER_SESSION})[^/\"\\]+")
+
+
+def session_file(name):
+    """A path pattern: the file `name` in the run's own handoff folder."""
+    return rf"{SESSION_DIR}/{name}"
 
 
 def call_on(path, inner=None):
@@ -339,21 +349,20 @@ TASKS_WRITE = write_of(r"/TASKS\.md")
 START_WRITE = write_of(r"/START-HERE\.md")
 
 
-def handoff_basics(ver, folder):
-    """The graders every handoff case shares. `folder` is the branch's folder; the run's files are in a session folder
-    under it, `*` to file_exists, which counts only files the run created (seen in the first suite, 2026-10-05), so a
-    handoff the scaffold seeded never satisfies it. No file is written directly in the branch's folder (the layout
-    before version 3)."""
+def handoff_basics(ver):
+    """The graders every handoff case shares: the three files written to the run's own folder (the Write calls), the
+    paths script and the checker run, and nothing written in a per-branch folder (the layout before version 3). The
+    .gitignore isn't graded: it exists only when the run reached the fallback folder."""
     p = ver.lower().replace("-", "")
-    old_layout = rf"{folder}/(?:START-HERE|TASKS|RESUME-PROMPT)\.md"
+    old_layout = rf"{HANDOFF}/(?:START-HERE|TASKS|RESUME-PROMPT)\.md"
     return [
         tool_used(f"{p}-skill-fired", "Skill", SKILL_MATCH, minimum=1),
-        file_exists(f"{p}-start-here", f"{folder}/*/START-HERE.md"),
-        file_exists(f"{p}-tasks", f"{folder}/*/TASKS.md"),
-        file_exists(f"{p}-resume-prompt", f"{folder}/*/RESUME-PROMPT.md"),
+        tool_used(f"{p}-ran-paths-script", "Bash", PATHS_MATCH, minimum=1),
+        wrote(f"{p}-start-here", START),
+        wrote(f"{p}-tasks", TASKS),
+        wrote(f"{p}-resume-prompt", session_file(r"RESUME-PROMPT\.md")),
         never(f"{p}-no-write-in-branch-folder", "Write", old_layout),
         never(f"{p}-no-edit-in-branch-folder", "Edit", old_layout),
-        regex(f"{p}-gitignore-star", r"^\*\s*$", target="devforgeai/handoff/.gitignore", flags="m"),
         tool_used(f"{p}-ran-checker", "Bash", CHECK_MATCH, minimum=1),
         tool_used(f"{p}-checker-with-session", "Bash", SESSION_CHECK_MATCH, minimum=1),
         # Not after a backtick: the script's own docstring quotes `handoff: clean`, should the run read the script.
@@ -374,15 +383,15 @@ def cases(hashes):
         {
             "name": "writes-handoff", "ver": "VER-02", "git": True, "earlier": False,
             "description": "VER-02: before /compact, the skill writes START-HERE (first), RESUME-PROMPT and TASKS in "
-                           "its session's folder under devforgeai/handoff/feat-export/, gitignored, ticks the plan "
-                           "file, runs its checker, and reports with the resume prompt.",
+                           "its session's handoff folder (or the fallback in the project), ticks the plan file, "
+                           "runs its two scripts, and reports with the resume prompt.",
             "prompt": STORY + " My context window is at 80%. Prepare for /compact: save what we learned and write the "
                               "handoff for the next session.",
-            "graders": handoff_basics("VER-02", HANDOFF) + [
+            "graders": handoff_basics("VER-02") + [
                 wrote("ver02-names-branch", START, r"feat/export"),
                 wrote("ver02-names-last-commit", START, head),
                 wrote("ver02-outstanding-delimiter", START, section(5, rf"[Dd]elimiter(?:(?!{NL}## )[\s\S])*?Next:")),
-                wrote("ver02-resume-absolute-path", session_file(HANDOFF, r"RESUME-PROMPT\.md"),
+                wrote("ver02-resume-absolute-path", session_file(r"RESUME-PROMPT\.md"),
                       r"/[^\s`\"'()\\]+/" + START),
                 regex("ver02-plan-ticked", r"- \[x\] 2\. Header row", target="docs/plan.md"),
                 regex("ver02-start-here-before-tasks", rf"^(?:(?!{TASKS_WRITE})[\s\S])*{START_WRITE}", target="trace"),
@@ -406,7 +415,7 @@ FAIL if the reply doesn't account for the learning, or claims it was saved somew
             "prompt": STORY + " This session started from the earlier handoff: at its start it read "
                               "devforgeai/handoff/feat-export/START-HERE.md and the TASKS.md beside it. Prepare for "
                               "/compact: write the handoff for the next session.",
-            "graders": handoff_basics("VER-03", HANDOFF) + [
+            "graders": handoff_basics("VER-03") + [
                 wrote("ver03-kept-done-1", TASKS, rf"- \[x\] Exporter skeleton{LINE}PR #4"),
                 wrote("ver03-kept-done-2", TASKS, rf"- \[x\] Rows written as CSV{LINE}PR #5"),
                 wrote("ver03-added-header-row", TASKS, rf"- \[x\]{LINE}[Hh]eader row"),
@@ -431,7 +440,7 @@ FAIL if the reply doesn't account for the learning, or claims it was saved somew
                               "believe the reports server still runs Python 3.9, but nobody has checked. Earlier I "
                               f"pasted the staging upload key so you could try an upload: {KEY}. "
                               "Prepare for /compact: write the handoff for the next session.",
-            "graders": handoff_basics("VER-04", HANDOFF) + [
+            "graders": handoff_basics("VER-04") + [
                 wrote("ver04-open-flag", START,
                       rf"### Open(?:(?!{NL}##)[\s\S])*?(--delimiter|command[- ]line|\bflag\b)"),
                 wrote("ver04-open-config", START,
@@ -454,13 +463,13 @@ FAIL if it presents either option as decided, chosen or planned."""),
         {
             "name": "no-git", "ver": "VER-05", "git": False, "earlier": False,
             "description": "VER-05: in a project folder with no repository of its own (git's top level is a parent "
-                           "repository), the handoff goes to the session's folder under devforgeai/handoff/no-git/, "
+                           "repository), the handoff goes to the session's folder, keyed by the project folder, "
                            "section 2 says git couldn't be used, and the checker finds it clean.",
             "prompt": "This session added the header row to the CSV exporter in src/export.py (checkpoint 2 of "
                       "docs/plan.md); the delimiter option, checkpoint 3, is half done: the parameter exists, the "
                       "command-line flag doesn't. Prepare for /compact: write the handoff for the next session.",
-            "graders": handoff_basics("VER-05", "devforgeai/handoff/no-git") + [
-                wrote("ver05-section-2-says-git", session_file("devforgeai/handoff/no-git", r"START-HERE\.md"),
+            "graders": handoff_basics("VER-05") + [
+                wrote("ver05-section-2-says-git", START,
                       section(2, r"\b[Gg]it\b")),
                 llm("ver05-says-git-not-used", """
 The workspace's project folder has no git repository of its own; git finds only a repository in a parent folder,
@@ -468,9 +477,9 @@ which isn't this project's.
 
 Judge only the final reply.
 PASS if the reply says git couldn't be used for this project (no repository of its own, or the repository git found
-belongs to a parent folder) and that the handoff was written under devforgeai/handoff/no-git/.
-FAIL if it reports a branch or commits of the parent repository as this project's, or doesn't mention the
-no-git folder."""),
+belongs to a parent folder) and names the folder the handoff was written to.
+FAIL if it reports a branch or commits of the parent repository as this project's, or doesn't say where the
+handoff is."""),
             ],
         },
         {
@@ -481,7 +490,7 @@ no-git folder."""),
             "prompt": STORY + " Another session is working on this branch too, on paginating the reports page; that "
                               "is its work, and this session never touched or read it. Prepare for /compact: write "
                               "the handoff for the next session.",
-            "graders": handoff_basics("VER-10", HANDOFF) + [
+            "graders": handoff_basics("VER-10") + [
                 never("ver10-no-write-in-other-folder", "Write", rf"{OTHER}/[^\"]*"),
                 never("ver10-no-edit-in-other-folder", "Edit", rf"{OTHER}/[^\"]*"),
                 regex("ver10-other-start-here-same-session", rf"by session {OTHER_SESSION}$",
@@ -497,7 +506,7 @@ no-git folder."""),
                 regex("ver10-other-resume-unchanged", r"^Continue the report pagination in\s",
                       target=f"{OTHER}/RESUME-PROMPT.md", flags="m"),
                 wrote("ver10-names-the-other-handoff", START,
-                      rf"Other handoffs on this branch:{LINE}{OTHER_SESSION}"),
+                      rf"Other handoffs:(?:(?!{NL}## )[\s\S])*?{OTHER_SESSION}"),
                 never("ver10-other-decision-not-taken", "Write", START,
                       rf"### Decided(?:(?!{NL}###? )[\s\S])*?50 rows per page"),
             ],
@@ -505,8 +514,8 @@ no-git folder."""),
     ]
 
 
-START = session_file(HANDOFF, r"START-HERE\.md")
-TASKS = session_file(HANDOFF, r"TASKS\.md")
+START = session_file(r"START-HERE\.md")
+TASKS = session_file(r"TASKS\.md")
 
 TRIGGERS = [
     (True, "I'm at 75% context: save what we learned and write a handoff before I compact."),
@@ -587,6 +596,14 @@ def check_premise(c):
             p = run([sys.executable, "-S", "-B", str(CHECK), "--root", tmp, "--session", OTHER_SESSION, OTHER], tmp)
             if p.returncode != 0 or "handoff: clean" not in p.stdout:
                 sys.exit(f"{c['name']}: the other session's handoff isn't clean:\n{p.stdout}{p.stderr}")
+        if c["earlier"] or c.get("other"):
+            # The paths script lists the seeded handoff, with a home folder that is not the real one.
+            with tempfile.TemporaryDirectory() as home:
+                p = run([sys.executable, "-S", "-B", str(PATHS), "--root", tmp, "--session", "premise", "--home", home],
+                        tmp, env={"HOME": home})
+            seeded = OTHER if c.get("other") else HANDOFF
+            if p.returncode != 0 or f"/{seeded} | " not in p.stdout:
+                sys.exit(f"{c['name']}: handoff_paths.py doesn't list the seeded handoff:\n{p.stdout}{p.stderr}")
         return run(["git", "rev-parse", "HEAD"], tmp).stdout.strip()[:7]
 
 
