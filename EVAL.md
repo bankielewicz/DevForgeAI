@@ -152,17 +152,17 @@ Bryan, 2026-11-06: "begin working on stacked PRs for 153, 149 & 150"; "Defects, 
 | Y4 | Live | SPEC-017 VER-50 (b), (c) and (g) pass on the build commit, recorded in §9; (d) passes or is recorded as not reachable live, as VER-50 allows; (a), (e) and (f), both halves, are recorded as not run by Bryan's choice (no canvas is shared, not even by name) until the next SPEC-017 version or 2026-12-31; (h) passes. Needs a test login with the Artifact tool |
 | Y5 | The plugin workflow | G5's reports on the build's last commit |
 
-### Z. SPEC-015 v3 and SKL-012 v2, one handoff folder per session
+### Z. SPEC-015 v3 and v4 and SKL-012 v2, one handoff folder per session, in the home folder
 
 Bryan, 2026-11-17: one session's `/devforgeai:precompact` had modified another session's handoff files ("if there are more than one sessions working in a project, i believe the same issue exists where they 'stomp' on each other"); "Per session (Recommended)" for the folder's key and "Yes, add rules (Recommended)" for memory writes; the plan approved the same day (spec PR, then the build through `/plugin-dev:skill-development`).
 
 | ID | Check | PASS when |
 |---|---|---|
-| Z1 | Spec approved | G4 holds for SPEC-015 v3 with Bryan's approval row, and `src/tests/precompact/test_structure.py` then pins `(3, "approved")` |
-| Z2 | Tests first | At the build, the `--session` cases of `test_check_handoff.py` and the new structure checks (the per-session folder, the rule for writing, ERR-07, BEH-06's memory rules, `--session` in SKILL.md) were committed and seen failing before the code; then `IMPLEMENTS` equals `SPEC_VERSION` |
+| Z1 | Spec approved | G4 holds for SPEC-015 v3 and for v4 (Bryan, 2026-11-17: "Yes, fold into this stack (Recommended)", the store in `~/.devforgeai`), each with his approval row, and `src/tests/precompact/test_structure.py` then pins `(4, "approved")` |
+| Z2 | Tests first | At the build, `test_handoff_paths.py` (VER-12, with a temporary home folder), the `--session` cases of `test_check_handoff.py` and the new structure checks (the per-session folder, the rule for writing, ERR-07, BEH-06's memory rules, `--session` in SKILL.md) were committed and seen failing before the code; then `IMPLEMENTS` equals `SPEC_VERSION` |
 | Z3 | Cases regenerated | `make_evals.py` regenerates the suite with `leaves-other-session-handoff` (VER-10); no case file is edited by hand |
 | Z4 | Evals | Every precompact case at or above 0.8 in the runs Bryan's waiver in SPEC-015 §9 sets, VER-10 included, with their cost recorded |
-| Z5 | Live | SPEC-015 VER-11 (a) to (d) pass on the build commit, recorded in §9 |
+| Z5 | Live | SPEC-015 VER-11 (a) to (g) pass on the build commit, recorded in §9 |
 | Z6 | The plugin workflow | G5's reports on the build's last commit |
 
 ### S. The next SPEC-017 and ADR-007 versions, redrafted from main
