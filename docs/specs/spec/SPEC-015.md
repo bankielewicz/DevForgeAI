@@ -611,7 +611,7 @@ the main conversation during a run instead of its agent (SPEC-014 §13).
 - Record (2026-10-08, no version bump): SPEC-013 version 21 (BEH-36; counted as fuel from version 23) runs this skill automatically, once between two compactions and as if the person had typed it, when the context window's fuel left falls to `precompactRunFuel` (20% by default, which is 80% of the window used), and with version 25's set of pending names (BEH-41, approved) the handoff's turn is marked as SPEC-013 BEH-02 says; version 26 (in review) adds a one-shot pending mark in $.state (BEH-36, BEH-02) as a second path to that mark. That is the 'eventually, it may run with the precompact hook' item recorded above for later. Versions 21 and 23 to 25 are built on branch `feat/dashboard-build` (plugin 0.28.0, not merged); version 26 will be built there too.
 - Record (2026-11-18, no version bump): deferred by Bryan to the next change of this skill ("agree - deferm them to
   the backlog file", recorded here on his choice "SPEC-015 §13 (Recommended)"), after the sandbox probe (§9). None is
-  built, and each needs a new version of this spec:
+  built, and each needs a new version of this spec. They are indexed as DEF-001 to DEF-006 in `docs/backlog.md`:
   1. START-HERE.md's Write sent as a call of its own and its result read before RESUME-PROMPT.md and TASKS.md are
      written, so that a refused store costs one Write and not three (VER-11 (g)'s observation; BEH-03, ERR-08).
   2. The report naming the learnings the session saved to memory before the skill ran (VER-11 (c)'s note; BEH-06,

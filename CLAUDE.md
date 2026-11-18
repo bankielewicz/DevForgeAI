@@ -272,6 +272,9 @@ building it"). The source of each item is named.
   (for example, the waiver question's treatment of a dismissal, and whether a challenge in the
   end-of-run review should do more than record).
 - **Manual VER items not run**, listed in each spec's §9.
+- **Deferred work**, indexed in `docs/backlog.md` (IDs `DEF-NNN`, each row naming the spec section,
+  review or issue that holds the detail). Check it before changing a skill it names; add a row when
+  Bryan defers something.
 
 ## Loaded on demand
 
