@@ -108,7 +108,12 @@ def retention_days(home):
             value = json.load(f).get("handoffRetentionDays")
     except (OSError, ValueError, AttributeError):
         return DEFAULT_RETENTION_DAYS
-    if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
+    try:
+        usable = not isinstance(value, bool) and isinstance(value, (int, float)) and math.isfinite(value) \
+            and value >= 0 and math.isfinite(float(value) * 86400)
+    except OverflowError:  # an integer too large for a float
+        usable = False
+    if not usable:
         return DEFAULT_RETENTION_DAYS
     return value if value == 0 else max(value, 1)  # 0 is never; a fraction of a day would reach live sessions
 
@@ -152,7 +157,10 @@ def describe(folder):
                     branch = one_line(tick.group(1) if tick else re.split(r"[,;(]", m.group(1))[0])
     except OSError:
         pass
-    stamp = time.strftime("%Y-%m-%d", time.gmtime(newest(folder)))
+    try:
+        stamp = time.strftime("%Y-%m-%d", time.gmtime(newest(folder)))
+    except (OverflowError, OSError, ValueError):  # the age couldn't be read: the folder went while it was listed
+        stamp = "?"
     return f"other: {folder} | {stamp} | {branch} | {title}"
 
 
@@ -169,7 +177,8 @@ def others(store, project_handoffs, own_paths):
                 found.append(below)
     own = {os.path.normcase(os.path.realpath(p)) for p in own_paths}
     found = [f for f in found if os.path.normcase(os.path.realpath(f)) not in own]
-    found.sort(key=newest, reverse=True)
+    ages = {f: newest(f) for f in found}
+    found.sort(key=lambda f: ages[f] if math.isfinite(ages[f]) else 0.0, reverse=True)  # an unread age sorts last
     return [describe(f) for f in found[:LISTED]]
 
 

@@ -72,15 +72,15 @@ before step 2.
   python3 ${CLAUDE_SKILL_DIR}/scripts/handoff_paths.py --root <project root> --session "${CLAUDE_SESSION_ID}"
   ```
 
-  When this session resumed from a handoff, add `--keep <that START-HERE.md's path>`, so it isn't pruned.
+  When this session resumed from a handoff, add `--keep "<that START-HERE.md's path>"`, so it isn't pruned.
 
   It prints `folder:`, this session's handoff folder, outside the repository in the user's `.devforgeai` folder
   (one per project and session, so the handoff outlives a worktree that is removed); `fallback:`, a folder in the
   project for when the first can't be written; `session:`, the folder's name, which is this session's ID or a
   `session-...` name the script made up when the ID wasn't filled in (on a later run pass that same name as
   `--session`); `other:` lines, the project's other handoffs with their date, branch and title; and `pruned:`
-  lines for the old folders it deleted, or `prune: skipped:` with the reason it deleted none. Wherever a later step asks for the session ID, give the `session:` name.
-  Without `python3`, say so and use `devforgeai/handoff/<session ID>/` under the root (`session-<UTC time>` when
+  lines for the old folders it deleted, and `prune: skipped:` with the reason for any it left. Wherever a later step asks for the session ID, give the `session:` name.
+  Without `python3`, or when the script prints no `folder:` line, say so and use `devforgeai/handoff/<session ID>/` under the root (`session-<UTC time>` when
   the ID isn't filled in), with its `.gitignore` as step 2 says for the fallback.
 - This session writes only its own handoff folder. Write, move or delete nothing in any other handoff folder:
   the folders the `other:` lines name, in the user's `.devforgeai` folder or in a project's

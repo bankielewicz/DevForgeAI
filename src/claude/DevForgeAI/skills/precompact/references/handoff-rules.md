@@ -80,8 +80,8 @@ memory (`references/memory.md`).
 (in the fallback folder, when an earlier run had to use it: name it on `Continues:`);
 else the handoff the conversation shows this session resumed from, the START-HERE.md it was given at its start to
 continue from and read (in any folder, a project's `devforgeai/handoff/` included). The `other:` lines
-only show what else exists: a handoff listed there is another session's, and is never carried over because its
-branch or title matches. Keep what still holds: its decisions,
+only show what exists. Being listed there, or matching this work's branch or title, is no reason to carry a handoff
+over: only the one this session resumed from is. Keep what still holds: its decisions,
 open questions, rules, traps and learnings, and its outstanding items not finished; drop what is done (TASKS.md
 keeps it). A handoff carried over from another folder is copied, never changed: its files stay as they were.
 - Good: this session was started with a resume prompt naming another folder's START-HERE.md and read it; its
