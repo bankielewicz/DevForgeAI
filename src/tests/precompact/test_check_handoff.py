@@ -1,5 +1,8 @@
 """Unit tests for the precompact skill's checker, scripts/check_handoff.py (SPEC-015 VER-01; IF-01, BEH-08).
 
+The Session class holds version 3's --session cases: the folder named for the session, and START-HERE section 1's
+"by session" naming it.
+
 Each case builds a project folder with a handoff in a temporary folder and runs the script as a subprocess twice:
 with this interpreter's packages and with `-S`, which hides every site-packages directory. The output must be the
 same both ways, never end in a traceback, and leave the folder as it was.
@@ -134,10 +137,10 @@ def write(path, text):
 class Handoff:
     """A project folder with a complete handoff; edit() changes one file before a run."""
 
-    def __init__(self, tmp):
+    def __init__(self, tmp, handoff=HANDOFF):
         self.root = Path(tmp) / "project"
         self.home = Path(tmp) / "home"
-        self.dir = self.root / HANDOFF
+        self.dir = self.root / handoff
         write(self.root / "docs/plan.md", "# Plan\n")
         write(self.root / "src/export.py", "print('csv')\n")
         write(self.home / "notes/export.md", "notes\n")
@@ -403,6 +406,15 @@ class Problems(unittest.TestCase):
         self.h.edit("START-HERE.md", "not yet created).", "(not yet created)).")
         self.assertEqual(self.h.run().returncode, 0)
 
+    def test_a_folder_outside_the_project_needs_no_gitignore(self):
+        """SPEC-015 version 4: the handoff folder is in the user's .devforgeai folder; only the fallback is in the project."""
+        with tempfile.TemporaryDirectory() as tmp:
+            outside = Path(tmp) / "home/.devforgeai/project-1a2b3c4d/handoff/abc123"
+            h = Handoff(tmp, handoff=outside)
+            (h.root / "devforgeai/handoff/.gitignore").unlink()
+            p = h.run("--session", "abc123", handoff=str(outside))
+            self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
     def test_a_missing_gitignore(self):
         (self.h.root / "devforgeai/handoff/.gitignore").unlink()
         self.assertProblem("devforgeai/handoff/.gitignore", 0, "*")
@@ -437,6 +449,72 @@ class Warnings(unittest.TestCase):
         self.assertIn("yesterday", p.stdout)
         self.assertNotIn("today", p.stdout.replace("yesterday", ""))
         self.assertEqual(p.stdout.splitlines()[-1], "handoff: 0 problems, 1 warnings")
+
+
+class Session(unittest.TestCase):
+    """--session (SPEC-015 version 3, IF-01): the folder is the session's own and START-HERE section 1 says so."""
+    OWN = HANDOFF + "/abc123"
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.h = Handoff(self.tmp.name, handoff=self.OWN)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_the_sessions_own_folder_is_clean(self):
+        p = self.h.run("--session", "abc123", handoff=self.OWN)
+        self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
+    def test_the_written_line_on_one_line_with_the_id_in_backticks(self):
+        self.h.edit("START-HERE.md", "Written 2026-10-05 14:00 UTC by\nsession abc123.",
+                    "\n- Written: 2026-10-05 14:00 UTC, by session `abc123`")
+        p = self.h.run("--session", "abc123", handoff=self.OWN)
+        self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
+    def test_a_folder_named_for_another_session(self):
+        p = self.h.run("--session", "def456", handoff=self.OWN)
+        self.assertEqual(p.returncode, 1, p.stdout + p.stderr)
+        self.assertIn(f"{self.OWN}/START-HERE.md:0: ", p.stdout)
+        self.assertIn("another session's folder", p.stdout)
+
+    def test_a_start_here_written_by_another_session(self):
+        self.h.edit("START-HERE.md", "session abc123.", "session zzz999.")
+        p = self.h.run("--session", "abc123", handoff=self.OWN)
+        self.assertEqual(p.returncode, 1, p.stdout + p.stderr)
+        self.assertRegex(p.stdout, rf"(?m)^{self.OWN}/START-HERE\.md:[1-9]\d*: .*zzz999")
+        self.assertNotIn("another session's folder", p.stdout)
+
+    def test_prose_about_an_earlier_session_in_section_1_isnt_read(self):
+        """Only the Written statement says who wrote the file (the skill-reviewer's finding on d416d5b)."""
+        self.h.edit("START-HERE.md", "Adding CSV export to the reports page.",
+                    "Adding CSV export to the reports page; this continues work started by session zzz999.")
+        p = self.h.run("--session", "abc123", handoff=self.OWN)
+        self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
+    def test_a_session_time_folder_name_is_the_session(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            own = HANDOFF + "/session-20261005T140000Z"
+            h = Handoff(tmp, handoff=own)
+            h.edit("START-HERE.md", "session abc123.", "session session-20261005T140000Z.")
+            p = h.run("--session", "session-20261005T140000Z", handoff=own)
+            self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
+    def test_by_session_outside_section_1_isnt_read(self):
+        self.h.files["START-HERE.md"] += "\n- The earlier handoff was written by session zzz999.\n"
+        self.h.save()
+        p = self.h.run("--session", "abc123", handoff=self.OWN)
+        self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
+    def test_without_session_neither_is_checked(self):
+        self.h.edit("START-HERE.md", "session abc123.", "session zzz999.")
+        p = self.h.run(handoff=self.OWN)
+        self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
+
+    def test_an_old_layout_folder_checks_as_before_without_session(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Handoff(tmp).run()
+            self.assertEqual((p.returncode, p.stdout), (0, "handoff: clean\n"), p.stdout + p.stderr)
 
 
 class CantRun(unittest.TestCase):

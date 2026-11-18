@@ -1,6 +1,7 @@
 ---
-type: regex
-target: {source: file, path: devforgeai/handoff/feat-export/START-HERE.md}
-match: not_contains
+type: tool_used
+tool: Write
+input_match: '^(?=[\s\S]*"file_path"\s*:\s*"[^"]*(?:\.devforgeai/[^/\"\\]+/handoff|devforgeai/handoff)/(?!feat-export[/\"\\]|7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f)[^/\"\\]+/START-HERE\.md")(?=[\s\S]*### Decided(?:(?!\\n###? )[\s\S])*?\\n[-*+] (?:(?!\\n)[\s\S])*?(--delimiter|config\.toml))'
+min: 0
+max: 0
 ---
-### Decided[^\n]*(?:(?!\n###? )[\s\S])*?\n[-*+] [^\n]*(--delimiter|config\.toml)

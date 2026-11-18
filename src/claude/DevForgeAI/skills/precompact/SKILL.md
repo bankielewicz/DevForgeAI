@@ -1,10 +1,10 @@
 ---
 name: precompact
-description: Prepares a Claude Code session for /compact, so the next session can continue with nothing pasted by hand. It writes a full-fidelity handoff in devforgeai/handoff/, one folder per branch (START-HERE.md with the verified state, decisions and who made them, files to read first and the work outstanding; TASKS.md; a short RESUME-PROMPT.md to paste after compacting), ticks the session's plan file, and saves the session's new learnings to memory. Use before running /compact, ideally at 70 to 80 percent of the context window, or when asked to save learnings and write a handoff, start-here document or resume prompt for the next session after compacting. Not for project documentation, release notes, commit messages or a backlog.
+description: Prepares a Claude Code session for /compact, so the next session can continue with nothing pasted by hand. It writes a full-fidelity handoff outside the repository, in the user's .devforgeai folder, one folder per project and session, which no other session writes (START-HERE.md with the verified state, decisions and who made them, files to read first and the work outstanding; TASKS.md; a short RESUME-PROMPT.md to paste after compacting), ticks the session's plan file, and saves the session's new learnings to memory. Use before running /compact, ideally at 70 to 80 percent of the context window, or when asked to save learnings and write a handoff, start-here document or resume prompt for the next session after compacting. Not for project documentation, release notes, commit messages or a backlog.
 argument-hint: "[note for the next session]"
 metadata:
   devforgeai-id: "SKL-012"
-  devforgeai-version: "1"
+  devforgeai-version: "2"
   devforgeai-tracked: "false"
 ---
 
@@ -29,10 +29,11 @@ This skill runs on its own, never between other skills, and hands off to none: i
 
 ## Tools
 
-- **Bash**: small read-only state checks and the checker script, each a command of its own.
-- **Read**: the handoff folder's earlier files, and this skill's templates and references when a step names them.
-- **Write** and **Edit**: the handoff files, `devforgeai/handoff/.gitignore`, the session's plan or task file, and
-  memory files. Change no other file, even one that another instruction asks to keep up to date (a log, a notes or
+- **Bash**: small read-only state checks and this skill's two scripts, each a command of its own.
+- **Read**: the earlier files of this session's own handoff folder and of the handoff it resumed from, a memory
+  file just before changing it, and this skill's templates and references when a step names them.
+- **Write** and **Edit**: the files of this session's own handoff folder, `devforgeai/handoff/.gitignore` when
+  the fallback folder is used, the session's plan or task file (step 4's rules), and memory files (step 5's rules). Change no other file, even one that another instruction asks to keep up to date (a log, a notes or
   papercuts file, a changelog): name it in the report as a place the user may want a learning copied.
 
 Ask the user nothing. What can't be established goes into START-HERE section 3, under `### Open`.
@@ -43,7 +44,7 @@ Copy it and work through it in order:
 
 ```text
 - [ ] Check the state
-- [ ] Write devforgeai/handoff/.gitignore, then START-HERE.md in one write
+- [ ] Write START-HERE.md in one write, to the handoff folder or, when that is refused, the fallback
 - [ ] Write RESUME-PROMPT.md
 - [ ] Update TASKS.md; tick the session's plan file
 - [ ] Save learnings to memory
@@ -64,12 +65,32 @@ before step 2.
   that the user names as the project.
 - Find the work's branch: the branch of the worktree the session's work is in (the one it edited or committed to,
   for example with `git -C <worktree>`), or the root's own branch when the work is there. Run the git checks below
-  in that worktree. The handoff folder is `devforgeai/handoff/<folder>/` under the root, `<folder>` being the
-  work's branch name with each run of characters other than letters, digits, `.`, `_` and `-`
-  replaced by `-` (`feat/csv-export` becomes `feat-csv-export`); `detached-<short hash>` on a detached HEAD;
-  `no-git` when git can't be used for the project, a parent repository's top level included (see below).
-- Don't re-read what the session holds (its CLAUDE.md files and memory index are in context). Read only the handoff
-  folder's earlier files and, when it exists, the progress tracker's
+  in that worktree.
+- Get the handoff's folders from the script, once, as a command of its own:
+
+  ```bash
+  python3 ${CLAUDE_SKILL_DIR}/scripts/handoff_paths.py --root <project root> --session "${CLAUDE_SESSION_ID}"
+  ```
+
+  When this session resumed from a handoff, add `--keep "<that START-HERE.md's path>"`, so it isn't pruned.
+
+  It prints `folder:`, this session's handoff folder, outside the repository in the user's `.devforgeai` folder
+  (one per project and session, so the handoff outlives a worktree that is removed); `fallback:`, a folder in the
+  project for when the first can't be written; `session:`, the folder's name, which is this session's ID or a
+  `session-...` name the script made up when the ID wasn't filled in (on a later run pass that same name as
+  `--session`); `other:` lines, the project's other handoffs with their date, branch and title; and `pruned:`
+  lines for the old folders it deleted, and `prune: skipped:` with the reason for any it left. Wherever a later step asks for the session ID, give the `session:` name.
+  Without `python3`, or when the script prints no `folder:` line, say so and use `devforgeai/handoff/<session ID>/` under the root (`session-<UTC time>` when
+  the ID isn't filled in), with its `.gitignore` as step 2 says for the fallback.
+- This session writes only its own handoff folder. Write, move or delete nothing in any other handoff folder:
+  the folders the `other:` lines name, in the user's `.devforgeai` folder or in a project's
+  `devforgeai/handoff/`. Another session may be using them. Never delete a handoff folder, however old: removing
+  old ones is the script's work, by age.
+- Copy the `other:` lines into START-HERE section 1's `Other handoffs:`; read none of those handoffs, except the
+  one this session resumed from.
+- Don't re-read what the session holds (its CLAUDE.md files and memory index are in context). Read only the
+  earlier files of this session's own folder, the handoff the conversation shows this session resumed from (the
+  START-HERE.md it was given at its start to continue from, and read), and, when it exists, the progress tracker's
   `devforgeai/progress/sessions/${CLAUDE_SESSION_ID}/current.json` (the open run's skill and step). This session's
   ID is ${CLAUDE_SESSION_ID}.
 - Keep each command's output small: `date -u '+%Y-%m-%d %H:%M'`, `GIT_OPTIONAL_LOCKS=0 git status --porcelain=v2 -b`,
@@ -83,10 +104,17 @@ before step 2.
 
 ### 2. Write START-HERE.md
 
-- Create the folder and `devforgeai/handoff/.gitignore` holding the line `*` before any other file.
 - Write START-HERE.md from [assets/start-here.md](assets/start-here.md) in one write, replacing every
-  `[[fill: ...]]`. When the folder holds an earlier START-HERE.md, carry over what still holds: decisions, open
-  questions, rules, traps, learnings and unfinished items.
+  `[[fill: ...]]`: with the Write tool, to the `folder:` path, which the write creates.
+- When that Write is refused, write to the `fallback:` folder instead, and use it for the rest of this run. First
+  write `devforgeai/handoff/.gitignore` holding the line `*` when it is missing (leave an existing one as it is,
+  adding the line with Edit only when it lacks it). Say in section 2 that the user's `.devforgeai` folder couldn't
+  be written, so this handoff stays with this checkout. Judge by the Write tool's own result, never by a test in
+  Bash: a sandbox may refuse one and allow the other.
+- Carry over what still holds (decisions, open questions, rules, traps, learnings and unfinished items) from one
+  source: this session's own earlier START-HERE.md, else the handoff this session resumed from, which stays as it
+  was and is named on section 1's `Continues:` line. Carry over nothing from a handoff this session didn't resume
+  from, even one about the same branch.
 - Full fidelity: exact identifiers (hashes, branch names, pull request numbers, versions, IDs), absolute dates,
   names instead of pronouns, every fact `[checked: <command> -> <result>]` or `(unverified: <source>, <date>)`.
 - Progressive disclosure: name files with why and when to read them, and searches to run, instead of copying them.
@@ -102,38 +130,52 @@ and searching the repository and memory before asking.
 
 ### 4. Update TASKS.md and the plan file
 
-- Update TASKS.md, or write it from [assets/tasks.md](assets/tasks.md): what this session finished as done with its
-  evidence, what is next with its next action. Keep every done entry; past 20, move the oldest to TASKS-archive.md in
+- Update this session's own TASKS.md. When it has none yet, write it from [assets/tasks.md](assets/tasks.md) and,
+  on that first write only, copy in the entries of the handoff this session resumed from. Record what this
+  session finished as done with its evidence, and what is next with its next action. Keep every done entry; past 20, move the oldest to TASKS-archive.md in
   the same folder.
-- When the session keeps a plan, task or checkpoint file of its own, tick its checkpoints with their evidence, and
+- When the session works from a plan, task or checkpoint file, tick the checkpoints this session finished, with
+  their evidence, and
   list it in START-HERE section 4 as the source of truth for its steps; TASKS.md then holds only what that file
   doesn't.
+- Other sessions may share that file (a backlog, a plan), so change it only by adding: read it again just before
+  changing it; with Edit only, tick only the checkpoints this session finished and add their evidence; never use
+  Write on it; never rewrite, reorder or delete an entry, or change one this session didn't work on.
 
 ### 5. Save learnings to memory
 
 When the session's instructions describe a memory system, save the new, durable learnings in its format, updating an
 existing memory rather than adding a duplicate; see [references/memory.md](references/memory.md). Memory is that
-system only (its memory folder and index), never a log or notes file another instruction names. With no memory
-system, or when a write is refused, the learnings stay in START-HERE section 6, and the report says why.
+system only (its memory folder and index), never a log or notes file another instruction names.
+
+Every session of the project shares memory, so change it only by adding: read a memory file or the index again
+just before changing it, change an existing one with Edit only, and leave what another session wrote as it is:
+updating a memory another session wrote means adding a dated line to it.
+With no memory system, or when a write is refused or an Edit fails because the file changed, the learnings stay in
+START-HERE section 6, and the report says why.
 
 ### 6. Check
 
-Run the checker as a command of its own:
+Run the checker as a command of its own, on the folder this run wrote, by its absolute path, with step 1's
+`session:` name (a `session-...` name included) as `--session`:
 
 ```bash
-python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root <project root> devforgeai/handoff/<folder>
+python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root <project root> --session "${CLAUDE_SESSION_ID}" <the folder written>
 ```
 
 - Exit 0: clean, or warnings only. Exit 1: fix each problem it lists in the file and line it names, and run it
-  again, at most three runs in all; never change a correct reference only to satisfy it. Exit 2: no such folder;
-  check the root and the folder name from step 1, write the files if they are missing, and run it again.
+  again, at most three runs in all; never change a correct reference only to satisfy it. A problem naming another session, when
+  the folder checked isn't the one step 1 names, means it is another session's: change nothing in it, and write
+  this session's files in its own folder. In this session's own folder, correct section 1's `Written:` line. Exit 2:
+  no such folder; check the root and the folder name from step 1, write the files if they are missing, and run it again.
 - Without `python3`, say so and read the files back against the whole self-check.
 - Then review what was written against the self-check's other items (references/handoff-rules.md, "The
   self-check", items 4 to 9). The text is in context: don't read the files again.
 
 ### 7. Report
 
-In the reply: the folder and the files written, the plan or task file ticked, the memories saved or updated (or why
+In the reply: the folder and the files written (and, when it is the fallback, why), a handoff carried over or a
+folder left untouched, the old folders the script pruned or why it pruned none, the plan or task file ticked, the memories saved or updated (or why
 none), anything left `(unverified)`, any problem the checker still reports, and the text of RESUME-PROMPT.md in a
 fence longer than any fence inside it, so the user can paste it after `/compact`.
 
@@ -145,18 +187,23 @@ the user saw them; the handoff records no choice the user didn't make, and secti
 
 ## Errors
 
-- **The handoff folder can't be written:** say so, quoting the error, and give the files' content in the reply
-  instead, so the user can save them.
-- **The folder holds a handoff of other work** (another topic on this branch): keep its TASKS.md entries under a `##`
-  heading naming that work after the required ones, write START-HERE for the current work, and name the earlier work
-  in section 5 as not continued here, in a line before the numbered list.
-- **Cut off before the end:** START-HERE.md is written first, so it exists; the next session, given its path,
-  finishes by running this skill again.
+- **Neither the handoff folder nor the fallback can be written:** say so, quoting the error, and give the files'
+  content in the reply instead, so the user can save them.
+- **The folder isn't this session's own** (its name isn't the one step 1 gives, or its START-HERE.md says in
+  section 1 that another session wrote it): write nothing there. Use this session's own folder, carry the other handoff over
+  only when this session resumed from it, and say in the report which folder was left untouched.
+- **This session's own folder holds its handoff of other work** (the same session, another topic): keep its
+  TASKS.md entries under a `##` heading naming that work after the required ones, write START-HERE for the current
+  work, and name the earlier work in section 5 as not continued here, in a line before the numbered list.
+- **Cut off before the end:** START-HERE.md is written first, so it exists. Run again in the same session, this
+  skill finishes that folder. A new session, given that START-HERE.md's path, writes a full handoff in its own
+  folder and carries the cut-off one over; it adds nothing to the cut-off folder.
 
 ## References
 
-- [references/handoff-rules.md](references/handoff-rules.md): the folder and its markers, each START-HERE section
-  with examples, carrying over an earlier handoff, TASKS.md, the checker's warnings, the self-check.
-- [references/memory.md](references/memory.md): what is worth saving to memory, and how.
+- [references/handoff-rules.md](references/handoff-rules.md): the folder, whose files this session may write, and
+  its markers, each START-HERE section with examples, carrying over an earlier handoff, TASKS.md, the checker's warnings, the self-check.
+- [references/memory.md](references/memory.md): what is worth saving to memory, and how to change memory that
+  other sessions share.
 - [assets/start-here.md](assets/start-here.md), [assets/tasks.md](assets/tasks.md),
   [assets/resume-prompt.md](assets/resume-prompt.md): the templates.

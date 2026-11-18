@@ -1,7 +1,6 @@
 ---
-type: regex
-target: {source: file, path: devforgeai/handoff/feat-export/RESUME-PROMPT.md}
-match: contains
-flags: m
+type: tool_used
+tool: Write
+input_match: '^(?=[\s\S]*"file_path"\s*:\s*"[^"]*(?:\.devforgeai/[^/\"\\]+/handoff|devforgeai/handoff)/(?!feat-export[/\"\\]|7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f)[^/\"\\]+/RESUME-PROMPT\.md")(?=[\s\S]*/[^\s`\"''()\\]+/(?:\.devforgeai/[^/\"\\]+/handoff|devforgeai/handoff)/(?!feat-export[/\"\\]|7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f)[^/\"\\]+/START-HERE\.md)'
+min: 1
 ---
-(^|[\s`\"'(])/[^\s`\"')]*/devforgeai/handoff/feat-export/START-HERE\.md

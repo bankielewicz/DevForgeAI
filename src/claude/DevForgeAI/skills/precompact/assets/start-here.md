@@ -7,7 +7,9 @@
 - Project root: [[fill: the project root's absolute path, in backticks]]
 - Branch: [[fill: the work's branch in backticks, its worktree's path when that isn't the project root, and its upstream with ahead and behind counts, or "no upstream"; for a no-git handoff, "git not used" and why]]
 - Session runs in: [[fill: the checkout the session runs in and its branch, when that isn't the work's worktree, or delete this line]]
-- Written: [[fill: YYYY-MM-DD HH:MM from the date command]] UTC, by session [[fill: the session ID]]
+- Written: [[fill: YYYY-MM-DD HH:MM from the date command]] UTC, by session [[fill: the session ID; with a session-... folder, that folder's name]]
+- Continues: [[fill: the path, in backticks, of the START-HERE.md this session resumed from and carried over, when it is in another folder; or delete this line]]
+- Other handoffs: [[fill: the script's other: lines, each handoff's folder, date, branch and title, none of them read; or none]]
 - Tracked run: [[fill: the progress tracker's open run and its step, from its current.json, or delete this line]]
 
 ## 2. Verified state

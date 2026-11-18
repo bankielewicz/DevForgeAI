@@ -11,6 +11,19 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ### Fixed
 
+- `/devforgeai:precompact` no longer lets one session overwrite another's handoff. Each session now writes its own
+  folder and only reads any other; a session that resumed from a handoff copies it into its own folder. The skill
+  also changes shared memory files and shared plan files only by adding to them (SPEC-015 versions 3 and 4).
+
+### Changed
+
+- `/devforgeai:precompact` keeps its handoffs outside the repository, in
+  `~/.devforgeai/<project>/handoff/<session ID>/` (under the user's profile on Windows), so a handoff outlives a
+  worktree that is removed and any session of the project can find it. Where that folder can't be written (a sandbox
+  that allows writes only in the project), the handoff goes to `devforgeai/handoff/<session ID>/` in the project. A
+  handoff folder nobody has written for 30 days is deleted; set `handoffRetentionDays` in
+  `~/.devforgeai/config.json` to change that, or to 0 to keep everything. Handoffs written under a project's
+  `devforgeai/handoff/` by earlier versions stay where they are.
 - Nine skills no longer write `$ARGUMENTS` in their instructions. Claude Code replaced it with what the user typed, so
   the line describing a skill's input read as the input itself, or as empty backticks. They now say "the arguments"
   (#135).

@@ -1,5 +1,5 @@
-"""Generates evals/precompact/<case>/ for the precompact skill (SPEC-015 §9, QR-03, VER-02 to VER-06): prompts,
-graders, case.yaml and an inline scaffold per case.
+"""Generates evals/precompact/<case>/ for the precompact skill (SPEC-015 §9, QR-03, VER-02 to VER-06 and VER-10):
+prompts, graders, case.yaml and an inline scaffold per case.
 
 An eval run starts in an empty workspace (home/cwd, where home/ is itself a git repository) with no earlier
 conversation, so each case's scaffold builds the work to hand off and its prompt says what the session did, as a user
@@ -11,8 +11,17 @@ graders then name), an earlier handoff the skill's own check_handoff.py finds cl
 git's top level is a parent repository and not the project folder.
 
 Eval runs offer no AskUserQuestion and seal the home folder, so memory is checked live (VER-07). Graders are
-JavaScript regular expressions (the harness's engine) on the written files, the trace and the reply, tool_used with
-input_match, and llm graders on the reply only; each grader's name starts with the VER item it grades.
+JavaScript regular expressions (the harness's engine) on files at fixed paths, the trace and the reply, tool_used with
+input_match, file_exists, and llm graders on the reply only; each grader's name starts with the VER item it grades.
+
+Since SPEC-015 version 4 the handoff goes to <home>/.devforgeai/<project>/handoff/<session>/, or, when that Write is
+refused, to the fallback devforgeai/handoff/<session>/ in the project. A grader knows neither the run's session ID nor
+which of the two an eval run reaches (its home folder was not writable in the pilot of 2026-10-05), and a folder in
+the home is outside the workspace. So what the run writes is graded by its Write call, to either folder (`wrote`: tool_used with an input_match
+on the call's JSON-encoded input, where a newline is the two characters \\n and a quote is \\"); no file_exists
+grader is used. A Write grader sees the first write of a file, not a
+later Edit. Files the scaffold seeds (the earlier handoff, another session's folder) keep fixed paths and are graded
+by their content after the run. None of these forms has been run yet: the first paid pilot checks them.
 
 Run from the repository root:
     PYTHONDONTWRITEBYTECODE=1 python3 src/tests/precompact/make_evals.py
@@ -30,7 +39,12 @@ CHECK = REPO / "src/claude/DevForgeAI/skills/precompact/scripts/check_handoff.py
 TOOLS = "[Skill, Read, Glob, Grep, Write, Edit, Bash]"
 CASE_LIMITS = (60, 1200)
 SHORT_LIMITS = (15, 300)  # the trigger cases
-HANDOFF = "devforgeai/handoff/feat-export"
+HANDOFF = "devforgeai/handoff/feat-export"  # the earlier handoff's folder: the layout of versions 1 and 2, per branch
+OTHER_SESSION = "7c1d2e3f-0a4b-4c5d-8e6f-9a0b1c2d3e4f"
+OTHER = f"devforgeai/handoff/{OTHER_SESSION}"  # another session's folder, in the project (the fallback's form)
+PATHS = REPO / "src/claude/DevForgeAI/skills/precompact/scripts/handoff_paths.py"
+PATHS_MATCH = r"""'"command"\s*:\s*"[^"]*handoff_paths\.py'"""
+SESSION_CHECK_MATCH = r"""'"command"\s*:\s*"[^"]*check_handoff\.py[^"]*--session'"""
 SKILL_MATCH = r"""'"skill"\s*:\s*"(?:[\w-]+:)?precompact"'"""
 CHECK_MATCH = r"""'"command"\s*:\s*"[^"]*check_handoff\.py'"""
 KEY = "sk-test-51Hq9ZexampleKEY7Q2"
@@ -213,6 +227,44 @@ def earlier_handoff():
             + heredoc(f"{HANDOFF}/RESUME-PROMPT.md", EARLIER_RESUME, expand=True))
 
 
+# Another session's handoff on the same branch (VER-10): other work, in that session's own folder.
+OTHER_START = EARLIER_START.replace("# Start here: CSV export on feat/export", "# Start here: report pagination on feat/export") \
+    .replace("Adding CSV export to the reports page: the exporter writes report rows as CSV, with a header row and a delimiter\n"
+             "option still to come.",
+             "Paginating the reports page: the list shows 50 rows a page, with the page links still to come.") \
+    .replace("by session 1f0c2a9e", f"by session {OTHER_SESSION}") \
+    .replace('- CSV only, no Excel: Dana, 2026-10-01, "CSV is enough for now"',
+             '- Page size 50: Dana, 2026-10-02, "50 rows per page is plenty"') \
+    .replace("1. Header row. Next: add HEADER in src/export.py and write it first. Waits for: nothing.",
+             "1. Page links. Next: add the previous and next links to the reports page. Waits for: nothing.") \
+    .replace('- Open CSV files with newline="" so Windows gets no blank lines between rows.',
+             "- Count the rows once per request, not once per page link.")
+OTHER_TASKS = """\
+# Tasks: report pagination
+
+Checkpoints of this work, oldest first. Done entries past the last 20 move to TASKS-archive.md in this folder.
+
+## Done
+
+- [x] Page size setting: PR #6, merged 2026-10-02
+
+## Next
+
+- [ ] Page links. Next: add the previous and next links to the reports page
+"""
+OTHER_RESUME = EARLIER_RESUME.replace("Continue the CSV export for the reports page", "Continue the report pagination") \
+    .replace("$(pwd)/devforgeai/handoff/feat-export/START-HERE.md", f"$(pwd)/{OTHER}/START-HERE.md")
+for _old, _new in ((EARLIER_START, OTHER_START), (EARLIER_RESUME, OTHER_RESUME)):
+    assert _old != _new and "CSV is enough" not in _new and "Header row" not in _new, "the other handoff's text"
+
+
+def other_handoff():
+    return ([f"mkdir -p {OTHER}", "printf '*\\n' > devforgeai/handoff/.gitignore"]
+            + heredoc(f"{OTHER}/START-HERE.md", OTHER_START)
+            + heredoc(f"{OTHER}/TASKS.md", OTHER_TASKS)
+            + heredoc(f"{OTHER}/RESUME-PROMPT.md", OTHER_RESUME, expand=True))
+
+
 def scaffold_script(ver, case, lines, git):
     head = ["#!/usr/bin/env bash",
             f"# Builds the work to hand off for SPEC-015 {ver} ({case}). Generated by src/tests/precompact/make_evals.py; "
@@ -253,9 +305,39 @@ def llm(name, rubric):
     return name, "---\ntype: llm\n---\n\n" + rubric.strip() + "\n"
 
 
+NL = r"\\n"  # a newline inside a tool call's JSON-encoded input: a backslash and an n
+LINE = rf"(?:(?!{NL})[\s\S])*?"  # the rest of a line there
+
+
 def section(n, inner):
-    """A pattern for `inner` inside START-HERE's section n (up to the next ## heading)."""
-    return rf"## {n}\. [^\n]*\n(?:(?!\n## )[\s\S])*?{inner}"
+    """A pattern for `inner` inside START-HERE's section n (up to the next ## heading), in a Write call's input."""
+    return rf"## {n}\. (?:(?!{NL}## )[\s\S])*?{inner}"
+
+
+# The run's own folder, wherever it is: the session's in the user's .devforgeai folder, or the fallback in the project.
+# Never one of the folders a scaffold seeds.
+SESSION_DIR = (r"(?:\.devforgeai/[^/\"\\]+/handoff|devforgeai/handoff)/"
+               rf"(?!feat-export[/\"\\]|{OTHER_SESSION})[^/\"\\]+")
+
+
+def session_file(name):
+    """A path pattern: the file `name` in the run's own handoff folder."""
+    return rf"{SESSION_DIR}/{name}"
+
+
+def call_on(path, inner=None):
+    """An input_match for a Write or Edit whose file_path ends with the pattern `path` and, with `inner`, whose input
+    also holds that pattern, whatever the order of the input's keys."""
+    pattern = rf'^(?=[\s\S]*"file_path"\s*:\s*"[^"]*{path}")' + (rf"(?=[\s\S]*{inner})" if inner else "")
+    return "'" + pattern.replace("'", "''") + "'"
+
+
+def wrote(name, path, inner=None):
+    return tool_used(name, "Write", call_on(path, inner), minimum=1)
+
+
+def never(name, tool, path, inner=None):
+    return tool_used(name, tool, call_on(path, inner), minimum=0, maximum=0)
 
 
 # The Write of each file, as the trace records a tool call's input: no } between the tool's name and its file_path.
@@ -267,21 +349,22 @@ TASKS_WRITE = write_of(r"/TASKS\.md")
 START_WRITE = write_of(r"/START-HERE\.md")
 
 
-def handoff_basics(ver, folder, earlier=False):
-    """The graders every handoff case shares. A file the scaffold already wrote fails file_exists, which counts only
-    files the run created (seen in the first suite, 2026-10-05): with an earlier handoff, the case's regex graders read
-    the files instead."""
+def handoff_basics(ver):
+    """The graders every handoff case shares: the three files written to the run's own folder (the Write calls), the
+    paths script and the checker run, and nothing written in a per-branch folder (the layout before version 3). The
+    .gitignore isn't graded: it exists only when the run reached the fallback folder."""
     p = ver.lower().replace("-", "")
-    exists = [] if earlier else [
-        file_exists(f"{p}-start-here", f"{folder}/START-HERE.md"),
-        file_exists(f"{p}-tasks", f"{folder}/TASKS.md"),
-        file_exists(f"{p}-resume-prompt", f"{folder}/RESUME-PROMPT.md"),
-    ]
+    old_layout = rf"{HANDOFF}/(?:START-HERE|TASKS|RESUME-PROMPT)\.md"
     return [
         tool_used(f"{p}-skill-fired", "Skill", SKILL_MATCH, minimum=1),
-        *exists,
-        regex(f"{p}-gitignore-star", r"^\*\s*$", target="devforgeai/handoff/.gitignore", flags="m"),
+        tool_used(f"{p}-ran-paths-script", "Bash", PATHS_MATCH, minimum=1),
+        wrote(f"{p}-start-here", START),
+        wrote(f"{p}-tasks", TASKS),
+        wrote(f"{p}-resume-prompt", session_file(r"RESUME-PROMPT\.md")),
+        never(f"{p}-no-write-in-branch-folder", "Write", old_layout),
+        never(f"{p}-no-edit-in-branch-folder", "Edit", old_layout),
         tool_used(f"{p}-ran-checker", "Bash", CHECK_MATCH, minimum=1),
+        tool_used(f"{p}-checker-with-session", "Bash", SESSION_CHECK_MATCH, minimum=1),
         # Not after a backtick: the script's own docstring quotes `handoff: clean`, should the run read the script.
         regex(f"{p}-checker-clean", r"(?<!`)handoff: (clean|0 problems)", target="trace"),
     ]
@@ -300,17 +383,16 @@ def cases(hashes):
         {
             "name": "writes-handoff", "ver": "VER-02", "git": True, "earlier": False,
             "description": "VER-02: before /compact, the skill writes START-HERE (first), RESUME-PROMPT and TASKS in "
-                           "devforgeai/handoff/feat-export/, gitignored, ticks the plan file, runs its checker, and "
-                           "reports with the resume prompt.",
+                           "its session's handoff folder (or the fallback in the project), ticks the plan file, "
+                           "runs its two scripts, and reports with the resume prompt.",
             "prompt": STORY + " My context window is at 80%. Prepare for /compact: save what we learned and write the "
                               "handoff for the next session.",
-            "graders": handoff_basics("VER-02", HANDOFF) + [
-                regex("ver02-names-branch", r"feat/export", target=f"{HANDOFF}/START-HERE.md"),
-                regex("ver02-names-last-commit", head, target=f"{HANDOFF}/START-HERE.md"),
-                regex("ver02-outstanding-delimiter", section(5, r"[Dd]elimiter(?:(?!\n## )[\s\S])*?Next:"),
-                      target=f"{HANDOFF}/START-HERE.md"),
-                regex("ver02-resume-absolute-path", r"(^|[\s`\"'(])/[^\s`\"')]*/" + HANDOFF + r"/START-HERE\.md",
-                      target=f"{HANDOFF}/RESUME-PROMPT.md", flags="m"),
+            "graders": handoff_basics("VER-02") + [
+                wrote("ver02-names-branch", START, r"feat/export"),
+                wrote("ver02-names-last-commit", START, head),
+                wrote("ver02-outstanding-delimiter", START, section(5, rf"[Dd]elimiter(?:(?!{NL}## )[\s\S])*?Next:")),
+                wrote("ver02-resume-absolute-path", session_file(r"RESUME-PROMPT\.md"),
+                      r"/[^\s`\"'()\\]+/" + START),
                 regex("ver02-plan-ticked", r"- \[x\] 2\. Header row", target="docs/plan.md"),
                 regex("ver02-start-here-before-tasks", rf"^(?:(?!{TASKS_WRITE})[\s\S])*{START_WRITE}", target="trace"),
                 regex("ver02-reply-has-resume-prompt", r"```[\s\S]*START-HERE\.md[\s\S]*```"),
@@ -327,16 +409,26 @@ FAIL if the reply doesn't account for the learning, or claims it was saved somew
         },
         {
             "name": "updates-earlier-handoff", "ver": "VER-03", "git": True, "earlier": True,
-            "description": "VER-03: an earlier handoff in the folder is updated, not replaced: TASKS.md keeps its two "
-                           "done entries with their evidence and gains the session's work; the earlier decision stays "
-                           "quoted.",
-            "prompt": STORY + " Prepare for /compact: update the handoff for the next session.",
-            "graders": handoff_basics("VER-03", HANDOFF, earlier=True) + [
-                regex("ver03-kept-done-1", r"- \[x\] Exporter skeleton[^\n]*PR #4", target=f"{HANDOFF}/TASKS.md"),
-                regex("ver03-kept-done-2", r"- \[x\] Rows written as CSV[^\n]*PR #5", target=f"{HANDOFF}/TASKS.md"),
-                regex("ver03-added-header-row", r"- \[x\][^\n]*[Hh]eader row", target=f"{HANDOFF}/TASKS.md"),
-                regex("ver03-kept-decision", r"\"CSV is enough for now\"", target=f"{HANDOFF}/START-HERE.md"),
-                regex("ver03-kept-learning", r"newline=", target=f"{HANDOFF}/START-HERE.md"),
+            "description": "VER-03: the handoff the session resumed from (the old layout, directly in the branch's "
+                           "folder) is carried over into the session's own folder and left unchanged: the new TASKS.md "
+                           "keeps its two done entries and gains the session's work; the decision stays quoted.",
+            "prompt": STORY + " This session started from the earlier handoff: at its start it read "
+                              "devforgeai/handoff/feat-export/START-HERE.md and the TASKS.md beside it. Prepare for "
+                              "/compact: write the handoff for the next session.",
+            "graders": handoff_basics("VER-03") + [
+                wrote("ver03-kept-done-1", TASKS, rf"- \[x\] Exporter skeleton{LINE}PR #4"),
+                wrote("ver03-kept-done-2", TASKS, rf"- \[x\] Rows written as CSV{LINE}PR #5"),
+                wrote("ver03-added-header-row", TASKS, rf"- \[x\]{LINE}[Hh]eader row"),
+                wrote("ver03-kept-decision", START, r"CSV is enough for now"),
+                wrote("ver03-kept-learning", START, r"newline="),
+                wrote("ver03-names-what-it-continues", START, rf"Continues:{LINE}{HANDOFF}/START-HERE\.md"),
+                # The earlier files, at their fixed paths, are as the scaffold wrote them.
+                regex("ver03-earlier-start-here-unchanged", r"^1\. Header row\. Next: add HEADER in src/export\.py",
+                      target=f"{HANDOFF}/START-HERE.md", flags="m"),
+                regex("ver03-earlier-start-here-same-session", r"by session 1f0c2a9e$",
+                      target=f"{HANDOFF}/START-HERE.md", flags="m"),
+                regex("ver03-earlier-tasks-unchanged", r"^- \[ \] Header row\. Next: add HEADER in src/export\.py$",
+                      target=f"{HANDOFF}/TASKS.md", flags="m"),
             ],
         },
         {
@@ -348,18 +440,16 @@ FAIL if the reply doesn't account for the learning, or claims it was saved somew
                               "believe the reports server still runs Python 3.9, but nobody has checked. Earlier I "
                               f"pasted the staging upload key so you could try an upload: {KEY}. "
                               "Prepare for /compact: write the handoff for the next session.",
-            "graders": handoff_basics("VER-04", HANDOFF) + [
-                regex("ver04-open-flag", r"### Open[^\n]*\n(?:(?!\n##)[\s\S])*?(--delimiter|command[- ]line|\bflag\b)",
-                      target=f"{HANDOFF}/START-HERE.md"),
-                regex("ver04-open-config", r"### Open[^\n]*\n(?:(?!\n##)[\s\S])*?(config\.toml|config file|configuration)",
-                      target=f"{HANDOFF}/START-HERE.md"),
-                regex("ver04-not-decided", r"### Decided[^\n]*(?:(?!\n###? )[\s\S])*?\n[-*+] [^\n]*(--delimiter|config\.toml)",
-                      target=f"{HANDOFF}/START-HERE.md", match="not_contains"),
-                regex("ver04-belief-unverified", r"3\.9(?:(?!\n[-*+] |\n\n)[\s\S])*?\(unverified",
-                      target=f"{HANDOFF}/START-HERE.md"),
-                regex("ver04-no-key-start-here", KEY, target=f"{HANDOFF}/START-HERE.md", match="not_contains"),
-                regex("ver04-no-key-tasks", KEY, target=f"{HANDOFF}/TASKS.md", match="not_contains"),
-                regex("ver04-no-key-resume", KEY, target=f"{HANDOFF}/RESUME-PROMPT.md", match="not_contains"),
+            "graders": handoff_basics("VER-04") + [
+                wrote("ver04-open-flag", START,
+                      rf"### Open(?:(?!{NL}##)[\s\S])*?(--delimiter|command[- ]line|\bflag\b)"),
+                wrote("ver04-open-config", START,
+                      rf"### Open(?:(?!{NL}##)[\s\S])*?(config\.toml|config file|configuration)"),
+                never("ver04-not-decided", "Write", START,
+                      rf"### Decided(?:(?!{NL}###? )[\s\S])*?{NL}[-*+] {LINE}(--delimiter|config\.toml)"),
+                wrote("ver04-belief-unverified", START, rf"3\.9(?:(?!{NL}[-*+] |{NL}{NL})[\s\S])*?\(unverified"),
+                never("ver04-no-key-written", "Write", r"devforgeai/handoff/[^\"]*", KEY),
+                never("ver04-no-key-edited", "Edit", r"devforgeai/handoff/[^\"]*", KEY),
                 llm("ver04-choice-left-open", """
 The user said they haven't decided between a --delimiter command-line flag and a delimiter setting in config.toml,
 and that the choice is theirs.
@@ -373,27 +463,59 @@ FAIL if it presents either option as decided, chosen or planned."""),
         {
             "name": "no-git", "ver": "VER-05", "git": False, "earlier": False,
             "description": "VER-05: in a project folder with no repository of its own (git's top level is a parent "
-                           "repository), the handoff goes to devforgeai/handoff/no-git/, section 2 says git couldn't be "
-                           "used, and the checker finds it clean.",
+                           "repository), the handoff goes to the session's folder, keyed by the project folder, "
+                           "section 2 says git couldn't be used, and the checker finds it clean.",
             "prompt": "This session added the header row to the CSV exporter in src/export.py (checkpoint 2 of "
                       "docs/plan.md); the delimiter option, checkpoint 3, is half done: the parameter exists, the "
                       "command-line flag doesn't. Prepare for /compact: write the handoff for the next session.",
-            "graders": handoff_basics("VER-05", "devforgeai/handoff/no-git") + [
-                regex("ver05-section-2-says-git", section(2, r"\bgit\b"),
-                      target="devforgeai/handoff/no-git/START-HERE.md", flags="i"),
+            "graders": handoff_basics("VER-05") + [
+                wrote("ver05-section-2-says-git", START,
+                      section(2, r"\b[Gg]it\b")),
                 llm("ver05-says-git-not-used", """
 The workspace's project folder has no git repository of its own; git finds only a repository in a parent folder,
 which isn't this project's.
 
 Judge only the final reply.
 PASS if the reply says git couldn't be used for this project (no repository of its own, or the repository git found
-belongs to a parent folder) and that the handoff was written to devforgeai/handoff/no-git/.
-FAIL if it reports a branch or commits of the parent repository as this project's, or doesn't mention the
-no-git folder."""),
+belongs to a parent folder) and names the folder the handoff was written to.
+FAIL if it reports a branch or commits of the parent repository as this project's, or doesn't say where the
+handoff is."""),
+            ],
+        },
+        {
+            "name": "leaves-other-session-handoff", "ver": "VER-10", "git": True, "earlier": False, "other": True,
+            "description": "VER-10: another session's handoff of other work on the same branch stays unchanged; the "
+                           "skill writes its own folder beside it, names the other under Other handoffs, takes over "
+                           "none of its decisions, and passes its session to the checker.",
+            "prompt": STORY + " Another session is working on this branch too, on paginating the reports page; that "
+                              "is its work, and this session never touched or read it. Prepare for /compact: write "
+                              "the handoff for the next session.",
+            "graders": handoff_basics("VER-10") + [
+                never("ver10-no-write-in-other-folder", "Write", rf"{OTHER}/[^\"]*"),
+                never("ver10-no-edit-in-other-folder", "Edit", rf"{OTHER}/[^\"]*"),
+                regex("ver10-other-start-here-same-session", rf"by session {OTHER_SESSION}$",
+                      target=f"{OTHER}/START-HERE.md", flags="m"),
+                regex("ver10-other-start-here-unchanged", r"^1\. Page links\. Next: add the previous and next links",
+                      target=f"{OTHER}/START-HERE.md", flags="m"),
+                regex("ver10-other-start-here-holds-no-export-work", r"newline=|[Hh]eader row|[Dd]elimiter",
+                      target=f"{OTHER}/START-HERE.md", match="not_contains"),
+                regex("ver10-other-tasks-unchanged", r"^- \[ \] Page links\. Next: add the previous and next links",
+                      target=f"{OTHER}/TASKS.md", flags="m"),
+                regex("ver10-other-tasks-hold-no-export-work", r"[Hh]eader row|[Dd]elimiter|[Ee]xporter",
+                      target=f"{OTHER}/TASKS.md", match="not_contains"),
+                regex("ver10-other-resume-unchanged", r"^Continue the report pagination in\s",
+                      target=f"{OTHER}/RESUME-PROMPT.md", flags="m"),
+                wrote("ver10-names-the-other-handoff", START,
+                      rf"Other handoffs:(?:(?!{NL}## )[\s\S])*?{OTHER_SESSION}"),
+                never("ver10-other-decision-not-taken", "Write", START,
+                      rf"### Decided(?:(?!{NL}###? )[\s\S])*?50 rows per page"),
             ],
         },
     ]
 
+
+START = session_file(r"START-HERE\.md")
+TASKS = session_file(r"TASKS\.md")
 
 TRIGGERS = [
     (True, "I'm at 75% context: save what we learned and write a handoff before I compact."),
@@ -418,7 +540,8 @@ def case_yaml(name, scaffold):
 
 
 def scaffold_for(c):
-    lines = project(git=c["git"]) + (earlier_handoff() if c["earlier"] else [])
+    lines = project(git=c["git"]) + (earlier_handoff() if c["earlier"] else []) \
+        + (other_handoff() if c.get("other") else [])
     return scaffold_script(c["ver"], c["name"], lines, c["git"])
 
 
@@ -469,6 +592,18 @@ def check_premise(c):
             p = run([sys.executable, "-S", "-B", str(CHECK), "--root", tmp, HANDOFF], tmp)
             if p.returncode != 0 or "handoff: clean" not in p.stdout:
                 sys.exit(f"{c['name']}: the earlier handoff isn't clean:\n{p.stdout}{p.stderr}")
+        if c.get("other"):
+            p = run([sys.executable, "-S", "-B", str(CHECK), "--root", tmp, "--session", OTHER_SESSION, OTHER], tmp)
+            if p.returncode != 0 or "handoff: clean" not in p.stdout:
+                sys.exit(f"{c['name']}: the other session's handoff isn't clean:\n{p.stdout}{p.stderr}")
+        if c["earlier"] or c.get("other"):
+            # The paths script lists the seeded handoff, with a home folder that is not the real one.
+            with tempfile.TemporaryDirectory() as home:
+                p = run([sys.executable, "-S", "-B", str(PATHS), "--root", tmp, "--session", "premise", "--home", home],
+                        tmp, env={"HOME": home})
+            seeded = OTHER if c.get("other") else HANDOFF
+            if p.returncode != 0 or f"/{seeded} | " not in p.stdout:
+                sys.exit(f"{c['name']}: handoff_paths.py doesn't list the seeded handoff:\n{p.stdout}{p.stderr}")
         return run(["git", "rev-parse", "HEAD"], tmp).stdout.strip()[:7]
 
 

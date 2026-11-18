@@ -1,4 +1,4 @@
-"""Structural checks for the precompact skill, SKL-012 (SPEC-015 VER-08; QR-01, QR-02, ERR-02, ERR-03, ERR-05, ERR-06).
+"""Structural checks for the precompact skill, SKL-012 (SPEC-015 VER-08; QR-01, QR-02, ERR-02, ERR-03, ERR-05, ERR-06, ERR-07).
 
 - SKILL.md has at most 500 lines (QR-01), and every reference, asset and script it names exists;
 - its frontmatter has exactly SPEC-015 §5's fields (name, description, argument-hint, and metadata with
@@ -6,10 +6,11 @@
   validates against skill-frontmatter.schema.json, whose const refuses any other value (SPEC-013 v18);
 - the description is the one SPEC-015 §5 fixes, at most 1024 characters, with no < or >;
 - metadata.devforgeai-id and devforgeai-version equal provenance.yaml's id and version (QR-02), and provenance.yaml
-  validates against skill.schema.json and records SKL-012 implementing SPEC-015 v2 (IMPLEMENTS; SPEC-015 v3 is not built);
+  validates against skill.schema.json and records SKL-012 v2, approved, implementing SPEC-015 v4;
 - the assets hold DM-01's and DM-02's headings in order and use only [[fill: ...]] placeholders, never in backticks;
 - references/handoff-rules.md holds every item of SPEC-015 §4's self-check;
-- SKILL.md or its references state ERR-02's, ERR-03's, ERR-05's and ERR-06's handling;
+- SKILL.md or its references state ERR-02's, ERR-03's, ERR-05's, ERR-06's and ERR-07's handling, the one rule for writing and BEH-06's rules for
+  changing memory;
 - SKILL.md, the references and the assets hold no absolute path, no /home/ and no person's name (§2, generic);
 - SKILL.md runs the bundled script and never names AskUserQuestion (the skill asks nothing, §2);
 - this repository's CLAUDE.md skill table has a precompact row;
@@ -34,11 +35,9 @@ SKILL = PLUGIN / "skills/precompact"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-015.md"
 SKL, SPEC_VERSION = "SKL-012", 4
-# What SKL-012 implements until the build of SPEC-015 v4 (one handoff folder per session, in the user's home folder). The build moves IMPLEMENTS
-# to SPEC_VERSION, and the description below then equals section 5's.
-IMPLEMENTS = 2
-V3_DESCRIPTION = ("outside the repository, in the user's .devforgeai folder, one folder per project and session, which no other "
-                  "session writes", "in devforgeai/handoff/, one folder per branch")
+# SKL-012 v2 builds SPEC-015 v4: one handoff folder per session in the user's home folder, with a fallback in the
+# project (version 3's build, in the project's folder, was never deployed).
+IMPLEMENTS = 4
 START_HEADINGS = ["## 1. What this is", "## 2. Verified state", "## 3. Decisions", "## 4. Read first",
                   "## 5. Outstanding", "## 6. Rules, traps and learnings", "## 7. Before acting"]
 TASKS_HEADINGS = ["## Done", "## Next"]
@@ -150,9 +149,7 @@ class Skill(unittest.TestCase):
 
     def test_description_is_the_one_spec_015_fixes(self):
         fixed = re.search(r"^description: (.*)$", spec_section(5), re.M).group(1)
-        if IMPLEMENTS < SPEC_VERSION:  # the skill still says what version 2 fixed: versions 3 and 4 change this one phrase
-            self.assertEqual(fixed.count(V3_DESCRIPTION[0]), 1)
-            fixed = fixed.replace(*V3_DESCRIPTION)
+        self.assertNotIn("one folder per branch", self.fm["description"])
         self.assertEqual(self.fm["description"], fixed)
         self.assertLessEqual(len(self.fm["description"]), 1024)
         self.assertNotRegex(self.fm["description"], r"[<>]")
@@ -167,9 +164,10 @@ class Skill(unittest.TestCase):
                          (SKL, "precompact", "precompact"))
         self.assertIn({"id": "SPEC-015", "relation": "implements", "version": IMPLEMENTS, "hash": None},
                       self.prov["upstream"])
-        # Approved by Bryan on 2026-10-05, after the 1-run suite (12 of 12 at 1.00) and the live VER-07.
-        self.assertEqual((self.prov["status"], self.prov["approved_by"], self.prov["approved_on"]),
-                         ("approved", "Bryan", "2026-10-05"))
+        self.assertEqual(self.prov["version"], 2)  # version 1 (approved 2026-10-05) implemented SPEC-015 v2
+        # Approved by Bryan on 2026-11-18 ('yes - approved'), after the suite and the live VER-11 (SPEC-015 section 9).
+        self.assertEqual((self.prov["status"], self.prov["approved_by"], str(self.prov["approved_on"])),
+                         ("approved", "Bryan", "2026-11-18"))
 
     def test_every_file_skill_md_names_exists(self):
         named = set(re.findall(r"\b((?:references|assets|scripts)/[\w.-]+)", self.text))
@@ -188,7 +186,7 @@ class Skill(unittest.TestCase):
         self.assertEqual(sorted(p.name for p in (SKILL / "references").iterdir()), ["handoff-rules.md", "memory.md"])
         self.assertEqual(sorted(p.name for p in (SKILL / "assets").iterdir()),
                          ["resume-prompt.md", "start-here.md", "tasks.md"])
-        self.assertEqual(sorted(p.name for p in (SKILL / "scripts").iterdir()), ["check_handoff.py"])
+        self.assertEqual(sorted(p.name for p in (SKILL / "scripts").iterdir()), ["check_handoff.py", "handoff_paths.py"])
 
     def test_skill_md_runs_the_bundled_script(self):
         self.assertIn("python3 ${CLAUDE_SKILL_DIR}/scripts/check_handoff.py --root", self.text)
@@ -242,8 +240,45 @@ class Rules(unittest.TestCase):
         for item, phrase in [("ERR-02", "give the files' content in the reply"),
                              ("ERR-03", "read the files back against the whole self-check"),
                              ("ERR-05", "as not continued here"),
-                             ("ERR-06", "START-HERE.md is written first")]:
+                             ("ERR-06", "START-HERE.md is written first"),
+                             ("ERR-07", "say in the report which folder was left untouched")]:
             with self.subTest(item):
+                self.assertIn(phrase, text)
+
+    def test_one_folder_per_session_and_the_rule_for_writing(self):
+        """SPEC-015 version 3, section 4: the session's own folder, and nothing written in any other."""
+        skill = squash((SKILL / "SKILL.md").read_text())
+        self.assertIn('scripts/handoff_paths.py --root <project root> --session "${CLAUDE_SESSION_ID}"', skill)  # IF-02
+        self.assertIn("`session-...`", skill)  # the name the script gives when the ID isn't substituted
+        self.assertIn("Write, move or delete nothing in any other handoff folder", skill)
+        self.assertIn("Never delete a handoff folder", skill)  # pruning is the script's alone
+        # ERR-08: the store's Write refused, decided by the Write tool and not by a Bash test
+        self.assertIn("When that Write is refused, write to the `fallback:` folder instead", skill)
+        self.assertIn('check_handoff.py --root <project root> --session "${CLAUDE_SESSION_ID}"', skill)  # quoted: an empty ID
+        text = squash(" ".join(skill_texts().values()))
+        self.assertIn("the handoff the conversation shows this session resumed from", text)
+        self.assertIn("Wherever a later step asks for the session ID, give the `session:` name", skill)  # the fallback
+        self.assertIn("it adds nothing to the cut-off folder", skill)  # ERR-06 with a folder per session
+        self.assertIn("on that first write only", skill)  # the carried-over TASKS entries, copied once
+        self.assertNotIn("so each keeps its own handoff", text)  # version 2's claim that the branch keeps sessions apart
+        start = (SKILL / "assets/start-here.md").read_text()
+        self.assertRegex(start, r"(?m)^- Continues: \[\[fill: ")
+        self.assertRegex(start, r"(?m)^- Other handoffs: \[\[fill: ")
+
+    def test_a_shared_plan_file_is_changed_only_by_adding(self):
+        """SPEC-015 version 4, BEH-05."""
+        text = squash(" ".join(skill_texts().values()))
+        for phrase in ("never rewrite, reorder or delete an entry", "tick only the checkpoints this session finished"):
+            with self.subTest(phrase):
+                self.assertIn(phrase, text)
+
+    def test_memory_is_changed_only_by_adding(self):
+        """SPEC-015 version 3, BEH-06."""
+        text = squash(" ".join(skill_texts().values()))
+        for phrase in ("read it again immediately before changing it",
+                       "never use Write on an existing memory file or on the index",
+                       "never delete, reorder or reword what another session wrote"):
+            with self.subTest(phrase):
                 self.assertIn(phrase, text)
 
     def test_generic_no_machine_paths_or_names(self):
