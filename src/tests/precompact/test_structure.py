@@ -6,7 +6,7 @@
   validates against skill-frontmatter.schema.json, whose const refuses any other value (SPEC-013 v18);
 - the description is the one SPEC-015 §5 fixes, at most 1024 characters, with no < or >;
 - metadata.devforgeai-id and devforgeai-version equal provenance.yaml's id and version (QR-02), and provenance.yaml
-  validates against skill.schema.json and records SKL-012 implementing SPEC-015 v2;
+  validates against skill.schema.json and records SKL-012 implementing SPEC-015 v2 (IMPLEMENTS; SPEC-015 v3 is not built);
 - the assets hold DM-01's and DM-02's headings in order and use only [[fill: ...]] placeholders, never in backticks;
 - references/handoff-rules.md holds every item of SPEC-015 §4's self-check;
 - SKILL.md or its references state ERR-02's, ERR-03's, ERR-05's and ERR-06's handling;
@@ -33,7 +33,12 @@ PLUGIN = ROOT / "src/claude/DevForgeAI"
 SKILL = PLUGIN / "skills/precompact"
 SCHEMAS = ROOT / "src/schemas"
 SPEC = ROOT / "docs/specs/spec/SPEC-015.md"
-SKL, SPEC_VERSION = "SKL-012", 2
+SKL, SPEC_VERSION = "SKL-012", 4
+# What SKL-012 implements until the build of SPEC-015 v4 (one handoff folder per session, in the user's home folder). The build moves IMPLEMENTS
+# to SPEC_VERSION, and the description below then equals section 5's.
+IMPLEMENTS = 2
+V3_DESCRIPTION = ("outside the repository, in the user's .devforgeai folder, one folder per project and session, which no other "
+                  "session writes", "in devforgeai/handoff/, one folder per branch")
 START_HEADINGS = ["## 1. What this is", "## 2. Verified state", "## 3. Decisions", "## 4. Read first",
                   "## 5. Outstanding", "## 6. Rules, traps and learnings", "## 7. Before acting"]
 TASKS_HEADINGS = ["## Done", "## Next"]
@@ -145,6 +150,9 @@ class Skill(unittest.TestCase):
 
     def test_description_is_the_one_spec_015_fixes(self):
         fixed = re.search(r"^description: (.*)$", spec_section(5), re.M).group(1)
+        if IMPLEMENTS < SPEC_VERSION:  # the skill still says what version 2 fixed: versions 3 and 4 change this one phrase
+            self.assertEqual(fixed.count(V3_DESCRIPTION[0]), 1)
+            fixed = fixed.replace(*V3_DESCRIPTION)
         self.assertEqual(self.fm["description"], fixed)
         self.assertLessEqual(len(self.fm["description"]), 1024)
         self.assertNotRegex(self.fm["description"], r"[<>]")
@@ -157,7 +165,7 @@ class Skill(unittest.TestCase):
         self.assertEqual(errors("skill.schema.json", {"frontmatter": self.prov}), [])
         self.assertEqual((self.prov["id"], self.prov["skill_name"], self.prov["eval_tag"]),
                          (SKL, "precompact", "precompact"))
-        self.assertIn({"id": "SPEC-015", "relation": "implements", "version": SPEC_VERSION, "hash": None},
+        self.assertIn({"id": "SPEC-015", "relation": "implements", "version": IMPLEMENTS, "hash": None},
                       self.prov["upstream"])
         # Approved by Bryan on 2026-10-05, after the 1-run suite (12 of 12 at 1.00) and the live VER-07.
         self.assertEqual((self.prov["status"], self.prov["approved_by"], self.prov["approved_on"]),
@@ -255,7 +263,9 @@ class Spec(unittest.TestCase):
     def test_spec_validates_and_every_item_is_covered(self):
         doc = spec_document(spec_text())
         self.assertEqual(errors("spec.schema.json", doc), [])
-        # Version 2 (the description without <branch>, found by this test) approved by Bryan on 2026-10-05.
+        # Version 2 (the description without <branch>, found by this test) approved by Bryan on 2026-10-05. Version 3
+        # (one folder per session) approved by Bryan on 2026-11-17 ('Approve as drafted'). Version 4 (the store in the home
+        # folder) approved by Bryan on 2026-11-17 ('Approve as drafted'); not built until IMPLEMENTS is 4.
         self.assertEqual((doc["frontmatter"]["version"], doc["frontmatter"]["status"]), (SPEC_VERSION, "approved"))
         covered = {c for v in doc["verifications"] for c in v.get("covers", [])}
         for key in ("behaviors", "errors", "quality_responses"):
