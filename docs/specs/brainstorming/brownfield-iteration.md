@@ -39,7 +39,8 @@ BEH-20):
 - The `improve-existing` framework and its selection: [framework-catalog.md](framework-catalog.md).
 - The first release cut and the risk ranking: [mvp-and-prototype-path.md](mvp-and-prototype-path.md).
 - What the PRD skill does with C-02, C-06 and C-11: [prd-handoff-contract.md](prd-handoff-contract.md).
-- Reading source code, ADRs, stories or specs; editing any document other than the BRN being written.
+- Reading source code, ADRs, stories or specs on the skill's own account (a project file the user names as a
+  source is read under intake-and-evidence.md, BEH-22); editing any document other than the BRN being written.
 - A BRN without the project-kind line: nothing here applies to it, also when it is extended (the gate).
 
 ## 2. Changes by file
@@ -315,8 +316,8 @@ New text:
 with none, the single line `- None.` |
 
 A BRN whose kind is `brownfield` also holds the four parts below; a `greenfield` BRN holds none of
-them; while the kind is not decided it holds all four or none. [brownfield.md](brownfield.md) says
-how to fill each.
+them; while the kind is not decided it holds all four when the run worked as brownfield and none
+when it worked as greenfield. [brownfield.md](brownfield.md) says how to fill each.
 
 | Part | Form |
 |---|---|
@@ -356,13 +357,13 @@ section 8 has one bullet per first-release idea, or the line `- None.`
 Old text:
 
 ```text
-holds the kind as decided; the kind the run works with is never written.
+section 7 holds the bullet that names the kind the run works as, from the first save.
 ```
 
 New text:
 
 ```text
-holds the kind as decided; the kind the run works with is never written.
+section 7 holds the bullet that names the kind the run works as, from the first save.
 - In a brownfield run, from the first save: section 1's *Existing product*, the `upstream` records,
   and in section 6, after the not-reached marker, *Already covered* and *Previously decided*. At the
   step-5 save: *Assumption updates*, every row `proposed, not confirmed`
@@ -455,13 +456,19 @@ def check_brownfield(lines, kind, own_id, upstream_items, sources, items, err):
 
     # BV-01: which brownfield headings are present, and their order
     present = [h for h, _ in BROWNFIELD_HEADINGS if found[h][0]]
+    mode = working_kind(lines) if kind == "unknown" else None
     for heading, section in BROWNFIELD_HEADINGS:
         n = found[heading][0]
         if kind == "greenfield" and n:
             err(n, f"'{heading}' belongs to a brownfield BRN only: remove it, or correct the Project kind line (BV-01)")
         elif kind == "brownfield" and not n:
             err(bodies[section][0], f"a brownfield BRN needs '{heading}' in section {section[3]} (BV-01)")
-        elif kind == "unknown" and present and not n:
+        elif mode == "brownfield" and not n:
+            err(bodies[section][0], f"this run worked as brownfield: '{heading}' is needed in section "
+                f"{section[3]} (BV-01)")
+        elif mode == "greenfield" and n:
+            err(n, f"this run worked as greenfield: remove '{heading}' (BV-01)")
+        elif kind == "unknown" and mode is None and present and not n:
             err(bodies[section][0], f"'{heading}' is missing: while the project kind is not decided, write "
                 "all four brownfield headings or none of them (BV-01)")
     order = [found[h][0] for h in ("### Already covered", "### Previously decided", "### Assumption updates")
@@ -602,13 +609,13 @@ destination, so the example is tested with every run of the file.
 Old text:
 
 ```python
-NEW_NONE = edit(NEW_NONE, SIGNAL, "- None.")
+NEW_UNDECIDED = edit(NEW_UNDECIDED, QUESTION, WORKED_AS % "greenfield" + "\n" + QUESTION)
 ```
 
 New text:
 
 ```python
-NEW_NONE = edit(NEW_NONE, SIGNAL, "- None.")
+NEW_UNDECIDED = edit(NEW_UNDECIDED, QUESTION, WORKED_AS % "greenfield" + "\n" + QUESTION)
 
 # A brownfield new-shape BRN: the staged example, checks BV-01 to BV-05 (brownfield-iteration.md).
 BROWN = (ROOT / "src/staging/examples/brainstorm-brownfield/BRN-002.md").read_text(encoding="utf-8")
@@ -683,15 +690,23 @@ New text:
                                    r".* \(BV-01\)$")
         self.assertEqual(len(lines), 4, lines)
 
-    def test_undecided_kind_with_all_four_headings_passes(self):
-        self.brown_valid(edit(BROWN, "Project kind: brownfield",
-                              "Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]"))
+    def undecided(self, text, worked):
+        text = edit(text, "Project kind: brownfield", "Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]")
+        return edit(text, "\n- [NEEDS CLARIFICATION: ", "\n" + WORKED_AS % worked + "\n- [NEEDS CLARIFICATION: ")
 
-    def test_undecided_kind_with_some_headings_is_rejected(self):
-        text = edit(BROWN_ALONE, "Project kind: brownfield",
-                    "Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]")
-        text = edit(text, "### Already covered\n\nNone.\n\n", "")
-        self.brown_rejects(text, r"^line 156: '### Already covered' is missing: .* \(BV-01\)$")
+    def test_undecided_kind_worked_as_brownfield_passes(self):
+        self.brown_valid(self.undecided(BROWN, "brownfield"))
+
+    def test_undecided_kind_worked_as_brownfield_needs_every_heading(self):
+        text = edit(self.undecided(BROWN_ALONE, "brownfield"), "### Already covered\n\nNone.\n\n", "")
+        self.brown_rejects(text, r"^line 156: this run worked as brownfield: '### Already covered' is needed in "
+                           r"section 6 \(BV-01\)$")
+
+    def test_undecided_kind_worked_as_greenfield_has_no_brownfield_heading(self):
+        lines = self.brown_rejects(self.undecided(BROWN_ALONE, "greenfield"),
+                                   r"^line 40: this run worked as greenfield: remove '### Existing product' "
+                                   r"\(BV-01\)$")
+        self.assertEqual(len(lines), 4, lines)
 
     def test_brownfield_subsections_out_of_order_are_rejected(self):
         text = edit(BROWN_ALONE, "### Already covered\n\nNone.\n\n### Previously decided\n\nNone.\n\n",
@@ -810,7 +825,7 @@ New text:
                            r"says 'proposed, not confirmed' \(BV-05\)$")
 ```
 
-The 31 new tests run in each of the file's three classes. Their pinned line numbers are those of the staged
+The 32 new tests run in each of the file's three classes. Their pinned line numbers are those of the staged
 BRN-002: a change to that file moves them.
 
 ### 2.8 The example
@@ -836,7 +851,7 @@ behaviors:
   - id: BEH-25
     status: proposed
     rule:
-      - "When the kind is brownfield, decided or worked with (BEH-20), read the project's documents right after the kind is known and before the clarifying questions. Select files by name with Glob, then read each selected file whole with the Read tool, in this order and with these caps: (1) docs/specs/brainstorm/BRN-*.md, the three highest numbers, highest first, never the BRN being extended; (2) docs/specs/prd/PRD-*.md, the two highest numbers, highest first; (3) docs/specs/epic/EPIC-*.md, the four highest numbers, highest first; (4) docs/specs/arch/ARCH-*.md, the highest number. Only a file named <PREFIX>-NNN.md is selected. Nothing else is read for this purpose, and at most ten documents."
+      - "When the kind is brownfield, decided or worked with (BEH-20), read the project's documents right after the kind is known and before the clarifying questions. Select files by name with Glob, then read each selected file whole with the Read tool, in this order and with these caps: (1) docs/specs/brainstorm/BRN-*.md, the three highest numbers, highest first, never the BRN being extended; (2) docs/specs/prd/PRD-*.md, the two highest numbers, highest first; (3) docs/specs/epic/EPIC-*.md, the four highest numbers, highest first; (4) docs/specs/arch/ARCH-*.md, the highest number. Only a file named <PREFIX>-NNN.md is selected. Nothing else is read for this purpose: no story, no spec, no ADR and no source code is read automatically (Bryan, 2026-11-19: 'Skip automatic story and spec reads.'); a file the user names as a source is read under BEH-22 and is never an Existing product row. At most ten documents."
       - "Every document read is read-only: the skill never edits, repairs, moves or deletes it."
       - "Take from a BRN its title, version, and each active idea's id, idea, disposition and reason and each active assumption's id, statement, validation and state; from a PRD its title, version, section 1 and each active functional and non-functional requirement's id, statement and priority; from an EPIC its title, version and each active done_when item's id and criterion; from an ARCH its title, version and each active component's id, name and responsibility. Copy no disposition, priority or decision into this BRN's items."
       - "For each document read, in the order read, write one frontmatter upstream record with no item, '{id: <ID>, relation: informed_by, version: <its version>, hash: null}', and one sources entry 'document: docs/specs/<folder>/<ID>.md v<its version>', these entries standing before every other sources entry in a BRN this run creates; a run that extends a BRN appends them instead (BEH-29)."
@@ -851,8 +866,9 @@ behaviors:
       - "A candidate is already covered when one item taken from a PRD, EPIC or ARCH read, as it is written, already gives the same people the same result. The items that count are active functional and non-functional requirements whose priority is not wont, active done_when items and active components. PRD items are checked first, then EPIC, then ARCH, each in ID order, and the first that covers the candidate is cited. A candidate covered only in part is not covered. Section 3.4 gives the test's examples."
       - "A candidate is previously decided when it proposes the same action for the same people as an active idea of a BRN read whose disposition is rejected. Section 3.5 gives the test's examples."
       - "A covered or previously decided candidate is not added to ideas, the user's own suggestion included. A covered one is a row of '### Already covered' (its wording, and '<document ID>#<item ID>'), in the order the candidates came up. A previously decided one is a row of '### Previously decided' (the earlier idea's text, 'rejected', 'BRN-NNN#IDEA-NN'). Each table is replaced by the line 'None.' when it has no row (C-06)."
-      - "When step 3's work is done, the reply names each candidate kept out, with its Covered by or Where, and says the user can ask to add any of them. This is a statement, never a question."
-      - "When the user then says to add one, before the BRN is written: add it to ideas in the user's words with the next free ID and disposition open; remove its row; for a previously decided idea add the item-level link of BEH-27; and add to section 6's prose 'IDEA-NN was added at <owner>'s request although <Covered by or Where> covers it.'"
+      - "The skill reports every candidate kept out with the exact ID, and never asks about it (Bryan, 2026-11-19: 'Report covered suggestions with the exact requirement ID and let me say \"add it anyway\" without prompting.'). When step 3's work is done, the reply holds one line per candidate kept out, in the order they came up: for a covered one, 'Not added, already covered by <document ID>#<item ID>: \"<the suggestion>\"'; for a previously decided one, 'Not added, rejected in BRN-NNN#IDEA-NN: \"<the suggestion>\"'. After the lines comes, once, the sentence 'Say \"add it anyway\" to add one.' The final reply's discussion repeats the lines and the sentence for every candidate still kept out. No question, in a form or in text, is ever asked about a kept-out candidate, and the run does not wait for an answer."
+      - "The user overrides by saying so, at any time after a report: a message that tells the skill to add a kept-out candidate ('add it anyway', 'add them anyway', 'add both', 'include the text reminders anyway', 'keep my deposit idea'). Which candidate: the one the message names, by its words or by the ID in its report line; 'it' when exactly one candidate is kept out; 'them', 'both' or 'all' for every candidate kept out. 'It' with several kept out and none named adds nothing: the reply says 'Several suggestions were kept out. Name the one to add, for example \"add the text reminders anyway\".' A message that asks why, or only acknowledges, adds nothing. Section 3.5 gives examples."
+      - "An override writes this: the candidate becomes an idea in the user's words (the skill's wording for a candidate of its own) with the next free ID and disposition open, rated at step 4 like any other; its row is removed from its table, which becomes 'None.' when that was the last row; a previously decided idea gets the item-level link of BEH-27; and section 6's prose gains one sentence, 'IDEA-NN was added at <owner>'s request although <document ID>#<item ID> covers it.' or 'IDEA-NN was added at <owner>'s request although BRN-NNN#IDEA-NN rejected it.' Before the BRN is written this goes into the work as it stands. After the BRN is written, in the same session, the skill edits the BRN in place as SKILL.md's 'Decisions that belong to the user' describes for a later confirmation (mark step 6, edit, step 7 validate, step 8 report), without asking step 5's form again: the new idea is open. In a later session it is an extension of that BRN (BEH-11)."
       - "The framework's idea count (5 to 15, unless its Steps set their own: framework-catalog.md, BEH-17 and BEH-18) is counted among the ideas added; candidates kept out don't count. A framework that generates no idea of its own (shortlist-ranking) generates none in place of a candidate kept out: a candidate of the user's list that is covered or previously decided is kept out and listed like any other."
     changes: "BEH-05: an exception to 'record the user's ideas in their own words alongside generated ones' (edit B-P1)"
     lands_in: "SPEC-001 §6; SKILL.md step 3 (edit B-S4); references/brownfield.md, 'Already covered' and 'Previously decided'"
@@ -885,7 +901,7 @@ behaviors:
       - "When the user's words don't say the product exists, ERR-01's test is unchanged: any BRN on the same or a closely similar topic is asked about."
       - "A run that extends a BRN whose kind line says brownfield reads the documents again (BEH-25) and rebuilds Existing product from this reading; updates each upstream record's version; appends this run's new sources entries (a document read for the first time, or read at a new version) after the existing entries, in BEH-25's order among themselves, and never reorders or removes an existing entry; keeps the rows of Already covered, Previously decided and Assumption updates and adds new rows by BEH-26 to BEH-28."
       - "In such a run the BRN's own active assumptions whose state is open are candidates for an update too (BEH-28). Their row's first cell names this BRN. On confirmation the assumption's state is set to validated or invalidated in the same edit, under BEH-11's rules for extending, and the assumption risk ranking and the first release cut are then made again without it (mvp-and-prototype-path.md, BEH-32 item 3); while the row is 'proposed, not confirmed' the state stays open."
-      - "When a run that extends a new-shape BRN turns its kind line to brownfield (intake-and-evidence.md, BEH-20: from 'greenfield', or from the NEEDS CLARIFICATION line of a BRN without the four headings), it reads the documents (BEH-25), adds '### Existing product' in section 1 after the context prose and '### Already covered', '### Previously decided' and '### Assumption updates' in section 6 after the first release cut, each filled by this run (BEH-25 to BEH-28) or holding its replacement line, adds the upstream records, and appends the sources entries. Nothing already in the BRN is removed. The result passes BV-01."
+      - "When a run that extends a new-shape BRN turns its kind line to brownfield (intake-and-evidence.md, BEH-20: from 'greenfield', or from the NEEDS CLARIFICATION line of a BRN without the four headings), it reads the documents (BEH-25), adds '### Existing product' in section 1 after the context prose and '### Already covered', '### Previously decided' and '### Assumption updates' in section 6 after the first release cut, each filled by this run (BEH-25 to BEH-28) or holding its replacement line, adds the upstream records, and appends the sources entries. Nothing already in the BRN is removed, except section 7's bullet that says which kind an undecided run worked as (intake-and-evidence.md, IV-07). The result passes BV-01."
       - "Nothing of BEH-25 to BEH-29 applies to a BRN without the project-kind line, also when it is extended."
     changes: "ERR-01: narrows 'a BRN on the same or a closely similar topic' for a brownfield request (edit B-P2); extends BEH-11"
     lands_in: "SPEC-001 §6 and §7; SKILL.md step 1 item 2 (edit B-S2); references/brownfield.md, 'Extend or new' and 'Extending a brownfield BRN'"
@@ -903,7 +919,10 @@ behaviors:
 The folders are the ones the skills write to: `skills/prd/SKILL.md` ("`docs/specs/prd/PRD-NNN.md`"),
 `skills/epic/SKILL.md` ("`docs/specs/epic/EPIC-NNN.md`") and `skills/architecture/SKILL.md`
 ("`docs/specs/arch/ARCH-NNN.md`"). ADRs are not read: an ADR records how something is built, has no item a
-suggestion could be covered by, and a PRD run reads them later.
+suggestion could be covered by, and a PRD run reads them later. Stories and specs are not read either (Bryan,
+2026-11-19: "Skip automatic story and spec reads."): the run globs neither `docs/specs/story/` nor
+`docs/specs/spec/`. A story or spec the user names as a source is read as a project file, by
+intake-and-evidence.md's BEH-22: it gets a `document` entry in `sources`, and no Existing product row.
 
 Worked example. A project holds BRN-001 to BRN-005, PRD-001 to PRD-003, no epic and ARCH-001. The run reads, in
 this order: BRN-005, BRN-004, BRN-003, PRD-003, PRD-002, ARCH-001. BRN-001, BRN-002 and PRD-001 are not read.
@@ -946,6 +965,27 @@ names an item, and the candidate becomes an idea.
 Only rejected ideas that came up again are listed, not every rejected idea of every BRN read: the table records
 what this run kept out. Every parked idea is listed, because each was offered (or could not be) and none may be
 lost between brainstorms.
+
+**The report and the override: examples.** With the reminders and the deposit both kept out, the reply at the end
+of step 3 holds:
+
+```text
+Not added, already covered by PRD-001#FR-003: "text reminders before a visit"
+Not added, rejected in BRN-001#IDEA-06: "taking a deposit when a patient books"
+Say "add it anyway" to add one.
+```
+
+Whether a later message is an override can't be made mechanical (R9). The test: the message tells the skill to
+add a kept-out candidate.
+
+| The user's next message | Result |
+|---|---|
+| "add the text reminders anyway" | The reminders become an idea in the user's words; their row is removed; section 6 gains "IDEA-07 was added at Dana's request although PRD-001#FR-003 covers it." |
+| "add both" | Both become ideas; the deposit's idea carries the link to BRN-001#IDEA-06 and section 6 gains "… although BRN-001#IDEA-06 rejected it." |
+| "add it anyway" (two are kept out) | Nothing is added. The reply says: Several suggestions were kept out. Name the one to add, for example "add the text reminders anyway". |
+| "add it anyway" (only the reminders are kept out) | The reminders become an idea |
+| "why are the reminders covered?" | Nothing is added; the skill answers from FR-003's statement |
+| "ok" | Nothing is added |
 
 ### 3.6 Parked ideas: worked example
 
@@ -1005,7 +1045,9 @@ up to the next `### ` or `## ` heading. "A `sources` entry" is one that passed I
 |---|---|---|---|
 | BV-01 | A greenfield BRN has none of the four headings | each such heading | `'<heading>' belongs to a brownfield BRN only: remove it, or correct the Project kind line (BV-01)` |
 | BV-01 | A brownfield BRN has all four | the heading of the section (1 or 6) that lacks one | `a brownfield BRN needs '<heading>' in section <1 or 6> (BV-01)` |
-| BV-01 | While the kind is not decided, a BRN has all four or none | the heading of the section that lacks one | `'<heading>' is missing: while the project kind is not decided, write all four brownfield headings or none of them (BV-01)` |
+| BV-01 | While the kind is not decided and section 7's bullet says the run worked as brownfield (IV-07), a BRN has all four | the heading of the section that lacks one | `this run worked as brownfield: '<heading>' is needed in section <1 or 6> (BV-01)` |
+| BV-01 | While the kind is not decided and the bullet says the run worked as greenfield, a BRN has none of the four | each such heading | `this run worked as greenfield: remove '<heading>' (BV-01)` |
+| BV-01 | While the kind is not decided and that bullet is missing or doubled (IV-07 reports it), a BRN has all four or none | the heading of the section that lacks one | `'<heading>' is missing: while the project kind is not decided, write all four brownfield headings or none of them (BV-01)` |
 | BV-01 | In section 6 the headings present stand in the order First release cut, Already covered, Previously decided, Assumption updates | the first of the three brownfield headings present | `section 6's subsections must come in this order: First release cut, Already covered, Previously decided, Assumption updates (BV-01)` |
 | BV-02 | Existing product has content | its heading | `'### Existing product' must hold its table or the line 'No document was found in the project.' (BV-02)` |
 | BV-02 | Its content is the table (header `\| Document \| Version \| What it already covers \|`, the line `\|---\|---\|---\|`, at least one row) or, as the first line, `No document was found in the project.` | the first content line | `'### Existing product' must be the table '\| Document \| Version \| What it already covers \|' with at least one row, or its replacement line (BV-02)` |
@@ -1060,7 +1102,11 @@ Edge cases, each decided by the items above:
 |---|---|---|
 | The request says the site is live, and a converged BRN-001 on the same topic exists | No extend-or-new question. BRN-001 is read; the run writes BRN-002 | BEH-29 |
 | The same, and BRN-001 is a draft | Extend-or-new is asked. On *extend*, BRN-001 is extended: as a brownfield BRN when it has the kind line, in its earlier shape when it has none | BEH-29, the gate |
-| The user suggests an idea a PRD requirement covers, and insists | First kept out and reported. When the user says to add it, it becomes an idea, its row is removed and section 6 says so | BEH-26 |
+| The user suggests an idea a PRD requirement covers | Kept out. The reply says `Not added, already covered by PRD-001#FR-003: "text reminders before a visit"` and `Say "add it anyway" to add one.` Nothing is asked | BEH-26 |
+| The user answers "add it anyway" | It becomes an idea in the user's words, its row is removed and section 6 says so | BEH-26 |
+| Two candidates are kept out and the user writes "add it anyway" | Nothing is added; the reply says to name the one to add. "add both" adds both | BEH-26 |
+| The user says "add it anyway" after the BRN was written, in the same session | The BRN is edited in place, validated again and reported; step 5's form is not asked again | BEH-26 |
+| The user names `docs/specs/story/STORY-002.md` as a source | Read as a project file (intake-and-evidence.md, BEH-22): a `document` entry, no Existing product row, and nothing in it covers a candidate | BEH-25 |
 | The skill's own candidate is covered | Listed under Already covered with the skill's wording; another idea is generated in its place while the framework's idea count asks for more | BEH-26 |
 | A requirement with `priority: wont` matches the candidate | Not covered: the product does not do it. The candidate becomes an idea | BEH-26 |
 | The same idea was rejected in BRN-001 and parked in BRN-003 | Both rows are listed when the rejected one came up again; the parked one is offered | BEH-26, BEH-27 |
@@ -1158,7 +1204,7 @@ verifications:
       - BEH-26
       - BEH-28
     level: eval
-    obligation: "With BRN-001 and PRD-001 seeded, a request that suggests text reminders (covered by PRD-001#FR-003) and a deposit at booking (rejected as BRN-001#IDEA-06), and gives the reminder pilot's result, writes BRN-002 with the reminders under Already covered, the deposit under Previously decided, neither among the ideas, and an Assumption updates row for BRN-001#ASM-01 that is proposed and not confirmed; the reply says what was kept out; BRN-001 is unchanged."
+    obligation: "With BRN-001 and PRD-001 seeded, a request that suggests text reminders (covered by PRD-001#FR-003) and a deposit at booking (rejected as BRN-001#IDEA-06), and gives the reminder pilot's result, writes BRN-002 with the reminders under Already covered, the deposit under Previously decided, neither among the ideas, and an Assumption updates row for BRN-001#ASM-01 that is proposed and not confirmed; the reply names each kept-out suggestion with its exact ID and asks nothing; BRN-001 is unchanged."
     case: brownfield-keeps-out-covered
     prompt: |-
       Our dental clinic's online booking site has been live since March 2026. Two things I'd like to
@@ -1210,7 +1256,22 @@ verifications:
         pattern: '\nversion: 1\n[\s\S]*\nupdated: 2026-03-02\n[\s\S]*\n    state: open\n[\s\S]*\| 1 \| 2026-03-02 \| claude-code \(session fixture-brn-7c1e\) \| Initial draft \|\s*$'
       - name: tells-what-was-kept-out
         type: llm
-        pattern: "The user suggested two things: text reminders before a visit, and taking a deposit when a patient books. PASS if the final reply says that both were not added as ideas, gives the reason for each (the reminders are already covered by a requirement of PRD-001; the deposit was rejected in the earlier brainstorm BRN-001), and says the user can ask to add them anyway. FAIL if the reply is silent about either suggestion, presents either as a new idea, or asks a question and waits for the answer."
+        pattern: "The user suggested two things: text reminders before a visit, and taking a deposit when a patient books. PASS if the final reply says that both were not added as ideas, names PRD-001#FR-003 for the reminders and BRN-001#IDEA-06 for the deposit, and tells the user they can say \"add it anyway\". FAIL if the reply is silent about either suggestion, gives no ID for one of them, presents either as a new idea, or asks the user a question about them."
+      - name: reply-names-requirement-id
+        type: regex
+        target: last_message
+        match: contains
+        pattern: 'Not added, already covered by PRD-001#FR-003: "[^"\n]*[Rr]eminder[^"\n]*"'
+      - name: reply-names-rejected-idea
+        type: regex
+        target: last_message
+        match: contains
+        pattern: 'Not added, rejected in BRN-001#IDEA-06: "[^"\n]*[Dd]eposit[^"\n]*"'
+      - name: reply-offers-the-override
+        type: regex
+        target: last_message
+        match: contains
+        pattern: 'Say "add it anyway" to add one\.'
   - id: VER-32
     status: proposed
     covers:
@@ -1265,7 +1326,7 @@ verifications:
       - ERR-08
       - ERR-09
     level: unit
-    obligation: "src/tests/brainstorm/test_validate_brn.py, run as 'python3 -B src/tests/brainstorm/test_validate_brn.py': the 31 tests of edit B-T2 pass in each of its three classes. They show that the staged example BRN-002 passes, as does the same BRN with no document read; that each of BV-01 to BV-05 reports its message on its line; that a Skipped line, a proposed update, an undecided kind with all four headings and document sources entries that follow other entries pass; and that a row about this BRN's own assumption must agree with its state."
+    obligation: "src/tests/brainstorm/test_validate_brn.py, run as 'python3 -B src/tests/brainstorm/test_validate_brn.py': the 32 tests of edit B-T2 pass in each of its three classes. They show that the staged example BRN-002 passes, as does the same BRN with no document read; that each of BV-01 to BV-05 reports its message on its line; that a Skipped line, a proposed update, an undecided kind that worked as brownfield with all four headings and document sources entries that follow other entries pass; and that a row about this BRN's own assumption must agree with its state."
   - id: VER-34
     status: proposed
     covers:
@@ -1274,7 +1335,7 @@ verifications:
       - BEH-28
       - BEH-29
     level: manual
-    obligation: "Live, with AskUserQuestion, following docs/runbooks/brainstorm-manual-test.md with a copy of the plugin, in a project seeded with the example's BRN-001 and PRD-001: (a) 'Our booking site is live. Brainstorm what to improve next.': no extend-or-new question although BRN-001 exists; at step 3 one form headed 'Step 3' asks 'Take up parked ideas from earlier brainstorms?' with 'Take up none' and 'Take up all', both previews listing BRN-001#IDEA-04 and BRN-001#IDEA-05; typing 'IDEA-04' gives a new idea with that text and an item-level upstream record, and Previously decided lists only IDEA-05 as parked; (b) in the same run the reply shows BRN-001#ASM-01 and ASM-02 with their validations; (c) the user suggests text reminders: the reply says it was kept out and names PRD-001#FR-003; the user says 'add it anyway': it becomes an idea in the user's words, the row is gone and section 6 holds the sentence 'IDEA-NN was added at Dana's request although PRD-001#FR-003 covers it.'; (d) the user gives the pilot result with its source: step 5's form ends with 'Confirm these assumption updates?', its previews showing the row; 'Accept all as proposed' writes 'confirmed by Dana on <today>' and BRN-001 is byte for byte unchanged; in a second run 'Leave them proposed' writes 'proposed, not confirmed'; (e) with BRN-001's status changed by hand to draft and the same request: extend-or-new is asked; (f) a run that extends the BRN-002 written in (d), with a fact for BRN-002's own ASM-01: on acceptance the row says confirmed and ASM-01's state is validated; on 'Leave them proposed' the state stays open; (g) with PRD-001's frontmatter removed by hand: the BRN names it in a Skipped line with 'no frontmatter' and PRD-001 is unchanged; (h) with a second earlier BRN that also holds a parked IDEA-04, typing 'IDEA-04' gets one more question, 'Which IDEA-04 do you mean?', with the two qualified forms as options, and dismissing it takes up neither, both staying parked rows; (i) extending a greenfield new-shape BRN after saying the product is live: the kind line becomes brownfield, the four headings are added and filled, nothing else is removed and the validator prints OK; (j) extending the BRN-002 of (d) after PRD-001's version was raised by hand: the existing sources entries keep their order and the new document entry is the last. Recorded in SPEC-001 §9."
+    obligation: "Live, with AskUserQuestion, following docs/runbooks/brainstorm-manual-test.md with a copy of the plugin, in a project seeded with the example's BRN-001 and PRD-001: (a) 'Our booking site is live. Brainstorm what to improve next.': no extend-or-new question although BRN-001 exists; at step 3 one form headed 'Step 3' asks 'Take up parked ideas from earlier brainstorms?' with 'Take up none' and 'Take up all', both previews listing BRN-001#IDEA-04 and BRN-001#IDEA-05; typing 'IDEA-04' gives a new idea with that text and an item-level upstream record, and Previously decided lists only IDEA-05 as parked; (b) in the same run the reply shows BRN-001#ASM-01 and ASM-02 with their validations; (c) the user suggests text reminders: the reply holds the line 'Not added, already covered by PRD-001#FR-003: \"<the user's words>\"' and the sentence 'Say \"add it anyway\" to add one.', and no question about it is asked, in a form or in text; the user says 'add it anyway': it becomes an idea in the user's words, the row is gone and section 6 holds the sentence 'IDEA-NN was added at Dana's request although PRD-001#FR-003 covers it.'; (d) the user gives the pilot result with its source: step 5's form ends with 'Confirm these assumption updates?', its previews showing the row; 'Accept all as proposed' writes 'confirmed by Dana on <today>' and BRN-001 is byte for byte unchanged; in a second run 'Leave them proposed' writes 'proposed, not confirmed'; (e) with BRN-001's status changed by hand to draft and the same request: extend-or-new is asked; (f) a run that extends the BRN-002 written in (d), with a fact for BRN-002's own ASM-01: on acceptance the row says confirmed and ASM-01's state is validated; on 'Leave them proposed' the state stays open; (g) with PRD-001's frontmatter removed by hand: the BRN names it in a Skipped line with 'no frontmatter' and PRD-001 is unchanged; (h) with a second earlier BRN that also holds a parked IDEA-04, typing 'IDEA-04' gets one more question, 'Which IDEA-04 do you mean?', with the two qualified forms as options, and dismissing it takes up neither, both staying parked rows; (i) extending a greenfield new-shape BRN after saying the product is live: the kind line becomes brownfield, the four headings are added and filled, nothing else is removed and the validator prints OK; (k) with the reminders and a deposit both kept out, 'add it anyway' adds neither and the reply says to name one, and 'add both' adds both, the deposit's idea carrying the item-level link to BRN-001#IDEA-06 and section 6 the sentence '... although BRN-001#IDEA-06 rejected it.'; (l) 'add it anyway' said after the BRN was written, in the same session: the BRN is edited in place and validated again, and step 5's form is not shown again; (m) the project holds docs/specs/story/STORY-001.md and docs/specs/spec/SPEC-001.md: the session shows no Read of either and Existing product lists neither; (j) extending the BRN-002 of (d) after PRD-001's version was raised by hand: the existing sources entries keep their order and the new document entry is the last. Recorded in SPEC-001 §9."
 ```
 
 **What was checked while writing this document** (2026-11-18, in the worktree, with scratch copies only):
@@ -1286,7 +1347,7 @@ verifications:
   document leaves them: its old texts for S2 to S13, O1, O2, W2, V1 and V2 each still occur once (its S1 is
   already done).
 - The validator with both documents' edits applied to a scratch copy, and the test file with both documents'
-  tests: 267 tests pass (89 in each of the three classes), 31 of them new here. With
+  tests: 279 tests pass (93 in each of the three classes), 32 of them new here. With
   mvp-and-prototype-path.md's validator edits (its V1 and V2, as that document stood on 2026-11-18) added on
   top, they still pass, the staged BRN-002 included.
 - `staged/examples/brainstorm-brownfield/BRN-001.md` and `BRN-002.md`: `OK` under the validator as it is today,
@@ -1298,7 +1359,7 @@ verifications:
 - framework-catalog.md's `test_structure.py` (its section 5.1) on a scratch tree holding the three documents'
   edits and staged files: its 16 tests pass with `intake.md` and `brownfield.md` in place, and
   `progress/evaluate.py`'s `checklist_hash` of the edited SKILL.md equals the manifest's `checklistHash`.
-- The test file with mvp-and-prototype-path.md's own tests added (its T1 and T2): 333 tests pass.
+- The test file with mvp-and-prototype-path.md's own tests added (its T1 and T2): 354 tests pass.
 - Every `yaml items` block of this document with PyYAML, for R4's keys.
 
 ## 6. Staged files
@@ -1375,11 +1436,23 @@ of the staged `references/mvp-path.md`: one open assumption, which stops IDEA-01
   run that extends a brownfield BRN edit that BRN's own assumption `state` in place. The second holds for a
   new-shape BRN only; for an earlier-shape BRN the gate wins (decision 15).
 
-**Open, for Bryan.**
+**Decided by Bryan on 2026-11-19** (pull request #172's open questions; his words are quoted).
 
-| Question | Options | Default specified here |
-|---|---|---|
-| Are the caps right (3 BRNs, 2 PRDs, 4 epics, 1 ARCH)? | (a) As specified. (b) Other numbers. (c) No cap on PRDs | (a) |
-| Should a brownfield run also read stories or specs under `docs/specs/`? | (a) No. (b) Yes, with an item form for `Covered by` | (a) |
-| May the skill ever ask whether to add a covered suggestion? | (a) No: it reports, the user says. (b) One question listing all kept-out candidates, when it can ask | (a) |
-| When a confirmed update concerns an earlier BRN, should that BRN be edited too (version + 1)? | (a) No: the new BRN's row is the record. (b) Yes, on the user's separate yes | (a) |
+19. **The reading caps stand.** "Keep the reading caps at 3 BRNs, 2 PRDs, 4 epics, and 1 ARCH." BEH-25 is
+    unchanged.
+20. **No story and no spec is read automatically.** "Skip automatic story and spec reads." BEH-25 and section
+    3.2 now say it in those words. A file the user names is another matter: intake-and-evidence.md's BEH-22
+    reads it as a source ("You may read a project file I name as a source."), and it is never an Existing
+    product row.
+21. **A covered suggestion is reported with the exact ID, and the user overrides without being asked.**
+    "Report covered suggestions with the exact requirement ID and let me say "add it anyway" without
+    prompting." BEH-26 fixes the report line (`Not added, already covered by PRD-001#FR-003: "…"`), the one
+    sentence that names the override, the wordings that count as one, which candidate "it" means, and what is
+    written. Decided here, because he left it open: an override removes the candidate's row and records the
+    fact in section 6's prose, so the tables list only what is still kept out; "it" with several kept out
+    adds nothing rather than guess; and an override after the BRN is written edits it in place.
+22. **A confirmed update to an earlier assumption is recorded in the new BRN only.** "Record a confirmed
+    update to an earlier assumption in the new BRN only." Decision 9 and BEH-28 are unchanged: the earlier
+    BRN is never edited.
+
+**Open, for Bryan.** None.

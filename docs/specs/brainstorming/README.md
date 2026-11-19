@@ -72,6 +72,18 @@ makes the idea count and the clarifying-question limit interaction defaults. ADR
 dispositions the user's. SPEC-001 §12 rejected listing frameworks in SKILL.md and the skill setting dispositions
 itself.
 
+On 2026-11-19 Bryan answered the open questions of pull request #172 ("Use PR #172 as the source for these
+decisions"). Each document's section 7 quotes his answer where it decides something. In short: the catalog's
+defaults stand, with a missing capacity labelled as an assumption; the limit of four questions is fixed; an
+undecided kind works as brownfield only when a PRD exists and is recorded as still undecided; a project file the
+user names may be read as a source; the reading caps stand, and no story or spec is read automatically; a covered
+suggestion is reported with its requirement ID and the user may say "add it anyway" without being asked; a
+confirmed assumption update lives in the new BRN only; the cut uses the top three assumptions, keeps the user's
+explicit choices when a BRN is extended, and recomputes or flags a row whose reason no longer holds, the two user
+sentences being reserved for choices the user made; the report block ships with the fourth commit and the PRD
+side under SPEC-002 version 10, before the PRD interview-at-scale build; the five chosen layouts are kept and
+their look waits for a design system ([design/README.md](design/README.md)).
+
 ## 3. Rules every document here follows
 
 - **R1. No new collection and no new field in a BRN.** A BRN holds `problems`, `ideas` and `assumptions` with the
@@ -138,6 +150,12 @@ Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]
 followed by a blank line and the context prose. *Brownfield*: the product the topic is about exists (it is built
 or in use). *Greenfield*: it does not. The user's words decide; what the project folder holds only suggests.
 
+With the third line, and only then, section 7 holds exactly one bullet that says which kind the run worked as
+(Bryan, 2026-11-19: "Record that the kind is still undecided."):
+`- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]`, or the same with
+`worked as brownfield`. Check IV-07 requires it while the kind is undecided and rejects it once the kind line
+says `greenfield` or `brownfield`. A BRN whose bullet says `worked as brownfield` holds the brownfield shapes.
+
 **C-02. Existing product** (section 1, brownfield only, after the context prose; brownfield-iteration):
 
 ```markdown
@@ -180,9 +198,11 @@ First release cut: proposed, not confirmed
 
 The status line is exactly `First release cut: proposed, not confirmed` or
 `First release cut: confirmed by <owner> on YYYY-MM-DD`. One row per idea that is promoted or proposed for
-promotion, in ID order; the second column is `yes` or `no`; the `Why` cell is one of the fixed sentences
-mvp-and-prototype-path defines. With no such idea the table is replaced by the line
-`No idea is promoted or proposed for promotion.`
+promotion, in ID order; the second column is `yes` or `no`; the `Why` cell is one of the eight fixed sentences
+mvp-and-prototype-path defines: five that the rule writes, `Included by the user.` and `Left out by the user.`,
+which are written only on a row whose value the user stated, and the review flag
+`Needs review: no rule supports this value.`, which stands with either value and only under the proposed status
+line. With no such idea the table is replaced by the line `No idea is promoted or proposed for promotion.`
 
 **C-06. Already covered and previously decided** (section 6, brownfield only, after C-05; brownfield-iteration):
 
@@ -201,7 +221,8 @@ mvp-and-prototype-path defines. With no such idea the table is replaced by the l
 ```
 
 `Covered by` is `<document ID>#<item ID>`; `Decision` is `rejected` or `parked`; `Where` is `BRN-NNN#IDEA-NN`.
-Each table is replaced by the line `None.` when it has no row.
+Each table is replaced by the line `None.` when it has no row. When the user says to add a candidate anyway, its
+row is removed and section 6's prose says so: the tables list only what is still kept out.
 
 **C-11. Assumption updates** (section 6, brownfield only, after C-06; brownfield-iteration). Section 6's order is
 therefore C-04, C-05, C-06, C-11.
@@ -283,9 +304,9 @@ BEH-20), and step 8's report block is today's (prd-handoff-contract.md, BEH-34).
 it as to any run, except rule 4, which needs a kind.
 
 When a new-shape BRN is extended, its kind line changes only towards brownfield (the NEEDS CLARIFICATION line
-may be decided; `greenfield` may become `brownfield`; `brownfield` stays) and nothing is removed from it. A run
-that turns the line to `brownfield` adds C-02, C-06 and C-11 (intake-and-evidence.md, BEH-20;
-brownfield-iteration.md, BEH-29).
+may be decided; `greenfield` may become `brownfield`; `brownfield` stays) and nothing is removed from it except
+the bullet of C-01 that says which kind an undecided run worked as. A run that turns the line to `brownfield`
+adds C-02, C-06 and C-11 (intake-and-evidence.md, BEH-20; brownfield-iteration.md, BEH-29).
 
 ## 5. Framework selection
 
@@ -312,7 +333,7 @@ leaves unused ones unallocated. No brainstorm-series ID is used twice in this fo
 | Document | BEH | ERR | VER | Validator checks |
 |---|---|---|---|---|
 | framework-catalog.md | BEH-15 to BEH-19 | ERR-06 | VER-18 to VER-24 | none |
-| intake-and-evidence.md | BEH-20 to BEH-24 | ERR-07 | VER-25 to VER-29 | IV-01 to IV-06 |
+| intake-and-evidence.md | BEH-20 to BEH-24 | ERR-07 | VER-25 to VER-29 | IV-01 to IV-07 |
 | brownfield-iteration.md | BEH-25 to BEH-29 | ERR-08, ERR-09 | VER-30 to VER-34 | BV-01 to BV-05 |
 | mvp-and-prototype-path.md | BEH-30 to BEH-33 | ERR-10 | VER-35 to VER-38 | MV-01 to MV-12 |
 | prd-handoff-contract.md (brainstorm's side) | BEH-34 | none | VER-39 | none |

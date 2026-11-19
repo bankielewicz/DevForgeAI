@@ -1,6 +1,7 @@
 # Brainstorm screens: mock-ups from Claude Design
 
-**Status:** directions chosen by Bryan on 2026-11-18; the look is not settled and the further states are not drawn.
+**Status:** layouts chosen by Bryan on 2026-11-18 and kept on 2026-11-19; visual approval is open, because the
+design system the look must come from does not exist yet (see "The look"); the further states are not drawn.
 Written 2026-11-18 by claude-code on the model Fable 5.2 (session fa59a935-ed2e-4502-b6c4-93bb6d847546). The
 boards were downloaded that day from the canvas "DevForgeAI Brainstorm pane",
 <https://claude.ai/artifact/UnLaAUN58JATe7Ed4b9Pt4> (version 1795037172-1e31), which Bryan made in Claude Design
@@ -66,9 +67,26 @@ Checked by script on 2026-11-18: each board's rows counted and measured in monos
 - **Pane buttons.** `[ Problems ] [ Ideas ] [ Assumptions ]` are tabs the prompt did not ask for. P6 asks Claude
   Design to drop or justify them.
 
+## The look
+
+Bryan, 2026-11-19: "Keep the five chosen layouts. Use the existing DevForgeAI progress pane and band as the style
+reference. Attach the matching design system and regenerate those five boards only. If the design system is
+unavailable, leave visual approval open and tell me which asset you need."
+
+- **The layouts are kept**: the five boards of "Chosen directions".
+- **The design system is unavailable.** Checked 2026-11-19: this account has no Design System artifact, and the
+  canvas has none installed (`"designSystems": []`). The repository can't supply one either: the progress pane and
+  band (`src/claude/DevForgeAI/hooks/progress.tsx`) are drawn with the terminal theme's own colours (plain, dim
+  and accent text), so no palette or token file exists to copy.
+- **Visual approval stays open**, and the five boards are not regenerated.
+- **The asset needed**: a Design System artifact in Claude Design that records the look of the progress pane and
+  band: the colours for plain, dim and accent text, for a done, a current and a not-started step, for a proposed
+  and a confirmed value, for borders and the selected button, and the monospace font. Either of these lets it be
+  made: screenshots of the running progress pane and band in the terminal theme Bryan uses, or the name of that
+  terminal theme. With it attached to the canvas, the five chosen boards are regenerated (prompts P6 to P10 name
+  the states; each then also says "use the attached design system").
+
 ## Left to Bryan
 
-- The look: accept Claude Design's palette and font, or attach a design system to the canvas and regenerate the
-  five chosen boards.
-- Running P6 to P10 for the remaining states.
+- The asset "The look" names; then the regeneration of the five chosen boards and visual approval.
 - Whether a brainstorm pane is built at all (`docs/backlog.md`, DEF-012). A build needs its own spec.

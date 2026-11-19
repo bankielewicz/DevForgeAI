@@ -3,7 +3,8 @@
 **Status:** proposal, written 2026-11-18 by claude-code on the model Fable 5.2 (session
 fa59a935-ed2e-4502-b6c4-93bb6d847546) for Bryan's review. It changes nothing until it is built. Its brainstorm side (BEH-34, VER-39: step 8's report
 block) is built in SKL-001 version 12, with the fourth commit, under SPEC-001's next version. Its PRD side is
-built later, alone, under a new version of SPEC-002 (README §8). Read
+built separately, under SPEC-002 version 10 and SKL-002 version 7, before the PRD interview at scale (SPEC-002
+versions 6 to 9) is built: Bryan's decision of 2026-11-19 (§7). Read
 [README.md](README.md) first, then [mvp-and-prototype-path.md](mvp-and-prototype-path.md) for the two shapes this
 document reads most.
 
@@ -49,8 +50,10 @@ today.
 
 Each edit gives old and new text (R7). Old texts are quoted from the files of plugin 0.34.0: brainstorm's
 SKILL.md at version 11 (the four brainstorm documents change none of the passages quoted here, which §5.5 records), and the PRD
-skill at SKL-002 version 6, which implements SPEC-002 version 5. §7's first open question covers the case where
-the interview build rewrites the PRD skill's files first.
+skill at SKL-002 version 6, which implements SPEC-002 version 5. The PRD side is built before the
+interview at scale (§7), so those are the files it meets and the edits of §2.2 to §2.5 apply as written. The
+interview build comes afterwards: it takes its own old texts from the files as this build leaves them, and
+carries §3.6 forward.
 
 ### 2.1 `src/claude/DevForgeAI/skills/brainstorm/SKILL.md`
 
@@ -240,8 +243,11 @@ any version). Set `state: validated` when `Change` is `open to validated` and `s
 is `open to invalidated`:
 - on an assumption this write carries;
 - in an extension, on an existing assumption of the PRD being extended. Change its `state` and nothing
-  else in the item; this is the one exception to leaving existing items byte-identical, and the Change
-  Log row names it: `PRD-001#ASM-02 state: open to validated (BRN-002, assumption updates)`.
+  else: not its statement, validation or links, and no other existing item. This is the one exception to
+  leaving existing items byte-identical. The extension's Change Log row names it, before the sentence on
+  review: `PRD-001#ASM-02 state: open to validated (BRN-002, assumption updates)`. An approved PRD returns
+  to review as in any extension: `status: in-review`, `approved_by: ""`, `approved_on: null`, and the row
+  says `Status approved to in-review, approval cleared.`
 
 An assumption in a PRD this run doesn't write is left alone and named in the reply.
 
@@ -505,8 +511,9 @@ results §5.3 lists, each failing exactly the graders named there.
 | SPEC-001 new (its next version, with the four brainstorm documents) | BEH-34, VER-39 |
 
 BEH-34 and VER-39 enter SPEC-001's next version with the four brainstorm documents' items and ship in SKL-001
-version 12. The PRD build then moves SPEC-002's `upstream` link to that SPEC-001 version, gives SKL-002 its next
-version (`provenance.yaml` and `devforgeai-version`) and moves the plugin version; it changes no brainstorm file.
+version 12. The PRD build is SPEC-002 version 10: it adds the SPEC-002 items of this document, moves SPEC-002's `upstream`
+link to that SPEC-001 version, gives SKL-002 version 7 (`provenance.yaml` and `devforgeai-version`) and moves
+the plugin version; it changes no brainstorm file. The interview at scale is then SKL-002's version after 7.
 
 ## 3. Behaviour
 
@@ -536,7 +543,7 @@ behaviors:
       1. Users: section 3 of the PRD holds one paragraph for each row of C-03's table whose persona is the who of a problem the PRD links, with the row's job, workaround and pain; a NEEDS CLARIFICATION cell stays a marker; the primary-users question is skipped when there is such a row.
       2. Assumptions: the carried assumptions are numbered in this order: those with a row in C-07's ranking, by rank, then the others by BRN ID. Statement, validation, state and the derives link are carried as before. Rank, class and confidence are not copied.
       3. Metrics: each C-08 bullet whose idea the PRD drafts becomes one success metric that derives that idea: metric from the bullet's outcome, baseline the bullet's value as written with its source, or its marker; target and measured_by from the user, otherwise markers. A bullet whose idea the PRD does not draft is dropped. The baseline of such a metric is not asked for when the bullet gave a value.
-      4. Assumption updates: for each C-11 row whose Status starts 'confirmed by', every assumption of the PRD being written whose derives link names the row's earlier assumption gets state validated or invalidated as the row's Change says: an assumption this write carries, and, in an extension, an existing one, of which only the state changes; the Change Log row names each. A row that says 'proposed, not confirmed' changes nothing. An assumption of a PRD the run does not write is named in the reply and left alone.
+      4. Assumption updates: for each C-11 row whose Status starts 'confirmed by', every assumption of the PRD being written whose derives link names the row's earlier assumption gets state validated or invalidated as the row's Change says: an assumption this write carries, and, in an extension, an existing one, of which only the state changes (not its statement, validation or links, and no other existing item); the extension's Change Log row names each as 'PRD-NNN#ASM-NN state: open to validated (BRN-NNN, assumption updates)'; an approved PRD returns to review as SPEC-002 BEH-09 says for any extension (status in-review, approved_by and approved_on cleared, the row saying 'Status approved to in-review, approval cleared.'). A row that says 'proposed, not confirmed' changes nothing. An assumption of a PRD the run does not write is named in the reply and left alone.
       5. C-02's rows and C-06's rows never become a requirement, a constraint, a metric, an assumption or a link. C-02 may inform section 2's prose. C-06's Previously decided rows may be listed as non-goals in words, without IDs.
     changes: "extends SPEC-002 BEH-04; one exception to BEH-09 (item 4)"
     lands_in: "references/brn-mapping.md, 'A new-shape BRN' (M1, M2); references/interview.md rounds 1 and 5 (I2, I4); prd SKILL.md step 8 (P4); references/output-rules.md, Change Log and self-check item 5 (R1, R2)"
@@ -619,8 +626,8 @@ PRD can be drafted without it.
 
 ### 3.6 With the interview at scale (SPEC-002 versions 6 to 9)
 
-When that build precedes this one, the same rules read as follows, and the old texts of §2.4 are taken from the
-files as that build leaves them (R7):
+That build comes after this one (§7). SPEC-002 version 10 keeps BEH-19 to BEH-26 as they are, approved and not
+built; when they are built, they read these rules as follows, and the build keeps the passages §2.2 to §2.5 add:
 
 - BEH-19 (reuse before asking): the project kind is not a source for `stage`, and the cut is not a source for
   `release` or `priority`; neither appears in the reuse line. A C-08 baseline is a source for a metric's
@@ -859,7 +866,7 @@ verifications:
     covers:
       - "SPEC-002#BEH-28"
     level: eval
-    obligation: "Extending the approved PRD-001 from the brownfield BRN-002, whose Assumption updates holds the confirmed row 'BRN-001#ASM-01, open to validated': PRD-001's assumption that derives BRN-001#ASM-01 has state validated, the Change Log row names that change, the version is 2 and the status in-review."
+    obligation: "Extending the approved PRD-001 from the brownfield BRN-002, whose Assumption updates holds the confirmed row 'BRN-001#ASM-01, open to validated': PRD-001's assumption that derives BRN-001#ASM-01 has state validated, the Change Log row names that change, the version is 2, the status is in-review and the approval is cleared."
     case: assumption-update-reaches-the-prd
     prompt: |-
       Extend PRD-001 from BRN-002. Proceed without questions.
@@ -891,6 +898,13 @@ verifications:
         flags: m
         pattern: |-
           ^status: in-review[ \t]*$
+      - name: approval-cleared
+        type: regex
+        target: "{source: file, path: docs/specs/prd/PRD-001.md}"
+        match: contains
+        flags: m
+        pattern: |-
+          ^approved_by: ""[ \t]*\n^approved_on: null[ \t]*$
   - id: "SPEC-002#VER-53"
     status: proposed
     covers:
@@ -935,6 +949,7 @@ graders named.
 | `assumption-update-reaches-the-prd` | PRD-001's assumption left `state: open` | `state-set-from-the-update` |
 | | A Change Log row that doesn't name the change | `change-log-names-the-change` |
 | | `status: approved` kept | `back-in-review` |
+| | `approved_by: "Dana"` kept | `approval-cleared` |
 | `unconfirmed-cut-is-a-proposal` | The confirmed-cut lines used | `shown-as-a-proposal`, `no-suggested-release` |
 | | "later (suggested)" on IDEA-03's question | `later-not-suggested` |
 
@@ -964,7 +979,8 @@ assumption-update-reaches-the-prd/state-set-from-the-update (contains): good sam
 assumption-update-reaches-the-prd/change-log-names-the-change (contains): good sample passes, wrong sample fails
 assumption-update-reaches-the-prd/version-raised (contains): good sample passes, wrong sample fails
 assumption-update-reaches-the-prd/back-in-review (contains): good sample passes, wrong sample fails
-20 regex graders behave as intended
+assumption-update-reaches-the-prd/approval-cleared (contains): good sample passes, wrong sample fails
+21 regex graders behave as intended
 ```
 
 ### 5.5 What was run for this document
@@ -1002,10 +1018,10 @@ built from mvp-and-prototype-path.md's staged example.
    commitment, which is the PRD interview's to ask.
 6. *The ranking sets only the order of the carried assumptions.* The PRD gains no field (the schema and
    ADR-003's document contract stay as they are), and the riskiest assumption is the first a reader meets.
-7. *A confirmed assumption update may change one field of an existing item in an extension.* Without it the
-   update could never reach the PRD that carries the assumption, since the earlier BRN's link is in an existing
-   item. Only `state` changes, the Change Log row names it, and an approved PRD goes back to review as with any
-   extension.
+7. *A confirmed assumption update changes the matching assumption's `state` only* (Bryan's decision below).
+   Without it the update could never reach the PRD that carries the assumption, since the earlier BRN's link
+   is in an existing item. Nothing else of that assumption or of the PRD's existing items changes, the Change
+   Log row names it, and an approved PRD returns to review by the PRD skill's existing rule for an extension.
 8. *A broken fixed shape never stops the run* (SPEC-002#ERR-12). The PRD can be drafted without it, and the
    brainstorm skill's validator, not the PRD skill, is where a BRN's shape is enforced.
 9. *The report block ships in SKL-001 version 12, with the fourth commit.* It only reports what version 12
@@ -1014,10 +1030,17 @@ built from mvp-and-prototype-path.md's staged example.
     made from it, and BRN-002 with a confirmed update of BRN-001#ASM-01). The case depends on that example
     keeping those three facts; G2-style, the generator asserts them before writing the case.
 
-**Open, for Bryan.**
+**Decided by Bryan on 2026-11-19** (session fa59a935-ed2e-4502-b6c4-93bb6d847546), on the questions this section
+left open. His words: "The brainstorm report block belongs in the fourth brainstorm commit. Schedule the PRD-side
+work separately under SPEC-002 v10, before the PRD interview-at-scale build. A confirmed cut informs the release
+question. Ask before writing release. On a PRD extension, a confirmed assumption update may change the matching
+assumption's state only. Record it in the Change Log and return an approved PRD to review."
 
-| # | Question | Options | Default specified here |
-|---|---|---|---|
-| 1 | Which is built first: this hand-off, or the interview at scale (SPEC-002 versions 6 to 9)? | (a) This first: the edits of §2.4 apply as written, and the interview build carries §3.6 forward; (b) the interview first: §2.4's old texts are taken from its files and §3.6 applies at once | (a), because the edits are checked against today's files |
-| 2 | Should a confirmed cut be written into `release` without asking? | (a) No: it is a suggestion (this document); (b) yes: `current` for every requirement of a `yes` idea and `later` for a `no` idea, as a value the user supplied in the BRN, with `priority` still asked | (a) |
-| 3 | May an extension change the `state` of an existing assumption from a confirmed assumption update? | (a) Yes, that one field (this document); (b) no: the reply names the assumption and the owner edits it | (a) |
+| Question | Decision | Where |
+|---|---|---|
+| Which SKL-001 version ships the report block? | "The brainstorm report block belongs in the fourth brainstorm commit" | §2.1, BEH-34 (as drafted) |
+| Which is built first: this hand-off's PRD side, or the interview at scale? | The hand-off: "Schedule the PRD-side work separately under SPEC-002 v10, before the PRD interview-at-scale build" | Status line, §2, §2.7, §3.6. The edits of §2.2 to §2.5 are written against SKL-002 version 6's files, which are the files that build meets |
+| Should a confirmed cut be written into `release` without asking? | No: "A confirmed cut informs the release question. Ask before writing release" | SPEC-002#BEH-29 (as drafted); SPEC-002#VER-50 checks that no release is written unasked, SPEC-002#VER-51 that it is asked |
+| May an extension change the `state` of an existing assumption from a confirmed assumption update? | Yes, that field only: "a confirmed assumption update may change the matching assumption's state only. Record it in the Change Log and return an approved PRD to review" | SPEC-002#BEH-28 item 4, M2, P4, R1, R2; SPEC-002#VER-54 |
+
+**Open, for Bryan.** None.

@@ -13,7 +13,7 @@ version 12 (README section 8).
 | 1. Intake: topic, existing BRNs, clarifying questions | Topic; extend or new; up to three questions | The project kind decided (C-01); the question set for that kind, up to four questions in one form; sources gathered (C-09) |
 | 3. Diverge: problems, ideas, assumptions | Problems, 5 to 15 ideas, assumptions | Each problem's `evidence` taken from a source and cited, or a marker |
 | 6. Write the BRN | Template, frontmatter, Change Log | The project-kind line (C-01), Target users (C-03), success signals (C-08) and `sources` (C-09) written in their fixed shapes, from the one template |
-| 7. Validate the BRN | `validate_brn.py`, then the read-back | Validator checks IV-01 to IV-06, for a new-shape BRN only |
+| 7. Validate the BRN | `validate_brn.py`, then the read-back | Validator checks IV-01 to IV-07, for a new-shape BRN only |
 
 ## 1. Scope
 
@@ -24,7 +24,7 @@ version 12 (README section 8).
 - Sources: what counts, the form of each entry, and how a fact cites one.
 - Section 3 (Target users) and section 8 (Candidate success signals): which step gathers, which writes, and
   the rule for each cell.
-- Validator checks IV-01 to IV-06 and their unit tests.
+- Validator checks IV-01 to IV-07 and their unit tests.
 - The one BRN template for the whole build, and the reference `references/intake.md`.
 
 **Out.**
@@ -73,8 +73,11 @@ Decide the project kind (BEH-20). Ask at most four clarifying questions before d
 
 The clarifying-question limit is an interaction default in ADR-003's table of value classes (line 94). The
 build changes the number there, bumps the ADR to version 3 with a new `updated` date, and adds a row to its
-"Status history" table naming SPEC-001's version and Bryan's acceptance. Nothing else in the ADR changes: the
-limit stays an interaction default that configuration contract v1 does not expose.
+"Status history" table naming SPEC-001's version and Bryan's acceptance. Nothing else in the ADR changes. The
+limit is fixed (Bryan, 2026-11-19: "Keep the four-question limit fixed."): in ADR-003's table the row still
+classes it as an interaction default, its default value becomes 4, and no setting exposes it. Configuration
+contract v1's only interaction key stays `interview.max_calls`; the brainstorm skill reads no policy document
+and no local preference for this number, so every run's limit is four.
 
 **Edit A-D1** — `docs/specs/adr/ADR-003.md` (A2, the Interaction default row)
 
@@ -321,7 +324,7 @@ its earlier shape, also when extended, and is checked by the other rules only.
 
 | Part | Form |
 |---|---|
-| Project kind | The first line under `## 1. Context`, followed by a blank line: `Project kind: greenfield`, `Project kind: brownfield` or `Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]` |
+| Project kind | The first line under `## 1. Context`, followed by a blank line: `Project kind: greenfield`, `Project kind: brownfield` or `Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]`. With the third, and only then, section 7 holds one bullet `- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]`, or the same with `worked as brownfield` |
 | `sources` | Each entry `"<kind>: <reference>"`, the kind one of `document`, `data`, `ticket`, `interview`, `url`, `note`; no vertical bar; no entry twice |
 | A cited fact: an active problem's `evidence`, a section 8 baseline | One `[NEEDS CLARIFICATION: …]` marker and nothing else, or text that ends with one `sources` entry, without its quotes, in parentheses after a space |
 | Section 3 | Only the table `\| Persona \| Job to be done \| Current workaround \| Pain \|`: one row per distinct `who` value of the active problems, in the order the values first appear, the Persona cell equal to the `who` value; four non-empty cells in each row |
@@ -347,7 +350,8 @@ New text:
 11. The last Change Log row's author is `claude-code (session <ID>)` with the ID in
     `generated_by.session`, unless a person wrote that row.
 12. In a BRN with the project-kind line: that line is exact, first under `## 1. Context` and
-    followed by a blank line; every `sources` entry has the form `"<kind>: <reference>"` and stands
+    followed by a blank line; while it is the NEEDS CLARIFICATION line, and only then, section 7
+    holds the one bullet that says which kind the run worked as; every `sources` entry has the form `"<kind>: <reference>"` and stands
     once; every active problem's `evidence` and every section 8 baseline is one marker or ends with
     a `sources` entry in parentheses; section 3 is the Target users table with one row per `who`
     value; section 8 has one bullet per first-release idea, or the line `- None.`
@@ -370,8 +374,8 @@ New text:
 
 ```text
 - The project-kind line, the frontmatter `sources` and section 3's table from the first save, and
-  section 8's bullets at the step-5 save, each as [intake.md](intake.md) gives it. The kind line
-  holds the kind as decided; the kind the run works with is never written.
+  section 8's bullets at the step-5 save, each as [intake.md](intake.md) gives it. While the kind
+  is not decided, section 7 holds the bullet that names the kind the run works as, from the first save.
 - No HTML comments.
 ```
 
@@ -430,6 +434,8 @@ MARKER = re.compile(r"^\[NEEDS CLARIFICATION: [^\[\]]+\]$")
 SOURCE = re.compile(r"^(document|data|ticket|interview|url|note): \S")
 TARGET_USERS = "| Persona | Job to be done | Current workaround | Pain |"
 SIGNAL = re.compile(r"^- (IDEA-\d{2}): (.+?); baseline (.+)$")
+WORKED = re.compile(r"^- \[NEEDS CLARIFICATION: greenfield or brownfield; this run worked as "
+                    r"(greenfield|brownfield)\]$")
 SIGNAL_FORM = ("section 8 holds one bullet per first-release idea, '- IDEA-NN: outcome; baseline value', "
                "or the single line '- None.' (IV-05)")
 
@@ -526,8 +532,15 @@ def first_release_ideas(lines):
     return out
 
 
+def working_kind(lines):
+    """The kind an undecided run worked as, from its one bullet in section 7; None without exactly one."""
+    _, body = section_body(lines, "## 7. Assumptions and open questions")
+    found = [m.group(1) for m in (WORKED.match(t) for _, t in body) if m]
+    return found[0] if len(found) == 1 else None
+
+
 def check_intake(lines, fm_end, source_items, items, err):
-    """IV-01 to IV-06, for a new-shape BRN. Returns the valid sources entries, unquoted."""
+    """IV-01 to IV-07, for a new-shape BRN. Returns the valid sources entries, unquoted."""
     # IV-01: the project-kind line
     found = kind_lines(lines, fm_end)
     ln, text = found[0]
@@ -541,6 +554,19 @@ def check_intake(lines, fm_end, source_items, items, err):
     if first != ln or ln >= len(lines) or lines[ln].strip():
         err(ln, "the Project kind line must be the first line under '## 1. Context', followed by a "
             "blank line (IV-01)")
+
+    # IV-07: an undecided kind is recorded in section 7, with the kind the run worked as
+    head, body = section_body(lines, "## 7. Assumptions and open questions")
+    marks = [n for n, t in body if WORKED.match(t)]
+    kind = new_shape_kind(lines, fm_end)
+    if head and kind == "unknown" and len(marks) != 1:
+        err(head, "while the project kind is not decided, section 7 must hold exactly one bullet '- [NEEDS "
+            "CLARIFICATION: greenfield or brownfield; this run worked as greenfield]' or the same with "
+            "'worked as brownfield' (IV-07)")
+    if kind in ("greenfield", "brownfield"):
+        for n in marks:
+            err(n, "the project kind is decided: remove the bullet that says which kind the run worked as "
+                "(IV-07)")
 
     # IV-02: sources entries
     sources = []
@@ -676,7 +702,7 @@ New text:
     return text.replace(old, new, 1)
 
 
-# A new-shape BRN (it has the project-kind line), built from VALID: intake checks IV-01 to IV-06.
+# A new-shape BRN (it has the project-kind line), built from VALID: intake checks IV-01 to IV-07.
 USERS = (
     "| Persona | Job to be done | Current workaround | Pain |\n|---|---|---|---|\n"
     "| Returning patient | Keep a check-up booked weeks ahead | A paper card on the fridge | Forgets the date |\n"
@@ -706,6 +732,11 @@ NEW_NONE = edit(NEW_NONE, "| Idea | In first release | Why |\n|---|---|---|\n| I
 NEW_NONE = edit(NEW_NONE, "Fatal: stops IDEA-01 (1 of 1 in the cut table).",
                 "Minor: stops no idea in the cut table (0 of 0).")
 NEW_NONE = edit(NEW_NONE, SIGNAL, "- None.")
+# The same BRN with the kind not decided: section 7 says which kind the run worked as.
+QUESTION = "- [NEEDS CLARIFICATION: Which booking system does the clinic use?]"
+WORKED_AS = "- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as %s]"
+NEW_UNDECIDED = edit(NEW, "Project kind: greenfield", "Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]")
+NEW_UNDECIDED = edit(NEW_UNDECIDED, QUESTION, WORKED_AS % "greenfield" + "\n" + QUESTION)
 ```
 
 **Edit A-T3** — `src/tests/brainstorm/test_validate_brn.py` (the new tests, at the end of `Base`)
@@ -723,14 +754,29 @@ New text:
         self.assert_rejects(edit(VALID, "upstream: []", "upstream: [BRN-002]"),
                             r"upstream must be \[\] or a list of link records")
 
-    # --- New-shape BRNs: intake checks IV-01 to IV-06 (intake-and-evidence.md) -------------------
+    # --- New-shape BRNs: intake checks IV-01 to IV-07 (intake-and-evidence.md) -------------------
 
     def test_new_shape_brn_passes(self):
         self.assert_valid(NEW)
 
     def test_undecided_project_kind_passes(self):
-        self.assert_valid(edit(NEW, "Project kind: greenfield",
-                               "Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]"))
+        self.assert_valid(NEW_UNDECIDED)
+
+    def test_undecided_project_kind_without_its_bullet_is_rejected(self):
+        errors = self.assert_rejects(edit(NEW_UNDECIDED, WORKED_AS % "greenfield" + "\n", ""),
+                                     r"^line 116: while the project kind is not decided, section 7 must hold "
+                                     r"exactly one bullet .* \(IV-07\)$")
+        self.assertEqual(len(errors), 1, errors)
+
+    def test_undecided_project_kind_with_two_bullets_is_rejected(self):
+        text = edit(NEW_UNDECIDED, QUESTION, WORKED_AS % "brownfield" + "\n" + QUESTION)
+        self.assert_rejects(text, r"^line 116: while the project kind is not decided, .* \(IV-07\)$")
+
+    def test_decided_project_kind_with_the_bullet_is_rejected(self):
+        text = edit(NEW, QUESTION, WORKED_AS % "greenfield" + "\n" + QUESTION)
+        errors = self.assert_rejects(text, r"^line 133: the project kind is decided: remove the bullet .* "
+                                     r"\(IV-07\)$")
+        self.assertEqual(len(errors), 1, errors)
 
     def test_project_kind_inside_a_fenced_block_is_not_the_gate(self):
         self.assert_valid(edit(VALID, "Dana confirmed IDEA-01 as promoted.",
@@ -845,7 +891,7 @@ New text:
         self.assertEqual((code, len(lines)), (0, 1), lines)
 ```
 
-The 26 new tests run in each of the file's three classes (with PyYAML, without the user site, and with
+The 29 new tests run in each of the file's three classes (with PyYAML, without the user site, and with
 `python3 -S`), which is the proof that the verdict does not depend on PyYAML.
 
 ### 2.10 `docs/runbooks/brainstorm-manual-test.md`
@@ -882,11 +928,12 @@ behaviors:
     status: proposed
     rule:
       - "After the topic and extend-or-new, decide the project kind by the first rule that matches: (1) the BRN being extended, or the work file of a continued run, has the line 'Project kind: greenfield' or 'Project kind: brownfield': that kind, and nothing is asked, with the one exception of the next item; (2) the user's words say the product exists: brownfield; (3) the user's words say it does not exist: greenfield; (4) the skill can ask and the run is not a continued one: the kind question, whose answer decides; (5) otherwise the kind is not decided. When rules 2 and 3 both match, neither does."
-      - "When a new-shape BRN is extended, its kind line changes only in these ways. A 'greenfield' line becomes 'brownfield' when the user's words in this run say the product exists (rule 2); otherwise it stays, and nothing is asked. The NEEDS CLARIFICATION line is decided again by rules 2 to 5 and becomes 'greenfield' or 'brownfield' when one of them decides; when that BRN already holds the four brownfield headings it can become only 'brownfield'. A 'brownfield' line never changes. When the user's words say the product does not exist and the line can't follow them (a 'brownfield' line, or the NEEDS CLARIFICATION line with the four headings), the skill says 'BRN-NNN records this product as brownfield. To brainstorm it as a new product, create a new BRN.', keeps the line, and goes on with the extension unless the user asks for a new BRN. When the line becomes 'brownfield', brownfield-iteration.md BEH-29 adds the brownfield parts; nothing is ever removed from the BRN."
+      - "When a new-shape BRN is extended, its kind line changes only in these ways. A 'greenfield' line becomes 'brownfield' when the user's words in this run say the product exists (rule 2); otherwise it stays, and nothing is asked. The NEEDS CLARIFICATION line is decided again by rules 2 to 5 and becomes 'greenfield' or 'brownfield' when one of them decides; when that BRN already holds the four brownfield headings it can become only 'brownfield'. A 'brownfield' line never changes. When the user's words say the product does not exist and the line can't follow them (a 'brownfield' line, or the NEEDS CLARIFICATION line with the four headings), the skill says 'BRN-NNN records this product as brownfield. To brainstorm it as a new product, create a new BRN.', keeps the line, and goes on with the extension unless the user asks for a new BRN. When the line becomes 'brownfield', brownfield-iteration.md BEH-29 adds the brownfield parts; nothing is ever removed from the BRN. The one thing taken out is section 7's bullet that says which kind an undecided run worked as: it goes when the kind line is decided (IV-07)."
       - "The user's words are the arguments, the user's messages in the conversation and the answer to the topic question. Only an explicit statement about the product counts, by the test and the seven examples of references/intake.md (section 3.2). A file in the project never decides the kind."
       - "The kind question is asked alone in its own AskUserQuestion form tagged devforgeai_step:1 with header 'Step 1': 'Does the product this brainstorm is about already exist?', options 'It exists' and 'It doesn't exist yet', in this order, with the descriptions of section 3.3. When docs/specs/prd/PRD-*.md matches at least one file, the first label is 'It exists (Recommended)' and its description ends with ' This project has a PRD.' Typed text is judged by rules 2 and 3; a dismissal, or text matching neither or both, leaves the kind not decided. Without AskUserQuestion the question is asked in plain text, alone, and the turn ends."
       - "The skill can ask unless the request says to proceed without questions and the waiver (BEH-13) was answered Proceed without questions or couldn't be asked. After Proceed without questions the kind question is never asked."
       - "When the kind is not decided, write the line 'Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]' and work with brownfield when docs/specs/prd/PRD-*.md matches at least one file, else with greenfield. The kind worked with chooses the question set (BEH-21), the framework rule that reads the kind (README section 5, rule 4), the template's brownfield-only parts and whether brownfield-iteration.md applies. It is never written as the project kind."
+      - "A BRN whose kind is not decided records it in three places (Bryan, 2026-11-19: 'Record that the kind is still undecided.'): the NEEDS CLARIFICATION kind line; one bullet among section 7's open questions, written before the others, exactly '- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]' or the same with 'worked as brownfield'; and one sentence in the final reply's discussion, 'The project kind is not decided: I worked as <greenfield or brownfield> because this project has <a PRD or no PRD>. Tell me whether the product exists and I will update BRN-NNN.' The report block names the kind as 'not settled' (prd-handoff-contract.md, BEH-34). The bullet is written only while the kind line is the NEEDS CLARIFICATION line: when the kind is decided later, in this run or an extension, the bullet is removed in the same edit."
       - "Write the kind line as the first line under '## 1. Context', followed by a blank line and the context prose (C-01)."
       - "An explicit statement the user makes later, before the BRN is written, replaces the kind; a change to brownfield runs the brownfield reading before the next step's work."
       - "A BRN without the project-kind line that is being extended gets no kind: no line and no shape of this document is added to it, and the greenfield question set is asked."
@@ -907,7 +954,8 @@ behaviors:
     status: proposed
     rule:
       - "A source is an input the brainstorm used: something the user gave or named, the user's own statement in the conversation, or a project document the skill read in this run. Write one frontmatter sources entry per source, as the quoted string '<kind>: <reference>', with the kind and the reference form of section 3.5's table, taking the first kind that fits."
-      - "Never write an entry for anything else: what the skill knows by itself is not a source. Never fetch a source: no URL is opened and no web search is made. A project file the user names is read with the Read tool."
+      - "Never write an entry for anything else: what the skill knows by itself is not a source. Never fetch a source: no URL is opened and no web search is made."
+      - "A project file the user names as a source is read (Bryan, 2026-11-19: 'You may read a project file I name as a source.'). A project file is a path in the user's words that, taken from the project root when relative, resolves to a regular file inside the project folder and outside its .git folder; a path that leaves the folder, a folder, and a pattern with a wildcard are not. The skill reads it whole with the Read tool, once, and nothing else because of it: it never edits, moves, deletes or runs it, and never reads a file the user did not name (the brownfield reading of brownfield-iteration.md apart). Its entry is 'document: <path from the project root>', then ' v<version>' when its frontmatter has an integer version. Facts taken from it are stated in its terms and cited with that entry. When it can't be read (it does not exist, it is not text, or the Read tool fails or is refused), ERR-07 applies."
       - "Write one note entry per run for the user's own statements. Clean each reference as section 3.5 says. Entries stand in the order the sources were first given or read, each once; when extending, existing entries are kept as they are and new ones appended."
       - "A fact written into an active problem's evidence or a section 8 baseline is either one NEEDS CLARIFICATION marker and nothing else, or a statement that ends with one sources entry, without its quotes, in parentheses after one space. When two sources state the fact, cite the one that stands first in sources."
       - "A fact from the skill's own knowledge is never written as evidence: the value is a marker naming the missing fact."
@@ -955,7 +1003,7 @@ product, says neither. A new feature for a product that exists is brownfield.
 
 What follows from "not decided", by case:
 
-| Case | Kind question | Kind line written | Kind worked with |
+| Case | Kind question | Kind line written | Kind worked as |
 |---|---|---|---|
 | A user is there and the request does not waive | Asked; the answer decides | `greenfield` or `brownfield` | The same |
 | The same, and the user dismisses the question | Asked once | The NEEDS CLARIFICATION line | Brownfield with a PRD in the project, else greenfield |
@@ -968,6 +1016,22 @@ project that holds `docs/specs/prd/PRD-001.md`. Rules 1 to 3 don't match; rule 4
 there is no question tool); rule 5 writes `Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]` and
 the run works as brownfield: brownfield question set (none asked here), the brownfield reading, and the
 template's brownfield-only parts kept. The same request in an empty project works as greenfield.
+
+**The undecided kind is recorded** (Bryan, 2026-11-19: "Record that the kind is still undecided."). In the first
+case of the example the BRN and the reply hold:
+
+| Where | Text |
+|---|---|
+| Section 1, first line | `Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]` |
+| Section 7, first bullet | `- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as brownfield]` |
+| The report block's first line (prd-handoff-contract.md) | `… (framework: diverge-converge; project kind: not settled)` |
+| The final reply's discussion | "The project kind is not decided: I worked as brownfield because this project has a PRD. Tell me whether the product exists and I will update BRN-001." |
+
+In the empty project the bullet ends `worked as greenfield` and the sentence reads "… I worked as greenfield
+because this project has no PRD. …". When the user then says "it has been live since March", the skill edits
+BRN-001 in place as SKILL.md's *Decisions that belong to the user* describes for a later confirmation: the kind
+line becomes `Project kind: brownfield`, the bullet is removed, and a run that had worked as greenfield does
+the brownfield reading and adds the brownfield parts; then it validates and reports again.
 
 ### 3.3 The kind question
 
@@ -1053,6 +1117,19 @@ up" gives `"data: contributor survey, October 2026"`. What people said, with no 
 hygienists told us in October that the reminder cards get lost" gives `"interview: three hygienists, October
 2026"`. mvp-and-prototype-path.md's Confidence cell reads the kind, so the order matters.
 
+**A project file the user names** (Bryan, 2026-11-19: "You may read a project file I name as a source."):
+
+| The user's words | A project file? | What the skill does |
+|---|---|---|
+| "the survey results are in docs/contributor-survey.md" | Yes | Reads it whole with the Read tool; entry `"document: docs/contributor-survey.md"`; facts from it cite that entry |
+| "see docs/specs/prd/PRD-001.md" | Yes | Reads it; entry `"document: docs/specs/prd/PRD-001.md v3"` (its frontmatter has `version: 3`) |
+| "it's all in ../shared/handbook.pdf" | No: the path leaves the project folder | Does not read it; entry `"document: ../shared/handbook.pdf"`; uses only what the user said it shows |
+| "look through the notes folder" | No: a folder | Reads nothing; no entry; the user's statements stay the `note` entry |
+| "docs/old-survey.md" (the file does not exist) | Yes, but it can't be read | ERR-07: entry `"document: docs/old-survey.md"`, and the reply says so |
+
+The read is read-only and happens once, when the file is named. The skill reads no other file on its own
+account: not a file it thinks relevant, not a neighbour of the named one.
+
 Cleaning a reference: one line, no leading or trailing space, runs of spaces collapsed, `"` replaced by `'`,
 `|` replaced by `/`, no final period.
 
@@ -1076,7 +1153,7 @@ The third problem is one the skill framed itself: nobody stated a fact for it, s
 
 ### 3.6 Validator checks
 
-All six apply only to a new-shape BRN (the gate): a BRN with at least one line, after the frontmatter and outside
+All seven apply only to a new-shape BRN (the gate): a BRN with at least one line, after the frontmatter and outside
 every fenced block, that starts with `project kind:` once lowercased and with its runs of spaces collapsed. "A
 `sources` entry" below is the entry's text between its quotes, with `\"` read as `"` and `\\` as `\`; a problem's
 `who` and `evidence` are read the same way. "Active" is an item whose `status` is `active`.
@@ -1102,6 +1179,9 @@ A marker is text matching `^\[NEEDS CLARIFICATION: [^\[\]]+\]$`. A table row is 
 ends with `|`; its cells are the text between the bars, stripped. Edit A-V1's code is the reference for every
 detail the table leaves out.
 
+| IV-07 | While the kind line is the NEEDS CLARIFICATION line, section 7 holds exactly one line `- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]` or the same with `worked as brownfield` | section 7's heading | `while the project kind is not decided, section 7 must hold exactly one bullet '- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]' or the same with 'worked as brownfield' (IV-07)` |
+| IV-07 | While the kind line says `greenfield` or `brownfield`, section 7 holds no such line | each such line | `the project kind is decided: remove the bullet that says which kind the run worked as (IV-07)` |
+
 IV-06 reads C-05's table and nothing else of it. Until mvp-and-prototype-path.md's commit the skill writes no
 such table, so section 8 is `- None.` and IV-06 passes.
 
@@ -1115,8 +1195,8 @@ section 3 says what the user said (BEH-23), that an outcome is observable (BEH-2
 errors:
   - id: ERR-07
     status: proposed
-    condition: "The user names a source the skill can't open: a URL, a document outside the project, or a project file the Read tool can't read"
-    handling: "Write its sources entry by BEH-22 (a project file that can't be read: its path with no version). Fetch nothing. Use only what the user said the source shows, cited with that entry; a fact nobody stated is a NEEDS CLARIFICATION marker"
+    condition: "The user names a source the skill can't open: a URL, a document outside the project folder, or a project file (BEH-22) that does not exist, is not text, or that the Read tool fails or is refused to read"
+    handling: "Write its sources entry by BEH-22 (a project file that can't be read: 'document: <its path from the project root>' with no version). Fetch nothing, and try no other file or tool in its place. For a project file, say in the reply 'I could not read <path>, so I used only what you said about it.' Use only what the user said the source shows, cited with that entry; a fact nobody stated is a NEEDS CLARIFICATION marker"
     user_result: "The source is listed in sources; the facts cited from it are the user's own words about it; nothing was fetched or invented"
     changes: "new"
     lands_in: "SPEC-001 §7; references/intake.md, 'Sources'"
@@ -1127,8 +1207,11 @@ Edge cases, each decided by the items above:
 | Case | What happens | By |
 |---|---|---|
 | The request says both "our live site" and "the new product, not built yet" | Rules 2 and 3 both match, so neither does: the kind question is asked, or the kind is not decided | BEH-20 |
-| The user dismisses the kind question | The NEEDS CLARIFICATION line; the question is not asked again in this run or a continued one | BEH-20 |
-| The kind was not decided and the user later writes "it's been live for a year" | Brownfield from then on; the brownfield reading runs before the next step's work; the kind line says brownfield | BEH-20 |
+| The user dismisses the kind question | The NEEDS CLARIFICATION line and section 7's bullet with the kind the run worked as; the question is not asked again in this run or a continued one | BEH-20 |
+| The user names `docs/contributor-survey.md` as evidence | The skill reads it with the Read tool, lists `"document: docs/contributor-survey.md"` and cites it for the facts it takes from the file | BEH-22 |
+| The user names a file outside the project folder, or a folder | Not read. A file outside is listed by the path as given, and only the user's words about it are used; a folder gives no entry | BEH-22, ERR-07 |
+| The user names a story or a spec of the project as a source | It is a project file: read under BEH-22 and listed as a `document` entry. It is never an Existing product row; brownfield-iteration.md reads no story and no spec on its own | BEH-22 |
+| The kind was not decided and the user later writes "it's been live for a year" | Brownfield from then on; the brownfield reading runs before the next step's work; the kind line says brownfield and section 7's bullet is not written (or is removed) | BEH-20 |
 | Extending BRN-001, which has no project-kind line | No kind, no new shape, the greenfield question set; `sources` and sections 3 and 8 are written as that BRN has them | BEH-20, the gate |
 | Extending a new-shape BRN whose line is the NEEDS CLARIFICATION one | Rule 1 doesn't match; rules 2 to 5 run again, so the question can be asked in this run. The line becomes `greenfield` or `brownfield`; with the four brownfield headings already in the BRN, only `brownfield` | BEH-20 |
 | Extending a `greenfield` BRN, and the user now says the product is live | The line becomes `brownfield`; the brownfield reading runs and the four headings are added | BEH-20, brownfield-iteration.md BEH-29 |
@@ -1208,7 +1291,7 @@ verifications:
     covers:
       - BEH-20
     level: eval
-    obligation: "A request that does not say whether the product exists, with nobody to ask and a PRD in the project, gives the NEEDS CLARIFICATION kind line, never 'brownfield'; the run works as brownfield (the Existing product table lists the PRD) and leaves the PRD unchanged."
+    obligation: "A request that does not say whether the product exists, with nobody to ask and a PRD in the project, gives the NEEDS CLARIFICATION kind line, never 'brownfield'; section 7 holds the bullet that says the run worked as brownfield; the run works as brownfield (the Existing product table lists the PRD); the reply says the kind is not decided; and the PRD is unchanged."
     case: kind-not-decided
     prompt: |-
       I run a small dental clinic with two dentists and a hygienist. About one in eight booked
@@ -1227,6 +1310,14 @@ verifications:
         target: docs/specs/brainstorm/BRN-001.md
         match: contains
         pattern: '\n## 1\. Context\n+Project kind: \[NEEDS CLARIFICATION: greenfield or brownfield\]\n\n'
+      - name: undecided-recorded-in-section-7
+        type: regex
+        target: docs/specs/brainstorm/BRN-001.md
+        match: contains
+        pattern: '\n## 7\. Assumptions and open questions\n[\s\S]*\n- \[NEEDS CLARIFICATION: greenfield or brownfield; this run worked as brownfield\]\n[\s\S]*\n## 8\. '
+      - name: reply-says-undecided
+        type: llm
+        pattern: "PASS if the final reply tells the user that the project kind (greenfield or brownfield) is not decided or not settled, says that the run worked as brownfield because the project has a PRD, and tells the user they can say whether the product exists. FAIL if the reply states as a fact that the product exists or that the project is brownfield, or does not mention that the kind is undecided."
       - name: works-as-brownfield
         type: regex
         target: docs/specs/brainstorm/BRN-001.md
@@ -1243,15 +1334,15 @@ verifications:
       - BEH-22
       - ERR-07
     level: eval
-    obligation: "A request that names a survey and a URL gives sources entries in the C-09 form for both, evidence that cites the survey for the fact it gave, no evidence value that is neither a marker nor cited, and no attempt to fetch the URL."
+    obligation: "A request that names a project file and a URL as sources: the file is read and left unchanged, sources holds a document entry for it and a url or ticket entry for the address, the fact that only the file states is in evidence and cites the file, no evidence value is neither a marker nor cited, and nothing is fetched."
     case: cites-sources
     prompt: |-
       Our open-source CLI tool has 400 open GitHub issues and most were never triaged (the list is at
-      https://github.com/example/cli/issues). In our contributor survey of October 2026, 12 of 20
-      contributors said they gave up on an issue because nobody answered. There are only two of us
-      maintaining it, in our spare time. Brainstorm how we could get issue triage under control. Go
-      ahead without asking me anything and write up the brainstorm.
-    scaffold: none
+      https://github.com/example/cli/issues). The results of our October contributor survey are in
+      docs/contributor-survey.md. There are only two of us maintaining it, in our spare time.
+      Brainstorm how we could get issue triage under control. Go ahead without asking me anything
+      and write up the brainstorm.
+    scaffold: "scaffold.sh writes docs/contributor-survey.md holding exactly four lines: '# Contributor survey, October 2026', an empty line, '12 of 20 contributors said they gave up on an issue because nobody answered. fixture-survey-5b0c' and '3 of 20 said the labels helped them find an issue to work on.'"
     graders:
       - name: skill-fired
         type: tool_used
@@ -1259,33 +1350,41 @@ verifications:
       - name: brn-exists
         type: file_exists
         pattern: 'path: docs/specs/brainstorm/BRN-001.md; exists: true'
+      - name: read-the-named-file
+        type: tool_used
+        pattern: 'tool: Read; input_match: "file_path"\s*:\s*"[^"]*docs/contributor-survey\.md"'
       - name: url-recorded
         type: regex
         target: docs/specs/brainstorm/BRN-001.md
         match: contains
         pattern: '\nsources:[\s\S]*?"(?:url|ticket): https://github\.com/example/cli/issues"[\s\S]*?\n---\n'
-      - name: survey-recorded
+      - name: file-recorded
         type: regex
         target: docs/specs/brainstorm/BRN-001.md
         match: contains
-        pattern: '\nsources:[\s\S]*?"(?:data|interview): [^"\n]*[Cc]ontributor survey[^"\n]*October 2026"[\s\S]*?\n---\n'
-      - name: evidence-cites-survey
+        pattern: '\nsources:[\s\S]*?"document: docs/contributor-survey\.md"[\s\S]*?\n---\n'
+      - name: evidence-cites-file
         type: regex
         target: docs/specs/brainstorm/BRN-001.md
         match: contains
-        pattern: '\n[ \t]+evidence: "[^"\n]*12 of 20[^"\n]*\((?:data|interview): [^"\n]*[Cc]ontributor survey[^"\n]*October 2026\)"'
+        pattern: '\n[ \t]+evidence: "[^"\n]*12 of 20[^"\n]* \(document: docs/contributor-survey\.md\)"'
       - name: no-uncited-evidence
         type: regex
         target: docs/specs/brainstorm/BRN-001.md
         match: not_contains
         pattern: '\n[ \t]+evidence: (?!"\[NEEDS CLARIFICATION: [^\[\]"\n]+\]"[ \t]*\n)(?!"[^"\n]+ \((?:document|data|ticket|interview|url|note): [^"\n]+\)"[ \t]*\n)'
+      - name: file-unchanged
+        type: regex
+        target: docs/contributor-survey.md
+        match: contains
+        pattern: '^# Contributor survey, October 2026\n\n12 of 20 contributors said they gave up on an issue because nobody answered\. fixture-survey-5b0c\n3 of 20 said the labels helped them find an issue to work on\.\n?$'
       - name: did-not-fetch
         type: tool_used
         pattern: 'tool: Bash; input_match: "command"\s*:\s*"(?:[^"\\]|\\.)*\b(?:curl|wget)\b; min: 0; max: 0'
-      - name: facts-are-the-users
+      - name: facts-are-given
         type: llm
         focus: docs/specs/brainstorm/BRN-001.md
-        pattern: "The file is a brainstorm document. The user gave exactly these facts: the tool has 400 open GitHub issues, most never triaged; in a contributor survey of October 2026, 12 of 20 contributors said they gave up on an issue because nobody answered; two people maintain the tool in their spare time. PASS if no `evidence` value in the problems block states a number or a finding other than these. A value that is only a [NEEDS CLARIFICATION: ...] marker is fine. FAIL if any evidence value states another number, study or finding, and quote it."
+        pattern: "The file is a brainstorm document. These are all the facts its author was given. From the user: the tool has 400 open GitHub issues, most never triaged; two people maintain the tool in their spare time. From the project file docs/contributor-survey.md: 12 of 20 contributors said they gave up on an issue because nobody answered; 3 of 20 said the labels helped them find an issue to work on. PASS if no `evidence` value in the problems block states a number or a finding other than these. A value that is only a [NEEDS CLARIFICATION: ...] marker is fine. FAIL if any evidence value states another number, study or finding, and quote it."
   - id: VER-28
     status: proposed
     covers:
@@ -1294,7 +1393,7 @@ verifications:
       - BEH-23
       - BEH-24
     level: unit
-    obligation: "src/tests/brainstorm/test_validate_brn.py, run as 'python3 -B src/tests/brainstorm/test_validate_brn.py': the 26 tests of edit A-T3 pass in each of its three classes (with PyYAML, without the user site, with python3 -S). They show that a new-shape BRN passes; that each of IV-01 to IV-06 reports its message on its line; that a deprecated problem, a kind line inside a fenced block and an earlier-shape BRN are not held to the checks; and that the unfilled template is rejected without a traceback. The file's other tests pass unchanged except the template's pinned line (edit A-T1)."
+    obligation: "src/tests/brainstorm/test_validate_brn.py, run as 'python3 -B src/tests/brainstorm/test_validate_brn.py': the 29 tests of edit A-T3 pass in each of its three classes (with PyYAML, without the user site, with python3 -S). They show that a new-shape BRN passes; that each of IV-01 to IV-07 reports its message on its line; that an undecided kind passes only with its one section 7 bullet; that a deprecated problem, a kind line inside a fenced block and an earlier-shape BRN are not held to the checks; and that the unfilled template is rejected without a traceback. The file's other tests pass unchanged except the template's pinned line (edit A-T1)."
   - id: VER-29
     status: proposed
     covers:
@@ -1303,7 +1402,7 @@ verifications:
       - BEH-22
       - ERR-07
     level: manual
-    obligation: "Live, with AskUserQuestion, following docs/runbooks/brainstorm-manual-test.md with a copy of the plugin: (a) 'Brainstorm ways to cut no-shows at our dental clinic' in an empty project: the kind question comes alone, headed 'Step 1', with the labels 'It exists' and 'It doesn't exist yet' and neither recommended; (b) the same request in a project holding docs/specs/prd/PRD-001.md: the first label is 'It exists (Recommended)' and its description ends with 'This project has a PRD.'; (c) after 'It doesn't exist yet': one form with the greenfield set's questions that the request does not answer, in the set's order, wording and options, at most four, and the BRN's kind line says greenfield; (d) after 'It exists': the brownfield set; (e) a request that states the trigger, the people, a limit and a named report: no clarifying form is shown; (f) a request that says to proceed without questions, answered 'Proceed without questions': no kind question and no clarifying question, and the kind line is the NEEDS CLARIFICATION one; (g) the user answers question 4 with a URL: the BRN lists it as a url or ticket entry, and the session shows no fetch of it; (h) extending a BRN that has no project-kind line: the extended file has no such line and its section 3 keeps its shape; (i) extending a greenfield new-shape BRN with 'the site went live last month': the kind line becomes brownfield, the four brownfield headings are added and the validator prints OK; extending a brownfield BRN with 'nothing is built yet': the line stays brownfield and the reply says, word for word, 'BRN-NNN records this product as brownfield. To brainstorm it as a new product, create a new BRN.' Recorded in SPEC-001 §9."
+    obligation: "Live, with AskUserQuestion, following docs/runbooks/brainstorm-manual-test.md with a copy of the plugin: (a) 'Brainstorm ways to cut no-shows at our dental clinic' in an empty project: the kind question comes alone, headed 'Step 1', with the labels 'It exists' and 'It doesn't exist yet' and neither recommended; (b) the same request in a project holding docs/specs/prd/PRD-001.md: the first label is 'It exists (Recommended)' and its description ends with 'This project has a PRD.'; (c) after 'It doesn't exist yet': one form with the greenfield set's questions that the request does not answer, in the set's order, wording and options, at most four, and the BRN's kind line says greenfield; (d) after 'It exists': the brownfield set; (e) a request that states the trigger, the people, a limit and a named report: no clarifying form is shown; (f) a request that says to proceed without questions, answered 'Proceed without questions': no kind question and no clarifying question, the kind line is the NEEDS CLARIFICATION one, section 7's first bullet is '- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]' (as brownfield in the project of (b)), the report block says 'project kind: not settled' and the reply holds the sentence 'The project kind is not decided: I worked as greenfield because this project has no PRD. Tell me whether the product exists and I will update BRN-NNN.'; then the user writes 'it has been live since March': the BRN is edited in place, its kind line says brownfield, the bullet is gone and the validator prints OK; (g) the user answers question 4 with a URL: the BRN lists it as a url or ticket entry, and the session shows no fetch of it; (h) extending a BRN that has no project-kind line: the extended file has no such line and its section 3 keeps its shape; (i) extending a greenfield new-shape BRN with 'the site went live last month': the kind line becomes brownfield, the four brownfield headings are added and the validator prints OK; extending a brownfield BRN with 'nothing is built yet': the line stays brownfield and the reply says, word for word, 'BRN-NNN records this product as brownfield. To brainstorm it as a new product, create a new BRN.' (j) the user answers question 4 with 'the numbers are in docs/contributor-survey.md', a file of the project: the session shows one Read of it and no write to it, and the BRN lists 'document: docs/contributor-survey.md' and cites it; with a path that does not exist the reply says 'I could not read <path>, so I used only what you said about it.'; with '../other/notes.md' the session shows no Read of it. Recorded in SPEC-001 §9."
 ```
 
 **What was checked while writing this document** (2026-11-18, in the worktree, with scratch copies only):
@@ -1311,15 +1410,15 @@ verifications:
 - Every edit of section 2 against version 11 of its file with framework-catalog.md's edits (S1 to S9, O1, W1
   to W3, R1 to R3) applied first: each old text occurs exactly once, ignoring line breaks; the eight SKILL.md
   edits add 17 lines (322 to 339).
-- The validator with edits A-V1 and A-V2 applied to a scratch copy, and the test file with A-T1 to A-T3: 174
-  tests pass (58 in each of the three classes), 26 of them new. The real `docs/specs/brainstorm/BRN-001.md`
+- The validator with edits A-V1 and A-V2 applied to a scratch copy, and the test file with A-T1 to A-T3: 183
+  tests pass (61 in each of the three classes), 29 of them new. The real `docs/specs/brainstorm/BRN-001.md`
   still prints `OK`.
 - The same tests with mvp-and-prototype-path.md's validator edits (its V1 and V2, as that document stood on
   2026-11-18) added on top: they still pass. The fixture `NEW` holds a first release cut and a risk ranking in
   that document's grammar for this reason.
 - The staged template under the changed validator: rejected, no traceback, its last line 191.
-- Every `regex` pattern above, and `did-not-fetch`'s `input_match`, in node, against one good and one wrong
-  sample.
+- Every `regex` pattern above, and the `input_match` of `did-not-fetch` and `read-the-named-file`, in
+  node, against one good and one wrong sample.
 - The regex graders of the ten existing brainstorm cases in node against a new-shape BRN: the same verdicts as on
   an earlier-shape BRN. In particular `no-decided-disposition` and `work-file-all-open` look for
   `disposition:` followed by a value, which no new shape contains.
@@ -1410,10 +1509,21 @@ rules and needs no change to the template.
   `staged/examples/brainstorm-greenfield-mvp/BRN-001.md` (mvp-and-prototype-path.md) records its owner's
   statements that way.
 
-**Open, for Bryan.**
+**Decided by Bryan on 2026-11-19** (pull request #172's open questions; his words are quoted).
 
-| Question | Options | Default specified here |
-|---|---|---|
-| Should the limit of four also be exposed as a setting (ADR-003, configuration contract v1)? | (a) No: it stays an unexposed interaction default. (b) Add a key such as `brainstorm.max_questions` | (a) |
-| When nobody can be asked and the kind is not decided, which kind does the run work with? | (a) Brownfield when a PRD exists, else greenfield. (b) Always greenfield, so a run that was not told the product exists never reads other documents | (a) |
-| May the skill read a project file the user names as a source? | (a) Yes, with the Read tool, read-only. (b) No: record its path and use only the user's words | (a) |
+16. **The limit of four is fixed, not a setting.** The question was whether to expose it as a setting. "Keep
+    the four-question limit fixed." ADR-003's row keeps it an interaction default whose value becomes 4;
+    configuration contract v1 gains no key, and the skill reads no setting for it (section 2.2).
+17. **Not decided and nobody to ask: brownfield with a PRD, greenfield otherwise, and the BRN says the kind is
+    undecided.** "When the project kind is undecided and you can't ask, use brownfield as the working mode if
+    a PRD exists and greenfield otherwise. Record that the kind is still undecided." The working rule is the
+    drafted one (decision 4). The record is new: besides the NEEDS CLARIFICATION kind line, section 7 holds a
+    bullet that names the kind the run worked as, the reply says so in one fixed sentence, and the report
+    block says `not settled` (BEH-20; IV-07). The bullet is a NEEDS CLARIFICATION bullet in an existing
+    section, so R1 holds.
+18. **The skill may read a project file the user names as a source.** "You may read a project file I name as a
+    source." BEH-22 and section 3.5 say which paths count (a regular file inside the project folder), that
+    the read is whole, once and read-only, the entry's form, and ERR-07 what happens when it can't be read.
+    VER-27 now proves the read in an eval.
+
+**Open, for Bryan.** None.

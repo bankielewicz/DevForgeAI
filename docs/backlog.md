@@ -22,8 +22,8 @@ Work that was deferred, with where it came from. One row per item; nothing here 
 | DEF-008 | brainstorm: project kind, the intake question sets, sources and evidence, the Target users and success-signal shapes | `docs/specs/brainstorming/intake-and-evidence.md` | as DEF-007 | deferred |
 | DEF-009 | brainstorm: brownfield runs that read the project's documents and earlier BRNs and revisit assumptions | `docs/specs/brainstorming/brownfield-iteration.md` | as DEF-007 | deferred |
 | DEF-010 | brainstorm: assumption risk ranking and a first release cut the user confirms | `docs/specs/brainstorming/mvp-and-prototype-path.md` | as DEF-007 | deferred |
-| DEF-011 | prd: take the project kind, users, first release cut and signals from the richer BRN (needs a SPEC-002 version) | `docs/specs/brainstorming/prd-handoff-contract.md` | as DEF-007; its PRD side is built after DEF-007 to DEF-010, its one brainstorm item (BEH-34) with them | deferred |
-| DEF-012 | a brainstorm pane and hand-off screen: the look, the remaining states, then a decision whether to build | `docs/specs/brainstorming/design/README.md` | not decided | deferred |
+| DEF-011 | prd: take the project kind, users, first release cut and signals from the richer BRN (needs a SPEC-002 version) | `docs/specs/brainstorming/prd-handoff-contract.md` | as DEF-007; its PRD side is built after DEF-007 to DEF-010 under SPEC-002 v10 and before the PRD interview-at-scale build (Bryan, 2026-11-19), its one brainstorm item (BEH-34) with them | deferred |
+| DEF-012 | a brainstorm pane and hand-off screen: a design system for the look (the asset is named in the source), the five chosen boards regenerated with their remaining states, then a decision whether to build | `docs/specs/brainstorming/design/README.md` | not decided | deferred |
 
 DEF-001 to DEF-005 are meant for one version together (SPEC-015 v5, then SKL-012 v3): each alone is too small to
 pay for a plugin iteration, a gate and a version bump.

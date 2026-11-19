@@ -19,7 +19,7 @@ shapes (C-01 to C-11) and its words without repeating them.
 
 - The grammar of C-07, every cell: which assumptions are ranked, what `If wrong`, `Confidence` and `Cheapest test`
   hold, and the order of the rows.
-- The grammar of C-05, every cell: which ideas have a row, the rule that proposes `yes` or `no`, and the seven
+- The grammar of C-05, every cell: which ideas have a row, the rule that proposes `yes` or `no`, and the eight
   fixed sentences of the `Why` cell.
 - C-10's third question: its form, what each answer writes, the unconfirmed form, confirming later, extending.
 - The validator's checks for both shapes' own form and consistency.
@@ -387,6 +387,7 @@ test unchanged.
 MV_RANK_HEAD = ["Rank", "Assumption", "If wrong", "Confidence", "Cheapest test"]
 MV_CUT_HEAD = ["Idea", "In first release", "Why"]
 MV_NO_ROWS = "No idea is promoted or proposed for promotion."
+MV_FLAG = "Needs review: no rule supports this value."
 MV_PROTOTYPE = (
     "prototype", "prototypes", "mock-up", "mock-ups", "mockup", "mockups", "pilot", "pilots", "trial",
     "trials", "beta", "demo", "demos", "experiment", "experiments", "a/b", "landing page", "smoke test",
@@ -525,6 +526,7 @@ def check_mvp_path(lines, fm_end, fm, sources, items, err):
                     err(heads[0] + 1, f"first release cut: the promoted idea {iid} has no row (MV-09)")
                     cut_ok = False
     yes = [iid for iid in sorted(cut) if cut[iid][1] == "yes"]
+    flagged = [iid for iid in sorted(cut) if cut[iid][2] == MV_FLAG]
 
     # --- the assumption risk ranking (section 7): MV-01 to MV-07 -----------------------------------
     rank, rank_ok = {}, False  # assumption ID -> (rank, the ideas it stops)
@@ -614,14 +616,14 @@ def check_mvp_path(lines, fm_end, fm, sources, items, err):
                 ok = not mine
             if (why, value) in (("Included by the user.", "yes"), ("Left out by the user.", "no")):
                 ok = by_user = True
-            if not ok:
+            if not ok and why != MV_FLAG:
                 err(i + 1, f"first release cut: the Why cell of {iid} is not one of the fixed sentences for "
                     f"'{value}', or it does not match the ranking or the other rows (MV-10)")
         for a, v in sorted(top.items()):
-            if not by_user and v[1] and not set(v[1]) & set(yes):
+            if not by_user and not flagged and v[1] and not set(v[1]) & set(yes):
                 err(cut[v[1][0]][0] + 1, f"first release cut: no 'yes' row tests {a}, ranked {v[0]}; one of "
                     f"{', '.join(v[1])} must be in the first release (MV-11)")
-        if cut and not yes and not by_user:
+        if cut and not yes and not by_user and not flagged:
             err(status_at, "first release cut: a cut that the user did not change has a 'yes' row (MV-11)")
     if confirmed and cut_ok:
         owner = fm.get("owner", (0, '""'))[1][1:-1]
@@ -634,6 +636,9 @@ def check_mvp_path(lines, fm_end, fm, sources, items, err):
                 or not created <= confirmed[1] <= updated):
             err(status_at, "first release cut: a confirmed cut names the frontmatter owner (never a NEEDS "
                 "CLARIFICATION marker) and a real date from created to updated (MV-12)")
+        if flagged:
+            err(cut[flagged[0]][0] + 1, "first release cut: a confirmed cut holds no row that says "
+                f"'{MV_FLAG}'; flagged: {', '.join(flagged)} (MV-12)")
         loose = [iid for iid in sorted(cut) if field(ideas[iid], "disposition") != "promoted"]
         if loose or not cut:
             err(status_at, "first release cut: confirmed only when the table has a row and every row's idea "
@@ -708,13 +713,34 @@ below, two empty lines, then that line.
             ("\n\n## Change Log", "\n- IDEA-03: shorter waits at the stop; baseline "
              "[NEEDS CLARIFICATION: how long commuters wait today]\n\n## Change Log")))
 
-    def test_mvp_row_naming_an_idea_the_user_left_out_takes_the_user_sentence(self):
-        text = self.mvp(("| IDEA-01 | yes | Tests ASM-01, ranked 1. |", "| IDEA-01 | no | Left out by the user. |"),
-                        ("- IDEA-01: more enquiries end in a booking; baseline 43 of 74 phone enquiries ended in a "
-                         "booking (data: van job log, June to October 2026)\n", ""))
+    def mvp_idea_01_left_out(self):
+        """The unconfirmed example after the typed change 'IDEA-01 out': reasons refreshed, one row flagged."""
+        text = self.mvp_unconfirmed()
+        for old, new in (
+                ("| IDEA-01 | yes | Tests ASM-01, ranked 1. |", "| IDEA-01 | no | Left out by the user. |"),
+                ("| IDEA-02 | yes | Tests ASM-03, ranked 3. |", "| IDEA-02 | yes | Tests ASM-01, ranked 1. |"),
+                ("| IDEA-03 | no | Tests ASM-02, ranked 2, which IDEA-01 already tests. |",
+                 "| IDEA-03 | no | Needs review: no rule supports this value. |")):
+            text = edit(text, old, new)
+        return re.sub(r"- IDEA-01: [^\n]*\n", "", text)
+
+    def test_mvp_a_flagged_row_passes_in_a_proposed_cut(self):
+        self.assert_valid(self.mvp_idea_01_left_out())
+
+    def test_mvp_a_stale_reason_is_rejected_after_a_user_change(self):
+        text = edit(self.mvp_idea_01_left_out(), "| IDEA-03 | no | Needs review: no rule supports this value. |",
+                    "| IDEA-03 | no | Tests ASM-02, ranked 2, which IDEA-01 already tests. |")
         self.assert_rejects(text, r"the Why cell of IDEA-03 .* \(MV-10\)$")
-        self.assert_valid(edit(text, "| IDEA-03 | no | Tests ASM-02, ranked 2, which IDEA-01 already tests. |",
+
+    def test_mvp_a_user_sentence_is_never_checked_against_the_rules(self):
+        self.assert_valid(edit(self.mvp_idea_01_left_out(),
+                               "| IDEA-03 | no | Needs review: no rule supports this value. |",
                                "| IDEA-03 | no | Left out by the user. |"))
+
+    def test_mv12_a_confirmed_cut_holds_no_flagged_row(self):
+        text = self.mvp(("| IDEA-05 | no | Tests no assumption ranked 1 to 3. |",
+                         "| IDEA-05 | no | Needs review: no rule supports this value. |"))
+        self.assert_rejects(text, r"a confirmed cut holds no row that says .*; flagged: IDEA-05 \(MV-12\)$")
 
     def test_mvp_no_open_assumption_takes_the_highest_score(self):
         text = self.mvp().replace("    state: open\n", "    state: validated\n")
@@ -882,11 +908,13 @@ behaviors:
       1. When the cut table has a row, step 5's form (C-10) holds a third question after the convergence question: 'Confirm the first release cut?', header 'Step 5', the options 'Accept as proposed' (description 'The ideas marked yes are the first release.') and 'Leave it proposed' (description 'The table stays a proposal; you can confirm it later.'), in that order, none marked recommended, each option's preview holding the status line, an empty line and the cut table; when the table is too long for a preview, the preview lists each row's idea ID with yes or no and the question says the reasons are in the reply. When the table has no row, the question is left out.
       2. Without AskUserQuestion and with a user to ask, the status line and the table are shown in plain text with the dispositions and the same question is asked. When no question is asked (the waiver's Proceed without questions, or nobody to ask), the cut stays proposed.
       3. The answers are applied in this order: the dispositions the first question confirmed are written, and in a brownfield run the assumption updates the fourth question confirmed (brownfield-iteration.md, BEH-28 and BEH-29); the cut rows and the ranked assumptions (the active ones whose state is open) are listed again; when either list differs from the one the form showed (an idea entered or left the cut rows, or a confirmed update closed one of this BRN's own assumptions), the ranking and the cut are made again from the new lists, the status line stays proposed whatever the third answer was, and the reply names the ideas that entered or left the table and the assumptions that left the ranking.
-      4. Otherwise: 'Accept as proposed', or typed text that accepts the table, keeps the rows; typed changes set each named row to the stated value and its Why cell to 'Included by the user.' (yes) or 'Left out by the user.' (no); every other row keeps its value, and keeps its Why cell unless that cell names an idea the change set to no ('Needed by IDEA-NN, which is in the first release.' or '... which IDEA-MM already tests.'), in which case its Why cell becomes the user sentence for its value; 'Leave it proposed', a dismissal, no answer, or typed text that states neither an acceptance nor a change keeps the rows and the proposed status line.
-      5. After an acceptance or typed changes, the status line becomes First release cut: confirmed by <owner> on <today> (the frontmatter owner without its quotes; today as YYYY-MM-DD) only when every row's idea then has disposition promoted and the owner is not a NEEDS CLARIFICATION marker; otherwise it stays proposed with the rows as item 4 left them, and the reply names the ideas that are not promoted.
+      4. Otherwise: 'Accept as proposed', or typed text that accepts the table, keeps the rows; typed changes set each named row to the stated value and its Why cell to 'Included by the user.' (yes) or 'Left out by the user.' (no); every other row keeps its value and has its Why cell derived again by §3.10's refresh, which gives it a rule sentence that holds or, when no rule supports its value, the flag 'Needs review: no rule supports this value.'; 'Leave it proposed', a dismissal, no answer, or typed text that states neither an acceptance nor a change keeps the rows and the proposed status line.
+      5. After an acceptance or typed changes, the status line becomes First release cut: confirmed by <owner> on <today> (the frontmatter owner without its quotes; today as YYYY-MM-DD) only when every row's idea then has disposition promoted, no row is flagged and the owner is not a NEEDS CLARIFICATION marker; otherwise it stays proposed with the rows as item 4 left them, and the reply names the ideas that are not promoted and the rows that are flagged.
       6. A cut is never written as confirmed in any other way: not from a recommended option, not by the skill's own choice, not in the work file.
-      7. A confirmation that arrives after the BRN is written follows SKILL.md's 'Decisions that belong to the user': step 5 is marked again and its form asked, the third question showing the table as the BRN holds it; only then is the BRN edited in place, validated again and reported.
-      8. When a BRN is extended, the ranking and the cut are made again from the BRN as it then stands; the status line is kept only when the new table is identical to the BRN's (rows, values and Why cells); otherwise the new table is written as proposed, the third question asks about it, and the reply and the Change Log row say the earlier cut was replaced.
+      7. A confirmation that arrives after the BRN is written follows SKILL.md's 'Decisions that belong to the user': step 5 is marked again and its form asked, the third question showing the table as the BRN holds it; when that table holds a flagged row, the question's text names each flagged row with its value as item 10 gives it and its answer is read as item 10 says, which counts as the one further asking; only then is the BRN edited in place, validated again and reported.
+      8. When a new-shape BRN is extended, the ranking is made again from the BRN as it then stands and the cut rows are listed. When their idea IDs are the same set as the rows of the BRN's cut table, each row whose Why cell is 'Included by the user.' or 'Left out by the user.' keeps its value and its sentence, and every other row is proposed again by §3.11's rule (§3.6 with the user's rows kept). When the IDs differ, every row is proposed again by §3.6 and none is kept, and the reply and the Change Log row name each row the user had set, with its value. In both cases the status line is kept only when the new table equals the BRN's in every cell; otherwise the new table is written as proposed, the third question asks about it, and the reply and the Change Log row name the rows that changed.
+      9. 'Included by the user.' and 'Left out by the user.' are written only on a row whose value the user stated: a row a typed change names, or a flagged row the user accepted when the third question was asked again (item 10). No other event writes them.
+      10. When the refresh flags a row, the status line is the proposed one whatever the answer was. When a question can be asked, the third question is asked once more, alone in a form tagged step 5, its text naming each flagged row with its value ('Confirm the first release cut? Needs review: IDEA-04 (no).'), with the same options and the refreshed table in each preview: an acceptance turns each flagged row into the user's (its Why cell becomes the user sentence for its value); typed changes are applied; either is followed by one more refresh and by item 5; 'Leave it proposed', a dismissal or no answer leaves the flags. The question is never asked a third time. A row still flagged, or flagged when no question can be asked, stays flagged under the proposed status line, and the reply names it.
     changes: "extends SPEC-001 BEH-06"
     lands_in: "SKILL.md 'Decisions that belong to the user' (S2, S3), Workflow item 3 (S4), step 5 (S6 to S8); references/mvp-path.md, 'Confirm the cut' and 'Later runs'"
   - id: BEH-33
@@ -1034,10 +1062,12 @@ proposed for promotion. Promote IDEA-MM, or leave IDEA-NN out?]`
 | `yes` | `Needed by IDEA-NN, which is in the first release.` | step 3 | IDEA-NN is another row that says `yes` |
 | `no` | `Tests ASM-NN, ranked R, which IDEA-MM already tests.` | step 4, when the row depends on a counted assumption: ASM-NN is the highest-ranked such, IDEA-MM the lowest-ID `yes` row it stops | ASM-NN is the highest-ranked assumption of ranks 1 to 3 that stops this row; IDEA-MM is another row, says `yes`, and ASM-NN stops it |
 | `no` | `Tests no assumption ranked 1 to 3.` | step 4, otherwise | No assumption ranked 1 to 3 stops this row |
-| `yes` | `Included by the user.` | BEH-32, a typed change: the row it names, and a row whose sentence named an idea the change set to `no` | nothing |
-| `no` | `Left out by the user.` | BEH-32, a typed change, by the same rule | nothing |
+| `yes` | `Included by the user.` | BEH-32 items 4, 9 and 10: a row a typed change names, or a flagged `yes` row the user accepted | nothing |
+| `no` | `Left out by the user.` | the same, for `no` | nothing |
+| `yes` or `no` | `Needs review: no rule supports this value.` | §3.10's refresh, when no rule supports the row's value | nothing about the row; MV-12 rejects it under a confirmed status line |
 
-The two `no` sentences of step 4 are README §4's sample sentences; the first sample (`Tests ASM-01, ranked 1.`)
+The first five sentences are a proposal's. The two user sentences are reserved for choices the user actually
+made. The last is the review flag. The two `no` sentences of step 4 are README §4's sample sentences; the first sample (`Tests ASM-01, ranked 1.`)
 is step 1's.
 
 ### 3.8 Worked example
@@ -1111,16 +1141,98 @@ Typed text is read for two things (a judgment, R9; verified by VER-38):
 
 | | Text | Reading |
 |---|---|---|
-| A change | "add IDEA-04"; "IDEA-02 out"; "only IDEA-01" | The named row takes the value and its user sentence; "only IDEA-01" makes IDEA-01 `yes` and every other row `no`, each named by the change |
+| A change | "add IDEA-04"; "IDEA-02 out"; "only IDEA-01" | The named row takes the value and its user sentence; "only IDEA-01" makes IDEA-01 `yes` and every other row `no`, each named by the change. The other rows' reasons are refreshed (§3.10) |
 | No change | "IDEA-04 looks risky"; "why is IDEA-05 out?" | Nothing is written; the cut stays proposed (ERR-10) |
 | An acceptance | "yes"; "accept"; "fine as proposed" | As `Accept as proposed` |
 
-A change can make another row's sentence untrue. In §3.8's table, "IDEA-02 out" sets IDEA-02 to `no` with
-`Left out by the user.`; IDEA-01's `Needed by IDEA-02, which is in the first release.` and IDEA-04's `Tests
-ASM-02, ranked 2, which IDEA-02 already tests.` both name IDEA-02, which no longer says `yes`. Each keeps its
-value and takes the user sentence for it (`Included by the user.` and `Left out by the user.`): the user's change
-is now why the row stands as it does, and MV-10 would reject the old sentence. No other sentence can become
-untrue through a change of another row's value.
+### 3.10 Refreshing the reasons, and the review flag
+
+After typed changes the values stand: the user answered about them. A changed row can leave another row's
+sentence untrue, so every row that is not the user's has its `Why` derived again. Inputs: the ranking, the
+rows with their values, which rows are the user's (their `Why` is a user sentence), each idea's `score`, and
+§3.6's needs. In order:
+
+1. **Tests.** For each counted assumption, from rank 1 down: when a row it stops is a user row that says
+   `yes`, or got a `Tests` sentence earlier in this pass, nothing. Otherwise, among the rows it stops that say
+   `yes` and are not the user's, the one with the highest `score` (a `null` score lowest, lowest ID on a tie)
+   gets `Tests ASM-NN, ranked R.`
+2. **Each `yes` row still without a reason.** When a `yes` idea needs it: `Needed by IDEA-NN, which is in the
+   first release.`, naming the lowest-ID such idea. Otherwise, when no assumption is counted and the row has
+   the highest `score` of all rows (lowest ID on a tie): `Highest score; no assumption ranked 1 to 3 picks an
+   idea.` Otherwise it is flagged.
+3. **Each `no` row still without a reason.** When a `yes` idea needs it, it is flagged. Otherwise, when it
+   depends on a counted assumption, take the highest-ranked one: when a row that assumption stops says `yes`,
+   `Tests ASM-NN, ranked R, which IDEA-MM already tests.`, naming the lowest-ID such row; when none does, it
+   is flagged. Otherwise `Tests no assumption ranked 1 to 3.`
+
+A flagged row keeps its value and its `Why` is exactly `Needs review: no rule supports this value.` The flag is
+a cell of the existing table, so no field is added (R1). A refresh of a table nobody changed gives that table
+back: every sentence §3.6 wrote is the one this derivation writes.
+
+In §3.8's table, the typed change "IDEA-02 out" gives:
+
+```markdown
+First release cut: proposed, not confirmed
+
+| Idea | In first release | Why |
+|---|---|---|
+| IDEA-01 | yes | Tests ASM-01, ranked 1. |
+| IDEA-02 | no | Left out by the user. |
+| IDEA-04 | no | Needs review: no rule supports this value. |
+| IDEA-05 | no | Tests no assumption ranked 1 to 3. |
+```
+
+IDEA-01's reason was `Needed by IDEA-02, which is in the first release.`; ASM-01 stops IDEA-01 and no user row
+that says `yes`, so step 1 gives it `Tests ASM-01, ranked 1.` IDEA-04 depends on ASM-02 (rank 2), and neither
+row ASM-02 stops says `yes` now, so nothing supports its `no`. The third question is asked once more with
+"Needs review: IDEA-04 (no)."; `Accept as proposed` makes that row `Left out by the user.`, the next refresh
+flags nothing, and the cut is confirmed. The typed change "add IDEA-04" flags nothing: IDEA-01 keeps `Needed by
+IDEA-02, …` and IDEA-02 keeps `Tests ASM-01, ranked 1.`, so the cut is confirmed at once (§3.9's second row).
+
+### 3.11 Extending a BRN: the user's rows kept
+
+*The same eligible ideas* means: the set of idea IDs of the cut rows, listed at the extension's step 5 (the
+active ideas that are promoted, or open and proposed for promotion), equals the set of idea IDs in the rows of
+the cut table the BRN holds. *An explicit choice* is a row of that table whose `Why` is `Included by the user.`
+or `Left out by the user.`; nothing else in a BRN records one (R1).
+
+With the same eligible ideas, the user's rows are kept, value and sentence, and every other row is proposed
+again by §3.6 with these differences:
+
+- a user row that says `yes` counts as already `yes`, so an assumption that stops it picks nothing;
+- steps 1 and 2 pick only among rows that are not the user's; when every row an assumption stops is a user row
+  that says `no`, it picks nothing;
+- step 2 applies only when no assumption is counted;
+- steps 3 and 4 never change a user row; a user row that says `no` while a `yes` idea needs it is named in the
+  reply.
+
+A *stale reason* is a `Why` cell of a row that is not the user's and that differs from what this gives: it is
+replaced, and so is the row's value when the rule now proposes the other one. A row the BRN holds as flagged is
+not the user's, so it is proposed again. No row is flagged by an extension.
+
+With different eligible ideas, every row is proposed again by §3.6 and no row is kept: the user chose among
+other ideas. The reply and the Change Log row name each row the user had set, with its value, so the choice can
+be stated again.
+
+Either way, the new table is compared with the BRN's, cell by cell. Equal: the status line is kept. Different in
+any cell: `First release cut: proposed, not confirmed`, and the third question asks about the new table.
+
+For example, §3.9's second row left a confirmed cut with IDEA-04 `yes`, `Included by the user.` The BRN is
+extended after ASM-01 was validated; the cut rows are the same four ideas. The ranking is now ASM-02, ASM-03,
+ASM-04. ASM-02 stops IDEA-04, the user's `yes`, so it picks nothing; ASM-03 picks IDEA-02 (score 4):
+
+```markdown
+First release cut: proposed, not confirmed
+
+| Idea | In first release | Why |
+|---|---|---|
+| IDEA-01 | yes | Needed by IDEA-02, which is in the first release. |
+| IDEA-02 | yes | Tests ASM-03, ranked 2. |
+| IDEA-04 | yes | Included by the user. |
+| IDEA-05 | no | Tests no assumption ranked 1 to 3. |
+```
+
+IDEA-04's row is kept; IDEA-02's reason changed, so the table returns to proposed and is asked about.
 
 ## 4. Errors and edge cases
 
@@ -1150,7 +1262,11 @@ Edge cases the behaviour items already settle:
 | `owner` is a NEEDS CLARIFICATION marker | The skill asks for the owner's name; without it the cut stays proposed | BEH-32 item 5 |
 | The user stops before step 5's proposals (ERR-02's draft) | No cut row; ranking with M = 0 | BEH-33 item 3 |
 | An earlier-shape BRN is extended | Neither table is written; no MV check applies | BEH-33 items 1 and 4 |
-| An extension changes the table of a confirmed cut | The new table is proposed, and asked about | BEH-32 item 8 |
+| An extension with the same eligible ideas | The user's rows are kept; the others are proposed again; a table that changed in any cell is proposed, and asked about | BEH-32 item 8, §3.11 |
+| An extension with different eligible ideas | Every row is proposed again, none kept; proposed, and asked about; the reply names the rows the user had set | BEH-32 item 8, §3.11 |
+| A typed change leaves another row's reason untrue | The reason is derived again; a row no rule supports is flagged, the cut stays proposed and the question is asked once more | BEH-32 items 4 and 10, §3.10 |
+| A row is flagged and no question can be asked | The flag stays under the proposed status line; the reply names the row | BEH-32 item 10 |
+| The user leaves out an idea that a `yes` idea needs | The user's row stands; the reply names it | §3.10 |
 | A framework switch at step 5 redoes the evaluation (framework-catalog.md) | Both tables are made again from the new proposals before the form is asked again | BEH-30 item 1, BEH-31 item 1 |
 
 ## 5. Verification
@@ -1291,7 +1407,7 @@ verifications:
     covers:
       - BEH-33
     level: unit
-    obligation: "src/tests/brainstorm/test_validate_brn.py (T2): the staged example passes; its unconfirmed form passes; rows set by the user pass; a row that names an idea the user left out is rejected with its rule sentence and passes with the user sentence; the fallback and the no-row forms pass; an earlier-shape BRN with a broken cut table passes (the gate); and one wrong sample for each of MV-01 to MV-12 is rejected with a line ending in that check's number, each with PyYAML, with the system's packages only and with python3 -S."
+    obligation: "src/tests/brainstorm/test_validate_brn.py (T2): the staged example passes; its unconfirmed form passes; rows set by the user pass; after a typed change that leaves an idea out, a flagged row passes under the proposed status line, the stale rule sentence in its place is rejected (MV-10), and a confirmed cut that holds a flagged row is rejected (MV-12); the fallback and the no-row forms pass; an earlier-shape BRN with a broken cut table passes (the gate); and one wrong sample for each of MV-01 to MV-12 is rejected with a line ending in that check's number, each with PyYAML, with the system's packages only and with python3 -S."
   - id: VER-38
     status: proposed
     covers:
@@ -1305,11 +1421,12 @@ verifications:
       (a) step 5's form shows 'Confirm the first release cut?' third, header 'Step 5', the options 'Accept as proposed' and 'Leave it proposed' with BEH-32's descriptions, neither marked recommended, each preview showing the status line and the cut table; Accept all as proposed, Converged and Accept as proposed give 'First release cut: confirmed by <the owner> on <today>' and section 8 lists the yes ideas;
       (b) Leave them open with Accept as proposed gives the proposed status line and a reply naming the ideas that are not promoted;
       (c) a typed disposition change that parks a row's idea, with Accept as proposed, gives a table made again without that idea, the proposed status line, and a reply saying the idea left the table;
-      (d) Accept all as proposed with the typed cut answer 'add IDEA-NN' (a no row) gives that row yes with 'Included by the user.' and a confirmed status line; the typed answer 'IDEA-NN in' for an idea with no row changes nothing, shows no second menu, and the reply says why (ERR-10);
+      (d) Accept all as proposed with the typed cut answer 'add IDEA-NN' (a no row) gives that row yes with 'Included by the user.', no other user sentence anywhere, and a confirmed status line; the typed answer 'IDEA-NN in' for an idea with no row changes nothing, shows no second menu, and the reply says why (ERR-10);
       (e) a run whose request says to proceed without questions (Proceed chosen) writes the cut proposed; the message 'I confirm the first release cut' then gets step 5's form again, and only after Accept as proposed is the BRN edited in place, validated and reported;
-      (f) extending that BRN with one more idea proposed for promotion gives a new table, the proposed status line, the third question, and a Change Log row saying the earlier cut was replaced;
+      (f) extending (d)'s BRN with one more idea proposed for promotion (different eligible ideas) gives a table proposed again in every row, the proposed status line, the third question, and a reply and Change Log row that say the earlier cut was replaced and name the row the user had set; extending (d)'s BRN after one assumption's state was changed, with the same eligible ideas, keeps the 'Included by the user.' row, proposes the others again, and returns the table to proposed only when a cell changed;
       (g) in (a)'s BRN, a reader checks three ranking rows against §3.1 and §3.3 (the listed ideas depend on the assumption; the confidence has its source) and the cut against §3.6 by hand;
-      (h) in a run that extends a brownfield new-shape BRN, Accept as proposed for the cut together with Accept all as proposed for an update of that BRN's own assumption gives a ranking without that assumption, a cut made again, the proposed status line, and a reply saying the assumption left the ranking.
+      (h) in a run that extends a brownfield new-shape BRN, Accept as proposed for the cut together with Accept all as proposed for an update of that BRN's own assumption gives a ranking without that assumption, a cut made again, the proposed status line, and a reply saying the assumption left the ranking;
+      (i) with a cut in which one yes idea is 'Needed by' another, the typed cut answer that leaves the other out gives the needed row a rule sentence that holds, or 'Needs review: no rule supports this value.' with the proposed status line and the third question asked once more, naming the flagged row; Accept as proposed then gives that row the user sentence and a confirmed cut; Leave it proposed leaves the flag; no row other than the one named and the one accepted holds a user sentence.
       Recorded in SPEC-001 §9.
 ```
 
@@ -1331,9 +1448,9 @@ split on `|` and trimmed.
 | MV-07 | `Cheapest test` equals §3.4's derivation from that assumption's `validation` |
 | MV-08 | Exactly one line `### First release cut` in the document, in section 6; the first non-empty line under it is one of the two status lines |
 | MV-09 | After the status line, up to the next heading: only the line `No idea is promoted or proposed for promotion.`, or a table with the header cells `Idea`, `In first release`, `Why` and three cells in each row. Each row's idea is an active idea whose `disposition` is `promoted` or `open`; rows are in ID order, each idea once; the second cell is `yes` or `no`; every active idea with `disposition: promoted` has a row |
-| MV-10 | Each `Why` cell is one of §3.7's seven sentences, with the value its sentence belongs to, and what it says holds (§3.7's last column) |
-| MV-11 | When no row's `Why` is a user sentence: every assumption ranked 1 to 3 that stops a row has a `yes` row among the rows it stops; and a table with a row has a `yes` row |
-| MV-12 | A confirmed status line names the frontmatter `owner` (which is not a NEEDS CLARIFICATION marker) and a real calendar date from `created` to `updated`; the table has a row; every row's idea has `disposition: promoted` |
+| MV-10 | Each `Why` cell is one of §3.7's eight sentences, with the value its sentence belongs to (the flag goes with either value), and what it says holds (§3.7's last column) |
+| MV-11 | When no row's `Why` is a user sentence or the flag: every assumption ranked 1 to 3 that stops a row has a `yes` row among the rows it stops; and a table with a row has a `yes` row |
+| MV-12 | A confirmed status line names the frontmatter `owner` (which is not a NEEDS CLARIFICATION marker) and a real calendar date from `created` to `updated`; the table has a row; every row's idea has `disposition: promoted`; no row holds the flag |
 
 The messages, each after `line N: `. Words in angle brackets are filled in; `<what>` is `assumption risk ranking`
 (then the check is MV-02) or `first release cut` (MV-09):
@@ -1360,6 +1477,7 @@ first release cut: the promoted idea IDEA-NN has no row (MV-09)
 first release cut: the Why cell of IDEA-NN is not one of the fixed sentences for '<yes or no>', or it does not match the ranking or the other rows (MV-10)
 first release cut: no 'yes' row tests ASM-NN, ranked <R>; one of <IDs> must be in the first release (MV-11)
 first release cut: a cut that the user did not change has a 'yes' row (MV-11)
+first release cut: a confirmed cut holds no row that says 'Needs review: no rule supports this value.'; flagged: <IDs> (MV-12)
 first release cut: a confirmed cut names the frontmatter owner (never a NEEDS CLARIFICATION marker) and a real date from created to updated (MV-12)
 first release cut: confirmed only when the table has a row and every row's idea is promoted; not promoted: <IDs, or: there is no row> (MV-12)
 ```
@@ -1396,12 +1514,13 @@ Scripts are in the session's scratch folder, `fable/fable-mvp-handoff/`; none is
 | The staged example under version 11's validator, `python3` and `python3 -S` | `OK` and `OK` |
 | The staged example, its unconfirmed form and its no-row form under version 11's validator with V1 and V2 applied, `python3` and `python3 -S` | `OK` each |
 | One wrong sample for each of MV-01 to MV-12 | exit 1 with a line ending in that check's number, the same lines with `-S` |
-| The test file with T1 and T2 applied, on a scratch copy of the tree with V1 and V2 applied | `Ran 162 tests`, `OK` (54 cases, three ways) |
+| The test file with T1 and T2 applied, on a scratch copy of the tree with V1 and V2 applied | `Ran 171 tests`, `OK` (57 cases, three ways) |
 | The rule as a script (`harness.py`: `rank()`, `cut()`) on §3.8's inputs and the staged example's | its output is the tables printed in §3.8 and in the example |
+| §3.10's refresh and §3.11's rule as a script (`rules2.py`) on §3.8's table: the typed changes "IDEA-02 out" and "add IDEA-04", the acceptance of the flagged row, and the extension after ASM-01 was validated; and on the staged example with "IDEA-01 out" | its output is the tables printed in §3.10 and §3.11 and the rows of T2's `mvp_idea_01_left_out`; a refresh of an unchanged table returns it unchanged |
 | Every old text of §2.1 to §2.5 against version 11 (`check_edits.py`) | each found exactly once, ignoring line breaks (S7 and O3 are checked against brownfield-iteration.md's new texts instead) |
 | The same old texts against the three files with the three earlier documents' edits applied (`after_siblings.py`) | S2 to S13, O1 to O3, W1 and W2 each found exactly once; S1 is no edit, because brownfield-iteration.md's B-S1 already made the change |
 | The validator with intake-and-evidence.md's A-V1 and A-V2, brownfield-iteration.md's B-V1 and B-V2, then V1 and V2 applied (`combined.py`), on the staged greenfield example and on both BRNs of the staged brownfield example, `python3` and `python3 -S` | `OK` for all three, both ways: the three documents' checks agree on the three examples |
-| The whole test file as the fourth commit leaves it (`full_tree.py`): the validator and the test file with A-V1, A-V2, A-T1 to A-T3, B-V1, B-V2, B-T1, B-T2, then V1, V2, T1, T2; the staged template and both staged examples | `Ran 333 tests`, `OK` (111 cases, three ways) |
+| The whole test file as the fourth commit leaves it (`full_tree.py`): the validator and the test file with A-V1, A-V2, A-T1 to A-T3, B-V1, B-V2, B-T1, B-T2, then V1, V2, T1, T2; the staged template and both staged examples | `Ran 354 tests`, `OK` (118 cases, three ways) |
 | SKILL.md with all four documents' edits applied in build order (`skill_lines.py`) | 371 lines |
 | Every `yaml items` block here | parses with PyYAML; every item has R4's keys |
 
@@ -1448,9 +1567,9 @@ Scripts are in the session's scratch folder, `fable/fable-mvp-handoff/`; none is
     PRD skill can tell a rule's row from a decision.
 13. *No option of the third question is recommended.* The table is already the recommendation; marking
     `Accept as proposed` would nudge a decision R3 keeps the user's (SPEC-002 BEH-21 does the same).
-14. *An extension makes both tables again* and keeps a confirmed status line only for an identical table. A
-    confirmed cut whose reasons no longer hold would fail MV-10, and keeping part of one would need a rule
-    for stale rows.
+14. *An extension keeps the user's rows when the eligible ideas are the same* (§3.11; the owner's decision
+    below). Rows the rule made are proposed again rather than kept, because nothing in them is a choice; the
+    table returns to proposed whenever a cell changed, so nothing unseen stays confirmed.
 15. *Check numbers end each message* (`(MV-07)`), so a test, a grader or a reader can name the rule that
     failed. The other documents' series (IV, BV) are free to do the same.
 16. *The unit tests read the staged example* from `src/staging/examples/`, so the example can't drift from the
@@ -1458,19 +1577,32 @@ Scripts are in the session's scratch folder, `fable/fable-mvp-handoff/`; none is
 17. *ADR-003 is not touched.* It makes `disposition` and MoSCoW `priority` the document contract and asks for
     a mapping before another prioritisation method. The cut adds no field and sets no priority: it is prose a
     PRD may read as a suggestion (prd-handoff-contract.md).
-18. *A typed change that makes another row's sentence untrue turns that row into the user's.* "IDEA-02 out"
-    leaves `Needed by IDEA-02, which is in the first release.` false, and MV-10 rejects a false sentence. The
-    row keeps its value and takes the user sentence for it: no rule sentence fits a table the user changed, and
-    the checks stay as strict as they are for a table nobody changed.
+18. *After a typed change the other rows' reasons are derived again, and a row no rule supports is flagged*
+    (§3.10; the owner's decision below). The value stays, because the user answered about it; the flag says
+    that nobody has given a reason for it; the cut stays proposed until the user has. This replaces an earlier
+    draft, which gave such a row a user sentence.
 19. *A confirmed update of this BRN's own assumption remakes both tables.* The assumption is no longer open,
     so MV-03 rejects its row and a cut row that tests it has lost its reason. As with a changed list of cut
     rows, the user answered about another table, so the new one stays proposed.
+20. *The flag is an eighth fixed sentence, valid with either value and only under the proposed status line.* It
+    needs no field (R1), a regex grader and MV-12 can see it, and a confirmed cut can never carry a row nobody
+    justified.
+21. *A flagged row the user accepts becomes the user's.* The re-asked question names the row and its value, so
+    accepting is a choice the user actually made about that row; before that, it is not.
+22. *The question is asked again once.* A second flagged result stays proposed and is named in the reply, so a
+    run can't loop on the form.
+23. *A later confirmation of a BRN that holds a flagged row asks the naming question.* Otherwise an acceptance
+    could never confirm that cut: a flagged row bars the confirmed status line, and only an answer to a question
+    that names the row makes it the user's.
 
-**Open, for Bryan.**
+**Decided by Bryan on 2026-11-19** (session fa59a935-ed2e-4502-b6c4-93bb6d847546), on the questions this section
+left open. His words: "Enforce the drafted Cheapest test rule and use the top three assumptions for the cut. Change two defaults. First, when extending a BRN with the same eligible ideas, preserve my explicit yes and no choices. Refresh stale reasons and return a changed table to proposed status for confirmation. Second, if I remove IDEA-02 and another row's reason was "Needed by IDEA-02," recompute that row's reason. If no rule justifies its current value, flag the row for review. Reserve "Included by the user" and "Left out by the user" for choices I actually made."
 
-| # | Question | Options | Default specified here |
-|---|---|---|---|
-| 1 | Should the `Cheapest test` kind be enforced by the validator? | (a) Derived by the word lists and checked (MV-07); (b) derived, but the validator checks only that the cell starts with one of the three kinds | (a) |
-| 2 | When a BRN with a cut the user changed by typing is extended, and its rows are the same ideas, should the user's rows be kept? | (a) No: the table is made again and asked again; (b) yes: keep the user's `yes` and `no`, remake only the `Why` cells that no longer hold | (a) |
-| 3 | How many top-ranked assumptions count for the cut? | (a) 3, as README's sample sentence says; (b) a number the user can state in the request | (a) |
-| 4 | After a typed change to the cut, what happens to another row whose `Why` names an idea the change set to `no`? | (a) It keeps its value and takes the user sentence (decision 18); (b) it keeps its rule sentence, and MV-10 checks only a sentence's form once any row is the user's | (a) |
+| Question | Decision | Where |
+|---|---|---|
+| Should the `Cheapest test` kind be enforced by the validator? | Yes: "Enforce the drafted Cheapest test rule" | §3.4, MV-07 (unchanged) |
+| How many top-ranked assumptions count for the cut? | Three: "use the top three assumptions for the cut" | §3.6 (unchanged) |
+| When a BRN with a cut the user changed is extended with the same eligible ideas, are the user's rows kept? | Yes: "preserve my explicit yes and no choices. Refresh stale reasons and return a changed table to proposed status for confirmation" | BEH-32 item 8, §3.11 (changed) |
+| After a typed change, what happens to a row whose reason no longer holds? | "recompute that row's reason. If no rule justifies its current value, flag the row for review. Reserve "Included by the user" and "Left out by the user" for choices I actually made" | BEH-32 items 4, 9 and 10, §3.10, MV-10, MV-12 (changed) |
+
+**Open, for Bryan.** None.

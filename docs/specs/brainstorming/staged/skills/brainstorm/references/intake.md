@@ -41,8 +41,22 @@ Decide after the topic and extend-or-new (Intake 1 and 2). Take the first rule t
 
 When both rule 2 and rule 3 match, neither does: go to rule 4.
 
+**Record an undecided kind in three places**, so nobody reads the kind you worked as for a decision:
+
+1. The kind line: `Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]`.
+2. Section 7, as the first of its bullets, exactly
+   `- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]`, or the same with
+   `worked as brownfield`. Write it into the work file from its first save.
+3. The final reply's discussion, one sentence: "The project kind is not decided: I worked as brownfield
+   because this project has a PRD. Tell me whether the product exists and I will update BRN-NNN." (or
+   "as greenfield because this project has no PRD").
+
+Write the bullet only while the kind line is the NEEDS CLARIFICATION line. When the kind is decided later, in
+this run, after the BRN is written or in an extension, set the kind line and remove the bullet in the same
+edit; after the BRN is written, edit it in place, validate it again and report.
+
 **Extending a BRN that has the line.** The line changes only towards brownfield, and nothing is ever
-removed from the BRN:
+removed from the BRN except section 7's worked-as bullet, which goes once the line is decided:
 
 | The BRN's line | This run | Result |
 |---|---|---|
@@ -179,8 +193,25 @@ Rules:
   read. What you know yourself is not a source: a fact from your own knowledge is written as a
   NEEDS CLARIFICATION marker, never with an entry.
 - **Never fetch one.** Don't open a URL, search the web or call any tool to obtain a source. Record the
-  URL and use only what the user said it shows. Read a project file the user names with the Read tool;
-  when it can't be read, record it by its path with no version and use only what the user said about it.
+  URL and use only what the user said it shows.
+- **Read a project file the user names as a source**, and no other file on your own account. A project
+  file is a path in the user's words that, taken from the project root when it is relative, resolves to a
+  regular file inside the project folder and outside its `.git` folder. A path that leaves the folder, a
+  folder, and a pattern with a wildcard are not: don't read them. Read the file whole with the Read tool,
+  once, when it is named. Never edit, move, delete or run it. Write its entry as
+  `"document: <path from the project root>"`, with ` v<version>` when its frontmatter has an integer
+  `version`, and cite that entry for every fact you take from the file, in the file's terms.
+
+  | The user's words | Do |
+  |---|---|
+  | "the survey results are in docs/contributor-survey.md" | Read it; `"document: docs/contributor-survey.md"` |
+  | "it's all in ../shared/handbook.pdf" | Don't read it; `"document: ../shared/handbook.pdf"`; use only what the user said it shows |
+  | "look through the notes folder" | Read nothing; no entry |
+
+- **When a named project file can't be read** (it does not exist, it is not text, or the Read tool fails or
+  is refused): write `"document: <its path from the project root>"` with no version, use only what the user
+  said about it, try no other file or tool in its place, and say in the reply "I could not read <path>, so
+  I used only what you said about it."
 - **One `note` entry per run**, however many statements the user makes.
 - **Clean the reference**: one line, no leading or trailing space, runs of spaces collapsed, `"`
   replaced by `'`, `|` replaced by `/`, no final period.

@@ -100,9 +100,9 @@ Rank, Score, Effort, Cumulative effort and Cut cells; the closing sentence.
   `none` for an empty list. Three or more IDs are joined by commas, with "and" before the last:
   "promote IDEA-01, IDEA-03 and IDEA-04". Once the user has answered step 5, it says what was promoted, parked and
   rejected and why.
-- The capacity line: `Capacity: 10 person-weeks (given by the user).` When the user gave none:
-  `Capacity: [NEEDS CLARIFICATION: person-weeks available]; the cut assumes 7.5 person-weeks, half of
-  the candidates' summed effort.` with half of the rated ideas' summed effort as C.
+- The capacity line: `Capacity: 10 person-weeks (given by the user).` When the user gave none, C is
+  half of the rated ideas' summed effort, and the line labels it as an assumption:
+  `Capacity: 7.5 person-weeks (assumed: half of the candidates' summed effort).`
 - The closing sentence: "The cut proposes dispositions only: it is not the first release cut, and it
   sets no requirement priority."
 

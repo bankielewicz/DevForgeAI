@@ -198,11 +198,11 @@ the table in plain text with the dispositions and ask the same question. When no
 | Answer | Rows | Status line |
 |---|---|---|
 | `Accept as proposed`, or typed text that accepts the table ("yes", "accept") | As proposed | Confirmed, when step 4 allows |
-| Typed changes | Each named row takes the stated value; its `Why` becomes `Included by the user.` for `yes` or `Left out by the user.` for `no`. Unnamed rows keep their value (see *Typed changes* below for their `Why`) | Confirmed, when step 4 allows |
+| Typed changes | Each named row takes the stated value; its `Why` becomes `Included by the user.` for `yes` or `Left out by the user.` for `no`. Unnamed rows keep their value; refresh their reasons (below) | Confirmed, when step 4 allows |
 | `Leave it proposed`, a dismissal, no answer, or typed text that states neither an acceptance nor a change | As proposed | `First release cut: proposed, not confirmed` |
 
 4. Write `First release cut: confirmed by <owner> on <today>` only when every row's idea now has
-   `disposition: promoted`. `<owner>` is the frontmatter `owner` without its quotes, and `<today>` is
+   `disposition: promoted` and no row is flagged for review (below). `<owner>` is the frontmatter `owner` without its quotes, and `<today>` is
    `YYYY-MM-DD`. When a row's idea is still `open`, keep `proposed, not confirmed`, keep the rows as step 3
    left them, and say in the reply which ideas are not promoted. When `owner` is a NEEDS CLARIFICATION marker,
    ask for the owner's name first; without it the cut stays proposed.
@@ -213,23 +213,64 @@ names an idea with no row is not written: say that only a promoted idea can be i
 typed answer, never show the options again for the same question; act on the text, or say what you could not
 read. The user may leave every row `no`: that is their decision.
 
-A change can make an unnamed row's `Why` untrue: `Needed by IDEA-NN, which is in the first release.` and
-`Tests ASM-NN, ranked R, which IDEA-MM already tests.` each name an idea that must say `yes`. When the change
-set that idea to `no`, the unnamed row keeps its value and its `Why` becomes the user sentence for that value.
-Every other unnamed row keeps its `Why`.
+**The two user sentences are reserved.** Write `Included by the user.` or `Left out by the user.` only on a row
+whose value the user stated: a row a typed change names, or a flagged row the user then accepted (below). Never
+write either for any other reason.
 
-After typed changes, name in the reply each `yes` idea that needs a `no` row, and change nothing for it.
+**Refresh the reasons** after typed changes. Every value stays. The user's rows stay. For each other row, derive
+the `Why` again, in this order:
+
+1. For each counted assumption, from rank 1 down: when a row it stops is a user row that says `yes`, or got a
+   `Tests` sentence earlier in this pass, do nothing. Otherwise, among the rows it stops that say `yes` and are
+   not the user's, the one with the highest `score` (lowest ID on a tie) gets `Tests ASM-NN, ranked R.`
+2. Each `yes` row still without a reason: when a `yes` idea needs it, `Needed by IDEA-NN, which is in the first
+   release.`, naming the lowest-ID such idea. Otherwise, when no assumption is counted and the row has the
+   highest `score` of all rows (lowest ID on a tie), `Highest score; no assumption ranked 1 to 3 picks an idea.`
+   Otherwise flag it.
+3. Each `no` row still without a reason: when a `yes` idea needs it, flag it. Otherwise, when it depends on a
+   counted assumption, take the highest-ranked one: when a row that assumption stops says `yes`, `Tests ASM-NN,
+   ranked R, which IDEA-MM already tests.`, naming the lowest-ID such row; when none does, flag it. Otherwise
+   `Tests no assumption ranked 1 to 3.`
+
+**A flagged row** keeps its value, and its `Why` is exactly `Needs review: no rule supports this value.` While
+a row is flagged the status line is `First release cut: proposed, not confirmed`, whatever the answer was.
+
+When a row is flagged and a question can be asked, ask the third question once more, alone in a form tagged
+step 5, with the same options and the refreshed table in each preview. Its text names each flagged row with its
+value: "Confirm the first release cut? Needs review: IDEA-04 (no)." Then:
+
+- `Accept as proposed`, or typed text that accepts: each flagged row is now the user's choice. Its `Why` becomes
+  the user sentence for its value. Refresh the reasons once more, then go to step 4.
+- Typed changes: apply them, then refresh the reasons once more, then go to step 4.
+- `Leave it proposed`, a dismissal or no answer: the flags stay.
+
+Never ask a third time. When a row is still flagged, or no question can be asked, keep the flags and the
+proposed status line, and name each flagged row in the reply.
+
+A user row that says `no` while a `yes` idea needs it stays as the user set it: name it in the reply.
 
 ## Later runs
 
 - **The user confirms later**, after the BRN was written with the cut proposed. Don't edit from that message
   alone. Follow SKILL.md's *Decisions that belong to the user*: mark step 5, ask the form again with the
-  table as the BRN holds it, then edit the BRN in place, validate it and report.
-- **Extending a BRN.** Rank and propose again from the BRN as it now stands. When the new cut table is
-  identical to the one in the BRN (same rows, values and `Why` cells), keep its status line. Otherwise write
-  the new table with `First release cut: proposed, not confirmed`, ask the third question about it, and say in
-  the reply and in the Change Log row that the earlier cut was replaced. An earlier-shape BRN (no
-  `Project kind:` line) gets neither table when it is extended.
+  table as the BRN holds it, then edit the BRN in place, validate it and report. When that table holds a
+  flagged row, word the third question as *A flagged row* says ("Confirm the first release cut? Needs
+  review: IDEA-04 (no).") and read its answer the same way; it is not asked again after that.
+- **Extending a BRN.** Rank again from the BRN as it now stands and list the cut rows. Compare their idea IDs
+  with the rows of the BRN's cut table.
+  - *The same IDs.* Keep each row whose `Why` is `Included by the user.` or `Left out by the user.`: its value
+    and its sentence. Propose every other row again with the four steps of *Propose the cut*, where: a user
+    row that says `yes` counts as already `yes`; steps 1 and 2 pick only among rows that are not the user's;
+    step 2 applies only when no assumption is counted; steps 3 and 4 never change a user row. A row the BRN
+    holds as flagged is not the user's: propose it again. When the result equals the BRN's table in every
+    cell, keep its status line. Otherwise write it with `First release cut: proposed, not confirmed`, ask the
+    third question about it, and name the changed rows in the reply and in the Change Log row.
+  - *Different IDs* (an idea entered or left the cut rows). Propose every row again with *Propose the cut*
+    and keep none. Write `First release cut: proposed, not confirmed`, ask the third question, and say in the
+    reply and in the Change Log row that the earlier cut was replaced, naming each row the user had set with
+    its value, so the user can state it again.
+
+  An earlier-shape BRN (no `Project kind:` line) gets neither table when it is extended.
 - **Continuing a run** from a work file that holds both tables: keep them, and ask step 5 from them.
 - **A framework switch** at step 5 that redoes the evaluation: make both tables again from the new proposals
   before the form is asked again.
@@ -295,3 +336,21 @@ First release cut: confirmed by Dana Reyes on 2026-11-18
 | IDEA-04 | yes | Included by the user. |
 | IDEA-05 | no | Tests no assumption ranked 1 to 3. |
 ```
+
+Had the user typed "IDEA-02 out" instead, IDEA-02 becomes `no` with `Left out by the user.` and the reasons
+are refreshed. ASM-01 stops IDEA-01, which says `yes`, so IDEA-01 gets `Tests ASM-01, ranked 1.` in place of
+`Needed by IDEA-02, …`. IDEA-04 depends on ASM-02, and no row ASM-02 stops says `yes` any more, so nothing
+supports its `no`: it is flagged, the cut stays proposed, and the third question is asked once more.
+
+```markdown
+First release cut: proposed, not confirmed
+
+| Idea | In first release | Why |
+|---|---|---|
+| IDEA-01 | yes | Tests ASM-01, ranked 1. |
+| IDEA-02 | no | Left out by the user. |
+| IDEA-04 | no | Needs review: no rule supports this value. |
+| IDEA-05 | no | Tests no assumption ranked 1 to 3. |
+```
+
+`Accept as proposed` on that question makes IDEA-04's row `Left out by the user.` and confirms the cut.

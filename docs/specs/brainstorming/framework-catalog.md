@@ -477,7 +477,7 @@ behaviors:
         Rank: highest score first; on a tie the smaller effort, then the lower ID; an unrated idea has no rank.
       - >-
         Cut: with capacity C in person-weeks (the user's figure, else half of the rated ideas' summed effort,
-        marked with a NEEDS CLARIFICATION marker), an idea whose running total of effort down the ranking is at
+        labelled as an assumption in the capacity line), an idea whose running total of effort down the ranking is at
         most 0.6 × C is a must, at most 0.8 × C a should, at most C a could, beyond that a won't.
       - >-
         Proposals: promoted for every must and should; parked for every could, won't and unrated idea; never
@@ -490,8 +490,8 @@ behaviors:
         Confidence | Effort |. Section 6 holds, before any ### heading: the proposal paragraph ("Proposed,
         awaiting confirmation: promote <IDs in rank order>; park <IDs in rank order, unrated last>.", three or
         more IDs joined by commas with "and" before the last, "none" for an empty list); the line
-        "Capacity: <C> person-weeks (given by the user)." or "Capacity: [NEEDS CLARIFICATION: person-weeks
-        available]; the cut assumes <C> person-weeks, half of the candidates' summed effort."; the table | Rank |
+        "Capacity: <C> person-weeks (given by the user)." or, when the user gave none, "Capacity: <C>
+        person-weeks (assumed: half of the candidates' summed effort)."; the table | Rank |
         Idea | Score | Effort | Cumulative effort | Cut |; and the sentence "The cut proposes dispositions only:
         it is not the first release cut, and it sets no requirement priority."
   - id: BEH-19
@@ -569,9 +569,10 @@ candidate, so reach is counted as 1 for all."
 "switch to RICE" under Other in the step-5 form. The skill writes no disposition, says "Framework:
 `shortlist-ranking`, because you asked to switch from `diverge-converge`.", keeps IDEA-01 to IDEA-08, sets their
 four rating fields to `null` and rates them without asking anything: no reach was given, so reach counts as 1
-for all, and no capacity, so half of the summed effort is assumed and marked. It makes the cut, saves the work
-file and asks step 5's form again. Section 5 opens with the shortlist method text and the "Switched from" line.
-Had the user typed "switch to RICE, we have 10 person-weeks", the capacity line would read "given by the user".
+for all, and no capacity, so half of the summed effort is used and labelled as assumed. It makes the cut, saves
+the work file and asks step 5's form again. Section 5 opens with the shortlist method text and the "Switched
+from" line. Had the user typed "switch to RICE, we have 10 person-weeks", the capacity line would read "given
+by the user".
 
 ## 4. Errors and edge cases
 
@@ -603,7 +604,7 @@ Edge cases that need no new item:
 - **A backlog that can't be read.** BEH-15's last rule.
 - **More than 99 candidates.** BEH-18: the first 99 are taken, and section 5 says so (item IDs have two digits).
 - **Capacity or reach not given, and no question can be asked.** BEH-18's fallbacks, each written in the BRN in
-  its fixed sentence, the capacity one with a NEEDS CLARIFICATION marker.
+  its fixed sentence; the capacity line says "assumed".
 - **SCAMPER yields no idea at all.** BEH-17: the fixed sentence, then `diverge-converge`.
 - **A continued run** (SPEC-001 BEH-14). BEH-15's last rule and edits W2 and W3: the work file's section 5 opens
   with the method text from the first save, and the continued run uses that framework without selecting again.
@@ -1579,8 +1580,8 @@ Accept all and say it has converged. **Expect in the BRN:**
   `diverge-converge` after step 3: the problems, ideas and assumptions were kept and only the
   evaluation was redone."
 - Section 5 has the line "Reach unit: not known for every candidate, so reach is counted as 1 for all."
-- Section 6 has the line that starts `Capacity: [NEEDS CLARIFICATION: person-weeks available]` and the
-  table that starts `| Rank | Idea | Score |`.
+- Section 6 has a line of the form `Capacity: 7.5 person-weeks (assumed: half of the candidates' summed
+  effort).`, its figure half of the efforts in the table that starts `| Rank | Idea | Score |`.
 - The report block says `(framework: shortlist-ranking)`.
 
 Then type "switch to SCAMPER". **Expect:** "The brainstorm is already written as BRN-NNN. To
@@ -1686,8 +1687,8 @@ Each is complete (R6) and is copied to the same path under `src/claude/DevForgeA
 9. *The score keeps one decimal and is always written with it.* Whole-number rounding would make ties common in
    short lists.
 10. *The cut uses 60, 80 and 100 percent of capacity.* 60 percent for the musts is the usual MoSCoW guidance. With
-    no capacity given, half of the summed effort is assumed and marked with a NEEDS CLARIFICATION marker, so the
-    invented figure is visible and is listed in the report's open questions.
+    no capacity given, half of the summed effort is used and the capacity line says "assumed" (decided by Bryan,
+    below). The line carries no NEEDS CLARIFICATION marker: the figure is a stated assumption, not a blank.
 11. *Must and should are proposed for promotion; could and won't for parking; nothing for rejection.* "Won't" in
     MoSCoW means "not this time". The user rejects by answering step 5.
 12. *The cut's words appear only in section 6 and in a proposed reason.* ADR-003 keeps `priority` the PRD's, so
@@ -1717,12 +1718,17 @@ Each is complete (R6) and is copied to the same path under `src/claude/DevForgeA
 22. *The test file validates each framework's Example* by wrapping its item blocks in a minimal BRN, so a later
     edit to an example can't ship an invalid block.
 
-**Open, for Bryan.**
+**Decided by Bryan on 2026-11-19** (session fa59a935-ed2e-4502-b6c4-93bb6d847546, on PR #172's open questions).
 
-1. *What the cut proposes for a "won't".* Options: `parked` (the default specified here) or `rejected`.
-2. *Capacity when the user gives none.* Options: assume half of the summed effort and mark it (the default); or
-   make no cut and propose `parked` for every idea.
-3. *A named framework the index lacks.* Options: say so and select by the other rules (the default); or ask the
-   user to pick one from the index, which adds a question at step 2 in sessions that can ask.
-4. *`diverge-converge`'s proposal rule.* Options: leave "promote the top ideas (usually 1 to 3)" as approved (the
-   default); or give it the thresholds of decision 14 in SPEC-001's next version.
+1. *What the cut proposes for a "won't"* (`parked` or `rejected`). Bryan: "A "won't" proposes parked." BEH-18
+   already said so; nothing changed.
+2. *Capacity when the user gives none* (assume half of the summed effort, or make no cut). Bryan: "When capacity
+   is missing, use half the summed effort and label it as an assumption." The figure stays; its line changed from
+   one with a NEEDS CLARIFICATION marker to the fixed form `Capacity: <C> person-weeks (assumed: half of the
+   candidates' summed effort).` (BEH-18, the staged `shortlist-ranking.md`, runbook T14).
+3. *A named framework the index lacks* (say so and select, or ask). Bryan: "If I name an unknown framework, tell
+   me and select one using the published rules." ERR-06 already said so; nothing changed.
+4. *`diverge-converge`'s proposal rule* (leave it, or give it the thresholds of decision 14). Bryan: "Keep
+   diverge-converge's existing thresholds." `diverge-converge.md` changes by edit D1 only, as before.
+
+**Open, for Bryan.** Nothing.

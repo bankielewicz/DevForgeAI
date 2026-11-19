@@ -12,6 +12,7 @@ BRN included.
 - [Existing product (section 1)](#existing-product-section-1)
 - [Already covered](#already-covered)
 - [Previously decided](#previously-decided)
+- [Reporting what was kept out, and the override](#reporting-what-was-kept-out-and-the-override)
 - [Parked ideas](#parked-ideas)
 - [Earlier assumptions](#earlier-assumptions)
 - [Assumption updates](#assumption-updates)
@@ -43,8 +44,11 @@ name with Glob, then read each selected file whole with the Read tool, in this o
 | 3 | `docs/specs/epic/EPIC-*.md` | the highest numbers, highest first | 4 |
 | 4 | `docs/specs/arch/ARCH-*.md` | the highest number | 1 |
 
-Only a file named `<PREFIX>-NNN.md` (three digits) is selected. Read nothing else for this purpose: no
-ADR, story, spec or source code. Ten documents is the cap; a file beyond a row's limit is not read.
+Only a file named `<PREFIX>-NNN.md` (three digits) is selected. Read nothing else for this purpose: never
+read a story, a spec, an ADR or source code on your own account, and never glob `docs/specs/story/` or
+`docs/specs/spec/`. Ten documents is the cap; a file beyond a row's limit is not read. A file the user names
+as a source is another matter: read it as [intake.md](intake.md#sources) says. It gets a `document` entry in
+`sources` and never a row of *Existing product*.
 
 **Skip a document you can't use**, and never repair it. Test in this order and stop at the first that
 fails; the words in parentheses are the reason you record:
@@ -169,18 +173,47 @@ List in section 6 each rejected idea that came up again, and each parked idea th
   `Where`: `BRN-NNN#IDEA-NN`.
 - Rows ordered by `Where`. With no row, the line `None.` replaces the table.
 
-**Tell the user, and let them override.** When step 3's work is done, say in the reply which candidates
-were kept out and why, each with its `Covered by` or `Where`, and that they can ask to add any of them.
-When the user says to add one, before the BRN is written:
+## Reporting what was kept out, and the override
 
-- add it to `ideas` in the user's words, with the next free ID and `disposition: open`;
-- remove its row from the table;
-- for a previously decided idea, give the new idea the item-level link shown under
-  [Parked ideas](#parked-ideas);
-- add to section 6's prose: `IDEA-NN was added at <owner>'s request although <Covered by or Where>
-  covers it.`
+**Report with the exact ID, and ask nothing.** When step 3's work is done, write one line in the reply for
+each candidate kept out, in the order they came up, then the last sentence once:
 
-This is not a question: never ask whether to override.
+```text
+Not added, already covered by PRD-001#FR-003: "text reminders before a visit"
+Not added, rejected in BRN-001#IDEA-06: "taking a deposit when a patient books"
+Say "add it anyway" to add one.
+```
+
+- A covered candidate: `Not added, already covered by <document ID>#<item ID>: "<the suggestion>"`.
+- A previously decided one: `Not added, rejected in BRN-NNN#IDEA-NN: "<the suggestion>"`.
+- Repeat the lines and the sentence in the final reply's discussion for every candidate still kept out.
+- Never ask about a kept-out candidate, in a form or in text, and never wait for an answer: go on.
+
+**The user overrides by saying so**, at any time after a report. An override is a message that tells you to
+add a kept-out candidate:
+
+| The user's message | Do |
+|---|---|
+| "add the text reminders anyway", or one that names the candidate by its ID | Add that candidate |
+| "add it anyway", with exactly one candidate kept out | Add it |
+| "add them anyway", "add both", "add all" | Add every candidate kept out |
+| "add it anyway", with several kept out and none named | Add nothing. Say: Several suggestions were kept out. Name the one to add, for example "add the text reminders anyway". |
+| "why is it covered?", "ok" | Add nothing; answer the question when there is one |
+
+**An override writes this:**
+
+- the candidate becomes an idea, in the user's words (your wording for a candidate of your own), with the
+  next free ID and `disposition: open`; rate it at step 4 like any other;
+- its row is removed from its table, which becomes the line `None.` when that was the last row;
+- a previously decided idea gets the item-level link shown under [Parked ideas](#parked-ideas);
+- section 6's prose gains one sentence: `IDEA-NN was added at <owner>'s request although
+  <document ID>#<item ID> covers it.` or `IDEA-NN was added at <owner>'s request although BRN-NNN#IDEA-NN
+  rejected it.`
+
+Before the BRN is written, do this in the work as it stands. After it is written, in the same session, edit
+the BRN in place as SKILL.md's *Decisions that belong to the user* says for a later confirmation: mark step
+6, edit, validate again at step 7 and report at step 8. Don't ask step 5's form again: the new idea is
+`open`. In a later session it is an extension of that BRN.
 
 ## Parked ideas
 
@@ -289,14 +322,15 @@ the NEEDS CLARIFICATION line of a BRN without the four headings): read the docum
 `### Existing product` in section 1 after the context prose and `### Already covered`,
 `### Previously decided` and `### Assumption updates` in section 6 after the first release cut, each filled
 by the rules above or holding its replacement line, add the `upstream` records and append the `sources`
-entries. Remove nothing that the BRN already holds.
+entries. Remove nothing that the BRN already holds, except section 7's bullet that says which kind an
+undecided run worked as: it goes once the kind line is decided (intake.md).
 
 ## When nothing can be asked
 
 After the waiver's *Proceed without questions*, or when no question tool exists and the request says
 to proceed without questions: read the documents as above; take up no parked idea (each is listed in
-*Previously decided*); leave every assumption update `proposed, not confirmed`; still tell the user
-which candidates were kept out.
+*Previously decided*); leave every assumption update `proposed, not confirmed`; still report each
+candidate kept out with its ID, in the final reply.
 
 A continued run (SKILL.md, *Continuing an earlier run*) reads the documents again, keeps the work file's
 rows, and offers the parked ideas again only when the work file has no `### Previously decided` heading.

@@ -179,6 +179,9 @@ Give me 3 distinctly different directions of the key screen first, with a one-li
 
 ## P6 to P10. The remaining states, in the chosen directions
 
+Run them only once the design system of [design/README.md](design/README.md), "The look", is attached to the
+canvas, and add the line "Use the attached design system; it is the look of DevForgeAI's progress pane and band."
+to each (Bryan, 2026-11-19: "Use the existing DevForgeAI progress pane and band as the style reference").
 Paste each into the same canvas, after selecting the chosen board, so Claude Design continues that direction.
 Each keeps the first prompt's surface, size and must-haves. The sample data follows the shapes of
 [README.md](README.md) §4 as the specs define them.
