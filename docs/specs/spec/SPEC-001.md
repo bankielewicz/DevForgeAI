@@ -2,7 +2,7 @@
 id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
-status: in-review
+status: approved
 version: 18
 created: 2026-09-22
 updated: 2026-11-19
@@ -14,7 +14,7 @@ generated_by:
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-06
+approved_on: 2026-11-19
 upstream:
   - {id: STORY-001, relation: specifies, version: 4, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
@@ -591,15 +591,18 @@ by git.
   tasks to it with this wording". Taskmaster's behaviour here is as read in its installed copy, 0.1.0, on 2026-11-19.
   Live check of 2026-11-19 (§9): one list of tagged tasks and every step credited, with enforcement off and on;
   strict order held no step back; a stop the user types holds under enforcement, with no reminder. Taskmaster's
-  block does land after the `ARGUMENTS:` line, and the topic was still read. Still open: a continued run (where the
-  tracker's continuing line lands relative to Taskmaster's block), (b), (c), and step 7's stop after three failed
-  attempts.
-- Open (version 18), for Bryan at approval: PRD-001 NFR-002 says each skill "conforms to the Agent Skills
+  block does land after the `ARGUMENTS:` line, and the topic was still read. Still open, each NOT_RUN live:
+  - NOT_RUN: a continued run, which shows where the tracker's continuing line lands relative to Taskmaster's block.
+  - NOT_RUN: (b), a run whose task list is kept with TodoWrite.
+  - NOT_RUN: (c), a run started while Taskmaster's list holds an earlier run's tasks.
+  - NOT_RUN: step 7's stop after three failed validation attempts, under Taskmaster's enforcement.
+- Decided (Bryan, 2026-11-19, at approval): PRD-001 NFR-002 says each skill "conforms to the Agent Skills
   specification and validates against" the frontmatter schema, which QR-02 satisfies. `tasks` is neither an Agent
   Skills field nor a Claude Code field (nor is `argument-hint` an Agent Skills field; Claude Code accepts it). No
   placement avoids that: Taskmaster reads top-level keys only (`tasks`, `steps`, `taskmaster`), and the schema
-  allows only string values under `metadata`. Whether NFR-002 admits a mod's key is Bryan's call; this version
-  reads it as satisfied by the schema.
+  allows only string values under `metadata`. Bryan: "For PRD-001 NFR-002, I authorize the brainstorm skill's
+  top-level tasks: list as a Taskmaster-specific extension." The exception is narrow: it covers this one key, in this
+  skill, for Taskmaster. Any other non-standard frontmatter key, or `tasks:` in another skill, needs its own decision.
 
 - Decided (Bryan, 2026-10-06, end-of-workflow summary of PR 3): VER-16 ("Graders on outcome (Recommended)"): saves-work-as-it-goes fails only its tool clause
   (three saves with the Write tool) in headless evals, where Claude saves with Bash and copies the draft into the BRN;
@@ -723,3 +726,5 @@ by git.
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | The second skill-reviewer pass (titles match all eight seeded rows) adds three items to §13's live check: stops with no question under Taskmaster's enforcement, TodoWrite's `N.` prefix, and an earlier run's tasks in Taskmaster's list. Awaiting Bryan's approval | §13 |
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | §5 and §13 date the Taskmaster facts (0.1.0, read 2026-11-19); §13 adds PRD-001 NFR-002's question for Bryan (`tasks` is not an Agent Skills field). Awaiting Bryan's approval | §5, §13 |
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | Record-only update: §9 records the live check with Taskmaster (enforcement off and on, and a typed stop under enforcement); §13 says which of its items the check settled. Awaiting Bryan's approval | §9, §13 |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | §13 records Bryan's narrow exception to PRD-001 NFR-002 (the brainstorm skill's top-level `tasks:` list, as a Taskmaster-specific extension) and marks the live check's four untested scenarios NOT_RUN. Links moved to version 18: SPEC-002, SPEC-005, SPEC-012 | §13 |
+| 18 | 2026-11-19 | Bryan | Approved ("I approve SPEC-001 v18 as scoped to Taskmaster in PR #173"), with the NFR-002 exception: "For PRD-001 NFR-002, I authorize the brainstorm skill's top-level tasks: list as a Taskmaster-specific extension." | status |
