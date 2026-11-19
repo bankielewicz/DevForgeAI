@@ -4,20 +4,20 @@ id: SKL-001
 type: skill
 title: "Brainstorm skill"
 status: in-review      # draft | in-review | approved | superseded | deprecated
-version: 11            # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
+version: 12            # bump on any change to SKILL.md or its references; mirror it in SKILL.md metadata
 created: 2026-09-26
-updated: 2026-11-04
+updated: 2026-11-19
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
   tool: "claude-code"
   model: "claude-opus-5-5"
-  session: "ff2b61f5-d9cf-4808-aa2e-6c0ebf931d91"
+  session: "97c37b01-dc3d-4018-b282-da453ac780fb"
 reviewed_by: []
 approved_by: ""
 approved_on: null
 upstream:              # the specification this skill implements
-  - {id: SPEC-001, relation: implements, version: 17, hash: null}
+  - {id: SPEC-001, relation: implements, version: 18, hash: null}
 supersedes: []
 superseded_by: null
 blocked_by: []

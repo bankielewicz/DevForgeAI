@@ -30,6 +30,9 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ### Added
 
+- `/devforgeai:brainstorm` lists its eight phases under `tasks:` in its frontmatter, so the Taskmaster mod can seed a
+  run's task list and show its progress. Claude Code ignores the key, and the skill works as before (SPEC-001
+  version 18, SKL-001 v12, plugin 0.34.1).
 - Added the `epic` skill, `/devforgeai:epic PRD-NNN`: it groups a PRD's ready, current-release
   requirements into epics you confirm, writes `docs/specs/epic/EPIC-NNN.md`, and lists every
   requirement left out with its reason and next action.
