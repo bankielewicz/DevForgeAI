@@ -1,0 +1,40 @@
+ DevForgeAI  Brainstorm                   BRN-001 · draft
+
+ Cut appointment no-shows at our dental clinic
+
+ █1 █2 █3  4 Evaluate with the framework  ░5 ░6 ░7 ░8
+ 3 steps done · step 4 in progress · 4 not started
+
+┏━ DECIDED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Project kind  greenfield                               ┃
+┃ Framework     diverge-converge                         ┃
+┃               "the options are still wide open"        ┃
+┃ Dispositions  0 of 10 confirmed · confirm at step 5    ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+ CAPTURED  3 problems · 4 assumptions            severity
+ PRB-01 Patients forget appointments booked          high
+        weeks ahead
+ PRB-02 A missed visit leaves an empty chair the     high
+        clinic can't refill
+ PRB-03 Rescheduling needs a phone call during     medium
+        work hours
+
+ ASM-01 We believe that patients read texts      riskiest
+        from the clinic                    confidence low
+
+┌╌ PROPOSED 10 ideas, every disposition open ╌╌╌╌╌╌╌╌╌╌╌╌┐
+╎ IDEA-01 Text a reminder two days before, with a        ╎
+╎         one-tap reschedule link                        ╎
+╎         value high · effort low · risk low     score 4 ╎
+╎ IDEA-04 Take a deposit at booking                      ╎
+╎         value high · effort medium · risk high score 1 ╎
+╎ IDEA-06 Overbook the busiest hours                     ╎
+╎         value medium · effort low · risk high  score 0 ╎
+╎ 7 more not scored yet · 2 of the 10 in your own words  ╎
+└╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+ ╎ dashed ╎ proposed, can change   ┃ solid ┃ decided
+
+──────────────────────────────────────────────────────────
+ [ Problems ] [ Ideas ] [ Assumptions ]

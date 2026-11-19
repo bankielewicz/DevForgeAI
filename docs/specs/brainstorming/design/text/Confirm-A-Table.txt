@@ -1,0 +1,36 @@
+ DevForgeAI / Brainstorm / Confirm decisions                                          BRN-001 draft
+────────────────────────────────────────────────────────────────────────────────────────────────────
+ Cut appointment no-shows at our dental clinic                          diverge-converge · 10 ideas
+ █1 █2 █3 █4  5 Propose dispositions and ask the user to confirm  ░6 ░7 ░8          question 1 of 3
+
+ PROPOSED DISPOSITIONS  nothing below is decided until you answer
+ IDEA    WHAT                                       PROPOSED      REASON
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+ IDEA-01 Text a reminder two days before, with a    ╎ promote ╎   highest score, cheap to try
+         one-tap reschedule link
+
+ IDEA-02 Let patients reschedule online             ╎ promote ╎   removes the phone call in PRB-03
+
+ IDEA-04 Take a deposit at booking                  ╎ park ╎      needs a legal check first
+
+ IDEA-06 Overbook the busiest hours                 ╎ reject ╎    harms patients who arrive on time
+
+ + 6 more ideas                                     ╎ park ╎
+╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+ If accepted as proposed: 2 promoted · 7 parked · 1 rejected
+
+ QUESTION 1 OF 3  Confirm these dispositions?
+
+ [ 1 Accept all as proposed ]  recommended
+ [ 2 Leave them open ]         every idea stays open, BRN-001 stays a draft
+
+ Or type a change  >    for example: park IDEA-02
+
+ ╎ promote ╎ proposed by Claude, not decided      promote  confirmed by you, decided
+
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+ 1-2 or up/down to choose · enter to answer · type to change a proposal

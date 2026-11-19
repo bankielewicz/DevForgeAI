@@ -1,0 +1,32 @@
+ DEVFORGEAI  BRAINSTORM  INTAKE                                                         step 1 of 8
+  1 Intake  ░2 ░3 ░4 ░5 ░6 ░7 ░8                                                    before any idea
+
+ Improve online booking for returning patients
+
+ ┌╌ CONCLUDED, CORRECT IT IF WRONG ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┐
+ ╎                                                                                                ╎
+ ╎ PROJECT KIND: BROWNFIELD                                            [ k Change to greenfield ] ╎
+ ╎ because the project holds PRD-001                                                              ╎
+ ╎                                                                                                ╎
+ └╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌┘
+
+ WHAT WAS READ                                      CARRIED OVER FROM BRN-001
+ ───────────────────────────────────────────────    ───────────────────────────────────────────────
+ █ PRD-001 v3: online booking for returning         Offered to you
+   patients (FR-001 to FR-006)                      reconsider the parked idea
+                                                    "Take a deposit at booking"
+ █ BRN-001 v2: 2 promoted, 1 parked, 1 rejected,    [ r Reconsider it ]
+   1 assumption still open
+                                                    Not re-proposed
+ SOURCES RECORDED                                   the rejected idea
+ ───────────────────────────────────────────────    "Overbook the busiest hours"
+ document: docs/specs/prd/PRD-001.md v3
+ data: booking funnel export, October 2026
+
+
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+ A brainstorm on a similar topic exists: BRN-001. Extend it or start a new document?
+
+ [ e Extend BRN-001 ]  [ n Start a new document ]

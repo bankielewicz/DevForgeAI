@@ -1,0 +1,30 @@
+ DevForgeAI / Brainstorm / Hand-off                                                         BRN-001
+────────────────────────────────────────────────────────────────────────────────────────────────────
+ █1 █2 █3 █4 █5 █6 █7  8 Report and hand off                                      8 of 8 steps done
+
+ BRN-001 written to docs/specs/brainstorm/BRN-001.md (framework: diverge-converge)
+ Validator      OK: docs/specs/brainstorm/BRN-001.md
+ Project kind   greenfield
+ Captured       Problems: 3 · Ideas: 10 · Assumptions: 4
+
+ ━━ DECIDED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ Promoted        IDEA-01   IDEA-02
+ First release   IDEA-01
+
+ ╌╌ STILL OPEN ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+
+ Open questions ╎ open ╎ current no-show rate (PRB-01's evidence)
+                ╎ open ╎ ASM-01 not yet tested, cheapest test: ask ten patients whether they read
+                         texts from the clinic
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+ Other things you can do
+ [ o Open the document ]  [ c Continue later ]  [ t Test the riskiest assumption first ]
+
+
+
+
+ Next step: run /devforgeai:prd BRN-001 to turn this brainstorm into a PRD.
+
+ [ enter  Run /devforgeai:prd BRN-001 ]
