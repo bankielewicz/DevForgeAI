@@ -190,6 +190,12 @@ claude plugin eval $P --case writes-valid-brn --runs 1 --ablation none $A --outp
   the main checkout's copy (the parent of `git rev-parse --git-common-dir`); a clone with no
   docs/research/ captures the pages first, by the recipe in each PROVENANCE.md, before its first plugin
   edit.
+- **Specs are written by the Fable model**, the project's architect model (Bryan, 2026-11-18: "specs must
+  be made by fable 5.2 model not sonnet as it is the architect model for this project"). A subagent that
+  drafts or changes a document under `docs/specs/` is started on Fable and states its model first; a commit's
+  `Co-Authored-By` trailer names the model that did the work. A skill build (anything under
+  `src/claude/DevForgeAI/`, its tests and eval cases) is done on Opus 5.5 at xhigh effort (Bryan, 2026-11-18:
+  "skill-build is to be using opus 5.5 xhigh").
 - **Judgment calls are the user's.** In brainstorm, idea dispositions and convergence are written only
   when the user confirmed them; otherwise they stay `disposition: open`, `reason: null` and
   `status: draft` (VER-02). Each later spec names its own user-owned decisions.
@@ -275,6 +281,10 @@ building it"). The source of each item is named.
 - **Deferred work**, indexed in `docs/backlog.md` (IDs `DEF-NNN`, each row naming the spec section,
   review or issue that holds the detail). Check it before changing a skill it names; add a row when
   Bryan defers something.
+- **Brainstorm enhancements** (proposals, not built): `docs/specs/brainstorming/`, whose README is the
+  index and shared contract: four more frameworks, intake and evidence, brownfield runs, an MVP path,
+  the PRD hand-off, and prompts for Claude Design. They take effect only in SPEC-001's next version
+  (the PRD side of the hand-off in SPEC-002's).
 
 ## Loaded on demand
 
