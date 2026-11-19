@@ -198,7 +198,7 @@ tasks:                            # version 18: the checklist's lines (BEH-12), 
 - **Task list for Taskmaster (version 18; Bryan, 2026-11-19):** `tasks:` names the run's steps for the
   Taskmaster mod, which seeds a skill's task list from that key and shows its progress in a pane. The titles are the
   workflow checklist's eight lines without their numbers, in order (Bryan: "Checklist lines"). With Taskmaster's
-  "guide skill tasks" setting on (its default), Taskmaster appends a numbered list of these titles to the prompt and
+  "guide skill tasks" setting on (its default; Taskmaster 0.1.0, the installed copy, read 2026-11-19), Taskmaster appends a numbered list of these titles to the prompt and
   asks Claude to track exactly them with that wording; that list then equals BEH-12's subjects, `<N>. <title>`, so
   the two instructions name the same eight tasks. A `tasks:` title changes only with its checklist line. Claude Code
   ignores a frontmatter key it doesn't recognize, so without Taskmaster nothing changes; with it, the prompt gains
@@ -586,7 +586,14 @@ by git.
   after three failed attempts) are sent back, and Claude may carry on past them; (b) with TodoWrite, which has no
   metadata, the tracker finds a step only from the `N.` prefix, so a task written without its number is uncredited;
   (c) when Taskmaster's list already holds an earlier run's tasks, a new run's tasks attach to those rows by title
-  (BEH-12 says an earlier run's tasks don't count).
+  (BEH-12 says an earlier run's tasks don't count); Taskmaster's guide then uses its second wording, "add these
+  tasks to it with this wording". Taskmaster's behaviour here is as read in its installed copy, 0.1.0, on 2026-11-19.
+- Open (version 18), for Bryan at approval: PRD-001 NFR-002 says each skill "conforms to the Agent Skills
+  specification and validates against" the frontmatter schema, which QR-02 satisfies. `tasks` is neither an Agent
+  Skills field nor a Claude Code field (nor is `argument-hint` an Agent Skills field; Claude Code accepts it). No
+  placement avoids that: Taskmaster reads top-level keys only (`tasks`, `steps`, `taskmaster`), and the schema
+  allows only string values under `metadata`. Whether NFR-002 admits a mod's key is Bryan's call; this version
+  reads it as satisfied by the schema.
 
 - Decided (Bryan, 2026-10-06, end-of-workflow summary of PR 3): VER-16 ("Graders on outcome (Recommended)"): saves-work-as-it-goes fails only its tool clause
   (three saves with the Write tool) in headless evals, where Claude saves with Bash and copies the draft into the BRN;
@@ -708,3 +715,4 @@ by git.
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | Bryan's request of 2026-11-19 (the Taskmaster mod's prompt to add a `tasks:` list to the skill's frontmatter; "Source, via plugin-dev", a worktree from main and a PR; "Name Taskmaster"): §5's frontmatter gains `tasks:`, eight titles, one per checklist step, so QR-02's limit to §5's fields admits it, and the frontmatter schema accepts the key. Workflow, checklist and BEH-12 unchanged. §9 records the build; §13 opens the two-lists question. Awaiting Bryan's approval | §5, §9, §13 |
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | After skill-reviewer's finding (Taskmaster's "with this wording" against BEH-12's subjects), Bryan's decisions of 2026-11-19: the titles are the checklist lines ("Checklist lines (Recommended)"), so the schema's cap is 64 characters; plugin 0.35.0 ("0.35.0 (minor)"). §13 narrowed to what the live check must show. Awaiting Bryan's approval | §5, §9, §13 |
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | The second skill-reviewer pass (titles match all eight seeded rows) adds three items to §13's live check: stops with no question under Taskmaster's enforcement, TodoWrite's `N.` prefix, and an earlier run's tasks in Taskmaster's list. Awaiting Bryan's approval | §13 |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | §5 and §13 date the Taskmaster facts (0.1.0, read 2026-11-19); §13 adds PRD-001 NFR-002's question for Bryan (`tasks` is not an Agent Skills field). Awaiting Bryan's approval | §5, §13 |
