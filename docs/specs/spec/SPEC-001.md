@@ -580,7 +580,13 @@ by git.
   Taskmaster matches a created task to its seeded row by title. Still to check live (§9): that Claude keeps the
   `devforgeai_step` tags while following Taskmaster's wording; that Taskmaster's enforcement with strict order doesn't
   hold a step back; and that Taskmaster's block, appended to the prompt at `skill.prompt`, doesn't land after the
-  `ARGUMENTS:` line or the tracker's continuing line, which the skill finds at the end of its text.
+  `ARGUMENTS:` line or the tracker's continuing line, which the skill finds at the end of its text. From the second
+  skill-reviewer pass: (a) with Taskmaster's enforcement on, its Stop gate lets a turn end with tasks open only on a
+  reply ending in a question, so the skill's stops with no question (ERR-02's "write nothing more", step 7's stop
+  after three failed attempts) are sent back, and Claude may carry on past them; (b) with TodoWrite, which has no
+  metadata, the tracker finds a step only from the `N.` prefix, so a task written without its number is uncredited;
+  (c) when Taskmaster's list already holds an earlier run's tasks, a new run's tasks attach to those rows by title
+  (BEH-12 says an earlier run's tasks don't count).
 
 - Decided (Bryan, 2026-10-06, end-of-workflow summary of PR 3): VER-16 ("Graders on outcome (Recommended)"): saves-work-as-it-goes fails only its tool clause
   (three saves with the Write tool) in headless evals, where Claude saves with Bash and copies the draft into the BRN;
@@ -701,3 +707,4 @@ by git.
 | 17 | 2026-11-04 | claude-code (session ff2b61f5-d9cf-4808-aa2e-6c0ebf931d91) | Record-only update, with no version bump: §9 records SKL-001 v11, #135's text fix, and Bryan's waiver | §9 |
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | Bryan's request of 2026-11-19 (the Taskmaster mod's prompt to add a `tasks:` list to the skill's frontmatter; "Source, via plugin-dev", a worktree from main and a PR; "Name Taskmaster"): §5's frontmatter gains `tasks:`, eight titles, one per checklist step, so QR-02's limit to §5's fields admits it, and the frontmatter schema accepts the key. Workflow, checklist and BEH-12 unchanged. §9 records the build; §13 opens the two-lists question. Awaiting Bryan's approval | §5, §9, §13 |
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | After skill-reviewer's finding (Taskmaster's "with this wording" against BEH-12's subjects), Bryan's decisions of 2026-11-19: the titles are the checklist lines ("Checklist lines (Recommended)"), so the schema's cap is 64 characters; plugin 0.35.0 ("0.35.0 (minor)"). §13 narrowed to what the live check must show. Awaiting Bryan's approval | §5, §9, §13 |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | The second skill-reviewer pass (titles match all eight seeded rows) adds three items to §13's live check: stops with no question under Taskmaster's enforcement, TodoWrite's `N.` prefix, and an earlier run's tasks in Taskmaster's list. Awaiting Bryan's approval | §13 |
