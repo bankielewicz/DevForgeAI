@@ -150,7 +150,7 @@
       ]
     },
     "tasks": {
-      "description": "Task titles the Taskmaster mod seeds and shows for a run of the skill, one per phase in the skill's order (SPEC-001 v18). Claude Code ignores the key.",
+      "description": "Task titles the Taskmaster mod seeds and shows for a run of the skill: the skill's checklist lines, in order, without their numbers (SPEC-001 v18). Claude Code ignores the key.",
       "type": "array",
       "minItems": 3,
       "maxItems": 8,
@@ -158,7 +158,7 @@
       "items": {
         "type": "string",
         "minLength": 1,
-        "maxLength": 47
+        "maxLength": 64
       }
     }
   },

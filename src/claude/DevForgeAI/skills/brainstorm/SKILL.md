@@ -6,13 +6,13 @@ metadata:
   devforgeai-id: "SKL-001"
   devforgeai-version: "12"
 tasks:
-  - Confirm topic and ask clarifying questions
-  - Select a brainstorming framework
-  - Diverge into problems, ideas, assumptions
-  - Evaluate ideas with the framework
-  - Confirm dispositions and convergence
-  - Write the BRN document
-  - Validate the BRN document
+  - "Intake: topic, existing BRNs, clarifying questions"
+  - Select a framework
+  - "Diverge: problems, ideas, assumptions"
+  - Evaluate with the framework
+  - Propose dispositions and ask the user to confirm
+  - Write the BRN
+  - Validate the BRN
   - Report and hand off
 ---
 

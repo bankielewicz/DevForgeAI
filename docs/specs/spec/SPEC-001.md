@@ -172,14 +172,14 @@ argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
   devforgeai-version: "6"
-tasks:                            # version 18
-  - Confirm topic and ask clarifying questions
-  - Select a brainstorming framework
-  - Diverge into problems, ideas, assumptions
-  - Evaluate ideas with the framework
-  - Confirm dispositions and convergence
-  - Write the BRN document
-  - Validate the BRN document
+tasks:                            # version 18: the checklist's lines (BEH-12), in order
+  - "Intake: topic, existing BRNs, clarifying questions"
+  - Select a framework
+  - "Diverge: problems, ideas, assumptions"
+  - Evaluate with the framework
+  - Propose dispositions and ask the user to confirm
+  - Write the BRN
+  - Validate the BRN
   - Report and hand off
 ```
 
@@ -195,12 +195,15 @@ tasks:                            # version 18
   them, the task-list tools (TaskCreate and TaskUpdate, or TodoWrite) for the workflow checklist (BEH-12).
   No `allowed-tools` pre-approval in the MVP, so writes go through normal permission prompts. The skill never
   deletes a file: the progress tracker deletes its work files (version 16).
-- **Task list for Taskmaster (version 18; Bryan, 2026-11-19):** `tasks:` names the run's phases for the
-  Taskmaster mod, which seeds a skill's task list from that key and shows its progress in a pane. There are eight
-  titles, one per checklist step, in the steps' order, each an imperative phrase under 48 characters. The key holds
-  no rule about how to work. Claude Code ignores a frontmatter key it doesn't recognize, so the skill's behaviour,
-  its checklist and BEH-12's tasks, each tagged `devforgeai_step`, are unchanged.
-  `src/schemas/skill-frontmatter.schema.json` accepts `tasks` (3 to 8 unique strings of 1 to 47 characters).
+- **Task list for Taskmaster (version 18; Bryan, 2026-11-19):** `tasks:` names the run's steps for the
+  Taskmaster mod, which seeds a skill's task list from that key and shows its progress in a pane. The titles are the
+  workflow checklist's eight lines without their numbers, in order (Bryan: "Checklist lines"). With Taskmaster's
+  "guide skill tasks" setting on (its default), Taskmaster appends a numbered list of these titles to the prompt and
+  asks Claude to track exactly them with that wording; that list then equals BEH-12's subjects, `<N>. <title>`, so
+  the two instructions name the same eight tasks. A `tasks:` title changes only with its checklist line. Claude Code
+  ignores a frontmatter key it doesn't recognize, so without Taskmaster nothing changes; with it, the prompt gains
+  Taskmaster's block (plugin 0.35.0, a minor version: Bryan, "0.35.0 (minor)").
+  `src/schemas/skill-frontmatter.schema.json` accepts `tasks` (3 to 8 unique strings of 1 to 64 characters).
 
 ## 6. Behavior
 
@@ -309,7 +312,7 @@ quality_responses:
 
 | Kind | Status |
 | --- | --- |
-| Version 18 (SKL-001 v12) | Built on branch `feat/brainstorm-taskmaster-tasks`, 2026-11-19, through `/plugin-dev:create-plugin`: `SKILL.md`'s frontmatter gains §5's `tasks:`, the frontmatter schema accepts the key, and plugin 0.34.1 ships it. No other skill text changed. Evals not run. Live check not run: a brainstorm run with Taskmaster on, which shows whether the run holds one task list or two (Taskmaster's seeded tasks and BEH-12's) and whether the progress tracker still credits each step (§13). |
+| Version 18 (SKL-001 v12) | Built on branch `feat/brainstorm-taskmaster-tasks` (draft PR #173), 2026-11-19, through `/plugin-dev:create-plugin`: `SKILL.md`'s frontmatter gains §5's `tasks:`, the frontmatter schema accepts the key, and plugin 0.35.0 ships it. No other skill text changed. plugin-validator passed; skill-reviewer found that the first titles (Taskmaster's suggested wording) differed from BEH-12's subjects in 7 of 8 steps, which Taskmaster's "with this wording" instruction would turn into two lists or uncredited steps, so the titles became the checklist lines (Bryan, 2026-11-19). Evals not run. Live check not run: a brainstorm run with Taskmaster on, with its enforcement off and on, that shows one task list, the tracker crediting each step, and the arguments and the tracker's continuing line still read where Taskmaster's block is appended (§13). |
 | Text fix, SKL-001 v11, 2026-11-04 (#135) | The skill says "the arguments" instead of a live `$ARGUMENTS`, which Claude Code replaced with the user's input (Bryan, 2026-11-04: "the arguments" (Recommended)). No requirement changed; `$ARGUMENTS` in this spec names the input. Smoke on `ad298e1`, one run, no baseline, sonnet (`tmp/eval-results/135-smoke-20261104T215940Z/`, local): `hands-off-to-prd` 1.00 ($0.45), plain words. Typed with an argument, `claude -p`, sonnet, on 2.1.318: `/devforgeai:brainstorm zebra feeding schedules. Proceed without questions.` ($0.62) wrote a BRN on that topic, and the session shows the `ARGUMENTS:` line, the new wording from the branch, and no `$ARGUMENTS`. It stays in-review. Bryan waived the 3-run qualification for this fix until this skill's next version or 2026-12-31, whichever comes first ("Smoke plus dated waiver (Recommended)"). Merged in PR #150 (`f390c33`) on 2026-11-06 and deployed by Bryan in plugin 0.32.0 the same day. |
 | Merged (v16, 17) | Versions 16 and 17 (SKL-001 v9, then v10, in review). Merged with PR #95's build in PR #99 (`51571ce`, 2026-10-06) and deployed as plugin 0.27.0 the same day; the deployed copy matches the source (`diff -rq` exit 0). |
 | Live (VER-17, version 17) | (a) passed, with SPEC-013's VER-62 (see its §9 row): a run stopped at step 5 and continued showed the same proposals, kept the draft's IDs, saved to the carried draft, and the tracker deleted it once step 7 was done, with no permission prompt. Not run: (b) a second continuation (covered by VER-61's kit test only), (c) extend, (d) a run continued after validation, (e) ERR-02's draft BRN. |
@@ -570,11 +573,14 @@ by git.
 
 ## 13. Open questions
 
-- Open (version 18): with Taskmaster on, a run gets two sets of instructions for its task list. Taskmaster seeds the
-  `tasks:` titles and, with its "guide skill tasks" setting on, asks Claude to track exactly those. BEH-12 asks for one
-  task per checklist step, titled `<N>. <title>` and tagged `devforgeai_step`, which the progress tracker needs to
-  credit a step. A run could then hold two lists, or one without the tags. The live check in §9 decides whether the
-  titles, the skill text or a Taskmaster setting changes.
+- Open (version 18): with Taskmaster on, a run gets two instructions for its task list. Taskmaster's (its "guide
+  skill tasks" setting, on by default) lists the `tasks:` titles, numbered, and asks Claude to track exactly them with
+  that wording; BEH-12 asks for one task per checklist step, titled `<N>. <title>` and tagged `devforgeai_step`, which
+  the progress tracker needs to credit a step. Since the titles are the checklist lines, both name the same tasks, and
+  Taskmaster matches a created task to its seeded row by title. Still to check live (§9): that Claude keeps the
+  `devforgeai_step` tags while following Taskmaster's wording; that Taskmaster's enforcement with strict order doesn't
+  hold a step back; and that Taskmaster's block, appended to the prompt at `skill.prompt`, doesn't land after the
+  `ARGUMENTS:` line or the tracker's continuing line, which the skill finds at the end of its text.
 
 - Decided (Bryan, 2026-10-06, end-of-workflow summary of PR 3): VER-16 ("Graders on outcome (Recommended)"): saves-work-as-it-goes fails only its tool clause
   (three saves with the Write tool) in headless evals, where Claude saves with Bash and copies the draft into the BRN;
@@ -694,3 +700,4 @@ by git.
 | 17 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §9 records the merge in PR #99 (`51571ce`) and the deploy as plugin 0.27.0 | §9 |
 | 17 | 2026-11-04 | claude-code (session ff2b61f5-d9cf-4808-aa2e-6c0ebf931d91) | Record-only update, with no version bump: §9 records SKL-001 v11, #135's text fix, and Bryan's waiver | §9 |
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | Bryan's request of 2026-11-19 (the Taskmaster mod's prompt to add a `tasks:` list to the skill's frontmatter; "Source, via plugin-dev", a worktree from main and a PR; "Name Taskmaster"): §5's frontmatter gains `tasks:`, eight titles, one per checklist step, so QR-02's limit to §5's fields admits it, and the frontmatter schema accepts the key. Workflow, checklist and BEH-12 unchanged. §9 records the build; §13 opens the two-lists question. Awaiting Bryan's approval | §5, §9, §13 |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | After skill-reviewer's finding (Taskmaster's "with this wording" against BEH-12's subjects), Bryan's decisions of 2026-11-19: the titles are the checklist lines ("Checklist lines (Recommended)"), so the schema's cap is 64 characters; plugin 0.35.0 ("0.35.0 (minor)"). §13 narrowed to what the live check must show. Awaiting Bryan's approval | §5, §9, §13 |
