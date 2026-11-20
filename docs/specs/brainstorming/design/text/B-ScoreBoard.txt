@@ -1,0 +1,40 @@
+ DEVFORGEAI  BRAINSTORM                     BRN-001 draft
+ Cut appointment no-shows at our dental clinic
+ greenfield · diverge-converge
+ "the options are still wide open"
+
+   1      2      3      4      5      6      7      8
+ ██████ ██████ ██████ ▓▓▓▓▓▓ ░░░░░░ ░░░░░░ ░░░░░░ ░░░░░░
+ 4 Evaluate with the framework                in progress
+ done  1 Intake · 2 Select a framework · 3 Diverge
+ next  5 Propose dispositions and ask the user to confirm
+
+ ▀▀█             ▄█  █▀█                  █ █
+  ▀█ problems     █  █ █ ideas            ▀▀█ assumptions
+ ▄▄█             ▄█▄ █▄█ 2 in your words    █
+
+ IDEAS   value   effort  risk    score        disposition
+──────────────────────────────────────────────────────────
+ IDEA-01 Text a reminder two days before, with a one-tap
+         reschedule link
+         high    low     low     4 ████          ╎ open ╎
+ IDEA-04 Take a deposit at booking
+         high    medium  high    1 █             ╎ open ╎
+ IDEA-06 Overbook the busiest hours
+         medium  low     high    0               ╎ open ╎
+ 7 ideas not scored yet          ░░░░            ╎ open ╎
+
+ PROBLEMS                                        severity
+ PRB-01 Patients forget appointments booked          high
+        weeks ahead
+ PRB-02 A missed visit leaves an empty chair the     high
+        clinic can't refill
+ PRB-03 Rescheduling needs a phone call during     medium
+        work hours
+
+ RISKIEST ASSUMPTION                           confidence
+ ASM-01 We believe that patients read texts from      low
+        the clinic
+
+ ╎ open ╎ proposed     confirmed  decided at step 5
+ [ Problems ] [ Ideas ] [ Assumptions ]

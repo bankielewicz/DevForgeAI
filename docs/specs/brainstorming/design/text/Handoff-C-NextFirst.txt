@@ -1,0 +1,30 @@
+ DevForgeAI  Brainstorm  Hand-off                                                           BRN-001
+
+ BRAINSTORM  BRN-001                                                                            PRD
+ ████████████████████████████████████████████████████████━━━━░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 8 of 8 steps done · validator OK                                     next: /devforgeai:prd BRN-001
+
+ WRITTEN                           DECIDED                        STILL OPEN
+ ────────────────────────────────  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌
+ BRN-001 written to                Promoted                       Open questions
+ docs/specs/brainstorm/BRN-001.md   IDEA-01   IDEA-02             current no-show rate (PRB-01's
+ (framework: diverge-converge)                                    evidence)
+                                   First release
+ Project kind: greenfield           IDEA-01                       ASM-01 not yet tested, cheapest
+ Problems: 3 · Ideas: 10 ·                                        test: ask ten patients whether
+ Assumptions: 4                                                   they read texts from the clinic
+
+ Validator  OK:
+ docs/specs/brainstorm/BRN-001.md
+
+ or  [ o Open the document ]  [ c Continue later ]  [ t Test the riskiest assumption first ]
+
+
+
+
+
+
+
+ Next step: run /devforgeai:prd BRN-001 to turn this brainstorm into a PRD.
+
+ [ enter  Run /devforgeai:prd BRN-001 ]
