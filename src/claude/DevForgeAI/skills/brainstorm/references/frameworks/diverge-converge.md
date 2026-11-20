@@ -6,7 +6,7 @@
 open. It is the default framework.
 
 **Avoid when** the user already has a fixed shortlist and only wants it ranked. Then diverging
-adds noise.
+adds noise: use `shortlist-ranking`.
 
 ## Steps
 

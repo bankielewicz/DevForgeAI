@@ -99,7 +99,7 @@ ID) and `upstream` (a list of link records). Besides those, only these fields ar
 |---|---|
 | `idea` | Quoted idea; the user's own words when the idea came from the user |
 | `addresses` | Block list of one or more `PRB-NN` IDs that exist in this document |
-| `value`, `effort`, `risk` | `null`, a quoted rating such as `"high"`, or a number, per the framework |
+| `value`, `effort`, `risk` | `null`, or a quoted string per the framework: a rating such as `"high"`, or a number written in quotes such as `"800"` |
 | `score` | `null` or a number, per the framework |
 | `disposition` | `open`, `promoted`, `parked` or `rejected`; anything but `open` only when user-confirmed |
 | `reason` | `null` while `open`; otherwise a quoted reason the user confirmed |

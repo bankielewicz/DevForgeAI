@@ -24,7 +24,8 @@ Before the first write, when `devforgeai/drafts/.gitignore` is missing, write it
 
 ## When to write it
 
-Write the whole file with the Write tool, three times:
+Write the whole file with the Write tool, three times (and once more, as at point 3, after a
+framework switch that redoes the evaluation):
 
 1. After marking step 3 completed and before marking step 4 in progress: problems, ideas and
    assumptions.
@@ -52,7 +53,8 @@ Build it from `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`, as step 6 builds the B
 - `generated_by.session` and the Change Log: this session's ID and one row for this session, as step 6
   writes them; when extending, the BRN's existing rows are kept above it. Every save sets both to this session.
 - Every idea `disposition: open`, `reason: null`. A proposal is never a disposition value.
-- Sections not reached yet hold `[NEEDS CLARIFICATION: not reached]`.
+- Sections not reached yet hold `[NEEDS CLARIFICATION: not reached]`, except section 5: from the first
+  save on it holds the chosen framework's method text, which tells a continued run the framework in use.
 - Step 5's proposals, once made, as a table in section 6 (Convergence): idea ID, title, proposed
   disposition, reason. Write it in table cells only, never as a `disposition:` line.
 - No HTML comments.
@@ -65,7 +67,8 @@ When the progress tracker's line that continues an earlier brainstorm run says "
 
 1. Load that file and save to it from then on, at the same points as above (the saves before step 4
    and step 5 are made only when the run reaches those points). Keep its problems, ideas, assumptions,
-   scores and IDs. A draft that can't be read counts as none: continue as the line says.
+   scores and IDs, and its framework: the one whose method text opens its section 5 (with none there,
+   select at step 2 as usual). A draft that can't be read counts as none: continue as the line says.
 2. When its `id` is a BRN's ID, step 6 extends that BRN (version + 1, a Change Log row for this
    session) without asking extend-or-new again; otherwise step 6 allocates the ID as usual.
 3. Follow every other sentence of the line as written: the tracker decides which step is asked and

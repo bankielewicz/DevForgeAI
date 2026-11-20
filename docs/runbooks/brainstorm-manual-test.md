@@ -4,7 +4,8 @@ Tests the `devforgeai` plugin's `brainstorm` skill (SKL-001, SPEC-001) interacti
 The automated eval suite (`src/claude/DevForgeAI/evals/brainstorm/`) covers the
 non-interactive paths; section 4 says how to run it and how to add cases with
 `claude plugin eval init`. Sections 0–3 cover what needs a person answering: user confirmation,
-the extend flow, framework selection (VER-05), and stopping mid-session (VER-09).
+the extend flow, framework selection (VER-05, and VER-24 in T10 to T15), and stopping mid-session
+(VER-09).
 
 Record each result in the table at the end: **pass**, **fail** (with what happened), or
 **not run** (with why).
@@ -219,6 +220,92 @@ python3 -c "import yaml,sys; t=open(sys.argv[1]).read().split('---')[1]; print(s
 python3 -m json.tool "$PLUGIN/.claude-plugin/plugin.json" >/dev/null && echo manifest ok
 ```
 
+### T10. An MVP request selects risk-first-mvp (VER-24 a; selection rule 3)
+
+Run T10 to T15 on a fresh copy of the plugin (section 0), without T5's test framework. Restart, then:
+
+> /devforgeai:brainstorm what should the MVP of a meal-planning app for shift workers be?
+
+Answer the clarifying questions briefly; say the app does not exist yet.
+
+**Expect:** a line that reads, word for word, "Framework: `risk-first-mvp`, because you asked what to
+build first or what could make this fail." Then it states the bet and asks why the app could have
+failed six months after launch. Say "stop here" and decline the draft save.
+
+### T11. Improving a live product selects improve-existing (VER-24 b; selection rule 4)
+
+Restart, then:
+
+> /devforgeai:brainstorm our class-booking web app for a climbing gym is live. How could we improve
+> the way cancelled classes are handled?
+
+When asked, say the product is in use.
+
+**Expect:** "Framework: `improve-existing`, because the product exists and you asked to improve,
+extend or fix it." Then it asks what to read or how the product works today. Stop and decline the
+draft save.
+
+### T12. A symptom selects problem-reframing (VER-24 c; selection rule 5)
+
+Restart, then:
+
+> /devforgeai:brainstorm sign-ups have been flat for six months
+
+Answer every clarifying question with "I don't know". If it asks whether the product exists, say it
+does.
+
+**Expect:** "Framework: `problem-reframing`, because the request doesn't yet say who is affected and
+what hurts them." Then it asks why sign-ups are flat. Stop and decline the draft save.
+
+### T13. A framework the index lacks (VER-24 d; ERR-06)
+
+Restart, then:
+
+> /devforgeai:brainstorm use the SWOT framework: patients forget appointments booked weeks ahead at
+> our dental clinic
+
+**Expect:** first, word for word, "`SWOT` is not a framework in this skill's index, which lists
+`shortlist-ranking`, `risk-first-mvp`, `improve-existing`, `problem-reframing` and
+`diverge-converge`." Then "Framework: `diverge-converge`, because no other rule in the index
+matched." It asks no question about which framework to use. Keep this session for T14.
+
+### T14. Switching at step 5 (VER-24 e; BEH-19)
+
+In T13's session, answer the questions, give two ideas of your own, and go on until the step-5 form
+shows the proposed dispositions. Note the idea IDs and their texts. Under Other, type:
+
+> switch to RICE
+
+**Expect:**
+- "Framework: `shortlist-ranking`, because you asked to switch from `diverge-converge`."
+- No new idea, and every idea keeps its ID and text.
+- The step-5 form comes again, with proposals from the cut.
+
+Accept all and say it has converged. **Expect in the BRN:**
+- `value`, `effort` and `risk` are quoted numbers and every `score` has one decimal.
+- It asked nothing about reach, effort or capacity before the form.
+- Section 5 opens with "Shortlist ranking (RICE):", followed by the line "Switched from
+  `diverge-converge` after step 3: the problems, ideas and assumptions were kept and only the
+  evaluation was redone."
+- Section 5 has the line "Reach unit: not known for every candidate, so reach is counted as 1 for all."
+- Section 6 has a line of the form `Capacity: 7.5 person-weeks (assumed: half of the candidates' summed
+  effort).`, its figure half of the efforts in the table that starts `| Rank | Idea | Score |`.
+- The report block says `(framework: shortlist-ranking)`.
+
+Then type "switch to SCAMPER". **Expect:** "The brainstorm is already written as BRN-NNN. To
+evaluate it with `improve-existing`, run `/devforgeai:brainstorm` again and choose to extend
+BRN-NNN." and no change to the file.
+
+### T15. A backlog that is named but not given (VER-24 f; selection rule 2)
+
+Restart, then:
+
+> /devforgeai:brainstorm rank our Jira backlog for the patient portal
+
+**Expect:** "I can't read `our Jira backlog` as a list of candidates. Paste the list, or give a file
+path, and ask me to switch to `shortlist-ranking`." (the quoted words may be "Jira backlog"), then a
+"Framework:" line for another framework. Stop and decline the draft save.
+
 ## 2. Cleanup
 
 ```bash
@@ -238,6 +325,12 @@ rm -rf /tmp/brainstorm-test
 | T7 | ERR-02 (VER-09) | | |
 | T8 | ERR-05 (VER-09) | not run | not reproducible by hand |
 | T9 | VER-09, QR-01, QR-02 | | |
+| T10 | VER-24 a (rule 3) | | |
+| T11 | VER-24 b (rule 4) | | |
+| T12 | VER-24 c (rule 5) | | |
+| T13 | VER-24 d (ERR-06) | | |
+| T14 | VER-24 e (BEH-19) | | |
+| T15 | VER-24 f (rule 2, unreadable backlog) | | |
 
 ## 4. Automated evals (`claude plugin eval`)
 

@@ -23,14 +23,20 @@ Run a brainstorming session on one topic and record it as a BRN document at
 problems, ideas and assumptions by ID, so the document must be structurally exact and must only
 claim decisions the user actually made.
 
-## Inputs
+## Workflow
 
-- The arguments (the `ARGUMENTS:` line at the end of this text, when given): the topic. They may be empty; then take the topic from the conversation, or ask for it.
-- Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
-- The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
-- The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md` (or the draft path the progress
-  tracker's line on continuing names, below), the work so far, saved after steps 3 and 4 and at
-  step 5 ([work-file.md](references/work-file.md)).
+Work through this checklist:
+
+```
+- [ ] 1. Intake: topic, existing BRNs, clarifying questions
+- [ ] 2. Select a framework
+- [ ] 3. Diverge: problems, ideas, assumptions
+- [ ] 4. Evaluate with the framework
+- [ ] 5. Propose dispositions and ask the user to confirm
+- [ ] 6. Write the BRN
+- [ ] 7. Validate the BRN
+- [ ] 8. Report and hand off
+```
 
 ## Decisions that belong to the user
 
@@ -50,20 +56,16 @@ tagged; then mark step 6 and edit the BRN in place, step 7 and validate it again
 report. An unconfirmed disposition looks valid to every structural check, and a PRD would build on a
 choice nobody made. That is why this rule matters more than any other in this skill.
 
-## Workflow
+## Inputs
 
-Work through this checklist:
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): the topic. They may be empty; then take the topic from the conversation, or ask for it.
+- Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
+- The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
+- The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md` (or the draft path the progress
+  tracker's line on continuing names, below), the work so far, saved after steps 3 and 4 and at
+  step 5 ([work-file.md](references/work-file.md)).
 
-```
-- [ ] 1. Intake: topic, existing BRNs, clarifying questions
-- [ ] 2. Select a framework
-- [ ] 3. Diverge: problems, ideas, assumptions
-- [ ] 4. Evaluate with the framework
-- [ ] 5. Propose dispositions and ask the user to confirm
-- [ ] 6. Write the BRN
-- [ ] 7. Validate the BRN
-- [ ] 8. Report and hand off
-```
+## Working through the steps
 
 **Keep the checklist in the task list** when the session has task-list tools (TaskCreate and
 TaskUpdate, or TodoWrite; load them through ToolSearch if they are deferred). DevForgeAI's progress
@@ -136,14 +138,16 @@ doesn't say to proceed without questions, never ask it.
    `[NEEDS CLARIFICATION: question]` in the document; never fill a gap with a guess.
 
 Use AskUserQuestion for questions and confirmations when it is available, tagged with its step
-(Workflow); otherwise ask in plain text and end your turn.
+(Working through the steps, item 4); otherwise ask in plain text and end your turn.
 
 ### 2. Select a framework
 
-Read `${CLAUDE_SKILL_DIR}/references/frameworks/INDEX.md`. Pick the framework the user named, or
-the one whose *use when* criteria best fit the topic; use `diverge-converge` when nothing fits
-better. Read the chosen framework file and follow it from here on. Tell the user in one
-sentence which framework you chose and why, and switch if they ask.
+Read `${CLAUDE_SKILL_DIR}/references/frameworks/INDEX.md` and take the first of its selection rules
+that matches, in the table's order: the framework the user named, else the one whose test the
+request meets, else `diverge-converge`. Ask nothing to choose. Read the chosen framework file and
+follow it from here on. Tell the user which framework and why with that rule's sentence from the
+index, word for word, as a line of its own. When the user names a framework the index lacks, or
+asks to switch, do what the index says under *A name the index lacks* and *Switching*.
 
 If the index is missing, or the chosen file is missing or lacks any section the index requires,
 fall back to `diverge-converge` and tell the user which file was the problem.
@@ -154,11 +158,13 @@ Follow the framework's steps and questions.
 
 - Frame **problems** first (`PRB-NN`), stated from the affected user's side.
 - Capture **ideas** (`IDEA-NN`). Record the user's own ideas in their own words, alongside the
-  ideas you generate. Generate between 5 and 15 ideas unless the user asks for another number.
+  ideas you generate. Generate between 5 and 15 ideas unless the user asks for another number or the framework's *Steps*
+set their own count.
   Every idea addresses at least one problem and starts with `disposition: open`.
 - Capture **assumptions** (`ASM-NN`): beliefs the ideas depend on, each with how to validate it.
 
-Mark step 3 completed, then save the work file (Workflow) before marking step 4 in progress.
+Mark step 3 completed, then save the work file (Working through the steps) before marking step 4 in
+progress.
 
 ### 4. Evaluate
 
@@ -174,8 +180,8 @@ Mark step 4 completed, then save the work file again before marking step 5 in pr
 Propose a disposition and a one-line reason for each idea, and ask the user to confirm them and
 whether the brainstorm has converged. Save the work file with the proposals table first, before
 asking, or right away when no question is asked. With AskUserQuestion, put the proposals inside the form, never
-only in text before it (the dialog hides that text). One form tagged step 5 (Workflow, item 4),
-both questions with `header: "Step 5"`:
+only in text before it (the dialog hides that text). One form tagged step 5 (Working through the
+steps, item 4), both questions with `header: "Step 5"`:
 1. "Confirm these dispositions?", options `Accept all as proposed` (Recommended) and `Leave them
    open`, each option's `preview` holding the table: idea ID, title, proposed disposition, reason.
    When the table is too long for a preview, list each idea's ID and proposed disposition there and
