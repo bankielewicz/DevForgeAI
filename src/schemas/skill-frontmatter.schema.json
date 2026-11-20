@@ -148,6 +148,18 @@
         "bash",
         "powershell"
       ]
+    },
+    "tasks": {
+      "description": "Task titles the Taskmaster mod seeds and shows for a run of the skill: the skill's checklist lines, in order, without their numbers (SPEC-001 v18). Claude Code ignores the key.",
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 64
+      }
     }
   },
   "additionalProperties": false

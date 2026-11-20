@@ -3,9 +3,9 @@ id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
 status: approved
-version: 17
+version: 18
 created: 2026-09-22
-updated: 2026-10-06
+updated: 2026-11-19
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -14,7 +14,7 @@ generated_by:
   session: "a2b1015f-3340-4c70-80ed-b674d486fadd"
 reviewed_by: []
 approved_by: "Bryan"
-approved_on: 2026-10-06
+approved_on: 2026-11-19
 upstream:
   - {id: STORY-001, relation: specifies, version: 4, hash: null}
   - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
@@ -172,6 +172,15 @@ argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
   devforgeai-version: "6"
+tasks:                            # version 18: the checklist's lines (BEH-12), in order
+  - "Intake: topic, existing BRNs, clarifying questions"
+  - Select a framework
+  - "Diverge: problems, ideas, assumptions"
+  - Evaluate with the framework
+  - Propose dispositions and ask the user to confirm
+  - Write the BRN
+  - Validate the BRN
+  - Report and hand off
 ```
 
 - **Arguments:** `$ARGUMENTS` is the topic, and may be empty (BEH-01).
@@ -186,6 +195,15 @@ metadata:
   them, the task-list tools (TaskCreate and TaskUpdate, or TodoWrite) for the workflow checklist (BEH-12).
   No `allowed-tools` pre-approval in the MVP, so writes go through normal permission prompts. The skill never
   deletes a file: the progress tracker deletes its work files (version 16).
+- **Task list for Taskmaster (version 18; Bryan, 2026-11-19):** `tasks:` names the run's steps for the
+  Taskmaster mod, which seeds a skill's task list from that key and shows its progress in a pane. The titles are the
+  workflow checklist's eight lines without their numbers, in order (Bryan: "Checklist lines"). With Taskmaster's
+  "guide skill tasks" setting on (its default; Taskmaster 0.1.0, the installed copy, read 2026-11-19), Taskmaster appends a numbered list of these titles to the prompt and
+  asks Claude to track exactly them with that wording; that list then equals BEH-12's subjects, `<N>. <title>`, so
+  the two instructions name the same eight tasks. A `tasks:` title changes only with its checklist line. Claude Code
+  ignores a frontmatter key it doesn't recognize, so without Taskmaster nothing changes; with it, the prompt gains
+  Taskmaster's block (plugin 0.35.0, a minor version: Bryan, "0.35.0 (minor)").
+  `src/schemas/skill-frontmatter.schema.json` accepts `tasks` (3 to 8 unique strings of 1 to 64 characters).
 
 ## 6. Behavior
 
@@ -294,6 +312,9 @@ quality_responses:
 
 | Kind | Status |
 | --- | --- |
+| Version 18 (SKL-001 v12) | Merged in PR #173 (`8769dd8`, 2026-11-20) as plugin 0.35.0; not deployed yet: the user-scope marketplace install runs here and changes only when Bryan updates it. Built on branch `feat/brainstorm-taskmaster-tasks` (draft PR #173), 2026-11-19, through `/plugin-dev:create-plugin`: `SKILL.md`'s frontmatter gains §5's `tasks:`, the frontmatter schema accepts the key, and plugin 0.35.0 ships it. No other skill text changed. plugin-validator passed; skill-reviewer found that the first titles (Taskmaster's suggested wording) differed from BEH-12's subjects in 7 of 8 steps, which Taskmaster's "with this wording" instruction would turn into two lists or uncredited steps, so the titles became the checklist lines (Bryan, 2026-11-19). Evals: the smoke row below. |
+| Smoke (SKL-001 v12), 2026-11-19 | Bryan's command, `--tag brainstorm --case keeps-task-list --runs 1 --ablation none`, with `--allow-tools Write Edit Bash --scaffold --judge-model sonnet --threshold 0.8 --no-publish --keep-temp`. Run from a herdr pane the session drove (a plain terminal), bound by `record_revision.sh` to `d6aa99e` (plugin digest `9fee2a9538a21384`, plugin 0.35.0). Results: `tmp/eval-results/tm-smoke-20261119T215351Z/` in the PR's worktree (local). The runner selected exactly one case, `keeps-task-list` ("1 case(s)"). Score 1.00, 6 of 6 graders: `brn-exists`; `skill-fired`; `step-5-task`; `steps-completed` (TaskUpdate 8 times); `tasks-before-write` (TaskCreate at call 7, before the first Write at call 23); `tasks-tagged` (TaskCreate 8 times). No error, no missing tool grant; $1.19, 233 s. Taskmaster didn't load in the eval's sandbox (the kept trace has no `<taskmaster>` block), so the smoke shows the skill unchanged without Taskmaster; the live check above covers it with Taskmaster. Bryan waived the three-run qualification for this Taskmaster change "until the next brainstorm skill version or 2026-12-31, whichever comes first", on the condition, met, that the smoke reached 0.8. |
+| Live (version 18, Taskmaster) | Run 2026-11-19 from a herdr pane the session drove (Bryan: "Drive it in a herdr pane"). Setup: Claude Code 2.1.328, Opus 5.5, Taskmaster 0.1.0 (the installed copy, its defaults: frontmatter tasks, guide skill tasks and strict order on), in a scratch folder. The branch's plugin (source unchanged since `f614cbf`) was loaded with `--plugin-dir`; the debug log reads `Plugin "devforgeai" from --plugin-dir overrides installed version`, and the skill's Base directory is the worktree's. (1) Enforcement off: one task list. Eight TaskCreates titled `<N>. <checklist line>`, each with its `devforgeai_step`, both from Taskmaster's guide block and from BEH-12. The tracker reached all 8 steps with no flags and deleted the work file; Taskmaster showed 8 of 8; the BRN validated. (2) Enforcement on, in a freshly started session (Bryan switched it on): the same, Taskmaster "8 of 8 · 100% · enforced"; the guide block carried Taskmaster's enforcement rule; there were no refusals and no "Do not end your turn" reminders. (3) Enforcement on, fresh session: the user typed "Stop here" at the first question. Claude stopped with step 1 in progress and 7 pending, marked nothing completed, and got no reminder: Taskmaster's Stop gate checks the request the stop message opens, which has no tasks. An earlier attempt after `/clear` ran without enforcement (Taskmaster reads its settings only when a session starts) and isn't counted. Found: Taskmaster's block is appended after the `ARGUMENTS:` line (character 19,082 against 19,012, in a 19,589-character skill text); the topic was read correctly in every run. Not run: a continued run (where the tracker's continuing line lands), TodoWrite, step 7's stop after three failed validations, and a run started while Taskmaster's list holds an earlier run's tasks (§13). |
 | Text fix, SKL-001 v11, 2026-11-04 (#135) | The skill says "the arguments" instead of a live `$ARGUMENTS`, which Claude Code replaced with the user's input (Bryan, 2026-11-04: "the arguments" (Recommended)). No requirement changed; `$ARGUMENTS` in this spec names the input. Smoke on `ad298e1`, one run, no baseline, sonnet (`tmp/eval-results/135-smoke-20261104T215940Z/`, local): `hands-off-to-prd` 1.00 ($0.45), plain words. Typed with an argument, `claude -p`, sonnet, on 2.1.318: `/devforgeai:brainstorm zebra feeding schedules. Proceed without questions.` ($0.62) wrote a BRN on that topic, and the session shows the `ARGUMENTS:` line, the new wording from the branch, and no `$ARGUMENTS`. It stays in-review. Bryan waived the 3-run qualification for this fix until this skill's next version or 2026-12-31, whichever comes first ("Smoke plus dated waiver (Recommended)"). Merged in PR #150 (`f390c33`) on 2026-11-06 and deployed by Bryan in plugin 0.32.0 the same day. |
 | Merged (v16, 17) | Versions 16 and 17 (SKL-001 v9, then v10, in review). Merged with PR #95's build in PR #99 (`51571ce`, 2026-10-06) and deployed as plugin 0.27.0 the same day; the deployed copy matches the source (`diff -rq` exit 0). |
 | Live (VER-17, version 17) | (a) passed, with SPEC-013's VER-62 (see its §9 row): a run stopped at step 5 and continued showed the same proposals, kept the draft's IDs, saved to the carried draft, and the tracker deleted it once step 7 was done, with no permission prompt. Not run: (b) a second continuation (covered by VER-61's kit test only), (c) extend, (d) a run continued after validation, (e) ERR-02's draft BRN. |
@@ -554,6 +575,36 @@ by git.
 
 ## 13. Open questions
 
+- Open (version 18): with Taskmaster on, a run gets two instructions for its task list. Taskmaster's (its "guide
+  skill tasks" setting, on by default) lists the `tasks:` titles, numbered, and asks Claude to track exactly them with
+  that wording; BEH-12 asks for one task per checklist step, titled `<N>. <title>` and tagged `devforgeai_step`, which
+  the progress tracker needs to credit a step. Since the titles are the checklist lines, both name the same tasks, and
+  Taskmaster matches a created task to its seeded row by title. Still to check live (§9): that Claude keeps the
+  `devforgeai_step` tags while following Taskmaster's wording; that Taskmaster's enforcement with strict order doesn't
+  hold a step back; and that Taskmaster's block, appended to the prompt at `skill.prompt`, doesn't land after the
+  `ARGUMENTS:` line or the tracker's continuing line, which the skill finds at the end of its text. From the second
+  skill-reviewer pass: (a) with Taskmaster's enforcement on, its Stop gate lets a turn end with tasks open only on a
+  reply ending in a question, so the skill's stops with no question (ERR-02's "write nothing more", step 7's stop
+  after three failed attempts) are sent back, and Claude may carry on past them; (b) with TodoWrite, which has no
+  metadata, the tracker finds a step only from the `N.` prefix, so a task written without its number is uncredited;
+  (c) when Taskmaster's list already holds an earlier run's tasks, a new run's tasks attach to those rows by title
+  (BEH-12 says an earlier run's tasks don't count); Taskmaster's guide then uses its second wording, "add these
+  tasks to it with this wording". Taskmaster's behaviour here is as read in its installed copy, 0.1.0, on 2026-11-19.
+  Live check of 2026-11-19 (§9): one list of tagged tasks and every step credited, with enforcement off and on;
+  strict order held no step back; a stop the user types holds under enforcement, with no reminder. Taskmaster's
+  block does land after the `ARGUMENTS:` line, and the topic was still read. Still open, each NOT_RUN live:
+  - NOT_RUN: a continued run, which shows where the tracker's continuing line lands relative to Taskmaster's block.
+  - NOT_RUN: (b), a run whose task list is kept with TodoWrite.
+  - NOT_RUN: (c), a run started while Taskmaster's list holds an earlier run's tasks.
+  - NOT_RUN: step 7's stop after three failed validation attempts, under Taskmaster's enforcement.
+- Decided (Bryan, 2026-11-19, at approval): PRD-001 NFR-002 says each skill "conforms to the Agent Skills
+  specification and validates against" the frontmatter schema, which QR-02 satisfies. `tasks` is neither an Agent
+  Skills field nor a Claude Code field (nor is `argument-hint` an Agent Skills field; Claude Code accepts it). No
+  placement avoids that: Taskmaster reads top-level keys only (`tasks`, `steps`, `taskmaster`), and the schema
+  allows only string values under `metadata`. Bryan: "For PRD-001 NFR-002, I authorize the brainstorm skill's
+  top-level tasks: list as a Taskmaster-specific extension." The exception is narrow: it covers this one key, in this
+  skill, for Taskmaster. Any other non-standard frontmatter key, or `tasks:` in another skill, needs its own decision.
+
 - Decided (Bryan, 2026-10-06, end-of-workflow summary of PR 3): VER-16 ("Graders on outcome (Recommended)"): saves-work-as-it-goes fails only its tool clause
   (three saves with the Write tool) in headless evals, where Claude saves with Bash and copies the draft into the BRN;
   with the progress tracker present (SPEC-013 VER-62, live) those writes are recorded, refused or flagged. Waived for
@@ -671,3 +722,11 @@ by git.
 | 17 | 2026-10-06 | Bryan | Approved ('Approve all three (option 1)'), with the drafter's choices and the reviews' fixes in §13 | status |
 | 17 | 2026-10-06 | claude-code (session 932ae51e-b469-4be2-ad5f-a2d7be0c1663) | Record-only update, with no version bump: §9 records the merge in PR #99 (`51571ce`) and the deploy as plugin 0.27.0 | §9 |
 | 17 | 2026-11-04 | claude-code (session ff2b61f5-d9cf-4808-aa2e-6c0ebf931d91) | Record-only update, with no version bump: §9 records SKL-001 v11, #135's text fix, and Bryan's waiver | §9 |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | Bryan's request of 2026-11-19 (the Taskmaster mod's prompt to add a `tasks:` list to the skill's frontmatter; "Source, via plugin-dev", a worktree from main and a PR; "Name Taskmaster"): §5's frontmatter gains `tasks:`, eight titles, one per checklist step, so QR-02's limit to §5's fields admits it, and the frontmatter schema accepts the key. Workflow, checklist and BEH-12 unchanged. §9 records the build; §13 opens the two-lists question. Awaiting Bryan's approval | §5, §9, §13 |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | After skill-reviewer's finding (Taskmaster's "with this wording" against BEH-12's subjects), Bryan's decisions of 2026-11-19: the titles are the checklist lines ("Checklist lines (Recommended)"), so the schema's cap is 64 characters; plugin 0.35.0 ("0.35.0 (minor)"). §13 narrowed to what the live check must show. Awaiting Bryan's approval | §5, §9, §13 |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | The second skill-reviewer pass (titles match all eight seeded rows) adds three items to §13's live check: stops with no question under Taskmaster's enforcement, TodoWrite's `N.` prefix, and an earlier run's tasks in Taskmaster's list. Awaiting Bryan's approval | §13 |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | §5 and §13 date the Taskmaster facts (0.1.0, read 2026-11-19); §13 adds PRD-001 NFR-002's question for Bryan (`tasks` is not an Agent Skills field). Awaiting Bryan's approval | §5, §13 |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | Record-only update: §9 records the live check with Taskmaster (enforcement off and on, and a typed stop under enforcement); §13 says which of its items the check settled. Awaiting Bryan's approval | §9, §13 |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | §13 records Bryan's narrow exception to PRD-001 NFR-002 (the brainstorm skill's top-level `tasks:` list, as a Taskmaster-specific extension) and marks the live check's four untested scenarios NOT_RUN. Links moved to version 18: SPEC-002, SPEC-005, SPEC-012 | §13 |
+| 18 | 2026-11-19 | Bryan | Approved ("I approve SPEC-001 v18 as scoped to Taskmaster in PR #173"), with the NFR-002 exception: "For PRD-001 NFR-002, I authorize the brainstorm skill's top-level tasks: list as a Taskmaster-specific extension." | status |
+| 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | Record-only update, with no version bump: §9 records SKL-001 v12's one-case smoke (keeps-task-list 1.00 at `d6aa99e`) and Bryan's dated waiver of the three-run qualification | §9 |

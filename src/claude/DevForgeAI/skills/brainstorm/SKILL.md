@@ -4,7 +4,16 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "11"
+  devforgeai-version: "12"
+tasks:
+  - "Intake: topic, existing BRNs, clarifying questions"
+  - Select a framework
+  - "Diverge: problems, ideas, assumptions"
+  - Evaluate with the framework
+  - Propose dispositions and ask the user to confirm
+  - Write the BRN
+  - Validate the BRN
+  - Report and hand off
 ---
 
 # Brainstorm
