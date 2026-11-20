@@ -25,7 +25,7 @@ upstream:
   - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
   - {id: ADR-005, relation: constrains, version: 1, hash: null, note: "accepted: SV-08, and testing keys that prd validates but does not resolve"}
   - {id: ADR-008, relation: informed_by, version: 3, hash: null, note: "deprecated: the dev-guard, cancelled unbuilt; the version 6 build no longer waits for it (§2)"}
-  - {id: SPEC-001, relation: informed_by, version: 17, hash: null, note: "consumes the brainstorm skill's downstream contract (SPEC-001 §5)"}
+  - {id: SPEC-001, relation: informed_by, version: 18, hash: null, note: "consumes the brainstorm skill's downstream contract (SPEC-001 §5)"}
 supersedes: []
 superseded_by: null
 blocked_by: []
