@@ -4,7 +4,7 @@
 fa59a935-ed2e-4502-b6c4-93bb6d847546) for Bryan's review. It changes nothing until SPEC-001's next version is
 approved and built. Read [README.md](README.md) first: this document uses its rules (R1 to R10), its shapes (C-01
 to C-11), its gate and its IDs without repeating them. It is the second of the four documents built as SKL-001
-version 12 (README section 8).
+version 13 (README section 8).
 
 ## Workflow steps this changes
 
@@ -43,8 +43,8 @@ version 12 (README section 8).
 Each edit below is exact (R7): the old text occurs once in the file as it stands when this document is built,
 ignoring line breaks, and the new text replaces it. [framework-catalog.md](framework-catalog.md) is built first
 and moves SKILL.md's steps under a new heading; no edit here depends on a heading's position. Every old text
-below was checked against version 11 of the files with that document's edits applied (section 5, "What was
-checked"). One edit, A-W2, starts from text that document wrote.
+below was checked against version 11 of the files with that document's edits applied, and on 2026-11-20 against
+version 12's (section 5, "What was checked"). One edit, A-W2, starts from text that document wrote.
 
 An old or new text in a `python` block is whole lines with their indentation: the new lines replace the old
 lines. In a `text` block the old text may start in the middle of a line; what stands before and after it on
@@ -53,7 +53,8 @@ its lines stays.
 ### 2.1 `docs/specs/spec/SPEC-001.md` (its next version)
 
 BEH-01 is replaced. BEH-20 to BEH-24, ERR-07 and VER-25 to VER-29 are added (sections 3 to 5). Section 3's tree
-gains `references/intake.md`.
+gains `references/intake.md`. SPEC-001 version 19, drafted before the build, makes these changes, edit A-P1
+among them; the build's second commit doesn't repeat it.
 
 **Edit A-P1** — `docs/specs/spec/SPEC-001.md` (BEH-01's rule)
 
@@ -71,9 +72,11 @@ Decide the project kind (BEH-20). Ask at most four clarifying questions before d
 
 ### 2.2 `docs/specs/adr/ADR-003.md`
 
-The clarifying-question limit is an interaction default in ADR-003's table of value classes (line 94). The
-build changes the number there, bumps the ADR to version 3 with a new `updated` date, and adds a row to its
-"Status history" table naming SPEC-001's version and Bryan's acceptance. Nothing else in the ADR changes. The
+The clarifying-question limit is an interaction default in ADR-003's table of value classes (line 94).
+ADR-003 version 3, drafted with SPEC-001 version 19 and accepted by Bryan with it, before the build, changes the
+number there (edit A-D1), has a new `updated` date, and adds rows to its "Status history" table naming
+SPEC-001's version and Bryan's acceptance. Nothing else in the ADR changes, and the build doesn't repeat the
+edit. The
 limit is fixed (Bryan, 2026-11-19: "Keep the four-question limit fixed."): in ADR-003's table the row still
 classes it as an interaction default, its default value becomes 4, and no setting exposes it. Configuration
 contract v1's only interaction key stays `interview.max_calls`; the brainstorm skill reads no policy document
@@ -95,7 +98,7 @@ clarifying-question limit (4)
 
 ### 2.3 `src/claude/DevForgeAI/skills/brainstorm/SKILL.md`
 
-Eight edits. They add 17 lines to the file (322 to 339, after framework-catalog.md's edits).
+Eight edits. They add 17 lines to the file (331 to 348, after framework-catalog.md's edits).
 
 **Edit A-S1** — `src/claude/DevForgeAI/skills/brainstorm/SKILL.md` (Inputs)
 
@@ -1423,6 +1426,12 @@ verifications:
   an earlier-shape BRN. In particular `no-decided-disposition` and `work-file-all-open` look for
   `disposition:` followed by a value, which no new shape contains.
 - Every `yaml items` block of this document with PyYAML, for R4's keys.
+
+**Re-checked on 2026-11-20** against `main` at `ff78d44`, after pull request #173 (SKL-001 version 12), with the
+reviewer's script, which applies every edit of the five documents in build order to scratch copies: each edit of
+section 2 still applies; the eight SKILL.md edits take the file from 331 to 348 lines; the validator's test file
+as this document leaves it runs 183 tests, `OK`, with and without site-packages; the staged examples and the
+project's own BRN-001 print `OK`.
 
 ## 6. Staged files
 

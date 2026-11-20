@@ -2,7 +2,7 @@
 
 **Status:** proposal, written 2026-11-18 by claude-code on the model Fable 5.2 (session
 fa59a935-ed2e-4502-b6c4-93bb6d847546) for Bryan's review. It changes no spec, skill or plugin version. It feeds
-SPEC-001's next version and is the first of the four commits of SKL-001 version 12 ([README.md](README.md) §8).
+SPEC-001's next version and is the first of the four commits of SKL-001 version 13 ([README.md](README.md) §8).
 Read the README first: this document uses its rules (R1 to R10), shapes (C-01 to C-11) and ID ranges.
 
 ## Workflow steps this changes
@@ -230,19 +230,23 @@ set their own count.
   `## Working through the steps`, `## Output contract`, `## Examples`, `## References`.
 - `## Workflow` holds only the sentence "Work through this checklist:" and the fence. A later document adds
   nothing to it.
-- The texts under `## Decisions that belong to the user` and `## Inputs` are version 11's, byte for byte.
+- The frontmatter is version 12's, its `tasks:` list included (SPEC-001 version 18): no edit of any document
+  touches it, and the build changes only `devforgeai-version` there. Version 12's text below the frontmatter is
+  version 11's, byte for byte.
+- The texts under `## Decisions that belong to the user` and `## Inputs` are version 12's, byte for byte.
 - `## Working through the steps` opens with the paragraph "**Keep the checklist in the task list** …" and holds, in
-  version 11's order and wording, the four numbered task-list rules, "Without task-list tools …", "**Save the work
+  version 12's order and wording, the four numbered task-list rules, "Without task-list tools …", "**Save the work
   as it goes.** …", "**Continuing an earlier run.** …" and `### 1. Intake` to `### 8. Report and hand off`.
-- Step 1 is version 11's text except its last paragraph, which is S5's new text.
-- Step 2 is S8's new text, a blank line, and version 11's paragraph "If the index is missing, or the chosen file is
+- Step 1 is version 12's text except its last paragraph, which is S5's new text.
+- Step 2 is S8's new text, a blank line, and version 12's paragraph "If the index is missing, or the chosen file is
   missing or lacks any section the index requires, fall back to `diverge-converge` and tell the user which file was
   the problem."
-- Step 3 is version 11's text except the sentences of S9 and S6. Step 4 is version 11's text.
-- Step 5 is version 11's text except the sentence of S7. Steps 6, 7 and 8, `## Output contract`, `## Examples` and
-  `## References` are version 11's text.
-- The file has 322 lines. With `devforgeai-version: "11"` still in place, its SHA-256 is
-  `3042c73c6ad12d37deb4a4f48217fb3c03161aec362f0399f2d7dd8b1fc33d2d`.
+- Step 3 is version 12's text except the sentences of S9 and S6. Step 4 is version 12's text.
+- Step 5 is version 12's text except the sentence of S7. Steps 6, 7 and 8, `## Output contract`, `## Examples` and
+  `## References` are version 12's text.
+- The file has 331 lines; the checklist's fence opens on line 30, 13 lines after the frontmatter's closing line
+  (line 17). With `devforgeai-version: "12"` still in place, its SHA-256 is
+  `452417cbb159ec716404ce6ffb86d28c4a33aba6c9215aa29f96bfa91cf33e07`.
 
 ### 2.2 diverge-converge.md
 
@@ -388,7 +392,10 @@ behaviors:
         Working through the steps; Output contract; Examples; References.
       - >-
         The Workflow section holds only the sentence "Work through this checklist:" and the fenced checklist of
-        the eight unchanged lines; the fence opens within the file's first 25 lines.
+        the eight unchanged lines; the fence opens at most 17 lines after the frontmatter's closing line.
+      - >-
+        The frontmatter's tasks: list (SPEC-001 version 18) holds the eight checklist lines without their boxes
+        and numbers, in order; a title changes only with its checklist line.
       - >-
         Working through the steps holds the task-list rules, the saving rule, the continuing rule and the
         sections ### 1. Intake to ### 8. Report and hand off, in that order.
@@ -620,7 +627,8 @@ verifications:
     obligation: >-
       src/tests/brainstorm/test_structure.py, whose whole text is in §5.1, passes: the checklist's eight lines
       equal the pinned list and their hash equals the progress manifest's; the Workflow section holds only its
-      sentence and the fence, which opens within the first 25 lines and before Decisions; the ## headings and the
+      sentence and the fence, which opens at most 17 lines after the frontmatter and before Decisions; the
+      frontmatter's tasks: list equals the eight lines without their boxes and numbers; the ## headings and the
       ### step headings are the pinned lists; SKILL.md has no "(Workflow" and at most 400 lines; every reference
       file shows its guide within 15 lines; the index's table and the files in frameworks/ name the same
       frameworks; the selection rules are numbered 1 to n, name listed frameworks, end with diverge-converge and
@@ -1129,7 +1137,7 @@ document adding a `##` heading to SKILL.md changes `H2`.
 """Structure tests for the brainstorm skill's text (SPEC-001; framework-catalog VER-18).
 
 They check what no eval can: that SKILL.md opens with the task list and keeps its eight checklist lines, that
-its headings stand in the agreed order, that every reference file shows its guide at the top, and that the
+its frontmatter's tasks: list names the same eight steps, that its headings stand in the agreed order, that every reference file shows its guide at the top, and that the
 framework index and the framework files agree with each other.
 
 Run from the repository root:
@@ -1350,8 +1358,20 @@ class SkillLayout(unittest.TestCase):
         first = next(i for i, line in enumerate(self.lines) if CHECKLIST_LINE.match(line))
         fence = first - 1
         self.assertEqual(self.lines[fence], "```")
-        self.assertLessEqual(fence + 1, 25, "the checklist's opening fence must be within the first 25 lines")
+        close = self.lines.index("---", 1)  # the frontmatter's closing line
+        self.assertLessEqual(fence - close, 17,
+                             "the checklist's fence must open at most 17 lines after the frontmatter")
         self.assertLess(fence, self.lines.index("## Decisions that belong to the user"))
+
+    def test_tasks_frontmatter_equals_the_checklist_lines(self):
+        close = self.lines.index("---", 1)
+        start = self.lines.index("tasks:", 1, close)
+        titles = []
+        for line in self.lines[start + 1:close]:
+            if not line.startswith("  - "):
+                break
+            titles.append(line[4:].strip().strip('"'))
+        self.assertEqual(titles, [CHECKLIST_LINE.match(line).group(2) for line in CHECKLIST])
 
     def test_h2_headings_in_order(self):
         self.assertEqual([text for _, text in headings(self.lines, "## ")], H2)
@@ -1646,6 +1666,18 @@ a script that reads them from this document:
 
 Not checked: any eval run (they are paid, and run from the owner's shell), the `llm` graders, and the manual item
 VER-24.
+
+**Re-checked on 2026-11-20** against `main` at `ff78d44`, after pull request #173 (SKL-001 version 12: a `tasks:`
+list in SKILL.md's frontmatter, 325 lines), with the reviewer's script, which applies every edit of the five
+documents in build order to scratch copies:
+
+- Each old text of this document still applies at its turn (17 lines `PASS edit …`); the edited SKILL.md has 331
+  lines and the hash §2.1 gives, and its `checklist_hash` equals the manifest's.
+- BEH-16's bound on the fence was "within the file's first 25 lines"; the `tasks:` list moved the fence from
+  line 21 to line 30. The bound is now counted from the frontmatter's closing line (at most 17 lines after it,
+  13 in fact, as before #173), so a later frontmatter key doesn't move it. `test_structure.py` gained one test,
+  that the `tasks:` list equals the checklist lines: `Ran 17 tests … OK`, with and without site-packages. On
+  version 12 as it stands the same file fails (`FAILED (failures=6, errors=2)`).
 
 ## 6. Staged files
 

@@ -41,7 +41,8 @@ shapes (C-01 to C-11) and its words without repeating them.
 ## 2. Changes by file
 
 Paths are under `src/claude/DevForgeAI/skills/brainstorm/` unless they start with `src/`. Each edit gives the old
-text and the new text (R7). An old text is quoted from version 11 of the file (plugin 0.34.0). This document is
+text and the new text (R7). An old text is quoted from version 11 of the file (plugin 0.34.0); version 12 (plugin
+0.35.0) changed only SKILL.md's frontmatter, so every old text stands in it too. This document is
 built fourth (README §8); the three documents built before it change the same files. Each old text below was
 chosen so that it still stands exactly once after their edits: where one of them adds words after a quoted
 sentence, this document's words go directly after that sentence, before theirs. S1 is no edit
@@ -51,8 +52,8 @@ what was verified.
 ### 2.1 `SKILL.md`
 
 Thirteen lines are added. With the three earlier documents' edits and these applied in build order, SKILL.md has
-371 lines (316 today; R2's limit is 400); `skill_lines.py` in §5.4 counted them. The same commit then applies
-prd-handoff-contract.md's H1 to H3 (step 8's report block, BEH-34), which brings it to 377.
+380 lines (325 today; R2's limit is 400); §5.4 gives the count. The same commit then applies
+prd-handoff-contract.md's H1 to H3 (step 8's report block, BEH-34), which brings it to 386.
 
 **S1.** *Decisions that belong to the user*, its first line. No edit: brownfield-iteration.md's edit B-S1, built
 before this document, already changed "Two decisions are the user's, never yours:" to "These decisions are the
@@ -1537,8 +1538,9 @@ Scripts are in the session's scratch folder, `fable/fable-mvp-handoff/`; none is
 | The same old texts against the three files with the three earlier documents' edits applied (`after_siblings.py`) | S2 to S13, O1 to O3, W1 and W2 each found exactly once; S1 is no edit, because brownfield-iteration.md's B-S1 already made the change |
 | The validator with intake-and-evidence.md's A-V1 and A-V2, brownfield-iteration.md's B-V1 and B-V2, then V1 and V2 applied (`combined.py`), on the staged greenfield example and on both BRNs of the staged brownfield example, `python3` and `python3 -S` | `OK` for all three, both ways: the three documents' checks agree on the three examples |
 | The whole test file as the fourth commit leaves it (`full_tree.py`): the validator and the test file with A-V1, A-V2, A-T1 to A-T3, B-V1, B-V2, B-T1, B-T2, then V1, V2, T1, T2; the staged template and both staged examples | `Ran 354 tests`, `OK` (118 cases, three ways) |
-| SKILL.md with all four documents' edits applied in build order (`skill_lines.py`) | 371 lines |
+| SKILL.md with all four documents' edits applied in build order (`skill_lines.py`) | 371 lines on version 11 |
 | Every `yaml items` block here | parses with PyYAML; every item has R4's keys |
+| Re-check of 2026-11-20 against `main` at `ff78d44`, after pull request #173 (SKL-001 version 12): every edit of the five documents applied in build order to scratch copies by the reviewer's script | each edit applies (S1 is no edit, as above); `Ran 354 tests`, `OK`, with and without site-packages; SKILL.md has 380 lines after this document's edits and 386 with H1 to H3; `checklist_hash` equals the manifest's; the staged examples and the project's own BRN-001 print `OK` |
 
 ## 6. Staged files
 

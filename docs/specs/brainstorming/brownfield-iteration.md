@@ -4,7 +4,7 @@
 fa59a935-ed2e-4502-b6c4-93bb6d847546) for Bryan's review. It changes nothing until SPEC-001's next version is
 approved and built. Read [README.md](README.md) first: this document uses its rules (R1 to R10), its shapes (C-01
 to C-11), its gate and its IDs without repeating them. It is the third of the four documents built as SKL-001
-version 12 (README section 8), after [intake-and-evidence.md](intake-and-evidence.md), whose project kind,
+version 13 (README section 8), after [intake-and-evidence.md](intake-and-evidence.md), whose project kind,
 sources and citation rule it builds on.
 
 ## Workflow steps this changes
@@ -47,8 +47,8 @@ BEH-20):
 
 Each edit is exact (R7). This document is built after intake-and-evidence.md, so where it changes a passage
 that document already changed, its old text is that document's new text. Every old text below was checked
-against version 11 of the files with framework-catalog.md's and intake-and-evidence.md's edits applied (section
-5, "What was checked").
+against version 11 of the files with framework-catalog.md's and intake-and-evidence.md's edits applied, and on
+2026-11-20 against version 12's (section 5, "What was checked").
 
 An old or new text in a `python` block is whole lines with their indentation: the new lines replace the old
 lines. In a `text` block the old text may start in the middle of a line; what stands before and after it on
@@ -58,7 +58,8 @@ its lines stays.
 
 BEH-05, BEH-06 and ERR-01 are extended. BEH-25 to BEH-29, ERR-08, ERR-09 and VER-30 to VER-34 are added
 (sections 3 to 5). Section 3's tree gains `references/brownfield.md`; section 5's Tools gain nothing (Glob and
-Read are already listed).
+Read are already listed). SPEC-001 version 19, drafted before the build, makes these changes, edits B-P1 to
+B-P3 among them; the build's third commit doesn't repeat them.
 
 **Edit B-P1** — `docs/specs/spec/SPEC-001.md` (BEH-05's rule)
 
@@ -104,7 +105,7 @@ Both questions are tagged step 5 (BEH-12). In a brownfield run whose Assumption 
 
 ### 2.2 `src/claude/DevForgeAI/skills/brainstorm/SKILL.md`
 
-Ten edits. They add 20 lines to the file (339 to 359, after framework-catalog.md's and intake-and-evidence.md's
+Ten edits. They add 20 lines to the file (348 to 368, after framework-catalog.md's and intake-and-evidence.md's
 edits).
 
 **Edit B-S1** — `src/claude/DevForgeAI/skills/brainstorm/SKILL.md` (Decisions that belong to the user)
@@ -1361,6 +1362,12 @@ verifications:
   `progress/evaluate.py`'s `checklist_hash` of the edited SKILL.md equals the manifest's `checklistHash`.
 - The test file with mvp-and-prototype-path.md's own tests added (its T1 and T2): 354 tests pass.
 - Every `yaml items` block of this document with PyYAML, for R4's keys.
+
+**Re-checked on 2026-11-20** against `main` at `ff78d44`, after pull request #173 (SKL-001 version 12), with the
+reviewer's script, which applies every edit of the five documents in build order to scratch copies: each edit of
+section 2 still applies; the ten SKILL.md edits take the file from 348 to 368 lines, which leaves 32 lines under
+R2's limit of 400 (mvp-and-prototype-path.md and BEH-34 take 18); the validator's test file as this document
+leaves it runs 279 tests, `OK`, with and without site-packages; `test_structure.py` runs 17 tests, `OK`.
 
 ## 6. Staged files
 

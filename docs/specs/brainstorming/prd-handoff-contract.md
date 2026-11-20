@@ -2,7 +2,7 @@
 
 **Status:** proposal, written 2026-11-18 by claude-code on the model Fable 5.2 (session
 fa59a935-ed2e-4502-b6c4-93bb6d847546) for Bryan's review. It changes nothing until it is built. Its brainstorm side (BEH-34, VER-39: step 8's report
-block) is built in SKL-001 version 12, with the fourth commit, under SPEC-001's next version. Its PRD side is
+block) is built in SKL-001 version 13, with the fourth commit, under SPEC-001 version 19. Its PRD side is
 built separately, under SPEC-002 version 10 and SKL-002 version 7, before the PRD interview at scale (SPEC-002
 versions 6 to 9) is built: Bryan's decision of 2026-11-19 (§7). Read
 [README.md](README.md) first, then [mvp-and-prototype-path.md](mvp-and-prototype-path.md) for the two shapes this
@@ -14,7 +14,7 @@ VER-49, so this document takes `SPEC-002#BEH-27` to `SPEC-002#BEH-29`, `SPEC-002
 
 ## Workflow steps this changes
 
-Brainstorm (`/devforgeai:brainstorm`), built in SKL-001 version 12:
+Brainstorm (`/devforgeai:brainstorm`), built in SKL-001 version 13:
 
 | Step (SKILL.md's line, unchanged) | Today | Added by this document |
 |---|---|---|
@@ -31,7 +31,7 @@ PRD (`/devforgeai:prd`; its ten checklist lines don't change either), built late
 
 ## 1. Scope
 
-**In.** What brainstorm's final reply tells the user about a new-shape BRN (built in SKL-001 version 12, with
+**In.** What brainstorm's final reply tells the user about a new-shape BRN (built in SKL-001 version 13, with
 mvp-and-prototype-path.md's commit, so the brainstorm skill needs no further version for it). What the PRD skill
 does with each fixed shape of a new-shape BRN (a later build). That an earlier-shape BRN is handled exactly as
 today.
@@ -49,7 +49,7 @@ today.
 ## 2. Changes by file
 
 Each edit gives old and new text (R7). Old texts are quoted from the files of plugin 0.34.0: brainstorm's
-SKILL.md at version 11 (the four brainstorm documents change none of the passages quoted here, which §5.5 records), and the PRD
+SKILL.md at version 11, whose quoted passages version 12 (plugin 0.35.0) left as they were (the four brainstorm documents change none of the passages quoted here, which §5.5 records), and the PRD
 skill at SKL-002 version 6, which implements SPEC-002 version 5. The PRD side is built before the
 interview at scale (§7), so those are the files it meets and the edits of §2.2 to §2.5 apply as written. The
 interview build comes afterwards: it takes its own old texts from the files as this build leaves them, and
@@ -57,8 +57,8 @@ carries §3.6 forward.
 
 ### 2.1 `src/claude/DevForgeAI/skills/brainstorm/SKILL.md`
 
-Built in the fourth commit of SKL-001 version 12, after mvp-and-prototype-path.md's edits S2 to S13. Six lines
-are added; SKILL.md then has 377 lines (R2's limit is 400). The eval case of VER-39 is added with that commit.
+Built in the fourth commit of SKL-001 version 13, after mvp-and-prototype-path.md's edits S2 to S13. Six lines
+are added; SKILL.md then has 386 lines (R2's limit is 400). The eval case of VER-39 is added with that commit.
 §2.2 to §2.6 are the later PRD build.
 
 **H1.** Step 8, the block's first line.
@@ -510,8 +510,8 @@ results §5.3 lists, each failing exactly the graders named there.
 | SPEC-001 BEH-10 | Extended by BEH-34 |
 | SPEC-001 new (its next version, with the four brainstorm documents) | BEH-34, VER-39 |
 
-BEH-34 and VER-39 enter SPEC-001's next version with the four brainstorm documents' items and ship in SKL-001
-version 12. The PRD build is SPEC-002 version 10: it adds the SPEC-002 items of this document, moves SPEC-002's `upstream`
+BEH-34 and VER-39 enter SPEC-001 version 19 with the four brainstorm documents' items and ship in SKL-001
+version 13. The PRD build is SPEC-002 version 10: it adds the SPEC-002 items of this document, moves SPEC-002's `upstream`
 link to that SPEC-001 version, gives SKL-002 version 7 (`provenance.yaml` and `devforgeai-version`) and moves
 the plugin version; it changes no brainstorm file. The interview at scale is then SKL-002's version after 7.
 
@@ -527,7 +527,7 @@ behaviors:
       3. For an earlier-shape BRN the block is as SPEC-001 BEH-10 gives it today.
       4. Nothing else of the hand-off changes: the next step is still /devforgeai:prd with the BRN's ID.
     changes: "extends SPEC-001 BEH-10"
-    lands_in: "brainstorm SKILL.md step 8 (H1 to H3), in SKL-001 version 12, with mvp-and-prototype-path.md's commit"
+    lands_in: "brainstorm SKILL.md step 8 (H1 to H3), in SKL-001 version 13, with mvp-and-prototype-path.md's commit"
   - id: "SPEC-002#BEH-27"
     status: proposed
     rule: |-
@@ -988,7 +988,7 @@ assumption-update-reaches-the-prd/approval-cleared (contains): good sample passe
 | Check | Result |
 |---|---|
 | Every old text of §2.1 to §2.5 against the files of plugin 0.34.0 (`check_edits.py`) | each found exactly once, ignoring line breaks |
-| H1 to H3 against brainstorm's SKILL.md with the four brainstorm documents' edits applied in build order (`skill_lines.py`) | each applies; SKILL.md then has 377 lines (371 after the four documents; the limit is 400) |
+| H1 to H3 against brainstorm's SKILL.md with the four brainstorm documents' edits applied in build order (`skill_lines.py`) | each applies; SKILL.md then has 377 lines (371 after the four documents; the limit is 400). Re-checked on 2026-11-20 against `main` at `ff78d44` (SKL-001 version 12): each applies; 386 lines (380 after the four documents) |
 | G1's fixtures, built with a `replace()` that requires exactly one match, under the validator with mvp-and-prototype-path.md's V1 and V2 applied, `python3` and `python3 -S` | `OK` for all four, both ways |
 | The ranking and cut tables of `BRN_VAN_EVOLVING` and `BRN_VAN_TWO` against the rule as a script | identical |
 | Every `yaml items` block here | parses with PyYAML; every item has R4's keys |
@@ -1024,7 +1024,7 @@ built from mvp-and-prototype-path.md's staged example.
    Log row names it, and an approved PRD returns to review by the PRD skill's existing rule for an extension.
 8. *A broken fixed shape never stops the run* (SPEC-002#ERR-12). The PRD can be drafted without it, and the
    brainstorm skill's validator, not the PRD skill, is where a BRN's shape is enforced.
-9. *The report block ships in SKL-001 version 12, with the fourth commit.* It only reports what version 12
+9. *The report block ships in SKL-001 version 13, with the fourth commit.* It only reports what version 13
    writes, so the brainstorm skill needs no further version when the PRD side is built later.
 10. *C-11's eval reads brownfield-iteration.md's staged example* (`brainstorm-brownfield`: BRN-001, PRD-001
     made from it, and BRN-002 with a confirmed update of BRN-001#ASM-01). The case depends on that example
