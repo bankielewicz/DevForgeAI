@@ -1367,7 +1367,7 @@ verifications:
 reviewer's script, which applies every edit of the five documents in build order to scratch copies: each edit of
 section 2 still applies; the ten SKILL.md edits take the file from 348 to 368 lines, which leaves 32 lines under
 R2's limit of 400 (mvp-and-prototype-path.md and BEH-34 take 18); the validator's test file as this document
-leaves it runs 279 tests, `OK`, with and without site-packages; `test_structure.py` runs 17 tests, `OK`.
+leaves it runs 279 tests, `OK`, with and without site-packages; `test_structure.py` runs 16 tests, `OK`.
 
 ## 6. Staged files
 

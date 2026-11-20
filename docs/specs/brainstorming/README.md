@@ -101,7 +101,7 @@ their look waits for a design system ([design/README.md](design/README.md)).
   steps; its detail goes into new files under `references/`, each linked from SKILL.md once and from the step that
   needs it. SKILL.md stays at or under 400 lines (the limit is 500; it is 325 today). The `tasks:` list in
   SKILL.md's frontmatter (SPEC-001 version 18, for the Taskmaster mod) holds the same eight lines without their
-  boxes and numbers. It doesn't change either, and `test_structure.py` checks that the two agree.
+  boxes and numbers. It doesn't change either: a title changes only with its checklist line (SPEC-001 §5).
 - **R3. The user's decisions stay the user's.** A method proposes; only the user's explicit answer writes a
   disposition, `status: converged`, an assumption's `state` other than `open`, a confirmed first release cut or a
   confirmed assumption update. Whatever was not confirmed is written in its unconfirmed form (§4) and is never
@@ -371,14 +371,14 @@ at xhigh using both plugin-dev skills, one commit per brainstorm enhancement. Ke
 separate."). #173 merged on 2026-11-20 (`8769dd8`): `main` holds SPEC-001 version 18, SKL-001 version 12 and
 plugin 0.35.0, so this build is SPEC-001 version 19 and SKL-001 version 13. #173 added a `tasks:` list to
 SKILL.md's frontmatter whose eight titles are the checklist lines without their numbers: R2 keeps those lines
-unchanged, and the build keeps the `tasks:` list equal to them (`test_structure.py` checks it).
+unchanged, and the build keeps the `tasks:` list equal to them.
 
 The documents were checked again on 2026-11-20 against `main` at `ff78d44`. Every exact edit (R7) of the five
 documents still applies: #173 changed only the frontmatter of SKILL.md, which no document quotes. What changed
 here: the build's version numbers; SKILL.md's line counts, 9 higher at every stage (325 today; 331, 348 and 368
 after the first three commits; 386 after the fourth, 380 before BEH-34's six lines); the hash
-framework-catalog.md gives; BEH-16's bound on where the checklist opens, now counted from the end of the
-frontmatter; and one more test in `test_structure.py`, for the `tasks:` list. Where a document's record of its
+framework-catalog.md gives; and BEH-16's bound on where the checklist opens, now counted from the end of the
+frontmatter (Bryan, 2026-11-20: "17 lines after frontmatter (Recommended)"). Where a document's record of its
 author's checks names version 11, that record stands as written and a dated line gives the re-check. The
 review of SPEC-001 version 19, the same day, added one sentence to BEH-32's item 5, the ask for the owner's
 name, which mvp-and-prototype-path.md's §4 and the staged `mvp-path.md` already gave.

@@ -394,9 +394,6 @@ behaviors:
         The Workflow section holds only the sentence "Work through this checklist:" and the fenced checklist of
         the eight unchanged lines; the fence opens at most 17 lines after the frontmatter's closing line.
       - >-
-        The frontmatter's tasks: list (SPEC-001 version 18) holds the eight checklist lines without their boxes
-        and numbers, in order; a title changes only with its checklist line.
-      - >-
         Working through the steps holds the task-list rules, the saving rule, the continuing rule and the
         sections ### 1. Intake to ### 8. Report and hand off, in that order.
       - "SKILL.md has at most 400 lines."
@@ -627,8 +624,8 @@ verifications:
     obligation: >-
       src/tests/brainstorm/test_structure.py, whose whole text is in §5.1, passes: the checklist's eight lines
       equal the pinned list and their hash equals the progress manifest's; the Workflow section holds only its
-      sentence and the fence, which opens at most 17 lines after the frontmatter and before Decisions; the
-      frontmatter's tasks: list equals the eight lines without their boxes and numbers; the ## headings and the
+      sentence and the fence, which opens at most 17 lines after the frontmatter and before Decisions; the ##
+      headings and the
       ### step headings are the pinned lists; SKILL.md has no "(Workflow" and at most 400 lines; every reference
       file shows its guide within 15 lines; the index's table and the files in frameworks/ name the same
       frameworks; the selection rules are numbered 1 to n, name listed frameworks, end with diverge-converge and
@@ -1137,7 +1134,7 @@ document adding a `##` heading to SKILL.md changes `H2`.
 """Structure tests for the brainstorm skill's text (SPEC-001; framework-catalog VER-18).
 
 They check what no eval can: that SKILL.md opens with the task list and keeps its eight checklist lines, that
-its frontmatter's tasks: list names the same eight steps, that its headings stand in the agreed order, that every reference file shows its guide at the top, and that the
+its headings stand in the agreed order, that every reference file shows its guide at the top, and that the
 framework index and the framework files agree with each other.
 
 Run from the repository root:
@@ -1362,17 +1359,6 @@ class SkillLayout(unittest.TestCase):
         self.assertLessEqual(fence - close, 17,
                              "the checklist's fence must open at most 17 lines after the frontmatter")
         self.assertLess(fence, self.lines.index("## Decisions that belong to the user"))
-
-    def test_tasks_frontmatter_equals_the_checklist_lines(self):
-        close = self.lines.index("---", 1)
-        start = next(i for i in range(1, close) if self.lines[i].split("#")[0].rstrip() == "tasks:")
-        titles = []
-        for line in self.lines[start + 1:close]:
-            item = re.match(r"^\s*- (.+?)\s*$", line)
-            if not item:
-                break
-            titles.append(item.group(1).strip("\"'"))
-        self.assertEqual(titles, [CHECKLIST_LINE.match(line).group(2) for line in CHECKLIST])
 
     def test_h2_headings_in_order(self):
         self.assertEqual([text for _, text in headings(self.lines, "## ")], H2)
@@ -1676,9 +1662,11 @@ documents in build order to scratch copies:
   lines and the hash §2.1 gives, and its `checklist_hash` equals the manifest's.
 - BEH-16's bound on the fence was "within the file's first 25 lines"; the `tasks:` list moved the fence from
   line 21 to line 30. The bound is now counted from the frontmatter's closing line (at most 17 lines after it,
-  13 in fact, as before #173), so a later frontmatter key doesn't move it. `test_structure.py` gained one test,
-  that the `tasks:` list equals the checklist lines: `Ran 17 tests … OK`, with and without site-packages. On
-  version 12 as it stands the same file fails (`FAILED (failures=6, errors=2)`).
+  13 in fact, as before #173), so a later frontmatter key doesn't move it (Bryan, 2026-11-20: "17 lines after
+  frontmatter (Recommended)"). `test_structure.py`: `Ran 16 tests … OK`, with and without site-packages; on
+  version 12 as it stands the same file fails (`FAILED (failures=6, errors=2)`). A seventeenth test, that the
+  `tasks:` list equals the checklist lines, was proposed and declined (Bryan, 2026-11-20: "Remove the test"):
+  SPEC-001 §5's rule stands with no test.
 
 ## 6. Staged files
 
