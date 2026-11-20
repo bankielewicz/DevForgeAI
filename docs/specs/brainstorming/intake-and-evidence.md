@@ -1235,7 +1235,8 @@ Eval cases are hand-written, like brainstorm's other cases. Each new case's `pro
 900` and `allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]`. A `regex` grader's file has `type:
 regex`, `target: {source: file, path: <path>}` (or `target: last_message`), `match: contains` or `match:
 not_contains`, and the pattern as its body; an `llm` grader with `focus` reads that file, otherwise the final
-reply. No grader uses a flag. For a `tool_used` or `file_exists` grader the `pattern` below lists the grader
+reply. No grader of this document uses a flag; where another document's item gives `flags`, the key goes in
+the grader file's frontmatter. For a `tool_used` or `file_exists` grader the `pattern` below lists the grader
 file's frontmatter keys, separated by semicolons: `tool`, `input_match` (written in single quotes in the file, as
 `writes-valid-brn/graders/ran-validator-alone.md` does), `min`, `max`; or `path`, `exists`. No eval can answer a
 question (R5), so every prompt says to proceed without questions and the graders check the unconfirmed forms.
