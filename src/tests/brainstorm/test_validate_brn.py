@@ -24,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[3]
 SKILL = ROOT / "src/claude/DevForgeAI/skills/brainstorm"
 SCRIPT = SKILL / "scripts/validate_brn.py"
 PROBES = ROOT / "src/codex/devforgeai/import-evidence/validator-probes"
+MVP_EXAMPLE = ROOT / "src/staging/examples/brainstorm-greenfield-mvp/BRN-001.md"
 LINE = re.compile(r"^line \d+: \S.*$")
 
 VALID = """\
@@ -750,6 +751,164 @@ class Base:
         self.brown_rejects(edit(own, "    state: open", "    state: validated"),
                            r"^line 197: Assumption updates: ASM-01 of this BRN must have state open while its row "
                            r"says 'proposed, not confirmed' \(BV-05\)$")
+
+
+    # --- The path to a first release: MV-01 to MV-12, new-shape BRNs only ------------------------
+
+    def mvp(self, *edits):
+        text = MVP_EXAMPLE.read_text(encoding="utf-8")
+        for old, new in edits:
+            text = edit(text, old, new)
+        return text
+
+    def mvp_unconfirmed(self):
+        """The example as a run with nobody to confirm writes it: ideas open, draft, the cut proposed."""
+        text = re.sub(r'disposition: (?:promoted|parked|rejected)\n    reason: "[^\n]*"',
+                      "disposition: open\n    reason: null", self.mvp())
+        text = edit(text, "status: converged", "status: draft")
+        return edit(text, "First release cut: confirmed on 2026-11-18",
+                    "First release cut: proposed, not confirmed")
+
+    def test_mvp_example_passes(self):
+        self.assert_valid(self.mvp())
+
+    def test_mvp_unconfirmed_cut_passes(self):
+        self.assert_valid(self.mvp_unconfirmed())
+
+    def test_mvp_rows_set_by_the_user_pass(self):
+        self.assert_valid(self.mvp(
+            ("| IDEA-03 | no | Tests ASM-02, ranked 2, which IDEA-01 already tests. |",
+             "| IDEA-03 | yes | Included by the user. |"),
+            ("\n\n## Change Log", "\n- IDEA-03: shorter waits at the stop; baseline "
+             "[NEEDS CLARIFICATION: how long commuters wait today]\n\n## Change Log")))
+
+    def mvp_idea_01_left_out(self):
+        """The unconfirmed example after the typed change 'IDEA-01 out': reasons refreshed, one row flagged."""
+        text = self.mvp_unconfirmed()
+        for old, new in (
+                ("| IDEA-01 | yes | Tests ASM-01, ranked 1. |", "| IDEA-01 | no | Left out by the user. |"),
+                ("| IDEA-02 | yes | Tests ASM-03, ranked 3. |", "| IDEA-02 | yes | Tests ASM-01, ranked 1. |"),
+                ("| IDEA-03 | no | Tests ASM-02, ranked 2, which IDEA-01 already tests. |",
+                 "| IDEA-03 | no | Needs review: no rule supports this value. |")):
+            text = edit(text, old, new)
+        return re.sub(r"- IDEA-01: [^\n]*\n", "", text)
+
+    def test_mvp_a_flagged_row_passes_in_a_proposed_cut(self):
+        self.assert_valid(self.mvp_idea_01_left_out())
+
+    def test_mvp_a_stale_reason_is_rejected_after_a_user_change(self):
+        text = edit(self.mvp_idea_01_left_out(), "| IDEA-03 | no | Needs review: no rule supports this value. |",
+                    "| IDEA-03 | no | Tests ASM-02, ranked 2, which IDEA-01 already tests. |")
+        self.assert_rejects(text, r"the Why cell of IDEA-03 .* \(MV-10\)$")
+
+    def test_mvp_a_user_sentence_is_never_checked_against_the_rules(self):
+        self.assert_valid(edit(self.mvp_idea_01_left_out(),
+                               "| IDEA-03 | no | Needs review: no rule supports this value. |",
+                               "| IDEA-03 | no | Left out by the user. |"))
+
+    def test_mv12_a_confirmed_cut_holds_no_flagged_row(self):
+        text = self.mvp(("| IDEA-05 | no | Tests no assumption ranked 1 to 3. |",
+                         "| IDEA-05 | no | Needs review: no rule supports this value. |"))
+        self.assert_rejects(text, r"a confirmed cut holds no row that says .*; flagged: IDEA-05 \(MV-12\)$")
+
+    def test_mvp_no_open_assumption_takes_the_highest_score(self):
+        text = self.mvp().replace("    state: open\n", "    state: validated\n")
+        text = re.sub(r"\| Rank \|[^\n]*\n\|---[^\n]*\n(?:\| \d \| ASM[^\n]*\n)+", "None.\n", text)
+        for old, new in (
+                ("| IDEA-01 | yes | Tests ASM-01, ranked 1. |",
+                 "| IDEA-01 | yes | Highest score; no assumption ranked 1 to 3 picks an idea. |"),
+                ("| IDEA-02 | yes | Tests ASM-03, ranked 3. |",
+                 "| IDEA-02 | no | Tests no assumption ranked 1 to 3. |"),
+                ("| IDEA-03 | no | Tests ASM-02, ranked 2, which IDEA-01 already tests. |",
+                 "| IDEA-03 | no | Tests no assumption ranked 1 to 3. |")):
+            text = edit(text, old, new)
+        text = re.sub(r"- IDEA-02: [^\n]*\n", "", text)
+        self.assert_valid(text)
+
+    def test_mvp_no_cut_row_passes(self):
+        text = re.sub(r"\| Idea \|[^\n]*\n\|---[^\n]*\n(?:\| IDEA[^\n]*\n)+",
+                      "No idea is promoted or proposed for promotion.\n", self.mvp_unconfirmed())
+        text = re.sub(r"(?:Serious|Fatal): stops [^|]*\|", "Minor: stops no idea in the cut table (0 of 0). |", text)
+        text = text.replace("| medium |", "| low |").replace("| high |", "| low |")
+        text = re.sub(r"- IDEA-01: [^\n]*\n- IDEA-02: [^\n]*\n", "- None.\n", text)
+        self.assert_valid(text)
+
+    def test_mvp_checks_skip_an_earlier_shape_brn(self):
+        self.assert_valid(self.mvp(("Project kind: greenfield\n\n", ""),
+                                   ("| IDEA-01 | yes | Tests ASM-01, ranked 1. |", "| IDEA-01 | maybe | |")))
+
+    def test_mv01_ranking_heading_is_required(self):
+        self.assert_rejects(self.mvp(("### Assumption risk ranking\n\n", "")), r"\(MV-01\)$")
+
+    def test_mv02_ranking_header_row_is_fixed(self):
+        self.assert_rejects(self.mvp(("| Rank | Assumption | If wrong | Confidence | Cheapest test |",
+                                      "| Rank | Assumption | If wrong |")), r"\(MV-02\)$")
+
+    def test_mv03_ranking_rows_are_the_open_assumptions(self):
+        self.assert_rejects(self.mvp(("    state: open\n```", "    state: validated\n```")),
+                            r"ASM-01, ASM-02, ASM-03\) \(MV-03\)$")
+
+    def test_mv04_if_wrong_counts_the_cut_rows(self):
+        self.assert_rejects(self.mvp(("(1 of 4 in the cut table)", "(1 of 3 in the cut table)")),
+                            r"ASM-03: 'If wrong' .* \(MV-04\)$")
+
+    def test_mv05_confidence_needs_a_source_of_its_kind(self):
+        self.assert_rejects(self.mvp(('  - "note: Maya Okafor, conversation of 2026-11-18"\n', "")),
+                            r"ASM-03: Confidence medium needs .* \(MV-05\)$")
+
+    def test_mv06_ranking_order_is_checked(self):
+        first, second = (re.search(rf"^\| {n} \| ASM-0{n} [^\n]*$", self.mvp(), re.M).group(0) for n in (1, 2))
+        text = self.mvp((first + "\n" + second, "| 1 |" + second[5:] + "\n| 2 |" + first[5:]))
+        self.assert_rejects(text, r"the order is ASM-01, ASM-02, ASM-03, ASM-04 \(MV-06\)$")
+
+    def test_mv07_cheapest_test_comes_from_the_validation(self):
+        self.assert_rejects(self.mvp(("| Data: Count the paid jobs per week in the van job log. |",
+                                      "| Interview: Count the paid jobs per week in the van job log. |")),
+                            r"must be 'Data: Count the paid jobs per week in the van job log\.' \(MV-07\)$")
+
+    def test_mv08_cut_status_line_is_fixed(self):
+        # The second sample is the form of the drafts before 2026-11-20: a line that names someone is not valid.
+        for new in ("First release cut: confirmed", "First release cut: confirmed by Maya Okafor on 2026-11-18",
+                    "First release cut: confirmed on 18 November 2026"):
+            with self.subTest(new=new):
+                self.assert_rejects(self.mvp(("First release cut: confirmed on 2026-11-18", new)), r"\(MV-08\)$")
+
+    def test_mv09_every_promoted_idea_has_a_cut_row(self):
+        self.assert_rejects(self.mvp(("| IDEA-05 | no | Tests no assumption ranked 1 to 3. |\n", "")),
+                            r"the promoted idea IDEA-05 has no row \(MV-09\)$")
+
+    def test_mv09_a_parked_idea_has_no_cut_row(self):
+        self.assert_rejects(self.mvp(("| IDEA-05 | no | Tests no assumption ranked 1 to 3. |\n",
+                                      "| IDEA-05 | no | Tests no assumption ranked 1 to 3. |\n"
+                                      "| IDEA-07 | no | Tests no assumption ranked 1 to 3. |\n")),
+                            r"'IDEA-07' is not an active idea .* \(MV-09\)$")
+
+    def test_mv10_why_is_a_fixed_sentence(self):
+        self.assert_rejects(self.mvp(("| IDEA-05 | no | Tests no assumption ranked 1 to 3. |",
+                                      "| IDEA-05 | no | Too big for a first release. |")),
+                            r"the Why cell of IDEA-05 .* \(MV-10\)$")
+
+    def test_mv10_why_must_match_the_ranking(self):
+        self.assert_rejects(self.mvp(("| IDEA-01 | yes | Tests ASM-01, ranked 1. |",
+                                      "| IDEA-01 | yes | Tests ASM-03, ranked 3. |")),
+                            r"the Why cell of IDEA-01 .* \(MV-10\)$")
+
+    def test_mv11_each_of_the_top_three_is_tested(self):
+        self.assert_rejects(self.mvp(("| IDEA-02 | yes | Tests ASM-03, ranked 3. |",
+                                      "| IDEA-02 | no | Tests ASM-01, ranked 1, which IDEA-01 already tests. |")),
+                            r"no 'yes' row tests ASM-03, ranked 3; one of IDEA-02 .* \(MV-11\)$")
+
+    def test_mv12_a_confirmed_cut_needs_promoted_ideas(self):
+        text = edit(self.mvp_unconfirmed(), "First release cut: proposed, not confirmed",
+                    "First release cut: confirmed on 2026-11-18")
+        self.assert_rejects(text, r"not promoted: IDEA-01, IDEA-02, IDEA-03, IDEA-05 \(MV-12\)$")
+
+    def test_mv12_a_confirmed_cut_has_a_real_date_from_created_to_updated(self):
+        for new in ("confirmed on 2026-11-17", "confirmed on 2026-11-19", "confirmed on 2026-02-30"):
+            with self.subTest(new=new):
+                self.assert_rejects(self.mvp(("First release cut: confirmed on 2026-11-18",
+                                              "First release cut: " + new)),
+                                    r"the date of a confirmed cut is a real date .* \(MV-12\)$")
 
 
 @unittest.skipUnless(_has_yaml([]), "PyYAML is not installed for this interpreter")

@@ -8,6 +8,7 @@
 - Item blocks
 - Collections and fields
 - Project kind, sources and sections 3 and 8
+- First release cut and risk ranking
 - Unknowns
 - Change Log
 - Validation checklist
@@ -144,6 +145,20 @@ when it worked as greenfield. [brownfield.md](brownfield.md) says how to fill ea
 Section 6's subsections stand in this order: First release cut, Already covered, Previously
 decided, Assumption updates.
 
+## First release cut and risk ranking
+
+Two prose tables carry the path to a first release. [mvp-path.md](mvp-path.md) defines every cell; the
+validator checks them (MV-01 to MV-12) in a BRN that has the `Project kind:` line.
+
+| Where | Heading | Holds |
+|---|---|---|
+| Section 7, after the `assumptions` block and before the bullets | `### Assumption risk ranking` | One row per active assumption whose `state` is `open`: `Rank`, `Assumption`, `If wrong`, `Confidence`, `Cheapest test`. `None.` when there is no such assumption |
+| Section 6, after the convergence prose | `### First release cut` | The status line, then one row per active idea that is promoted or proposed for promotion: `Idea`, `In first release` (`yes` or `no`), `Why`. `No idea is promoted or proposed for promotion.` when there is no such idea |
+
+The status line is `First release cut: proposed, not confirmed` until the user confirms the cut, then
+`First release cut: confirmed on YYYY-MM-DD`, with that day's date and no name. A cell never holds a
+`|`. Section 8 lists exactly the ideas whose row says `yes` (see *Collections and fields* for its bullets).
+
 ## Unknowns
 
 Never guess. Write `[NEEDS CLARIFICATION: <question>]` where the answer is unknown, in prose or
@@ -193,6 +208,9 @@ Check each item; fix and re-check anything that fails.
     `upstream` record and its `sources` entry; every `Covered by` and `Where` cites a listed
     document; every Evidence cell ends with a `sources` entry; and every `confirmed on` status is
     one the user confirmed. A greenfield BRN has none of the four headings.
+14. In a BRN with the `Project kind:` line: section 7 holds `### Assumption risk ranking` and section 6
+    holds `### First release cut`, each cell as [mvp-path.md](mvp-path.md) defines it; the cut's status
+    line says `confirmed` only where the user confirmed the cut.
 
 ## Example item blocks
 

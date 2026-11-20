@@ -4,7 +4,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "12"
+  devforgeai-version: "13"
 tasks:
   - "Intake: topic, existing BRNs, clarifying questions"
   - Select a framework
@@ -44,10 +44,11 @@ These decisions are the user's, never yours:
 
 - **Each idea's disposition** (`promoted`, `parked` or `rejected`) and its `reason`.
 - **Convergence**: whether the brainstorm is finished (`status: converged`).
+- **The first release cut**: which promoted ideas are in the first release (section 6).
 - **Each assumption update** in a brownfield BRN: its `confirmed on` status and the changed `state`.
 
-Propose both, then ask. Anything the user has not explicitly confirmed stays `disposition: open`,
-`reason: null` and `status: draft`. When no confirmation can be obtained, treat it as *not
+Propose them, then ask. Anything the user has not explicitly confirmed stays `disposition: open`,
+`reason: null` and `status: draft`, and the cut stays `First release cut: proposed, not confirmed`. When no confirmation can be obtained, treat it as *not
 confirmed* and continue with those values. This happens when the user said to proceed without
 questions (and picked *Proceed without questions* in the waiver question, Intake, or it couldn't be
 asked) or no user is there to answer. Record your proposals in section 6 prose so nothing is
@@ -83,8 +84,7 @@ question form, its tag names that step:
    time; a step with nothing to do is completed too. Mark step 8 completed just before writing the
    final reply, so nothing follows the hand-off.
 3. Before asking any question, mark the step it belongs to in_progress: the waiver, topic, clarifying
-   and extend-or-new questions belong to step 1; confirming dispositions and convergence belongs to step
-   5; any other question (the framework's own, saving a draft) belongs to the step whose work asks
+   and extend-or-new questions belong to step 1; confirming dispositions, convergence and the first release cut belongs to step 5; any other question (the framework's own, saving a draft) belongs to the step whose work asks
    it. Never put two steps' questions in one question form.
 4. Tag each question form with its step: AskUserQuestion's
    `metadata: {"source": "devforgeai_step:N"}`, which the user doesn't see, and `header: "Step N"`
@@ -195,16 +195,20 @@ Mark step 4 completed, then save the work file again before marking step 5 in pr
 ### 5. Propose dispositions and confirm
 
 Propose a disposition and a one-line reason for each idea, and ask the user to confirm them and
-whether the brainstorm has converged. Save the work file with the proposals table first, before
+whether the brainstorm has converged. Then, before saving and asking, rank the open assumptions and
+propose the first release cut from those proposals, as [mvp-path.md](references/mvp-path.md) says. Save the work file with the proposals table first, before
 asking, or right away when no question is asked. With AskUserQuestion, put the proposals inside the form, never
 only in text before it (the dialog hides that text). One form tagged step 5 (Working through the
-steps, item 4), both questions with `header: "Step 5"`:
+steps, item 4), every question with `header: "Step 5"`:
 1. "Confirm these dispositions?", options `Accept all as proposed` (Recommended) and `Leave them
    open`, each option's `preview` holding the table: idea ID, title, proposed disposition, reason.
    When the table is too long for a preview, list each idea's ID and proposed disposition there and
    say in the question that the reasons are in the reply. Changes come typed under Other.
 2. "Has the brainstorm converged?", options `Converged` and `Not yet`.
-3. "Confirm these assumption updates?", only when a brownfield BRN's *Assumption updates* table has
+3. "Confirm the first release cut?", only when the cut table has a row: options `Accept as proposed`
+   and `Leave it proposed`, each option's `preview` holding the cut's status line and table. Changes
+   come typed under Other.
+4. "Confirm these assumption updates?", only when a brownfield BRN's *Assumption updates* table has
    a row: options `Accept all as proposed` and `Leave them proposed`, each option's `preview` holding
    the table. Changes come typed under Other.
 
@@ -213,6 +217,9 @@ Without AskUserQuestion, present the table in plain text and ask. Then:
 - Accept all writes every proposal; Leave them open writes none; typed changes write the dispositions
   the text states; write no other disposition, and leave every other idea `open` with `reason: null`.
 - Set `status: converged` only on *Converged*; otherwise `draft`.
+- Write the cut as `confirmed on <today>` only on *Accept as proposed* or typed changes, and only
+  when every idea in its table is then `promoted`; otherwise it stays `proposed, not confirmed`
+  ([mvp-path.md](references/mvp-path.md#confirm-the-cut)).
 - **Brownfield.** Before the form, propose assumption updates, each from a stated fact with a source.
   A row is `confirmed on <today>` only on *Accept all as proposed* or typed text confirming it;
   else `proposed, not confirmed` ([brownfield.md](references/brownfield.md#assumption-updates)).
@@ -231,7 +238,8 @@ disposition `open`, and don't run the validator on it. If no, write nothing more
    Create `docs/specs/brainstorm/` if it is missing, and say that you created it.
 2. **Build from the template.** Read `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`. Keep every section
    heading. Replace every placeholder with content or with a `[NEEDS CLARIFICATION: …]` marker.
-   Replace the example items with the real ones. Delete every HTML comment. Write the project-kind
+   Replace the example items with the real ones. Delete every HTML comment. Write the assumption risk
+   ranking into section 7 and the first release cut into section 6 exactly as step 5 left them. Write the project-kind
    line, section 3's table and section 8's bullets as [intake.md](references/intake.md) says, and
    keep or delete the template's brownfield-only parts as its first comment says. Fill the parts
    kept as [brownfield.md](references/brownfield.md) says.
@@ -282,7 +290,8 @@ keys, ID patterns, item-block rules and allowed fields.
 2. The validator can't know what the user confirmed. After it passes, read the file back and
    check that every disposition other than `open`, and `status: converged`, is one the user
    confirmed in step 5. Reset anything else to `disposition: open` with `reason: null`, or to
-   `status: draft`. In a brownfield BRN, check the same way every `confirmed on` cell under
+   `status: draft`. The cut's status line says `confirmed` only when the user confirmed the cut in step 5;
+   otherwise reset it to `First release cut: proposed, not confirmed`. In a brownfield BRN, check the same way every `confirmed on` cell under
    *Assumption updates* and every assumption `state` this run changed: reset an unconfirmed one to
    `proposed, not confirmed` and to the state it had.
 3. Fix every problem found, then run the checks again. Stop after three attempts.
@@ -298,15 +307,21 @@ the user reads:
    checklist.
 
    ```
-   BRN-NNN written to docs/specs/brainstorm/BRN-NNN.md (framework: [name])
+   BRN-NNN written to docs/specs/brainstorm/BRN-NNN.md (framework: [name]; project kind: [kind])
    Problems: N · Ideas: N · Assumptions: N
    Promoted: IDEA-NN, … | none confirmed yet (proposals are in section 6)
+   First release: IDEA-NN, … (confirmed) | IDEA-NN, … (proposed, not confirmed) | none
    Open questions: [each NEEDS CLARIFICATION marker and open assumption, briefly]
    ```
 
 2. Any discussion.
 3. The next step, as its own paragraph outside any code block, starting with the words
    **Next step**. Nothing follows it.
+
+`[kind]` is `greenfield`, `brownfield`, or `not settled` when section 1 holds the NEEDS CLARIFICATION
+form. `First release:` lists the ideas whose row in the first release cut says `yes`, then the cut's
+status in brackets; `none` when no row says `yes`. For an earlier-shape BRN (no `Project kind:` line),
+leave out `; project kind: [kind]` and the `First release:` line.
 
 For the next step, check whether `${CLAUDE_SKILL_DIR}/../prd/SKILL.md` exists:
 
@@ -327,7 +342,8 @@ Do not start writing a PRD.
   no author comments.
 - **Data:** only the `problems`, `ideas` and `assumptions` collections with their defined fields
   ([output-rules.md](references/output-rules.md)).
-- **Decisions:** dispositions and `status: converged` appear only when the user confirmed them.
+- **Decisions:** dispositions, `status: converged` and a `confirmed` first release cut appear only when
+  the user confirmed them.
 
 ## Examples
 
@@ -346,8 +362,8 @@ Do not start writing a PRD.
 AskUserQuestion); on *Ask me as usual* it asks as in the first example. On *Proceed without
 questions*, or with no question tool, it asks nothing more, except the topic or extend-or-new when
 open, and records unknowns as
-`[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, and puts
-its proposals in section 6. Its final reply says the user can confirm them later; when the user
+`[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, puts
+its proposals in section 6, and leaves the first release cut `proposed, not confirmed`. Its final reply says the user can confirm them later; when the user
 replies, it marks step 5 again, asks the step-5 form, and only then edits the BRN, validates it
 again and reports.
 
@@ -365,4 +381,6 @@ one. It writes nothing until the user answers.
   the kind rules, the question sets, the form of `sources`, and sections 3 and 8.
 - [references/brownfield.md](references/brownfield.md): read at step 1 when the kind is brownfield:
   what to read, what is kept out of `ideas`, parked ideas and assumption updates.
+- [references/mvp-path.md](references/mvp-path.md): read at step 5, before the work file is saved. It
+  holds the assumption risk ranking, the first release cut and how the cut is confirmed.
 - `scripts/validate_brn.py`: run at step 7; it applies the output rules mechanically.

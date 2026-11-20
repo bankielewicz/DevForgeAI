@@ -6,7 +6,8 @@ Usage: python3 validate_brn.py docs/specs/brainstorm/BRN-NNN.md
 Prints one line per problem ("line N: message") and exits 1, or prints "OK: <path>" and
 exits 0. Uses only the standard library; if PyYAML is installed it also checks YAML syntax.
 Every other check, dates against the calendar included, gives the same verdict with or without it.
-It cannot check whether the user confirmed a disposition or convergence: that is the skill's job.
+It cannot check whether the user confirmed a disposition, convergence or the first release cut: that is
+the skill's job.
 """
 import datetime
 import os
@@ -819,6 +820,10 @@ def check(path):
         check_brownfield(lines, kind, stem, (list_of("upstream") or []) if "upstream" in fm else [],
                          sources, items, err)
 
+    # --- the first release cut and the assumption risk ranking (new-shape BRNs) ----------
+    sources = list_of("sources") if "sources" in fm else None
+    check_mvp_path(lines, fm_end, fm, [x for _, x in sources or []], items, err)
+
     # --- optional YAML syntax check ----------------------------------------------------
     try:
         import yaml  # type: ignore
@@ -840,6 +845,265 @@ def check(path):
                 except Exception as e:
                     err(j + 2, f"item block YAML does not parse: {' '.join(str(e).split())}")
     return errors
+
+
+MV_RANK_HEAD = ["Rank", "Assumption", "If wrong", "Confidence", "Cheapest test"]
+MV_CUT_HEAD = ["Idea", "In first release", "Why"]
+MV_NO_ROWS = "No idea is promoted or proposed for promotion."
+MV_FLAG = "Needs review: no rule supports this value."
+MV_PROTOTYPE = (
+    "prototype", "prototypes", "mock-up", "mock-ups", "mockup", "mockups", "pilot", "pilots", "trial",
+    "trials", "beta", "demo", "demos", "experiment", "experiments", "a/b", "landing page", "smoke test",
+    "fake door", "build", "launch",
+)
+MV_INTERVIEW = (
+    "ask", "asks", "interview", "interviews", "survey", "surveys", "poll", "polls", "observe", "shadow",
+    "talk to", "speak to", "questionnaire", "focus group", "workshop",
+)
+MV_IMPACT = {"Fatal": 3, "Serious": 2, "Minor": 0}
+MV_DOUBT = {"low": 3, "medium": 2, "high": 1}
+MV_KINDS = {"high": ("data", "document", "ticket"), "medium": ("interview", "url", "note")}
+MV_IF_WRONG = re.compile(
+    r"(Fatal|Serious): stops (IDEA-\d{2}(?:, IDEA-\d{2})*) \((\d+) of (\d+) in the cut table\)\."
+    r"|(Minor): stops no idea in the cut table \(0 of (\d+)\)\.")
+MV_STATUS = re.compile(
+    r"First release cut: (?:proposed, not confirmed|confirmed on (\d{4}-\d{2}-\d{2}))")
+
+
+def cheapest_test(asm_id, validation):
+    """The 'Cheapest test' cell (C-07) for an assumption's quoted `validation` value."""
+    text = validation[1:-1].replace('\\"', '"').replace("|", "/").strip() if quoted(validation) else ""
+    if not text or text.startswith("[NEEDS CLARIFICATION:"):
+        return f"[NEEDS CLARIFICATION: how to test {asm_id}]"
+    m = re.search(r"[.?!](?= |$)", text)
+    sentence = text[:m.end()] if m else text + "."
+    low = sentence.lower()
+
+    def has(words):
+        return any(re.search(r"(?<![a-z0-9])" + re.escape(w) + r"(?![a-z0-9])", low) for w in words)
+
+    kind = "Prototype" if has(MV_PROTOTYPE) else "Interview" if has(MV_INTERVIEW) else "Data"
+    return f"{kind}: {sentence}"
+
+
+def check_mvp_path(lines, fm_end, fm, sources, items, err):
+    """MV-01 to MV-12: the assumption risk ranking (C-07) and the first release cut (C-05)."""
+    plain, inside = [], False  # indexes of the lines after the frontmatter and outside every fence
+    for i in range(fm_end + 1, len(lines)):
+        if lines[i].startswith("```"):
+            inside = not inside
+        elif not inside:
+            plain.append(i)
+    if not any(" ".join(lines[i].lower().split()).startswith("project kind:") for i in plain):
+        return  # an earlier-shape BRN: none of these checks applies
+
+    def at(text):
+        return [i for i in plain if lines[i].rstrip() == text]
+
+    def block(i, stop):
+        """Non-blank lines after heading line i, up to a heading, a line `stop` accepts, or the end."""
+        out = []
+        for j in plain:
+            if j > i:
+                if lines[j].startswith("#") or stop(lines[j]):
+                    break
+                if lines[j].strip():
+                    out.append(j)
+        return out
+
+    def cells(i):
+        s = lines[i].strip()
+        return [c.strip() for c in s[1:-1].split("|")] if len(s) > 1 and s[0] == "|" == s[-1] else None
+
+    def table(rows, head, what, mv):
+        """The data rows [(index, cells)] of the table that starts at rows[0], or None once reported."""
+        if not rows or cells(rows[0]) != head:
+            err((rows[0] if rows else 0) + 1,
+                f"{what}: the table must start with the header row '| {' | '.join(head)} |' ({mv})")
+            return None
+        if len(rows) < 3 or not re.fullmatch(r"\|(\s*:?-+:?\s*\|)+", lines[rows[1]].strip()):
+            err(rows[0] + 1,
+                f"{what}: a |---| row and at least one row must follow the header row ({mv})")
+            return None
+        out = []
+        for i in rows[2:]:
+            c = cells(i)
+            if c is None or len(c) != len(head):
+                err(i + 1, f"{what}: each row has exactly {len(head)} cells, with no '|' inside a cell, "
+                    f"and nothing else follows the table ({mv})")
+                return None
+            out.append((i, c))
+        return out
+
+    def active(collection):
+        return [it for it in items[collection] if it["fields"].get("status", (0, ""))[1] == "active"]
+
+    def field(it, name):
+        return it["fields"].get(name, (0, ""))[1]
+
+    def score(iid):
+        v = field(ideas[iid], "score")
+        return float(v) if NUMBER.match(v) else float("-inf")
+
+    sec = [(at(h) or [None])[0] for h in SECTIONS[5:]]
+    if None in sec or sorted(sec) != sec:
+        return  # a missing or misplaced section heading is already reported
+    s6, s7, s8 = sec[:3]
+    ideas = {it["id"]: it for it in active("ideas")}
+    open_asm = {it["id"]: it for it in active("assumptions") if field(it, "state") == "open"}
+
+    # --- the first release cut (section 6): MV-08, MV-09 ---------------------------------------
+    cut, confirmed, status_at, cut_ok = {}, None, 0, False  # cut: idea ID -> (index, yes or no, why)
+    heads = at("### First release cut")
+    if len(heads) != 1 or not s6 < heads[0] < s7:
+        err(s6 + 1, "section 6 must hold exactly one '### First release cut' heading, and no other "
+            "section may hold one (MV-08)")
+    else:
+        rows = block(heads[0], lambda l: False)
+        m = MV_STATUS.fullmatch(lines[rows[0]].rstrip()) if rows else None
+        if not m:
+            err(heads[0] + 1, "the first line under '### First release cut' must be 'First release cut: "
+                "proposed, not confirmed' or 'First release cut: confirmed on YYYY-MM-DD' (MV-08)")
+        else:
+            confirmed, status_at = m.group(1), rows[0] + 1
+            if len(rows) == 2 and lines[rows[1]].rstrip() == MV_NO_ROWS:
+                data = []
+            else:
+                data = table(rows[1:], MV_CUT_HEAD, "first release cut", "MV-09")
+            cut_ok = data is not None
+            for i, (iid, value, why) in data or []:
+                if iid not in ideas or field(ideas[iid], "disposition") not in ("promoted", "open"):
+                    err(i + 1, f"first release cut: {iid!r} is not an active idea whose disposition is "
+                        "promoted or open (MV-09)")
+                    cut_ok = False
+                elif cut and iid <= max(cut):
+                    err(i + 1, "first release cut: rows are in idea ID order, each idea once; "
+                        f"{iid} is out of place (MV-09)")
+                    cut_ok = False
+                if value not in ("yes", "no"):
+                    err(i + 1, f"first release cut: 'In first release' for {iid} must be yes or no (MV-09)")
+                    cut_ok = False
+                cut[iid] = (i, value, why)
+            for iid in ideas:
+                if cut_ok and field(ideas[iid], "disposition") == "promoted" and iid not in cut:
+                    err(heads[0] + 1, f"first release cut: the promoted idea {iid} has no row (MV-09)")
+                    cut_ok = False
+    yes = [iid for iid in sorted(cut) if cut[iid][1] == "yes"]
+    flagged = [iid for iid in sorted(cut) if cut[iid][2] == MV_FLAG]
+
+    # --- the assumption risk ranking (section 7): MV-01 to MV-07 -----------------------------------
+    rank, rank_ok = {}, False  # assumption ID -> (rank, the ideas it stops)
+    heads = at("### Assumption risk ranking")
+    fences = [i for i in range(s7, s8) if lines[i].startswith("```")]
+    bullets = [i for i in plain if s7 < i < s8 and lines[i].startswith("- ")]
+    if (len(heads) != 1 or not s7 < heads[0] < s8 or (fences and heads[0] < fences[-1])
+            or (bullets and heads[0] > bullets[0])):
+        err(s7 + 1, "section 7 must hold exactly one '### Assumption risk ranking' heading, after its item "
+            "block and before its bullets, and no other section may hold one (MV-01)")
+    else:
+        rows = block(heads[0], lambda l: l.startswith("- "))
+        if len(rows) == 1 and lines[rows[0]].rstrip() == "None.":
+            data = []
+        else:
+            data = table(rows, MV_RANK_HEAD, "assumption risk ranking", "MV-02")
+        rank_ok = data is not None
+        if rank_ok and sorted(c[1] for _, c in data) != sorted(open_asm):
+            want = ", ".join(sorted(open_asm)) or "none, so the line 'None.' replaces the table"
+            err(heads[0] + 1, "assumption risk ranking: one row for each active assumption whose state is "
+                f"open, and no other row ({want}) (MV-03)")
+            rank_ok = False
+        kinds = {q[1:].split(": ", 1)[0] for q in sources if ": " in q}
+        keys = []
+        for n, (i, (r, aid, wrong, conf, test)) in enumerate(data or [], 1):
+            if r != str(n):
+                err(i + 1, f"assumption risk ranking: Rank counts 1, 2, 3 and so on; row {n} says {r!r} "
+                    "(MV-03)")
+                rank_ok = False
+            m = MV_IF_WRONG.fullmatch(wrong)
+            stops = m.group(2).split(", ") if m and m.group(2) else []
+            cls = (m.group(1) or m.group(5)) if m else None
+            if not m:
+                err(i + 1, f"{aid}: 'If wrong' must read 'Fatal: stops IDEA-NN, IDEA-NN (N of M in the cut "
+                    "table).', 'Serious: stops IDEA-NN (N of M in the cut table).' or 'Minor: stops no idea "
+                    "in the cut table (0 of M).' (MV-04)")
+                rank_ok = False
+            elif cut_ok:
+                want = "Minor" if not stops else "Fatal" if len(stops) == len(cut) else "Serious"
+                if (stops != sorted(set(stops)) or any(s not in cut for s in stops) or cls != want
+                        or int(m.group(3) or 0) != len(stops) or int(m.group(4) or m.group(6)) != len(cut)):
+                    err(i + 1, f"{aid}: 'If wrong' lists rows of the cut table in ID order and counts them "
+                        f"against its {len(cut)} row(s): Fatal when it lists every row, Serious when it lists "
+                        "some, Minor when it lists none (MV-04)")
+                    rank_ok = False
+            if conf not in MV_DOUBT:
+                err(i + 1, f"{aid}: Confidence must be high, medium or low (MV-05)")
+                rank_ok = False
+            elif conf != "low" and not kinds & set(MV_KINDS[conf]):
+                need = MV_KINDS[conf]
+                err(i + 1, f"{aid}: Confidence {conf} needs a sources entry of kind {need[0]}, {need[1]} or "
+                    f"{need[2]} (MV-05)")
+            want = cheapest_test(aid, field(open_asm[aid], "validation")) if aid in open_asm else test
+            if test != want:
+                err(i + 1, f"{aid}: 'Cheapest test' must be {want!r} (MV-07)")
+            if m and conf in MV_DOUBT:
+                rank[aid] = (n, stops)
+                keys.append((-MV_IMPACT[cls] * MV_DOUBT[conf], -MV_IMPACT[cls], -MV_DOUBT[conf],
+                             -len(stops), aid))
+        if rank_ok and keys != sorted(keys):
+            order = ", ".join(k[-1] for k in sorted(keys))
+            err(heads[0] + 1, f"assumption risk ranking: rows out of order; the order is {order} (MV-06)")
+            rank_ok = False
+
+    # --- each row's reason, the top three covered, a confirmed cut: MV-10 to MV-12 -----------------
+    if cut_ok and rank_ok:
+        top = {a: v for a, v in rank.items() if v[0] <= 3}
+        tested, by_user = [], False
+        for iid in sorted(cut):
+            i, value, why = cut[iid]
+            mine = sorted((v[0], a) for a, v in top.items() if iid in v[1])
+            ok = False
+            m = re.fullmatch(r"Tests (ASM-\d{2}), ranked ([1-3])\.", why)
+            if m and value == "yes":
+                ok = (int(m.group(2)), m.group(1)) in mine and m.group(1) not in tested
+                tested.append(m.group(1))
+            m = re.fullmatch(r"Tests (ASM-\d{2}), ranked ([1-3]), which (IDEA-\d{2}) already tests\.", why)
+            if m and value == "no":
+                ok = (bool(mine) and mine[0] == (int(m.group(2)), m.group(1)) and m.group(3) != iid
+                      and m.group(3) in yes and m.group(3) in top[m.group(1)][1])
+            m = re.fullmatch(r"Needed by (IDEA-\d{2}), which is in the first release\.", why)
+            if m and value == "yes":
+                ok = m.group(1) != iid and m.group(1) in yes
+            if why == "Highest score; no assumption ranked 1 to 3 picks an idea." and value == "yes":
+                ok = iid == max(sorted(cut), key=score) and not any(v[1] for v in top.values())
+            if why == "Tests no assumption ranked 1 to 3." and value == "no":
+                ok = not mine
+            if (why, value) in (("Included by the user.", "yes"), ("Left out by the user.", "no")):
+                ok = by_user = True
+            if not ok and why != MV_FLAG:
+                err(i + 1, f"first release cut: the Why cell of {iid} is not one of the fixed sentences for "
+                    f"'{value}', or it does not match the ranking or the other rows (MV-10)")
+        for a, v in sorted(top.items()):
+            if not by_user and not flagged and v[1] and not set(v[1]) & set(yes):
+                err(cut[v[1][0]][0] + 1, f"first release cut: no 'yes' row tests {a}, ranked {v[0]}; one of "
+                    f"{', '.join(v[1])} must be in the first release (MV-11)")
+        if cut and not yes and not by_user and not flagged:
+            err(status_at, "first release cut: a cut that the user did not change has a 'yes' row (MV-11)")
+    if confirmed and cut_ok:
+        created, updated = (fm.get(k, (0, ""))[1] for k in ("created", "updated"))
+        try:
+            real = bool(datetime.date.fromisoformat(confirmed))
+        except ValueError:
+            real = False
+        if not real or not created <= confirmed <= updated:
+            err(status_at, "first release cut: the date of a confirmed cut is a real date from created to "
+                "updated (MV-12)")
+        if flagged:
+            err(cut[flagged[0]][0] + 1, "first release cut: a confirmed cut holds no row that says "
+                f"'{MV_FLAG}'; flagged: {', '.join(flagged)} (MV-12)")
+        loose = [iid for iid in sorted(cut) if field(ideas[iid], "disposition") != "promoted"]
+        if loose or not cut:
+            err(status_at, "first release cut: confirmed only when the table has a row and every row's idea "
+                f"is promoted; not promoted: {', '.join(loose) or 'there is no row'} (MV-12)")
 
 
 def main(argv):

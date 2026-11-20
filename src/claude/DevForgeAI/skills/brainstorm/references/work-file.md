@@ -31,7 +31,8 @@ framework switch that redoes the evaluation):
    assumptions.
 2. After marking step 4 completed and before marking step 5 in progress: the evaluation and scores
    added.
-3. With step 5 in progress, once the proposals are made: before asking step 5's question, or, when no
+3. With step 5 in progress, once the proposals are made, the assumptions ranked and the first release
+   cut proposed ([mvp-path.md](mvp-path.md)): before asking step 5's question, or, when no
    question is asked (the waiver's *Proceed without questions*, or no AskUserQuestion), right away.
 
 When the user stops and agrees to save a draft BRN (ERR-02), first write the work file (again, or for
@@ -64,6 +65,10 @@ Build it from `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`, as step 6 builds the B
   and in section 6, after the not-reached marker, *Already covered* and *Previously decided*. At the
   step-5 save: *Assumption updates*, every row `proposed, not confirmed`
   ([brownfield.md](brownfield.md)).
+- From the save at step 5 on: the assumption risk ranking in section 7 and the first release cut in
+  section 6, the cut's status line always `First release cut: proposed, not confirmed`. A confirmed cut
+  is never written into the work file. Before that save, neither heading is written. A continued run
+  keeps both tables as its work file holds them, and asks step 5 from them.
 - No HTML comments.
 
 When extending, start from the existing BRN's content with every item ID kept.
