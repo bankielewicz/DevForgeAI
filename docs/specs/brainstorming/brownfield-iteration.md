@@ -841,8 +841,9 @@ BRN-002: a change to that file moves them.
 ### 2.9 Eval cases and the runbook
 
 Three new hand-written case folders under `src/claude/DevForgeAI/evals/brainstorm/`:
-`brownfield-reads-documents`, `brownfield-keeps-out-covered` and `brownfield-nothing-to-read` (section 5). The
-build adds VER-34's steps to `docs/runbooks/brainstorm-manual-test.md`. The existing case `existing-brn` is
+`brownfield-reads-documents`, `brownfield-keeps-out-covered` and `brownfield-nothing-to-read` (section 5).
+VER-34's steps are added to `docs/runbooks/brainstorm-manual-test.md` by a documents change, written on Fable
+after the build's commits and before VER-34 is run live (README §8). The existing case `existing-brn` is
 unchanged: its request does not say the product exists, so today's test applies and the draft BRN-001 it seeds
 is asked about.
 

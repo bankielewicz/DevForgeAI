@@ -435,7 +435,11 @@ The build:
   `src/tests/brainstorm/test_validate_brn.py`;
 - keeps `python3 src/claude/DevForgeAI/skills/brainstorm/scripts/validate_brn.py docs/specs/brainstorm/BRN-001.md`
   printing `OK`;
-- adds the eval cases the documents list. Brainstorm's cases are hand-written; there is no generator.
+- adds the eval cases the documents list. Brainstorm's cases are hand-written; there is no generator;
+- makes only the exact edits the documents give for `docs/runbooks/brainstorm-manual-test.md`
+  (framework-catalog.md's R1 to R3, intake-and-evidence.md's A-R1). The runbook's steps for the manual items
+  VER-29, VER-34 and VER-38 are a documents change, written on Fable after the build's commits and before
+  those items are run live, so that no builder chooses their wording (settled 2026-11-20, before the build).
 
 A new SKL-001 version ends the waivers in SPEC-001 §9 (version 11's, "until this skill's next version or
 2026-12-31", and version 12's, "until the next brainstorm skill version or 2026-12-31, whichever comes first"):

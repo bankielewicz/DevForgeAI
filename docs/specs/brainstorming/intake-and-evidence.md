@@ -913,7 +913,8 @@ New text:
 and it asks whether the product exists, then at most 4 clarifying questions.
 ```
 
-The build also adds VER-29's steps (section 5) to this runbook.
+VER-29's steps (section 5) are added to this runbook by a documents change, written on Fable after the build's
+commits and before VER-29 is run live. The build's commits make only the runbook's exact edits (README §8).
 
 ### 2.11 Eval cases
 
