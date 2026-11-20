@@ -66,6 +66,10 @@ Checked by script on 2026-11-18: each board's rows counted and measured in monos
   holds is `Project kind: brownfield`.
 - **Pane buttons.** `[ Problems ] [ Ideas ] [ Assumptions ]` are tabs the prompt did not ask for. P6 asks Claude
   Design to drop or justify them.
+- **Who confirmed.** The three confirm boards' legend reads "confirmed by you, decided". That is display only. The
+  lines a BRN holds name nobody: `First release cut: confirmed on YYYY-MM-DD` and, in an *Assumption updates* row,
+  `confirmed on YYYY-MM-DD` ([../README.md](../README.md) §4, C-05 and C-11; Bryan, 2026-11-20: "No owner in the
+  line at all"). No board draws either line; P7 asks for the cut's status line in its proposed form.
 
 ## The look
 

@@ -17,7 +17,7 @@ approved_by: "Bryan"
 approved_on: 2026-10-08
 upstream:
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain's order, which the state's next step follows"}
-  - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
+  - {id: ADR-003, relation: constrains, version: 3, hash: null, note: "the layers (A3), the precedence and the stop on a disallowed override (A4) that manifest layers follow"}
   - {id: ADR-006, relation: constrains, version: 2, hash: null, note: "each rule's class, manifest layers that only add rules, project skills' manifests as custom-workflow checks, and the tracker failing open"}
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "D5 places the context step after Architecture Definition and before epics and stories"}
   - {id: PRD-001, item: FR-003, relation: informed_by, version: 12, hash: null, note: "skills leave decisions to the user; the content rules check that none was written without the user's answer"}
@@ -25,7 +25,7 @@ upstream:
   - {id: PRD-001, item: FR-011, relation: informed_by, version: 12, hash: null, note: "custom workflows declare their required checks; a project skill's manifest is one (ADR-006 D4)"}
   - {id: PRD-001, item: FR-021, relation: informed_by, version: 12, hash: null, note: "the requirement whose core this spec builds; built on a spec branch, as no story exists"}
   - {id: PRD-001, item: FR-022, relation: informed_by, version: 12, hash: null, note: "the dashboard (version 17): the per-run figures, the chain listing, the history figures and the odometer ledger files it draws"}
-  - {id: SPEC-001, item: VER-02, relation: informed_by, version: 17, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
+  - {id: SPEC-001, item: VER-02, relation: informed_by, version: 19, hash: null, note: "with no confirmation, no idea is promoted, parked or rejected and the BRN is not converged"}
   - {id: SPEC-003, relation: informed_by, version: 11, hash: null, note: "the architecture skill's checklist; ADRs are accepted one by one when the user picks at step 7; the ARCH's outcome is written only when the user confirms it at step 8"}
   - {id: SPEC-007, relation: informed_by, version: 3, hash: null, note: "the git skill's checklist form for a legitimate skip, (skipped: <reason>); version 3 is in review"}
 supersedes: []

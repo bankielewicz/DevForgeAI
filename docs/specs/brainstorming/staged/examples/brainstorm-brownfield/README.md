@@ -7,7 +7,7 @@ three documents show what `/devforgeai:brainstorm` reads and writes when the pro
 |---|---|---|
 | `BRN-001.md` | `docs/specs/brainstorm/BRN-001.md` | The earlier brainstorm, in the earlier shape (no `Project kind:` line). Converged: two ideas promoted, two parked, two rejected; two assumptions open |
 | `PRD-001.md` | `docs/specs/prd/PRD-001.md` | The PRD of the product in use, version 3, with FR-001 to FR-006 |
-| `BRN-002.md` | `docs/specs/brainstorm/BRN-002.md` | The brownfield brainstorm, in the new shape, after Dana confirmed everything |
+| `BRN-002.md` | `docs/specs/brainstorm/BRN-002.md` | The brownfield brainstorm, in the new shape, after the user confirmed everything |
 
 ## What to look at in BRN-002
 
@@ -21,7 +21,7 @@ three documents show what `/devforgeai:brainstorm` reads and writes when the pro
 | Section 4 | IDEA-03 takes up BRN-001#IDEA-04, which BRN-001 had parked: a new idea with an item-level `upstream` link |
 | Section 6, *Already covered* | Dana's suggestion of text reminders is not an idea: PRD-001#FR-003 covers it |
 | Section 6, *Previously decided* | The deposit, rejected in BRN-001, was not proposed again; the waitlist, parked there, was offered and not taken up |
-| Section 6, *Assumption updates* | BRN-001#ASM-01 moved from open to validated on the pilot's numbers, confirmed by Dana. BRN-001 itself is unchanged |
+| Section 6, *Assumption updates* | BRN-001#ASM-01 moved from open to validated on the pilot's numbers, which the user confirmed: the row says `confirmed on 2026-11-18`. BRN-001 itself is unchanged |
 | Section 8 | One bullet for IDEA-01, the only idea in the first release, with a cited baseline |
 
 BRN-001 and PRD-001 are byte for byte what the eval cases `brownfield-reads-documents` and

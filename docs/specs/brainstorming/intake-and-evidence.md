@@ -4,7 +4,7 @@
 fa59a935-ed2e-4502-b6c4-93bb6d847546) for Bryan's review. It changes nothing until SPEC-001's next version is
 approved and built. Read [README.md](README.md) first: this document uses its rules (R1 to R10), its shapes (C-01
 to C-11), its gate and its IDs without repeating them. It is the second of the four documents built as SKL-001
-version 12 (README section 8).
+version 13 (README section 8).
 
 ## Workflow steps this changes
 
@@ -43,8 +43,8 @@ version 12 (README section 8).
 Each edit below is exact (R7): the old text occurs once in the file as it stands when this document is built,
 ignoring line breaks, and the new text replaces it. [framework-catalog.md](framework-catalog.md) is built first
 and moves SKILL.md's steps under a new heading; no edit here depends on a heading's position. Every old text
-below was checked against version 11 of the files with that document's edits applied (section 5, "What was
-checked"). One edit, A-W2, starts from text that document wrote.
+below was checked against version 11 of the files with that document's edits applied, and on 2026-11-20 against
+version 12's (section 5, "What was checked"). One edit, A-W2, starts from text that document wrote.
 
 An old or new text in a `python` block is whole lines with their indentation: the new lines replace the old
 lines. In a `text` block the old text may start in the middle of a line; what stands before and after it on
@@ -53,7 +53,8 @@ its lines stays.
 ### 2.1 `docs/specs/spec/SPEC-001.md` (its next version)
 
 BEH-01 is replaced. BEH-20 to BEH-24, ERR-07 and VER-25 to VER-29 are added (sections 3 to 5). Section 3's tree
-gains `references/intake.md`.
+gains `references/intake.md`. SPEC-001 version 19, drafted before the build, makes these changes, edit A-P1
+among them; the build's second commit doesn't repeat it.
 
 **Edit A-P1** — `docs/specs/spec/SPEC-001.md` (BEH-01's rule)
 
@@ -71,9 +72,11 @@ Decide the project kind (BEH-20). Ask at most four clarifying questions before d
 
 ### 2.2 `docs/specs/adr/ADR-003.md`
 
-The clarifying-question limit is an interaction default in ADR-003's table of value classes (line 94). The
-build changes the number there, bumps the ADR to version 3 with a new `updated` date, and adds a row to its
-"Status history" table naming SPEC-001's version and Bryan's acceptance. Nothing else in the ADR changes. The
+The clarifying-question limit is an interaction default in ADR-003's table of value classes (line 94).
+ADR-003 version 3, drafted with SPEC-001 version 19 and accepted by Bryan with it, before the build, changes the
+number there (edit A-D1), has a new `updated` date, and adds rows to its "Status history" table naming
+SPEC-001's version and Bryan's acceptance. Nothing else in the ADR changes, and the build doesn't repeat the
+edit. The
 limit is fixed (Bryan, 2026-11-19: "Keep the four-question limit fixed."): in ADR-003's table the row still
 classes it as an interaction default, its default value becomes 4, and no setting exposes it. Configuration
 contract v1's only interaction key stays `interview.max_calls`; the brainstorm skill reads no policy document
@@ -95,7 +98,7 @@ clarifying-question limit (4)
 
 ### 2.3 `src/claude/DevForgeAI/skills/brainstorm/SKILL.md`
 
-Eight edits. They add 17 lines to the file (322 to 339, after framework-catalog.md's edits).
+Eight edits. They add 17 lines to the file (331 to 348, after framework-catalog.md's edits).
 
 **Edit A-S1** — `src/claude/DevForgeAI/skills/brainstorm/SKILL.md` (Inputs)
 
@@ -910,7 +913,8 @@ New text:
 and it asks whether the product exists, then at most 4 clarifying questions.
 ```
 
-The build also adds VER-29's steps (section 5) to this runbook.
+VER-29's steps (section 5) are added to this runbook by a documents change, written on Fable after the build's
+commits and before VER-29 is run live. The build's commits make only the runbook's exact edits (README §8).
 
 ### 2.11 Eval cases
 
@@ -1231,10 +1235,19 @@ Eval cases are hand-written, like brainstorm's other cases. Each new case's `pro
 900` and `allowed_tools: [Skill, Read, Glob, Grep, Write, Edit, Bash]`. A `regex` grader's file has `type:
 regex`, `target: {source: file, path: <path>}` (or `target: last_message`), `match: contains` or `match:
 not_contains`, and the pattern as its body; an `llm` grader with `focus` reads that file, otherwise the final
-reply. No grader uses a flag. For a `tool_used` or `file_exists` grader the `pattern` below lists the grader
+reply. No grader of this document uses a flag; where another document's item gives `flags`, the key goes in
+the grader file's frontmatter. For a `tool_used` or `file_exists` grader the `pattern` below lists the grader
 file's frontmatter keys, separated by semicolons: `tool`, `input_match` (written in single quotes in the file, as
 `writes-valid-brn/graders/ran-validator-alone.md` does), `min`, `max`; or `path`, `exists`. No eval can answer a
 question (R5), so every prompt says to proceed without questions and the graders check the unconfirmed forms.
+
+Each grader is the file `graders/<name>.md`. A case whose item gives a scaffold also holds `case.yaml`, in the
+form of `existing-brn/case.yaml` with its own `name`, and `scaffold.sh`, a bash script in the form of
+`existing-brn/scaffold.sh`: it writes exactly the files the item names, each from a quoted here-document, and
+reads nothing from the repository. Where the item gives a file as "byte for byte" a staged file, the script
+holds that file's bytes; the staged path is under `docs/specs/brainstorming/`. A case whose item says
+`scaffold: none` holds neither file. (Added 2026-11-20, before the build, so that every builder lays the cases
+out the same way; no item changed.)
 
 ```yaml items
 verifications:
@@ -1424,6 +1437,17 @@ verifications:
   `disposition:` followed by a value, which no new shape contains.
 - Every `yaml items` block of this document with PyYAML, for R4's keys.
 
+**Re-checked on 2026-11-20** against `main` at `ff78d44`, after pull request #173 (SKL-001 version 12), with the
+reviewer's script, which applies every edit of the five documents in build order to scratch copies: each edit of
+section 2 still applies; the eight SKILL.md edits take the file from 331 to 348 lines; the validator's test file
+as this document leaves it runs 183 tests, `OK`, with and without site-packages; the staged examples and the
+project's own BRN-001 print `OK`.
+
+**Re-checked again on 2026-11-20**, after Bryan's decision of that day (section 7, decision 19), the same way:
+each edit of section 2 applies; the test file as this document leaves it runs 183 tests, `OK`, with and without
+site-packages; the staged template has 191 lines and its two copies are identical; the staged examples print
+`OK`.
+
 ## 6. Staged files
 
 | Staged file | Destination | What it is |
@@ -1525,5 +1549,16 @@ rules and needs no change to the template.
     source." BEH-22 and section 3.5 say which paths count (a regular file inside the project folder), that
     the read is whole, once and read-only, the entry's form, and ERR-07 what happens when it can't be read.
     VER-27 now proves the read in an eval.
+
+**Decided by Bryan on 2026-11-20** (session fa59a935-ed2e-4502-b6c4-93bb6d847546; his words are quoted).
+
+19. **The template's two comments on a confirmed status give a date and no name.** Asked about the skill's ask
+    for the owner's name when a BRN's `owner` is a NEEDS CLARIFICATION marker: "the owner isn't necessary". Of
+    the four readings then offered: "No owner in the line at all" (the option's text: "The line is always
+    "confirmed on <date>", never naming anyone."). The staged template's comments under `### First release cut`
+    and `### Assumption updates` read `confirmed on YYYY-MM-DD` (mvp-and-prototype-path.md and
+    brownfield-iteration.md own the two lines). Nothing else here changes: a `note` entry of `sources` still
+    holds the owner's name, or `user` (section 3.5), because it says whose statement a fact is and confirms
+    nothing, and the frontmatter key `owner` is untouched (R1).
 
 **Open, for Bryan.** None.

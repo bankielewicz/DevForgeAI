@@ -21,7 +21,7 @@ upstream:
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "the workflow chain; ADR-004 D5 places the context step after Architecture Definition, before epic and story"}
-  - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "policy resolution, recording and the local preference file"}
+  - {id: ADR-003, relation: constrains, version: 3, hash: null, note: "policy resolution, recording and the local preference file"}
   - {id: ADR-004, relation: constrains, version: 2, hash: null, note: "the project context documents this skill writes and maintains"}
   - {id: ADR-005, relation: constrains, version: 1, hash: null, note: "the testing keys this skill resolves and cites in testing.md; D7 restated there"}
   - {id: PRD-001, item: FR-019, relation: informed_by, version: 11, hash: null, note: "the requirement this skill implements; built on a spec branch, as no story exists (§11)"}
