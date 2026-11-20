@@ -40,10 +40,11 @@ Work through this checklist:
 
 ## Decisions that belong to the user
 
-Two decisions are the user's, never yours:
+These decisions are the user's, never yours:
 
 - **Each idea's disposition** (`promoted`, `parked` or `rejected`) and its `reason`.
 - **Convergence**: whether the brainstorm is finished (`status: converged`).
+- **Each assumption update** in a brownfield BRN: its `confirmed on` status and the changed `state`.
 
 Propose both, then ask. Anything the user has not explicitly confirmed stays `disposition: open`,
 `reason: null` and `status: draft`. When no confirmation can be obtained, treat it as *not
@@ -132,12 +133,15 @@ doesn't say to proceed without questions, never ask it.
 2. **Existing BRNs.** Glob `docs/specs/brainstorm/BRN-*.md` and read each file's `title`. If one
    covers the same or a closely similar topic, show its ID, title and path and ask:
    *extend it* (version + 1, with a Change Log entry) or *create a new BRN*. Wait for the answer
-   and write nothing before it. Never overwrite an existing BRN silently.
+   and write nothing before it. Never overwrite an existing BRN silently. When the user's words
+   say the product exists, only a BRN whose `status` is `draft` counts as on the same topic
+   ([brownfield.md](references/brownfield.md#extend-or-new)).
 3. **Project kind.** Decide whether the product the topic is about exists (*brownfield*) or not
    (*greenfield*) by the ordered rules in [intake.md](references/intake.md): the user's words
    decide, and a PRD in the project only makes brownfield the recommended answer of the kind
    question, asked alone in its own form. When it can't be asked or isn't answered, the kind stays
-   undecided and intake.md says which kind to work with.
+   undecided and intake.md says which kind to work with. When that kind is brownfield, next read the
+   project's documents and earlier BRNs, read-only ([brownfield.md](references/brownfield.md)).
 4. **Clarifying questions.** Ask at most four, in one form: the question set intake.md gives for
    the kind, in its order and wording. Skip any the request already answers. Ask none when
    the request says to proceed without questions and the waiver was answered *Proceed without
@@ -172,6 +176,9 @@ Follow the framework's steps and questions.
 set their own count.
   Every idea addresses at least one problem and starts with `disposition: open`.
 - Capture **assumptions** (`ASM-NN`): beliefs the ideas depend on, each with how to validate it.
+- **Brownfield.** Keep out of `ideas` what a document read already covers or an earlier BRN rejected,
+  the user's suggestions included; list it for section 6 and tell the user. Offer earlier parked ideas
+  once and show earlier open assumptions ([brownfield.md](references/brownfield.md#already-covered)).
 
 Mark step 3 completed, then save the work file (Working through the steps) before marking step 4 in
 progress.
@@ -197,12 +204,18 @@ steps, item 4), both questions with `header: "Step 5"`:
    When the table is too long for a preview, list each idea's ID and proposed disposition there and
    say in the question that the reasons are in the reply. Changes come typed under Other.
 2. "Has the brainstorm converged?", options `Converged` and `Not yet`.
+3. "Confirm these assumption updates?", only when a brownfield BRN's *Assumption updates* table has
+   a row: options `Accept all as proposed` and `Leave them proposed`, each option's `preview` holding
+   the table. Changes come typed under Other.
 
 Without AskUserQuestion, present the table in plain text and ask. Then:
 
 - Accept all writes every proposal; Leave them open writes none; typed changes write the dispositions
   the text states; write no other disposition, and leave every other idea `open` with `reason: null`.
 - Set `status: converged` only on *Converged*; otherwise `draft`.
+- **Brownfield.** Before the form, propose assumption updates, each from a stated fact with a source.
+  A row is `confirmed on <today>` only on *Accept all as proposed* or typed text confirming it;
+  else `proposed, not confirmed` ([brownfield.md](references/brownfield.md#assumption-updates)).
 
 If the user stops partway through the session, ask whether to save what has been captured as a
 draft BRN. If yes, first save the work file once more with its `id` set to the ID the draft BRN gets
@@ -220,7 +233,8 @@ disposition `open`, and don't run the validator on it. If no, write nothing more
    heading. Replace every placeholder with content or with a `[NEEDS CLARIFICATION: …]` marker.
    Replace the example items with the real ones. Delete every HTML comment. Write the project-kind
    line, section 3's table and section 8's bullets as [intake.md](references/intake.md) says, and
-   keep or delete the template's brownfield-only parts as its first comment says.
+   keep or delete the template's brownfield-only parts as its first comment says. Fill the parts
+   kept as [brownfield.md](references/brownfield.md) says.
 3. **Frontmatter.**
    - `id`: the allocated ID. `title`: the descriptive topic. `version: 1`.
    - `created` and `updated`: today's date as `YYYY-MM-DD`.
@@ -231,7 +245,9 @@ disposition `open`, and don't run the validator on it. If no, write nothing more
    - `generated_by`: `tool: "claude-code"`, `model:` your own model ID (for example
      `"claude-opus-5-5"`), `session: "${CLAUDE_SESSION_ID}"`: the latest session to write the BRN.
    - `reviewed_by: []`, `approved_by: ""`, `approved_on: null`. Every `hash` is `null`.
-   - `upstream` and `participants`: fill from the conversation, or leave them empty.
+   - `upstream`: in a brownfield run, one `informed_by` record per document read (brownfield.md);
+     otherwise fill from the conversation, or leave it empty.
+   - `participants`: fill from the conversation, or leave it empty.
    - `sources`: the entries recorded since step 1, in intake.md's form; `[]` when there is none.
 4. **Change Log.** One row: version, today's date, `claude-code (session ${CLAUDE_SESSION_ID})`,
    what changed. The session ID is the name of the conversation's transcript, so
@@ -266,7 +282,9 @@ keys, ID patterns, item-block rules and allowed fields.
 2. The validator can't know what the user confirmed. After it passes, read the file back and
    check that every disposition other than `open`, and `status: converged`, is one the user
    confirmed in step 5. Reset anything else to `disposition: open` with `reason: null`, or to
-   `status: draft`.
+   `status: draft`. In a brownfield BRN, check the same way every `confirmed on` cell under
+   *Assumption updates* and every assumption `state` this run changed: reset an unconfirmed one to
+   `proposed, not confirmed` and to the state it had.
 3. Fix every problem found, then run the checks again. Stop after three attempts.
 4. If errors remain after three attempts, set `status: draft`, stop, and list the remaining
    errors with the file path.
@@ -345,4 +363,6 @@ one. It writes nothing until the user answers.
   continuing an earlier run.
 - [references/intake.md](references/intake.md): read at step 1, before deciding the project kind:
   the kind rules, the question sets, the form of `sources`, and sections 3 and 8.
+- [references/brownfield.md](references/brownfield.md): read at step 1 when the kind is brownfield:
+  what to read, what is kept out of `ideas`, parked ideas and assumption updates.
 - `scripts/validate_brn.py`: run at step 7; it applies the output rules mechanically.

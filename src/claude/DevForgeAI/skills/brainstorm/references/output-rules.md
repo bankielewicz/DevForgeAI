@@ -50,7 +50,7 @@ Keep exactly these keys, in this order. Unknown or misspelled keys are errors.
 | `reviewed_by` | `[]` (only humans who reviewed it; never filled by the AI) |
 | `approved_by` | `""` |
 | `approved_on` | `null` |
-| `upstream` | `[]`, or link records (usually `relation: informed_by`) |
+| `upstream` | `[]`, or link records (usually `relation: informed_by`); in a brownfield BRN, one per document read |
 | `supersedes` | `[]` |
 | `superseded_by` | `null` |
 | `blocked_by` | `[]` |
@@ -130,6 +130,20 @@ its earlier shape, also when extended, and is checked by the other rules only.
 | Section 3 | Only the table `\| Persona \| Job to be done \| Current workaround \| Pain \|`: one row per distinct `who` value of the active problems, in the order the values first appear, the Persona cell equal to the `who` value; four non-empty cells in each row |
 | Section 8 | One bullet `- IDEA-NN: <outcome>; baseline <cited fact>` for each active idea whose row in section 6's *First release cut* table says `yes`, in ID order; with none, the single line `- None.` |
 
+A BRN whose kind is `brownfield` also holds the four parts below; a `greenfield` BRN holds none of
+them; while the kind is not decided it holds all four when the run worked as brownfield and none
+when it worked as greenfield. [brownfield.md](brownfield.md) says how to fill each.
+
+| Part | Form |
+|---|---|
+| `### Existing product`, in section 1 after the context prose | The table `\| Document \| Version \| What it already covers \|`, one row per document read (a BRN, PRD, EPIC or ARCH ID, never this BRN; its version), or the line `No document was found in the project.`; then any `Skipped: <path> (<reason>)` lines. Each row's document has an `upstream` record `{id: <ID>, relation: informed_by, version: <version>, hash: null}` and the `sources` entry `"document: docs/specs/<folder>/<ID>.md v<version>"` |
+| `### Already covered`, in section 6 | The table `\| Suggestion \| Covered by \|`, `Covered by` being `PRD-NNN#FR-NNN`, `PRD-NNN#NFR-NNN`, `EPIC-NNN#DW-NN` or `ARCH-NNN#CMP-NN` of a document Existing product lists; or the line `None.` |
+| `### Previously decided`, in section 6 | The table `\| Idea \| Decision \| Where \|`, `Decision` being `rejected` or `parked` and `Where` `BRN-NNN#IDEA-NN` of a BRN Existing product lists, each once; or the line `None.` An idea of this BRN that carries an item-level `upstream` link to such an idea is not listed |
+| `### Assumption updates`, last in section 6 | The table `\| Earlier assumption \| Change \| Evidence \| Status \|`: `BRN-NNN#ASM-NN` of a BRN Existing product lists, or of this BRN, each once; `open to validated` or `open to invalidated`; a fact ending with one `sources` entry in parentheses; `proposed, not confirmed` or `confirmed on YYYY-MM-DD`. Or the line `None.` |
+
+Section 6's subsections stand in this order: First release cut, Already covered, Previously
+decided, Assumption updates.
+
 ## Unknowns
 
 Never guess. Write `[NEEDS CLARIFICATION: <question>]` where the answer is unknown, in prose or
@@ -173,6 +187,12 @@ Check each item; fix and re-check anything that fails.
     once; every active problem's `evidence` and every section 8 baseline is one marker or ends with
     a `sources` entry in parentheses; section 3 is the Target users table with one row per `who`
     value; section 8 has one bullet per first-release idea, or the line `- None.`
+13. In a brownfield BRN: `### Existing product` in section 1 and `### Already covered`,
+    `### Previously decided` and `### Assumption updates` in section 6, in that order, each
+    holding its table or its replacement line; every document of Existing product has its
+    `upstream` record and its `sources` entry; every `Covered by` and `Where` cites a listed
+    document; every Evidence cell ends with a `sources` entry; and every `confirmed on` status is
+    one the user confirmed. A greenfield BRN has none of the four headings.
 
 ## Example item blocks
 

@@ -329,6 +329,176 @@ def check_intake(lines, fm_end, source_items, items, err):
     return sources
 
 
+DOC_FOLDERS = {"BRN": "brainstorm", "PRD": "prd", "EPIC": "epic", "ARCH": "arch"}
+DOC_ID = re.compile(r"^(BRN|PRD|EPIC|ARCH)-\d{3}$")
+COVERED_BY = re.compile(r"^(PRD-\d{3})#(?:FR|NFR)-\d{3}$|^(EPIC-\d{3})#DW-\d{2}$|^(ARCH-\d{3})#CMP-\d{2}$")
+SKIPPED = re.compile(r"^Skipped: \S+ \((could not be read|no frontmatter|id does not match the file name|"
+                     r"no version)\)$")
+CONFIRMED = re.compile(r"^confirmed on (\d{4}-\d{2}-\d{2})$")
+BROWNFIELD_HEADINGS = [
+    ("### Existing product", "## 1. Context"),
+    ("### Already covered", "## 6. Convergence"),
+    ("### Previously decided", "## 6. Convergence"),
+    ("### Assumption updates", "## 6. Convergence"),
+]
+NO_DOCUMENT = "No document was found in the project."
+
+
+def table(rows, header, err, what, code):
+    """The cell lists of a subsection's table, as (line number, cells), or None when it is malformed."""
+    width = header.count("|") - 1
+    if len(rows) < 3 or rows[0][1] != header or rows[1][1] != "|" + "---|" * width:
+        err(rows[0][0], f"{what} must be the table '{header}' with at least one row, or its replacement line ({code})")
+        return None
+    out = []
+    for n, t in rows[2:]:
+        c = cells(t)
+        if c is None or len(c) != width or not all(c):
+            err(n, f"{what}: each row has {width} non-empty cells ({code})")
+        else:
+            out.append((n, c))
+    return out
+
+
+def link(raw):
+    """(id, item, relation, version) of a flow-form link record; a missing part is None."""
+    def part(key):
+        m = re.search(r"[{,]\s*" + key + r":\s*([^\s,}]+)", raw)
+        return m.group(1) if m else None
+    return part("id"), part("item"), part("relation"), part("version")
+
+
+def check_brownfield(lines, kind, own_id, upstream_items, sources, items, err):
+    """BV-01 to BV-05, for a new-shape BRN. `sources` is what check_intake returned."""
+    bodies = {h: section_body(lines, h) for h in ("## 1. Context", "## 6. Convergence")}
+    found = {}
+    for heading, section in BROWNFIELD_HEADINGS:
+        found[heading] = subsection(bodies[section][1], heading)
+
+    # BV-01: which brownfield headings are present, and their order
+    present = [h for h, _ in BROWNFIELD_HEADINGS if found[h][0]]
+    mode = working_kind(lines) if kind == "unknown" else None
+    for heading, section in BROWNFIELD_HEADINGS:
+        n = found[heading][0]
+        if kind == "greenfield" and n:
+            err(n, f"'{heading}' belongs to a brownfield BRN only: remove it, or correct the Project kind line (BV-01)")
+        elif kind == "brownfield" and not n:
+            err(bodies[section][0], f"a brownfield BRN needs '{heading}' in section {section[3]} (BV-01)")
+        elif mode == "brownfield" and not n:
+            err(bodies[section][0], f"this run worked as brownfield: '{heading}' is needed in section "
+                f"{section[3]} (BV-01)")
+        elif mode == "greenfield" and n:
+            err(n, f"this run worked as greenfield: remove '{heading}' (BV-01)")
+        elif kind == "unknown" and mode is None and present and not n:
+            err(bodies[section][0], f"'{heading}' is missing: while the project kind is not decided, write "
+                "all four brownfield headings or none of them (BV-01)")
+    order = [found[h][0] for h in ("### Already covered", "### Previously decided", "### Assumption updates")
+             if found[h][0]]
+    cut = subsection(bodies["## 6. Convergence"][1], "### First release cut")[0]
+    if order != sorted(order) or (cut and order and cut > order[0]):
+        err(order[0], "section 6's subsections must come in this order: First release cut, Already covered, "
+            "Previously decided, Assumption updates (BV-01)")
+
+    # BV-02: Existing product, with an upstream record and a sources entry for each document
+    docs = {}
+    n, rows = found["### Existing product"]
+    if n and not rows:
+        err(n, f"'### Existing product' must hold its table or the line '{NO_DOCUMENT}' (BV-02)")
+    elif n:
+        k = next((i for i, (_, t) in enumerate(rows) if cells(t) is None), len(rows))
+        for m, t in rows[k:]:
+            if not (t == NO_DOCUMENT and m == rows[0][0]) and not SKIPPED.match(t):
+                err(m, "under '### Existing product', after the table or its replacement line, only "
+                    "'Skipped: path (reason)' lines are allowed, the reason being could not be read, no "
+                    "frontmatter, id does not match the file name, or no version (BV-02)")
+        if k:
+            for m, c in table(rows[:k], "| Document | Version | What it already covers |", err,
+                              "'### Existing product'", "BV-02") or []:
+                if not DOC_ID.match(c[0]) or not re.fullmatch(r"[1-9]\d*", c[1]):
+                    err(m, "Existing product: Document must be a BRN, PRD, EPIC or ARCH ID and Version a "
+                        "positive integer (BV-02)")
+                elif c[0] in docs or c[0] == own_id:
+                    err(m, f"Existing product: {c[0]} is listed twice, or is this BRN itself (BV-02)")
+                else:
+                    docs[c[0]] = (m, c[1])
+    links = [link(x) for _, x in upstream_items]
+    for doc, (m, version) in docs.items():
+        if (doc, None, "informed_by", version) not in links:
+            err(m, f"{doc}: the frontmatter's upstream needs the record {{id: {doc}, relation: informed_by, "
+                f"version: {version}, hash: null}} (BV-02)")
+        entry = f"document: docs/specs/{DOC_FOLDERS[doc.split('-')[0]]}/{doc}.md v{version}"
+        if entry not in sources:
+            err(m, f"{doc}: sources needs the entry \"{entry}\" (BV-02)")
+
+    # BV-03: Already covered
+    n, rows = found["### Already covered"]
+    if n and [t for _, t in rows] != ["None."]:
+        for m, c in (table(rows, "| Suggestion | Covered by |", err, "'### Already covered'", "BV-03")
+                     if rows else err(n, "'### Already covered' must hold its table or the line 'None.' (BV-03)")) or []:
+            hit = COVERED_BY.match(c[1])
+            if not hit:
+                err(m, "Already covered: Covered by must be PRD-NNN#FR-NNN, PRD-NNN#NFR-NNN, EPIC-NNN#DW-NN "
+                    "or ARCH-NNN#CMP-NN (BV-03)")
+            elif next(g for g in hit.groups() if g) not in docs:
+                err(m, f"Already covered: {c[1]} cites a document that Existing product does not list (BV-03)")
+
+    # BV-04: Previously decided, and no idea linked to an idea it lists
+    wheres = {}
+    n, rows = found["### Previously decided"]
+    if n and [t for _, t in rows] != ["None."]:
+        for m, c in (table(rows, "| Idea | Decision | Where |", err, "'### Previously decided'", "BV-04")
+                     if rows else err(n, "'### Previously decided' must hold its table or the line 'None.' (BV-04)")) or []:
+            hit = re.fullmatch(r"(BRN-\d{3})#IDEA-\d{2}", c[2])
+            if c[1] not in ("rejected", "parked") or not hit:
+                err(m, "Previously decided: Decision must be rejected or parked, and Where BRN-NNN#IDEA-NN (BV-04)")
+            elif hit.group(1) not in docs:
+                err(m, f"Previously decided: {c[2]} cites a BRN that Existing product does not list (BV-04)")
+            elif c[2] in wheres:
+                err(m, f"Previously decided: {c[2]} is listed twice (BV-04)")
+            else:
+                wheres[c[2]] = m
+    for it in items["ideas"]:
+        for m, t in it["fields"].get("upstream", (0, "", []))[2]:
+            doc, item, _, _ = link(t[1:].strip())
+            if f"{doc}#{item}" in wheres:
+                err(m, f"{it['id']} is linked to {doc}#{item}, which Previously decided also lists: an idea "
+                    "taken up again is not listed there (BV-04)")
+
+    # BV-05: Assumption updates
+    states = {it["id"]: it["fields"].get("state", (0, ""))[1] for it in items["assumptions"]}
+    seen = set()
+    n, rows = found["### Assumption updates"]
+    if n and [t for _, t in rows] != ["None."]:
+        for m, c in (table(rows, "| Earlier assumption | Change | Evidence | Status |", err,
+                           "'### Assumption updates'", "BV-05")
+                     if rows else err(n, "'### Assumption updates' must hold its table or the line 'None.' (BV-05)")) or []:
+            hit = re.fullmatch(r"(BRN-\d{3})#(ASM-\d{2})", c[0])
+            done = CONFIRMED.match(c[3])
+            if done:
+                try:
+                    datetime.date.fromisoformat(done.group(1))
+                except ValueError:
+                    done = None
+            if not hit or (hit.group(1) not in docs and hit.group(1) != own_id) or c[0] in seen:
+                err(m, "Assumption updates: Earlier assumption must be BRN-NNN#ASM-NN of a BRN that Existing "
+                    "product lists, or of this BRN, each once (BV-05)")
+                continue
+            seen.add(c[0])
+            if c[1] not in ("open to validated", "open to invalidated"):
+                err(m, "Assumption updates: Change must be 'open to validated' or 'open to invalidated' (BV-05)")
+            if not ends_with_source(c[2], sources):
+                err(m, "Assumption updates: Evidence must be a fact that ends with one sources entry in "
+                    "parentheses (BV-05)")
+            if c[3] != "proposed, not confirmed" and not done:
+                err(m, "Assumption updates: Status must be 'proposed, not confirmed' or 'confirmed on DATE', "
+                    "the date a real one written as four digits, two, two (BV-05)")
+            elif hit.group(1) == own_id:
+                want = c[1][len("open to "):] if done else "open"
+                if states.get(hit.group(2)) != want:
+                    err(m, f"Assumption updates: {hit.group(2)} of this BRN must have state {want} while its "
+                        f"row says '{c[3] if not done else 'confirmed'}' (BV-05)")
+
+
 def check(path):
     errors = []
 
@@ -646,6 +816,8 @@ def check(path):
     if kind is not None:
         sources = check_intake(lines, fm_end, (list_of("sources") or []) if "sources" in fm else [],
                                items, err)
+        check_brownfield(lines, kind, stem, (list_of("upstream") or []) if "upstream" in fm else [],
+                         sources, items, err)
 
     # --- optional YAML syntax check ----------------------------------------------------
     try:

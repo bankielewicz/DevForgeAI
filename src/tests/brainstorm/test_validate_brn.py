@@ -198,6 +198,30 @@ WORKED_AS = "- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked a
 NEW_UNDECIDED = edit(NEW, "Project kind: greenfield", "Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]")
 NEW_UNDECIDED = edit(NEW_UNDECIDED, QUESTION, WORKED_AS % "greenfield" + "\n" + QUESTION)
 
+# A brownfield new-shape BRN: the staged example, checks BV-01 to BV-05 (brownfield-iteration.md).
+BROWN = (ROOT / "src/staging/examples/brainstorm-brownfield/BRN-002.md").read_text(encoding="utf-8")
+PRODUCT = ("| Document | Version | What it already covers |\n|---|---|---|\n"
+           "| BRN-001 | 1 | Reducing appointment no-shows at the dental clinic: 6 ideas (2 promoted, 2 parked, "
+           "2 rejected, 0 open) |\n"
+           "| PRD-001 | 3 | Online booking for returning patients (FR-001 to FR-006) |")
+COVERED = "| Suggestion | Covered by |\n|---|---|\n| Text reminders before a visit | PRD-001#FR-003 |"
+DECIDED = ("| Idea | Decision | Where |\n|---|---|---|\n"
+           "| Open a waitlist for freed slots. | parked | BRN-001#IDEA-05 |\n"
+           "| Charge a deposit at booking. | rejected | BRN-001#IDEA-06 |")
+UPDATE = ("| BRN-001#ASM-01 | open to validated | 8 of 10 reminder texts were opened within a day (data: "
+          "reminder pilot export, October 2026) | confirmed on 2026-11-18 |")
+UPDATES = "| Earlier assumption | Change | Evidence | Status |\n|---|---|---|---|\n" + UPDATE
+# The same BRN in a project with no document to read (ERR-09).
+BROWN_ALONE = edit(BROWN, "upstream:\n  - {id: BRN-001, relation: informed_by, version: 1, hash: null}\n"
+                   "  - {id: PRD-001, relation: informed_by, version: 3, hash: null}\n", "upstream: []\n")
+BROWN_ALONE = edit(BROWN_ALONE, '  - "document: docs/specs/brainstorm/BRN-001.md v1"\n'
+                   '  - "document: docs/specs/prd/PRD-001.md v3"\n', "")
+BROWN_ALONE = edit(BROWN_ALONE, PRODUCT, "No document was found in the project.")
+BROWN_ALONE = edit(BROWN_ALONE, "    upstream:\n      - {id: BRN-001, item: IDEA-04, relation: informed_by, "
+                   "version: 1, hash: null}\n", "")
+for _table in (COVERED, DECIDED, UPDATES):
+    BROWN_ALONE = edit(BROWN_ALONE, _table, "None.")
+
 
 def _has_yaml(flags, env=None):
     return subprocess.run([sys.executable, *flags, "-c", "import yaml"], env=env,
@@ -556,6 +580,176 @@ class Base:
         # VALID has no project-kind line: prose in section 3, a free bullet in section 8, uncited evidence.
         code, lines = self.run_text(VALID)
         self.assertEqual((code, len(lines)), (0, 1), lines)
+
+    # --- Brownfield BRNs: checks BV-01 to BV-05 (brownfield-iteration.md) ------------------------
+
+    def brown_valid(self, text):
+        code, lines = self.run_text(text, name="BRN-002.md")
+        self.assertEqual(code, 0, "\n".join(lines))
+
+    def brown_rejects(self, text, *patterns):
+        code, lines = self.run_text(text, name="BRN-002.md")
+        return self.assert_invalid(lines, code, *patterns)
+
+    def test_brownfield_example_passes(self):
+        self.brown_valid(BROWN)
+
+    def test_brownfield_with_no_document_passes(self):
+        self.brown_valid(BROWN_ALONE)
+
+    def test_brownfield_without_assumption_updates_is_rejected(self):
+        text = edit(BROWN, "### Assumption updates\n\n" + UPDATES + "\n\n", "")
+        errors = self.brown_rejects(text, r"^line 165: a brownfield BRN needs '### Assumption updates' in "
+                                    r"section 6 \(BV-01\)$")
+        self.assertEqual(len(errors), 1, errors)
+
+    def test_brownfield_without_existing_product_is_rejected(self):
+        text = edit(BROWN_ALONE, "### Existing product\n\nNo document was found in the project.\n\n", "")
+        self.brown_rejects(text, r"^line 32: a brownfield BRN needs '### Existing product' in section 1 "
+                           r"\(BV-01\)$")
+
+    def test_greenfield_with_a_brownfield_heading_is_rejected(self):
+        text = edit(BROWN_ALONE, "Project kind: brownfield", "Project kind: greenfield")
+        lines = self.brown_rejects(text, r"^line 40: '### Existing product' belongs to a brownfield BRN only: "
+                                   r".* \(BV-01\)$")
+        self.assertEqual(len(lines), 4, lines)
+
+    def undecided(self, text, worked):
+        text = edit(text, "Project kind: brownfield", "Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]")
+        return edit(text, "\n- [NEEDS CLARIFICATION: ", "\n" + WORKED_AS % worked + "\n- [NEEDS CLARIFICATION: ")
+
+    def test_undecided_kind_worked_as_brownfield_passes(self):
+        self.brown_valid(self.undecided(BROWN, "brownfield"))
+
+    def test_undecided_kind_worked_as_brownfield_needs_every_heading(self):
+        text = edit(self.undecided(BROWN_ALONE, "brownfield"), "### Already covered\n\nNone.\n\n", "")
+        self.brown_rejects(text, r"^line 156: this run worked as brownfield: '### Already covered' is needed in "
+                           r"section 6 \(BV-01\)$")
+
+    def test_undecided_kind_worked_as_greenfield_has_no_brownfield_heading(self):
+        lines = self.brown_rejects(self.undecided(BROWN_ALONE, "greenfield"),
+                                   r"^line 40: this run worked as greenfield: remove '### Existing product' "
+                                   r"\(BV-01\)$")
+        self.assertEqual(len(lines), 4, lines)
+
+    def test_brownfield_subsections_out_of_order_are_rejected(self):
+        text = edit(BROWN_ALONE, "### Already covered\n\nNone.\n\n### Previously decided\n\nNone.\n\n",
+                    "### Previously decided\n\nNone.\n\n### Already covered\n\nNone.\n\n")
+        self.brown_rejects(text, r"^line \d+: section 6's subsections must come in this order: .* \(BV-01\)$")
+
+    def test_empty_existing_product_is_rejected(self):
+        text = edit(BROWN_ALONE, "No document was found in the project.\n\n", "")
+        self.brown_rejects(text, r"^line 40: '### Existing product' must hold its table or the line .* "
+                           r"\(BV-02\)$")
+
+    def test_skipped_line_after_the_table_passes(self):
+        self.brown_valid(edit(BROWN, PRODUCT, PRODUCT + "\n\nSkipped: docs/specs/prd/PRD-002.md (no frontmatter)"))
+
+    def test_other_text_after_the_table_is_rejected(self):
+        text = edit(BROWN, PRODUCT, PRODUCT + "\n\nPRD-002 was unreadable.")
+        self.brown_rejects(text, r"^line 51: under '### Existing product', .* \(BV-02\)$")
+
+    def test_existing_product_row_that_is_not_a_document_is_rejected(self):
+        text = edit(BROWN, "| PRD-001 | 3 | Online booking", "| ADR-001 | 3 | Online booking")
+        self.brown_rejects(text, r"^line 49: Existing product: Document must be a BRN, PRD, EPIC or ARCH ID "
+                           r".* \(BV-02\)$")
+
+    def test_document_without_its_upstream_record_is_rejected(self):
+        text = edit(BROWN, "  - {id: PRD-001, relation: informed_by, version: 3, hash: null}\n", "")
+        self.brown_rejects(text, r"^line 48: PRD-001: the frontmatter's upstream needs the record \{id: PRD-001, "
+                           r"relation: informed_by, version: 3, hash: null\} \(BV-02\)$")
+
+    def test_upstream_record_with_another_version_is_rejected(self):
+        text = edit(BROWN, "  - {id: PRD-001, relation: informed_by, version: 3, hash: null}",
+                    "  - {id: PRD-001, relation: informed_by, version: 2, hash: null}")
+        self.brown_rejects(text, r"^line 49: PRD-001: the frontmatter's upstream needs the record .* \(BV-02\)$")
+
+    def test_document_without_its_sources_entry_is_rejected(self):
+        text = edit(BROWN, '  - "document: docs/specs/prd/PRD-001.md v3"\n', "")
+        self.brown_rejects(text, r'^line 48: PRD-001: sources needs the entry "document: docs/specs/prd/'
+                           r'PRD-001\.md v3" \(BV-02\)$')
+
+    def test_document_sources_entries_may_follow_other_entries(self):
+        # An extension appends its new entries: the validator checks that each is there, not where.
+        entry = '  - "document: docs/specs/prd/PRD-001.md v3"\n'
+        note = '  - "note: Dana, conversation of 2026-11-18"\n'
+        self.brown_valid(edit(edit(BROWN, entry, ""), note, note + entry))
+
+    def test_covered_by_without_an_item_is_rejected(self):
+        text = edit(BROWN, "| PRD-001#FR-003 |", "| PRD-001 |")
+        self.brown_rejects(text, r"^line 183: Already covered: Covered by must be .* \(BV-03\)$")
+
+    def test_covered_by_an_unlisted_document_is_rejected(self):
+        text = edit(BROWN, "| PRD-001#FR-003 |", "| PRD-009#FR-003 |")
+        self.brown_rejects(text, r"^line 183: Already covered: PRD-009#FR-003 cites a document that Existing "
+                           r"product does not list \(BV-03\)$")
+
+    def test_already_covered_as_prose_is_rejected(self):
+        text = edit(BROWN, COVERED, "Text reminders are covered by PRD-001.")
+        self.brown_rejects(text, r"^line 181: '### Already covered' must be the table .* \(BV-03\)$")
+
+    def test_unknown_decision_is_rejected(self):
+        text = edit(BROWN, "| parked | BRN-001#IDEA-05 |", "| deferred | BRN-001#IDEA-05 |")
+        self.brown_rejects(text, r"^line 189: Previously decided: Decision must be rejected or parked, .* "
+                           r"\(BV-04\)$")
+
+    def test_previously_decided_idea_listed_twice_is_rejected(self):
+        text = edit(BROWN, "| rejected | BRN-001#IDEA-06 |", "| rejected | BRN-001#IDEA-05 |")
+        self.brown_rejects(text, r"^line 190: Previously decided: BRN-001#IDEA-05 is listed twice \(BV-04\)$")
+
+    def test_idea_taken_up_and_still_listed_is_rejected(self):
+        text = edit(BROWN, "| parked | BRN-001#IDEA-05 |", "| parked | BRN-001#IDEA-04 |")
+        self.brown_rejects(text, r"^line 121: IDEA-03 is linked to BRN-001#IDEA-04, which Previously decided also "
+                           r"lists: .* \(BV-04\)$")
+
+    def test_assumption_update_without_a_source_is_rejected(self):
+        text = edit(BROWN, " (data: reminder pilot export, October 2026) | confirmed", " | confirmed")
+        self.brown_rejects(text, r"^line 196: Assumption updates: Evidence must be a fact that ends with one "
+                           r"sources entry in parentheses \(BV-05\)$")
+
+    def test_assumption_update_with_a_marker_as_evidence_is_rejected(self):
+        text = edit(BROWN, "8 of 10 reminder texts were opened within a day (data: reminder pilot export, "
+                    "October 2026)", "[NEEDS CLARIFICATION: pilot result]")
+        self.brown_rejects(text, r"^line 196: Assumption updates: Evidence must be .* \(BV-05\)$")
+
+    def test_unknown_change_is_rejected(self):
+        self.brown_rejects(edit(BROWN, "| open to validated |", "| validated |"),
+                           r"^line 196: Assumption updates: Change must be .* \(BV-05\)$")
+
+    def test_status_without_a_date_or_with_a_name_is_rejected(self):
+        # The second sample is the form of the drafts before 2026-11-20: a cell that names someone is not valid.
+        for status in ("confirmed", "confirmed by Dana on 2026-11-18"):
+            with self.subTest(status=status):
+                self.brown_rejects(edit(BROWN, "| confirmed on 2026-11-18 |\n\n## 7", f"| {status} |\n\n## 7"),
+                                   r"^line 196: Assumption updates: Status must be .* \(BV-05\)$")
+
+    def test_status_with_an_impossible_date_is_rejected(self):
+        self.brown_rejects(edit(BROWN, "| confirmed on 2026-11-18 |\n\n## 7",
+                                "| confirmed on 2026-11-31 |\n\n## 7"),
+                           r"^line 196: Assumption updates: Status must be .* \(BV-05\)$")
+
+    def test_proposed_assumption_update_passes(self):
+        self.brown_valid(edit(BROWN, "| confirmed on 2026-11-18 |\n\n## 7",
+                              "| proposed, not confirmed |\n\n## 7"))
+
+    def test_update_of_an_unlisted_brn_is_rejected(self):
+        self.brown_rejects(edit(BROWN, "| BRN-001#ASM-01 | open", "| BRN-007#ASM-01 | open"),
+                           r"^line 196: Assumption updates: Earlier assumption must be .* \(BV-05\)$")
+
+    def test_confirmed_update_of_this_brns_assumption_needs_the_new_state(self):
+        own = edit(BROWN, UPDATE, UPDATE + "\n" + UPDATE.replace("BRN-001#ASM-01", "BRN-002#ASM-01"))
+        self.brown_rejects(own, r"^line 197: Assumption updates: ASM-01 of this BRN must have state validated "
+                           r"while its row says 'confirmed' \(BV-05\)$")
+        code, lines = self.run_text(edit(own, "    state: open", "    state: validated"), name="BRN-002.md")
+        self.assertFalse(any("(BV-05)" in line for line in lines), lines)
+
+    def test_proposed_update_of_this_brns_assumption_keeps_it_open(self):
+        own = edit(BROWN, UPDATE, UPDATE + "\n" + UPDATE.replace("BRN-001#ASM-01", "BRN-002#ASM-01").replace(
+            "confirmed on 2026-11-18", "proposed, not confirmed"))
+        self.brown_valid(own)
+        self.brown_rejects(edit(own, "    state: open", "    state: validated"),
+                           r"^line 197: Assumption updates: ASM-01 of this BRN must have state open while its row "
+                           r"says 'proposed, not confirmed' \(BV-05\)$")
 
 
 @unittest.skipUnless(_has_yaml([]), "PyYAML is not installed for this interpreter")
