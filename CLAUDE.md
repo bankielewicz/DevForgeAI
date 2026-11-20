@@ -20,7 +20,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 
 | Skill | Record (provenance) | Spec | Evals on the current version | Merged |
 |---|---|---|---|---|
-| `brainstorm` | SKL-001 v12, in-review | SPEC-001 v18, approved 2026-11-19 (v18 the frontmatter `tasks:` list the Taskmaster mod reads, under Bryan's narrow PRD-001 NFR-002 exception) | v12: smoke `keeps-task-list` 1.00, 3 runs waived until the next version or 2026-12-31; live check with Taskmaster 2026-11-19 (SPEC-001 §9). v11 (#135's text fix, smoke only). v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #173 (0.35.0) |
+| `brainstorm` | SKL-001 v12, in-review (implements SPEC-001 v18) | SPEC-001 v19, approved 2026-11-20 (the enhancements for greenfield and brownfield projects, taken in from `docs/specs/brainstorming/`: five frameworks, intake and evidence, brownfield runs, the first-release path; not built: the next SKL-001 version, plugin 0.36.0); v18 approved 2026-11-19 (the frontmatter `tasks:` list the Taskmaster mod reads, under Bryan's narrow PRD-001 NFR-002 exception, built in SKL-001 v12) | v12: smoke `keeps-task-list` 1.00, 3 runs waived until the next version or 2026-12-31; live check with Taskmaster 2026-11-19 (SPEC-001 §9). v11 (#135's text fix, smoke only). v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #173 (0.35.0) |
 | `prd` | SKL-002 v6, approved (implements SPEC-002 v5) | SPEC-002 v9, approved 2026-11-04 (v6 the interview at scale, #142; v7 and v8 Codex's fixes; v9 the dev-guard's cancellation; the interview build, the next SKL-002 version, not built) | v6 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). 3 runs, 35 of 35 at ≥ 0.8 (SKL-002 v5) | PR #150 (0.31.2) |
 | `architecture` | SKL-003 v10, approved | SPEC-003 v11, approved | v10 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v9: 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #150 (0.31.2) |
 | `epic` | SKL-004 v5, approved | SPEC-004 v4, approved | v5 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v4: 3 runs, 25 of 25 at ≥ 0.8 | PR #150 (0.31.2) |
@@ -281,10 +281,11 @@ building it"). The source of each item is named.
 - **Deferred work**, indexed in `docs/backlog.md` (IDs `DEF-NNN`, each row naming the spec section,
   review or issue that holds the detail). Check it before changing a skill it names; add a row when
   Bryan defers something.
-- **Brainstorm enhancements** (proposals, not built): `docs/specs/brainstorming/`, whose README is the
-  index and shared contract: four more frameworks, intake and evidence, brownfield runs, an MVP path,
-  the PRD hand-off, and prompts for Claude Design. They take effect only in SPEC-001's next version
-  (the PRD side of the hand-off in SPEC-002's).
+- **Brainstorm enhancements** (SPEC-001 v19, approved 2026-11-20; not built): `docs/specs/brainstorming/`,
+  whose README is the index and shared contract: four more frameworks, intake and evidence, brownfield
+  runs, an MVP path, the PRD hand-off, and prompts for Claude Design. The build is SKL-001 v13, plugin
+  0.36.0, one commit per enhancement (SPEC-001 §11); the PRD side of the hand-off waits for SPEC-002's
+  next version.
 
 ## Loaded on demand
 

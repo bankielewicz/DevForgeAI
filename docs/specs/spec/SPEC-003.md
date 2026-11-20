@@ -22,7 +22,7 @@ upstream:
   - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
   - {id: ADR-002, relation: constrains, version: 2, hash: null, note: "accepted: the Architecture Definition step"}
-  - {id: ADR-003, relation: constrains, version: 2, hash: null, note: "accepted: configuration contract v1"}
+  - {id: ADR-003, relation: constrains, version: 3, hash: null, note: "accepted: configuration contract v1"}
   - {id: SPEC-002, relation: informed_by, version: 9, hash: null, note: "consumes the prd skill's downstream contract (SPEC-002 §5)"}
   - {id: SPEC-012, relation: constrains, version: 18, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
 supersedes: []

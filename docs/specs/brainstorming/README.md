@@ -2,7 +2,9 @@
 
 **Status:** approved as enhancement specs by Bryan on 2026-11-19 ("I approve the enhancement specs in PR #172 at
 7deb4d4, including both readings"); written 2026-11-18 and 2026-11-19 by claude-code on the model Fable 5.2
-(session fa59a935-ed2e-4502-b6c4-93bb6d847546). They change no spec, skill or plugin version by themselves. The
+(session fa59a935-ed2e-4502-b6c4-93bb6d847546). SPEC-001 version 19, which takes them in, was approved by Bryan
+on 2026-11-20 ("Approve both", with his decisions of that day: SPEC-001 §13); the skill is not built yet. The
+documents change no skill or plugin version by themselves. The
 brainstorm skill's spec is `docs/specs/spec/SPEC-001.md` (version 17 on `main` when these were written,
 version 18 since pull request #173; the build works from version 19: §8). Each document here says which
 SPEC-001 items it adds or changes; those changes take effect only in SPEC-001's next version, approved by Bryan and
@@ -445,7 +447,7 @@ Not touched by the build: `src/schemas/brainstorm.schema.json` (R1), the progres
 
 ## 9. Left to Bryan
 
-- Approving SPEC-001 version 19 and ADR-003 version 3 before the build, and SPEC-002's next version for
-  prd-handoff-contract.md.
+- Approving SPEC-002's next version for prd-handoff-contract.md. SPEC-001 version 19 and ADR-003 version 3 are
+  approved (2026-11-20).
 - The entries each document lists as open in its section 7.
 - Whether a brainstorm pane is built at all (design-prompts.md only prepares its mock-ups).
