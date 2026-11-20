@@ -1365,12 +1365,13 @@ class SkillLayout(unittest.TestCase):
 
     def test_tasks_frontmatter_equals_the_checklist_lines(self):
         close = self.lines.index("---", 1)
-        start = self.lines.index("tasks:", 1, close)
+        start = next(i for i in range(1, close) if self.lines[i].split("#")[0].rstrip() == "tasks:")
         titles = []
         for line in self.lines[start + 1:close]:
-            if not line.startswith("  - "):
+            item = re.match(r"^\s*- (.+?)\s*$", line)
+            if not item:
                 break
-            titles.append(line[4:].strip().strip('"'))
+            titles.append(item.group(1).strip("\"'"))
         self.assertEqual(titles, [CHECKLIST_LINE.match(line).group(2) for line in CHECKLIST])
 
     def test_h2_headings_in_order(self):

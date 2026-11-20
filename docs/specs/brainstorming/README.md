@@ -379,7 +379,9 @@ here: the build's version numbers; SKILL.md's line counts, 9 higher at every sta
 after the first three commits; 386 after the fourth, 380 before BEH-34's six lines); the hash
 framework-catalog.md gives; BEH-16's bound on where the checklist opens, now counted from the end of the
 frontmatter; and one more test in `test_structure.py`, for the `tasks:` list. Where a document's record of its
-author's checks names version 11, that record stands as written and a dated line gives the re-check.
+author's checks names version 11, that record stands as written and a dated line gives the re-check. The
+review of SPEC-001 version 19, the same day, added one sentence to BEH-32's item 5, the ask for the owner's
+name, which mvp-and-prototype-path.md's §4 and the staged `mvp-path.md` already gave.
 
 SPEC-001 version 19 and ADR-003 version 3 are drafted before the build and approved by Bryan. They make the
 five edits the documents give for those two files (A-P1, A-D1, B-P1, B-P2, B-P3), so no commit of the build
