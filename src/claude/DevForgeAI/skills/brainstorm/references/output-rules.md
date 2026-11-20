@@ -7,6 +7,7 @@
 - Frontmatter
 - Item blocks
 - Collections and fields
+- Project kind, sources and sections 3 and 8
 - Unknowns
 - Change Log
 - Validation checklist
@@ -54,7 +55,7 @@ Keep exactly these keys, in this order. Unknown or misspelled keys are errors.
 | `superseded_by` | `null` |
 | `blocked_by` | `[]` |
 | `participants` | List of quoted names, or `[]` |
-| `sources` | List of quoted raw inputs (notes, tickets, URLs), or `[]` |
+| `sources` | `[]`, or one quoted `"<kind>: <reference>"` string per input used (*Project kind, sources and sections 3 and 8*) |
 
 Keep the `# --- brainstorm-specific ---` comment line before `participants`.
 
@@ -89,8 +90,8 @@ ID) and `upstream` (a list of link records). Besides those, only these fields ar
 | Field | Value |
 |---|---|
 | `statement` | Quoted, one sentence, from the user's side |
-| `who` | Quoted persona |
-| `evidence` | Quoted source or data, or `"[NEEDS CLARIFICATION: …]"` |
+| `who` | Quoted persona, with no vertical bar in it, spelled the same way in every problem |
+| `evidence` | Quoted fact that ends with one `sources` entry in parentheses, or `"[NEEDS CLARIFICATION: …]"`. In a BRN without the project-kind line: quoted source or data |
 | `severity` | `high`, `medium` or `low` |
 
 **`ideas`**
@@ -113,6 +114,21 @@ ID) and `upstream` (a list of link records). Besides those, only these fields ar
 | `state` | `open`, `validated` or `invalidated` |
 
 No other collections and no other fields. Put method-specific reasoning in the prose sections.
+
+## Project kind, sources and sections 3 and 8
+
+These rules hold for a BRN that has the project-kind line (a *new-shape* BRN): a line after the
+frontmatter and outside every fenced block that starts with `Project kind:`. A BRN without it keeps
+its earlier shape, also when extended, and is checked by the other rules only.
+[intake.md](intake.md) says how to fill each part.
+
+| Part | Form |
+|---|---|
+| Project kind | The first line under `## 1. Context`, followed by a blank line: `Project kind: greenfield`, `Project kind: brownfield` or `Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]`. With the third, and only then, section 7 holds one bullet `- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]`, or the same with `worked as brownfield` |
+| `sources` | Each entry `"<kind>: <reference>"`, the kind one of `document`, `data`, `ticket`, `interview`, `url`, `note`; no vertical bar; no entry twice |
+| A cited fact: an active problem's `evidence`, a section 8 baseline | One `[NEEDS CLARIFICATION: …]` marker and nothing else, or text that ends with one `sources` entry, without its quotes, in parentheses after a space |
+| Section 3 | Only the table `\| Persona \| Job to be done \| Current workaround \| Pain \|`: one row per distinct `who` value of the active problems, in the order the values first appear, the Persona cell equal to the `who` value; four non-empty cells in each row |
+| Section 8 | One bullet `- IDEA-NN: <outcome>; baseline <cited fact>` for each active idea whose row in section 6's *First release cut* table says `yes`, in ID order; with none, the single line `- None.` |
 
 ## Unknowns
 
@@ -151,6 +167,12 @@ Check each item; fix and re-check anything that fails.
     empty `title`.
 11. The last Change Log row's author is `claude-code (session <ID>)` with the ID in
     `generated_by.session`, unless a person wrote that row.
+12. In a BRN with the project-kind line: that line is exact, first under `## 1. Context` and
+    followed by a blank line; while it is the NEEDS CLARIFICATION line, and only then, section 7
+    holds the one bullet that says which kind the run worked as; every `sources` entry has the form `"<kind>: <reference>"` and stands
+    once; every active problem's `evidence` and every section 8 baseline is one marker or ends with
+    a `sources` entry in parentheses; section 3 is the Target users table with one row per `who`
+    value; section 8 has one bullet per first-release idea, or the line `- None.`
 
 ## Example item blocks
 

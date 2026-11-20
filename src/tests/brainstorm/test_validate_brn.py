@@ -162,6 +162,43 @@ def edit(text, old, new):
     return text.replace(old, new, 1)
 
 
+# A new-shape BRN (it has the project-kind line), built from VALID: intake checks IV-01 to IV-07.
+USERS = (
+    "| Persona | Job to be done | Current workaround | Pain |\n|---|---|---|---|\n"
+    "| Returning patient | Keep a check-up booked weeks ahead | A paper card on the fridge | Forgets the date |\n"
+    "| Working patient | Move a visit after work | [NEEDS CLARIFICATION: current workaround of Working patient] "
+    "| Cannot call during office hours |")
+CUT = ("\n\n### First release cut\n\nFirst release cut: proposed, not confirmed\n\n"
+       "| Idea | In first release | Why |\n|---|---|---|\n| IDEA-01 | yes | Tests ASM-01, ranked 1. |")
+RANKING = ("\n\n### Assumption risk ranking\n\n| Rank | Assumption | If wrong | Confidence | Cheapest test |\n"
+           "|---|---|---|---|---|\n| 1 | ASM-01 | Fatal: stops IDEA-01 (1 of 1 in the cut table). | low "
+           "| Data: Check delivery and read receipts for one month. |")
+SIGNAL = ("- IDEA-01: fewer missed visits; baseline one in eight visits missed (data: front-desk no-show log, "
+          "August 2026)")
+NEW = edit(VALID, "## 1. Context\n\n", "## 1. Context\n\nProject kind: greenfield\n\n")
+NEW = edit(NEW, "sources: []", 'sources: ["data: front-desk no-show log, August 2026", '
+           '"note: Dana, conversation of 2026-09-01"]')
+NEW = edit(NEW, 'evidence: "Front-desk notes"',
+           'evidence: "Callers ask to move visits after hours (note: Dana, conversation of 2026-09-01)"')
+NEW = edit(NEW, "| Persona | Pain |\n|---|---|\n| Returning patient | Forgets the date |", USERS)
+NEW = edit(NEW, "Dana confirmed IDEA-01 as promoted.", "Dana confirmed IDEA-01 as promoted." + CUT)
+NEW = edit(NEW, "    state: open\n```", "    state: open\n```" + RANKING)
+NEW = edit(NEW, "- Fewer no-shows per month.", SIGNAL)
+# The same BRN with no idea promoted: no first-release idea, so section 8 holds "- None."
+NEW_NONE = edit(NEW, 'disposition: promoted\n    reason: "Cheap to try and addresses both problems."',
+                "disposition: open\n    reason: null")
+NEW_NONE = edit(NEW_NONE, "| Idea | In first release | Why |\n|---|---|---|\n| IDEA-01 | yes | Tests ASM-01, "
+                "ranked 1. |", "No idea is promoted or proposed for promotion.")
+NEW_NONE = edit(NEW_NONE, "Fatal: stops IDEA-01 (1 of 1 in the cut table).",
+                "Minor: stops no idea in the cut table (0 of 0).")
+NEW_NONE = edit(NEW_NONE, SIGNAL, "- None.")
+# The same BRN with the kind not decided: section 7 says which kind the run worked as.
+QUESTION = "- [NEEDS CLARIFICATION: Which booking system does the clinic use?]"
+WORKED_AS = "- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as %s]"
+NEW_UNDECIDED = edit(NEW, "Project kind: greenfield", "Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]")
+NEW_UNDECIDED = edit(NEW_UNDECIDED, QUESTION, WORKED_AS % "greenfield" + "\n" + QUESTION)
+
+
 def _has_yaml(flags, env=None):
     return subprocess.run([sys.executable, *flags, "-c", "import yaml"], env=env,
                           capture_output=True).returncode == 0
@@ -294,7 +331,8 @@ class Base:
         self.assert_invalid(lines, code, r"owner must be a quoted name", r"authors must be a non-empty list",
                             r"leftover template placeholder '<topic>'", r"generated_by.tool",
                             r"^line 2: leftover template placeholder BRN-000: replace it with the allocated",
-                            r"^line 108: last Change Log row has no author")
+                            r"^line 191: last Change Log row has no author",
+                            r"^line 41: the Project kind line must be exactly .* \(IV-01\)$")
 
     # --- Codex import probes (M7, src/codex/devforgeai/IMPORT-REPORT.md D-03) -------------------
 
@@ -382,6 +420,142 @@ class Base:
     def test_upstream_without_link_records_is_rejected(self):
         self.assert_rejects(edit(VALID, "upstream: []", "upstream: [BRN-002]"),
                             r"upstream must be \[\] or a list of link records")
+
+    # --- New-shape BRNs: intake checks IV-01 to IV-07 (intake-and-evidence.md) -------------------
+
+    def test_new_shape_brn_passes(self):
+        self.assert_valid(NEW)
+
+    def test_undecided_project_kind_passes(self):
+        self.assert_valid(NEW_UNDECIDED)
+
+    def test_undecided_project_kind_without_its_bullet_is_rejected(self):
+        errors = self.assert_rejects(edit(NEW_UNDECIDED, WORKED_AS % "greenfield" + "\n", ""),
+                                     r"^line 116: while the project kind is not decided, section 7 must hold "
+                                     r"exactly one bullet .* \(IV-07\)$")
+        self.assertEqual(len(errors), 1, errors)
+
+    def test_undecided_project_kind_with_two_bullets_is_rejected(self):
+        text = edit(NEW_UNDECIDED, QUESTION, WORKED_AS % "brownfield" + "\n" + QUESTION)
+        self.assert_rejects(text, r"^line 116: while the project kind is not decided, .* \(IV-07\)$")
+
+    def test_decided_project_kind_with_the_bullet_is_rejected(self):
+        text = edit(NEW, QUESTION, WORKED_AS % "greenfield" + "\n" + QUESTION)
+        errors = self.assert_rejects(text, r"^line 133: the project kind is decided: remove the bullet .* "
+                                     r"\(IV-07\)$")
+        self.assertEqual(len(errors), 1, errors)
+
+    def test_project_kind_inside_a_fenced_block_is_not_the_gate(self):
+        self.assert_valid(edit(VALID, "Dana confirmed IDEA-01 as promoted.",
+                               "Dana confirmed IDEA-01 as promoted.\n\n```text\nProject kind: greenfield\n```"))
+
+    def test_wrong_project_kind_value_is_rejected(self):
+        self.assert_rejects(edit(NEW, "Project kind: greenfield", "project  kind: Brownfield"),
+                            r"^line 31: the Project kind line must be exactly .* \(IV-01\)$")
+
+    def test_project_kind_after_the_prose_is_rejected(self):
+        text = edit(NEW, "Project kind: greenfield\n\nOne in eight booked appointments ends in a no-show.",
+                    "One in eight booked appointments ends in a no-show.\n\nProject kind: greenfield")
+        self.assert_rejects(text, r"^line 33: the Project kind line must be the first line under .* \(IV-01\)$")
+
+    def test_project_kind_without_a_blank_line_after_is_rejected(self):
+        self.assert_rejects(edit(NEW, "Project kind: greenfield\n\n", "Project kind: greenfield\n"),
+                            r"^line 31: the Project kind line must be the first line under .* \(IV-01\)$")
+
+    def test_second_project_kind_line_is_rejected(self):
+        text = edit(NEW, "Dana confirmed IDEA-01 as promoted.",
+                    "Dana confirmed IDEA-01 as promoted.\n\nProject kind: brownfield")
+        errors = self.assert_rejects(text, r"^line 108: only one Project kind line is allowed \(IV-01\)$")
+        self.assertEqual(len(errors), 1, errors)
+
+    def test_sources_entry_without_a_known_kind_is_rejected(self):
+        text = edit(NEW, '"data: front-desk no-show log, August 2026"', '"Front-desk no-show log"')
+        self.assert_rejects(text, r'^line 24: sources entry "Front-desk no-show log" must be .* \(IV-02\)$')
+
+    def test_sources_entry_with_a_vertical_bar_is_rejected(self):
+        text = edit(NEW, '"data: front-desk no-show log, August 2026"', '"data: log | August"')
+        self.assert_rejects(text, r"^line 24: sources entry .* \(IV-02\)$")
+
+    def test_duplicate_sources_entry_is_rejected(self):
+        text = edit(NEW, '"data: front-desk no-show log, August 2026"',
+                    '"note: Dana, conversation of 2026-09-01"')
+        self.assert_rejects(text, r"^line 24: duplicate sources entry .* \(IV-02\)$")
+
+    def test_evidence_without_a_source_is_rejected(self):
+        text = edit(NEW, " (note: Dana, conversation of 2026-09-01)", "")
+        errors = self.assert_rejects(text, r"^line 49: PRB-02: evidence must be one .* \(IV-03\)$")
+        self.assertEqual(len(errors), 1, errors)
+
+    def test_evidence_citing_an_unlisted_source_is_rejected(self):
+        text = edit(NEW, "(note: Dana, conversation of 2026-09-01)", "(data: call log, 2026)")
+        self.assert_rejects(text, r"^line 49: PRB-02: evidence must be one .* \(IV-03\)$")
+
+    def test_marker_with_text_around_it_is_not_cited_evidence(self):
+        text = edit(NEW, '"[NEEDS CLARIFICATION: current no-show rate]"',
+                    '"High, we think [NEEDS CLARIFICATION: current no-show rate]"')
+        self.assert_rejects(text, r"^line 43: PRB-01: evidence must be one .* \(IV-03\)$")
+
+    def test_deprecated_problem_needs_no_cited_evidence(self):
+        text = edit(NEW, " (note: Dana, conversation of 2026-09-01)", "")
+        text = edit(text, '  - id: PRB-02\n    status: active', '  - id: PRB-02\n    status: deprecated')
+        self.assert_valid(edit(text, "\n| Working patient | Move a visit after work | [NEEDS CLARIFICATION: current "
+                               "workaround of Working patient] | Cannot call during office hours |", ""))
+
+    def test_section_3_as_prose_is_rejected(self):
+        self.assert_rejects(edit(NEW, USERS, "Returning patients and working patients."),
+                            r"^line 55: section 3 must start with the table header .* \(IV-04\)$")
+
+    def test_persona_that_is_not_a_who_value_is_rejected(self):
+        self.assert_rejects(edit(NEW, "| Working patient | Move", "| Working patients | Move"),
+                            r"^line 55: section 3's Persona cells must be .*: expected Returning patient; "
+                            r"Working patient, got Returning patient; Working patients \(IV-04\)$")
+
+    def test_missing_persona_row_is_rejected(self):
+        text = edit(NEW, "\n| Working patient | Move a visit after work | [NEEDS CLARIFICATION: current workaround "
+                    "of Working patient] | Cannot call during office hours |", "")
+        self.assert_rejects(text, r"^line 55: section 3's Persona cells must be .* \(IV-04\)$")
+
+    def test_target_users_row_with_an_empty_cell_is_rejected(self):
+        self.assert_rejects(edit(NEW, "| A paper card on the fridge |", "| |"),
+                            r"^line 57: section 3 holds only the Target users table: .* \(IV-04\)$")
+
+    def test_new_shape_brn_with_no_first_release_idea_passes(self):
+        self.assert_valid(NEW_NONE)
+
+    def test_free_text_success_signal_is_rejected(self):
+        self.assert_rejects(edit(NEW, SIGNAL, "- Fewer no-shows per month."),
+                            r"^line 137: section 8 holds one bullet per first-release idea, .* \(IV-05\)$")
+
+    def test_success_signal_for_an_idea_outside_the_first_release_is_rejected(self):
+        text = edit(NEW, "| IDEA-01 | yes | Tests ASM-01, ranked 1. |", "| IDEA-01 | no | Left out by the user. |")
+        self.assert_rejects(text, r"^line 135: section 8 must hold one bullet for each idea whose First release "
+                            r"cut row says yes \(none\) and no other; .* \(IV-06\)$")
+
+    def test_none_with_a_first_release_idea_is_rejected(self):
+        self.assert_rejects(edit(NEW, SIGNAL, "- None."),
+                            r"^line 135: section 8 must hold one bullet .* says yes \(IDEA-01\) and no other; .* "
+                            r"\(IV-06\)$")
+
+    def test_baseline_without_a_source_is_rejected(self):
+        text = edit(NEW, SIGNAL, "- IDEA-01: fewer missed visits; baseline one in eight")
+        self.assert_rejects(text, r"^line 137: IDEA-01: baseline must be one .* \(IV-05\)$")
+
+    def test_success_signal_for_an_unknown_idea_is_rejected(self):
+        text = edit(NEW, SIGNAL, SIGNAL + "\n- IDEA-09: more bookings; baseline [NEEDS CLARIFICATION: bookings "
+                    "a week]")
+        self.assert_rejects(text, r"^line 138: section 8: IDEA-09 is not an active idea \(IV-05\)$")
+
+    def test_success_signals_out_of_order_are_rejected(self):
+        text = edit(NEW, "| IDEA-01 | yes | Tests ASM-01, ranked 1. |",
+                    "| IDEA-01 | yes | Tests ASM-01, ranked 1. |\n| IDEA-03 | yes | Included by the user. |")
+        text = edit(text, SIGNAL, "- IDEA-03: more visits moved online; baseline [NEEDS CLARIFICATION: visits "
+                    "moved by phone a week]\n" + SIGNAL)
+        self.assert_rejects(text, r"^line 139: section 8's bullets must be in ID order, each idea once \(IV-05\)$")
+
+    def test_earlier_shape_brn_is_not_held_to_the_new_checks(self):
+        # VALID has no project-kind line: prose in section 3, a free bullet in section 8, uncited evidence.
+        code, lines = self.run_text(VALID)
+        self.assertEqual((code, len(lines)), (0, 1), lines)
 
 
 @unittest.skipUnless(_has_yaml([]), "PyYAML is not installed for this interpreter")

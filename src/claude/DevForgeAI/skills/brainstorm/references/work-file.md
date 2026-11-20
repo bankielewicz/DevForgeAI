@@ -57,6 +57,9 @@ Build it from `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`, as step 6 builds the B
   save on it holds the chosen framework's method text, which tells a continued run the framework in use.
 - Step 5's proposals, once made, as a table in section 6 (Convergence): idea ID, title, proposed
   disposition, reason. Write it in table cells only, never as a `disposition:` line.
+- The project-kind line, the frontmatter `sources` and section 3's table from the first save, and
+  section 8's bullets at the step-5 save, each as [intake.md](intake.md) gives it. While the kind
+  is not decided, section 7 holds the bullet that names the kind the run works as, from the first save.
 - No HTML comments.
 
 When extending, start from the existing BRN's content with every item ID kept.
@@ -68,7 +71,8 @@ When the progress tracker's line that continues an earlier brainstorm run says "
 1. Load that file and save to it from then on, at the same points as above (the saves before step 4
    and step 5 are made only when the run reaches those points). Keep its problems, ideas, assumptions,
    scores and IDs, and its framework: the one whose method text opens its section 5 (with none there,
-   select at step 2 as usual). A draft that can't be read counts as none: continue as the line says.
+   select at step 2 as usual). Keep its project-kind line, its `sources` and its section 3 too, and
+   don't ask the kind question or the clarifying questions again. A draft that can't be read counts as none: continue as the line says.
 2. When its `id` is a BRN's ID, step 6 extends that BRN (version + 1, a Change Log row for this
    session) without asking extend-or-new again; otherwise step 6 allocates the ID as usual.
 3. Follow every other sentence of the line as written: the tracker decides which step is asked and

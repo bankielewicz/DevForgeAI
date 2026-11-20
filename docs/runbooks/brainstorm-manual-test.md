@@ -61,7 +61,7 @@ Answer its clarifying questions briefly. When it shows proposed dispositions:
 - say the brainstorm is done.
 
 **Expect:**
-- The skill loads (a Skill call to `devforgeai:brainstorm`), and it asks at most 3 clarifying questions.
+- The skill loads (a Skill call to `devforgeai:brainstorm`), and it asks whether the product exists, then at most 4 clarifying questions.
 - It names the framework (`diverge-converge`) and why.
 - It writes `docs/specs/brainstorm/BRN-001.md` and says that it created the directory.
 - In the file:

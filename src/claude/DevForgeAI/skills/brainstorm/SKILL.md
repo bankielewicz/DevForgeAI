@@ -61,6 +61,8 @@ choice nobody made. That is why this rule matters more than any other in this sk
 - The arguments (the `ARGUMENTS:` line at the end of this text, when given): the topic. They may be empty; then take the topic from the conversation, or ask for it.
 - Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
 - The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
+- Sources: what the user gives or names as evidence, and their own statements, recorded in
+  `sources` ([intake.md](references/intake.md)).
 - The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md` (or the draft path the progress
   tracker's line on continuing names, below), the work so far, saved after steps 3 and 4 and at
   step 5 ([work-file.md](references/work-file.md)).
@@ -131,11 +133,18 @@ doesn't say to proceed without questions, never ask it.
    covers the same or a closely similar topic, show its ID, title and path and ask:
    *extend it* (version + 1, with a Change Log entry) or *create a new BRN*. Wait for the answer
    and write nothing before it. Never overwrite an existing BRN silently.
-3. **Clarifying questions.** Ask at most three, in one message: what triggered this, who is
-   affected, and what constraints apply. Skip any the request already answers. Ask none when
+3. **Project kind.** Decide whether the product the topic is about exists (*brownfield*) or not
+   (*greenfield*) by the ordered rules in [intake.md](references/intake.md): the user's words
+   decide, and a PRD in the project only makes brownfield the recommended answer of the kind
+   question, asked alone in its own form. When it can't be asked or isn't answered, the kind stays
+   undecided and intake.md says which kind to work with.
+4. **Clarifying questions.** Ask at most four, in one form: the question set intake.md gives for
+   the kind, in its order and wording. Skip any the request already answers. Ask none when
    the request says to proceed without questions and the waiver was answered *Proceed without
    questions* or couldn't be asked. Record anything still unknown as
    `[NEEDS CLARIFICATION: question]` in the document; never fill a gap with a guess.
+5. **Sources.** Record each input the user gives or names as a `sources` entry in intake.md's
+   form. Never invent a source and never fetch one.
 
 Use AskUserQuestion for questions and confirmations when it is available, tagged with its step
 (Working through the steps, item 4); otherwise ask in plain text and end your turn.
@@ -156,7 +165,8 @@ fall back to `diverge-converge` and tell the user which file was the problem.
 
 Follow the framework's steps and questions.
 
-- Frame **problems** first (`PRB-NN`), stated from the affected user's side.
+- Frame **problems** first (`PRB-NN`), stated from the affected user's side. Take each `evidence`
+  from a source and cite it, or write the marker ([intake.md](references/intake.md#citing-a-source)).
 - Capture **ideas** (`IDEA-NN`). Record the user's own ideas in their own words, alongside the
   ideas you generate. Generate between 5 and 15 ideas unless the user asks for another number or the framework's *Steps*
 set their own count.
@@ -208,7 +218,9 @@ disposition `open`, and don't run the validator on it. If no, write nothing more
    Create `docs/specs/brainstorm/` if it is missing, and say that you created it.
 2. **Build from the template.** Read `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`. Keep every section
    heading. Replace every placeholder with content or with a `[NEEDS CLARIFICATION: …]` marker.
-   Replace the example items with the real ones. Delete every HTML comment.
+   Replace the example items with the real ones. Delete every HTML comment. Write the project-kind
+   line, section 3's table and section 8's bullets as [intake.md](references/intake.md) says, and
+   keep or delete the template's brownfield-only parts as its first comment says.
 3. **Frontmatter.**
    - `id`: the allocated ID. `title`: the descriptive topic. `version: 1`.
    - `created` and `updated`: today's date as `YYYY-MM-DD`.
@@ -219,7 +231,8 @@ disposition `open`, and don't run the validator on it. If no, write nothing more
    - `generated_by`: `tool: "claude-code"`, `model:` your own model ID (for example
      `"claude-opus-5-5"`), `session: "${CLAUDE_SESSION_ID}"`: the latest session to write the BRN.
    - `reviewed_by: []`, `approved_by: ""`, `approved_on: null`. Every `hash` is `null`.
-   - `upstream`, `participants` and `sources`: fill from the conversation, or leave them empty.
+   - `upstream` and `participants`: fill from the conversation, or leave them empty.
+   - `sources`: the entries recorded since step 1, in intake.md's form; `[]` when there is none.
 4. **Change Log.** One row: version, today's date, `claude-code (session ${CLAUDE_SESSION_ID})`,
    what changed. The session ID is the name of the conversation's transcript, so
    `claude --resume` with that ID reopens the conversation behind that version.
@@ -229,7 +242,8 @@ requirements cite these IDs. Give new items the next free number in their collec
 item by setting `status: deprecated` (plus `superseded_by` if replaced), never by deleting or
 renumbering it. Bump `version`, set `updated`, set `generated_by.session` to this session, and
 add a Change Log row naming this session. Never edit earlier Change Log rows: they keep the
-sessions that wrote earlier versions.
+sessions that wrote earlier versions. A BRN without the `Project kind:` line keeps its earlier shape
+when extended: add none of intake.md's shapes to it.
 
 Read [output-rules.md](references/output-rules.md) before writing: it defines the frontmatter
 keys, ID patterns, item-block rules and allowed fields.
@@ -300,7 +314,8 @@ Do not start writing a PRD.
 ## Examples
 
 **Named topic, user answers.** User: "Let's brainstorm how our dental clinic could cut no-shows."
-1. The skill asks up to three questions (trigger, who is affected, constraints) and picks
+1. The skill asks whether the product exists, then up to four questions (trigger, who is affected,
+   constraints, evidence), and picks
    `diverge-converge`, saying why.
 2. It captures 3 problems, 10 ideas (two in the user's own words) and 4 assumptions, and
    rates them.
@@ -328,4 +343,6 @@ one. It writes nothing until the user answers.
 - [references/output-rules.md](references/output-rules.md): read before step 6.
 - [references/work-file.md](references/work-file.md): read before the first save at step 3, and when
   continuing an earlier run.
+- [references/intake.md](references/intake.md): read at step 1, before deciding the project kind:
+  the kind rules, the question sets, the form of `sources`, and sections 3 and 8.
 - `scripts/validate_brn.py`: run at step 7; it applies the output rules mechanically.

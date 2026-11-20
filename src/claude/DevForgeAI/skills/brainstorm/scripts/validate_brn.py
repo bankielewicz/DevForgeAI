@@ -110,6 +110,225 @@ def flow_items(v):
     return items
 
 
+KIND_PREFIX = "Project kind: "
+KINDS = {
+    "greenfield": "greenfield",
+    "brownfield": "brownfield",
+    "[NEEDS CLARIFICATION: greenfield or brownfield]": "unknown",
+}
+MARKER = re.compile(r"^\[NEEDS CLARIFICATION: [^\[\]]+\]$")
+SOURCE = re.compile(r"^(document|data|ticket|interview|url|note): \S")
+TARGET_USERS = "| Persona | Job to be done | Current workaround | Pain |"
+SIGNAL = re.compile(r"^- (IDEA-\d{2}): (.+?); baseline (.+)$")
+WORKED = re.compile(r"^- \[NEEDS CLARIFICATION: greenfield or brownfield; this run worked as "
+                    r"(greenfield|brownfield)\]$")
+SIGNAL_FORM = ("section 8 holds one bullet per first-release idea, '- IDEA-NN: outcome; baseline value', "
+               "or the single line '- None.' (IV-05)")
+
+
+def unquote(v):
+    """The text of a double-quoted value, with \\" and \\\\ unescaped; any other value unchanged."""
+    if not quoted(v):
+        return v
+    return v[1:-1].replace('\\"', '"').replace("\\\\", "\\")
+
+
+def outside_fences(lines, fm_end):
+    """(line number, text) for each line after the frontmatter that is outside every fenced block."""
+    out, fence = [], False
+    for i in range(fm_end + 1, len(lines)):
+        if lines[i].startswith("```"):
+            fence = not fence
+        elif not fence:
+            out.append((i + 1, lines[i]))
+    return out
+
+
+def kind_lines(lines, fm_end):
+    """The project-kind lines. A BRN with at least one is a new-shape BRN (the gate)."""
+    return [(n, t) for n, t in outside_fences(lines, fm_end)
+            if " ".join(t.lower().split()).startswith("project kind:")]
+
+
+def new_shape_kind(lines, fm_end):
+    """None for an earlier-shape BRN; otherwise greenfield, brownfield, unknown or invalid."""
+    found = kind_lines(lines, fm_end)
+    if not found:
+        return None
+    text = found[0][1]
+    if not text.startswith(KIND_PREFIX):
+        return "invalid"
+    return KINDS.get(text[len(KIND_PREFIX):], "invalid")
+
+
+def section_body(lines, heading):
+    """(the heading's line number, [(line number, text)] up to the next '## ' heading), or (0, [])."""
+    if heading not in lines:
+        return 0, []
+    start = lines.index(heading)
+    body = []
+    for i in range(start + 1, len(lines)):
+        if lines[i].startswith("## "):
+            break
+        body.append((i + 1, lines[i]))
+    return start + 1, body
+
+
+def subsection(body, heading):
+    """(the '### ' heading's line number, its non-blank lines up to the next '### '), or (0, [])."""
+    at = next((k for k, (_, t) in enumerate(body) if t == heading), None)
+    if at is None:
+        return 0, []
+    rows = []
+    for n, t in body[at + 1:]:
+        if t.startswith("### "):
+            break
+        if t.strip():
+            rows.append((n, t))
+    return body[at][0], rows
+
+
+def cells(text):
+    """The cells of a table row, or None when the line is not a table row."""
+    t = text.strip()
+    if len(t) < 2 or not (t.startswith("|") and t.endswith("|")):
+        return None
+    return [c.strip() for c in t[1:-1].split("|")]
+
+
+def ends_with_source(text, sources):
+    """True when text is a statement followed by one sources entry in parentheses."""
+    return any(text.endswith(" (" + s + ")") and len(text) > len(s) + 3 for s in sources)
+
+
+def cited(text, sources):
+    """True when text is one NEEDS CLARIFICATION marker, or ends with one sources entry in parentheses."""
+    return bool(MARKER.match(text)) or ends_with_source(text, sources)
+
+
+def first_release_ideas(lines):
+    """The IDs whose row under '### First release cut' (section 6) says yes, in the table's order."""
+    _, body = section_body(lines, "## 6. Convergence")
+    _, rows = subsection(body, "### First release cut")
+    out = []
+    for _, t in rows:
+        c = cells(t)
+        if c and len(c) >= 2 and re.fullmatch(r"IDEA-\d{2}", c[0]) and c[1] == "yes":
+            out.append(c[0])
+    return out
+
+
+def working_kind(lines):
+    """The kind an undecided run worked as, from its one bullet in section 7; None without exactly one."""
+    _, body = section_body(lines, "## 7. Assumptions and open questions")
+    found = [m.group(1) for m in (WORKED.match(t) for _, t in body) if m]
+    return found[0] if len(found) == 1 else None
+
+
+def check_intake(lines, fm_end, source_items, items, err):
+    """IV-01 to IV-07, for a new-shape BRN. Returns the valid sources entries, unquoted."""
+    # IV-01: the project-kind line
+    found = kind_lines(lines, fm_end)
+    ln, text = found[0]
+    for n, _ in found[1:]:
+        err(n, "only one Project kind line is allowed (IV-01)")
+    if not (text.startswith(KIND_PREFIX) and text[len(KIND_PREFIX):] in KINDS):
+        err(ln, "the Project kind line must be exactly 'Project kind: greenfield', 'Project kind: "
+            "brownfield' or 'Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]' (IV-01)")
+    _, body = section_body(lines, "## 1. Context")
+    first = next((n for n, t in body if t.strip()), 0)
+    if first != ln or ln >= len(lines) or lines[ln].strip():
+        err(ln, "the Project kind line must be the first line under '## 1. Context', followed by a "
+            "blank line (IV-01)")
+
+    # IV-07: an undecided kind is recorded in section 7, with the kind the run worked as
+    head, body = section_body(lines, "## 7. Assumptions and open questions")
+    marks = [n for n, t in body if WORKED.match(t)]
+    kind = new_shape_kind(lines, fm_end)
+    if head and kind == "unknown" and len(marks) != 1:
+        err(head, "while the project kind is not decided, section 7 must hold exactly one bullet '- [NEEDS "
+            "CLARIFICATION: greenfield or brownfield; this run worked as greenfield]' or the same with "
+            "'worked as brownfield' (IV-07)")
+    if kind in ("greenfield", "brownfield"):
+        for n in marks:
+            err(n, "the project kind is decided: remove the bullet that says which kind the run worked as "
+                "(IV-07)")
+
+    # IV-02: sources entries
+    sources = []
+    for n, raw in source_items:
+        s = unquote(raw)
+        if not SOURCE.match(s) or s != s.strip() or "|" in s:
+            err(n, f"sources entry {raw} must be \"kind: reference\" with no | in it, the kind being "
+                "document, data, ticket, interview, url or note (IV-02)")
+        elif s in sources:
+            err(n, f"duplicate sources entry {raw} (IV-02)")
+        else:
+            sources.append(s)
+
+    def active(collection):
+        return [it for it in items[collection] if it["fields"].get("status", (0, ""))[1] == "active"]
+
+    # IV-03: each active problem's evidence is cited
+    for it in active("problems"):
+        ev = it["fields"].get("evidence")
+        if ev and quoted(ev[1]) and not cited(unquote(ev[1]), sources):
+            err(ev[0], f"{it['id']}: evidence must be one [NEEDS CLARIFICATION: ...] marker or end with one "
+                "sources entry in parentheses, such as \"... (data: no-show log, August 2026)\" (IV-03)")
+
+    # IV-04: section 3 is the Target users table, one row per who value
+    head, body = section_body(lines, "## 3. Target users")
+    rows = [(n, t) for n, t in body if t.strip()]
+    if head and (len(rows) < 2 or rows[0][1] != TARGET_USERS or rows[1][1] != "|---|---|---|---|"):
+        err(rows[0][0] if rows else head, f"section 3 must start with the table header '{TARGET_USERS}' "
+            "and the line '|---|---|---|---|' (IV-04)")
+    elif head:
+        personas = []
+        for n, t in rows[2:]:
+            c = cells(t)
+            if c is None or len(c) != 4 or not all(c):
+                err(n, "section 3 holds only the Target users table: each row has four non-empty cells (IV-04)")
+            else:
+                personas.append(c[0])
+        who = []
+        for it in active("problems"):
+            w = it["fields"].get("who")
+            if w and unquote(w[1]) not in who:
+                who.append(unquote(w[1]))
+        if personas != who:
+            err(rows[0][0], "section 3's Persona cells must be the active problems' who values, each once, "
+                f"in the order they first appear: expected {'; '.join(who)}, got {'; '.join(personas)} (IV-04)")
+
+    # IV-05: section 8's bullets; IV-06: they are the first-release ideas
+    head, body = section_body(lines, "## 8. Candidate success signals")
+    rows = [(n, t) for n, t in body if t.strip()]
+    ideas = {it["id"] for it in active("ideas")}
+    bullets = []
+    if head and not rows:
+        err(head, SIGNAL_FORM)
+    elif head and [t for _, t in rows] != ["- None."]:
+        for n, t in rows:
+            m = SIGNAL.match(t)
+            if not m:
+                err(n, SIGNAL_FORM)
+                continue
+            iid = m.group(1)
+            if iid not in ideas:
+                err(n, f"section 8: {iid} is not an active idea (IV-05)")
+            if bullets and iid <= bullets[-1]:
+                err(n, "section 8's bullets must be in ID order, each idea once (IV-05)")
+            bullets.append(iid)
+            if not cited(m.group(3), sources):
+                err(n, f"{iid}: baseline must be one [NEEDS CLARIFICATION: ...] marker or end with one "
+                    "sources entry in parentheses (IV-05)")
+    if head:
+        first = sorted(set(first_release_ideas(lines)))
+        if sorted(set(bullets)) != first:
+            err(head, "section 8 must hold one bullet for each idea whose First release cut row says yes "
+                f"({', '.join(first) or 'none'}) and no other; with none, the single line '- None.' (IV-06)")
+    return sources
+
+
 def check(path):
     errors = []
 
@@ -421,6 +640,12 @@ def check(path):
         err(0, "no problems recorded")
     if not items["ideas"]:
         err(0, "no ideas recorded")
+
+    # --- new-shape checks (a BRN with the project-kind line) ----------------------------
+    kind = new_shape_kind(lines, fm_end)
+    if kind is not None:
+        sources = check_intake(lines, fm_end, (list_of("sources") or []) if "sources" in fm else [],
+                               items, err)
 
     # --- optional YAML syntax check ----------------------------------------------------
     try:
