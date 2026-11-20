@@ -235,17 +235,23 @@ the `Why` again, in this order:
 **A flagged row** keeps its value, and its `Why` is exactly `Needs review: no rule supports this value.` While
 a row is flagged the status line is `First release cut: proposed, not confirmed`, whatever the answer was.
 
-When a row is flagged and a question can be asked, ask the third question once more, alone in a form tagged
-step 5, with the same options and the refreshed table in each preview. Its text names each flagged row with its
-value: "Confirm the first release cut? Needs review: IDEA-04 (no)." Then:
+When a row is flagged and a question can be asked, ask the third question once more, and only once, alone in
+a form tagged step 5, with the same options and the refreshed table in each preview. Its text shows each
+flagged row as its idea ID and its current value: "Confirm the first release cut? Needs review: IDEA-04 (no),
+IDEA-06 (yes)." Then:
 
-- `Accept as proposed`, or typed text that accepts: each flagged row is now the user's choice. Its `Why` becomes
-  the user sentence for its value. Refresh the reasons once more, then go to step 4.
-- Typed changes: apply them, then refresh the reasons once more, then go to step 4.
-- `Leave it proposed`, a dismissal or no answer: the flags stay.
+- `Accept as proposed`, or typed text that accepts those values: the user has chosen them. Each flagged row's
+  `Why` becomes `Included by the user.` for `yes` or `Left out by the user.` for `no`. Refresh the reasons once
+  more, then go to step 4.
+- Typed changes: apply them as typed changes (each named row takes its value and its user sentence), refresh
+  the reasons once more, then go to step 4. A flagged row the text doesn't name stays as the refresh leaves it.
+- `Leave it proposed`, a dismissal or no answer: every flag stays.
 
-Never ask a third time. When a row is still flagged, or no question can be asked, keep the flags and the
-proposed status line, and name each flagged row in the reply.
+Never ask again after that. Whenever a row is still flagged at the end of the run (the answer left it, a new
+flag came up, or no question could be asked: the waiver's *Proceed without questions*, or no AskUserQuestion
+and nobody to ask), keep every flag and the proposed status line, and report the flagged rows in the final
+reply's discussion with this sentence, each row as its idea ID and value, in ID order:
+`Needs review: IDEA-04 (no), IDEA-06 (yes). No rule supports these values, so the first release cut stays proposed.`
 
 A user row that says `no` while a `yes` idea needs it stays as the user set it: name it in the reply.
 
@@ -255,20 +261,25 @@ A user row that says `no` while a `yes` idea needs it stays as the user set it: 
   alone. Follow SKILL.md's *Decisions that belong to the user*: mark step 5, ask the form again with the
   table as the BRN holds it, then edit the BRN in place, validate it and report. When that table holds a
   flagged row, word the third question as *A flagged row* says ("Confirm the first release cut? Needs
-  review: IDEA-04 (no).") and read its answer the same way; it is not asked again after that.
+  review: IDEA-04 (no).") and read its answer the same way: that is the one asking for that run, and a row
+  still flagged afterwards is reported as above.
 - **Extending a BRN.** Rank again from the BRN as it now stands and list the cut rows. Compare their idea IDs
   with the rows of the BRN's cut table.
   - *The same IDs.* Keep each row whose `Why` is `Included by the user.` or `Left out by the user.`: its value
-    and its sentence. Propose every other row again with the four steps of *Propose the cut*, where: a user
+    and its sentence. Work every other row out again from the current ranking and scores, its value
+    included when the rules now give the other answer, with the four steps of *Propose the cut*, where: a user
     row that says `yes` counts as already `yes`; steps 1 and 2 pick only among rows that are not the user's;
     step 2 applies only when no assumption is counted; steps 3 and 4 never change a user row. A row the BRN
     holds as flagged is not the user's: propose it again. When the result equals the BRN's table in every
-    cell, keep its status line. Otherwise write it with `First release cut: proposed, not confirmed`, ask the
-    third question about it, and name the changed rows in the reply and in the Change Log row.
+    cell, keep its status line. Otherwise (any cell changed) write it with `First release cut: proposed, not
+    confirmed`, ask the third question about it, and write this sentence in the reply and in the Change Log
+    row, naming in ID order each row with a changed cell: `First release cut returned to proposed: IDEA-02 changed.`
   - *Different IDs* (an idea entered or left the cut rows). Propose every row again with *Propose the cut*
-    and keep none. Write `First release cut: proposed, not confirmed`, ask the third question, and say in the
-    reply and in the Change Log row that the earlier cut was replaced, naming each row the user had set with
-    its value, so the user can state it again.
+    and keep none. Write `First release cut: proposed, not confirmed` and ask the third question. Show the
+    user's previous choices, each row the BRN held with a user sentence as its idea ID and value, in ID
+    order, in both places: in the reply, `Earlier choices, not carried over: IDEA-04 (yes), IDEA-02 (no). Tell me which still stand.`; in the
+    Change Log row, `First release cut proposed again: the eligible ideas changed. Earlier choices by the user: IDEA-04 (yes), IDEA-02 (no).` With no such row, the Change Log row ends after "changed." and the reply
+    has no such sentence.
 
   An earlier-shape BRN (no `Project kind:` line) gets neither table when it is extended.
 - **Continuing a run** from a work file that holds both tables: keep them, and ask step 5 from them.

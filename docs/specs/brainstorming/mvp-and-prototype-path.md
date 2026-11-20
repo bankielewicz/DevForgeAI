@@ -911,10 +911,10 @@ behaviors:
       4. Otherwise: 'Accept as proposed', or typed text that accepts the table, keeps the rows; typed changes set each named row to the stated value and its Why cell to 'Included by the user.' (yes) or 'Left out by the user.' (no); every other row keeps its value and has its Why cell derived again by §3.10's refresh, which gives it a rule sentence that holds or, when no rule supports its value, the flag 'Needs review: no rule supports this value.'; 'Leave it proposed', a dismissal, no answer, or typed text that states neither an acceptance nor a change keeps the rows and the proposed status line.
       5. After an acceptance or typed changes, the status line becomes First release cut: confirmed by <owner> on <today> (the frontmatter owner without its quotes; today as YYYY-MM-DD) only when every row's idea then has disposition promoted, no row is flagged and the owner is not a NEEDS CLARIFICATION marker; otherwise it stays proposed with the rows as item 4 left them, and the reply names the ideas that are not promoted and the rows that are flagged.
       6. A cut is never written as confirmed in any other way: not from a recommended option, not by the skill's own choice, not in the work file.
-      7. A confirmation that arrives after the BRN is written follows SKILL.md's 'Decisions that belong to the user': step 5 is marked again and its form asked, the third question showing the table as the BRN holds it; when that table holds a flagged row, the question's text names each flagged row with its value as item 10 gives it and its answer is read as item 10 says, which counts as the one further asking; only then is the BRN edited in place, validated again and reported.
-      8. When a new-shape BRN is extended, the ranking is made again from the BRN as it then stands and the cut rows are listed. When their idea IDs are the same set as the rows of the BRN's cut table, each row whose Why cell is 'Included by the user.' or 'Left out by the user.' keeps its value and its sentence, and every other row is proposed again by §3.11's rule (§3.6 with the user's rows kept). When the IDs differ, every row is proposed again by §3.6 and none is kept, and the reply and the Change Log row name each row the user had set, with its value. In both cases the status line is kept only when the new table equals the BRN's in every cell; otherwise the new table is written as proposed, the third question asks about it, and the reply and the Change Log row name the rows that changed.
+      7. A confirmation that arrives after the BRN is written follows SKILL.md's 'Decisions that belong to the user': step 5 is marked again and its form asked, the third question showing the table as the BRN holds it; when that table holds a flagged row, the question's text names each flagged row with its value as item 10 gives it and its answer is read as item 10 says, which is the one asking of that run, a row still flagged afterwards being reported as item 10 says; only then is the BRN edited in place, validated again and reported.
+      8. When a new-shape BRN is extended, the ranking is made again from the BRN as it then stands and the cut rows are listed. When their idea IDs are the same set as the rows of the BRN's cut table, each row whose Why cell is 'Included by the user.' or 'Left out by the user.' keeps its value and its sentence, and every other row is worked out again from the current ranking and scores by §3.11's rule (§3.6 with the user's rows kept), its value included when the rule now gives the other answer. When the IDs differ, every row is proposed again by §3.6 and none is kept, and the user's previous choices (each row the BRN held with a user sentence, as idea ID and value, in ID order) are shown in the reply as 'Earlier choices, not carried over: IDEA-04 (yes), IDEA-02 (no). Tell me which still stand.' and in the Change Log row as 'First release cut proposed again: the eligible ideas changed. Earlier choices by the user: IDEA-04 (yes), IDEA-02 (no).' (with no such row, the Change Log sentence ends after 'changed.' and the reply has none). In both cases the status line is kept only when the new table equals the BRN's in every cell; when any cell changed, the new table is written as proposed and the third question asks about it; with the same IDs the reply and the Change Log row then hold 'First release cut returned to proposed: IDEA-02 changed.', naming in ID order each row with a changed cell.
       9. 'Included by the user.' and 'Left out by the user.' are written only on a row whose value the user stated: a row a typed change names, or a flagged row the user accepted when the third question was asked again (item 10). No other event writes them.
-      10. When the refresh flags a row, the status line is the proposed one whatever the answer was. When a question can be asked, the third question is asked once more, alone in a form tagged step 5, its text naming each flagged row with its value ('Confirm the first release cut? Needs review: IDEA-04 (no).'), with the same options and the refreshed table in each preview: an acceptance turns each flagged row into the user's (its Why cell becomes the user sentence for its value); typed changes are applied; either is followed by one more refresh and by item 5; 'Leave it proposed', a dismissal or no answer leaves the flags. The question is never asked a third time. A row still flagged, or flagged when no question can be asked, stays flagged under the proposed status line, and the reply names it.
+      10. When the refresh flags a row, the status line is the proposed one whatever the answer was. When a question can be asked, the third question is asked once more, and only once in a run, alone in a form tagged step 5, its text showing each flagged row as its idea ID and its current value ('Confirm the first release cut? Needs review: IDEA-04 (no), IDEA-06 (yes).'), with the same options and the refreshed table in each preview. Only an explicit acceptance of those displayed values ('Accept as proposed', or typed text that accepts them) records them as the user's choices: each flagged row's Why cell becomes 'Included by the user.' (yes) or 'Left out by the user.' (no). Typed changes are applied as item 4 says, a flagged row the text does not name staying as the refresh leaves it. Either is followed by one more refresh and by item 5. 'Leave it proposed', a dismissal or no answer keeps every flag. Whenever a row is still flagged at the end of the run (the answer left it, the last refresh flagged one, or no question could be asked: the waiver's Proceed without questions, or no AskUserQuestion and nobody to ask), every flag is kept, the status line stays proposed, and the final reply's discussion reports the flagged rows with the sentence 'Needs review: IDEA-04 (no), IDEA-06 (yes). No rule supports these values, so the first release cut stays proposed.', each row as its idea ID and value, in ID order.
     changes: "extends SPEC-001 BEH-06"
     lands_in: "SKILL.md 'Decisions that belong to the user' (S2, S3), Workflow item 3 (S4), step 5 (S6 to S8); references/mvp-path.md, 'Confirm the cut' and 'Later runs'"
   - id: BEH-33
@@ -1186,7 +1186,9 @@ IDEA-01's reason was `Needed by IDEA-02, which is in the first release.`; ASM-01
 that says `yes`, so step 1 gives it `Tests ASM-01, ranked 1.` IDEA-04 depends on ASM-02 (rank 2), and neither
 row ASM-02 stops says `yes` now, so nothing supports its `no`. The third question is asked once more with
 "Needs review: IDEA-04 (no)."; `Accept as proposed` makes that row `Left out by the user.`, the next refresh
-flags nothing, and the cut is confirmed. The typed change "add IDEA-04" flags nothing: IDEA-01 keeps `Needed by
+flags nothing, and the cut is confirmed. `Leave it proposed`, a dismissal, or a run that can't ask keeps the
+flag, and the reply holds `Needs review: IDEA-04 (no). No rule supports these values, so the first release cut
+stays proposed.` The typed change "add IDEA-04" flags nothing: IDEA-01 keeps `Needed by
 IDEA-02, …` and IDEA-02 keeps `Tests ASM-01, ranked 1.`, so the cut is confirmed at once (§3.9's second row).
 
 ### 3.11 Extending a BRN: the user's rows kept
@@ -1196,8 +1198,9 @@ active ideas that are promoted, or open and proposed for promotion), equals the 
 the cut table the BRN holds. *An explicit choice* is a row of that table whose `Why` is `Included by the user.`
 or `Left out by the user.`; nothing else in a BRN records one (R1).
 
-With the same eligible ideas, the user's rows are kept, value and sentence, and every other row is proposed
-again by §3.6 with these differences:
+With the same eligible ideas, the user's rows are kept, value and sentence, and every other row is worked out
+again from the current evidence (the ranking as it now stands, and the scores), its value included when the
+rule gives a different answer, by §3.6 with these differences:
 
 - a user row that says `yes` counts as already `yes`, so an assumption that stops it picks nothing;
 - steps 1 and 2 pick only among rows that are not the user's; when every row an assumption stops is a user row
@@ -1211,11 +1214,20 @@ replaced, and so is the row's value when the rule now proposes the other one. A 
 not the user's, so it is proposed again. No row is flagged by an extension.
 
 With different eligible ideas, every row is proposed again by §3.6 and no row is kept: the user chose among
-other ideas. The reply and the Change Log row name each row the user had set, with its value, so the choice can
-be stated again.
+other ideas. The user's previous choices are shown in two places, each row the BRN held with a user sentence
+as its idea ID and value, in ID order, so that the user can reconsider them:
+
+```text
+reply:       Earlier choices, not carried over: IDEA-04 (yes), IDEA-02 (no). Tell me which still stand.
+Change Log:  First release cut proposed again: the eligible ideas changed. Earlier choices by the user: IDEA-04 (yes), IDEA-02 (no).
+```
+
+With no such row, the Change Log sentence ends after "changed." and the reply has no such sentence.
 
 Either way, the new table is compared with the BRN's, cell by cell. Equal: the status line is kept. Different in
-any cell: `First release cut: proposed, not confirmed`, and the third question asks about the new table.
+any cell: `First release cut: proposed, not confirmed`, and the third question asks about the new table. With
+the same eligible ideas, the reply and the Change Log row then hold `First release cut returned to proposed: IDEA-02 changed.`, naming in ID
+order each row with a changed cell.
 
 For example, §3.9's second row left a confirmed cut with IDEA-04 `yes`, `Included by the user.` The BRN is
 extended after ASM-01 was validated; the cut rows are the same four ideas. The ranking is now ASM-02, ASM-03,
@@ -1232,7 +1244,11 @@ First release cut: proposed, not confirmed
 | IDEA-05 | no | Tests no assumption ranked 1 to 3. |
 ```
 
-IDEA-04's row is kept; IDEA-02's reason changed, so the table returns to proposed and is asked about.
+IDEA-04's row is kept; IDEA-02's reason changed, so the table returns to proposed and is asked about. The reply
+and the Change Log row hold `First release cut returned to proposed: IDEA-02 changed.`
+
+Had IDEA-06 been promoted in the meantime, the eligible ideas would differ: all five rows are proposed again,
+and the reply holds `Earlier choices, not carried over: IDEA-04 (yes). Tell me which still stand.`
 
 ## 4. Errors and edge cases
 
@@ -1263,9 +1279,9 @@ Edge cases the behaviour items already settle:
 | The user stops before step 5's proposals (ERR-02's draft) | No cut row; ranking with M = 0 | BEH-33 item 3 |
 | An earlier-shape BRN is extended | Neither table is written; no MV check applies | BEH-33 items 1 and 4 |
 | An extension with the same eligible ideas | The user's rows are kept; the others are proposed again; a table that changed in any cell is proposed, and asked about | BEH-32 item 8, §3.11 |
-| An extension with different eligible ideas | Every row is proposed again, none kept; proposed, and asked about; the reply names the rows the user had set | BEH-32 item 8, §3.11 |
+| An extension with different eligible ideas | Every row is proposed again, none kept; proposed, and asked about; the reply and the Change Log row show the user's previous choices in §3.11's two forms | BEH-32 item 8, §3.11 |
 | A typed change leaves another row's reason untrue | The reason is derived again; a row no rule supports is flagged, the cut stays proposed and the question is asked once more | BEH-32 items 4 and 10, §3.10 |
-| A row is flagged and no question can be asked | The flag stays under the proposed status line; the reply names the row | BEH-32 item 10 |
+| A row is flagged and the question is dismissed, answered `Leave it proposed`, or can't be asked | Every flag stays under the proposed status line; the reply reports the rows with BEH-32 item 10's sentence | BEH-32 item 10 |
 | The user leaves out an idea that a `yes` idea needs | The user's row stands; the reply names it | §3.10 |
 | A framework switch at step 5 redoes the evaluation (framework-catalog.md) | Both tables are made again from the new proposals before the form is asked again | BEH-30 item 1, BEH-31 item 1 |
 
@@ -1423,10 +1439,10 @@ verifications:
       (c) a typed disposition change that parks a row's idea, with Accept as proposed, gives a table made again without that idea, the proposed status line, and a reply saying the idea left the table;
       (d) Accept all as proposed with the typed cut answer 'add IDEA-NN' (a no row) gives that row yes with 'Included by the user.', no other user sentence anywhere, and a confirmed status line; the typed answer 'IDEA-NN in' for an idea with no row changes nothing, shows no second menu, and the reply says why (ERR-10);
       (e) a run whose request says to proceed without questions (Proceed chosen) writes the cut proposed; the message 'I confirm the first release cut' then gets step 5's form again, and only after Accept as proposed is the BRN edited in place, validated and reported;
-      (f) extending (d)'s BRN with one more idea proposed for promotion (different eligible ideas) gives a table proposed again in every row, the proposed status line, the third question, and a reply and Change Log row that say the earlier cut was replaced and name the row the user had set; extending (d)'s BRN after one assumption's state was changed, with the same eligible ideas, keeps the 'Included by the user.' row, proposes the others again, and returns the table to proposed only when a cell changed;
+      (f) extending (d)'s BRN with one more idea proposed for promotion (different eligible ideas) gives a table proposed again in every row, the proposed status line, the third question, the reply sentence 'Earlier choices, not carried over: IDEA-NN (yes). Tell me which still stand.' and the Change Log sentence 'First release cut proposed again: the eligible ideas changed. Earlier choices by the user: IDEA-NN (yes).'; extending (d)'s BRN after one assumption's state was changed, with the same eligible ideas, keeps the 'Included by the user.' row, works the others out again, values included, and returns the table to proposed only when a cell changed, the reply and the Change Log row then holding 'First release cut returned to proposed: IDEA-NN changed.';
       (g) in (a)'s BRN, a reader checks three ranking rows against §3.1 and §3.3 (the listed ideas depend on the assumption; the confidence has its source) and the cut against §3.6 by hand;
       (h) in a run that extends a brownfield new-shape BRN, Accept as proposed for the cut together with Accept all as proposed for an update of that BRN's own assumption gives a ranking without that assumption, a cut made again, the proposed status line, and a reply saying the assumption left the ranking;
-      (i) with a cut in which one yes idea is 'Needed by' another, the typed cut answer that leaves the other out gives the needed row a rule sentence that holds, or 'Needs review: no rule supports this value.' with the proposed status line and the third question asked once more, naming the flagged row; Accept as proposed then gives that row the user sentence and a confirmed cut; Leave it proposed leaves the flag; no row other than the one named and the one accepted holds a user sentence.
+      (i) with a cut in which one yes idea is 'Needed by' another, the typed cut answer that leaves the other out gives the needed row a rule sentence that holds, or 'Needs review: no rule supports this value.' with the proposed status line and the third question asked once more, and only once, its text showing the flagged row's idea ID and current value; Accept as proposed then gives that row the user sentence for that value and a confirmed cut; Leave it proposed, and in a second run a dismissal, each keep the flag and the proposed status line and give a reply holding 'Needs review: IDEA-NN (no). No rule supports these values, so the first release cut stays proposed.'; the same request with 'proceed without questions' asks nothing, keeps the flag and reports it the same way; no row other than the one named and the one accepted holds a user sentence.
       Recorded in SPEC-001 §9.
 ```
 
@@ -1587,13 +1603,17 @@ Scripts are in the session's scratch folder, `fable/fable-mvp-handoff/`; none is
 20. *The flag is an eighth fixed sentence, valid with either value and only under the proposed status line.* It
     needs no field (R1), a regex grader and MV-12 can see it, and a confirmed cut can never carry a row nobody
     justified.
-21. *A flagged row the user accepts becomes the user's.* The re-asked question names the row and its value, so
-    accepting is a choice the user actually made about that row; before that, it is not.
-22. *The question is asked again once.* A second flagged result stays proposed and is named in the reply, so a
-    run can't loop on the form.
-23. *A later confirmation of a BRN that holds a flagged row asks the naming question.* Otherwise an acceptance
-    could never confirm that cut: a flagged row bars the confirmed status line, and only an answer to a question
-    that names the row makes it the user's.
+21. *Only an explicit acceptance of the displayed values makes a flagged row the user's* (Bryan's words below).
+    The question shows each flagged row as idea ID and current value, so accepting is a choice the user
+    actually made about those rows; a dismissal, `Leave it proposed` or a run that can't ask is not one.
+22. *The question is asked once.* Whatever is still flagged afterwards stays flagged under the proposed status
+    line and is reported in the reply with one fixed sentence, so a run can't loop on the form and a reader
+    can't miss the rows.
+23. *A later confirmation of a BRN that holds a flagged row asks that same question, once.* Otherwise an
+    acceptance could never confirm that cut: a flagged row bars the confirmed status line, and only an answer
+    to a question that shows the row and its value makes it the user's.
+24. *Fixed sentences for the report and for the previous choices*, in the reply and in the Change Log row, so
+    two builds write the same words and a reader finds them.
 
 **Decided by Bryan on 2026-11-19** (session fa59a935-ed2e-4502-b6c4-93bb6d847546), on the questions this section
 left open. His words: "Enforce the drafted Cheapest test rule and use the top three assumptions for the cut. Change two defaults. First, when extending a BRN with the same eligible ideas, preserve my explicit yes and no choices. Refresh stale reasons and return a changed table to proposed status for confirmation. Second, if I remove IDEA-02 and another row's reason was "Needed by IDEA-02," recompute that row's reason. If no rule justifies its current value, flag the row for review. Reserve "Included by the user" and "Left out by the user" for choices I actually made."
@@ -1604,5 +1624,16 @@ left open. His words: "Enforce the drafted Cheapest test rule and use the top th
 | How many top-ranked assumptions count for the cut? | Three: "use the top three assumptions for the cut" | §3.6 (unchanged) |
 | When a BRN with a cut the user changed is extended with the same eligible ideas, are the user's rows kept? | Yes: "preserve my explicit yes and no choices. Refresh stale reasons and return a changed table to proposed status for confirmation" | BEH-32 item 8, §3.11 (changed) |
 | After a typed change, what happens to a row whose reason no longer holds? | "recompute that row's reason. If no rule justifies its current value, flag the row for review. Reserve "Included by the user" and "Left out by the user" for choices I actually made" | BEH-32 items 4, 9 and 10, §3.10, MV-10, MV-12 (changed) |
+
+**The two readings, as Bryan stated them when he approved the specs on 2026-11-19.**
+
+"Flagged rows. Ask once more, showing each flagged idea ID and its current yes or no value. If I explicitly
+accept those displayed values, record them as my choices. If I dismiss the question, leave the cut proposed, or
+can't be asked, keep the flags and report them." This is BEH-32 item 10 and §3.10.
+
+"Stale reasons. On extension with the same eligible ideas, preserve my explicit yes and no rows. Recompute the
+other rows from the current evidence, including their values when the rules give a different answer. Any
+changed cell returns the cut to proposed. If the eligible ideas change, follow the drafted rule and show my
+previous choices in the reply and Change Log so I can reconsider them." This is BEH-32 item 8 and §3.11.
 
 **Open, for Bryan.** None.

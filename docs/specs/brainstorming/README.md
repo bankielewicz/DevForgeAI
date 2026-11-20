@@ -1,8 +1,10 @@
 # Brainstorm skill: enhancement specs
 
-**Status:** proposals, written 2026-11-18 by claude-code on the model Fable 5.2 (session
-fa59a935-ed2e-4502-b6c4-93bb6d847546) for Bryan's review. They change no spec, skill or plugin version. The
-brainstorm skill's approved spec stays `docs/specs/spec/SPEC-001.md` (version 17). Each document here says which
+**Status:** approved as enhancement specs by Bryan on 2026-11-19 ("I approve the enhancement specs in PR #172 at
+7deb4d4, including both readings"); written 2026-11-18 and 2026-11-19 by claude-code on the model Fable 5.2
+(session fa59a935-ed2e-4502-b6c4-93bb6d847546). They change no spec, skill or plugin version by themselves. The
+brainstorm skill's spec is `docs/specs/spec/SPEC-001.md` (version 17 on `main` when these were written; see §8
+for the version the build drafts). Each document here says which
 SPEC-001 items it adds or changes; those changes take effect only in SPEC-001's next version, approved by Bryan and
 built in a plugin-dev iteration (`/plugin-dev:create-plugin` and `/plugin-dev:skill-development`; CLAUDE.md, "Rules
 a change must not break").
@@ -358,6 +360,18 @@ series and are always written with the prefix, `SPEC-002#BEH-27`, so they can't 
 change by the exact edits (R7) and the checks the documents give.
 
 ## 8. The build
+
+**Coordination with pull request #173** (Bryan, 2026-11-19: "Coordinate the build with #173, which already has
+approval for SPEC-001 v18 and SKL-001 v12. Let #173 land first, then draft the enhancement spec on Fable 5.2
+against updated main, preserving Taskmaster's eight checklist titles. Use the next available versions, expected to
+be SPEC-001 v19 and SKL-001 v13. Bring me that spec for approval before editing the skill. Then build on Opus 5.5
+at xhigh using both plugin-dev skills, one commit per brainstorm enhancement. Keep the PRD-side hand-off
+separate."). So wherever this folder says SPEC-001 "version 17", SKL-001 "version 11" or "version 12", or plugin
+0.34.0, read the versions `main` holds after #173, and the next ones for this build. #173 adds a `tasks:` list to
+SKILL.md's frontmatter whose eight titles are the checklist lines without their numbers: R2 already keeps those
+lines unchanged, and the build keeps the `tasks:` list equal to them. Before the build, every exact edit (R7) is
+checked again against the files as #173 leaves them, and the documents' "old text" is corrected where #173
+changed a passage.
 
 The four brainstorm documents are built together as SKL-001 version 12, in this order, one commit for each:
 
