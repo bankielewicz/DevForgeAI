@@ -22,13 +22,13 @@ assumption risk ranking are edits of it.
 | Project kind | Section 1, first line | `Project kind: greenfield` |
 | Sources | Frontmatter `sources` | One `note` entry (the owner's own statements) and one `data` entry; every cited fact ends with one of them in parentheses |
 | Target users | Section 3 | One row for each `who` of the problems, in the order they first appear |
-| First release cut | Section 6 | Confirmed by the owner; two of four promoted ideas are in |
+| First release cut | Section 6 | Confirmed, with the date and no name; two of four promoted ideas are in |
 | Assumption risk ranking | Section 7 | Four open assumptions, one Fatal, three Serious |
 | Candidate success signals | Section 8 | One bullet for each idea in the first release, one baseline known, one not |
 
 The request named no framework and did not ask what to build first, so the framework is `diverge-converge`.
 Three problems, seven ideas (four promoted, one parked, two rejected), four assumptions. `status: converged`:
-the owner confirmed the dispositions, the convergence and the cut.
+the user confirmed the dispositions, the convergence and the cut.
 
 ## How the two tables follow from the rule
 
@@ -56,6 +56,6 @@ The cut then takes one idea for each assumption ranked 1 to 3:
 Each `Cheapest test` cell is the first sentence of the assumption's `validation`, with its kind: "pilot" makes
 ASM-01's a `Prototype`, "Ask" makes ASM-03's an `Interview`, and the two that read the job log are `Data`.
 
-The owner chose `Accept as proposed` for the cut after accepting every disposition, so the status line reads
-`First release cut: confirmed by Maya Okafor on 2026-11-18`. Had nobody confirmed, the same table would stand
+The user chose `Accept as proposed` for the cut after accepting every disposition, so the status line reads
+`First release cut: confirmed on 2026-11-18`. Had nobody confirmed, the same table would stand
 under `First release cut: proposed, not confirmed`, with every idea `disposition: open` and `status: draft`.

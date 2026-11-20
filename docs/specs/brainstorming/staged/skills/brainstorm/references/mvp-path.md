@@ -201,11 +201,11 @@ the table in plain text with the dispositions and ask the same question. When no
 | Typed changes | Each named row takes the stated value; its `Why` becomes `Included by the user.` for `yes` or `Left out by the user.` for `no`. Unnamed rows keep their value; refresh their reasons (below) | Confirmed, when step 4 allows |
 | `Leave it proposed`, a dismissal, no answer, or typed text that states neither an acceptance nor a change | As proposed | `First release cut: proposed, not confirmed` |
 
-4. Write `First release cut: confirmed by <owner> on <today>` only when every row's idea now has
-   `disposition: promoted` and no row is flagged for review (below). `<owner>` is the frontmatter `owner` without its quotes, and `<today>` is
-   `YYYY-MM-DD`. When a row's idea is still `open`, keep `proposed, not confirmed`, keep the rows as step 3
-   left them, and say in the reply which ideas are not promoted. When `owner` is a NEEDS CLARIFICATION marker,
-   ask for the owner's name first; without it the cut stays proposed.
+4. Write `First release cut: confirmed on <today>` only when every row's idea now has
+   `disposition: promoted` and no row is flagged for review (below). `<today>` is `YYYY-MM-DD`. The line
+   names nobody: never add a name to it, and never ask for one. When a row's idea is still `open`, keep
+   `proposed, not confirmed`, keep the rows as step 3 left them, and say in the reply which ideas are not
+   promoted.
 
 **Typed changes.** A typed change names a row's idea and puts it in or out: "add IDEA-04", "IDEA-02 out",
 "only IDEA-01" (IDEA-01 `yes`, every other row `no`). "IDEA-04 looks risky" states no change. A change that
@@ -338,7 +338,7 @@ The user accepts every disposition, says the brainstorm has converged, and types
 question. All four ideas are now `promoted`, so the cut is confirmed with one changed row:
 
 ```markdown
-First release cut: confirmed by Dana Reyes on 2026-11-18
+First release cut: confirmed on 2026-11-18
 
 | Idea | In first release | Why |
 |---|---|---|

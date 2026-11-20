@@ -1433,6 +1433,11 @@ section 2 still applies; the eight SKILL.md edits take the file from 331 to 348 
 as this document leaves it runs 183 tests, `OK`, with and without site-packages; the staged examples and the
 project's own BRN-001 print `OK`.
 
+**Re-checked again on 2026-11-20**, after Bryan's decision of that day (section 7, decision 19), the same way:
+each edit of section 2 applies; the test file as this document leaves it runs 183 tests, `OK`, with and without
+site-packages; the staged template has 191 lines and its two copies are identical; the staged examples print
+`OK`.
+
 ## 6. Staged files
 
 | Staged file | Destination | What it is |
@@ -1534,5 +1539,16 @@ rules and needs no change to the template.
     source." BEH-22 and section 3.5 say which paths count (a regular file inside the project folder), that
     the read is whole, once and read-only, the entry's form, and ERR-07 what happens when it can't be read.
     VER-27 now proves the read in an eval.
+
+**Decided by Bryan on 2026-11-20** (session fa59a935-ed2e-4502-b6c4-93bb6d847546; his words are quoted).
+
+19. **The template's two comments on a confirmed status give a date and no name.** Asked about the skill's ask
+    for the owner's name when a BRN's `owner` is a NEEDS CLARIFICATION marker: "the owner isn't necessary". Of
+    the four readings then offered: "No owner in the line at all" (the option's text: "The line is always
+    "confirmed on <date>", never naming anyone."). The staged template's comments under `### First release cut`
+    and `### Assumption updates` read `confirmed on YYYY-MM-DD` (mvp-and-prototype-path.md and
+    brownfield-iteration.md own the two lines). Nothing else here changes: a `note` entry of `sources` still
+    holds the owner's name, or `user` (section 3.5), because it says whose statement a fact is and confirms
+    nothing, and the frontmatter key `owner` is untouched (R1).
 
 **Open, for Bryan.** None.

@@ -206,9 +206,9 @@ add a kept-out candidate:
   next free ID and `disposition: open`; rate it at step 4 like any other;
 - its row is removed from its table, which becomes the line `None.` when that was the last row;
 - a previously decided idea gets the item-level link shown under [Parked ideas](#parked-ideas);
-- section 6's prose gains one sentence: `IDEA-NN was added at <owner>'s request although
-  <document ID>#<item ID> covers it.` or `IDEA-NN was added at <owner>'s request although BRN-NNN#IDEA-NN
-  rejected it.`
+- section 6's prose gains one sentence: `IDEA-NN was added at the user's request although
+  <document ID>#<item ID> covers it.` or `IDEA-NN was added at the user's request although
+  BRN-NNN#IDEA-NN rejected it.` Write "the user's" as it stands, never a name.
 
 Before the BRN is written, do this in the work as it stands. After it is written, in the same session, edit
 the BRN in place as SKILL.md's *Decisions that belong to the user* says for a later confirmation: mark step
@@ -291,12 +291,12 @@ option's `preview` holding the table with each assumption's statement. Changes c
 
 | Answer | Write |
 |---|---|
-| `Accept all as proposed` | every row's Status `confirmed by <owner> on <today's date>` |
+| `Accept all as proposed` | every row's Status `confirmed on <today's date>` |
 | `Leave them proposed`, a dismissal, or no question could be asked | every row `proposed, not confirmed` |
-| typed text | `confirmed by …` only on the rows the text confirms; remove a row the text rejects; leave the rest proposed |
+| typed text | `confirmed on …` only on the rows the text confirms; remove a row the text rejects; leave the rest proposed |
 
-`<owner>` is the frontmatter `owner` without its quotes, and the date is `YYYY-MM-DD`. When `owner` is a
-NEEDS CLARIFICATION marker, ask for the owner's name first; without it every row stays proposed.
+The date is today's, as `YYYY-MM-DD`. A Status cell names nobody: never add a name to it, and never ask
+for one.
 
 **Where a confirmed change lives.** In this BRN's row, and nowhere else: never edit the earlier BRN. A
 later PRD run reads the row.

@@ -86,6 +86,18 @@ sentences being reserved for choices the user made; the report block ships with 
 side under SPEC-002 version 10, before the PRD interview-at-scale build; the five chosen layouts are kept and
 their look waits for a design system ([design/README.md](design/README.md)).
 
+On 2026-11-20 Bryan decided four more points; section 7 of each document they touch quotes him. A confirmation
+names no owner: asked about the skill's ask for the owner's name when a BRN's `owner` is a NEEDS CLARIFICATION
+marker, he answered "the owner isn't necessary", and of four readings of that answer he chose "No owner in the
+line at all" (the option's text: "The line is always "confirmed on <date>", never naming anyone."). So C-05's
+status line and C-11's status cell hold a date and no name; a line or cell that names someone is not valid
+(nothing shipped with the earlier forms, so no rule reads them); and the skill never asks for the owner's name
+in order to confirm. The frontmatter key `owner` is untouched (R1), and so is SPEC-001 BEH-07's rule for filling
+it. The sentence for a kept-out suggestion the user adds anyway always says "the user": ""at the user's request"
+(Recommended)" (brownfield-iteration.md, BEH-26). A change typed in answer to the cut question, when it is asked
+once more, makes only the rows it names the user's: "Only the rows I name (Recommended)"
+(mvp-and-prototype-path.md, BEH-32 item 10). The build's plugin version is 0.36.0: "0.36.0 (Recommended)" (§8).
+
 ## 3. Rules every document here follows
 
 - **R1. No new collection and no new field in a BRN.** A BRN holds `problems`, `ideas` and `assumptions` with the
@@ -201,7 +213,7 @@ First release cut: proposed, not confirmed
 ```
 
 The status line is exactly `First release cut: proposed, not confirmed` or
-`First release cut: confirmed by <owner> on YYYY-MM-DD`. One row per idea that is promoted or proposed for
+`First release cut: confirmed on YYYY-MM-DD`, naming nobody. One row per idea that is promoted or proposed for
 promotion, in ID order; the second column is `yes` or `no`; the `Why` cell is one of the eight fixed sentences
 mvp-and-prototype-path defines: five that the rule writes, `Included by the user.` and `Left out by the user.`,
 which are written only on a row whose value the user stated, and the review flag
@@ -240,8 +252,8 @@ therefore C-04, C-05, C-06, C-11.
 ```
 
 `Change` is `open to validated` or `open to invalidated`; `Status` is `proposed, not confirmed` or
-`confirmed by <owner> on YYYY-MM-DD`. The table is replaced by the line `None.` when it has no row. In a run that
-extends a brownfield BRN, the first cell may name that BRN's own assumption.
+`confirmed on YYYY-MM-DD`, naming nobody. The table is replaced by the line `None.` when it has no row. In a run
+that extends a brownfield BRN, the first cell may name that BRN's own assumption.
 
 **C-07. Assumption risk ranking** (section 7, after the `assumptions` block and before the open-question bullets;
 mvp-and-prototype-path):
@@ -383,6 +395,14 @@ author's checks names version 11, that record stands as written and a dated line
 review of SPEC-001 version 19, the same day, added one sentence to BEH-32's item 5, the ask for the owner's
 name, which mvp-and-prototype-path.md's §4 and the staged `mvp-path.md` already gave.
 
+Later on 2026-11-20 Bryan decided that a confirmation names no owner (§2). That took the ask for the owner's
+name out again, from BEH-32's item 5, BEH-28, both documents' §4 and both staged references, and changed C-05's
+status line, C-11's status cell, the override sentence of BEH-26, the validator's checks MV-08, MV-12 and BV-05
+with their tests, the template's two comments and both staged examples. Checked the same way afterwards: every
+exact edit applies; SKILL.md's line counts are the same at every stage; the tests are as many as before (16 in
+`test_structure.py`; 96, 183, 279 and 354 in `test_validate_brn.py` after the four commits), `OK` with and
+without site-packages; the staged examples print `OK`.
+
 SPEC-001 version 19 and ADR-003 version 3 are drafted before the build and approved by Bryan. They make the
 five edits the documents give for those two files (A-P1, A-D1, B-P1, B-P2, B-P3), so no commit of the build
 repeats them.
@@ -407,8 +427,8 @@ The build:
 - works from SPEC-001 version 19, which takes in the documents' items, and from ADR-003 version 3 (the
   clarifying-question limit, as intake-and-evidence.md says): Bryan approves both before any skill edit;
 - bumps SKL-001 once, to 13 (`provenance.yaml` `version` and SKILL.md `devforgeai-version`), and the plugin
-  version, which Bryan chooses (`plugin.json`, `.claude-plugin/marketplace.json`, the pin in
-  `src/tests/progress/test_adapter_structure.py`);
+  version to 0.36.0 (Bryan, 2026-11-20: "0.36.0 (Recommended)"; `plugin.json`,
+  `.claude-plugin/marketplace.json`, the pin in `src/tests/progress/test_adapter_structure.py`);
 - writes tests first: `src/tests/brainstorm/test_structure.py` (new; framework-catalog.md) and
   `src/tests/brainstorm/test_validate_brn.py`;
 - keeps `python3 src/claude/DevForgeAI/skills/brainstorm/scripts/validate_brn.py docs/specs/brainstorm/BRN-001.md`

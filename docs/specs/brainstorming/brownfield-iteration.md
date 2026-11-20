@@ -126,7 +126,7 @@ These decisions are the user's, never yours:
 
 - **Each idea's disposition** (`promoted`, `parked` or `rejected`) and its `reason`.
 - **Convergence**: whether the brainstorm is finished (`status: converged`).
-- **Each assumption update** in a brownfield BRN: its `confirmed by` status and the changed `state`.
+- **Each assumption update** in a brownfield BRN: its `confirmed on` status and the changed `state`.
 ```
 
 **Edit B-S2** — `src/claude/DevForgeAI/skills/brainstorm/SKILL.md` (step 1, item 2)
@@ -213,8 +213,8 @@ New text:
 ```text
 - Set `status: converged` only on *Converged*; otherwise `draft`.
 - **Brownfield.** Before the form, propose assumption updates, each from a stated fact with a source.
-  A row is `confirmed by <owner> on <today>` only on *Accept all as proposed* or typed text confirming
-  it; else `proposed, not confirmed` ([brownfield.md](references/brownfield.md#assumption-updates)).
+  A row is `confirmed on <today>` only on *Accept all as proposed* or typed text confirming it;
+  else `proposed, not confirmed` ([brownfield.md](references/brownfield.md#assumption-updates)).
 ```
 
 **Edit B-S7** — `src/claude/DevForgeAI/skills/brainstorm/SKILL.md` (step 6, item 2; the old text is edit A-S4's)
@@ -261,7 +261,7 @@ New text:
 
 ```text
 Reset anything else to `disposition: open` with `reason: null`, or to
-   `status: draft`. In a brownfield BRN, check the same way every `confirmed by` cell under
+   `status: draft`. In a brownfield BRN, check the same way every `confirmed on` cell under
    *Assumption updates* and every assumption `state` this run changed: reset an unconfirmed one to
    `proposed, not confirmed` and to the state it had.
 ```
@@ -325,7 +325,7 @@ when it worked as greenfield. [brownfield.md](brownfield.md) says how to fill ea
 | `### Existing product`, in section 1 after the context prose | The table `\| Document \| Version \| What it already covers \|`, one row per document read (a BRN, PRD, EPIC or ARCH ID, never this BRN; its version), or the line `No document was found in the project.`; then any `Skipped: <path> (<reason>)` lines. Each row's document has an `upstream` record `{id: <ID>, relation: informed_by, version: <version>, hash: null}` and the `sources` entry `"document: docs/specs/<folder>/<ID>.md v<version>"` |
 | `### Already covered`, in section 6 | The table `\| Suggestion \| Covered by \|`, `Covered by` being `PRD-NNN#FR-NNN`, `PRD-NNN#NFR-NNN`, `EPIC-NNN#DW-NN` or `ARCH-NNN#CMP-NN` of a document Existing product lists; or the line `None.` |
 | `### Previously decided`, in section 6 | The table `\| Idea \| Decision \| Where \|`, `Decision` being `rejected` or `parked` and `Where` `BRN-NNN#IDEA-NN` of a BRN Existing product lists, each once; or the line `None.` An idea of this BRN that carries an item-level `upstream` link to such an idea is not listed |
-| `### Assumption updates`, last in section 6 | The table `\| Earlier assumption \| Change \| Evidence \| Status \|`: `BRN-NNN#ASM-NN` of a BRN Existing product lists, or of this BRN, each once; `open to validated` or `open to invalidated`; a fact ending with one `sources` entry in parentheses; `proposed, not confirmed` or `confirmed by <owner> on YYYY-MM-DD`. Or the line `None.` |
+| `### Assumption updates`, last in section 6 | The table `\| Earlier assumption \| Change \| Evidence \| Status \|`: `BRN-NNN#ASM-NN` of a BRN Existing product lists, or of this BRN, each once; `open to validated` or `open to invalidated`; a fact ending with one `sources` entry in parentheses; `proposed, not confirmed` or `confirmed on YYYY-MM-DD`. Or the line `None.` |
 
 Section 6's subsections stand in this order: First release cut, Already covered, Previously
 decided, Assumption updates.
@@ -347,7 +347,7 @@ section 8 has one bullet per first-release idea, or the line `- None.`
     `### Previously decided` and `### Assumption updates` in section 6, in that order, each
     holding its table or its replacement line; every document of Existing product has its
     `upstream` record and its `sources` entry; every `Covered by` and `Where` cites a listed
-    document; every Evidence cell ends with a `sources` entry; and every `confirmed by` status is
+    document; every Evidence cell ends with a `sources` entry; and every `confirmed on` status is
     one the user confirmed. A greenfield BRN has none of the four headings.
 ```
 
@@ -414,7 +414,7 @@ DOC_ID = re.compile(r"^(BRN|PRD|EPIC|ARCH)-\d{3}$")
 COVERED_BY = re.compile(r"^(PRD-\d{3})#(?:FR|NFR)-\d{3}$|^(EPIC-\d{3})#DW-\d{2}$|^(ARCH-\d{3})#CMP-\d{2}$")
 SKIPPED = re.compile(r"^Skipped: \S+ \((could not be read|no frontmatter|id does not match the file name|"
                      r"no version)\)$")
-CONFIRMED = re.compile(r"^confirmed by \S.* on (\d{4}-\d{2}-\d{2})$")
+CONFIRMED = re.compile(r"^confirmed on (\d{4}-\d{2}-\d{2})$")
 BROWNFIELD_HEADINGS = [
     ("### Existing product", "## 1. Context"),
     ("### Already covered", "## 6. Convergence"),
@@ -570,8 +570,8 @@ def check_brownfield(lines, kind, own_id, upstream_items, sources, items, err):
                 err(m, "Assumption updates: Evidence must be a fact that ends with one sources entry in "
                     "parentheses (BV-05)")
             if c[3] != "proposed, not confirmed" and not done:
-                err(m, "Assumption updates: Status must be 'proposed, not confirmed' or 'confirmed by NAME on "
-                    "DATE', the date a real one written as four digits, two, two (BV-05)")
+                err(m, "Assumption updates: Status must be 'proposed, not confirmed' or 'confirmed on DATE', "
+                    "the date a real one written as four digits, two, two (BV-05)")
             elif hit.group(1) == own_id:
                 want = c[1][len("open to "):] if done else "open"
                 if states.get(hit.group(2)) != want:
@@ -629,7 +629,7 @@ DECIDED = ("| Idea | Decision | Where |\n|---|---|---|\n"
            "| Open a waitlist for freed slots. | parked | BRN-001#IDEA-05 |\n"
            "| Charge a deposit at booking. | rejected | BRN-001#IDEA-06 |")
 UPDATE = ("| BRN-001#ASM-01 | open to validated | 8 of 10 reminder texts were opened within a day (data: "
-          "reminder pilot export, October 2026) | confirmed by Dana on 2026-11-18 |")
+          "reminder pilot export, October 2026) | confirmed on 2026-11-18 |")
 UPDATES = "| Earlier assumption | Change | Evidence | Status |\n|---|---|---|---|\n" + UPDATE
 # The same BRN in a project with no document to read (ERR-09).
 BROWN_ALONE = edit(BROWN, "upstream:\n  - {id: BRN-001, relation: informed_by, version: 1, hash: null}\n"
@@ -793,17 +793,20 @@ New text:
         self.brown_rejects(edit(BROWN, "| open to validated |", "| validated |"),
                            r"^line 196: Assumption updates: Change must be .* \(BV-05\)$")
 
-    def test_status_without_a_name_and_date_is_rejected(self):
-        self.brown_rejects(edit(BROWN, "| confirmed by Dana on 2026-11-18 |\n\n## 7", "| confirmed |\n\n## 7"),
-                           r"^line 196: Assumption updates: Status must be .* \(BV-05\)$")
+    def test_status_without_a_date_or_with_a_name_is_rejected(self):
+        # The second sample is the form of the drafts before 2026-11-20: a cell that names someone is not valid.
+        for status in ("confirmed", "confirmed by Dana on 2026-11-18"):
+            with self.subTest(status=status):
+                self.brown_rejects(edit(BROWN, "| confirmed on 2026-11-18 |\n\n## 7", f"| {status} |\n\n## 7"),
+                                   r"^line 196: Assumption updates: Status must be .* \(BV-05\)$")
 
     def test_status_with_an_impossible_date_is_rejected(self):
-        self.brown_rejects(edit(BROWN, "| confirmed by Dana on 2026-11-18 |\n\n## 7",
-                                "| confirmed by Dana on 2026-11-31 |\n\n## 7"),
+        self.brown_rejects(edit(BROWN, "| confirmed on 2026-11-18 |\n\n## 7",
+                                "| confirmed on 2026-11-31 |\n\n## 7"),
                            r"^line 196: Assumption updates: Status must be .* \(BV-05\)$")
 
     def test_proposed_assumption_update_passes(self):
-        self.brown_valid(edit(BROWN, "| confirmed by Dana on 2026-11-18 |\n\n## 7",
+        self.brown_valid(edit(BROWN, "| confirmed on 2026-11-18 |\n\n## 7",
                               "| proposed, not confirmed |\n\n## 7"))
 
     def test_update_of_an_unlisted_brn_is_rejected(self):
@@ -819,7 +822,7 @@ New text:
 
     def test_proposed_update_of_this_brns_assumption_keeps_it_open(self):
         own = edit(BROWN, UPDATE, UPDATE + "\n" + UPDATE.replace("BRN-001#ASM-01", "BRN-002#ASM-01").replace(
-            "confirmed by Dana on 2026-11-18", "proposed, not confirmed"))
+            "confirmed on 2026-11-18", "proposed, not confirmed"))
         self.brown_valid(own)
         self.brown_rejects(edit(own, "    state: open", "    state: validated"),
                            r"^line 197: Assumption updates: ASM-01 of this BRN must have state open while its row "
@@ -869,7 +872,7 @@ behaviors:
       - "A covered or previously decided candidate is not added to ideas, the user's own suggestion included. A covered one is a row of '### Already covered' (its wording, and '<document ID>#<item ID>'), in the order the candidates came up. A previously decided one is a row of '### Previously decided' (the earlier idea's text, 'rejected', 'BRN-NNN#IDEA-NN'). Each table is replaced by the line 'None.' when it has no row (C-06)."
       - "The skill reports every candidate kept out with the exact ID, and never asks about it (Bryan, 2026-11-19: 'Report covered suggestions with the exact requirement ID and let me say \"add it anyway\" without prompting.'). When step 3's work is done, the reply holds one line per candidate kept out, in the order they came up: for a covered one, 'Not added, already covered by <document ID>#<item ID>: \"<the suggestion>\"'; for a previously decided one, 'Not added, rejected in BRN-NNN#IDEA-NN: \"<the suggestion>\"'. After the lines comes, once, the sentence 'Say \"add it anyway\" to add one.' The final reply's discussion repeats the lines and the sentence for every candidate still kept out. No question, in a form or in text, is ever asked about a kept-out candidate, and the run does not wait for an answer."
       - "The user overrides by saying so, at any time after a report: a message that tells the skill to add a kept-out candidate ('add it anyway', 'add them anyway', 'add both', 'include the text reminders anyway', 'keep my deposit idea'). Which candidate: the one the message names, by its words or by the ID in its report line; 'it' when exactly one candidate is kept out; 'them', 'both' or 'all' for every candidate kept out. 'It' with several kept out and none named adds nothing: the reply says 'Several suggestions were kept out. Name the one to add, for example \"add the text reminders anyway\".' A message that asks why, or only acknowledges, adds nothing. Section 3.5 gives examples."
-      - "An override writes this: the candidate becomes an idea in the user's words (the skill's wording for a candidate of its own) with the next free ID and disposition open, rated at step 4 like any other; its row is removed from its table, which becomes 'None.' when that was the last row; a previously decided idea gets the item-level link of BEH-27; and section 6's prose gains one sentence, 'IDEA-NN was added at <owner>'s request although <document ID>#<item ID> covers it.' or 'IDEA-NN was added at <owner>'s request although BRN-NNN#IDEA-NN rejected it.' Before the BRN is written this goes into the work as it stands. After the BRN is written, in the same session, the skill edits the BRN in place as SKILL.md's 'Decisions that belong to the user' describes for a later confirmation (mark step 6, edit, step 7 validate, step 8 report), without asking step 5's form again: the new idea is open. In a later session it is an extension of that BRN (BEH-11)."
+      - "An override writes this: the candidate becomes an idea in the user's words (the skill's wording for a candidate of its own) with the next free ID and disposition open, rated at step 4 like any other; its row is removed from its table, which becomes 'None.' when that was the last row; a previously decided idea gets the item-level link of BEH-27; and section 6's prose gains one sentence, 'IDEA-NN was added at the user's request although <document ID>#<item ID> covers it.' or 'IDEA-NN was added at the user's request although BRN-NNN#IDEA-NN rejected it.', in which 'the user's' is fixed text and never a name. Before the BRN is written this goes into the work as it stands. After the BRN is written, in the same session, the skill edits the BRN in place as SKILL.md's 'Decisions that belong to the user' describes for a later confirmation (mark step 6, edit, step 7 validate, step 8 report), without asking step 5's form again: the new idea is open. In a later session it is an extension of that BRN (BEH-11)."
       - "The framework's idea count (5 to 15, unless its Steps set their own: framework-catalog.md, BEH-17 and BEH-18) is counted among the ideas added; candidates kept out don't count. A framework that generates no idea of its own (shortlist-ranking) generates none in place of a candidate kept out: a candidate of the user's list that is covered or previously decided is kept out and listed like any other."
     changes: "BEH-05: an exception to 'record the user's ideas in their own words alongside generated ones' (edit B-P1)"
     lands_in: "SPEC-001 §6; SKILL.md step 3 (edit B-S4); references/brownfield.md, 'Already covered' and 'Previously decided'"
@@ -890,7 +893,7 @@ behaviors:
       - "At step 5, before the form, the skill proposes a change of state only from a stated fact with a source: for each assumption shown, a fact in this run's sources that reports the result the assumption's validation asks for gives 'open to validated' when it agrees with the statement and 'open to invalidated' when it contradicts it. No such fact, a fact about something else, or an opinion gives no row. Section 3.7 gives the test's examples."
       - "Each proposal is a row of '### Assumption updates', the last subsection of section 6 (C-11): 'BRN-NNN#ASM-NN', the change, the fact ending with one sources entry in parentheses, and the status 'proposed, not confirmed'. Rows are ordered by their first cell. With no row the line 'None.' replaces the table. An Evidence cell is never a marker."
       - "When the table has a row, step 5's form ends with C-10's question 4, header 'Step 5': 'Confirm these assumption updates?', options 'Accept all as proposed' and 'Leave them proposed', each option's preview holding the table with each assumption's statement; changes come typed under Other."
-      - "Accept all as proposed writes 'confirmed by <owner> on <today>' in every row. Leave them proposed, a dismissal, or no question asked leaves every row 'proposed, not confirmed'. Typed text confirms the rows it confirms, removes a row it rejects, and leaves the rest proposed. <owner> is the frontmatter owner without its quotes; when it is a NEEDS CLARIFICATION marker the skill asks for the owner's name first, and without it every row stays proposed."
+      - "Accept all as proposed writes 'confirmed on <today>' in every row, today as YYYY-MM-DD; a status cell names nobody. Leave them proposed, a dismissal, or no question asked leaves every row 'proposed, not confirmed'. Typed text confirms the rows it confirms, removes a row it rejects, and leaves the rest proposed."
       - "A confirmed change lives in this BRN's row and nowhere else: a new BRN never edits an earlier BRN."
       - "Step 7's read-back resets to 'proposed, not confirmed' any status cell the user did not confirm in step 5 of this run, unless the BRN being extended already held that row as confirmed."
     changes: "new; extends BEH-06's form by C-10's question 4 (edit B-P3) and BEH-09's read-back"
@@ -981,7 +984,7 @@ add a kept-out candidate.
 
 | The user's next message | Result |
 |---|---|
-| "add the text reminders anyway" | The reminders become an idea in the user's words; their row is removed; section 6 gains "IDEA-07 was added at Dana's request although PRD-001#FR-003 covers it." |
+| "add the text reminders anyway" | The reminders become an idea in the user's words; their row is removed; section 6 gains "IDEA-07 was added at the user's request although PRD-001#FR-003 covers it." |
 | "add both" | Both become ideas; the deposit's idea carries the link to BRN-001#IDEA-06 and section 6 gains "… although BRN-001#IDEA-06 rejected it." |
 | "add it anyway" (two are kept out) | Nothing is added. The reply says: Several suggestions were kept out. Name the one to add, for example "add the text reminders anyway". |
 | "add it anyway" (only the reminders are kept out) | The reminders become an idea |
@@ -1027,8 +1030,8 @@ reminder texts for one month and count how many are opened."
 
 | Run | Where a confirmed change is written |
 |---|---|
-| A new BRN (BRN-002) about an assumption of BRN-001 | BRN-002's row `BRN-001#ASM-01 … confirmed by Dana on 2026-11-18`. BRN-001 is not touched: its ASM-01 still says `state: open` |
-| A run that extends BRN-002, about BRN-002's own ASM-01 | BRN-002's row `BRN-002#ASM-01 … confirmed by …`, and in the same edit ASM-01's `state: validated` in BRN-002 |
+| A new BRN (BRN-002) about an assumption of BRN-001 | BRN-002's row `BRN-001#ASM-01 … confirmed on 2026-11-18`. BRN-001 is not touched: its ASM-01 still says `state: open` |
+| A run that extends BRN-002, about BRN-002's own ASM-01 | BRN-002's row `BRN-002#ASM-01 … confirmed on …`, and in the same edit ASM-01's `state: validated` in BRN-002 |
 | A run that extends an earlier-shape BRN | Nowhere: this document does not apply to it |
 
 Whoever needs an assumption's current state reads the latest BRN's *Assumption updates* first, then the
@@ -1070,11 +1073,11 @@ up to the next `### ` or `## ` heading. "A `sources` entry" is one that passed I
 | BV-05 | The first cell is `BRN-NNN#ASM-NN` of a BRN listed in Existing product, or of this BRN, and stands once | the row | `Assumption updates: Earlier assumption must be BRN-NNN#ASM-NN of a BRN that Existing product lists, or of this BRN, each once (BV-05)` |
 | BV-05 | `Change` is `open to validated` or `open to invalidated` | the row | `Assumption updates: Change must be 'open to validated' or 'open to invalidated' (BV-05)` |
 | BV-05 | `Evidence` ends with a space and one `sources` entry in parentheses, with text before it; a marker is not accepted | the row | `Assumption updates: Evidence must be a fact that ends with one sources entry in parentheses (BV-05)` |
-| BV-05 | `Status` is `proposed, not confirmed`, or `confirmed by <text> on <a real calendar date as YYYY-MM-DD>` | the row | `Assumption updates: Status must be 'proposed, not confirmed' or 'confirmed by NAME on DATE', the date a real one written as four digits, two, two (BV-05)` |
+| BV-05 | `Status` is `proposed, not confirmed`, or `confirmed on <a real calendar date as YYYY-MM-DD>` and nothing else | the row | `Assumption updates: Status must be 'proposed, not confirmed' or 'confirmed on DATE', the date a real one written as four digits, two, two (BV-05)` |
 | BV-05 | A row about this BRN's own assumption agrees with it: confirmed, and the assumption's `state` is the change's target; proposed, and the `state` is `open` | the row | `Assumption updates: ASM-NN of this BRN must have state <validated, invalidated or open> while its row says '<confirmed, or proposed, not confirmed>' (BV-05)` |
 
 Edit B-V1's code is the reference for every detail the table leaves out. After a row fails BV-05's first rule,
-its other cells are not checked. The validator can't know what the user confirmed: a `confirmed by` cell passes
+its other cells are not checked. The validator can't know what the user confirmed: a `confirmed on` cell passes
 it, and step 7's read-back (BEH-28) is what protects R3.
 
 ## 4. Errors and edge cases
@@ -1114,7 +1117,6 @@ Edge cases, each decided by the items above:
 | The waiver was answered *Proceed without questions* | Documents are read; no parked idea is taken up; every update stays proposed; kept-out candidates are still reported | BEH-27, BEH-28 |
 | A source contradicts an assumption that an earlier BRN already marks `validated` | No row: only `open` assumptions are candidates | BEH-28 |
 | The user rejects a proposed update in typed text | The row is removed | BEH-28 |
-| `owner` is a marker when updates are confirmed | The skill asks for the owner's name; without it the rows stay proposed | BEH-28 |
 | A document's version changed between the first run and an extending run | Existing product and the `upstream` record show the new version; `sources` keeps the old entry and gains the new one | BEH-29 |
 | An eleventh document exists | Not read, not listed, not mentioned | BEH-25 |
 | The user types "IDEA-04" and both BRN-001 and BRN-003 hold a parked IDEA-04 | One more question, "Which IDEA-04 do you mean?", with `BRN-001#IDEA-04` and `BRN-003#IDEA-04`; unanswered, neither is taken up and both stay `parked` rows | BEH-27 |
@@ -1249,7 +1251,7 @@ verifications:
         type: regex
         target: docs/specs/brainstorm/BRN-002.md
         match: not_contains
-        pattern: '\| confirmed by [^|\n]+ on \d{4}-\d{2}-\d{2} \|'
+        pattern: '\| confirmed [^|\n]*\d{4}-\d{2}-\d{2} \|'
       - name: brn-001-unchanged
         type: regex
         target: docs/specs/brainstorm/BRN-001.md
@@ -1336,7 +1338,7 @@ verifications:
       - BEH-28
       - BEH-29
     level: manual
-    obligation: "Live, with AskUserQuestion, following docs/runbooks/brainstorm-manual-test.md with a copy of the plugin, in a project seeded with the example's BRN-001 and PRD-001: (a) 'Our booking site is live. Brainstorm what to improve next.': no extend-or-new question although BRN-001 exists; at step 3 one form headed 'Step 3' asks 'Take up parked ideas from earlier brainstorms?' with 'Take up none' and 'Take up all', both previews listing BRN-001#IDEA-04 and BRN-001#IDEA-05; typing 'IDEA-04' gives a new idea with that text and an item-level upstream record, and Previously decided lists only IDEA-05 as parked; (b) in the same run the reply shows BRN-001#ASM-01 and ASM-02 with their validations; (c) the user suggests text reminders: the reply holds the line 'Not added, already covered by PRD-001#FR-003: \"<the user's words>\"' and the sentence 'Say \"add it anyway\" to add one.', and no question about it is asked, in a form or in text; the user says 'add it anyway': it becomes an idea in the user's words, the row is gone and section 6 holds the sentence 'IDEA-NN was added at Dana's request although PRD-001#FR-003 covers it.'; (d) the user gives the pilot result with its source: step 5's form ends with 'Confirm these assumption updates?', its previews showing the row; 'Accept all as proposed' writes 'confirmed by Dana on <today>' and BRN-001 is byte for byte unchanged; in a second run 'Leave them proposed' writes 'proposed, not confirmed'; (e) with BRN-001's status changed by hand to draft and the same request: extend-or-new is asked; (f) a run that extends the BRN-002 written in (d), with a fact for BRN-002's own ASM-01: on acceptance the row says confirmed and ASM-01's state is validated; on 'Leave them proposed' the state stays open; (g) with PRD-001's frontmatter removed by hand: the BRN names it in a Skipped line with 'no frontmatter' and PRD-001 is unchanged; (h) with a second earlier BRN that also holds a parked IDEA-04, typing 'IDEA-04' gets one more question, 'Which IDEA-04 do you mean?', with the two qualified forms as options, and dismissing it takes up neither, both staying parked rows; (i) extending a greenfield new-shape BRN after saying the product is live: the kind line becomes brownfield, the four headings are added and filled, nothing else is removed and the validator prints OK; (k) with the reminders and a deposit both kept out, 'add it anyway' adds neither and the reply says to name one, and 'add both' adds both, the deposit's idea carrying the item-level link to BRN-001#IDEA-06 and section 6 the sentence '... although BRN-001#IDEA-06 rejected it.'; (l) 'add it anyway' said after the BRN was written, in the same session: the BRN is edited in place and validated again, and step 5's form is not shown again; (m) the project holds docs/specs/story/STORY-001.md and docs/specs/spec/SPEC-001.md: the session shows no Read of either and Existing product lists neither; (j) extending the BRN-002 of (d) after PRD-001's version was raised by hand: the existing sources entries keep their order and the new document entry is the last. Recorded in SPEC-001 §9."
+    obligation: "Live, with AskUserQuestion, following docs/runbooks/brainstorm-manual-test.md with a copy of the plugin, in a project seeded with the example's BRN-001 and PRD-001: (a) 'Our booking site is live. Brainstorm what to improve next.': no extend-or-new question although BRN-001 exists; at step 3 one form headed 'Step 3' asks 'Take up parked ideas from earlier brainstorms?' with 'Take up none' and 'Take up all', both previews listing BRN-001#IDEA-04 and BRN-001#IDEA-05; typing 'IDEA-04' gives a new idea with that text and an item-level upstream record, and Previously decided lists only IDEA-05 as parked; (b) in the same run the reply shows BRN-001#ASM-01 and ASM-02 with their validations; (c) the user suggests text reminders: the reply holds the line 'Not added, already covered by PRD-001#FR-003: \"<the user's words>\"' and the sentence 'Say \"add it anyway\" to add one.', and no question about it is asked, in a form or in text; the user says 'add it anyway': it becomes an idea in the user's words, the row is gone and section 6 holds the sentence 'IDEA-NN was added at the user's request although PRD-001#FR-003 covers it.'; (d) the user gives the pilot result with its source: step 5's form ends with 'Confirm these assumption updates?', its previews showing the row; 'Accept all as proposed' writes 'confirmed on <today>' and BRN-001 is byte for byte unchanged; in a second run 'Leave them proposed' writes 'proposed, not confirmed'; (e) with BRN-001's status changed by hand to draft and the same request: extend-or-new is asked; (f) a run that extends the BRN-002 written in (d), with a fact for BRN-002's own ASM-01: on acceptance the row says confirmed and ASM-01's state is validated; on 'Leave them proposed' the state stays open; (g) with PRD-001's frontmatter removed by hand: the BRN names it in a Skipped line with 'no frontmatter' and PRD-001 is unchanged; (h) with a second earlier BRN that also holds a parked IDEA-04, typing 'IDEA-04' gets one more question, 'Which IDEA-04 do you mean?', with the two qualified forms as options, and dismissing it takes up neither, both staying parked rows; (i) extending a greenfield new-shape BRN after saying the product is live: the kind line becomes brownfield, the four headings are added and filled, nothing else is removed and the validator prints OK; (k) with the reminders and a deposit both kept out, 'add it anyway' adds neither and the reply says to name one, and 'add both' adds both, the deposit's idea carrying the item-level link to BRN-001#IDEA-06 and section 6 the sentence '... although BRN-001#IDEA-06 rejected it.'; (l) 'add it anyway' said after the BRN was written, in the same session: the BRN is edited in place and validated again, and step 5's form is not shown again; (m) the project holds docs/specs/story/STORY-001.md and docs/specs/spec/SPEC-001.md: the session shows no Read of either and Existing product lists neither; (j) extending the BRN-002 of (d) after PRD-001's version was raised by hand: the existing sources entries keep their order and the new document entry is the last. Recorded in SPEC-001 §9."
 ```
 
 **What was checked while writing this document** (2026-11-18, in the worktree, with scratch copies only):
@@ -1368,6 +1370,14 @@ reviewer's script, which applies every edit of the five documents in build order
 section 2 still applies; the ten SKILL.md edits take the file from 348 to 368 lines, which leaves 32 lines under
 R2's limit of 400 (mvp-and-prototype-path.md and BEH-34 take 18); the validator's test file as this document
 leaves it runs 279 tests, `OK`, with and without site-packages; `test_structure.py` runs 16 tests, `OK`.
+
+**Re-checked again on 2026-11-20**, after Bryan's decisions of that day (section 7, decisions 23 and 24), the same
+way: each edit of section 2 applies; SKILL.md still goes from 348 to 368 lines; the test file as this document
+leaves it runs 279 tests, `OK`, with and without site-packages, 32 of them new here as before
+(`test_status_without_a_name_and_date_is_rejected` is now `test_status_without_a_date_or_with_a_name_is_rejected`
+and holds one sample of each); the staged BRN-002 prints `OK`, and with a status cell that names someone it gets
+BV-05's message; `no-confirmed-update` in node passes the proposed row and fails a row confirmed in the new
+form and one in the earlier form.
 
 ## 6. Staged files
 
@@ -1461,5 +1471,21 @@ of the staged `references/mvp-path.md`: one open assumption, which stops IDEA-01
 22. **A confirmed update to an earlier assumption is recorded in the new BRN only.** "Record a confirmed
     update to an earlier assumption in the new BRN only." Decision 9 and BEH-28 are unchanged: the earlier
     BRN is never edited.
+
+**Decided by Bryan on 2026-11-20** (session fa59a935-ed2e-4502-b6c4-93bb6d847546; his words are quoted).
+
+23. **A status cell names no owner.** Asked about the skill's ask for the owner's name when a BRN's `owner` is
+    a NEEDS CLARIFICATION marker: "the owner isn't necessary". Of the four readings then offered: "No owner in
+    the line at all" (the option's text: "The line is always "confirmed on <date>", never naming anyone.").
+    C-11's status cell is `proposed, not confirmed` or `confirmed on YYYY-MM-DD`: BEH-28, edits B-S1, B-S6,
+    B-S9, B-O2, B-O3, B-V1, B-T1 and B-T2, section 3.7, BV-05, VER-31's `no-confirmed-update`, VER-34 (d), the
+    staged `brownfield.md` and BRN-002 with its README. BEH-28 no longer asks for the owner's name, and section
+    4's row for an `owner` that is a marker is removed. BV-05 checks the date as it did, a real calendar date,
+    and now rejects a cell that names someone: nothing shipped with the earlier form, so no rule reads it. The
+    frontmatter key `owner` is untouched (R1).
+24. **The override sentence says "the user".** ""at the user's request" (Recommended)". Section 6's sentence is
+    always `IDEA-NN was added at the user's request although …`, in both of its forms: BEH-26, section 3.5,
+    VER-34 (c), the staged `brownfield.md`. It holds no name and no marker, so a BRN whose `owner` is a marker
+    needs no rule of its own.
 
 **Open, for Bryan.** None.

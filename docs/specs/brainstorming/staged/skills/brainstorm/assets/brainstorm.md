@@ -112,7 +112,7 @@ ideas:
 ### First release cut
 
 <!-- The status line is exactly "First release cut: proposed, not confirmed" or
-     "First release cut: confirmed by NAME on DATE". One row per idea that is promoted or proposed
+     "First release cut: confirmed on YYYY-MM-DD". One row per idea that is promoted or proposed
      for promotion, in ID order; the second cell is yes or no; the Why cell is one of the fixed
      sentences of references/mvp-path.md. With no such idea, replace the table by the line:
      No idea is promoted or proposed for promotion. -->
@@ -146,7 +146,7 @@ First release cut: proposed, not confirmed
 
 <!-- Change is "open to validated" or "open to invalidated". Evidence is a fact that ends with one
      sources entry in parentheses. Status is "proposed, not confirmed" or
-     "confirmed by NAME on DATE". With no row, replace the table by the line: None. -->
+     "confirmed on YYYY-MM-DD". With no row, replace the table by the line: None. -->
 
 | Earlier assumption | Change | Evidence | Status |
 |---|---|---|---|

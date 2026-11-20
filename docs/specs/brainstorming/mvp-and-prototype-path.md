@@ -173,8 +173,8 @@ New:
 
 ```text
 - Set `status: converged` only on *Converged*; otherwise `draft`.
-- Write the cut as `confirmed by <owner> on <today>` only on *Accept as proposed* or typed changes, and
-  only when every idea in its table is then `promoted`; otherwise it stays `proposed, not confirmed`
+- Write the cut as `confirmed on <today>` only on *Accept as proposed* or typed changes, and only
+  when every idea in its table is then `promoted`; otherwise it stays `proposed, not confirmed`
   ([mvp-path.md](references/mvp-path.md#confirm-the-cut)).
 ```
 
@@ -296,7 +296,7 @@ validator checks them (MV-01 to MV-12) in a BRN that has the `Project kind:` lin
 | Section 6, after the convergence prose | `### First release cut` | The status line, then one row per active idea that is promoted or proposed for promotion: `Idea`, `In first release` (`yes` or `no`), `Why`. `No idea is promoted or proposed for promotion.` when there is no such idea |
 
 The status line is `First release cut: proposed, not confirmed` until the user confirms the cut, then
-`First release cut: confirmed by <owner> on YYYY-MM-DD`, with the frontmatter `owner`. A cell never holds a
+`First release cut: confirmed on YYYY-MM-DD`, with that day's date and no name. A cell never holds a
 `|`. Section 8 lists exactly the ideas whose row says `yes` (see *Collections and fields* for its bullets).
 
 ## Unknowns
@@ -405,7 +405,7 @@ MV_IF_WRONG = re.compile(
     r"(Fatal|Serious): stops (IDEA-\d{2}(?:, IDEA-\d{2})*) \((\d+) of (\d+) in the cut table\)\."
     r"|(Minor): stops no idea in the cut table \(0 of (\d+)\)\.")
 MV_STATUS = re.compile(
-    r"First release cut: (?:proposed, not confirmed|confirmed by (.+) on (\d{4}-\d{2}-\d{2}))")
+    r"First release cut: (?:proposed, not confirmed|confirmed on (\d{4}-\d{2}-\d{2}))")
 
 
 def cheapest_test(asm_id, validation):
@@ -501,9 +501,9 @@ def check_mvp_path(lines, fm_end, fm, sources, items, err):
         m = MV_STATUS.fullmatch(lines[rows[0]].rstrip()) if rows else None
         if not m:
             err(heads[0] + 1, "the first line under '### First release cut' must be 'First release cut: "
-                "proposed, not confirmed' or 'First release cut: confirmed by <owner> on YYYY-MM-DD' (MV-08)")
+                "proposed, not confirmed' or 'First release cut: confirmed on YYYY-MM-DD' (MV-08)")
         else:
-            confirmed, status_at = (m.groups() if m.group(1) else None), rows[0] + 1
+            confirmed, status_at = m.group(1), rows[0] + 1
             if len(rows) == 2 and lines[rows[1]].rstrip() == MV_NO_ROWS:
                 data = []
             else:
@@ -627,16 +627,14 @@ def check_mvp_path(lines, fm_end, fm, sources, items, err):
         if cut and not yes and not by_user and not flagged:
             err(status_at, "first release cut: a cut that the user did not change has a 'yes' row (MV-11)")
     if confirmed and cut_ok:
-        owner = fm.get("owner", (0, '""'))[1][1:-1]
         created, updated = (fm.get(k, (0, ""))[1] for k in ("created", "updated"))
         try:
-            real = bool(datetime.date.fromisoformat(confirmed[1]))
+            real = bool(datetime.date.fromisoformat(confirmed))
         except ValueError:
             real = False
-        if (confirmed[0] != owner or owner.startswith("[NEEDS CLARIFICATION") or not real
-                or not created <= confirmed[1] <= updated):
-            err(status_at, "first release cut: a confirmed cut names the frontmatter owner (never a NEEDS "
-                "CLARIFICATION marker) and a real date from created to updated (MV-12)")
+        if not real or not created <= confirmed <= updated:
+            err(status_at, "first release cut: the date of a confirmed cut is a real date from created to "
+                "updated (MV-12)")
         if flagged:
             err(cut[flagged[0]][0] + 1, "first release cut: a confirmed cut holds no row that says "
                 f"'{MV_FLAG}'; flagged: {', '.join(flagged)} (MV-12)")
@@ -698,7 +696,7 @@ below, two empty lines, then that line.
         text = re.sub(r'disposition: (?:promoted|parked|rejected)\n    reason: "[^\n]*"',
                       "disposition: open\n    reason: null", self.mvp())
         text = edit(text, "status: converged", "status: draft")
-        return edit(text, "First release cut: confirmed by Maya Okafor on 2026-11-18",
+        return edit(text, "First release cut: confirmed on 2026-11-18",
                     "First release cut: proposed, not confirmed")
 
     def test_mvp_example_passes(self):
@@ -799,8 +797,11 @@ below, two empty lines, then that line.
                             r"must be 'Data: Count the paid jobs per week in the van job log\.' \(MV-07\)$")
 
     def test_mv08_cut_status_line_is_fixed(self):
-        self.assert_rejects(self.mvp(("First release cut: confirmed by Maya Okafor on 2026-11-18",
-                                      "First release cut: confirmed")), r"\(MV-08\)$")
+        # The second sample is the form of the drafts before 2026-11-20: a line that names someone is not valid.
+        for new in ("First release cut: confirmed", "First release cut: confirmed by Maya Okafor on 2026-11-18",
+                    "First release cut: confirmed on 18 November 2026"):
+            with self.subTest(new=new):
+                self.assert_rejects(self.mvp(("First release cut: confirmed on 2026-11-18", new)), r"\(MV-08\)$")
 
     def test_mv09_every_promoted_idea_has_a_cut_row(self):
         self.assert_rejects(self.mvp(("| IDEA-05 | no | Tests no assumption ranked 1 to 3. |\n", "")),
@@ -829,15 +830,15 @@ below, two empty lines, then that line.
 
     def test_mv12_a_confirmed_cut_needs_promoted_ideas(self):
         text = edit(self.mvp_unconfirmed(), "First release cut: proposed, not confirmed",
-                    "First release cut: confirmed by Maya Okafor on 2026-11-18")
+                    "First release cut: confirmed on 2026-11-18")
         self.assert_rejects(text, r"not promoted: IDEA-01, IDEA-02, IDEA-03, IDEA-05 \(MV-12\)$")
 
-    def test_mv12_a_confirmed_cut_names_the_owner_and_a_date_in_range(self):
-        for new in ("confirmed by claude-code on 2026-11-18", "confirmed by Maya Okafor on 2026-11-19",
-                    "confirmed by Maya Okafor on 2026-02-30"):
+    def test_mv12_a_confirmed_cut_has_a_real_date_from_created_to_updated(self):
+        for new in ("confirmed on 2026-11-17", "confirmed on 2026-11-19", "confirmed on 2026-02-30"):
             with self.subTest(new=new):
-                self.assert_rejects(self.mvp(("confirmed by Maya Okafor on 2026-11-18", new)),
-                                    r"names the frontmatter owner .* \(MV-12\)$")
+                self.assert_rejects(self.mvp(("First release cut: confirmed on 2026-11-18",
+                                              "First release cut: " + new)),
+                                    r"the date of a confirmed cut is a real date .* \(MV-12\)$")
 ```
 
 ### 2.6 New files
@@ -870,7 +871,7 @@ letter, so the validator's leftover check rejects a BRN that kept one.
 | BEH-08 | Extended by BEH-33: the two shapes are written at step 6 |
 | BEH-09 | Extended by BEH-33: checks MV-01 to MV-12; the read-back covers the cut's status line |
 | BEH-14, §4 (work file) | Extended by BEH-33: the work file holds both tables from the step-5 save on, the cut always proposed; a continued run keeps them |
-| §5, downstream contract | Gains: "`First release cut: confirmed by …` appears only after the user confirmed the cut" |
+| §5, downstream contract | Gains: "`First release cut: confirmed on …` appears only after the user confirmed the cut" |
 | New | BEH-30, BEH-31, BEH-32, BEH-33, ERR-10, VER-35 to VER-38 |
 
 ## 3. Behaviour
@@ -910,7 +911,7 @@ behaviors:
       2. Without AskUserQuestion and with a user to ask, the status line and the table are shown in plain text with the dispositions and the same question is asked. When no question is asked (the waiver's Proceed without questions, or nobody to ask), the cut stays proposed.
       3. The answers are applied in this order: the dispositions the first question confirmed are written, and in a brownfield run the assumption updates the fourth question confirmed (brownfield-iteration.md, BEH-28 and BEH-29); the cut rows and the ranked assumptions (the active ones whose state is open) are listed again; when either list differs from the one the form showed (an idea entered or left the cut rows, or a confirmed update closed one of this BRN's own assumptions), the ranking and the cut are made again from the new lists, the status line stays proposed whatever the third answer was, and the reply names the ideas that entered or left the table and the assumptions that left the ranking.
       4. Otherwise: 'Accept as proposed', or typed text that accepts the table, keeps the rows; typed changes set each named row to the stated value and its Why cell to 'Included by the user.' (yes) or 'Left out by the user.' (no); every other row keeps its value and has its Why cell derived again by §3.10's refresh, which gives it a rule sentence that holds or, when no rule supports its value, the flag 'Needs review: no rule supports this value.'; 'Leave it proposed', a dismissal, no answer, or typed text that states neither an acceptance nor a change keeps the rows and the proposed status line.
-      5. After an acceptance or typed changes, the status line becomes First release cut: confirmed by <owner> on <today> (the frontmatter owner without its quotes; today as YYYY-MM-DD) only when every row's idea then has disposition promoted, no row is flagged and the owner is not a NEEDS CLARIFICATION marker; otherwise it stays proposed with the rows as item 4 left them, and the reply names the ideas that are not promoted and the rows that are flagged. When the owner is a NEEDS CLARIFICATION marker the skill asks for the owner's name first, and without it the cut stays proposed.
+      5. After an acceptance or typed changes, the status line becomes First release cut: confirmed on <today> (today as YYYY-MM-DD; the line names nobody) only when every row's idea then has disposition promoted and no row is flagged; otherwise it stays proposed with the rows as item 4 left them, and the reply names the ideas that are not promoted and the rows that are flagged.
       6. A cut is never written as confirmed in any other way: not from a recommended option, not by the skill's own choice, not in the work file.
       7. A confirmation that arrives after the BRN is written follows SKILL.md's 'Decisions that belong to the user': step 5 is marked again and its form asked, the third question showing the table as the BRN holds it; when that table holds a flagged row, the question's text names each flagged row with its value as item 10 gives it and its answer is read as item 10 says, which is the one asking of that run, a row still flagged afterwards being reported as item 10 says; only then is the BRN edited in place, validated again and reported.
       8. When a new-shape BRN is extended, the ranking is made again from the BRN as it then stands and the cut rows are listed. When their idea IDs are the same set as the rows of the BRN's cut table, each row whose Why cell is 'Included by the user.' or 'Left out by the user.' keeps its value and its sentence, and every other row is worked out again from the current ranking and scores by §3.11's rule (§3.6 with the user's rows kept), its value included when the rule now gives the other answer. When the IDs differ, every row is proposed again by §3.6 and none is kept, and the user's previous choices (each row the BRN held with a user sentence, as idea ID and value, in ID order) are shown in the reply as 'Earlier choices, not carried over: IDEA-04 (yes), IDEA-02 (no). Tell me which still stand.' and in the Change Log row as 'First release cut proposed again: the eligible ideas changed. Earlier choices by the user: IDEA-04 (yes), IDEA-02 (no).' (with no such row, the Change Log sentence ends after 'changed.' and the reply has none). In both cases the status line is kept only when the new table equals the BRN's in every cell; when any cell changed, the new table is written as proposed and the third question asks about it; with the same IDs the reply and the Change Log row then hold 'First release cut returned to proposed: IDEA-02 changed.', naming in ID order each row with a changed cell.
@@ -1128,7 +1129,7 @@ promoted" means every row's idea has `disposition: promoted` once Q1's answer is
 
 | Q1 | Rows after Q1 | Q3 | Cut written |
 |---|---|---|---|
-| Accept all as proposed | the same rows, all promoted | Accept as proposed | rows as proposed; `confirmed by <owner> on <today>` |
+| Accept all as proposed | the same rows, all promoted | Accept as proposed | rows as proposed; `confirmed on <today>` |
 | Accept all as proposed | the same, all promoted | typed "add IDEA-04" | IDEA-04 `yes`, `Included by the user.`; confirmed |
 | Accept all as proposed | the same, all promoted | Leave it proposed, dismissed, or no answer | rows as proposed; proposed |
 | Leave them open | the same rows, all still open | Accept as proposed | rows as proposed; proposed. The reply names the ideas that are not promoted |
@@ -1276,7 +1277,6 @@ Edge cases the behaviour items already settle:
 | A pipe character in a `validation` | Written `/` in the cell | §3.4 |
 | A deprecated idea or assumption | No row in either table | BEH-30 item 1 |
 | The user sets every row to `no` | Written as typed and confirmed; section 8 is `- None.` | BEH-32 item 4 |
-| `owner` is a NEEDS CLARIFICATION marker | The skill asks for the owner's name; without it the cut stays proposed | BEH-32 item 5 |
 | The user stops before step 5's proposals (ERR-02's draft) | No cut row; ranking with M = 0 | BEH-33 item 3 |
 | An earlier-shape BRN is extended | Neither table is written; no MV check applies | BEH-33 items 1 and 4 |
 | An extension with the same eligible ideas | The user's rows are kept; the others are proposed again; a table that changed in any cell is proposed, and asked about | BEH-32 item 8, §3.11 |
@@ -1435,7 +1435,7 @@ verifications:
     level: manual
     obligation: |-
       Live, with a user answering, on a copy of the plugin loaded with claude --plugin-dir (docs/runbooks/brainstorm-manual-test.md), each run's BRN printing OK under the validator:
-      (a) step 5's form shows 'Confirm the first release cut?' third, header 'Step 5', the options 'Accept as proposed' and 'Leave it proposed' with BEH-32's descriptions, neither marked recommended, each preview showing the status line and the cut table; Accept all as proposed, Converged and Accept as proposed give 'First release cut: confirmed by <the owner> on <today>' and section 8 lists the yes ideas;
+      (a) step 5's form shows 'Confirm the first release cut?' third, header 'Step 5', the options 'Accept as proposed' and 'Leave it proposed' with BEH-32's descriptions, neither marked recommended, each preview showing the status line and the cut table; Accept all as proposed, Converged and Accept as proposed give 'First release cut: confirmed on <today>' and section 8 lists the yes ideas;
       (b) Leave them open with Accept as proposed gives the proposed status line and a reply naming the ideas that are not promoted;
       (c) a typed disposition change that parks a row's idea, with Accept as proposed, gives a table made again without that idea, the proposed status line, and a reply saying the idea left the table;
       (d) Accept all as proposed with the typed cut answer 'add IDEA-NN' (a no row) gives that row yes with 'Included by the user.', no other user sentence anywhere, and a confirmed status line; the typed answer 'IDEA-NN in' for an idea with no row changes nothing, shows no second menu, and the reply says why (ERR-10);
@@ -1467,7 +1467,7 @@ split on `|` and trimmed.
 | MV-09 | After the status line, up to the next heading: only the line `No idea is promoted or proposed for promotion.`, or a table with the header cells `Idea`, `In first release`, `Why` and three cells in each row. Each row's idea is an active idea whose `disposition` is `promoted` or `open`; rows are in ID order, each idea once; the second cell is `yes` or `no`; every active idea with `disposition: promoted` has a row |
 | MV-10 | Each `Why` cell is one of §3.7's eight sentences, with the value its sentence belongs to (the flag goes with either value), and what it says holds (§3.7's last column) |
 | MV-11 | When no row's `Why` is a user sentence or the flag: every assumption ranked 1 to 3 that stops a row has a `yes` row among the rows it stops; and a table with a row has a `yes` row |
-| MV-12 | A confirmed status line names the frontmatter `owner` (which is not a NEEDS CLARIFICATION marker) and a real calendar date from `created` to `updated`; the table has a row; every row's idea has `disposition: promoted`; no row holds the flag |
+| MV-12 | A confirmed status line's date is a real calendar date from `created` to `updated`; the table has a row; every row's idea has `disposition: promoted`; no row holds the flag |
 
 The messages, each after `line N: `. Words in angle brackets are filled in; `<what>` is `assumption risk ranking`
 (then the check is MV-02) or `first release cut` (MV-09):
@@ -1486,7 +1486,7 @@ ASM-NN: Confidence <high or medium> needs a sources entry of kind <data, documen
 assumption risk ranking: rows out of order; the order is <IDs> (MV-06)
 ASM-NN: 'Cheapest test' must be '<the derived cell>' (MV-07)
 section 6 must hold exactly one '### First release cut' heading, and no other section may hold one (MV-08)
-the first line under '### First release cut' must be 'First release cut: proposed, not confirmed' or 'First release cut: confirmed by <owner> on YYYY-MM-DD' (MV-08)
+the first line under '### First release cut' must be 'First release cut: proposed, not confirmed' or 'First release cut: confirmed on YYYY-MM-DD' (MV-08)
 first release cut: 'IDEA-NN' is not an active idea whose disposition is promoted or open (MV-09)
 first release cut: rows are in idea ID order, each idea once; IDEA-NN is out of place (MV-09)
 first release cut: 'In first release' for IDEA-NN must be yes or no (MV-09)
@@ -1495,7 +1495,7 @@ first release cut: the Why cell of IDEA-NN is not one of the fixed sentences for
 first release cut: no 'yes' row tests ASM-NN, ranked <R>; one of <IDs> must be in the first release (MV-11)
 first release cut: a cut that the user did not change has a 'yes' row (MV-11)
 first release cut: a confirmed cut holds no row that says 'Needs review: no rule supports this value.'; flagged: <IDs> (MV-12)
-first release cut: a confirmed cut names the frontmatter owner (never a NEEDS CLARIFICATION marker) and a real date from created to updated (MV-12)
+first release cut: the date of a confirmed cut is a real date from created to updated (MV-12)
 first release cut: confirmed only when the table has a row and every row's idea is promoted; not promoted: <IDs, or: there is no row> (MV-12)
 ```
 
@@ -1541,6 +1541,7 @@ Scripts are in the session's scratch folder, `fable/fable-mvp-handoff/`; none is
 | SKILL.md with all four documents' edits applied in build order (`skill_lines.py`) | 371 lines on version 11 |
 | Every `yaml items` block here | parses with PyYAML; every item has R4's keys |
 | Re-check of 2026-11-20 against `main` at `ff78d44`, after pull request #173 (SKL-001 version 12): every edit of the five documents applied in build order to scratch copies by the reviewer's script | each edit applies (S1 is no edit, as above); `Ran 354 tests`, `OK`, with and without site-packages; SKILL.md has 380 lines after this document's edits and 386 with H1 to H3; `checklist_hash` equals the manifest's; the staged examples and the project's own BRN-001 print `OK` |
+| Re-check of 2026-11-20 after Bryan's decision of that day that a confirmation names no owner (§7), with the same script, and the eight regex graders of §5.3 in node against the changed example | each edit applies (S1 is no edit, as above); `Ran 354 tests`, `OK`, with and without site-packages, T2 holding as many tests as before (`test_mv12_a_confirmed_cut_names_the_owner_and_a_date_in_range` is now `test_mv12_a_confirmed_cut_has_a_real_date_from_created_to_updated`); SKILL.md still has 380 and 386 lines; the staged examples print `OK`; a status line that names someone gets MV-08's message, and a confirmed cut whose `owner` is a marker prints `OK`; each of the eight graders passes its good sample and fails its wrong one |
 
 ## 6. Staged files
 
@@ -1637,5 +1638,16 @@ can't be asked, keep the flags and report them." This is BEH-32 item 10 and §3.
 other rows from the current evidence, including their values when the rules give a different answer. Any
 changed cell returns the cut to proposed. If the eligible ideas change, follow the drafted rule and show my
 previous choices in the reply and Change Log so I can reconsider them." This is BEH-32 item 8 and §3.11.
+
+**Decided by Bryan on 2026-11-20** (session fa59a935-ed2e-4502-b6c4-93bb6d847546; his words are quoted).
+
+| Question | Decision | Where |
+|---|---|---|
+| Does a confirmed status line name the owner, and does the skill ask for the owner's name when the BRN's `owner` is a NEEDS CLARIFICATION marker? | No. Asked about that ask: "the owner isn't necessary". Of the four readings then offered: "No owner in the line at all" (the option's text: "The line is always "confirmed on <date>", never naming anyone.") | The line is `First release cut: confirmed on YYYY-MM-DD`: S8, O2, V2 (MV-08, MV-12), T2, BEH-32 item 5, §3.9, VER-38 (a), §5.2, the staged mvp-path.md and the staged example with its README (changed). §4's row for an `owner` that is a marker is removed: no rule needs the owner's name. The frontmatter key `owner` is untouched (R1) |
+| When the cut question is asked once more for flagged rows and the answer is a typed change, which rows become the user's? | "Only the rows I name (Recommended)" | BEH-32 item 10 and the staged mvp-path.md: a flagged row the text does not name stays as the refresh leaves it (unchanged: until then it was the author's reading, told to Bryan on 2026-11-19) |
+
+Nothing shipped with the earlier status line, which named the owner, so no rule reads it: a status line that
+names someone fails MV-08 like any other text (T2's `test_mv08_cut_status_line_is_fixed` holds that sample), and
+MV-12 checks the date alone, by the rule it had: a real calendar date from `created` to `updated`.
 
 **Open, for Bryan.** None.
