@@ -4,7 +4,7 @@ description: Runs a structured brainstorming session and writes a DevForgeAI bra
 argument-hint: "[topic]"
 metadata:
   devforgeai-id: "SKL-001"
-  devforgeai-version: "12"
+  devforgeai-version: "13"
 tasks:
   - "Intake: topic, existing BRNs, clarifying questions"
   - Select a framework
@@ -23,33 +23,6 @@ Run a brainstorming session on one topic and record it as a BRN document at
 problems, ideas and assumptions by ID, so the document must be structurally exact and must only
 claim decisions the user actually made.
 
-## Inputs
-
-- The arguments (the `ARGUMENTS:` line at the end of this text, when given): the topic. They may be empty; then take the topic from the conversation, or ask for it.
-- Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
-- The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
-- The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md` (or the draft path the progress
-  tracker's line on continuing names, below), the work so far, saved after steps 3 and 4 and at
-  step 5 ([work-file.md](references/work-file.md)).
-
-## Decisions that belong to the user
-
-Two decisions are the user's, never yours:
-
-- **Each idea's disposition** (`promoted`, `parked` or `rejected`) and its `reason`.
-- **Convergence**: whether the brainstorm is finished (`status: converged`).
-
-Propose both, then ask. Anything the user has not explicitly confirmed stays `disposition: open`,
-`reason: null` and `status: draft`. When no confirmation can be obtained, treat it as *not
-confirmed* and continue with those values. This happens when the user said to proceed without
-questions (and picked *Proceed without questions* in the waiver question, Intake, or it couldn't be
-asked) or no user is there to answer. Record your proposals in section 6 prose so nothing is
-lost. When the user confirms them later, after the BRN is written, don't edit from that message
-alone. Continue this run's tasks (create none): mark step 5 in_progress, ask the step-5 form,
-tagged; then mark step 6 and edit the BRN in place, step 7 and validate it again, and step 8 to
-report. An unconfirmed disposition looks valid to every structural check, and a PRD would build on a
-choice nobody made. That is why this rule matters more than any other in this skill.
-
 ## Workflow
 
 Work through this checklist:
@@ -65,6 +38,39 @@ Work through this checklist:
 - [ ] 8. Report and hand off
 ```
 
+## Decisions that belong to the user
+
+These decisions are the user's, never yours:
+
+- **Each idea's disposition** (`promoted`, `parked` or `rejected`) and its `reason`.
+- **Convergence**: whether the brainstorm is finished (`status: converged`).
+- **The first release cut**: which promoted ideas are in the first release (section 6).
+- **Each assumption update** in a brownfield BRN: its `confirmed on` status and the changed `state`.
+
+Propose them, then ask. Anything the user has not explicitly confirmed stays `disposition: open`,
+`reason: null` and `status: draft`, and the cut stays `First release cut: proposed, not confirmed`. When no confirmation can be obtained, treat it as *not
+confirmed* and continue with those values. This happens when the user said to proceed without
+questions (and picked *Proceed without questions* in the waiver question, Intake, or it couldn't be
+asked) or no user is there to answer. Record your proposals in section 6 prose so nothing is
+lost. When the user confirms them later, after the BRN is written, don't edit from that message
+alone. Continue this run's tasks (create none): mark step 5 in_progress, ask the step-5 form,
+tagged; then mark step 6 and edit the BRN in place, step 7 and validate it again, and step 8 to
+report. An unconfirmed disposition looks valid to every structural check, and a PRD would build on a
+choice nobody made. That is why this rule matters more than any other in this skill.
+
+## Inputs
+
+- The arguments (the `ARGUMENTS:` line at the end of this text, when given): the topic. They may be empty; then take the topic from the conversation, or ask for it.
+- Existing BRNs: `docs/specs/brainstorm/BRN-*.md` in the current project.
+- The template: `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`.
+- Sources: what the user gives or names as evidence, and their own statements, recorded in
+  `sources` ([intake.md](references/intake.md)).
+- The work file: `devforgeai/drafts/brainstorm/${CLAUDE_SESSION_ID}.md` (or the draft path the progress
+  tracker's line on continuing names, below), the work so far, saved after steps 3 and 4 and at
+  step 5 ([work-file.md](references/work-file.md)).
+
+## Working through the steps
+
 **Keep the checklist in the task list** when the session has task-list tools (TaskCreate and
 TaskUpdate, or TodoWrite; load them through ToolSearch if they are deferred). DevForgeAI's progress
 tracker credits an answer to a step only when the list marks that step in progress and, for a
@@ -78,8 +84,7 @@ question form, its tag names that step:
    time; a step with nothing to do is completed too. Mark step 8 completed just before writing the
    final reply, so nothing follows the hand-off.
 3. Before asking any question, mark the step it belongs to in_progress: the waiver, topic, clarifying
-   and extend-or-new questions belong to step 1; confirming dispositions and convergence belongs to step
-   5; any other question (the framework's own, saving a draft) belongs to the step whose work asks
+   and extend-or-new questions belong to step 1; confirming dispositions, convergence and the first release cut belongs to step 5; any other question (the framework's own, saving a draft) belongs to the step whose work asks
    it. Never put two steps' questions in one question form.
 4. Tag each question form with its step: AskUserQuestion's
    `metadata: {"source": "devforgeai_step:N"}`, which the user doesn't see, and `header: "Step N"`
@@ -128,22 +133,34 @@ doesn't say to proceed without questions, never ask it.
 2. **Existing BRNs.** Glob `docs/specs/brainstorm/BRN-*.md` and read each file's `title`. If one
    covers the same or a closely similar topic, show its ID, title and path and ask:
    *extend it* (version + 1, with a Change Log entry) or *create a new BRN*. Wait for the answer
-   and write nothing before it. Never overwrite an existing BRN silently.
-3. **Clarifying questions.** Ask at most three, in one message: what triggered this, who is
-   affected, and what constraints apply. Skip any the request already answers. Ask none when
+   and write nothing before it. Never overwrite an existing BRN silently. When the user's words
+   say the product exists, only a BRN whose `status` is `draft` counts as on the same topic
+   ([brownfield.md](references/brownfield.md#extend-or-new)).
+3. **Project kind.** Decide whether the product the topic is about exists (*brownfield*) or not
+   (*greenfield*) by the ordered rules in [intake.md](references/intake.md): the user's words
+   decide, and a PRD in the project only makes brownfield the recommended answer of the kind
+   question, asked alone in its own form. When it can't be asked or isn't answered, the kind stays
+   undecided and intake.md says which kind to work with. When that kind is brownfield, next read the
+   project's documents and earlier BRNs, read-only ([brownfield.md](references/brownfield.md)).
+4. **Clarifying questions.** Ask at most four, in one form: the question set intake.md gives for
+   the kind, in its order and wording. Skip any the request already answers. Ask none when
    the request says to proceed without questions and the waiver was answered *Proceed without
    questions* or couldn't be asked. Record anything still unknown as
    `[NEEDS CLARIFICATION: question]` in the document; never fill a gap with a guess.
+5. **Sources.** Record each input the user gives or names as a `sources` entry in intake.md's
+   form. Never invent a source and never fetch one.
 
 Use AskUserQuestion for questions and confirmations when it is available, tagged with its step
-(Workflow); otherwise ask in plain text and end your turn.
+(Working through the steps, item 4); otherwise ask in plain text and end your turn.
 
 ### 2. Select a framework
 
-Read `${CLAUDE_SKILL_DIR}/references/frameworks/INDEX.md`. Pick the framework the user named, or
-the one whose *use when* criteria best fit the topic; use `diverge-converge` when nothing fits
-better. Read the chosen framework file and follow it from here on. Tell the user in one
-sentence which framework you chose and why, and switch if they ask.
+Read `${CLAUDE_SKILL_DIR}/references/frameworks/INDEX.md` and take the first of its selection rules
+that matches, in the table's order: the framework the user named, else the one whose test the
+request meets, else `diverge-converge`. Ask nothing to choose. Read the chosen framework file and
+follow it from here on. Tell the user which framework and why with that rule's sentence from the
+index, word for word, as a line of its own. When the user names a framework the index lacks, or
+asks to switch, do what the index says under *A name the index lacks* and *Switching*.
 
 If the index is missing, or the chosen file is missing or lacks any section the index requires,
 fall back to `diverge-converge` and tell the user which file was the problem.
@@ -152,13 +169,19 @@ fall back to `diverge-converge` and tell the user which file was the problem.
 
 Follow the framework's steps and questions.
 
-- Frame **problems** first (`PRB-NN`), stated from the affected user's side.
+- Frame **problems** first (`PRB-NN`), stated from the affected user's side. Take each `evidence`
+  from a source and cite it, or write the marker ([intake.md](references/intake.md#citing-a-source)).
 - Capture **ideas** (`IDEA-NN`). Record the user's own ideas in their own words, alongside the
-  ideas you generate. Generate between 5 and 15 ideas unless the user asks for another number.
+  ideas you generate. Generate between 5 and 15 ideas unless the user asks for another number or the framework's *Steps*
+set their own count.
   Every idea addresses at least one problem and starts with `disposition: open`.
 - Capture **assumptions** (`ASM-NN`): beliefs the ideas depend on, each with how to validate it.
+- **Brownfield.** Keep out of `ideas` what a document read already covers or an earlier BRN rejected,
+  the user's suggestions included; list it for section 6 and tell the user. Offer earlier parked ideas
+  once and show earlier open assumptions ([brownfield.md](references/brownfield.md#already-covered)).
 
-Mark step 3 completed, then save the work file (Workflow) before marking step 4 in progress.
+Mark step 3 completed, then save the work file (Working through the steps) before marking step 4 in
+progress.
 
 ### 4. Evaluate
 
@@ -172,21 +195,34 @@ Mark step 4 completed, then save the work file again before marking step 5 in pr
 ### 5. Propose dispositions and confirm
 
 Propose a disposition and a one-line reason for each idea, and ask the user to confirm them and
-whether the brainstorm has converged. Save the work file with the proposals table first, before
+whether the brainstorm has converged. Then, before saving and asking, rank the open assumptions and
+propose the first release cut from those proposals, as [mvp-path.md](references/mvp-path.md) says. Save the work file with the proposals table first, before
 asking, or right away when no question is asked. With AskUserQuestion, put the proposals inside the form, never
-only in text before it (the dialog hides that text). One form tagged step 5 (Workflow, item 4),
-both questions with `header: "Step 5"`:
+only in text before it (the dialog hides that text). One form tagged step 5 (Working through the
+steps, item 4), every question with `header: "Step 5"`:
 1. "Confirm these dispositions?", options `Accept all as proposed` (Recommended) and `Leave them
    open`, each option's `preview` holding the table: idea ID, title, proposed disposition, reason.
    When the table is too long for a preview, list each idea's ID and proposed disposition there and
    say in the question that the reasons are in the reply. Changes come typed under Other.
 2. "Has the brainstorm converged?", options `Converged` and `Not yet`.
+3. "Confirm the first release cut?", only when the cut table has a row: options `Accept as proposed`
+   and `Leave it proposed`, each option's `preview` holding the cut's status line and table. Changes
+   come typed under Other.
+4. "Confirm these assumption updates?", only when a brownfield BRN's *Assumption updates* table has
+   a row: options `Accept all as proposed` and `Leave them proposed`, each option's `preview` holding
+   the table. Changes come typed under Other.
 
 Without AskUserQuestion, present the table in plain text and ask. Then:
 
 - Accept all writes every proposal; Leave them open writes none; typed changes write the dispositions
   the text states; write no other disposition, and leave every other idea `open` with `reason: null`.
 - Set `status: converged` only on *Converged*; otherwise `draft`.
+- Write the cut as `confirmed on <today>` only on *Accept as proposed* or typed changes, and only
+  when every idea in its table is then `promoted`; otherwise it stays `proposed, not confirmed`
+  ([mvp-path.md](references/mvp-path.md#confirm-the-cut)).
+- **Brownfield.** Before the form, propose assumption updates, each from a stated fact with a source.
+  A row is `confirmed on <today>` only on *Accept all as proposed* or typed text confirming it;
+  else `proposed, not confirmed` ([brownfield.md](references/brownfield.md#assumption-updates)).
 
 If the user stops partway through the session, ask whether to save what has been captured as a
 draft BRN. If yes, first save the work file once more with its `id` set to the ID the draft BRN gets
@@ -202,7 +238,11 @@ disposition `open`, and don't run the validator on it. If no, write nothing more
    Create `docs/specs/brainstorm/` if it is missing, and say that you created it.
 2. **Build from the template.** Read `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`. Keep every section
    heading. Replace every placeholder with content or with a `[NEEDS CLARIFICATION: …]` marker.
-   Replace the example items with the real ones. Delete every HTML comment.
+   Replace the example items with the real ones. Delete every HTML comment. Write the assumption risk
+   ranking into section 7 and the first release cut into section 6 exactly as step 5 left them. Write the project-kind
+   line, section 3's table and section 8's bullets as [intake.md](references/intake.md) says, and
+   keep or delete the template's brownfield-only parts as its first comment says. Fill the parts
+   kept as [brownfield.md](references/brownfield.md) says.
 3. **Frontmatter.**
    - `id`: the allocated ID. `title`: the descriptive topic. `version: 1`.
    - `created` and `updated`: today's date as `YYYY-MM-DD`.
@@ -213,7 +253,10 @@ disposition `open`, and don't run the validator on it. If no, write nothing more
    - `generated_by`: `tool: "claude-code"`, `model:` your own model ID (for example
      `"claude-opus-5-5"`), `session: "${CLAUDE_SESSION_ID}"`: the latest session to write the BRN.
    - `reviewed_by: []`, `approved_by: ""`, `approved_on: null`. Every `hash` is `null`.
-   - `upstream`, `participants` and `sources`: fill from the conversation, or leave them empty.
+   - `upstream`: in a brownfield run, one `informed_by` record per document read (brownfield.md);
+     otherwise fill from the conversation, or leave it empty.
+   - `participants`: fill from the conversation, or leave it empty.
+   - `sources`: the entries recorded since step 1, in intake.md's form; `[]` when there is none.
 4. **Change Log.** One row: version, today's date, `claude-code (session ${CLAUDE_SESSION_ID})`,
    what changed. The session ID is the name of the conversation's transcript, so
    `claude --resume` with that ID reopens the conversation behind that version.
@@ -223,7 +266,8 @@ requirements cite these IDs. Give new items the next free number in their collec
 item by setting `status: deprecated` (plus `superseded_by` if replaced), never by deleting or
 renumbering it. Bump `version`, set `updated`, set `generated_by.session` to this session, and
 add a Change Log row naming this session. Never edit earlier Change Log rows: they keep the
-sessions that wrote earlier versions.
+sessions that wrote earlier versions. A BRN without the `Project kind:` line keeps its earlier shape
+when extended: add none of intake.md's shapes to it.
 
 Read [output-rules.md](references/output-rules.md) before writing: it defines the frontmatter
 keys, ID patterns, item-block rules and allowed fields.
@@ -246,7 +290,10 @@ keys, ID patterns, item-block rules and allowed fields.
 2. The validator can't know what the user confirmed. After it passes, read the file back and
    check that every disposition other than `open`, and `status: converged`, is one the user
    confirmed in step 5. Reset anything else to `disposition: open` with `reason: null`, or to
-   `status: draft`.
+   `status: draft`. The cut's status line says `confirmed` only when the user confirmed the cut in step 5;
+   otherwise reset it to `First release cut: proposed, not confirmed`. In a brownfield BRN, check the same way every `confirmed on` cell under
+   *Assumption updates* and every assumption `state` this run changed: reset an unconfirmed one to
+   `proposed, not confirmed` and to the state it had.
 3. Fix every problem found, then run the checks again. Stop after three attempts.
 4. If errors remain after three attempts, set `status: draft`, stop, and list the remaining
    errors with the file path.
@@ -260,15 +307,21 @@ the user reads:
    checklist.
 
    ```
-   BRN-NNN written to docs/specs/brainstorm/BRN-NNN.md (framework: [name])
+   BRN-NNN written to docs/specs/brainstorm/BRN-NNN.md (framework: [name]; project kind: [kind])
    Problems: N · Ideas: N · Assumptions: N
    Promoted: IDEA-NN, … | none confirmed yet (proposals are in section 6)
+   First release: IDEA-NN, … (confirmed) | IDEA-NN, … (proposed, not confirmed) | none
    Open questions: [each NEEDS CLARIFICATION marker and open assumption, briefly]
    ```
 
 2. Any discussion.
 3. The next step, as its own paragraph outside any code block, starting with the words
    **Next step**. Nothing follows it.
+
+`[kind]` is `greenfield`, `brownfield`, or `not settled` when section 1 holds the NEEDS CLARIFICATION
+form. `First release:` lists the ideas whose row in the first release cut says `yes`, then the cut's
+status in brackets; `none` when no row says `yes`. For an earlier-shape BRN (no `Project kind:` line),
+leave out `; project kind: [kind]` and the `First release:` line.
 
 For the next step, check whether `${CLAUDE_SKILL_DIR}/../prd/SKILL.md` exists:
 
@@ -289,12 +342,14 @@ Do not start writing a PRD.
   no author comments.
 - **Data:** only the `problems`, `ideas` and `assumptions` collections with their defined fields
   ([output-rules.md](references/output-rules.md)).
-- **Decisions:** dispositions and `status: converged` appear only when the user confirmed them.
+- **Decisions:** dispositions, `status: converged` and a `confirmed` first release cut appear only when
+  the user confirmed them.
 
 ## Examples
 
 **Named topic, user answers.** User: "Let's brainstorm how our dental clinic could cut no-shows."
-1. The skill asks up to three questions (trigger, who is affected, constraints) and picks
+1. The skill asks whether the product exists, then up to four questions (trigger, who is affected,
+   constraints, evidence), and picks
    `diverge-converge`, saying why.
 2. It captures 3 problems, 10 ideas (two in the user's own words) and 4 assumptions, and
    rates them.
@@ -307,8 +362,8 @@ Do not start writing a PRD.
 AskUserQuestion); on *Ask me as usual* it asks as in the first example. On *Proceed without
 questions*, or with no question tool, it asks nothing more, except the topic or extend-or-new when
 open, and records unknowns as
-`[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, and puts
-its proposals in section 6. Its final reply says the user can confirm them later; when the user
+`[NEEDS CLARIFICATION]`. It writes every idea with `disposition: open` and `status: draft`, puts
+its proposals in section 6, and leaves the first release cut `proposed, not confirmed`. Its final reply says the user can confirm them later; when the user
 replies, it marks step 5 again, asks the step-5 form, and only then edits the BRN, validates it
 again and reports.
 
@@ -322,4 +377,10 @@ one. It writes nothing until the user answers.
 - [references/output-rules.md](references/output-rules.md): read before step 6.
 - [references/work-file.md](references/work-file.md): read before the first save at step 3, and when
   continuing an earlier run.
+- [references/intake.md](references/intake.md): read at step 1, before deciding the project kind:
+  the kind rules, the question sets, the form of `sources`, and sections 3 and 8.
+- [references/brownfield.md](references/brownfield.md): read at step 1 when the kind is brownfield:
+  what to read, what is kept out of `ideas`, parked ideas and assumption updates.
+- [references/mvp-path.md](references/mvp-path.md): read at step 5, before the work file is saved. It
+  holds the assumption risk ranking, the first release cut and how the cut is confirmed.
 - `scripts/validate_brn.py`: run at step 7; it applies the output rules mechanically.

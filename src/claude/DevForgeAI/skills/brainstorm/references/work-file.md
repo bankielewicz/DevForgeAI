@@ -24,13 +24,15 @@ Before the first write, when `devforgeai/drafts/.gitignore` is missing, write it
 
 ## When to write it
 
-Write the whole file with the Write tool, three times:
+Write the whole file with the Write tool, three times (and once more, as at point 3, after a
+framework switch that redoes the evaluation):
 
 1. After marking step 3 completed and before marking step 4 in progress: problems, ideas and
    assumptions.
 2. After marking step 4 completed and before marking step 5 in progress: the evaluation and scores
    added.
-3. With step 5 in progress, once the proposals are made: before asking step 5's question, or, when no
+3. With step 5 in progress, once the proposals are made, the assumptions ranked and the first release
+   cut proposed ([mvp-path.md](mvp-path.md)): before asking step 5's question, or, when no
    question is asked (the waiver's *Proceed without questions*, or no AskUserQuestion), right away.
 
 When the user stops and agrees to save a draft BRN (ERR-02), first write the work file (again, or for
@@ -52,9 +54,21 @@ Build it from `${CLAUDE_SKILL_DIR}/assets/brainstorm.md`, as step 6 builds the B
 - `generated_by.session` and the Change Log: this session's ID and one row for this session, as step 6
   writes them; when extending, the BRN's existing rows are kept above it. Every save sets both to this session.
 - Every idea `disposition: open`, `reason: null`. A proposal is never a disposition value.
-- Sections not reached yet hold `[NEEDS CLARIFICATION: not reached]`.
+- Sections not reached yet hold `[NEEDS CLARIFICATION: not reached]`, except section 5: from the first
+  save on it holds the chosen framework's method text, which tells a continued run the framework in use.
 - Step 5's proposals, once made, as a table in section 6 (Convergence): idea ID, title, proposed
   disposition, reason. Write it in table cells only, never as a `disposition:` line.
+- The project-kind line, the frontmatter `sources` and section 3's table from the first save, and
+  section 8's bullets at the step-5 save, each as [intake.md](intake.md) gives it. While the kind
+  is not decided, section 7 holds the bullet that names the kind the run works as, from the first save.
+- In a brownfield run, from the first save: section 1's *Existing product*, the `upstream` records,
+  and in section 6, after the not-reached marker, *Already covered* and *Previously decided*. At the
+  step-5 save: *Assumption updates*, every row `proposed, not confirmed`
+  ([brownfield.md](brownfield.md)).
+- From the save at step 5 on: the assumption risk ranking in section 7 and the first release cut in
+  section 6, the cut's status line always `First release cut: proposed, not confirmed`. A confirmed cut
+  is never written into the work file. Before that save, neither heading is written. A continued run
+  keeps both tables as its work file holds them, and asks step 5 from them.
 - No HTML comments.
 
 When extending, start from the existing BRN's content with every item ID kept.
@@ -65,7 +79,11 @@ When the progress tracker's line that continues an earlier brainstorm run says "
 
 1. Load that file and save to it from then on, at the same points as above (the saves before step 4
    and step 5 are made only when the run reaches those points). Keep its problems, ideas, assumptions,
-   scores and IDs. A draft that can't be read counts as none: continue as the line says.
+   scores and IDs, and its framework: the one whose method text opens its section 5 (with none there,
+   select at step 2 as usual). Keep its project-kind line, its `sources` and its section 3 too, and don't ask the kind
+   question or the clarifying questions again. A brownfield run reads the project's documents again,
+   keeps the file's section 6 rows, and offers parked ideas only when the file has no
+   `### Previously decided` heading. A draft that can't be read counts as none: continue as the line says.
 2. When its `id` is a BRN's ID, step 6 extends that BRN (version + 1, a Change Log row for this
    session) without asking extend-or-new again; otherwise step 6 allocates the ID as usual.
 3. Follow every other sentence of the line as written: the tracker decides which step is asked and

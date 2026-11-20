@@ -30,6 +30,15 @@ Entries start with the epic skill. Earlier work is described in each specificati
 
 ### Added
 
+- `/devforgeai:brainstorm` fits a new product and one that already exists. It chooses among five frameworks
+  (`shortlist-ranking`, `risk-first-mvp`, `improve-existing`, `problem-reframing` and `diverge-converge`) by fixed
+  rules and says why; settles whether the product exists, then asks up to four clarifying questions for that kind;
+  records the sources it used and cites them as evidence; and fills the Target users and Candidate success signals
+  sections. For a product that exists it reads the project's PRDs, architecture, epics and earlier brainstorms
+  without changing them, keeps out ideas they already cover or rejected, and proposes assumption updates for you to
+  confirm. It ranks the open assumptions by risk and proposes a first release cut for you to confirm, and its
+  report names the project kind and the first-release ideas. A brainstorm written before this version stays valid
+  and keeps its shape when extended (SPEC-001 version 19, SKL-001 v13, plugin 0.36.0).
 - `/devforgeai:brainstorm` lists its eight checklist steps under `tasks:` in its frontmatter, so the Taskmaster mod
   can seed a run's task list and show its progress. The titles are the checklist's own lines, so the list Taskmaster
   asks Claude to track names the same tasks the skill does. Without Taskmaster, Claude Code ignores the key (SPEC-001
