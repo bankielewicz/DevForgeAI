@@ -1099,8 +1099,13 @@ already accepts. A BRN written before this version has no project-kind line, is 
 shape when it is extended (BEH-20). The template is replaced whole, in `assets/` and in its copy
 `src/templates/brainstorm.md`. ADR-003 version 3 makes the clarifying-question limit four (BEH-21). What the PRD
 skill does with the new shapes is specified apart, for SPEC-002's next version (prd-handoff-contract.md), and is
-not part of this version. Rolling back is returning to SKL-001 v12; the BRNs written meanwhile stay valid under
-its validator. The plugin version of the build is Bryan's to choose (§13).
+not part of this version. Until that version is built, the PRD skill as it stands (SKL-002 v6) reads a new-shape
+BRN by its own rules: it takes requirements only from ideas whose `disposition` is `promoted` and leaves every
+`priority` and `release` null until the user decides (its `references/brn-mapping.md`), so no rule of it turns a
+first release cut, proposed or confirmed, into scope. That is read from its text on 2026-11-20 and not run: no
+PRD eval case uses a new-shape BRN, and §11 gives the live check. Rolling back is returning to SKL-001 v12; the
+BRNs written meanwhile stay valid under its validator. The plugin version of the build is Bryan's to choose
+(§13).
 
 ## 11. Implementation plan
 
@@ -1163,7 +1168,12 @@ at xhigh effort (Bryan, 2026-11-18: "skill-build is to be using opus 5.5 xhigh")
    check` reports the manifest matched; plugin-validator and skill-reviewer review the final commit.
 4. Evaluate cheapest first, in worker1: the new cases with `--runs 1 --ablation none`, then the suite with
    `--runs 1`, then 3 runs with the baseline, since the waivers end with this version (§9).
-5. Run the manual items VER-24, VER-29, VER-34 and VER-38 live, on Bryan's word.
+5. Run the manual items VER-24, VER-29, VER-34 and VER-38 live, on Bryan's word. With them, before the build
+   merges and on his word too, run the PRD skill as it stands (SKL-002 v6) on the staged example
+   `brainstorm-greenfield-mvp`, twice: on its BRN as staged, whose cut is confirmed, and on a copy whose status
+   line reads `First release cut: proposed, not confirmed`. Each run passes when no requirement comes from an
+   idea that is not promoted, every `release` and `priority` stays null until the user decides, and the cut is
+   nowhere written as decided scope. Record the result in §9.
 6. Update the records the build makes false, as documents only: PRD-001's next version drops the non-goal on
    building the catalog's frameworks and the words "not built" in FR-002's note; `docs/backlog.md` closes
    DEF-007 to DEF-010 and the report-block half of DEF-011; §9 here and CLAUDE.md record the build.
@@ -1223,6 +1233,11 @@ at xhigh effort (Bryan, 2026-11-18: "skill-build is to be using opus 5.5 xhigh")
   four questions; the cut question asked once more; the kind question in plain text; and work done after the BRN
   is written, when step 5 is marked again for a confirmation that arrives late (BEH-32 item 7) or the BRN is
   edited in place for a covered suggestion the user adds late (BEH-26).
+- Open (version 19): the PRD skill as it stands on a new-shape BRN. Between this build and SPEC-002's next
+  version, `/devforgeai:prd` (SKL-002 v6) reads BRNs that hold a first release cut it knows nothing of. By its
+  text it can't take the cut as scope (§10). NOT_RUN: the two live runs of §11 step 5. If a run shows the cut
+  written as decided scope, the PRD side (prd-handoff-contract.md) is built before the brainstorm build merges,
+  or with it; that order is Bryan's to decide.
 - Noted (version 19): STORY-001, which this spec specifies, is not in this repository, so the acceptance criterion
   each of VER-18 to VER-39 names is the one the earlier item nearest to it names: AC-04 for the framework items
   (as VER-04 and VER-05), AC-06 for intake and for what a brownfield run reads (as VER-07), AC-01 for the
@@ -1387,3 +1402,4 @@ at xhigh effort (Bryan, 2026-11-18: "skill-build is to be using opus 5.5 xhigh")
 | 19 | 2026-11-20 | claude-code (session fa59a935-ed2e-4502-b6c4-93bb6d847546) | Bryan's request of 2026-11-18 ("the brainstorming skill is to handle both brownfield and greenfield projects") and his approval of the enhancement specs on 2026-11-19 ("I approve the enhancement specs in PR #172 at 7deb4d4, including both readings"; "draft the enhancement spec on Fable 5.2 against updated main, preserving Taskmaster's eight checklist titles"): this version takes in `docs/specs/brainstorming/`. New: BEH-15 to BEH-34, ERR-06 to ERR-10 and VER-18 to VER-39, word for word from the documents; §4's rules for reading the documents with this spec, and the fixed shapes of a new-shape BRN. Changed: BEH-01 (the project kind; four questions), BEH-05, BEH-06, BEH-08 to BEH-11, BEH-14, ERR-01, QR-01 and VER-13; BEH-03 deprecated for BEH-15; VER-04 and VER-05 also cover BEH-15; §1 to §5 and §9 to §13. Two changes to the approved text, for the `tasks:` list of version 18 (§13): BEH-16's bound and a test. The links to PRD-001 moved to version 16 (NFR-001 to NFR-003 read the same as in version 11); ADR-003 version 3 linked. Written on the model Fable 5.2. Awaiting Bryan's approval | §1 to §13 |
 | 19 | 2026-11-20 | claude-code (session fa59a935-ed2e-4502-b6c4-93bb6d847546) | After an independent review on the model Fable 5.2: §4's reading rules 2, 4 and 5 (a dotted section number is the document's, a whole number the BRN's; where a version-19 sentence differs from the item it cites, the item governs); BEH-03 names BEH-19 too; BEH-06 keeps edit B-P3's text whole; BEH-08's shapes hold for a kind decided or worked with; BEH-14 and §4 limit the extra save to a switch made after step 3 and say what else the work file holds; QR-03 allows for unit items; §11 step 6, the records the build makes false; §13's Taskmaster entry lists every new question and what is not run live. A third change to the approved text (§13): BEH-32's item 5 gains the ask for the owner's name, here and in mvp-and-prototype-path.md. Awaiting Bryan's approval | §3, §4, §6, §8, §11, §13 |
 | 19 | 2026-11-20 | claude-code (session fa59a935-ed2e-4502-b6c4-93bb6d847546) | After the review's confirm pass: §4's rule 2 says what "today" means in each place, whose section BEH-20's "(section 3.2)" is and whose tests VER-24 names; §4's sentence on the work file gives the Assumption updates table to a brownfield run only; §13's entry on BEH-32's item 5 says which text cited the item. Awaiting Bryan's approval | §4, §13 |
+| 19 | 2026-11-20 | claude-code (session fa59a935-ed2e-4502-b6c4-93bb6d847546) | The time between this build and the PRD skill's (SPEC-002's next version): §10 says what the PRD skill as it stands does with a new-shape BRN, read from its text and not run; §11 step 5 adds two live runs of it before the build merges, on Bryan's word; §13 records them as NOT_RUN. Awaiting Bryan's approval | §10, §11, §13 |
