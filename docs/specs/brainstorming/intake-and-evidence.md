@@ -1239,6 +1239,14 @@ file's frontmatter keys, separated by semicolons: `tool`, `input_match` (written
 `writes-valid-brn/graders/ran-validator-alone.md` does), `min`, `max`; or `path`, `exists`. No eval can answer a
 question (R5), so every prompt says to proceed without questions and the graders check the unconfirmed forms.
 
+Each grader is the file `graders/<name>.md`. A case whose item gives a scaffold also holds `case.yaml`, in the
+form of `existing-brn/case.yaml` with its own `name`, and `scaffold.sh`, a bash script in the form of
+`existing-brn/scaffold.sh`: it writes exactly the files the item names, each from a quoted here-document, and
+reads nothing from the repository. Where the item gives a file as "byte for byte" a staged file, the script
+holds that file's bytes; the staged path is under `docs/specs/brainstorming/`. A case whose item says
+`scaffold: none` holds neither file. (Added 2026-11-20, before the build, so that every builder lays the cases
+out the same way; no item changed.)
+
 ```yaml items
 verifications:
   - id: VER-25

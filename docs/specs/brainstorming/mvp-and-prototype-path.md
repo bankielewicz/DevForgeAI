@@ -851,7 +851,8 @@ below, two empty lines, then that line.
 | `src/claude/DevForgeAI/evals/brainstorm/ranks-assumptions-by-risk/` | VER-36 (§5.1) |
 
 Each eval case's `prompt.md` has the frontmatter of `no-unconfirmed-dispositions/prompt.md` with its own
-`description` and `tags: [brainstorm, ver-35]` or `[brainstorm, ver-36]`. Each grader file has the frontmatter
+`description` (the obligation's first sentence, as intake-and-evidence.md's section 5 says) and
+`tags: [brainstorm, ver-35]` or `[brainstorm, ver-36]`. Each grader file has the frontmatter
 keys the item gives (`type`, `target`, `match`, `flags`; an `llm` grader with `focus`) and the pattern or the
 question as its body.
 

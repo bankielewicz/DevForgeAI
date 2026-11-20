@@ -671,6 +671,12 @@ errors:
 `{ITEM}` in a pattern below is the generator's `ITEM` (the rest of one item's lines, never the next item); the
 patterns are shown with it expanded. `PRD` is `docs/specs/prd/PRD-001.md`.
 
+VER-39's case is a hand-written brainstorm case, laid out by the conventions of intake-and-evidence.md's section
+5: its `prompt.md` has the frontmatter `description` (the obligation's first sentence), `tags: [brainstorm,
+ver-39]`, `max_turns: 60`, `timeout_seconds: 900` and `allowed_tools: [Skill, Read, Glob, Grep, Write, Edit,
+Bash]`, and each grader is `graders/<name>.md` with the keys the item gives, `flags` among them. (Added
+2026-11-20, before the build; the item is unchanged.)
+
 ```yaml items
 verifications:
   - id: VER-39
