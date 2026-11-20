@@ -2,10 +2,10 @@
 id: SPEC-001
 type: spec
 title: "Brainstorm skill (MVP)"
-status: approved
-version: 18
+status: in-review
+version: 19
 created: 2026-09-22
-updated: 2026-11-19
+updated: 2026-11-20
 owner: "Bryan"
 authors: ["Bryan", "claude-code"]
 generated_by:
@@ -17,10 +17,11 @@ approved_by: "Bryan"
 approved_on: 2026-11-19
 upstream:
   - {id: STORY-001, relation: specifies, version: 4, hash: null}
-  - {id: PRD-001, item: NFR-001, relation: constrains, version: 11, hash: null}
-  - {id: PRD-001, item: NFR-002, relation: constrains, version: 11, hash: null}
-  - {id: PRD-001, item: NFR-003, relation: constrains, version: 11, hash: null}
+  - {id: PRD-001, item: NFR-001, relation: constrains, version: 16, hash: null}
+  - {id: PRD-001, item: NFR-002, relation: constrains, version: 16, hash: null}
+  - {id: PRD-001, item: NFR-003, relation: constrains, version: 16, hash: null}
   - {id: ADR-001, relation: constrains, version: 4, hash: null}
+  - {id: ADR-003, relation: constrains, version: 3, hash: null, note: "the document contract (a disposition in a BRN, priority in the PRD only) and the clarifying-question limit, four (BEH-21)"}
   - {id: SPEC-012, relation: constrains, version: 18, hash: null, note: "the task-list convention (§4) the workflow checklist follows"}
   - {id: SPEC-013, relation: constrains, version: 28, hash: null, note: "BEH-31's and BEH-39's line on continuing, which names the draft a continued run keeps (BEH-14)"}
 supersedes: []
@@ -40,9 +41,9 @@ conversational session: take in the topic, capture problems and ideas, evaluate 
 selected framework, propose dispositions, **have the user confirm them**, then write a BRN
 document from the brainstorm template, validate it and hand off.
 
-Brainstorming frameworks are **reference files the skill selects from**. The MVP ships the
-extension point and one default framework. The catalog is chosen later (PRD-001 §12), and
-adding a framework never changes `SKILL.md`.
+Brainstorming frameworks are **reference files the skill selects from**. The MVP shipped the
+extension point and one default framework; version 19 adds the catalog Bryan chose (PRD-001
+version 16, §12). Adding a framework never changes `SKILL.md`.
 
 This skill implements the spec and is recorded as `SKL-001` in its `provenance.yaml`.
 
@@ -80,6 +81,28 @@ the BRN validates, the BRN is the record and the progress tracker deletes the wo
 should be pruned eventually, since the brainstorm document will serve as the provenance root"); its folder is kept out
 of git.
 
+**Version 19** (2026-11-20) makes the brainstorm fit a new product and one that already exists (Bryan, 2026-11-18:
+"the brainstorming skill is to handle both brownfield and greenfield projects"). It takes in the enhancement specs
+Bryan approved on 2026-11-19, the documents in `docs/specs/brainstorming/` (pull request #172); §4 says how they
+belong to this spec.
+
+- **Five frameworks**, and six rules, taken in order, that select one. `SKILL.md` is reordered so that the task list
+  comes first (BEH-15 to BEH-19, ERR-06).
+- **Intake and evidence.** Step 1 decides the project kind, greenfield or brownfield, and the BRN records it. Each
+  kind has its own question set, of at most four questions. The sources a brainstorm used are listed and cited where
+  a fact is stated. Target users and Candidate success signals get fixed forms (BEH-20 to BEH-24, ERR-07).
+- **Brownfield runs** read the project's earlier BRNs, PRDs, epics and architecture document. A suggestion that
+  one of them already covers, or that an earlier BRN rejected, is listed and kept out of `ideas` unless the user
+  says to add it. Parked ideas are offered once. Earlier assumptions can be updated, each on the user's
+  confirmation (BEH-25 to BEH-29, ERR-08, ERR-09).
+- **A path to a first release.** The open assumptions are ranked by risk, each with its cheapest test, and a first
+  release cut is proposed, which only the user confirms (BEH-30 to BEH-33, ERR-10).
+- **The report** names the project kind and the first-release ideas (BEH-34).
+
+A BRN gains no field and no collection: the new information is written in fixed forms inside the existing sections
+(§4), and a BRN written before this version stays valid. The workflow checklist's eight lines, and the `tasks:`
+list that repeats them (version 18), don't change.
+
 ## 2. Constraints
 
 - **NFR-001:** `SKILL.md` stays short. Framework detail, output rules and examples live in
@@ -87,6 +110,11 @@ of git.
 - **NFR-002:** the frontmatter follows the Agent Skills spec plus Claude Code fields only.
   Provenance lives in the sidecar, and `metadata` holds only the two quoted DevForgeAI keys.
 - **NFR-003:** behavior is proven by the eval suite in §9, not by inspecting the instructions.
+- **Version 19's rules** (`docs/specs/brainstorming/README.md` §3, R1 to R3). A BRN gains no collection and no
+  field, and its frontmatter keys stay the same (R1). `SKILL.md`'s eight checklist lines and its `tasks:` list
+  don't change, and `SKILL.md` stays at or under 400 lines (R2). Only the user's explicit answer writes a
+  disposition, `status: converged`, an assumption's `state` other than `open`, a confirmed first release cut or a
+  confirmed assumption update (R3).
 
 ## 3. Architecture and components
 
@@ -102,16 +130,27 @@ src/claude/DevForgeAI/                    # plugin source (ADR-001); deployed to
 │   │   └── validate_brn.py               # standard-library validator for the output rules (BEH-09)
 │   └── references/
 │       ├── output-rules.md               # YAML item-block rules (quoting, IDs, one key per fence)
+│       ├── work-file.md                  # the work file's shape (BEH-14)
+│       ├── intake.md                     # version 19: the project kind, the question sets, sources, sections 3 and 8
+│       ├── brownfield.md                 # version 19: what a brownfield run reads and records
+│       ├── mvp-path.md                   # version 19: the assumption risk ranking and the first release cut
 │       └── frameworks/
-│           ├── INDEX.md                  # catalog: one row per framework, with selection criteria
-│           └── diverge-converge.md       # MVP default framework
+│           ├── INDEX.md                  # catalog: one row per framework; version 19: the selection rules
+│           ├── diverge-converge.md       # MVP default framework
+│           ├── shortlist-ranking.md      # version 19
+│           ├── risk-first-mvp.md         # version 19
+│           ├── improve-existing.md       # version 19
+│           └── problem-reframing.md      # version 19
 └── evals/brainstorm/                     # eval cases, one per VER item (§9)
 ```
+
+The skill's unit tests are in `src/tests/brainstorm/`: `test_validate_brn.py`, and from version 19
+`test_structure.py` (VER-18).
 
 ```mermaid
 flowchart LR
     U[User request] --> I[Intake BEH-01]
-    I --> F[Select framework BEH-03]
+    I --> F[Select framework BEH-15]
     F --> D[Diverge BEH-05]
     D --> E[Evaluate]
     E --> C[Propose dispositions BEH-06]
@@ -127,7 +166,8 @@ The skill has no database. It has two data contracts, and a work file:
 
 **Output: the BRN document.** Written to `docs/specs/brainstorm/BRN-NNN.md` from the brainstorm
 template. The file name is the ID only; the topic lives in the document's `title`. It must validate against `src/schemas/brainstorm.schema.json`. It uses only the
-`problems`, `ideas` and `assumptions` collections and their defined fields.
+`problems`, `ideas` and `assumptions` collections and their defined fields. From version 19 a BRN the skill creates
+is a *new-shape BRN*: it also holds the fixed shapes given below, as plain Markdown inside its existing sections.
 
 **Work file: the run's draft (version 16).** Written to `devforgeai/drafts/brainstorm/<session ID>.md`, or, in a run
 that continues an earlier one, to the draft the progress tracker's line names (BEH-14, version 17), in
@@ -141,7 +181,9 @@ kept (BEH-11). BEH-08's rule that every placeholder is replaced doesn't hold for
 copy: nothing downstream reads it and the validator doesn't check it. The progress tracker, not the skill, deletes it:
 a run's work files once its step 7 is done, and any work file older than the tracker's retention period, as old runs
 are pruned (SPEC-012 version 15, SPEC-013 version 20). Where the tracker doesn't run, work files stay in the ignored
-folder until the user removes them.
+folder until the user removes them. From version 19 the work file also names the framework in section 5 from its
+first save, is saved once more after a switch of framework, and from the step-5 save on holds the assumption risk
+ranking and the first release cut, the cut always in its proposed form (BEH-15, BEH-19, BEH-33).
 
 **Extension point: a framework reference.** Each file in `references/frameworks/` has these sections,
 in order:
@@ -155,10 +197,218 @@ in order:
 | Evaluation method text | The sentence written into the BRN's evaluation-method section |
 | Example | One short worked input and output |
 
-`INDEX.md` is a table with columns *framework, file, use when, avoid when*. `SKILL.md` links only
-to `INDEX.md` and `output-rules.md`. Framework files are reached through the index, which the
-skill reads first. That is one level of indirection, accepted so that adding a framework
+`INDEX.md` holds a table with columns *framework, file, use when, avoid when* and, from version 19, the
+selection rules, the names a user may use, the six section headings every framework file has, what to say for a
+name the index lacks, and how a switch is made (BEH-15, BEH-17, BEH-19, ERR-06). `SKILL.md` links to `INDEX.md`
+and to the skill's other reference files, never to a framework file. Framework files are reached through the
+index, which the skill reads first. That is one level of indirection, accepted so that adding a framework
 touches only the index and the new file.
+
+**The enhancement documents (version 19).** Version 19's requirements were written as six documents in
+`docs/specs/brainstorming/`, which Bryan approved on 2026-11-19 ("I approve the enhancement specs in PR #172 at
+7deb4d4, including both readings") and which were checked again on 2026-11-20 against the skill as version 18
+left it. They are part of this spec:
+
+| Document | Its items in this spec | What only the document holds |
+|---|---|---|
+| `README.md` | Rules R1 to R10 (its §3); the fixed shapes C-01 to C-11 and the gate (its §4, repeated below) | Where each staged file goes (its §7); the build's order (its §8) |
+| `framework-catalog.md` | BEH-15 to BEH-19, ERR-06, VER-18 to VER-24 | The edits to `SKILL.md` and three reference files; `test_structure.py`; five eval cases; the staged index and framework files |
+| `intake-and-evidence.md` | BEH-20 to BEH-24, ERR-07, VER-25 to VER-29 | The question sets and their tests; checks IV-01 to IV-07; three eval cases; the staged `intake.md` and template |
+| `brownfield-iteration.md` | BEH-25 to BEH-29, ERR-08, ERR-09, VER-30 to VER-34 | The tests for "already covered" and "previously decided"; checks BV-01 to BV-05; three eval cases; the staged `brownfield.md` and example |
+| `mvp-and-prototype-path.md` | BEH-30 to BEH-33, ERR-10, VER-35 to VER-38 | The ranking and cut rules worked through; checks MV-01 to MV-12; two eval cases; the staged `mvp-path.md` and example |
+| `prd-handoff-contract.md` | BEH-34, VER-39 | Step 8's edits and one eval case. Its other items are proposals for SPEC-002 and are not part of this spec |
+
+The documents and this spec are read together by these rules:
+
+1. The text of each item BEH-15 to BEH-34, ERR-06 to ERR-10 and VER-18 to VER-39 in §6, §7 and §9 is its document's
+   text, word for word, with a closing note that names the document and section it comes from. A rule the
+   document gives as a list is joined into one string. An eval item's prompt, scaffold and graders stay in the
+   document, and the item here names where.
+2. In such an item, "section N" or "§N" with no document named is a section of the document its closing note
+   names. R1 to R10 and C-01 to C-11 are the README's. "SPEC-001 BEH-NN" is this spec's item.
+3. The documents hold what the build copies or applies: the exact edits to the skill's files, the staged files,
+   the validator's checks with their code and tests, each eval case, the worked examples, and the decisions with
+   Bryan's words. The build follows them as written.
+4. Where an item here and the same item in its document differ, this spec's text governs and the document is
+   corrected to match; a change of an item's meaning needs a version of this spec.
+5. An item is `active` here. The documents, written as proposals, say `proposed`, and give each item two more
+   keys: `changes`, which the earlier items of §6 and §7 now carry, and `lands_in`, which is build detail.
+
+**Fixed shapes in a new-shape BRN (version 19).** What follows is the README's §4, in its words; "today's
+`validate_brn.py`" there is the validator of SKL-001 v12.
+
+Every shape is plain Markdown inside an existing section and valid for today's `validate_brn.py`.
+`[NEEDS CLARIFICATION: <question>]` may stand for a cell or value that is unknown, with these exceptions, which
+the owners' documents fix: no cell of C-05 holds one, no cell of C-07 other than `Cheapest test` does, and a C-11
+`Evidence` cell never does. The document named with a shape owns its rules; this section fixes only the form.
+
+**C-01. Project kind** (section 1; intake-and-evidence). The first line under `## 1. Context` is exactly one of:
+
+```text
+Project kind: greenfield
+Project kind: brownfield
+Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]
+```
+
+followed by a blank line and the context prose. *Brownfield*: the product the topic is about exists (it is built
+or in use). *Greenfield*: it does not. The user's words decide; what the project folder holds only suggests.
+
+With the third line, and only then, section 7 holds exactly one bullet that says which kind the run worked as
+(Bryan, 2026-11-19: "Record that the kind is still undecided."):
+`- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]`, or the same with
+`worked as brownfield`. Check IV-07 requires it while the kind is undecided and rejects it once the kind line
+says `greenfield` or `brownfield`. A BRN whose bullet says `worked as brownfield` holds the brownfield shapes.
+
+**C-02. Existing product** (section 1, brownfield only, after the context prose; brownfield-iteration):
+
+```markdown
+### Existing product
+
+| Document | Version | What it already covers |
+|---|---|---|
+| PRD-001 | 3 | Online booking for returning patients (FR-001 to FR-006) |
+```
+
+One row per document read; `Document` is a document ID. With no document read, the table is replaced by the line
+`No document was found in the project.` After the table or that line, one line `Skipped: <path> (<reason>)` for
+each document that could not be used.
+
+**C-03. Target users** (section 3; intake-and-evidence). Exactly this table, one row per distinct `who` value of
+the active problems, the persona cell equal to that value character for character, rows in the order the values
+first appear:
+
+```markdown
+| Persona | Job to be done | Current workaround | Pain |
+|---|---|---|---|
+| Returning patient | Keep a check-up booked weeks ahead | A paper card on the fridge | Forgets, then pays a missed-visit fee |
+```
+
+**C-04. Convergence prose** (section 6; unchanged from SPEC-001). What was promoted, parked and rejected and why;
+before confirmation, the paragraph starting `Proposed, awaiting confirmation:`.
+
+**C-05. First release cut** (section 6, after C-04; mvp-and-prototype-path):
+
+```markdown
+### First release cut
+
+First release cut: proposed, not confirmed
+
+| Idea | In first release | Why |
+|---|---|---|
+| IDEA-01 | yes | Tests ASM-01, ranked 1. |
+| IDEA-02 | no | Tests no assumption ranked 1 to 3. |
+```
+
+The status line is exactly `First release cut: proposed, not confirmed` or
+`First release cut: confirmed by <owner> on YYYY-MM-DD`. One row per idea that is promoted or proposed for
+promotion, in ID order; the second column is `yes` or `no`; the `Why` cell is one of the eight fixed sentences
+mvp-and-prototype-path defines: five that the rule writes, `Included by the user.` and `Left out by the user.`,
+which are written only on a row whose value the user stated, and the review flag
+`Needs review: no rule supports this value.`, which stands with either value and only under the proposed status
+line. With no such idea the table is replaced by the line `No idea is promoted or proposed for promotion.`
+
+**C-06. Already covered and previously decided** (section 6, brownfield only, after C-05; brownfield-iteration):
+
+```markdown
+### Already covered
+
+| Suggestion | Covered by |
+|---|---|
+| Text reminders before a visit | PRD-001#FR-003 |
+
+### Previously decided
+
+| Idea | Decision | Where |
+|---|---|---|
+| Charge a deposit at booking | rejected | BRN-001#IDEA-06 |
+```
+
+`Covered by` is `<document ID>#<item ID>`; `Decision` is `rejected` or `parked`; `Where` is `BRN-NNN#IDEA-NN`.
+Each table is replaced by the line `None.` when it has no row. When the user says to add a candidate anyway, its
+row is removed and section 6's prose says so: the tables list only what is still kept out.
+
+**C-11. Assumption updates** (section 6, brownfield only, after C-06; brownfield-iteration). Section 6's order is
+therefore C-04, C-05, C-06, C-11.
+
+```markdown
+### Assumption updates
+
+| Earlier assumption | Change | Evidence | Status |
+|---|---|---|---|
+| BRN-001#ASM-01 | open to validated | 8 of 10 reminder texts were opened (data: reminder pilot export, October 2026) | proposed, not confirmed |
+```
+
+`Change` is `open to validated` or `open to invalidated`; `Status` is `proposed, not confirmed` or
+`confirmed by <owner> on YYYY-MM-DD`. The table is replaced by the line `None.` when it has no row. In a run that
+extends a brownfield BRN, the first cell may name that BRN's own assumption.
+
+**C-07. Assumption risk ranking** (section 7, after the `assumptions` block and before the open-question bullets;
+mvp-and-prototype-path):
+
+```markdown
+### Assumption risk ranking
+
+| Rank | Assumption | If wrong | Confidence | Cheapest test |
+|---|---|---|---|---|
+| 1 | ASM-01 | Serious: stops IDEA-01 (1 of 2 in the cut table). | low | Interview: Ask ten patients whether they read texts from the clinic. |
+```
+
+One row per active assumption whose `state` is `open`, ranks 1 to n with no gap. `If wrong` starts with `Fatal`,
+`Serious` or `Minor` and names the cut-table ideas the assumption stops; `Confidence` is `high`, `medium` or
+`low`; `Cheapest test` starts with `Data`, `Prototype` or `Interview`, or is the marker
+`[NEEDS CLARIFICATION: how to test ASM-NN]`. With no such assumption the table is replaced by the line `None.`
+This ranking, and no other table, decides the first release cut.
+
+**C-08. Candidate success signals** (section 8; intake-and-evidence). One bullet per first-release idea, in ID
+order:
+
+```markdown
+- IDEA-01: fewer missed visits among patients who got a reminder; baseline [NEEDS CLARIFICATION: current no-show rate]
+```
+
+that is, `- <IDEA-NN>: <observable outcome>; baseline <value with its source, or a NEEDS CLARIFICATION marker>`.
+With no first-release idea the section holds the line `- None.`
+
+**C-09. Sources** (frontmatter `sources`; intake-and-evidence). One quoted string per input the brainstorm used,
+`"<kind>: <reference>"`, `<kind>` one of `document`, `data`, `ticket`, `interview`, `url`, `note`. Example:
+`"document: docs/specs/prd/PRD-001.md v3"`. A fact cited in a problem's `evidence` or a C-08 baseline is either
+one NEEDS CLARIFICATION marker and nothing else, or text that ends with one `sources` entry, without its quotes,
+in parentheses after a space. A C-11 `Evidence` cell always ends with such an entry and is never a marker: with
+no fact there is no row (brownfield-iteration.md). In a BRN a brownfield run creates, the entries of the
+documents it read stand first; a run that extends a BRN appends its new entries and never reorders the others.
+
+**C-10. Step 5's form.** One AskUserQuestion form tagged step 5, its questions in this order, each with
+`header: "Step 5"`; a question whose condition fails is left out:
+
+1. "Confirm these dispositions?" (always; unchanged from SPEC-001 BEH-06).
+2. "Has the brainstorm converged?" (always; unchanged).
+3. "Confirm the first release cut?" (when C-05's table has a row), options `Accept as proposed` and
+   `Leave it proposed`; changes come typed under Other.
+4. "Confirm these assumption updates?" (when C-11's table has a row), options `Accept all as proposed` and
+   `Leave them proposed`; changes come typed under Other.
+
+**The gate.** A BRN is a *new-shape BRN* when a line after the frontmatter and outside every fenced block,
+lowercased and with its runs of spaces collapsed, starts with `project kind:`. Every validator check these
+documents add applies only to a new-shape BRN, and a new-shape BRN must hold every shape its kind requires
+(C-01, C-03, C-05, C-07, C-08, C-09 always; C-02, C-06 and C-11 when the kind is brownfield). The test is loose
+on purpose and C-01 is exact: a line that passes the test but is not one of C-01's three lines
+(`project  kind: Brownfield`) makes the BRN new-shape, switches every check on, and is then rejected by IV-01,
+which requires C-01's exact line, first under `## 1. Context` and followed by a blank line.
+
+A BRN without the line is an earlier-shape BRN: it is checked exactly as today and stays valid. When it is
+extended it keeps its earlier shape: no shape of this section is added to it, nothing of brownfield-iteration.md
+or mvp-and-prototype-path.md applies to it, its run asks the greenfield question set (intake-and-evidence.md,
+BEH-20), and step 8's report block is today's (prd-handoff-contract.md, BEH-34). Framework selection applies to
+it as to any run, except rule 4, which needs a kind.
+
+When a new-shape BRN is extended, its kind line changes only towards brownfield (the NEEDS CLARIFICATION line
+may be decided; `greenfield` may become `brownfield`; `brownfield` stays) and nothing is removed from it except
+the bullet of C-01 that says which kind an undecided run worked as. A run that turns the line to `brownfield`
+adds C-02, C-06 and C-11 (intake-and-evidence.md, BEH-20; brownfield-iteration.md, BEH-29).
+
+The validator's checks for these shapes are IV-01 to IV-07 (intake-and-evidence.md), BV-01 to BV-05
+(brownfield-iteration.md) and MV-01 to MV-12 (mvp-and-prototype-path.md); each gives the same verdict with and
+without PyYAML (BEH-09).
 
 ## 5. Interfaces and contracts
 
@@ -190,7 +440,10 @@ tasks:                            # version 18: the checklist's lines (BEH-12), 
   from BEH-02; stable item IDs (BEH-11); `disposition` and `reason` on every idea, with only
   user-confirmed values (BEH-06); `status: converged` only after the user confirms convergence. The
   PRD skill cites BRN items through `upstream` links such as `{id: BRN-001, item: IDEA-03, relation: derives}`,
-  so the brainstorm skill must never change an item's meaning under an existing ID.
+  so the brainstorm skill must never change an item's meaning under an existing ID. From version 19 a new-shape
+  BRN also carries §4's fixed shapes, which the PRD workflow reads from SPEC-002's next version on
+  (prd-handoff-contract.md). `First release cut: confirmed by …` appears only after the user confirmed the cut,
+  and `confirmed by …` in an Assumption updates row only after the user confirmed that row.
 - **Tools:** Read, Glob, Write and Edit for files, and AskUserQuestion for confirmations; when the session has
   them, the task-list tools (TaskCreate and TaskUpdate, or TodoWrite) for the workflow checklist (BEH-12).
   No `allowed-tools` pre-approval in the MVP, so writes go through normal permission prompts. The skill never
@@ -204,44 +457,50 @@ tasks:                            # version 18: the checklist's lines (BEH-12), 
   ignores a frontmatter key it doesn't recognize, so without Taskmaster nothing changes; with it, the prompt gains
   Taskmaster's block (plugin 0.35.0, a minor version: Bryan, "0.35.0 (minor)").
   `src/schemas/skill-frontmatter.schema.json` accepts `tasks` (3 to 8 unique strings of 1 to 64 characters).
+  From version 19, `src/tests/brainstorm/test_structure.py` checks that the list equals the checklist lines
+  (BEH-16, VER-18).
 
 ## 6. Behavior
+
+BEH-15 to BEH-34 are version 19's, taken from the enhancement documents (§4 says how to read them). Where one of
+them replaces or extends an earlier item, the earlier item says so.
 
 ```yaml items
 behaviors:
   - id: BEH-01
     status: active
-    rule: "Take the topic from $ARGUMENTS or the conversation. If there is none, ask for it and write nothing until it is given. Ask at most three clarifying questions (trigger, affected users, constraints) before diverging, and skip any question the request already answers. When the request says to proceed without questions, ask none, once the waiver question (BEH-13) has been answered Proceed without questions or couldn't be asked, except the topic question when no topic is given (BEH-13, version 15). Record anything still unknown as [NEEDS CLARIFICATION] markers, not guesses."
+    rule: "Take the topic from $ARGUMENTS or the conversation. If there is none, ask for it and write nothing until it is given. Decide the project kind (BEH-20). Ask at most four clarifying questions before diverging, in one form: the question set of the kind (BEH-21), skipping any question the request already answers. When the request says to proceed without questions, ask none, and never the kind question, once the waiver question (BEH-13) has been answered Proceed without questions or couldn't be asked, except the topic question when no topic is given (BEH-13, version 15). Record anything still unknown as [NEEDS CLARIFICATION] markers, not guesses."
   - id: BEH-02
     status: active
     rule: "Allocate the ID by scanning docs/specs/brainstorm/ for BRN-NNN.md files and using the highest number plus one (BRN-001 if none). Write the document to docs/specs/brainstorm/BRN-NNN.md. Never ask for or accept an output file name. Keep the descriptive topic in the title. Create the directory if it is missing."
   - id: BEH-03
-    status: active
+    status: deprecated
+    superseded_by: "BEH-15"
     rule: "Read references/frameworks/INDEX.md and choose the framework whose use-when criteria best fit the topic, or the one the user names. Use diverge-converge when nothing fits better. Tell the user which framework was chosen and why, and switch if they ask."
   - id: BEH-04
     status: active
     rule: "Whatever the framework, write only into the problems, ideas and assumptions collections and their defined fields. Record framework-specific reasoning in the evaluation-method and convergence prose sections, never as new YAML keys."
   - id: BEH-05
     status: active
-    rule: "During divergence, record the user's ideas in their own words alongside generated ones. Generate between 5 and 15 ideas unless the user asks otherwise. Every idea starts with disposition open."
+    rule: "During divergence, record the user's ideas in their own words alongside generated ones. In a brownfield run, a suggestion that a document read already covers, or that an earlier BRN rejected, is not added to ideas, the user's own included: it is listed in section 6 and the user is told, and it is added when the user then says to add it (BEH-26). Generate between 5 and 15 ideas unless the user asks otherwise or the framework's Steps set their own count (version 19: BEH-17, BEH-18). Every idea starts with disposition open."
   - id: BEH-06
     status: active
-    rule: "At convergence, propose a disposition (promoted, parked or rejected) and a reason for each idea, then ask the user to confirm or change them. With AskUserQuestion, put the proposals inside the question form, never only in text before it, which the dialog hides (version 15; Bryan, 2026-10-04: 'Fold it in'): one question, 'Confirm these dispositions?', whose options are 'Accept all as proposed' (Recommended) and 'Leave them open', each option's preview holding the table of idea ID, title, proposed disposition and one-line reason, with the user's changes typed under Other; and in the same form a second question, 'Has the brainstorm converged?', with the options 'Converged' and 'Not yet'. Both questions are tagged step 5 (BEH-12). Accept all writes every proposal; Leave them open writes none; typed changes write the dispositions the text states and leave the others open; converged is written only on Converged. When the table is too long for a preview, the preview lists every idea's ID and proposed disposition and the question text says the reasons are in the reply. Write only dispositions the user confirmed; leave the rest open. Set status to converged only when the user confirms convergence; otherwise leave it draft."
+    rule: "At convergence, propose a disposition (promoted, parked or rejected) and a reason for each idea, then ask the user to confirm or change them. With AskUserQuestion, put the proposals inside the question form, never only in text before it, which the dialog hides (version 15; Bryan, 2026-10-04: 'Fold it in'): one question, 'Confirm these dispositions?', whose options are 'Accept all as proposed' (Recommended) and 'Leave them open', each option's preview holding the table of idea ID, title, proposed disposition and one-line reason, with the user's changes typed under Other; and in the same form a second question, 'Has the brainstorm converged?', with the options 'Converged' and 'Not yet'. Both questions are tagged step 5 (BEH-12). When the First release cut table has a row, the same form then asks 'Confirm the first release cut?', with the options 'Accept as proposed' and 'Leave it proposed' and changes typed under Other, and only its answer confirms the cut (BEH-32, version 19). In a brownfield run whose Assumption updates table has a row, the same form ends with the question 'Confirm these assumption updates?', and only its answer confirms a row (BEH-28). Accept all writes every proposal; Leave them open writes none; typed changes write the dispositions the text states and leave the others open; converged is written only on Converged. When the table is too long for a preview, the preview lists every idea's ID and proposed disposition and the question text says the reasons are in the reply. Write only dispositions the user confirmed; leave the rest open. Set status to converged only when the user confirms convergence; otherwise leave it draft."
   - id: BEH-07
     status: active
     rule: "Fill the frontmatter: generated_by.tool claude-code, generated_by.model the current model ID, generated_by.session the session ID; authors the user and claude-code; reviewed_by empty; every hash null; created and updated today's date. Ask for owner only if it cannot be determined. Write the author of each Change Log row the skill adds as claude-code (session <session ID>): the ID names the conversation's transcript, so claude --resume <ID> can reopen the conversation behind that version while the transcript is retained (30 days by default)."
   - id: BEH-08
     status: active
-    rule: "Build the document from ${CLAUDE_SKILL_DIR}/assets/brainstorm.md. Keep every section heading. Replace each placeholder or mark it [NEEDS CLARIFICATION]. Delete author comments."
+    rule: "Build the document from ${CLAUDE_SKILL_DIR}/assets/brainstorm.md. Keep every section heading. Replace each placeholder or mark it [NEEDS CLARIFICATION]. Delete author comments. Version 19: section 1 opens with the project-kind line (BEH-20); section 3 is BEH-23's table and section 8 BEH-24's bullets; a brownfield BRN holds the Existing product, Already covered, Previously decided and Assumption updates shapes (BEH-25, BEH-26, BEH-28); the assumption risk ranking and the first release cut are written at step 6 (BEH-33)."
   - id: BEH-09
     status: active
-    rule: "Validate after writing. Run scripts/validate_brn.py on the file (standard library only; it applies references/output-rules.md mechanically: frontmatter keys, ID patterns, quoted free text, one top-level key per item block, no leftover placeholders) and fix what it reports. Run it as a command of its own, not joined to another with ;, a pipe or a background &, so its exit status is the validator's (&& and 2>&1 are fine): the progress tracker credits no run whose status another command hides (SPEC-012 BEH-06; version 12). Only without a shell or Python, check against references/output-rules.md by hand. Then read the file back and confirm that every disposition other than open, and status converged, was confirmed by the user, because the script cannot check this. Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2). Repeat until clean, at most three attempts."
+    rule: "Validate after writing. Run scripts/validate_brn.py on the file (standard library only; it applies references/output-rules.md mechanically: frontmatter keys, ID patterns, quoted free text, one top-level key per item block, no leftover placeholders) and fix what it reports. Run it as a command of its own, not joined to another with ;, a pipe or a background &, so its exit status is the validator's (&& and 2>&1 are fine): the progress tracker credits no run whose status another command hides (SPEC-012 BEH-06; version 12). Only without a shell or Python, check against references/output-rules.md by hand. Then read the file back and confirm that every disposition other than open, and status converged, was confirmed by the user, because the script cannot check this. Version 19: on a new-shape BRN the script also applies the checks IV-01 to IV-07, BV-01 to BV-05 and MV-01 to MV-12 (§4), and the read-back also covers the first release cut's status line (BEH-33), the status cells of the Assumption updates table (BEH-28) and every assumption state other than open (§2, R3). Never run a devforgeai command: the CLI doesn't exist and a program by that name on PATH can't be trusted (SPEC-004 §2). Repeat until clean, at most three attempts."
   - id: BEH-10
     status: active
-    rule: "Hand off with counts of problems, ideas and assumptions, the ideas promoted, the open questions and the BRN file path. Then name the next workflow step: if ${CLAUDE_PLUGIN_ROOT}/skills/prd/SKILL.md exists, tell the user to run /devforgeai:prd with the BRN ID (for example /devforgeai:prd BRN-001; the prd skill takes an ID, never a path, per SPEC-002 §5) and give the BRN path as its input; otherwise say the PRD workflow (planned as /devforgeai:prd) is not built yet and that, once it is, /devforgeai:prd with this BRN's ID runs on it. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start writing a PRD."
+    rule: "Hand off with counts of problems, ideas and assumptions, the ideas promoted, the open questions and the BRN file path. Then name the next workflow step: if ${CLAUDE_PLUGIN_ROOT}/skills/prd/SKILL.md exists, tell the user to run /devforgeai:prd with the BRN ID (for example /devforgeai:prd BRN-001; the prd skill takes an ID, never a path, per SPEC-002 §5) and give the BRN path as its input; otherwise say the PRD workflow (planned as /devforgeai:prd) is not built yet and that, once it is, /devforgeai:prd with this BRN's ID runs on it. The next step comes last in the final reply, as its own paragraph outside any code block, starting with the words Next step; nothing follows it. Never start writing a PRD. Version 19: for a new-shape BRN the report block also names the project kind and the first-release ideas with the cut's status (BEH-34)."
   - id: BEH-11
     status: active
-    rule: "When extending an existing BRN, keep every existing item ID and its meaning. Give new items the next free number in their collection. Retire an item by setting status deprecated, never by deleting or renumbering it, because PRD requirements cite these IDs. Set generated_by.session to the extending session and add a Change Log row naming it; never edit earlier Change Log rows, which keep the sessions that wrote earlier versions."
+    rule: "When extending an existing BRN, keep every existing item ID and its meaning. Give new items the next free number in their collection. Retire an item by setting status deprecated, never by deleting or renumbering it, because PRD requirements cite these IDs. Set generated_by.session to the extending session and add a Change Log row naming it; never edit earlier Change Log rows, which keep the sessions that wrote earlier versions. Version 19: a BRN without the project-kind line keeps its earlier shape when it is extended (BEH-20); a new-shape BRN's kind line changes only towards brownfield, and extending a brownfield BRN follows BEH-29."
   - id: BEH-12
     status: active
     rule: "When the session has task-list tools (TaskCreate and TaskUpdate, or TodoWrite; they may need loading through ToolSearch), keep the workflow checklist there, as SPEC-012 §4's task-list convention says. Before anything else, the question asking for a topic included, create one task per checklist step: its subject the step's checklist line without the box ('<N>. <title>'), its metadata devforgeai_step: N (with TodoWrite, the content '<N>. <title>'). Mark a step in_progress when its work starts. Before asking the user any question, mark the step the question belongs to in_progress: the topic, clarifying and extend-or-new questions belong to step 1, the confirmation of dispositions and convergence to step 5. Never put two steps' questions in one question form. Tag each question form with its step: the AskUserQuestion call's metadata source 'devforgeai_step:N', which the user doesn't see and the progress tracker checks against the step marked in progress, and each of its questions' header 'Step N', which the user sees (SPEC-012 §4, version 9). Mark each step completed as soon as it is done, one at a time, a step with nothing to do included. Without task-list tools, copy the checklist into the reply and tick items off as before. SKILL.md names the tag devforgeai_step, which tells the progress tracker that the skill follows the convention."
@@ -250,7 +509,67 @@ behaviors:
     rule: "The waiver (version 14; Bryan, 2026-10-04). When the request says to proceed without questions (or not to ask, or to skip questions) and the session has AskUserQuestion, ask it once, at the start of step 1, before any other question, with step 1 marked in_progress (BEH-12): one question, alone in its form, the one question BEH-12's tag rule leaves out, with metadata source devforgeai_waiver (not devforgeai_step:1, so the progress tracker records it as the waiver and never as a step's answer), header 'Step 1', the question 'Your request says to proceed without questions. Should I?' and exactly two options, in this order: 'Proceed without questions' (description: 'I ask nothing more, except which topic and whether to extend an existing BRN, when open; decisions that need you stay open.') and 'Ask me as usual' (description: 'I ask about each decision as it comes up.'). On Proceed without questions, follow the request: ask no other question (BEH-01, BEH-06), except BEH-01's topic question when no topic is given and ERR-01's extend-or-new question when a BRN on the topic exists, which are still asked when open (version 15; Bryan, 2026-10-04: 'Align with architecture', as SPEC-003 BEH-18 keeps its gates). On Ask me as usual, on anything typed instead, or on a dismissal, ask as if the request hadn't said so. Ask it at most once in a run. Without AskUserQuestion, ask nothing, in plain text or otherwise, and follow the request as before; when the request doesn't say to proceed without questions, never ask it."
   - id: BEH-14
     status: active
-    rule: "Save the work as it goes (version 16; Bryan, 2026-10-06: 'Work file, skill only', 'Delete at end + ignore', 'Tracker deletes + ages'), so a run the progress tracker continues later has the content, not only the position (SPEC-013 BEH-31). Keep a work file at the draft path the progress tracker's line on continuing names (below), else at devforgeai/drafts/brainstorm/<session ID>.md, the session ID being the one BEH-07 names, in the shape §4 gives, and write it in full with the Write tool three times: after marking step 3 completed and before marking step 4 in progress; after marking step 4 completed and before marking step 5 in progress; and with step 5 in progress, once its proposals are made and before its question is asked, or, when no question is asked (BEH-13, or no AskUserQuestion), once the proposals are made. Before the first write, create devforgeai/drafts/.gitignore holding the single line * when it is missing, so no work file reaches git. Never write a work file under docs/specs/: the progress tracker then counts none of these writes as the BRN's write gate and never refuses them (SPEC-012 BEH-06). Never run the validator on it. Step 6 writes the BRN as before. Never delete a work file: the progress tracker deletes a run's work files once its step 7 is done, and work files older than its retention period (SPEC-012 version 15, SPEC-013 version 20); when validation still fails (ERR-05), they stay. Continuing (version 17; Bryan, 2026-10-06: 'deterministic in Claude mod is best approach as Claude ignores ceremonial verbiage'): when the progress tracker's line that continues an earlier brainstorm run names a draft (SPEC-013 BEH-39), that path is this run's work file: load it, save to it from then on at the same points (the saves before step 4 and step 5 are made only when the run reaches those points), and keep its problems, ideas, assumptions, scores and IDs; when its id is a BRN's ID, extend that BRN at step 6 (ERR-01's extend, BEH-11) without asking ERR-01's question again, otherwise allocate the ID at step 6 (BEH-02). Every other sentence of the line is followed as written: the tracker, not the skill, decides which step is asked and with which proposals, and names no draft once the BRN is written. A named draft that can't be read counts as none. When ERR-02 writes a draft BRN, write the work file again with its id that BRN's ID, so a continued run reads the work file and step 6 extends that BRN instead of allocating another (Bryan, 2026-10-06: 'Finish into BRN-003'). A fresh run reads none, and never reads another session's work file. ERR-02's question on a stop stays: the work file is not the draft BRN it offers."
+    rule: "Save the work as it goes (version 16; Bryan, 2026-10-06: 'Work file, skill only', 'Delete at end + ignore', 'Tracker deletes + ages'), so a run the progress tracker continues later has the content, not only the position (SPEC-013 BEH-31). Keep a work file at the draft path the progress tracker's line on continuing names (below), else at devforgeai/drafts/brainstorm/<session ID>.md, the session ID being the one BEH-07 names, in the shape §4 gives, and write it in full with the Write tool three times: after marking step 3 completed and before marking step 4 in progress; after marking step 4 completed and before marking step 5 in progress; and with step 5 in progress, once its proposals are made and before its question is asked, or, when no question is asked (BEH-13, or no AskUserQuestion), once the proposals are made. Before the first write, create devforgeai/drafts/.gitignore holding the single line * when it is missing, so no work file reaches git. Never write a work file under docs/specs/: the progress tracker then counts none of these writes as the BRN's write gate and never refuses them (SPEC-012 BEH-06). Never run the validator on it. Step 6 writes the BRN as before. Never delete a work file: the progress tracker deletes a run's work files once its step 7 is done, and work files older than its retention period (SPEC-012 version 15, SPEC-013 version 20); when validation still fails (ERR-05), they stay. Continuing (version 17; Bryan, 2026-10-06: 'deterministic in Claude mod is best approach as Claude ignores ceremonial verbiage'): when the progress tracker's line that continues an earlier brainstorm run names a draft (SPEC-013 BEH-39), that path is this run's work file: load it, save to it from then on at the same points (the saves before step 4 and step 5 are made only when the run reaches those points), and keep its problems, ideas, assumptions, scores and IDs; when its id is a BRN's ID, extend that BRN at step 6 (ERR-01's extend, BEH-11) without asking ERR-01's question again, otherwise allocate the ID at step 6 (BEH-02). Every other sentence of the line is followed as written: the tracker, not the skill, decides which step is asked and with which proposals, and names no draft once the BRN is written. A named draft that can't be read counts as none. When ERR-02 writes a draft BRN, write the work file again with its id that BRN's ID, so a continued run reads the work file and step 6 extends that BRN instead of allocating another (Bryan, 2026-10-06: 'Finish into BRN-003'). A fresh run reads none, and never reads another session's work file. ERR-02's question on a stop stays: the work file is not the draft BRN it offers. Version 19: the work file names the framework in section 5 from its first save, and a continued run keeps that framework (BEH-15); a switch of framework is followed by one more save (BEH-19); from the step-5 save on the work file holds the assumption risk ranking and the first release cut, the cut always in its proposed form, and a continued run keeps them (BEH-33)."
+  - id: BEH-15
+    status: active
+    rule: "At step 2 the skill reads references/frameworks/INDEX.md and takes the first of its six selection rules whose test holds, in the order 1 to 6, asking no question to decide: 1, the user names a listed framework; 2, shortlist-ranking; 3, risk-first-mvp; 4, improve-existing; 5, problem-reframing; 6, diverge-converge. The request is the arguments plus everything the user wrote in the run before step 2 ends, intake answers included. A phrase matches when the request holds it as whole words, ignoring case, a hyphen and a space counting as the same; a phrase ending in * matches any word that starts with it. Rule 1 matches when the request holds a framework's name from the index's Frameworks table or one of its other names in the index's list (a name listed with capital letters matches only with those capitals). With two frameworks named, the one named first in the request is taken. A name the request says not to use does not count, and a later rule that would select that framework is skipped; when rule 6 is the one skipped, problem-reframing is taken with the sentence \"Framework: `problem-reframing`, because you asked not to use `diverge-converge`.\". Ordinary wording is not a name: \"How might we cut no-shows?\" names no framework. Rule 2 matches when both hold: (a) the request lists three or more candidate ideas (items of a bulleted or numbered list, or of a run separated by commas, semicolons, \"and\" or \"or\"), or it names a backlog, shortlist or list to use with a file path in the project whose file, read at step 2, gives two or more candidates (its top-level list items; with none, its table's body rows; with neither, its non-empty lines that are not headings); whether a listed item is a candidate idea is a judgment (R9): it is something to build, change or do (\"dark mode, CSV export, SSO\" are candidates; \"nurses, porters, cleaners\" are not); (b) the request holds one of: rank*, priorit*, choose, choosing, pick, picking, select, selecting, cut, trim, narrow, shortlist, compare, which of, which one, which should, in what order, in which order. Rule 3 matches when the request holds one of: mvp, minimum viable, prototype*, proof of concept, first release, first version, version one, v1, build first, ship first, do first, where to start, what to start with, smallest thing, riskiest, biggest risk*, could fail, might fail, would fail, make it fail, make this fail, could go wrong, might go wrong, pre-mortem, premortem. Rule 4 matches when both hold: (a) the project kind is brownfield: the kind step 1 decided (README C-01), or, when it is undecided, the kind step 1 works with (intake-and-evidence.md, BEH-20); a run has one kind, the same for selection as everywhere else; with no kind decided or worked with, (a) does not hold (an earlier-shape BRN being extended has none); (b) the request holds one of: improv*, enhanc*, extend*, fix*, upgrad*, rework*, redesign*, refin*, optimi*, revamp*, moderni*, next version, next release, version 2, v2, add to, new feature*. Rule 5 is a judgment (R9): the skill tries to fill both blanks of \"who struggles with what\" with words from the request, rephrased if needed but never invented, and the rule matches when either blank stays empty. \"Sign-ups have been flat for six months\" matches; \"Patients forget appointments booked weeks ahead\" does not. The skill then tells the user which framework and why with the matching rule's sentence from the index, word for word, as a line of its own: \"Framework: `<name>`, because you named it.\" (1); \"Framework: `shortlist-ranking`, because you gave a list of candidates and asked to rank or cut it.\" (2); \"Framework: `risk-first-mvp`, because you asked what to build first or what could make this fail.\" (3); \"Framework: `improve-existing`, because the product exists and you asked to improve, extend or fix it.\" (4); \"Framework: `problem-reframing`, because the request doesn't yet say who is affected and what hurts them.\" (5); \"Framework: `diverge-converge`, because no other rule in the index matched.\" (6). When rule 2 (b) holds and the request names a backlog that can't be read as (a) requires (no path, a path that doesn't exist, fewer than two candidates), rule 2 does not match; the skill says \"I can't read `<what the request named>` as a list of candidates. Paste the list, or give a file path, and ask me to switch to `shortlist-ranking`.\" and goes on to rule 3. The work file's section 5 holds the chosen framework's method text from its first save on. A run that continues an earlier one (BEH-14) does not select again when its work file's section 5 opens with a framework's method text: that framework is in use. (From docs/specs/brainstorming/framework-catalog.md §3.)"
+  - id: BEH-16
+    status: active
+    rule: "SKILL.md's ## headings are exactly, in this order: Workflow; Decisions that belong to the user; Inputs; Working through the steps; Output contract; Examples; References. The Workflow section holds only the sentence \"Work through this checklist:\" and the fenced checklist of the eight unchanged lines; the fence opens at most 17 lines after the frontmatter's closing line. The frontmatter's tasks: list (SPEC-001 version 18) holds the eight checklist lines without their boxes and numbers, in order; a title changes only with its checklist line. Working through the steps holds the task-list rules, the saving rule, the continuing rule and the sections ### 1. Intake to ### 8. Report and hand off, in that order. SKILL.md has at most 400 lines. Every .md file in references/ and references/frameworks/ has, within its first 15 lines, a line that is exactly \"## Contents\" or a line that starts with \"## When to use\". (From docs/specs/brainstorming/framework-catalog.md §3.)"
+  - id: BEH-17
+    status: active
+    rule: "Every framework file has exactly these ## headings, with this text, in this order: When to use / When not to use; Steps; Questions to ask; Mapping to the BRN; Evaluation method text; Example. Mapping to the BRN states the rating method exactly; Steps say how dispositions are proposed, as proposals only (R3); Evaluation method text is a quoted paragraph whose opening words, up to its first colon, no other framework's text starts with; Example holds item blocks that pass validate_brn.py. The opening words are: \"Diverge-converge:\", \"Shortlist ranking (RICE):\", \"Problem reframing:\", \"Improve existing (SCAMPER):\" and \"Risk-first MVP:\". The skill writes the framework's method text as the first paragraph of the BRN's section 5. problem-reframing, improve-existing and risk-first-mvp rate value, effort and risk as the quoted strings \"high\", \"medium\" or \"low\" and compute score = 2 × value − effort − risk with high = 3, medium = 2 and low = 1, written unquoted; an idea that can't be rated has all four null. Each file defines the three ratings in its own terms (its Mapping to the BRN, Ratings). Those three frameworks propose: promoted for the ideas with a score of 2 or more, at most three, taken by highest score, then lower effort, then lower ID; rejected for every idea with a score of −1 or less; parked for every other idea and for an unrated one; each proposed reason is one sentence starting \"Score N: \". problem-reframing: each start point (a symptom, goal or solution the request states) gets one why chain of at most five answers; an answer the skill supplies itself is recorded as an assumption and marked \"(assumed: ASM-NN)\"; a chain stops at five answers, at the user's \"don't know\", or after two of the skill's own answers in a row; the last answer is the root cause. Each chain gives one problem (statement: who, what hurts, \"because\" and the root cause; evidence: the last answer that is not the skill's own, with its source, else \"[NEEDS CLARIFICATION: is it true that <the first assumed answer>?]\"). Section 5 holds, per problem in ID order, the lines \"- Why chain for PRB-NN: <start point> → because <answer> …\", \"- Job for PRB-NN: When <situation>, <who> wants to <motivation>, so that <outcome>.\" and, for each of its one to three questions, \"- HMW-NN (PRB-NN): How might we <question>? Ideas: IDEA-NN, IDEA-NN.\". Every HMW has at least one idea and the ideas number 5 to 15. improve-existing: the skill lists up to seven things the product does today, each from a source (the project's documents, the user's description, data, tickets), and writes nothing about the product that no source says. It then asks the seven SCAMPER prompts in order (Substitute, Combine, Adapt, Modify, Put to another use, Eliminate, Reverse), at most two ideas each. A prompt yields nothing when no answer both changes something in the baseline and addresses a framed problem: no idea is written for it. Section 5 holds exactly seven lines in that order, \"- <Prompt>: IDEA-NN, IDEA-NN\" or \"- <Prompt>: no idea (<reason>)\", and an eighth, \"- The user's own: IDEA-NN\", when the user gave ideas. The 5-to-15 rule does not apply. With no idea at all, the skill says \"Framework: `diverge-converge`, because SCAMPER produced no idea for this product.\" and continues with diverge-converge from its step 2. risk-first-mvp: the skill states the bet, records the user's reasons the idea could fail and adds its own until there are at least three, stopping at seven; each reason becomes one problem when it is true today for a person whether or not anything is built, otherwise one assumption. For each assumption in ID order it writes one idea, the smallest thing that would show whether the assumption holds (of the candidates, the one that gives a result soonest), then second tests in the same order until there are five ideas, at most 15. Section 5 holds \"- Bet: …\", \"- Reason N: <reason> (ASM-NN)\" or \"(PRB-NN)\" for each reason, and \"- IDEA-NN tests ASM-NN, ASM-NN\" or \"- IDEA-NN tests no assumption\" for each idea. value is high for two or more assumptions tested, medium for one, low for none. The framework ranks no assumption and chooses no first release: README C-07 and C-05 do. (From docs/specs/brainstorming/framework-catalog.md §3.)"
+  - id: BEH-18
+    status: active
+    rule: "With shortlist-ranking, each candidate of the user's list becomes one idea, in list order and in the user's words; the skill generates no idea of its own, whatever the count; at most 99 are taken. Each idea has four inputs. Reach: a whole number per period, from the user's figure for that idea, else from a figure in one of the BRN's sources, never the skill's estimate; if reach is unknown for any rated idea, reach counts as 1 for every idea. Impact: 3, 2, 1, 0.5 or 0.25, the user's value else the skill's estimate. Confidence: 100 when both grounds hold, 80 when one does, 50 when neither (ground 1: reach is known; ground 2: the idea addresses a problem whose evidence is not a NEEDS CLARIFICATION marker). Effort: person-weeks, the user's figure rounded up to the next 0.5 (a person-day is 0.2, a person-month is 4), else the skill's estimate from 0.5, 1, 2, 4, 8, 16, 32. The fields: value = reach × impact; effort = the person-weeks; risk = 100 − confidence; each a number in double quotes with no thousands separator and no trailing zeros. score = value × (100 − risk) ÷ 100 ÷ effort, computed from the written values, rounded to one decimal with a 5 rounding up, written unquoted with one decimal. An idea too vague to rate has all four null. Rank: highest score first; on a tie the smaller effort, then the lower ID; an unrated idea has no rank. Cut: with capacity C in person-weeks (the user's figure, else half of the rated ideas' summed effort, labelled as an assumption in the capacity line), an idea whose running total of effort down the ranking is at most 0.6 × C is a must, at most 0.8 × C a should, at most C a could, beyond that a won't. Proposals: promoted for every must and should; parked for every could, won't and unrated idea; never rejected. The proposed reason is \"<Cut word> in the proposed cut: rank R of N, score S.\" or \"Not rated: <what is missing>.\". The cut word is not a requirement priority and the cut is not the first release cut (C-05). Section 5 holds the method text, the line \"Reach unit: <unit> per <period>.\" (or \"Reach unit: not known for every candidate, so reach is counted as 1 for all.\") and the table | Idea | Reach | Impact | Confidence | Effort |. Section 6 holds, before any ### heading: the proposal paragraph (\"Proposed, awaiting confirmation: promote <IDs in rank order>; park <IDs in rank order, unrated last>.\", three or more IDs joined by commas with \"and\" before the last, \"none\" for an empty list); the line \"Capacity: <C> person-weeks (given by the user).\" or, when the user gave none, \"Capacity: <C> person-weeks (assumed: half of the candidates' summed effort).\"; the table | Rank | Idea | Score | Effort | Cumulative effort | Cut |; and the sentence \"The cut proposes dispositions only: it is not the first release cut, and it sets no requirement priority.\" (From docs/specs/brainstorming/framework-catalog.md §3.)"
+  - id: BEH-19
+    status: active
+    rule: "The user asks to switch when, after the step-2 sentence, they name another listed framework to use. The skill says \"Framework: `<new>`, because you asked to switch from `<old>`.\" Before step 3 is completed, the new framework's Steps start from its first step and every problem, idea and assumption already captured is kept with its ID. After step 3 is completed and before step 5's form is answered (a switch typed as that form's answer counts as before, and no disposition or convergence is written from that answer): every problem, idea and assumption is kept with its ID and text; step 3 is not redone and no idea is generated; the task list is left as it is (the step in progress stays in progress); none of the new framework's questions is asked: what the user has said, the figures given with the request to switch included, and the framework's fallbacks are used; every idea's value, effort, risk and score is set to null and filled again by the new framework's mapping; the old proposals are dropped; the work file is saved once more, with the new proposals, before step 5's form is asked with them. After such a switch, section 5 holds in this order: the new framework's method text; the line \"Switched from `<old>` after step 3: the problems, ideas and assumptions were kept and only the evaluation was redone.\"; the lines the new framework writes while evaluating; the old framework's section-5 lines that say where the items came from, unchanged. Lines the new framework would have written during step 3 are left out. Switching to shortlist-ranking, every idea already captured is a candidate. After step 5's form is answered, or once the BRN is written, the skill does not switch in that run: it says \"The brainstorm is already written as BRN-NNN. To evaluate it with `<new>`, run `/devforgeai:brainstorm` again and choose to extend BRN-NNN.\" and changes nothing. A switch to a name the index lacks is handled by ERR-06 and the current framework stays. (From docs/specs/brainstorming/framework-catalog.md §3.)"
+  - id: BEH-20
+    status: active
+    rule: "After the topic and extend-or-new, decide the project kind by the first rule that matches: (1) the BRN being extended, or the work file of a continued run, has the line 'Project kind: greenfield' or 'Project kind: brownfield': that kind, and nothing is asked, with the one exception of the next item; (2) the user's words say the product exists: brownfield; (3) the user's words say it does not exist: greenfield; (4) the skill can ask and the run is not a continued one: the kind question, whose answer decides; (5) otherwise the kind is not decided. When rules 2 and 3 both match, neither does. When a new-shape BRN is extended, its kind line changes only in these ways. A 'greenfield' line becomes 'brownfield' when the user's words in this run say the product exists (rule 2); otherwise it stays, and nothing is asked. The NEEDS CLARIFICATION line is decided again by rules 2 to 5 and becomes 'greenfield' or 'brownfield' when one of them decides; when that BRN already holds the four brownfield headings it can become only 'brownfield'. A 'brownfield' line never changes. When the user's words say the product does not exist and the line can't follow them (a 'brownfield' line, or the NEEDS CLARIFICATION line with the four headings), the skill says 'BRN-NNN records this product as brownfield. To brainstorm it as a new product, create a new BRN.', keeps the line, and goes on with the extension unless the user asks for a new BRN. When the line becomes 'brownfield', brownfield-iteration.md BEH-29 adds the brownfield parts; nothing is ever removed from the BRN. The one thing taken out is section 7's bullet that says which kind an undecided run worked as: it goes when the kind line is decided (IV-07). The user's words are the arguments, the user's messages in the conversation and the answer to the topic question. Only an explicit statement about the product counts, by the test and the seven examples of references/intake.md (section 3.2). A file in the project never decides the kind. The kind question is asked alone in its own AskUserQuestion form tagged devforgeai_step:1 with header 'Step 1': 'Does the product this brainstorm is about already exist?', options 'It exists' and 'It doesn't exist yet', in this order, with the descriptions of section 3.3. When docs/specs/prd/PRD-*.md matches at least one file, the first label is 'It exists (Recommended)' and its description ends with ' This project has a PRD.' Typed text is judged by rules 2 and 3; a dismissal, or text matching neither or both, leaves the kind not decided. Without AskUserQuestion the question is asked in plain text, alone, and the turn ends. The skill can ask unless the request says to proceed without questions and the waiver (BEH-13) was answered Proceed without questions or couldn't be asked. After Proceed without questions the kind question is never asked. When the kind is not decided, write the line 'Project kind: [NEEDS CLARIFICATION: greenfield or brownfield]' and work with brownfield when docs/specs/prd/PRD-*.md matches at least one file, else with greenfield. The kind worked with chooses the question set (BEH-21), the framework rule that reads the kind (README section 5, rule 4), the template's brownfield-only parts and whether brownfield-iteration.md applies. It is never written as the project kind. A BRN whose kind is not decided records it in three places (Bryan, 2026-11-19: 'Record that the kind is still undecided.'): the NEEDS CLARIFICATION kind line; one bullet among section 7's open questions, written before the others, exactly '- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]' or the same with 'worked as brownfield'; and one sentence in the final reply's discussion, 'The project kind is not decided: I worked as <greenfield or brownfield> because this project has <a PRD or no PRD>. Tell me whether the product exists and I will update BRN-NNN.' The report block names the kind as 'not settled' (prd-handoff-contract.md, BEH-34). The bullet is written only while the kind line is the NEEDS CLARIFICATION line: when the kind is decided later, in this run or an extension, the bullet is removed in the same edit. Write the kind line as the first line under '## 1. Context', followed by a blank line and the context prose (C-01). An explicit statement the user makes later, before the BRN is written, replaces the kind; a change to brownfield runs the brownfield reading before the next step's work. A BRN without the project-kind line that is being extended gets no kind: no line and no shape of this document is added to it, and the greenfield question set is asked. (From docs/specs/brainstorming/intake-and-evidence.md §3.1.)"
+  - id: BEH-21
+    status: active
+    rule: "Ask at most four clarifying questions in step 1, in one AskUserQuestion form tagged devforgeai_step:1, each question with header 'Step 1' and multiSelect true: the greenfield set or the brownfield set of section 3.4, chosen by the kind decided or worked with, in the set's order, with its exact wording and options. Skip a question the user's words already answer, by the test of section 3.4 for that question. When all four are skipped, show no form. Ask no follow-up question in step 1. An option picked with nothing typed is recorded in the option's words and its missing detail as a NEEDS CLARIFICATION marker. Ask none of them when the request says to proceed without questions and the waiver was answered Proceed without questions or couldn't be asked. Without AskUserQuestion, and with no such request, ask the same questions as a numbered plain-text list without the options, in one message, and end the turn. Each answer fills what section 3.4's table names; what stays unknown is written as the marker that table gives. (From docs/specs/brainstorming/intake-and-evidence.md §3.1.)"
+  - id: BEH-22
+    status: active
+    rule: "A source is an input the brainstorm used: something the user gave or named, the user's own statement in the conversation, or a project document the skill read in this run. Write one frontmatter sources entry per source, as the quoted string '<kind>: <reference>', with the kind and the reference form of section 3.5's table, taking the first kind that fits. Never write an entry for anything else: what the skill knows by itself is not a source. Never fetch a source: no URL is opened and no web search is made. A project file the user names as a source is read (Bryan, 2026-11-19: 'You may read a project file I name as a source.'). A project file is a path in the user's words that, taken from the project root when relative, resolves to a regular file inside the project folder and outside its .git folder; a path that leaves the folder, a folder, and a pattern with a wildcard are not. The skill reads it whole with the Read tool, once, and nothing else because of it: it never edits, moves, deletes or runs it, and never reads a file the user did not name (the brownfield reading of brownfield-iteration.md apart). Its entry is 'document: <path from the project root>', then ' v<version>' when its frontmatter has an integer version. Facts taken from it are stated in its terms and cited with that entry. When it can't be read (it does not exist, it is not text, or the Read tool fails or is refused), ERR-07 applies. Write one note entry per run for the user's own statements. Clean each reference as section 3.5 says. Entries stand in the order the sources were first given or read, each once; when extending, existing entries are kept as they are and new ones appended. A fact written into an active problem's evidence or a section 8 baseline is either one NEEDS CLARIFICATION marker and nothing else, or a statement that ends with one sources entry, without its quotes, in parentheses after one space. When two sources state the fact, cite the one that stands first in sources. A fact from the skill's own knowledge is never written as evidence: the value is a marker naming the missing fact. (From docs/specs/brainstorming/intake-and-evidence.md §3.1.)"
+  - id: BEH-23
+    status: active
+    rule: "Section 3 holds exactly the table '| Persona | Job to be done | Current workaround | Pain |' and nothing else: one row per distinct who value of the active problems, in the order the values first appear, the Persona cell equal to the who value character for character (C-03). Step 1's question 2 and step 3's framing gather the cells; step 6 writes the table, and the work file holds it from its first save. Each of the three other cells holds what the user's words or a source say about that persona, in at most 15 words, with no vertical bar and no citation. A cell nobody stated holds '[NEEDS CLARIFICATION: job to be done of <persona>]', '[NEEDS CLARIFICATION: current workaround of <persona>]' or '[NEEDS CLARIFICATION: pain of <persona>]'. It is never filled from a problem's statement or from general knowledge. A who value has no vertical bar, and one persona has one spelling in every problem. (From docs/specs/brainstorming/intake-and-evidence.md §3.1.)"
+  - id: BEH-24
+    status: active
+    rule: "Section 8 holds one bullet per first-release idea, in ID order: '- IDEA-NN: <observable outcome>; baseline <value>' (C-08). The first-release ideas are the active ideas whose row in section 6's First release cut table says yes; with no such table or no such row, section 8 holds the single line '- None.' Step 5 gathers the bullets, once the first release cut is proposed; step 6 writes them, and the work file holds them at its step-5 save. The outcome is one clause naming what would be seen to change, for the persona of a problem the idea addresses, if the idea works. It states a direction and never a target number, and never contains '; baseline '. The baseline is today's value of that outcome as a cited fact (BEH-22), or the marker '[NEEDS CLARIFICATION: current <what is measured>]'. (From docs/specs/brainstorming/intake-and-evidence.md §3.1.)"
+  - id: BEH-25
+    status: active
+    rule: "When the kind is brownfield, decided or worked with (BEH-20), read the project's documents right after the kind is known and before the clarifying questions. Select files by name with Glob, then read each selected file whole with the Read tool, in this order and with these caps: (1) docs/specs/brainstorm/BRN-*.md, the three highest numbers, highest first, never the BRN being extended; (2) docs/specs/prd/PRD-*.md, the two highest numbers, highest first; (3) docs/specs/epic/EPIC-*.md, the four highest numbers, highest first; (4) docs/specs/arch/ARCH-*.md, the highest number. Only a file named <PREFIX>-NNN.md is selected. Nothing else is read for this purpose: no story, no spec, no ADR and no source code is read automatically (Bryan, 2026-11-19: 'Skip automatic story and spec reads.'); a file the user names as a source is read under BEH-22 and is never an Existing product row. At most ten documents. Every document read is read-only: the skill never edits, repairs, moves or deletes it. Take from a BRN its title, version, and each active idea's id, idea, disposition and reason and each active assumption's id, statement, validation and state; from a PRD its title, version, section 1 and each active functional and non-functional requirement's id, statement and priority; from an EPIC its title, version and each active done_when item's id and criterion; from an ARCH its title, version and each active component's id, name and responsibility. Copy no disposition, priority or decision into this BRN's items. For each document read, in the order read, write one frontmatter upstream record with no item, '{id: <ID>, relation: informed_by, version: <its version>, hash: null}', and one sources entry 'document: docs/specs/<folder>/<ID>.md v<its version>', these entries standing before every other sources entry in a BRN this run creates; a run that extends a BRN appends them instead (BEH-29). Write '### Existing product' in section 1 after the context prose (C-02): one row per document read, in the order read, with its ID, its version and the third cell of section 3.3; with no document read, the line 'No document was found in the project.' in place of the table. The context prose says what the product does today only from a PRD's section 1 or the user's words; otherwise it holds '[NEEDS CLARIFICATION: what the product does today]'. (From docs/specs/brainstorming/brownfield-iteration.md §3.1.)"
+  - id: BEH-26
+    status: active
+    rule: "At step 3, test every candidate idea before it gets an ID: each suggestion of the user's and each idea the skill generates. A candidate is already covered when one item taken from a PRD, EPIC or ARCH read, as it is written, already gives the same people the same result. The items that count are active functional and non-functional requirements whose priority is not wont, active done_when items and active components. PRD items are checked first, then EPIC, then ARCH, each in ID order, and the first that covers the candidate is cited. A candidate covered only in part is not covered. Section 3.4 gives the test's examples. A candidate is previously decided when it proposes the same action for the same people as an active idea of a BRN read whose disposition is rejected. Section 3.5 gives the test's examples. A covered or previously decided candidate is not added to ideas, the user's own suggestion included. A covered one is a row of '### Already covered' (its wording, and '<document ID>#<item ID>'), in the order the candidates came up. A previously decided one is a row of '### Previously decided' (the earlier idea's text, 'rejected', 'BRN-NNN#IDEA-NN'). Each table is replaced by the line 'None.' when it has no row (C-06). The skill reports every candidate kept out with the exact ID, and never asks about it (Bryan, 2026-11-19: 'Report covered suggestions with the exact requirement ID and let me say \"add it anyway\" without prompting.'). When step 3's work is done, the reply holds one line per candidate kept out, in the order they came up: for a covered one, 'Not added, already covered by <document ID>#<item ID>: \"<the suggestion>\"'; for a previously decided one, 'Not added, rejected in BRN-NNN#IDEA-NN: \"<the suggestion>\"'. After the lines comes, once, the sentence 'Say \"add it anyway\" to add one.' The final reply's discussion repeats the lines and the sentence for every candidate still kept out. No question, in a form or in text, is ever asked about a kept-out candidate, and the run does not wait for an answer. The user overrides by saying so, at any time after a report: a message that tells the skill to add a kept-out candidate ('add it anyway', 'add them anyway', 'add both', 'include the text reminders anyway', 'keep my deposit idea'). Which candidate: the one the message names, by its words or by the ID in its report line; 'it' when exactly one candidate is kept out; 'them', 'both' or 'all' for every candidate kept out. 'It' with several kept out and none named adds nothing: the reply says 'Several suggestions were kept out. Name the one to add, for example \"add the text reminders anyway\".' A message that asks why, or only acknowledges, adds nothing. Section 3.5 gives examples. An override writes this: the candidate becomes an idea in the user's words (the skill's wording for a candidate of its own) with the next free ID and disposition open, rated at step 4 like any other; its row is removed from its table, which becomes 'None.' when that was the last row; a previously decided idea gets the item-level link of BEH-27; and section 6's prose gains one sentence, 'IDEA-NN was added at <owner>'s request although <document ID>#<item ID> covers it.' or 'IDEA-NN was added at <owner>'s request although BRN-NNN#IDEA-NN rejected it.' Before the BRN is written this goes into the work as it stands. After the BRN is written, in the same session, the skill edits the BRN in place as SKILL.md's 'Decisions that belong to the user' describes for a later confirmation (mark step 6, edit, step 7 validate, step 8 report), without asking step 5's form again: the new idea is open. In a later session it is an extension of that BRN (BEH-11). The framework's idea count (5 to 15, unless its Steps set their own: framework-catalog.md, BEH-17 and BEH-18) is counted among the ideas added; candidates kept out don't count. A framework that generates no idea of its own (shortlist-ranking) generates none in place of a candidate kept out: a candidate of the user's list that is covered or previously decided is kept out and listed like any other. (From docs/specs/brainstorming/brownfield-iteration.md §3.1.)"
+  - id: BEH-27
+    status: active
+    rule: "A parked idea of an earlier BRN is never added to ideas by the skill alone. When the BRNs read hold at least one active idea whose disposition is parked and the skill can ask, it offers them once, at step 3, after the problems are framed and before it generates ideas: one AskUserQuestion form tagged devforgeai_step:3, one question with header 'Step 3', 'Take up parked ideas from earlier brainstorms?', options 'Take up none' and 'Take up all' in this order, each option's preview listing every parked idea as 'BRN-NNN#IDEA-NN: <idea text>', one per line. Names typed under Other take up those ideas only: a name is a qualified 'BRN-NNN#IDEA-NN', or a bare 'IDEA-NN' that matches exactly one parked idea listed. A bare ID that matches parked ideas of more than one BRN read is asked about once more, in a form tagged devforgeai_step:3 with header 'Step 3': 'Which IDEA-NN do you mean?' (with the ID), one option per matching idea labelled with its qualified form, multiSelect true. When that question can't be asked, is dismissed or is not answered, that idea is not taken up and stays a 'parked' row of Previously decided. A dismissal takes up none. Without AskUserQuestion the list and the question are plain text and the turn ends. Each idea taken up becomes a new idea of this BRN: the next free ID, its idea text copied word for word, addresses naming the problems of this BRN it bears on, value, effort, risk and score rated afresh at step 4, disposition open, and an item-level upstream record '{id: BRN-NNN, item: IDEA-NN, relation: informed_by, version: <that BRN's version>, hash: null}'. An idea taken up that bears on no problem of this BRN is not added: it stays previously decided and the reply says so. Ideas taken up don't count toward the framework's idea count. Every parked idea not taken up is a row of '### Previously decided' with the decision 'parked'. The rows of that table are ordered by Where. An idea that carries the item-level link is never also a row. When the skill can't ask (BEH-20's meaning), no parked idea is taken up. (From docs/specs/brainstorming/brownfield-iteration.md §3.1.)"
+  - id: BEH-28
+    status: active
+    rule: "At step 3, after the problems, the reply shows each active assumption of the BRNs read whose state is open, as 'BRN-NNN#ASM-NN: <statement> (to validate: <validation>)'. Nothing is asked about them. At step 5, before the form, the skill proposes a change of state only from a stated fact with a source: for each assumption shown, a fact in this run's sources that reports the result the assumption's validation asks for gives 'open to validated' when it agrees with the statement and 'open to invalidated' when it contradicts it. No such fact, a fact about something else, or an opinion gives no row. Section 3.7 gives the test's examples. Each proposal is a row of '### Assumption updates', the last subsection of section 6 (C-11): 'BRN-NNN#ASM-NN', the change, the fact ending with one sources entry in parentheses, and the status 'proposed, not confirmed'. Rows are ordered by their first cell. With no row the line 'None.' replaces the table. An Evidence cell is never a marker. When the table has a row, step 5's form ends with C-10's question 4, header 'Step 5': 'Confirm these assumption updates?', options 'Accept all as proposed' and 'Leave them proposed', each option's preview holding the table with each assumption's statement; changes come typed under Other. Accept all as proposed writes 'confirmed by <owner> on <today>' in every row. Leave them proposed, a dismissal, or no question asked leaves every row 'proposed, not confirmed'. Typed text confirms the rows it confirms, removes a row it rejects, and leaves the rest proposed. <owner> is the frontmatter owner without its quotes; when it is a NEEDS CLARIFICATION marker the skill asks for the owner's name first, and without it every row stays proposed. A confirmed change lives in this BRN's row and nowhere else: a new BRN never edits an earlier BRN. Step 7's read-back resets to 'proposed, not confirmed' any status cell the user did not confirm in step 5 of this run, unless the BRN being extended already held that row as confirmed. (From docs/specs/brainstorming/brownfield-iteration.md §3.1.)"
+  - id: BEH-29
+    status: active
+    rule: "When the user's words say the product exists (BEH-20's rule 2), a BRN is on the same topic for ERR-01 only when its title covers the same or a closely similar topic and its status is draft. A converged or archived BRN is not asked about: it is read as an earlier BRN (BEH-25) and the run writes a new BRN. When the user asks in words to extend a BRN by its ID, it is extended, whatever its status. When the user's words don't say the product exists, ERR-01's test is unchanged: any BRN on the same or a closely similar topic is asked about. A run that extends a BRN whose kind line says brownfield reads the documents again (BEH-25) and rebuilds Existing product from this reading; updates each upstream record's version; appends this run's new sources entries (a document read for the first time, or read at a new version) after the existing entries, in BEH-25's order among themselves, and never reorders or removes an existing entry; keeps the rows of Already covered, Previously decided and Assumption updates and adds new rows by BEH-26 to BEH-28. In such a run the BRN's own active assumptions whose state is open are candidates for an update too (BEH-28). Their row's first cell names this BRN. On confirmation the assumption's state is set to validated or invalidated in the same edit, under BEH-11's rules for extending, and the assumption risk ranking and the first release cut are then made again without it (mvp-and-prototype-path.md, BEH-32 item 3); while the row is 'proposed, not confirmed' the state stays open. When a run that extends a new-shape BRN turns its kind line to brownfield (intake-and-evidence.md, BEH-20: from 'greenfield', or from the NEEDS CLARIFICATION line of a BRN without the four headings), it reads the documents (BEH-25), adds '### Existing product' in section 1 after the context prose and '### Already covered', '### Previously decided' and '### Assumption updates' in section 6 after the first release cut, each filled by this run (BEH-25 to BEH-28) or holding its replacement line, adds the upstream records, and appends the sources entries. Nothing already in the BRN is removed, except section 7's bullet that says which kind an undecided run worked as (intake-and-evidence.md, IV-07). The result passes BV-01. Nothing of BEH-25 to BEH-29 applies to a BRN without the project-kind line, also when it is extended. (From docs/specs/brainstorming/brownfield-iteration.md §3.1.)"
+  - id: BEH-30
+    status: active
+    rule: "1. At step 5, after a disposition is proposed for each idea and before the work file is saved, rank every active assumption whose state is open, as §3.1 to §3.4 define. 2. The cut rows are the active ideas whose disposition is promoted, or is open with a step-5 proposal of promoted, in ID order; M is their number. 3. For each ranked assumption, decide for each cut row whether the idea depends on it (§3.1's test), and write the If wrong cell from the rows that do: Fatal when all M rows depend and M is at least 1, Serious when at least one and fewer than M depend, Minor when none does, in §3.2's three fixed forms. 4. Write Confidence as high, medium or low from the kinds of the sources entries that support the assumption (§3.3). 5. Write Cheapest test as the kind that §3.4's decision list gives, a colon, a space and the first sentence of the assumption's validation; or the marker [NEEDS CLARIFICATION: how to test ASM-NN] when the validation is empty or itself a marker. 6. Order the rows by risk points (impact times doubt), then impact, then doubt, then the number of rows stopped, then assumption ID, and number them from 1 (§3.5). 7. With no active assumption whose state is open, write the line None. in place of the table. (From docs/specs/brainstorming/mvp-and-prototype-path.md §3.)"
+  - id: BEH-31
+    status: active
+    rule: "1. After the ranking and before the work file is saved, propose yes or no for every cut row from the ranking alone, by §3.6's four steps: one idea picked for each assumption ranked 1 to 3 that stops a row and has no yes row yet (highest score, a null score lowest, lowest ID on a tie); the highest-scoring row when nothing was picked; every cut row that a yes idea needs, repeated until nothing is added; no for every other row. 2. Write each row's Why cell as one of the five fixed sentences of §3.7 that the step producing the row names. 3. With at least one cut row, the proposal holds at least one yes. With none, write the line No idea is promoted or proposed for promotion. in place of the table. 4. When a yes idea needs an active idea that is not a cut row, change nothing in the cut and add §3.6's NEEDS CLARIFICATION bullet to section 7. 5. A proposal's status line is exactly First release cut: proposed, not confirmed. (From docs/specs/brainstorming/mvp-and-prototype-path.md §3.)"
+  - id: BEH-32
+    status: active
+    rule: "1. When the cut table has a row, step 5's form (C-10) holds a third question after the convergence question: 'Confirm the first release cut?', header 'Step 5', the options 'Accept as proposed' (description 'The ideas marked yes are the first release.') and 'Leave it proposed' (description 'The table stays a proposal; you can confirm it later.'), in that order, none marked recommended, each option's preview holding the status line, an empty line and the cut table; when the table is too long for a preview, the preview lists each row's idea ID with yes or no and the question says the reasons are in the reply. When the table has no row, the question is left out. 2. Without AskUserQuestion and with a user to ask, the status line and the table are shown in plain text with the dispositions and the same question is asked. When no question is asked (the waiver's Proceed without questions, or nobody to ask), the cut stays proposed. 3. The answers are applied in this order: the dispositions the first question confirmed are written, and in a brownfield run the assumption updates the fourth question confirmed (brownfield-iteration.md, BEH-28 and BEH-29); the cut rows and the ranked assumptions (the active ones whose state is open) are listed again; when either list differs from the one the form showed (an idea entered or left the cut rows, or a confirmed update closed one of this BRN's own assumptions), the ranking and the cut are made again from the new lists, the status line stays proposed whatever the third answer was, and the reply names the ideas that entered or left the table and the assumptions that left the ranking. 4. Otherwise: 'Accept as proposed', or typed text that accepts the table, keeps the rows; typed changes set each named row to the stated value and its Why cell to 'Included by the user.' (yes) or 'Left out by the user.' (no); every other row keeps its value and has its Why cell derived again by §3.10's refresh, which gives it a rule sentence that holds or, when no rule supports its value, the flag 'Needs review: no rule supports this value.'; 'Leave it proposed', a dismissal, no answer, or typed text that states neither an acceptance nor a change keeps the rows and the proposed status line. 5. After an acceptance or typed changes, the status line becomes First release cut: confirmed by <owner> on <today> (the frontmatter owner without its quotes; today as YYYY-MM-DD) only when every row's idea then has disposition promoted, no row is flagged and the owner is not a NEEDS CLARIFICATION marker; otherwise it stays proposed with the rows as item 4 left them, and the reply names the ideas that are not promoted and the rows that are flagged. 6. A cut is never written as confirmed in any other way: not from a recommended option, not by the skill's own choice, not in the work file. 7. A confirmation that arrives after the BRN is written follows SKILL.md's 'Decisions that belong to the user': step 5 is marked again and its form asked, the third question showing the table as the BRN holds it; when that table holds a flagged row, the question's text names each flagged row with its value as item 10 gives it and its answer is read as item 10 says, which is the one asking of that run, a row still flagged afterwards being reported as item 10 says; only then is the BRN edited in place, validated again and reported. 8. When a new-shape BRN is extended, the ranking is made again from the BRN as it then stands and the cut rows are listed. When their idea IDs are the same set as the rows of the BRN's cut table, each row whose Why cell is 'Included by the user.' or 'Left out by the user.' keeps its value and its sentence, and every other row is worked out again from the current ranking and scores by §3.11's rule (§3.6 with the user's rows kept), its value included when the rule now gives the other answer. When the IDs differ, every row is proposed again by §3.6 and none is kept, and the user's previous choices (each row the BRN held with a user sentence, as idea ID and value, in ID order) are shown in the reply as 'Earlier choices, not carried over: IDEA-04 (yes), IDEA-02 (no). Tell me which still stand.' and in the Change Log row as 'First release cut proposed again: the eligible ideas changed. Earlier choices by the user: IDEA-04 (yes), IDEA-02 (no).' (with no such row, the Change Log sentence ends after 'changed.' and the reply has none). In both cases the status line is kept only when the new table equals the BRN's in every cell; when any cell changed, the new table is written as proposed and the third question asks about it; with the same IDs the reply and the Change Log row then hold 'First release cut returned to proposed: IDEA-02 changed.', naming in ID order each row with a changed cell. 9. 'Included by the user.' and 'Left out by the user.' are written only on a row whose value the user stated: a row a typed change names, or a flagged row the user accepted when the third question was asked again (item 10). No other event writes them. 10. When the refresh flags a row, the status line is the proposed one whatever the answer was. When a question can be asked, the third question is asked once more, and only once in a run, alone in a form tagged step 5, its text showing each flagged row as its idea ID and its current value ('Confirm the first release cut? Needs review: IDEA-04 (no), IDEA-06 (yes).'), with the same options and the refreshed table in each preview. Only an explicit acceptance of those displayed values ('Accept as proposed', or typed text that accepts them) records them as the user's choices: each flagged row's Why cell becomes 'Included by the user.' (yes) or 'Left out by the user.' (no). Typed changes are applied as item 4 says, a flagged row the text does not name staying as the refresh leaves it. Either is followed by one more refresh and by item 5. 'Leave it proposed', a dismissal or no answer keeps every flag. Whenever a row is still flagged at the end of the run (the answer left it, the last refresh flagged one, or no question could be asked: the waiver's Proceed without questions, or no AskUserQuestion and nobody to ask), every flag is kept, the status line stays proposed, and the final reply's discussion reports the flagged rows with the sentence 'Needs review: IDEA-04 (no), IDEA-06 (yes). No rule supports these values, so the first release cut stays proposed.', each row as its idea ID and value, in ID order. (From docs/specs/brainstorming/mvp-and-prototype-path.md §3.)"
+  - id: BEH-33
+    status: active
+    rule: "1. Step 6 writes '### Assumption risk ranking' into section 7, after the assumptions item block and before the bullets, and '### First release cut' into section 6, after the convergence prose, each exactly as step 5 left it, in a new BRN and in an extended new-shape BRN; an extended earlier-shape BRN gets neither. 2. The work file holds both from the step-5 save on, the cut's status line always the proposed one; a continued run that finds them in its work file keeps them and asks step 5 from them. 3. A draft BRN saved before step 5's proposals exist (SPEC-001 ERR-02) holds the cut's line for no row and a ranking made with M = 0. 4. Step 7's validator applies MV-01 to MV-12 (§5.2) to a new-shape BRN and none of them to an earlier-shape BRN, with the same verdict with and without PyYAML. 5. Step 7's read-back checks that the cut's status line says confirmed only when the user confirmed the cut at step 5 of this run, or the BRN being extended said so and the table is unchanged; anything else is reset to First release cut: proposed, not confirmed. (From docs/specs/brainstorming/mvp-and-prototype-path.md §3.)"
+  - id: BEH-34
+    status: active
+    rule: "1. For a new-shape BRN, step 8's block names the project kind on its first line, after the framework: greenfield, brownfield, or 'not settled' when C-01 is the NEEDS CLARIFICATION form. 2. The block gains a line after 'Promoted:': 'First release:' followed by the IDs of the ideas whose row in C-05's table says yes, in ID order, and the cut's status in brackets, '(confirmed)' or '(proposed, not confirmed)'; or 'First release: none' when no row says yes. 3. For an earlier-shape BRN the block is as SPEC-001 BEH-10 gives it today. 4. Nothing else of the hand-off changes: the next step is still /devforgeai:prd with the BRN's ID. (From docs/specs/brainstorming/prd-handoff-contract.md §3.)"
 ```
 
 ## 7. Errors and edge cases
@@ -259,7 +578,7 @@ behaviors:
 errors:
   - id: ERR-01
     status: active
-    condition: "A BRN on the same or a closely similar topic already exists"
+    condition: "A BRN on the same or a closely similar topic already exists; when the user's words say the product exists, only one whose status is draft counts (BEH-29)"
     handling: "Show it and ask whether to extend it (version plus one, with a change-log entry) or create a new BRN"
     user_result: "A choice between update and new; nothing is overwritten silently"
   - id: ERR-02
@@ -282,6 +601,31 @@ errors:
     condition: "Validation still fails after three fix attempts"
     handling: "Stop, leave status draft, and list the remaining errors"
     user_result: "The file path and the unresolved errors"
+  - id: ERR-06
+    status: active
+    condition: "The request, or a later request to switch, asks for a framework by a name that matches no name in the index. Whether the named thing is a framework is a judgment (R9): it must be a way of working through ideas (a framework, method, technique, canvas or analysis), not a tool, a data source or a document. \"Use SWOT\" asks for one; \"use our CRM data\" does not."
+    handling: "Say, word for word, \"`<the name as the user wrote it>` is not a framework in this skill's index, which lists `shortlist-ranking`, `risk-first-mvp`, `improve-existing`, `problem-reframing` and `diverge-converge`.\" (the table's frameworks, in its order). Ask nothing. At step 2, go on from rule 2 and give the matching rule's sentence next. On a request to switch, keep the current framework. (From docs/specs/brainstorming/framework-catalog.md §4.)"
+    user_result: "The sentence naming what the index lists, then the framework selected by rules 2 to 6; the session continues"
+  - id: ERR-07
+    status: active
+    condition: "The user names a source the skill can't open: a URL, a document outside the project folder, or a project file (BEH-22) that does not exist, is not text, or that the Read tool fails or is refused to read"
+    handling: "Write its sources entry by BEH-22 (a project file that can't be read: 'document: <its path from the project root>' with no version). Fetch nothing, and try no other file or tool in its place. For a project file, say in the reply 'I could not read <path>, so I used only what you said about it.' Use only what the user said the source shows, cited with that entry; a fact nobody stated is a NEEDS CLARIFICATION marker (From docs/specs/brainstorming/intake-and-evidence.md §4.)"
+    user_result: "The source is listed in sources; the facts cited from it are the user's own words about it; nothing was fetched or invented"
+  - id: ERR-08
+    status: active
+    condition: "A document selected for reading (BEH-25) can't be used: the Read tool returns no content; or it does not start with a '---' line or has no closing '---' line; or its frontmatter id differs from the file name without .md; or its frontmatter version is not a positive integer. The tests run in this order and stop at the first that fails"
+    handling: "Skip the document: no Existing product row, no upstream record, no sources entry, nothing taken from it, and no other file read in its place. Never repair or edit it. Write the line 'Skipped: <path from the project root> (<reason>)' after the Existing product table and one blank line, the reason being 'could not be read', 'no frontmatter', 'id does not match the file name' or 'no version' by the test that failed (From docs/specs/brainstorming/brownfield-iteration.md §4.)"
+    user_result: "The BRN and the final reply name each skipped document with its reason; the document is unchanged"
+  - id: ERR-09
+    status: active
+    condition: "The kind is brownfield, decided or worked with, and no document was read: the four globs match nothing, or every selected document was skipped"
+    handling: "Write 'No document was found in the project.' in place of the Existing product table (then any Skipped lines), 'None.' under Already covered and Previously decided, and under Assumption updates 'None.' unless the run extends a BRN with rows of its own. Tell the user once: 'I found no DevForgeAI document in this project, so I work from what you tell me about the product.' Ask nothing more than the brownfield question set (From docs/specs/brainstorming/brownfield-iteration.md §4.)"
+    user_result: "A valid brownfield BRN built from the user's words; the reply says no document was found"
+  - id: ERR-10
+    status: active
+    condition: "The typed answer to 'Confirm the first release cut?' can't be applied in full: it names an idea that has no row in the cut table, or it states neither an acceptance nor a change"
+    handling: "Write only the changes that name a row. When nothing readable names a row, change no row and keep 'First release cut: proposed, not confirmed'. Never show the options again for the same question. Say in the reply which part was not applied, and that only a promoted idea, or one proposed for promotion, can be in the first release (From docs/specs/brainstorming/mvp-and-prototype-path.md §4.)"
+    user_result: "The cut with the readable changes applied, or still proposed; the part of the answer that was not applied, named"
 ```
 
 ## 8. Non-functional design
@@ -290,28 +634,29 @@ errors:
 quality_responses:
   - id: QR-01
     status: active
-    response: "SKILL.md holds only the workflow checklist, judgment rules, output contract and links; frameworks and output rules live in references/"
-    measured_by: "devforgeai check line and character limits on SKILL.md"
+    response: "SKILL.md holds only the workflow checklist, judgment rules, output contract and links; frameworks and output rules live in references/. From version 19 the workflow checklist stands first and the layout is BEH-16's"
+    measured_by: "devforgeai check line and character limits on SKILL.md; from version 19, src/tests/brainstorm/test_structure.py (VER-18)"
     upstream:
-      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 11, hash: null}
+      - {id: PRD-001, item: NFR-001, relation: satisfies, version: 16, hash: null}
   - id: QR-02
     status: active
     response: "Frontmatter limited to the fields in §5; provenance kept in provenance.yaml; metadata values quoted"
     measured_by: "skill-frontmatter.schema.json and skill.schema.json validation"
     upstream:
-      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 11, hash: null}
+      - {id: PRD-001, item: NFR-002, relation: satisfies, version: 16, hash: null}
   - id: QR-03
     status: active
     response: "One eval case per VER item, tagged brainstorm and ver-NN, run against the no-plugin baseline"
     measured_by: "claude plugin eval --threshold 0.8 over 3 runs"
     upstream:
-      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 11, hash: null}
+      - {id: PRD-001, item: NFR-003, relation: satisfies, version: 16, hash: null}
 ```
 
 ## 9. Verification
 
 | Kind | Status |
 | --- | --- |
+| Version 19 (SKL-001 v13) | Drafted 2026-11-20 on the model Fable 5.2, awaiting Bryan's approval; not built. The enhancement documents' exact edits were checked that day against `main` at `ff78d44` (SKL-001 v12) in scratch copies, by a script that applies every edit in the build's order: all 100 apply. After the four commits `SKILL.md` has 331, 348, 368 and 386 lines, its eight checklist lines unchanged and their hash equal to the manifest's. `test_structure.py` (17 tests) and `test_validate_brn.py` (96, 183, 279 and 354 tests) pass at each of the four states, with and without site-packages; the staged example BRNs and this project's BRN-001 print `OK`. No eval was run, no `llm` grader was exercised, and the manual items VER-24, VER-29, VER-34 and VER-38 are not run. A new SKL-001 version ends the three-run waivers of SKL-001 v11 and v12 (rows below): the qualification at 0.8 per case over 3 runs is due for every brainstorm case, old and new, including `saves-work-as-it-goes`, which scored 0.78 on SKL-001 v10. |
 | Version 18 (SKL-001 v12) | Merged in PR #173 (`8769dd8`, 2026-11-20) as plugin 0.35.0; not deployed yet: the user-scope marketplace install runs here and changes only when Bryan updates it. Built on branch `feat/brainstorm-taskmaster-tasks` (draft PR #173), 2026-11-19, through `/plugin-dev:create-plugin`: `SKILL.md`'s frontmatter gains §5's `tasks:`, the frontmatter schema accepts the key, and plugin 0.35.0 ships it. No other skill text changed. plugin-validator passed; skill-reviewer found that the first titles (Taskmaster's suggested wording) differed from BEH-12's subjects in 7 of 8 steps, which Taskmaster's "with this wording" instruction would turn into two lists or uncredited steps, so the titles became the checklist lines (Bryan, 2026-11-19). Evals: the smoke row below. |
 | Smoke (SKL-001 v12), 2026-11-19 | Bryan's command, `--tag brainstorm --case keeps-task-list --runs 1 --ablation none`, with `--allow-tools Write Edit Bash --scaffold --judge-model sonnet --threshold 0.8 --no-publish --keep-temp`. Run from a herdr pane the session drove (a plain terminal), bound by `record_revision.sh` to `d6aa99e` (plugin digest `9fee2a9538a21384`, plugin 0.35.0). Results: `tmp/eval-results/tm-smoke-20261119T215351Z/` in the PR's worktree (local). The runner selected exactly one case, `keeps-task-list` ("1 case(s)"). Score 1.00, 6 of 6 graders: `brn-exists`; `skill-fired`; `step-5-task`; `steps-completed` (TaskUpdate 8 times); `tasks-before-write` (TaskCreate at call 7, before the first Write at call 23); `tasks-tagged` (TaskCreate 8 times). No error, no missing tool grant; $1.19, 233 s. Taskmaster didn't load in the eval's sandbox (the kept trace has no `<taskmaster>` block), so the smoke shows the skill unchanged without Taskmaster; the live check above covers it with Taskmaster. Bryan waived the three-run qualification for this Taskmaster change "until the next brainstorm skill version or 2026-12-31, whichever comes first", on the condition, met, that the smoke reached 0.8. |
 | Live (version 18, Taskmaster) | Run 2026-11-19 from a herdr pane the session drove (Bryan: "Drive it in a herdr pane"). Setup: Claude Code 2.1.328, Opus 5.5, Taskmaster 0.1.0 (the installed copy, its defaults: frontmatter tasks, guide skill tasks and strict order on), in a scratch folder. The branch's plugin (source unchanged since `f614cbf`) was loaded with `--plugin-dir`; the debug log reads `Plugin "devforgeai" from --plugin-dir overrides installed version`, and the skill's Base directory is the worktree's. (1) Enforcement off: one task list. Eight TaskCreates titled `<N>. <checklist line>`, each with its `devforgeai_step`, both from Taskmaster's guide block and from BEH-12. The tracker reached all 8 steps with no flags and deleted the work file; Taskmaster showed 8 of 8; the BRN validated. (2) Enforcement on, in a freshly started session (Bryan switched it on): the same, Taskmaster "8 of 8 · 100% · enforced"; the guide block carried Taskmaster's enforcement rule; there were no refusals and no "Do not end your turn" reminders. (3) Enforcement on, fresh session: the user typed "Stop here" at the first question. Claude stopped with step 1 in progress and 7 pending, marked nothing completed, and got no reminder: Taskmaster's Stop gate checks the request the stop message opens, which has no tasks. An earlier attempt after `/clear` ran without enforcement (Taskmaster reads its settings only when a session starts) and isn't counted. Found: Taskmaster's block is appended after the `ARGUMENTS:` line (character 19,082 against 19,012, in a 19,589-character skill text); the topic was read correctly in every run. Not run: a continued run (where the tracker's continuing line lands), TodoWrite, step 7's stop after three failed validations, and a run started while Taskmaster's list holds an earlier run's tasks (§13). |
@@ -327,6 +672,11 @@ quality_responses:
 Each automated VER item has exactly one eval case under `evals/brainstorm/`, tagged `brainstorm`
 and `ver-NN`. Eval runs are non-interactive, so no user is there to confirm. That is why
 VER-02 can check that nothing gets promoted.
+
+From version 19 a `unit` item names its test file under `src/tests/brainstorm/` instead of an eval case. The
+enhancement documents write the level of an item that has an eval case as `eval`; here it is `e2e`. STORY-001 is
+not in this repository, so each of VER-18 to VER-39 names the acceptance criterion that the earlier item nearest
+to it names (§13).
 
 ```yaml items
 verifications:
@@ -365,6 +715,7 @@ verifications:
     level: e2e
     covers:
       - BEH-03
+      - BEH-15
       - BEH-04
     upstream:
       - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
@@ -374,6 +725,7 @@ verifications:
     level: manual
     covers:
       - BEH-03
+      - BEH-15
       - ERR-04
     upstream:
       - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
@@ -440,7 +792,7 @@ verifications:
       - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
   - id: VER-13
     status: active
-    obligation: "Without AskUserQuestion, no waiver question stops a run: the eval cases whose prompts say not to ask (writes-valid-brn, keeps-task-list, no-unconfirmed-dispositions, records-provenance, hands-off-to-prd, uses-named-framework) still pass at 0.8 or above, each writing its BRN with no question asked; asks-for-topic, existing-brn and ignores-unrelated-request, whose prompts don't waive, are unchanged."
+    obligation: "Without AskUserQuestion, no waiver question stops a run: the eval cases whose prompts say not to ask (writes-valid-brn, keeps-task-list, no-unconfirmed-dispositions, records-provenance, hands-off-to-prd, uses-named-framework and, from version 19, uses-shortlist-ranking, uses-problem-reframing, uses-improve-existing, uses-risk-first-mvp, selects-shortlist-ranking, records-project-kind, kind-not-decided, cites-sources, brownfield-reads-documents, brownfield-keeps-out-covered, brownfield-nothing-to-read, proposes-first-release-cut, ranks-assumptions-by-risk and reports-kind-and-first-release) still pass at 0.8 or above, each writing its BRN with no question asked; asks-for-topic, existing-brn and ignores-unrelated-request, whose prompts don't waive, are unchanged."
     level: e2e
     covers:
       - BEH-13
@@ -481,6 +833,223 @@ verifications:
       - BEH-14
     upstream:
       - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
+  - id: VER-18
+    status: active
+    obligation: "src/tests/brainstorm/test_structure.py, whose whole text is in §5.1, passes: the checklist's eight lines equal the pinned list and their hash equals the progress manifest's; the Workflow section holds only its sentence and the fence, which opens at most 17 lines after the frontmatter and before Decisions; the frontmatter's tasks: list equals the eight lines without their boxes and numbers; the ## headings and the ### step headings are the pinned lists; SKILL.md has no \"(Workflow\" and at most 400 lines; every reference file shows its guide within 15 lines; the index's table and the files in frameworks/ name the same frameworks; the selection rules are numbered 1 to n, name listed frameworks, end with diverge-converge and follow the table's order; each framework file has the six headings in order; the method texts' opening words are distinct and none starts another; each file's Example passes validate_brn.py with and without site-packages. (From docs/specs/brainstorming/framework-catalog.md §5.)"
+    level: unit
+    covers:
+      - BEH-15
+      - BEH-16
+      - BEH-17
+    upstream:
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
+  - id: VER-19
+    status: active
+    obligation: "Named, shortlist-ranking is used on the four given candidates: no idea is added, the given reach and effort are used, the ratings are quoted numbers, the cut table and the capacity line are in section 6, and no disposition is written. Eval case uses-shortlist-ranking: its prompt, scaffold and graders are in docs/specs/brainstorming/framework-catalog.md §5, item VER-19."
+    level: e2e
+    covers:
+      - BEH-15
+      - BEH-18
+      - BEH-04
+    upstream:
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
+  - id: VER-20
+    status: active
+    obligation: "Named, problem-reframing is used on a symptom: section 5 holds the why chain, the job and the How-Might-We line for PRB-01 in their fixed shapes, a why the skill supplied is an assumption, and no disposition is written. Eval case uses-problem-reframing: its prompt, scaffold and graders are in docs/specs/brainstorming/framework-catalog.md §5, item VER-20."
+    level: e2e
+    covers:
+      - BEH-15
+      - BEH-17
+      - BEH-04
+    upstream:
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
+  - id: VER-21
+    status: active
+    obligation: "Named, improve-existing is used on a described product: section 5 holds the seven SCAMPER lines in order, each with idea IDs or \"no idea (reason)\", the ideas change what the product does today, and no disposition is written. Eval case uses-improve-existing: its prompt, scaffold and graders are in docs/specs/brainstorming/framework-catalog.md §5, item VER-21."
+    level: e2e
+    covers:
+      - BEH-15
+      - BEH-17
+      - BEH-04
+    upstream:
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
+  - id: VER-22
+    status: active
+    obligation: "Named, risk-first-mvp is used: section 5 holds the bet, at least three reasons each tied to one assumption or problem, and a tests line for each idea; there are assumptions and at least five ideas, and no disposition is written. Eval case uses-risk-first-mvp: its prompt, scaffold and graders are in docs/specs/brainstorming/framework-catalog.md §5, item VER-22."
+    level: e2e
+    covers:
+      - BEH-15
+      - BEH-17
+      - BEH-04
+    upstream:
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
+  - id: VER-23
+    status: active
+    obligation: "With no framework named, a request that gives four candidates with reach and effort and asks to rank them selects shortlist-ranking by rule 2: section 5 opens with its method text and no other framework's, no idea is added, the cut table is in section 6, and the reply names the framework. Eval case selects-shortlist-ranking: its prompt, scaffold and graders are in docs/specs/brainstorming/framework-catalog.md §5, item VER-23."
+    level: e2e
+    covers:
+      - BEH-15
+      - BEH-18
+    upstream:
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
+  - id: VER-24
+    status: active
+    obligation: "Live, by docs/runbooks/brainstorm-manual-test.md T10 to T15 (§5.3): (a) a request for an MVP selects risk-first-mvp with rule 3's sentence word for word; (b) a request to improve a product the user says is live selects improve-existing with rule 4's sentence; (c) a topic that is a symptom, with the clarifying questions answered \"I don't know\", selects problem-reframing with rule 5's sentence; (d) a request naming SWOT gets ERR-06's sentence word for word, then rule 6's sentence, and the session continues with diverge-converge; (e) in that run, \"switch to RICE\" typed under Other in step 5's form writes no disposition, gives the switch sentence, keeps every idea ID and text, replaces the ratings with quoted numbers, asks step 5 again with the cut's proposals, and the BRN's section 5 opens with the shortlist method text followed by the \"Switched from\" line; (f) a request to rank a backlog that is named but not given gets rule 2's \"I can't read\" sentence and another framework. Rule 6 is covered by T1. (From docs/specs/brainstorming/framework-catalog.md §5.)"
+    level: manual
+    covers:
+      - BEH-15
+      - BEH-19
+      - ERR-06
+    upstream:
+      - {id: STORY-001, item: AC-04, relation: verifies, version: 4, hash: null}
+  - id: VER-25
+    status: active
+    obligation: "A request that says the product does not exist yet gives a BRN whose first line under section 1 is 'Project kind: greenfield', with no brownfield subsection, section 3 as the Target users table and section 8 as success-signal bullets or '- None.' Eval case records-project-kind: its prompt, scaffold and graders are in docs/specs/brainstorming/intake-and-evidence.md §5, item VER-25."
+    level: e2e
+    covers:
+      - BEH-20
+      - BEH-23
+      - BEH-24
+    upstream:
+      - {id: STORY-001, item: AC-06, relation: verifies, version: 4, hash: null}
+  - id: VER-26
+    status: active
+    obligation: "A request that does not say whether the product exists, with nobody to ask and a PRD in the project, gives the NEEDS CLARIFICATION kind line, never 'brownfield'; section 7 holds the bullet that says the run worked as brownfield; the run works as brownfield (the Existing product table lists the PRD); the reply says the kind is not decided; and the PRD is unchanged. Eval case kind-not-decided: its prompt, scaffold and graders are in docs/specs/brainstorming/intake-and-evidence.md §5, item VER-26."
+    level: e2e
+    covers:
+      - BEH-20
+    upstream:
+      - {id: STORY-001, item: AC-06, relation: verifies, version: 4, hash: null}
+  - id: VER-27
+    status: active
+    obligation: "A request that names a project file and a URL as sources: the file is read and left unchanged, sources holds a document entry for it and a url or ticket entry for the address, the fact that only the file states is in evidence and cites the file, no evidence value is neither a marker nor cited, and nothing is fetched. Eval case cites-sources: its prompt, scaffold and graders are in docs/specs/brainstorming/intake-and-evidence.md §5, item VER-27."
+    level: e2e
+    covers:
+      - BEH-22
+      - ERR-07
+    upstream:
+      - {id: STORY-001, item: AC-06, relation: verifies, version: 4, hash: null}
+  - id: VER-28
+    status: active
+    obligation: "src/tests/brainstorm/test_validate_brn.py, run as 'python3 -B src/tests/brainstorm/test_validate_brn.py': the 29 tests of edit A-T3 pass in each of its three classes (with PyYAML, without the user site, with python3 -S). They show that a new-shape BRN passes; that each of IV-01 to IV-07 reports its message on its line; that an undecided kind passes only with its one section 7 bullet; that a deprecated problem, a kind line inside a fenced block and an earlier-shape BRN are not held to the checks; and that the unfilled template is rejected without a traceback. The file's other tests pass unchanged except the template's pinned line (edit A-T1). (From docs/specs/brainstorming/intake-and-evidence.md §5.)"
+    level: unit
+    covers:
+      - BEH-20
+      - BEH-22
+      - BEH-23
+      - BEH-24
+    upstream:
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 4, hash: null}
+  - id: VER-29
+    status: active
+    obligation: "Live, with AskUserQuestion, following docs/runbooks/brainstorm-manual-test.md with a copy of the plugin: (a) 'Brainstorm ways to cut no-shows at our dental clinic' in an empty project: the kind question comes alone, headed 'Step 1', with the labels 'It exists' and 'It doesn't exist yet' and neither recommended; (b) the same request in a project holding docs/specs/prd/PRD-001.md: the first label is 'It exists (Recommended)' and its description ends with 'This project has a PRD.'; (c) after 'It doesn't exist yet': one form with the greenfield set's questions that the request does not answer, in the set's order, wording and options, at most four, and the BRN's kind line says greenfield; (d) after 'It exists': the brownfield set; (e) a request that states the trigger, the people, a limit and a named report: no clarifying form is shown; (f) a request that says to proceed without questions, answered 'Proceed without questions': no kind question and no clarifying question, the kind line is the NEEDS CLARIFICATION one, section 7's first bullet is '- [NEEDS CLARIFICATION: greenfield or brownfield; this run worked as greenfield]' (as brownfield in the project of (b)), the report block says 'project kind: not settled' and the reply holds the sentence 'The project kind is not decided: I worked as greenfield because this project has no PRD. Tell me whether the product exists and I will update BRN-NNN.'; then the user writes 'it has been live since March': the BRN is edited in place, its kind line says brownfield, the bullet is gone and the validator prints OK; (g) the user answers question 4 with a URL: the BRN lists it as a url or ticket entry, and the session shows no fetch of it; (h) extending a BRN that has no project-kind line: the extended file has no such line and its section 3 keeps its shape; (i) extending a greenfield new-shape BRN with 'the site went live last month': the kind line becomes brownfield, the four brownfield headings are added and the validator prints OK; extending a brownfield BRN with 'nothing is built yet': the line stays brownfield and the reply says, word for word, 'BRN-NNN records this product as brownfield. To brainstorm it as a new product, create a new BRN.' (j) the user answers question 4 with 'the numbers are in docs/contributor-survey.md', a file of the project: the session shows one Read of it and no write to it, and the BRN lists 'document: docs/contributor-survey.md' and cites it; with a path that does not exist the reply says 'I could not read <path>, so I used only what you said about it.'; with '../other/notes.md' the session shows no Read of it. Recorded in SPEC-001 §9. (From docs/specs/brainstorming/intake-and-evidence.md §5.)"
+    level: manual
+    covers:
+      - BEH-20
+      - BEH-21
+      - BEH-22
+      - ERR-07
+    upstream:
+      - {id: STORY-001, item: AC-06, relation: verifies, version: 4, hash: null}
+  - id: VER-30
+    status: active
+    obligation: "With a converged BRN-001, PRD-001 version 3 and a PRD-002 without frontmatter seeded, a request that says the site is live writes BRN-002 with 'Project kind: brownfield', an Existing product table listing BRN-001 and PRD-001 in that order, a Skipped line for PRD-002, an informed_by record and a document sources entry for each document read, both parked ideas of BRN-001 under Previously decided, and leaves the three seeded files unchanged. Eval case brownfield-reads-documents: its prompt, scaffold and graders are in docs/specs/brainstorming/brownfield-iteration.md §5, item VER-30."
+    level: e2e
+    covers:
+      - BEH-25
+      - BEH-27
+      - BEH-29
+      - ERR-08
+    upstream:
+      - {id: STORY-001, item: AC-06, relation: verifies, version: 4, hash: null}
+  - id: VER-31
+    status: active
+    obligation: "With BRN-001 and PRD-001 seeded, a request that suggests text reminders (covered by PRD-001#FR-003) and a deposit at booking (rejected as BRN-001#IDEA-06), and gives the reminder pilot's result, writes BRN-002 with the reminders under Already covered, the deposit under Previously decided, neither among the ideas, and an Assumption updates row for BRN-001#ASM-01 that is proposed and not confirmed; the reply names each kept-out suggestion with its exact ID and asks nothing; BRN-001 is unchanged. Eval case brownfield-keeps-out-covered: its prompt, scaffold and graders are in docs/specs/brainstorming/brownfield-iteration.md §5, item VER-31."
+    level: e2e
+    covers:
+      - BEH-26
+      - BEH-28
+    upstream:
+      - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
+  - id: VER-32
+    status: active
+    obligation: "A request that says the product is in use, in a project with no document, writes a brownfield BRN-001 whose Existing product holds 'No document was found in the project.', with 'None.' under the three section 6 headings and an empty upstream, and the reply says no document was found. Eval case brownfield-nothing-to-read: its prompt, scaffold and graders are in docs/specs/brainstorming/brownfield-iteration.md §5, item VER-32."
+    level: e2e
+    covers:
+      - BEH-20
+      - ERR-09
+    upstream:
+      - {id: STORY-001, item: AC-06, relation: verifies, version: 4, hash: null}
+  - id: VER-33
+    status: active
+    obligation: "src/tests/brainstorm/test_validate_brn.py, run as 'python3 -B src/tests/brainstorm/test_validate_brn.py': the 32 tests of edit B-T2 pass in each of its three classes. They show that the staged example BRN-002 passes, as does the same BRN with no document read; that each of BV-01 to BV-05 reports its message on its line; that a Skipped line, a proposed update, an undecided kind that worked as brownfield with all four headings and document sources entries that follow other entries pass; and that a row about this BRN's own assumption must agree with its state. (From docs/specs/brainstorming/brownfield-iteration.md §5.)"
+    level: unit
+    covers:
+      - BEH-25
+      - BEH-26
+      - BEH-27
+      - BEH-28
+      - BEH-29
+      - ERR-08
+      - ERR-09
+    upstream:
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 4, hash: null}
+  - id: VER-34
+    status: active
+    obligation: "Live, with AskUserQuestion, following docs/runbooks/brainstorm-manual-test.md with a copy of the plugin, in a project seeded with the example's BRN-001 and PRD-001: (a) 'Our booking site is live. Brainstorm what to improve next.': no extend-or-new question although BRN-001 exists; at step 3 one form headed 'Step 3' asks 'Take up parked ideas from earlier brainstorms?' with 'Take up none' and 'Take up all', both previews listing BRN-001#IDEA-04 and BRN-001#IDEA-05; typing 'IDEA-04' gives a new idea with that text and an item-level upstream record, and Previously decided lists only IDEA-05 as parked; (b) in the same run the reply shows BRN-001#ASM-01 and ASM-02 with their validations; (c) the user suggests text reminders: the reply holds the line 'Not added, already covered by PRD-001#FR-003: \"<the user's words>\"' and the sentence 'Say \"add it anyway\" to add one.', and no question about it is asked, in a form or in text; the user says 'add it anyway': it becomes an idea in the user's words, the row is gone and section 6 holds the sentence 'IDEA-NN was added at Dana's request although PRD-001#FR-003 covers it.'; (d) the user gives the pilot result with its source: step 5's form ends with 'Confirm these assumption updates?', its previews showing the row; 'Accept all as proposed' writes 'confirmed by Dana on <today>' and BRN-001 is byte for byte unchanged; in a second run 'Leave them proposed' writes 'proposed, not confirmed'; (e) with BRN-001's status changed by hand to draft and the same request: extend-or-new is asked; (f) a run that extends the BRN-002 written in (d), with a fact for BRN-002's own ASM-01: on acceptance the row says confirmed and ASM-01's state is validated; on 'Leave them proposed' the state stays open; (g) with PRD-001's frontmatter removed by hand: the BRN names it in a Skipped line with 'no frontmatter' and PRD-001 is unchanged; (h) with a second earlier BRN that also holds a parked IDEA-04, typing 'IDEA-04' gets one more question, 'Which IDEA-04 do you mean?', with the two qualified forms as options, and dismissing it takes up neither, both staying parked rows; (i) extending a greenfield new-shape BRN after saying the product is live: the kind line becomes brownfield, the four headings are added and filled, nothing else is removed and the validator prints OK; (k) with the reminders and a deposit both kept out, 'add it anyway' adds neither and the reply says to name one, and 'add both' adds both, the deposit's idea carrying the item-level link to BRN-001#IDEA-06 and section 6 the sentence '... although BRN-001#IDEA-06 rejected it.'; (l) 'add it anyway' said after the BRN was written, in the same session: the BRN is edited in place and validated again, and step 5's form is not shown again; (m) the project holds docs/specs/story/STORY-001.md and docs/specs/spec/SPEC-001.md: the session shows no Read of either and Existing product lists neither; (j) extending the BRN-002 of (d) after PRD-001's version was raised by hand: the existing sources entries keep their order and the new document entry is the last. Recorded in SPEC-001 §9. (From docs/specs/brainstorming/brownfield-iteration.md §5.)"
+    level: manual
+    covers:
+      - BEH-26
+      - BEH-27
+      - BEH-28
+      - BEH-29
+    upstream:
+      - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
+  - id: VER-35
+    status: active
+    obligation: "With nobody to confirm, the BRN holds '### First release cut' with the status line 'First release cut: proposed, not confirmed', never a confirmed one; every row's Why cell is one of the five proposal sentences; at least one row says yes; no disposition is decided; section 8 lists exactly the yes rows; and each yes row's reason is true of the ranking. Eval case proposes-first-release-cut: its prompt, scaffold and graders are in docs/specs/brainstorming/mvp-and-prototype-path.md §5.1, item VER-35."
+    level: e2e
+    covers:
+      - BEH-31
+      - BEH-32
+      - BEH-33
+    upstream:
+      - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
+  - id: VER-36
+    status: active
+    obligation: "The BRN holds '### Assumption risk ranking' in section 7, directly after the assumptions item block, with the fixed header row and a first row ranked 1; every row has the fixed If wrong, Confidence and Cheapest test forms; no Minor row stands above a row that stops an idea; and the ideas each row lists, and its confidence, are sound. Eval case ranks-assumptions-by-risk: its prompt, scaffold and graders are in docs/specs/brainstorming/mvp-and-prototype-path.md §5.1, item VER-36."
+    level: e2e
+    covers:
+      - BEH-30
+    upstream:
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 4, hash: null}
+  - id: VER-37
+    status: active
+    obligation: "src/tests/brainstorm/test_validate_brn.py (T2): the staged example passes; its unconfirmed form passes; rows set by the user pass; after a typed change that leaves an idea out, a flagged row passes under the proposed status line, the stale rule sentence in its place is rejected (MV-10), and a confirmed cut that holds a flagged row is rejected (MV-12); the fallback and the no-row forms pass; an earlier-shape BRN with a broken cut table passes (the gate); and one wrong sample for each of MV-01 to MV-12 is rejected with a line ending in that check's number, each with PyYAML, with the system's packages only and with python3 -S. (From docs/specs/brainstorming/mvp-and-prototype-path.md §5.1.)"
+    level: unit
+    covers:
+      - BEH-33
+    upstream:
+      - {id: STORY-001, item: AC-01, relation: verifies, version: 4, hash: null}
+  - id: VER-38
+    status: active
+    obligation: "Live, with a user answering, on a copy of the plugin loaded with claude --plugin-dir (docs/runbooks/brainstorm-manual-test.md), each run's BRN printing OK under the validator: (a) step 5's form shows 'Confirm the first release cut?' third, header 'Step 5', the options 'Accept as proposed' and 'Leave it proposed' with BEH-32's descriptions, neither marked recommended, each preview showing the status line and the cut table; Accept all as proposed, Converged and Accept as proposed give 'First release cut: confirmed by <the owner> on <today>' and section 8 lists the yes ideas; (b) Leave them open with Accept as proposed gives the proposed status line and a reply naming the ideas that are not promoted; (c) a typed disposition change that parks a row's idea, with Accept as proposed, gives a table made again without that idea, the proposed status line, and a reply saying the idea left the table; (d) Accept all as proposed with the typed cut answer 'add IDEA-NN' (a no row) gives that row yes with 'Included by the user.', no other user sentence anywhere, and a confirmed status line; the typed answer 'IDEA-NN in' for an idea with no row changes nothing, shows no second menu, and the reply says why (ERR-10); (e) a run whose request says to proceed without questions (Proceed chosen) writes the cut proposed; the message 'I confirm the first release cut' then gets step 5's form again, and only after Accept as proposed is the BRN edited in place, validated and reported; (f) extending (d)'s BRN with one more idea proposed for promotion (different eligible ideas) gives a table proposed again in every row, the proposed status line, the third question, the reply sentence 'Earlier choices, not carried over: IDEA-NN (yes). Tell me which still stand.' and the Change Log sentence 'First release cut proposed again: the eligible ideas changed. Earlier choices by the user: IDEA-NN (yes).'; extending (d)'s BRN after one assumption's state was changed, with the same eligible ideas, keeps the 'Included by the user.' row, works the others out again, values included, and returns the table to proposed only when a cell changed, the reply and the Change Log row then holding 'First release cut returned to proposed: IDEA-NN changed.'; (g) in (a)'s BRN, a reader checks three ranking rows against §3.1 and §3.3 (the listed ideas depend on the assumption; the confidence has its source) and the cut against §3.6 by hand; (h) in a run that extends a brownfield new-shape BRN, Accept as proposed for the cut together with Accept all as proposed for an update of that BRN's own assumption gives a ranking without that assumption, a cut made again, the proposed status line, and a reply saying the assumption left the ranking; (i) with a cut in which one yes idea is 'Needed by' another, the typed cut answer that leaves the other out gives the needed row a rule sentence that holds, or 'Needs review: no rule supports this value.' with the proposed status line and the third question asked once more, and only once, its text showing the flagged row's idea ID and current value; Accept as proposed then gives that row the user sentence for that value and a confirmed cut; Leave it proposed, and in a second run a dismissal, each keep the flag and the proposed status line and give a reply holding 'Needs review: IDEA-NN (no). No rule supports these values, so the first release cut stays proposed.'; the same request with 'proceed without questions' asks nothing, keeps the flag and reports it the same way; no row other than the one named and the one accepted holds a user sentence. Recorded in SPEC-001 §9. (From docs/specs/brainstorming/mvp-and-prototype-path.md §5.1.)"
+    level: manual
+    covers:
+      - BEH-30
+      - BEH-31
+      - BEH-32
+      - ERR-10
+    upstream:
+      - {id: STORY-001, item: AC-02, relation: verifies, version: 4, hash: null}
+  - id: VER-39
+    status: active
+    obligation: "With nobody to confirm, the final reply's block names the project kind after the framework and holds a 'First release:' line that lists idea IDs as '(proposed, not confirmed)' or says 'none', never '(confirmed)'; the next step is still /devforgeai:prd BRN-001. Eval case reports-kind-and-first-release: its prompt, scaffold and graders are in docs/specs/brainstorming/prd-handoff-contract.md §5.1, item VER-39."
+    level: e2e
+    covers:
+      - BEH-34
+    upstream:
+      - {id: STORY-001, item: AC-07, relation: verifies, version: 4, hash: null}
 ```
 
 ## 10. Rollout, migration and rollback
@@ -508,6 +1077,18 @@ Version 16 (SKL-001 v9) changes neither the write gate nor the question windows:
 the user's project; rolling back to SKL-001 v8 stops writing and reading them. Deleting them is the tracker's
 (SPEC-012 version 15, SPEC-013 version 20), shipped in the same plugin version; with an older tracker they stay, ignored
 by git.
+
+Version 19 (SKL-001 v13) is built as four commits of one skill version, in the order
+`docs/specs/brainstorming/README.md` §8 gives: the framework catalog; intake and evidence; brownfield iteration; the
+first-release path, which also carries BEH-34's report block. The checklist's lines and the `tasks:` list don't
+change, so the brainstorm manifest stays matched and Taskmaster seeds the same eight titles.
+`src/schemas/brainstorm.schema.json` doesn't change: the new shapes are prose, which the validator of SKL-001 v12
+already accepts. A BRN written before this version has no project-kind line, is checked as before and keeps its
+shape when it is extended (BEH-20). The template is replaced whole, in `assets/` and in its copy
+`src/templates/brainstorm.md`. ADR-003 version 3 makes the clarifying-question limit four (BEH-21). What the PRD
+skill does with the new shapes is specified apart, for SPEC-002's next version (prd-handoff-contract.md), and is
+not part of this version. Rolling back is returning to SKL-001 v12; the BRNs written meanwhile stay valid under
+its validator. The plugin version of the build is Bryan's to choose (§13).
 
 ## 11. Implementation plan
 
@@ -556,6 +1137,22 @@ by git.
 3. Evaluate the new case, then the suite with `--runs 1` (every case must still pass).
 4. Run VER-17 live in worker1, on Bryan's word.
 
+**Version 19** (after approval), through `/plugin-dev:create-plugin` and `/plugin-dev:skill-development`, on Opus 5.5
+at xhigh effort (Bryan, 2026-11-18: "skill-build is to be using opus 5.5 xhigh"), in a fresh worktree:
+1. Make one commit for each enhancement document, in the order `docs/specs/brainstorming/README.md` §8 gives, its
+   tests first: copy the document's staged files to the destinations README §7 names, apply its exact edits in its
+   order, add its eval cases. After each commit every test under `src/tests` passes, `test_structure.py` and
+   `test_validate_brn.py` both with and without site-packages.
+2. This version and ADR-003 version 3 already hold the five edits the documents give for those two files (A-P1,
+   A-D1, B-P1, B-P2, B-P3): no commit repeats them.
+3. With the fourth commit: BEH-34's edits and VER-39's case; `provenance.yaml` and `metadata.devforgeai-version` go
+   to 13, and `provenance.yaml`'s link to this spec to version 19; the plugin version changes in `plugin.json`,
+   `.claude-plugin/marketplace.json` and the pin in `src/tests/progress/test_adapter_structure.py`; `evaluate.py
+   check` reports the manifest matched; plugin-validator and skill-reviewer review the final commit.
+4. Evaluate cheapest first, in worker1: the new cases with `--runs 1 --ablation none`, then the suite with
+   `--runs 1`, then 3 runs with the baseline, since the waivers end with this version (§9).
+5. Run the manual items VER-24, VER-29, VER-34 and VER-38 live, on Bryan's word.
+
 ## 12. Alternatives considered
 
 | Option | Why not chosen |
@@ -572,8 +1169,39 @@ by git.
 | The draft at the BRN's path only in runs that keep the task list | Runs without a task list would lose the feature |
 | Logging each question's text and option previews in the run record | It reverses SPEC-012 DM-02, which logs only that a question was answered; Bryan declined it on 2026-10-05 ("Snapshot answers in record") |
 | Letting the skill set dispositions itself | Idea selection is a user decision (FR-003); unconfirmed AI dispositions would pass structural checks while being unjustified |
+| New BRN fields or collections for the project kind, the first release cut or the risk ranking (version 19) | A field would change the brainstorm schema, the validator, the output rules, the template, the PRD skill's mapping, the ui skill's check, the Codex port and four skills' eval fixtures; fixed prose shapes change none of them, and BRNs already written stay valid (`docs/specs/brainstorming/README.md`, R1) |
+| A priority on each idea (version 19) | Priority is the PRD's: ADR-003 makes a BRN's `disposition` and a PRD's MoSCoW `priority` part of the document contract. The first release cut is a proposal the user confirms, never a field |
 
 ## 13. Open questions
+
+- Open (version 19), Bryan's to decide:
+  - The plugin version of the build. Version 18's was his choice ("0.35.0 (minor)"); this version adds behaviour,
+    so 0.36.0 is the value expected. This spec sets none.
+  - brownfield-iteration.md's sentence for a covered suggestion the user adds anyway, "IDEA-NN was added at
+    <owner>'s request although …", has no rule for a BRN whose `owner` is a NEEDS CLARIFICATION marker (BEH-28
+    has one for its own status cells: it asks for the owner's name first). Options: write the sentence with the
+    marker in it, which is what the staged wording does when followed literally; or write "at the user's
+    request" in that case. Until he decides, the build follows the staged wording.
+  - mvp-and-prototype-path.md's reading of BEH-32: a change typed in answer to the cut question, when it is asked
+    once more for flagged rows, makes only the rows it names the user's. Told to Bryan on 2026-11-19; he neither
+    confirmed it nor objected. The spec's text stands as written until he does.
+- Open (version 19): two changes made on 2026-11-20 to text Bryan approved on 2026-11-19, both caused by version
+  18's `tasks:` list, for him to confirm with this version.
+  - BEH-16 said the checklist's fence opens "within the file's first 25 lines". The `tasks:` list moved it from
+    line 21 to line 30. The bound is now "at most 17 lines after the frontmatter's closing line" (13 in fact, as
+    before), so a later frontmatter key doesn't move it. The other option is a plain "first 34 lines".
+  - `test_structure.py` has one more test, the seventeenth: the `tasks:` list equals the checklist lines without
+    their boxes and numbers (§5; BEH-16, VER-18). Version 18 gave the rule and no test.
+- Open (version 19), with Taskmaster: the new items add no stop that ends a turn without a question. The kind
+  question (BEH-20), step 3's question on parked ideas (BEH-27) and step 5's third and fourth questions (BEH-32,
+  BEH-28) are question forms, and ERR-06 to ERR-10 each continue the run. So the item below on stops under
+  Taskmaster's enforcement gains nothing. NOT_RUN live: a run with Taskmaster in which step 5's form holds all four
+  questions, and one in which the cut question is asked once more (BEH-32).
+- Noted (version 19): STORY-001, which this spec specifies, is not in this repository, so the acceptance criterion
+  each of VER-18 to VER-39 names is the one the earlier item nearest to it names: AC-04 for the framework items
+  (as VER-04 and VER-05), AC-06 for intake and for what a brownfield run reads (as VER-07), AC-01 for the
+  validator's unit tests and the ranking (as VER-01), AC-02 where the user's confirmation is what is checked (as
+  VER-02), AC-07 for the report (as VER-10). Bryan can correct any of them when the story is restored.
 
 - Open (version 18): with Taskmaster on, a run gets two instructions for its task list. Taskmaster's (its "guide
   skill tasks" setting, on by default) lists the `tasks:` titles, numbered, and asks Claude to track exactly them with
@@ -730,3 +1358,4 @@ by git.
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | §13 records Bryan's narrow exception to PRD-001 NFR-002 (the brainstorm skill's top-level `tasks:` list, as a Taskmaster-specific extension) and marks the live check's four untested scenarios NOT_RUN. Links moved to version 18: SPEC-002, SPEC-005, SPEC-012 | §13 |
 | 18 | 2026-11-19 | Bryan | Approved ("I approve SPEC-001 v18 as scoped to Taskmaster in PR #173"), with the NFR-002 exception: "For PRD-001 NFR-002, I authorize the brainstorm skill's top-level tasks: list as a Taskmaster-specific extension." | status |
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | Record-only update, with no version bump: §9 records SKL-001 v12's one-case smoke (keeps-task-list 1.00 at `d6aa99e`) and Bryan's dated waiver of the three-run qualification | §9 |
+| 19 | 2026-11-20 | claude-code (session fa59a935-ed2e-4502-b6c4-93bb6d847546) | Bryan's request of 2026-11-18 ("the brainstorming skill is to handle both brownfield and greenfield projects") and his approval of the enhancement specs on 2026-11-19 ("I approve the enhancement specs in PR #172 at 7deb4d4, including both readings"; "draft the enhancement spec on Fable 5.2 against updated main, preserving Taskmaster's eight checklist titles"): this version takes in `docs/specs/brainstorming/`. New: BEH-15 to BEH-34, ERR-06 to ERR-10 and VER-18 to VER-39, word for word from the documents; §4's rules for reading the documents with this spec, and the fixed shapes of a new-shape BRN. Changed: BEH-01 (the project kind; four questions), BEH-05, BEH-06, BEH-08 to BEH-11, BEH-14, ERR-01, QR-01 and VER-13; BEH-03 deprecated for BEH-15; VER-04 and VER-05 also cover BEH-15; §1 to §5 and §9 to §13. Two changes to the approved text, for the `tasks:` list of version 18 (§13): BEH-16's bound and a test. The links to PRD-001 moved to version 16 (NFR-001 to NFR-003 read the same as in version 11); ADR-003 version 3 linked. Written on the model Fable 5.2. Awaiting Bryan's approval | §1 to §13 |
