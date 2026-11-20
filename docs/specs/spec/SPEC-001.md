@@ -184,8 +184,9 @@ are pruned (SPEC-012 version 15, SPEC-013 version 20). Where the tracker doesn't
 folder until the user removes them. From version 19 the work file also holds, from its first save, the
 project-kind line, the frontmatter `sources`, section 3's table and the framework named in section 5 and, in a
 brownfield run, the Existing product, Already covered and Previously decided shapes; from the step-5 save,
-section 8's bullets, the Assumption updates table, the assumption risk ranking and the first release cut, each
-in its proposed form. A switch of framework made after step 3 is completed is followed by one more save
+section 8's bullets, the assumption risk ranking, the first release cut in its proposed form and, in a
+brownfield run, the Assumption updates table, every row proposed. A switch of framework made after step 3 is
+completed is followed by one more save
 (BEH-15, BEH-19, BEH-20, BEH-22 to BEH-25, BEH-28, BEH-33; `references/work-file.md` gives the shape in full).
 
 **Extension point: a framework reference.** Each file in `references/frameworks/` has these sections,
@@ -229,9 +230,12 @@ The documents and this spec are read together by these rules:
    document, and the item here names where.
 2. In such an item a dotted number with no document named ("section 3.4", "§3.6") is a section of the
    document its closing note names; a whole number ("section 6") is that section of the BRN, the work file or
-   the document the sentence is about. "This document", and an edit or a test named by a short label
-   ("edit A-T1", "T2"), are that document's. "Today" means before version 19, as SKL-001 v12 stands. R1 to
-   R10 and C-01 to C-11 are the README's. "SPEC-001 BEH-NN" is this spec's item.
+   the document the sentence is about. In BEH-20, "(section 3.2)" is intake-and-evidence.md's. "This
+   document", and an edit or a test named by a short label ("edit A-T1", "T2"), are that document's, except
+   T1 and T10 to T15 in VER-24, which are the runbook's tests. "Today" in BEH-34, and in the shapes below
+   ("exactly as today", "today's"), means before version 19, as SKL-001 v12 stands; elsewhere it is the day of
+   the run or the product as it now is. R1 to R10 and C-01 to C-11 are the README's. "SPEC-001 BEH-NN" is this
+   spec's item.
 3. The documents hold what the build copies or applies: the exact edits to the skill's files, the staged files,
    the validator's checks with their code and tests, each eval case, the worked examples, and the decisions with
    Bryan's words. The build follows them as written.
@@ -1205,8 +1209,8 @@ at xhigh effort (Bryan, 2026-11-18: "skill-build is to be using opus 5.5 xhigh")
     their boxes and numbers (§5; BEH-16, VER-18). Version 18 gave the rule and no test.
 - Open (version 19): a third change to the approved text, from the review of this version, for Bryan to confirm.
   BEH-32's item 5 gained the sentence "When the owner is a NEEDS CLARIFICATION marker the skill asks for the
-  owner's name first, and without it the cut stays proposed." mvp-and-prototype-path.md's §4 and the staged
-  `mvp-path.md` already said so, citing item 5, whose text said only that the cut stays proposed. BEH-28 says
+  owner's name first, and without it the cut stays proposed." mvp-and-prototype-path.md's §4, citing item 5,
+  and the staged `mvp-path.md` already said so; the item's text said only that the cut stays proposed. BEH-28 says
   the same for its status cells. Neither item gives that ask a form of its own: BEH-12's rule holds for it, a
   question of step 5, tagged so.
 - Open (version 19), with Taskmaster. By their text the new items add questions and no stop that ends a turn
@@ -1382,3 +1386,4 @@ at xhigh effort (Bryan, 2026-11-18: "skill-build is to be using opus 5.5 xhigh")
 | 18 | 2026-11-19 | claude-code (session 97c37b01-dc3d-4018-b282-da453ac780fb) | Record-only update, with no version bump: §9 records SKL-001 v12's one-case smoke (keeps-task-list 1.00 at `d6aa99e`) and Bryan's dated waiver of the three-run qualification | §9 |
 | 19 | 2026-11-20 | claude-code (session fa59a935-ed2e-4502-b6c4-93bb6d847546) | Bryan's request of 2026-11-18 ("the brainstorming skill is to handle both brownfield and greenfield projects") and his approval of the enhancement specs on 2026-11-19 ("I approve the enhancement specs in PR #172 at 7deb4d4, including both readings"; "draft the enhancement spec on Fable 5.2 against updated main, preserving Taskmaster's eight checklist titles"): this version takes in `docs/specs/brainstorming/`. New: BEH-15 to BEH-34, ERR-06 to ERR-10 and VER-18 to VER-39, word for word from the documents; §4's rules for reading the documents with this spec, and the fixed shapes of a new-shape BRN. Changed: BEH-01 (the project kind; four questions), BEH-05, BEH-06, BEH-08 to BEH-11, BEH-14, ERR-01, QR-01 and VER-13; BEH-03 deprecated for BEH-15; VER-04 and VER-05 also cover BEH-15; §1 to §5 and §9 to §13. Two changes to the approved text, for the `tasks:` list of version 18 (§13): BEH-16's bound and a test. The links to PRD-001 moved to version 16 (NFR-001 to NFR-003 read the same as in version 11); ADR-003 version 3 linked. Written on the model Fable 5.2. Awaiting Bryan's approval | §1 to §13 |
 | 19 | 2026-11-20 | claude-code (session fa59a935-ed2e-4502-b6c4-93bb6d847546) | After an independent review on the model Fable 5.2: §4's reading rules 2, 4 and 5 (a dotted section number is the document's, a whole number the BRN's; where a version-19 sentence differs from the item it cites, the item governs); BEH-03 names BEH-19 too; BEH-06 keeps edit B-P3's text whole; BEH-08's shapes hold for a kind decided or worked with; BEH-14 and §4 limit the extra save to a switch made after step 3 and say what else the work file holds; QR-03 allows for unit items; §11 step 6, the records the build makes false; §13's Taskmaster entry lists every new question and what is not run live. A third change to the approved text (§13): BEH-32's item 5 gains the ask for the owner's name, here and in mvp-and-prototype-path.md. Awaiting Bryan's approval | §3, §4, §6, §8, §11, §13 |
+| 19 | 2026-11-20 | claude-code (session fa59a935-ed2e-4502-b6c4-93bb6d847546) | After the review's confirm pass: §4's rule 2 says what "today" means in each place, whose section BEH-20's "(section 3.2)" is and whose tests VER-24 names; §4's sentence on the work file gives the Assumption updates table to a brownfield run only; §13's entry on BEH-32's item 5 says which text cited the item. Awaiting Bryan's approval | §4, §13 |
