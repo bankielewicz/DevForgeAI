@@ -9,7 +9,7 @@ work.
 
 ## What this workspace is
 
-DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.34.0 in
+DevForgeAI is a Claude Code plugin, `devforgeai` (version 0.35.0 in
 `src/claude/DevForgeAI/.claude-plugin/plugin.json`), of spec-driven planning skills for the chain
 Brainstorm → UI → PRD → Architecture Definition (ARCH + ADRs) → Epic → Story → Spec. Brainstorm, PRD,
 Architecture and Epic are built; `ui` (optional, SKL-013 v5) designs a release's screens in Claude Design and records them as a DSN; `context` writes the project context documents between Architecture
@@ -20,7 +20,7 @@ Change Log holds the history. Read those, not this file, for any number or date.
 
 | Skill | Record (provenance) | Spec | Evals on the current version | Merged |
 |---|---|---|---|---|
-| `brainstorm` | SKL-001 v11, in-review | SPEC-001 v17, approved | v11 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #150 (0.31.2) |
+| `brainstorm` | SKL-001 v12, in-review | SPEC-001 v18, approved 2026-11-19 (v18 the frontmatter `tasks:` list the Taskmaster mod reads, under Bryan's narrow PRD-001 NFR-002 exception) | v12: smoke `keeps-task-list` 1.00, 3 runs waived until the next version or 2026-12-31; live check with Taskmaster 2026-11-19 (SPEC-001 §9). v11 (#135's text fix, smoke only). v10: 1 run, 9 of 10 at 1.00, saves-work-as-it-goes 0.78 (its tool clause waived for the merge by Bryan; SPEC-001 §13) | PR #173 (0.35.0) |
 | `prd` | SKL-002 v6, approved (implements SPEC-002 v5) | SPEC-002 v9, approved 2026-11-04 (v6 the interview at scale, #142; v7 and v8 Codex's fixes; v9 the dev-guard's cancellation; the interview build, the next SKL-002 version, not built) | v6 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). 3 runs, 35 of 35 at ≥ 0.8 (SKL-002 v5) | PR #150 (0.31.2) |
 | `architecture` | SKL-003 v10, approved | SPEC-003 v11, approved | v10 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v9: 1 run, 24 of 24; 3-run qualification waived by Bryan | PR #150 (0.31.2) |
 | `epic` | SKL-004 v5, approved | SPEC-004 v4, approved | v5 (#135's text fix, smoke only, 3 runs waived until the next version or 2026-12-31). v4: 3 runs, 25 of 25 at ≥ 0.8 | PR #150 (0.31.2) |
